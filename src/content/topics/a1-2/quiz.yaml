@@ -1,0 +1,201 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: A1.2.2
+    stem: >-
+      In a nucleotide, to which carbon atoms of the pentose sugar are the nitrogenous base and the phosphate group
+      attached?
+    options:
+      - id: a
+        text: Base to carbon 3′; phosphate to carbon 5′
+        why: Carbon 3′ carries an –OH group that links to the phosphate of the next nucleotide. The base is attached at carbon 1′.
+      - id: b
+        text: Base to carbon 1′; phosphate to carbon 5′
+        why: Correct. The base is on carbon 1′ and the phosphate on carbon 5′, which projects from the ring on the other side.
+      - id: c
+        text: Base to carbon 1′; phosphate to carbon 2′
+        why: Carbon 2′ carries –H (deoxyribose) or –OH (ribose), not the phosphate.
+      - id: d
+        text: Base to carbon 5′; phosphate to carbon 1′
+        why: This reverses the two attachments. The phosphate is on carbon 5′, outside the ring.
+    answer: b
+
+  - id: q2
+    level: SL
+    understanding: A1.2.7
+    stem: Which feature is found in RNA but not in DNA?
+    options:
+      - id: a
+        text: Phosphate groups in the backbone
+        why: Both nucleic acids have a backbone of alternating phosphate groups and pentose sugars.
+      - id: b
+        text: The base thymine
+        why: Thymine is found in DNA. RNA has uracil in its place.
+      - id: c
+        text: Hydrogen bonds between complementary bases
+        why: DNA's two strands are held together by hydrogen bonds between bases, so this is not unique to RNA (RNA can also form them, for example codon with anticodon).
+      - id: d
+        text: An –OH group on carbon 2′ of the pentose
+        why: Correct. Ribose has –OH on carbon 2′; deoxyribose has only –H there.
+    answer: d
+
+  - id: q3
+    level: SL
+    understanding: A1.2.6
+    stem: >-
+      A section of double-stranded DNA is 120 base pairs long. 30% of its bases are adenine. How many guanine
+      bases does it contain?
+    options:
+      - id: a
+        text: "48"
+        why: "Correct. There are 240 bases. A = T = 30% each, so G + C = 40%, and G = 20% of 240 = 48."
+      - id: b
+        text: "36"
+        why: This is 30% of 120. It uses the number of base pairs instead of the number of bases and the wrong percentage.
+      - id: c
+        text: "24"
+        why: This is 20% of 120 base pairs. Each base pair contains two bases, so there are 240 bases to share out.
+      - id: d
+        text: "72"
+        why: This is the number of adenine bases (30% of 240), which also equals the number of thymine bases.
+    answer: a
+
+  - id: q4
+    level: SL
+    understanding: A1.2.8
+    stem: >-
+      A DNA template strand has the bases A T T G C. Which RNA base sequence would form by complementary base pairing
+      with it during transcription?
+    options:
+      - id: a
+        text: T A A C G
+        why: These are the complementary DNA bases. RNA has uracil instead of thymine, so A pairs with U.
+      - id: b
+        text: U A A C G
+        why: Correct. A pairs with U, T with A, G with C and C with G.
+      - id: c
+        text: A U U G C
+        why: This copies the template with U replacing T; transcription produces the complementary sequence, not a copy of the template.
+      - id: d
+        text: G C C A U
+        why: This pairs purines with purines (A with G) and pyrimidines with pyrimidines; the bases would not form the correct hydrogen bonds.
+    answer: b
+
+  - id: q5
+    level: SL
+    understanding: A1.2.9
+    stem: How many different base sequences are possible for a single strand of DNA six nucleotides long?
+    options:
+      - id: a
+        text: "24"
+        why: This is 4 × 6. Each position can be any of four bases independently, so the possibilities multiply rather than add.
+      - id: b
+        text: "64"
+        why: This is 4³, the number of possible triplets (codons). Six positions give 4⁶.
+      - id: c
+        text: "1296"
+        why: This is 6⁴; the base and exponent are the wrong way round. There are four choices at each of six positions.
+      - id: d
+        text: "4096"
+        why: Correct. There are 4 choices at each of 6 positions, so 4⁶ = 4096. The number grows extremely fast with length.
+    answer: d
+
+  - id: q6
+    level: SL
+    understanding: A1.2.10
+    stem: Why is the near-universality of the genetic code evidence that all living organisms share a common ancestor?
+    options:
+      - id: a
+        text: Codon meanings are not fixed by chemistry, so organisms of separate origin would be unlikely to have the same code.
+        why: Correct. Many codes are possible; sharing one arbitrary code is best explained by inheritance from a single ancestor.
+      - id: b
+        text: All organisms have the same base sequences in their DNA.
+        why: Base sequences differ greatly between species. What is shared is the code used to read them.
+      - id: c
+        text: All organisms make exactly the same proteins.
+        why: Organisms make many different proteins. The shared feature is how codons are translated into amino acids.
+      - id: d
+        text: Each codon must code for its amino acid because of the shape of the bases.
+        why: There is no chemical necessity linking particular codons to amino acids. If there were, a universal code would not suggest common ancestry.
+    answer: a
+
+  - id: q7
+    level: AHL
+    understanding: A1.2.11
+    stem: >-
+      A new strand of DNA is made using the template 3′-TACGGA-5′. Which describes the new strand and how it grows?
+    options:
+      - id: a
+        text: 3′-ATGCCT-5′, with nucleotides added to its 5′ end
+        why: The new strand is antiparallel to the template, so it runs 5′→3′ left to right here. Nucleotides are never added to a 5′ end.
+      - id: b
+        text: 5′-UACGGA-3′, with nucleotides added to its 3′ end
+        why: DNA contains thymine, not uracil, and the bases must be complementary to the template, not the same.
+      - id: c
+        text: 5′-ATGCCT-3′, with nucleotides added to its 3′ end
+        why: Correct. The bases are complementary, the strand is antiparallel, and new nucleotides join the free –OH on carbon 3′.
+      - id: d
+        text: 5′-ATGCCT-3′, with nucleotides added to its 5′ end
+        why: The sequence and direction are right, but nucleotides are only added at the 3′ end, so strands grow 5′→3′.
+    answer: c
+
+  - id: q8
+    level: AHL
+    understanding: A1.2.12
+    stem: Why does a DNA double helix have the same width along its whole length, whatever its base sequence?
+    options:
+      - id: a
+        text: G–C pairs have three hydrogen bonds, which pull them to the same length as A–T pairs.
+        why: The number of hydrogen bonds affects how strongly the pair is held, not its length.
+      - id: b
+        text: All four bases are the same size.
+        why: Purines (A and G) have two rings and are larger than pyrimidines (C and T), which have one.
+      - id: c
+        text: Every base pair has one double-ring purine and one single-ring pyrimidine, so all pairs are the same length.
+        why: Correct. A–T and G–C pairs are equal in length, so the backbones are the same distance apart everywhere.
+      - id: d
+        text: Histone proteins hold the two strands at a fixed distance apart.
+        why: Histones package DNA in eukaryotes, but the width of the helix is set by base pairing; prokaryotic DNA has the same structure.
+    answer: c
+
+  - id: q9
+    level: AHL
+    understanding: A1.2.14
+    stem: >-
+      In the Hershey–Chase experiment, which result in the ³⁵S experiment would have supported the hypothesis that
+      protein is the genetic material of T2 phage?
+    options:
+      - id: a
+        text: Most ³⁵S in the supernatant after centrifuging
+        why: This is what was actually found. It shows that protein stayed outside the bacteria, which does not support protein being the genetic material.
+      - id: b
+        text: Most ³⁵S in the phage DNA
+        why: DNA contains no sulfur, so ³⁵S cannot label it. That is why ³⁵S was chosen to label protein.
+      - id: c
+        text: Equal amounts of ³⁵S in the supernatant and the pellet
+        why: This would be hard to interpret and would not show that protein entered the cells to direct the production of new phage.
+      - id: d
+        text: Most ³⁵S in the pellet with the bacteria and passed on to the new phage
+        why: Correct. If protein carried the genes, labelled protein would have to enter the cells and be passed on to the next generation.
+    answer: d
+
+  - id: q10
+    level: AHL
+    understanding: A1.2.15
+    stem: >-
+      DNA from one species contains 31% adenine, 31% thymine, 19% guanine and 19% cytosine. What do these data
+      show about the tetranucleotide hypothesis?
+    options:
+      - id: a
+        text: They support it, because adenine equals thymine.
+        why: A = T is explained by base pairing. The tetranucleotide hypothesis predicts all four bases equal, which is not the case.
+      - id: b
+        text: They falsify it, because the four bases are not present in equal amounts.
+        why: Correct. A repeating sequence of the four bases predicts 25% of each; 31% and 19% contradict this prediction.
+      - id: c
+        text: They cannot test it, because data from many species are needed before a conclusion can be drawn.
+        why: Supporting a hypothesis needs many results, but one reliable result that contradicts its prediction is enough to falsify it.
+      - id: d
+        text: They support it, because purines equal pyrimidines.
+        why: Purines equal pyrimidines because each pair has one of each, which is consistent with base pairing, not with equal amounts of every base.
+    answer: b

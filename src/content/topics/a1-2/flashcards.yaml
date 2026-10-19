@@ -1,0 +1,69 @@
+cards:
+  - id: c1
+    level: SL
+    front: What is the genetic material of all living organisms, and what is the exception?
+    back: DNA. Some viruses (such as coronaviruses) use RNA instead, but viruses are not considered to be living.
+  - id: c2
+    level: SL
+    front: Name the three parts of a nucleotide and how they are drawn.
+    back: A phosphate (circle), a pentose sugar (pentagon) and a nitrogenous base (rectangle). The base is attached to carbon 1′ and the phosphate to carbon 5′.
+  - id: c3
+    level: SL
+    front: What is the sugar–phosphate backbone?
+    back: The chain of alternating sugars and phosphates in each strand, linked by covalent bonds between the phosphate of one nucleotide and carbon 3′ of the next sugar. It is a continuous, strong chain of atoms.
+  - id: c4
+    level: SL
+    front: Name the bases in DNA and in RNA.
+    back: DNA — adenine, thymine, guanine, cytosine. RNA — adenine, uracil, guanine, cytosine.
+  - id: c5
+    level: SL
+    front: How are RNA nucleotides joined into a polymer?
+    back: By condensation reactions. The phosphate of a nucleotide bonds to the –OH on carbon 3′ of the last sugar in the chain, and water is removed.
+  - id: c6
+    level: SL
+    front: Describe the structure of DNA in one sentence.
+    back: Two antiparallel strands of nucleotides, linked by hydrogen bonds between complementary bases (A–T, G–C), wound into a double helix with the sugar–phosphate backbones on the outside.
+  - id: c7
+    level: SL
+    front: Give three differences between DNA and RNA.
+    back: DNA has deoxyribose, thymine and usually two strands. RNA has ribose, uracil and usually one strand.
+  - id: c8
+    level: SL
+    front: How does ribose differ from deoxyribose?
+    back: Ribose has an –OH group on carbon 2′; deoxyribose has only –H there (one oxygen fewer). Both have –OH on carbon 3′ and an oxygen in the ring.
+  - id: c9
+    level: SL
+    front: Which three processes depend on complementary base pairing?
+    back: Replication (new strands pair with templates), transcription (RNA pairs with a DNA template) and translation (tRNA anticodons pair with mRNA codons).
+  - id: c10
+    level: SL
+    front: Why can DNA store an almost unlimited amount of information?
+    back: Any base can follow any other, so a strand of n bases has 4ⁿ possible sequences, and DNA molecules can be any length. Information is stored very compactly.
+  - id: c11
+    level: SL
+    front: Why does a universal genetic code suggest common ancestry?
+    back: Codon meanings are arbitrary, so independent origins of life would be unlikely to arrive at the same code. Sharing one code points to a single common ancestor.
+  - id: c12
+    level: AHL
+    front: What is at the 5′ end and the 3′ end of a strand, and which way do strands grow?
+    back: The 5′ end has a phosphate on carbon 5′; the 3′ end has a free –OH on carbon 3′. Nucleotides are added only to the 3′ end, so strands grow 5′ → 3′.
+  - id: c13
+    level: AHL
+    front: Why are all DNA base pairs the same length?
+    back: Each pair is a two-ring purine (A or G) plus a one-ring pyrimidine (T or C), so the backbones are the same distance apart and the helix has the same shape for any sequence.
+  - id: c14
+    level: AHL
+    front: Describe the structure of a nucleosome.
+    back: About 147 bp of DNA wound about 1.65 times round an octamer of eight histones (2 each of H2A, H2B, H3, H4), with an H1 histone on the linker DNA where it enters and leaves.
+  - id: c15
+    level: AHL
+    front: What holds DNA onto the histone core?
+    back: Attraction between positively charged amino acids (lysine, arginine) on the histones and the negatively charged phosphate groups of DNA.
+  - id: c16
+    level: AHL
+    front: Hershey–Chase — where did each label end up, and what did it show?
+    back: ³⁵S (protein) stayed mostly in the supernatant with the phage coats; ³²P (DNA) went mostly into the pellet with the bacteria. DNA entered the cells, so DNA is the genetic material.
+  - id: c17
+    level: AHL
+    front: How did Chargaff's data falsify the tetranucleotide hypothesis?
+    back: The hypothesis predicted 25% of each base. Chargaff found A = T and G = C but unequal amounts of the four bases, varying between species — so the prediction was wrong.

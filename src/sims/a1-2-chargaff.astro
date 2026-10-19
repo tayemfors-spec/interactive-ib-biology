@@ -1,0 +1,181 @@
+---
+import { organisms, ratios, TETRANUCLEOTIDE_PREDICTION } from './models/a1-2-chargaff';
+
+const first = organisms[0]!;
+const r0 = ratios(first);
+const W = 420, H = 270, left = 44, bottom = 40, top = 14;
+const yMax = 40;
+const sy = (v: number) => H - bottom - (v / yMax) * (H - bottom - top);
+const bars = ['A', 'T', 'G', 'C'] as const;
+const bx = (i: number) => left + 26 + i * 86 + (i >= 2 ? 26 : 0);
+const BW = 62;
+const ticks = [0, 10, 20, 30, 40];
+const fmt = (v: number) => v.toFixed(2);
+// GC% overview for all organisms
+const gcRows = organisms.map((o) => ({ o, gc: ratios(o).gcPercent }));
+---
+<div class="chargaff" data-chargaff>
+  <div class="choices" role="radiogroup" aria-label="Choose a source of DNA">
+    {organisms.map((o, i) => (
+      <button type="button" class="btn" role="radio" aria-checked={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-oid={o.id}>{o.name}</button>
+    ))}
+  </div>
+  <div class="layout">
+    <svg class="chart" viewBox={`0 0 ${W} ${H}`} role="img" aria-labelledby="cg-t" data-chart>
+      <title id="cg-t">Percentage of each base in the DNA of the selected organism</title>
+      <g class="grid">{ticks.map((t) => <line x1={left} x2={W - 8} y1={sy(t)} y2={sy(t)} />)}</g>
+      <g class="ticks">{ticks.map((t) => <text x={left - 8} y={sy(t)} dy="0.35em" text-anchor="end">{t}</text>)}</g>
+      <text class="axis" transform={`translate(14 ${(top + H - bottom) / 2}) rotate(-90)`} text-anchor="middle">% of bases</text>
+      {bars.map((b, i) => (
+        <g>
+          <rect class={`bar bar${b}`} data-bar={b} x={bx(i)} y={sy(first[b])} width={BW} height={sy(0) - sy(first[b])} />
+          <text class="val" data-val={b} x={bx(i) + BW / 2} y={sy(first[b]) - 6} text-anchor="middle">{first[b].toFixed(1)}</text>
+          <text class="blabel" x={bx(i) + BW / 2} y={H - bottom + 18} text-anchor="middle">{b}</text>
+        </g>
+      ))}
+      <text class="group" x={bx(0) + BW + 12} y={H - 6} text-anchor="middle">A and T</text>
+      <text class="group" x={bx(2) + BW + 12} y={H - 6} text-anchor="middle">G and C</text>
+      <g data-tetra>
+        <line class="tetra" x1={left} x2={W - 8} y1={sy(TETRANUCLEOTIDE_PREDICTION)} y2={sy(TETRANUCLEOTIDE_PREDICTION)} />
+        <text class="tetra-t" x={W - 10} y={sy(TETRANUCLEOTIDE_PREDICTION) - 6} text-anchor="end">tetranucleotide prediction: 25% each</text>
+      </g>
+    </svg>
+    <div class="side">
+      <p class="who"><strong data-name>{first.name}</strong> <span data-group>({first.group})</span></p>
+      <dl class="ratios">
+        <div><dt>A ÷ T</dt><dd data-r="aToT">{fmt(r0.aToT)}</dd></div>
+        <div><dt>G ÷ C</dt><dd data-r="gToC">{fmt(r0.gToC)}</dd></div>
+        <div><dt>Purines ÷ pyrimidines</dt><dd data-r="pp">{fmt(r0.purinesToPyrimidines)}</dd></div>
+        <div><dt>G + C</dt><dd data-r="gc">{r0.gcPercent.toFixed(1)}%</dd></div>
+      </dl>
+      <label class="check"><input type="checkbox" data-show-tetra checked /> Show the tetranucleotide prediction</label>
+      <p class="verdict" aria-live="polite" data-verdict>A ≈ T and G ≈ C, but the four bases are not equal (A and T are about 30% each), so this sample does not fit the tetranucleotide hypothesis.</p>
+    </div>
+  </div>
+
+  <div class="overview">
+    <p class="ov-title">G + C content of each source of DNA</p>
+    <ul class="gc-list">
+      {gcRows.map(({ o, gc }, i) => (
+        <li data-row={o.id} class={i === 0 ? 'is-active' : ''}>
+          <span class="nm">{o.name}{o.singleStranded ? ' *' : ''}</span>
+          <span class="track" aria-hidden="true"><span class="fill" style={`width:${gc.toFixed(1)}%`}></span><span class="half"></span></span>
+          <span class="pc">{gc.toFixed(1)}%</span>
+        </li>
+      ))}
+    </ul>
+    <p class="foot">The marker shows 50%. * φX174 is a virus whose DNA is single-stranded, so its bases are not paired.</p>
+  </div>
+
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <thead><tr><th scope="col">Source</th><th scope="col">% A</th><th scope="col">% T</th><th scope="col">% G</th><th scope="col">% C</th><th scope="col">A ÷ T</th><th scope="col">G ÷ C</th></tr></thead>
+      <tbody>{organisms.map((o) => { const r = ratios(o); return <tr><th scope="row">{o.name}</th><td>{o.A.toFixed(1)}</td><td>{o.T.toFixed(1)}</td><td>{o.G.toFixed(1)}</td><td>{o.C.toFixed(1)}</td><td>{fmt(r.aToT)}</td><td>{fmt(r.gToC)}</td></tr>; })}</tbody>
+    </table>
+  </details>
+  <p class="model-note">Real measurements (mole % of each base), from Chargaff's laboratory and others in the late 1940s and 1950s, as compiled by Bansal (2003). Small differences between A and T, or G and C, are measurement error.</p>
+</div>
+
+<script>
+  import { organisms, ratios, fitsTetranucleotide } from './models/a1-2-chargaff';
+
+  document.querySelectorAll<HTMLElement>('[data-chargaff]').forEach((root) => {
+    const buttons = [...root.querySelectorAll<HTMLButtonElement>('[data-oid]')];
+    const H = 270, bottom = 40, top = 14, yMax = 40;
+    const sy = (v: number) => H - bottom - (v / yMax) * (H - bottom - top);
+    const set = (sel: string, t: string) => (root.querySelector(sel)!.textContent = t);
+    const verdict = root.querySelector<HTMLElement>('[data-verdict]')!;
+    let timer = 0;
+
+    const choose = (btn: HTMLButtonElement, focus = false) => {
+      const o = organisms.find((x) => x.id === btn.dataset.oid)!;
+      const r = ratios(o);
+      buttons.forEach((b) => { const on = b === btn; b.setAttribute('aria-checked', String(on)); b.tabIndex = on ? 0 : -1; b.classList.toggle('is-active', on); });
+      if (focus) btn.focus();
+      for (const b of ['A', 'T', 'G', 'C'] as const) {
+        const bar = root.querySelector<SVGRectElement>(`[data-bar="${b}"]`)!;
+        bar.setAttribute('y', sy(o[b]).toFixed(1));
+        bar.setAttribute('height', (sy(0) - sy(o[b])).toFixed(1));
+        const val = root.querySelector<SVGTextElement>(`[data-val="${b}"]`)!;
+        val.setAttribute('y', (sy(o[b]) - 6).toFixed(1));
+        val.textContent = o[b].toFixed(1);
+      }
+      set('[data-name]', o.name);
+      set('[data-group]', `(${o.group})`);
+      set('[data-r="aToT"]', r.aToT.toFixed(2));
+      set('[data-r="gToC"]', r.gToC.toFixed(2));
+      set('[data-r="pp"]', r.purinesToPyrimidines.toFixed(2));
+      set('[data-r="gc"]', `${r.gcPercent.toFixed(1)}%`);
+      root.querySelectorAll<HTMLElement>('[data-row]').forEach((li) => li.classList.toggle('is-active', li.dataset.row === o.id));
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        if (o.singleStranded) {
+          verdict.textContent = `${o.name}: A ÷ T is only ${r.aToT.toFixed(2)}. This DNA is single-stranded, so its bases are not paired and Chargaff's A = T, G = C rule does not apply. The rule holds for double-stranded DNA.`;
+        } else if (fitsTetranucleotide(o)) {
+          verdict.textContent = `${o.name}: A ≈ T and G ≈ C, and here all four bases happen to be close to 25%. This one sample does not falsify the tetranucleotide hypothesis, but the other species do.`;
+        } else {
+          const hi = r.gcPercent < 50 ? 'A and T are more common than G and C' : 'G and C are more common than A and T';
+          verdict.textContent = `${o.name}: A ≈ T (ratio ${r.aToT.toFixed(2)}) and G ≈ C (ratio ${r.gToC.toFixed(2)}), but the bases are not equal: ${hi}. A repeating unit of the four bases cannot give these amounts, so the tetranucleotide hypothesis is falsified.`;
+        }
+      }, 300);
+    };
+    buttons.forEach((b, i) => {
+      b.addEventListener('click', () => choose(b));
+      b.addEventListener('keydown', (e) => {
+        const d = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+        if (d) { e.preventDefault(); choose(buttons[(i + d + buttons.length) % buttons.length]!, true); }
+      });
+    });
+    buttons[0]!.classList.add('is-active');
+    const cb = root.querySelector<HTMLInputElement>('[data-show-tetra]')!;
+    cb.addEventListener('change', () => (root.querySelector<SVGGElement>('[data-tetra]')!.style.display = cb.checked ? '' : 'none'));
+  });
+</script>
+
+<style>
+  .chargaff { container-type: inline-size; display: grid; gap: var(--space-3); }
+  .choices { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .choices .btn.is-active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-strong); }
+  .layout { display: grid; gap: var(--space-3); }
+  @container (min-width: 34rem) { .layout { grid-template-columns: minmax(0, 1.25fr) minmax(13rem, 1fr); align-items: start; } }
+  .chart { width: 100%; height: auto; font-family: var(--font-sans); }
+  .grid line { stroke: var(--border); }
+  .ticks text { font-size: 14px; fill: var(--text-muted); }
+  .axis { font-size: 14px; font-weight: 650; fill: var(--text); }
+  .bar { stroke: var(--text); stroke-width: 1.2; transition: y 0.3s, height 0.3s; }
+  @media (prefers-reduced-motion: reduce) { .bar { transition: none; } }
+  .barA { fill: var(--bio-protein); }
+  .barT { fill: var(--bio-head); }
+  .barG { fill: var(--bio-carb); }
+  .barC { fill: var(--bio-protein-2); }
+  .val { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .blabel { font-size: 17px; font-weight: 800; fill: var(--text); }
+  .group { font-size: 13px; fill: var(--text-muted); }
+  .tetra { stroke: var(--text); stroke-width: 2; stroke-dasharray: 7 5; }
+  .tetra-t { font-size: 13px; fill: var(--text); font-style: italic; paint-order: stroke; stroke: var(--surface); stroke-width: 4px; }
+  .side { font-size: var(--step--1); display: grid; gap: var(--space-2); }
+  .who { margin: 0; font-size: var(--step-0); }
+  .ratios { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); margin: 0; }
+  .ratios div { background: var(--surface-2); border-radius: var(--radius-m); padding: var(--space-2) var(--space-3); }
+  .ratios dt { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); }
+  .ratios dd { margin: 0; font-weight: 800; font-size: var(--step-0); color: var(--accent-strong); }
+  .check { display: flex; gap: var(--space-2); align-items: center; min-height: 24px; }
+  .verdict { margin: 0; padding: var(--space-3); background: var(--accent-soft); border-radius: var(--radius-m); }
+  .overview { font-size: var(--step--1); }
+  .ov-title { font-weight: 700; margin: 0 0 var(--space-2); }
+  .gc-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+  .gc-list li { display: grid; grid-template-columns: 6.5rem 1fr 3.4rem; gap: var(--space-2); align-items: center; padding: 1px 4px; border-radius: 4px; }
+  .gc-list li.is-active { background: var(--accent-soft); font-weight: 750; }
+  .track { position: relative; height: 0.8rem; background: var(--surface-2); border-radius: 3px; overflow: hidden; }
+  .fill { position: absolute; inset: 0 auto 0 0; background: var(--bio-carb); }
+  .half { position: absolute; left: 50%; top: 0; bottom: 0; border-left: 2px dashed var(--text); }
+  .pc { text-align: right; font-variant-numeric: tabular-nums; }
+  .foot { color: var(--text-muted); margin: var(--space-2) 0 0; font-size: 0.8rem; }
+  .table { font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  th, td { padding: 0.2rem 0.55rem; border-bottom: 1px solid var(--border); text-align: right; }
+  th[scope='row'] { text-align: left; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: 0; }
+</style>

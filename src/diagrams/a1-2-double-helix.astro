@@ -1,0 +1,197 @@
+---
+/**
+ * Exam-style drawings for A1.2: a single nucleotide (circle–pentagon–rectangle with the phosphate on C5′ and
+ * the base on C1′), ribose vs deoxyribose (–OH vs –H on C2′), and a short section of DNA with antiparallel
+ * strands, A–T / G–C pairing and 5′/3′ ends. Three SVGs so each stays legible at phone width.
+ */
+type P = [number, number];
+const pent = (cx: number, cy: number, r: number, flip = false): P[] =>
+  [-90, -18, 54, 126, 198].map((a) => {
+    const rad = ((a + (flip ? 180 : 0)) * Math.PI) / 180;
+    return [cx + r * Math.cos(rad), cy + r * Math.sin(rad)];
+  });
+const pts = (p: P[]) => p.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
+// vertex order: 0 ring O, 1 C1′, 2 C2′, 3 C3′, 4 C4′ (C5′ hangs off C4′)
+
+// ---------- panel 1: one nucleotide ----------
+const n1 = pent(190, 128, 40);
+const n1P: P = [92, 58];
+
+// ---------- panel 2: ribose vs deoxyribose ----------
+const rib = pent(105, 112, 42);
+const deo = pent(300, 112, 42);
+
+// ---------- panel 3: DNA ladder ----------
+const L = { sugarX: 92, firstY: 92, dy: 96, r: 27 };
+const pairs: [string, string][] = [['A', 'T'], ['G', 'C'], ['T', 'A'], ['C', 'G']];
+const purine = (b: string) => b === 'A' || b === 'G';
+const cls: Record<string, string> = { A: 'bA', T: 'bT', G: 'bG', C: 'bC' };
+const W3 = 420;
+// right strand = left strand rotated 180° about the centre of the ladder
+const cx3 = W3 / 2;
+const cy3 = L.firstY + (L.dy * (pairs.length - 1)) / 2;
+const rot = ([x, y]: P): P => [2 * cx3 - x, 2 * cy3 - y];
+const leftSugars = pairs.map((_, i) => pent(L.sugarX, L.firstY + i * L.dy, L.r));
+const rightSugars = leftSugars.map((p) => p.map(rot));
+const leftP = pairs.map((_, i): P => [L.sugarX - 52, L.firstY + i * L.dy - 50]);
+const rightP = leftP.map(rot);
+const c1x = L.sugarX + L.r * Math.cos((-18 * Math.PI) / 180);
+const span = 2 * (cx3 - c1x) - 16; // between the two C1′ attachment stubs
+const gap = 30;
+const unit = (span - gap) / 3.6; // purine 2.1 units, pyrimidine 1.5 units
+---
+<div class="exam-diagram">
+  <div class="panels">
+    <svg class="p1" viewBox="0 0 400 230" role="img" aria-labelledby="na-t1 na-d1" xmlns="http://www.w3.org/2000/svg">
+      <title id="na-t1">A single nucleotide</title>
+      <desc id="na-d1">A circle (phosphate) is joined by a line to carbon 5′, which projects from the pentagon (pentose sugar). A rectangle (nitrogenous base) is joined to carbon 1′ on the other side of the pentagon. Carbon 3′ carries an –OH group.</desc>
+      <text class="head" x="12" y="24">1 · A single nucleotide</text>
+      <line class="bond" x1={n1P[0]} y1={n1P[1]} x2={n1[4]![0] - 6} y2={n1[4]![1] - 34} />
+      <line class="bond" x1={n1[4]![0] - 6} y1={n1[4]![1] - 34} x2={n1[4]![0]} y2={n1[4]![1]} />
+      <line class="bond" x1={n1[1]![0]} y1={n1[1]![1]} x2={n1[1]![0] + 26} y2={n1[1]![1]} />
+      <line class="bond" x1={n1[3]![0]} y1={n1[3]![1]} x2={n1[3]![0] - 16} y2={n1[3]![1] + 22} />
+      <circle class="phos" cx={n1P[0]} cy={n1P[1]} r="20" />
+      <text class="in" x={n1P[0]} y={n1P[1]} dy="0.35em" text-anchor="middle">P</text>
+      <polygon class="sugar" points={pts(n1)} />
+      <text class="small" x={n1[0]![0]} y={n1[0]![1] + 16} text-anchor="middle">O</text>
+      <text class="num" x={n1[1]![0] - 13} y={n1[1]![1] + 5} text-anchor="middle">1′</text>
+      <text class="num" x={n1[2]![0] - 6} y={n1[2]![1] - 6} text-anchor="middle">2′</text>
+      <text class="num" x={n1[3]![0] + 6} y={n1[3]![1] - 6} text-anchor="middle">3′</text>
+      <text class="num" x={n1[4]![0] + 13} y={n1[4]![1] + 5} text-anchor="middle">4′</text>
+      <text class="num" x={n1[4]![0] + 6} y={n1[4]![1] - 22}>5′</text>
+      <text class="small" x={n1[3]![0] - 30} y={n1[3]![1] + 38}>OH</text>
+      <rect class="base bA" x={n1[1]![0] + 26} y={n1[1]![1] - 18} width="110" height="36" rx="3" />
+      <text class="in" x={n1[1]![0] + 81} y={n1[1]![1]} dy="0.35em" text-anchor="middle">base</text>
+      <text class="lbl" x="58" y="102" text-anchor="middle">phosphate</text>
+      <text class="lbl" x="232" y="176">pentose sugar</text>
+      <text class="lbl" x="284" y="86" text-anchor="middle">nitrogenous base</text>
+      <text class="note" x="232" y="200">base on C1′,</text>
+      <text class="note" x="232" y="217">phosphate on C5′</text>
+    </svg>
+
+    <svg class="p2" viewBox="0 0 400 230" role="img" aria-labelledby="na-t2 na-d2" xmlns="http://www.w3.org/2000/svg">
+      <title id="na-t2">Ribose and deoxyribose</title>
+      <desc id="na-d2">Two pentagons, each a five-carbon sugar with an oxygen in the ring. Ribose, in RNA, has an –OH group on carbon 2′. Deoxyribose, in DNA, has only a hydrogen on carbon 2′: it has one fewer oxygen atom. Both have –OH on carbon 3′.</desc>
+      <text class="head" x="12" y="24">2 · Ribose vs deoxyribose</text>
+      {[[rib, 'OH', 'Ribose (RNA)'], [deo, 'H', 'Deoxyribose (DNA)']].map(([p, two, name]) => {
+        const v = p as P[];
+        return (
+          <g>
+            <line class="bond" x1={v[4]![0]} y1={v[4]![1]} x2={v[4]![0] - 14} y2={v[4]![1] - 30} />
+            <text class="small" x={v[4]![0] - 44} y={v[4]![1] - 34}>CH₂OH</text>
+            <line class="bond" x1={v[1]![0]} y1={v[1]![1]} x2={v[1]![0] + 16} y2={v[1]![1] - 22} />
+            <text class="small" x={v[1]![0] + 12} y={v[1]![1] - 28}>base</text>
+            <line class="bond" x1={v[3]![0]} y1={v[3]![1]} x2={v[3]![0] - 8} y2={v[3]![1] + 28} />
+            <text class="small" x={v[3]![0] - 20} y={v[3]![1] + 46}>OH</text>
+            <line class="bond" x1={v[2]![0]} y1={v[2]![1]} x2={v[2]![0] + 8} y2={v[2]![1] + 28} />
+            <circle class={two === 'OH' ? 'hl hl-oh' : 'hl hl-h'} cx={v[2]![0] + 12} cy={v[2]![1] + 41} r="19" />
+            <text class="small strong" x={v[2]![0] + 12} y={v[2]![1] + 46} text-anchor="middle">{two}</text>
+            <polygon class="sugar" points={pts(v)} />
+            <text class="small" x={v[0]![0]} y={v[0]![1] + 17} text-anchor="middle">O</text>
+            <text class="num" x={v[1]![0] - 13} y={v[1]![1] + 5} text-anchor="middle">1′</text>
+            <text class="num" x={v[2]![0] - 6} y={v[2]![1] - 6} text-anchor="middle">2′</text>
+            <text class="num" x={v[3]![0] + 6} y={v[3]![1] - 6} text-anchor="middle">3′</text>
+            <text class="num" x={v[4]![0] + 13} y={v[4]![1] + 5} text-anchor="middle">4′</text>
+            <text class="lbl" x={v[0]![0]} y="222" text-anchor="middle">{name}</text>
+          </g>
+        );
+      })}
+    </svg>
+
+    <svg class="p3" viewBox={`0 0 ${W3} 492`} role="img" aria-labelledby="na-t3 na-d3" xmlns="http://www.w3.org/2000/svg">
+      <title id="na-t3">A short section of DNA</title>
+      <desc id="na-d3">Two strands of nucleotides side by side. Each strand has a backbone of alternating phosphates and deoxyribose sugars joined by covalent bonds, with the bases pointing inwards. The left strand runs 5′ at the top to 3′ at the bottom; the right strand is upside down, running 5′ at the bottom to 3′ at the top, so the strands are antiparallel. From top to bottom the base pairs are A–T, G–C, T–A and C–G, each linked by hydrogen bonds (two between A and T, three between G and C).</desc>
+      <text class="head" x="12" y="24">3 · Part of a DNA molecule</text>
+      <!-- backbones -->
+      {pairs.map((_, i) => (
+        <g>
+          <line class="bond" x1={leftP[i]![0]} y1={leftP[i]![1]} x2={leftSugars[i]![4]![0]} y2={leftSugars[i]![4]![1]} />
+          {i > 0 && <line class="bond" x1={leftSugars[i - 1]![3]![0]} y1={leftSugars[i - 1]![3]![1]} x2={leftP[i]![0]} y2={leftP[i]![1]} />}
+          <line class="bond" x1={rightP[i]![0]} y1={rightP[i]![1]} x2={rightSugars[i]![4]![0]} y2={rightSugars[i]![4]![1]} />
+          {i > 0 && <line class="bond" x1={rightSugars[i - 1]![3]![0]} y1={rightSugars[i - 1]![3]![1]} x2={rightP[i]![0]} y2={rightP[i]![1]} />}
+        </g>
+      ))}
+      <!-- free 3′-OH ends -->
+      <line class="bond" x1={leftSugars[3]![3]![0]} y1={leftSugars[3]![3]![1]} x2={leftSugars[3]![3]![0] - 12} y2={leftSugars[3]![3]![1] + 20} />
+      <text class="small" x={leftSugars[3]![3]![0] - 34} y={leftSugars[3]![3]![1] + 36}>OH</text>
+      <line class="bond" x1={rightSugars[3]![3]![0]} y1={rightSugars[3]![3]![1]} x2={rightSugars[3]![3]![0] + 12} y2={rightSugars[3]![3]![1] - 20} />
+      <text class="small" x={rightSugars[3]![3]![0] + 6} y={rightSugars[3]![3]![1] - 26}>OH</text>
+      {pairs.map(([b1, b2], i) => {
+        const y = L.firstY + i * L.dy;
+        const x1 = c1x + 8;
+        const w1 = (purine(b1) ? 2.1 : 1.5) * unit;
+        const w2 = (purine(b2) ? 2.1 : 1.5) * unit;
+        const x2 = 2 * cx3 - c1x - 8 - w2;
+        const n = b1 === 'G' || b1 === 'C' ? 3 : 2;
+        const hy = n === 3 ? [-9, 0, 9] : [-6, 6];
+        return (
+          <g>
+            <line class="bond" x1={c1x} y1={y + L.r * Math.sin((-18 * Math.PI) / 180)} x2={x1} y2={y} />
+            <line class="bond" x1={2 * cx3 - c1x} y1={y - L.r * Math.sin((-18 * Math.PI) / 180)} x2={x2 + w2} y2={y} />
+            <rect class={`base ${cls[b1]}`} x={x1} y={y - 15} width={w1} height="30" rx="3" />
+            <rect class={`base ${cls[b2]}`} x={x2} y={y - 15} width={w2} height="30" rx="3" />
+            <text class="in" x={x1 + w1 / 2} y={y} dy="0.35em" text-anchor="middle">{b1}</text>
+            <text class="in" x={x2 + w2 / 2} y={y} dy="0.35em" text-anchor="middle">{b2}</text>
+            {hy.map((o) => <line class="hb" x1={x1 + w1 + 3} y1={y + o} x2={x2 - 3} y2={y + o} />)}
+          </g>
+        );
+      })}
+      {leftSugars.map((p) => <polygon class="sugar" points={pts(p)} />)}
+      {rightSugars.map((p) => <polygon class="sugar" points={pts(p)} />)}
+      {[...leftP, ...rightP].map(([x, y]) => <><circle class="phos" cx={x} cy={y} r="14" /><text class="in sm" x={x} y={y} dy="0.35em" text-anchor="middle">P</text></>)}
+      <!-- ends -->
+      <text class="end" x={leftP[0]![0] + 22} y={leftP[0]![1] + 6}>5′</text>
+      <text class="end" x={leftSugars[3]![3]![0] - 52} y={leftSugars[3]![3]![1] + 14}>3′</text>
+      <text class="end" x={rightP[0]![0] - 44} y={rightP[0]![1] + 6}>5′</text>
+      <text class="end" x={rightSugars[3]![3]![0] - 14} y={rightSugars[3]![3]![1] - 22}>3′</text>
+      <path class="arrow" d={`M19 120 V400`} marker-end="url(#na-arrow)" />
+      <path class="arrow" d={`M${W3 - 19} 370 V90`} marker-end="url(#na-arrow)" />
+      <defs>
+        <marker id="na-arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" class="arrowhead" />
+        </marker>
+      </defs>
+      <text class="note" x={cx3} y="464" text-anchor="middle">antiparallel: the strands run 5′→3′ in opposite directions</text>
+      <text class="note" x={cx3} y="482" text-anchor="middle">dashed lines: hydrogen bonds between complementary bases</text>
+      <text class="note" x="8" y="245" transform="rotate(-90 8 245)" text-anchor="middle" dy="0.35em">sugar–phosphate backbone</text>
+      <text class="note" x={W3 - 8} y="245" transform={`rotate(90 ${W3 - 8} 245)`} text-anchor="middle" dy="0.35em">sugar–phosphate backbone</text>
+    </svg>
+  </div>
+  <p class="must">Key: <span class="k bA">A adenine</span> <span class="k bT">T thymine</span> <span class="k bG">G guanine</span> <span class="k bC">C cytosine</span> · circle = phosphate · pentagon = deoxyribose · rectangle = base. Purines (A, G) are drawn longer than pyrimidines (T, C), so every pair is the same width.</p>
+</div>
+
+<style>
+  .exam-diagram { font-family: var(--font-sans); }
+  .panels { display: grid; gap: var(--space-3); container-type: inline-size; }
+  @container (min-width: 40rem) { .panels { grid-template-columns: 1fr 1fr; } .p3 { grid-column: 2; grid-row: 1 / span 2; } }
+  .panels svg { display: block; width: 100%; height: auto; background: var(--surface); border-radius: var(--radius-m); }
+  .head { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .lbl { font-size: 15px; font-weight: 650; fill: var(--text); }
+  .note { font-size: 13px; fill: var(--text-muted); font-style: italic; }
+  .small { font-size: 14px; fill: var(--text); }
+  .strong { font-weight: 800; }
+  .num { font-size: 12px; font-weight: 700; fill: var(--text-muted); }
+  .end { font-size: 18px; font-weight: 800; fill: var(--text); }
+  .in { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .in.sm { font-size: 13px; }
+  .bond { stroke: var(--text); stroke-width: 2.2; }
+  .sugar { fill: color-mix(in srgb, var(--border-strong) 35%, var(--surface)); stroke: var(--text); stroke-width: 2; }
+  .phos { fill: color-mix(in srgb, var(--bio-tail) 35%, var(--surface)); stroke: var(--text); stroke-width: 2; }
+  .base { stroke-width: 2; }
+  .bA { fill: color-mix(in srgb, var(--bio-protein) 28%, var(--surface)); stroke: var(--bio-protein); }
+  .bT { fill: color-mix(in srgb, var(--bio-head) 28%, var(--surface)); stroke: var(--bio-head); }
+  .bG { fill: color-mix(in srgb, var(--bio-carb) 28%, var(--surface)); stroke: var(--bio-carb); }
+  .bC { fill: color-mix(in srgb, var(--bio-protein-2) 28%, var(--surface)); stroke: var(--bio-protein-2); }
+  .hb { stroke: var(--text); stroke-width: 1.8; stroke-dasharray: 4 3; }
+  .hl { fill: none; stroke-width: 2; stroke-dasharray: 3 3; }
+  .hl-oh { stroke: var(--bio-k); }
+  .hl-h { stroke: var(--text-muted); }
+  .arrow { stroke: var(--text-muted); stroke-width: 2; fill: none; }
+  .arrowhead { fill: var(--text-muted); }
+  .must { font-size: var(--step--1); margin: var(--space-2) 0 0; padding-bottom: 3.4rem; color: var(--text); }
+  .k { display: inline-block; padding: 0 0.35em; border-radius: 4px; border: 1.5px solid; font-weight: 700; }
+  .k.bA { background: color-mix(in srgb, var(--bio-protein) 22%, var(--surface)); border-color: var(--bio-protein); }
+  .k.bT { background: color-mix(in srgb, var(--bio-head) 22%, var(--surface)); border-color: var(--bio-head); }
+  .k.bG { background: color-mix(in srgb, var(--bio-carb) 22%, var(--surface)); border-color: var(--bio-carb); }
+  .k.bC { background: color-mix(in srgb, var(--bio-protein-2) 22%, var(--surface)); border-color: var(--bio-protein-2); }
+</style>
