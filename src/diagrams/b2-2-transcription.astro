@@ -1,0 +1,118 @@
+---
+/**
+ * B2.2.2: separating transcription (nucleus) from translation (cytoplasm) in eukaryotes, compared with a
+ * prokaryote where ribosomes can start on an mRNA that is still being transcribed. Two panels that sit side
+ * by side on wide screens and stack on phones.
+ */
+const ribo = (x: number, y: number) => ({ x, y });
+const chain = (x: number, y: number, n: number, dx = 7, dy = -6) => Array.from({ length: n }, (_, i) => [x + i * dx * 0.55 + (i % 2 ? 2 : -2), y + i * dy] as const);
+// prokaryote: one gene being transcribed; mRNAs of increasing length leave the DNA, each already carrying ribosomes
+const proGenes = [0, 1, 2, 3].map((i) => {
+  const x = 58 + i * 58, len = 26 + i * 30;
+  const ribs = Array.from({ length: i + 1 }, (_, k) => ribo(x - 4 - k * 2, 104 + 22 + k * 27));
+  return { x, len, ribs };
+});
+---
+<div class="panels">
+  <div class="panel">
+    <p class="panel-t">Eukaryote: separated by the nuclear envelope</p>
+    <svg viewBox="0 0 340 300" role="img" aria-labelledby="tr-e-t tr-e-d" xmlns="http://www.w3.org/2000/svg">
+      <title id="tr-e-t">Transcription and translation in a eukaryotic cell</title>
+      <desc id="tr-e-d">Inside the nucleus, a gene in the DNA is transcribed into pre-mRNA containing exons and introns. The pre-mRNA is modified in the nucleus: introns are removed and the ends are modified. Only the finished mRNA leaves through a nuclear pore into the cytoplasm, where ribosomes translate it into a polypeptide.</desc>
+      <rect class="nucleus" x="0" y="0" width="196" height="300" />
+      <!-- nuclear envelope: two membranes, joined at a pore -->
+      <path class="env" d="M196 0 V196 M196 230 V300 M206 0 V196 M206 230 V300" />
+      <path class="env" d="M196 196 H206 M196 230 H206" />
+      <text class="side" x="10" y="20">Nucleus</text>
+      <text class="side" x="330" y="20" text-anchor="end">Cytoplasm</text>
+
+      <path class="dna" d="M18 52 H178 M18 60 H178" />
+      <text class="lbl" x="18" y="44">DNA (gene)</text>
+      <path class="arrow" d="M30 66 V86" marker-end="url(#tr-ah)" />
+      <text class="step" x="40" y="81">transcription</text>
+
+      <g class="pre">
+        <path class="exon" d="M18 100 H58 M88 100 H124 M150 100 H178" />
+        <path class="intron" d="M58 100 H88 M124 100 H150" />
+      </g>
+      <text class="lbl" x="18" y="120">pre-mRNA (exons, introns)</text>
+      <path class="arrow" d="M30 128 V172" marker-end="url(#tr-ah)" />
+      <text class="step" x="40" y="142">modification:</text>
+      <text class="step" x="40" y="156">introns removed,</text>
+      <text class="step" x="40" y="170">cap and tail added</text>
+
+      <circle class="cap" cx="26" cy="190" r="5" />
+      <path class="exon" d="M31 190 H133" />
+      <path class="tail" d="M133 190 q4 -5 8 0 t8 0 t8 0 t8 0" />
+      <text class="lbl" x="18" y="212">mature mRNA</text>
+
+      <path class="arrow" d="M150 198 Q190 214 218 214" marker-end="url(#tr-ah)" />
+      <text class="lbl" x="212" y="190">nuclear pore</text>
+
+      <path class="exon" d="M222 252 H330" />
+      {[246, 290].map((x) => (
+        <g>
+          <ellipse class="ribo" cx={x} cy="244" rx="15" ry="9" />
+          <ellipse class="ribo" cx={x} cy="259" rx="11" ry="6" />
+          {chain(x, 232, 5).map(([cx, cy]) => <circle class="aa" cx={cx} cy={cy} r="3" />)}
+        </g>
+      ))}
+      <text class="lbl" x="222" y="284">translation by</text>
+      <text class="lbl" x="222" y="298">ribosomes</text>
+      <defs><marker id="tr-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" class="ah" /></marker></defs>
+    </svg>
+  </div>
+
+  <div class="panel">
+    <p class="panel-t">Prokaryote: no nucleus, no separation</p>
+    <svg viewBox="0 0 340 300" role="img" aria-labelledby="tr-p-t tr-p-d" xmlns="http://www.w3.org/2000/svg">
+      <title id="tr-p-t">Transcription and translation in a prokaryotic cell</title>
+      <desc id="tr-p-d">In a bacterium the DNA lies in the cytoplasm. Several RNA polymerases move along the gene, and the mRNA molecules they are making get longer from left to right. Ribosomes attach to each mRNA and start translating it while it is still being transcribed, so there is no chance to modify the mRNA first.</desc>
+      <rect class="cyto" x="0" y="0" width="340" height="300" />
+      <text class="side" x="10" y="20">Cytoplasm (no nuclear membrane)</text>
+      <path class="dna" d="M14 100 H326 M14 108 H326" />
+      <text class="lbl" x="14" y="90">DNA (gene)</text>
+      <path class="arrow" d="M40 72 H300" marker-end="url(#tr-ah2)" />
+      <text class="step" x="160" y="66" text-anchor="middle">direction of transcription</text>
+      {proGenes.map((g) => (
+        <g>
+          <ellipse class="pol" cx={g.x} cy="104" rx="9" ry="12" />
+          <path class="exon" d={`M${g.x} 116 q-10 ${g.len * 0.35} -4 ${g.len}`} />
+          {g.ribs.map((r) => (
+            <g>
+              <ellipse class="ribo" cx={r.x - 8} cy={r.y} rx="9" ry="12" />
+              <ellipse class="ribo" cx={r.x + 5} cy={r.y} rx="5.5" ry="8" />
+              {chain(r.x - 18, r.y, 3, -7, 4).map(([cx, cy]) => <circle class="aa" cx={cx} cy={cy} r="2.6" />)}
+            </g>
+          ))}
+        </g>
+      ))}
+      <text class="lbl" x="14" y="262">RNA polymerases (on DNA) make mRNA;</text>
+      <text class="lbl" x="14" y="278">ribosomes start translating it at once,</text>
+      <text class="lbl" x="14" y="294">before transcription has finished</text>
+      <defs><marker id="tr-ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" class="ah" /></marker></defs>
+    </svg>
+  </div>
+</div>
+
+<style>
+  .panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: var(--space-4); }
+  .panel-t { margin: 0 0 var(--space-2); font-weight: 750; font-size: var(--step--1); }
+  svg { font-family: var(--font-sans); }
+  .nucleus { fill: color-mix(in srgb, var(--bio-na) 8%, var(--surface)); }
+  .cyto { fill: var(--surface); }
+  .env { stroke: var(--text); stroke-width: 2.4; fill: none; }
+  .side { font-size: 13px; font-weight: 700; fill: var(--text-muted); }
+  .lbl { font-size: 12.5px; fill: var(--text); }
+  .step { font-size: 12.5px; fill: var(--text); font-style: italic; }
+  .dna { stroke: var(--bio-na); stroke-width: 3; }
+  .exon { stroke: var(--bio-glucose); stroke-width: 5; fill: none; stroke-linecap: round; }
+  .intron { stroke: var(--text-muted); stroke-width: 5; stroke-dasharray: 3 3; }
+  .tail { stroke: var(--bio-glucose); stroke-width: 2.4; fill: none; }
+  .cap { fill: var(--bio-k); }
+  .ribo { fill: color-mix(in srgb, var(--text) 75%, var(--surface)); }
+  .aa { fill: var(--bio-k); }
+  .pol { fill: var(--bio-protein); }
+  .arrow { stroke: var(--text); stroke-width: 1.6; fill: none; }
+  .ah { fill: var(--text); }
+</style>

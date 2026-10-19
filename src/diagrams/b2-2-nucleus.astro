@@ -1,0 +1,188 @@
+---
+/**
+ * Exam-style drawing of the nucleus and nearby rough ER (B2.2.2, B2.2.6, B2.2.7), as seen in an electron
+ * micrograph. Conventions: each membrane is one dark line; the nuclear envelope is two lines with a narrow
+ * space between them; at each pore the two lines are joined; the outer membrane runs straight into the
+ * rough ER, so the space between the nuclear membranes is continuous with the ER lumen; ribosomes are only
+ * on the cytoplasmic faces. Drawn by stroking each centreline twice (dark, then the lumen colour), so where
+ * an ER cisterna leaves the envelope the two spaces merge with no line between them.
+ */
+import { rng } from '../viewer3d/kit';
+
+const rand = rng(17);
+const N = { cx: 300, cy: 272, rx: 200, ry: 176 };
+const rad = (d: number) => (d * Math.PI) / 180;
+/** Point on an ellipse concentric with the nucleus, offset by d from the envelope centreline. */
+const pt = (deg: number, d = 0): [number, number] => [N.cx + (N.rx + d) * Math.cos(rad(deg)), N.cy + (N.ry + d) * Math.sin(rad(deg))];
+const tangentDeg = (deg: number) => (Math.atan2(N.ry * Math.cos(rad(deg)), -N.rx * Math.sin(rad(deg))) * 180) / Math.PI;
+const f = ([x, y]: [number, number]) => `${x.toFixed(1)} ${y.toFixed(1)}`;
+const arcPts = (d0: number, d1: number, off: number, step = 2) => {
+  const pts: [number, number][] = [];
+  const n = Math.max(2, Math.ceil(Math.abs(d1 - d0) / step));
+  for (let i = 0; i <= n; i++) pts.push(pt(d0 + ((d1 - d0) * i) / n, off));
+  return pts;
+};
+const poly = (pts: [number, number][]) => pts.map((p, i) => `${i ? 'L' : 'M'}${f(p)}`).join(' ');
+
+const envelope = `M${f(pt(0))} ${poly(arcPts(0, 360, 0)).slice(1)} Z`;
+
+// rough ER cisternae: centrelines that leave the envelope (or another cisterna) and run parallel to it
+const C1 = { from: -32, to: -96, off: 36 };
+const C2 = { from: 22, to: 74, off: 36 };
+const C3 = { neck: -70, from: -40, to: -112, off: 72 }; // joined to C1 by a short neck
+const er = [
+  [pt(C1.from, 0), ...arcPts(C1.from, C1.to, C1.off)],
+  [pt(C2.from, 0), ...arcPts(C2.from, C2.to, C2.off)],
+  // C3: out from C1 at the neck, then both ways along its own radius (drawn as two runs)
+  [pt(C3.neck, C1.off), ...arcPts(C3.neck, C3.from, C3.off)],
+  [pt(C3.neck, C1.off), ...arcPts(C3.neck, C3.to, C3.off)],
+];
+const erEnds = [pt(C1.to, C1.off), pt(C2.to, C2.off), pt(C3.from, C3.off), pt(C3.to, C3.off)];
+
+// nuclear pores (away from the ER junctions)
+const poreAngles = [-8, 100, 140, 182, 222, 252];
+const pores = poreAngles.map((deg) => ({ p: pt(deg), t: tangentDeg(deg) }));
+const near = (deg: number, list: number[], w: number) => list.some((a) => Math.abs(((deg - a + 540) % 360) - 180) < w);
+
+// ribosomes: on the cytoplasmic face of the outer membrane and on both faces of every ER cisterna
+const ribo: [number, number][] = [];
+for (let d = 0; d < 360; d += 6.5) {
+  if (near(d, poreAngles, 5) || near(d, [C1.from, C2.from], 6)) continue;
+  ribo.push(pt(d, 13));
+}
+for (const c of [C1, C2]) {
+  const [a, b] = [Math.min(c.from, c.to), Math.max(c.from, c.to)];
+  for (let d = a + 2; d <= b - 1; d += 5) {
+    if (!near(d, [c.from], 4)) ribo.push(pt(d, c.off - 13));
+    if (!(c === C1 && near(d, [C3.neck], 4))) ribo.push(pt(d, c.off + 13));
+  }
+}
+for (let d = C3.to + 2; d <= C3.from - 1; d += 5) {
+  if (!near(d, [C3.neck], 4)) ribo.push(pt(d, C3.off - 13));
+  ribo.push(pt(d, C3.off + 13));
+}
+
+// chromatin: dense heterochromatin against the inner membrane, loose euchromatin threads, and the nucleolus
+const hetero = [18, 62, 118, 160, 204, 238, 300, 330].map((deg, i) => {
+  const [x, y] = pt(deg, -28 - (i % 2) * 4);
+  return { x, y, rx: 20 + (i % 3) * 6, ry: 8 + (i % 2) * 3, t: tangentDeg(deg) };
+});
+const nucleolus = { cx: 262, cy: 236, r: 38 };
+const eu: string[] = [];
+const euStart: [number, number][] = [];
+const insideN = (x: number, y: number) => ((x - N.cx) / (N.rx - 40)) ** 2 + ((y - N.cy) / (N.ry - 40)) ** 2 < 1;
+for (let k = 0; k < 9; k++) {
+  let x = N.cx + (rand() - 0.5) * 220, y = N.cy + (rand() - 0.5) * 180;
+  if (!insideN(x, y)) { k--; continue; }
+  euStart.push([x, y]);
+  let d = `M${x.toFixed(1)} ${y.toFixed(1)}`;
+  for (let i = 0; i < 5; i++) {
+    let nx = x + (rand() - 0.5) * 70, ny = y + (rand() - 0.5) * 60;
+    if (!insideN(nx, ny)) { nx = x + (N.cx - x) * 0.3; ny = y + (N.cy - y) * 0.3; }
+    const cx = (x + nx) / 2 + (rand() - 0.5) * 30, cy = (y + ny) / 2 + (rand() - 0.5) * 30;
+    d += ` Q${cx.toFixed(1)} ${cy.toFixed(1)} ${nx.toFixed(1)} ${ny.toFixed(1)}`;
+    x = nx; y = ny;
+  }
+  eu.push(d);
+}
+
+const p182 = pores.find((_, i) => poreAngles[i] === 182)!;
+const hetLeft = hetero[4]!; // the patch at 204°
+const euPick = euStart.reduce((b, p) => (Math.hypot(p[0] - 340, p[1] - 350) < Math.hypot(b[0] - 340, b[1] - 350) ? p : b), euStart[0]!);
+const markers: { n: number; x: number; y: number; to: [number, number] }[] = [
+  { n: 1, x: 40, y: 120, to: pt(214, 6.5) },
+  { n: 2, x: 40, y: 330, to: pt(163, -6.5) },
+  { n: 3, x: 40, y: 410, to: pt(128, 0) },
+  { n: 4, x: 40, y: 262, to: [p182.p[0] - 2, p182.p[1]] },
+  { n: 5, x: 760, y: 40, to: pt(-60, C3.off) },
+  { n: 6, x: 760, y: 132, to: pt(-40, C1.off + 13) },
+  { n: 7, x: 760, y: 214, to: pt(C1.from, 20) },
+  { n: 8, x: 230, y: 520, to: [nucleolus.cx - 4, nucleolus.cy + nucleolus.r - 3] },
+  { n: 9, x: 40, y: 190, to: [hetLeft.x - 6, hetLeft.y] },
+  { n: 10, x: 380, y: 520, to: euPick },
+  { n: 11, x: 760, y: 470, to: [600, 470] },
+];
+const key = [
+  'Outer membrane of the nuclear envelope',
+  'Inner membrane of the nuclear envelope (no ribosomes)',
+  'Space between the two membranes (perinuclear space)',
+  'Nuclear pore: the two membranes are joined around it',
+  'Rough ER: flattened sacs (cisternae) of membrane',
+  'Ribosomes on the cytoplasmic face of the RER and outer membrane',
+  'The outer membrane is continuous with the RER membrane',
+  'Nucleolus: no membrane; ribosome subunits are made here',
+  'Heterochromatin: densely packed chromatin, mostly near the envelope',
+  'Euchromatin: loosely packed chromatin in the nucleoplasm',
+  'Cytoplasm: where translation takes place',
+];
+---
+<div class="exam-diagram">
+  <svg viewBox="0 0 800 560" role="img" aria-labelledby="nuc-title nuc-desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="nuc-title">Drawing of a nucleus with rough endoplasmic reticulum</title>
+    <desc id="nuc-desc">An oval nucleus bounded by two parallel membranes with a narrow space between them. At six places the two membranes are joined around a nuclear pore. On the right, three flattened sacs of rough ER run parallel to the nucleus; two of them branch directly off the outer membrane and the third branches off one of these, so the space between the nuclear membranes is continuous with the space inside the ER. Ribosomes dot the outside of the outer membrane and both faces of the ER sacs, but not the inner membrane. Inside the nucleus are dark patches of heterochromatin against the envelope, thin threads of euchromatin and a dense, round nucleolus with no membrane.</desc>
+
+    <!-- nucleoplasm and its contents -->
+    <ellipse class="nucleoplasm" cx={N.cx} cy={N.cy} rx={N.rx} ry={N.ry} />
+    <g class="eu">{eu.map((d) => <path d={d} />)}</g>
+    {hetero.map((h) => <ellipse class="hetero" cx={h.x.toFixed(1)} cy={h.y.toFixed(1)} rx={h.rx} ry={h.ry} transform={`rotate(${h.t.toFixed(1)} ${h.x.toFixed(1)} ${h.y.toFixed(1)})`} />)}
+    <circle class="nucleolus" cx={nucleolus.cx} cy={nucleolus.cy} r={nucleolus.r} />
+    <circle class="nucleolus-in" cx={nucleolus.cx - 8} cy={nucleolus.cy + 4} r={nucleolus.r * 0.45} />
+
+    <!-- membranes: dark strokes first, then the lumen colour, so continuous spaces merge -->
+    <path class="dbl-out" d={envelope} />
+    {er.map((l) => <path class="dbl-out butt" d={poly(l)} />)}
+    {erEnds.map(([x, y]) => <circle class="end-out" cx={x.toFixed(1)} cy={y.toFixed(1)} r="8" />)}
+    <path class="dbl-in" d={envelope} />
+    {er.map((l) => <path class="dbl-in butt" d={poly(l)} />)}
+    {erEnds.map(([x, y]) => <circle class="end-in" cx={x.toFixed(1)} cy={y.toFixed(1)} r="5" />)}
+
+    <!-- pores: the membrane lines stop and are joined across the envelope -->
+    {pores.map(({ p, t }) => (
+      <g transform={`translate(${f(p)}) rotate(${t.toFixed(1)})`}>
+        <rect class="pore-gap" x="-7" y="-9" width="14" height="18" />
+        <path class="pore-edge" d="M-7 -6.5 V6.5 M7 -6.5 V6.5" />
+      </g>
+    ))}
+
+    <g class="ribo">{ribo.map(([x, y]) => <circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="3" />)}</g>
+
+    <text class="note" x="400" y="552" text-anchor="middle">Not to scale: a nucleus is typically 5–10 µm across; the space between its membranes is only a few tens of nanometres.</text>
+
+    <g class="markers">
+      {markers.map((m) => (
+        <g>
+          <path class="lead" d={`M${m.x} ${m.y} L${m.to[0].toFixed(1)} ${m.to[1].toFixed(1)}`} />
+          <circle cx={m.x} cy={m.y} r="13" />
+          <text x={m.x} y={m.y} dy="0.36em" text-anchor="middle">{m.n}</text>
+        </g>
+      ))}
+    </g>
+  </svg>
+  <ol class="key">
+    {key.map((k) => <li>{k}</li>)}
+  </ol>
+</div>
+
+<style>
+  .exam-diagram svg { font-family: var(--font-sans); }
+  .nucleoplasm { fill: color-mix(in srgb, var(--bio-na) 8%, var(--surface)); }
+  .eu path { fill: none; stroke: color-mix(in srgb, var(--bio-na) 45%, var(--surface)); stroke-width: 1.6; stroke-linecap: round; }
+  .hetero { fill: color-mix(in srgb, var(--bio-na) 55%, var(--surface)); }
+  .nucleolus { fill: color-mix(in srgb, var(--text) 72%, var(--surface)); }
+  .nucleolus-in { fill: color-mix(in srgb, var(--text) 55%, var(--surface)); }
+  .dbl-out { fill: none; stroke: var(--text); stroke-width: 16; stroke-linecap: round; stroke-linejoin: round; }
+  .dbl-in { fill: none; stroke: color-mix(in srgb, var(--bio-water) 22%, var(--surface)); stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; }
+  .butt { stroke-linecap: butt; }
+  .end-out { fill: var(--text); }
+  .end-in { fill: color-mix(in srgb, var(--bio-water) 22%, var(--surface)); }
+  .pore-gap { fill: color-mix(in srgb, var(--bio-na) 8%, var(--surface)); }
+  .pore-edge { stroke: var(--text); stroke-width: 3; }
+  .ribo circle { fill: var(--text); }
+  .note { font-size: 13px; fill: var(--text-muted); font-style: italic; }
+  .markers circle { fill: var(--surface); stroke: var(--text); stroke-width: 1.8; }
+  .markers text { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .lead { stroke: var(--text); stroke-width: 1.3; }
+  .key { columns: 2 17rem; column-gap: var(--space-5); margin: var(--space-3) 0 0; padding: 0; list-style: none; counter-reset: k; font-size: var(--step--1); }
+  .key li { break-inside: avoid; margin: 0 0 0.3rem; display: grid; grid-template-columns: 1.7rem 1fr; counter-increment: k; }
+  .key li::before { content: counter(k); font-weight: 800; display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; border: 1.5px solid var(--text); border-radius: 50%; font-size: 0.75rem; margin-top: 0.1rem; }
+</style>

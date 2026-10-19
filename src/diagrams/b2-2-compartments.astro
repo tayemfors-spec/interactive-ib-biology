@@ -1,0 +1,115 @@
+---
+/**
+ * B2.2.3: three advantages of compartmentalization in the cytoplasm, as three panels that sit side by
+ * side on wide screens and stack on phones: (1) enzymes and substrates concentrated in a small volume,
+ * (2) incompatible processes kept apart (lysosome at its own low pH), (3) digestion inside a phagocytic
+ * vacuole. Membranes are drawn in the B2.1 style (heads and tails as two strokes).
+ */
+const pac = (x: number, y: number, r: number, rot = 0) => {
+  const a = (28 * Math.PI) / 180;
+  const p = (t: number) => `${(x + r * Math.cos(t + (rot * Math.PI) / 180)).toFixed(1)} ${(y + r * Math.sin(t + (rot * Math.PI) / 180)).toFixed(1)}`;
+  return `M${x} ${y} L${p(a)} A${r} ${r} 0 1 1 ${p(-a)} Z`;
+};
+const spreadE = [[34, 70, 10], [96, 120, 200], [46, 172, 300]] as const;
+const spreadS = [[78, 56], [112, 78], [24, 118], [70, 150], [110, 182], [86, 98]] as const;
+const packedE = [[180, 104, 30], [208, 132, 210], [184, 142, 120]] as const;
+const packedS = [[198, 96], [214, 112], [168, 124], [196, 120], [204, 150], [170, 148]] as const;
+const hydrolases = [[100, 90, 20], [156, 92, 160], [96, 138, 300], [160, 140, 220], [128, 160, 90]] as const;
+const outsideP = [[200, 34], [214, 186], [12, 186]] as const;
+const beads = (x: number, y: number) => Array.from({ length: 6 }, (_, i) => [x + i * 6, y + (i % 2 ? 4 : 0)] as const);
+---
+<div class="panels">
+  <div class="panel">
+    <p class="panel-t">1. Concentrated in a small volume</p>
+    <svg viewBox="0 0 260 240" role="img" aria-labelledby="cp1-t cp1-d" xmlns="http://www.w3.org/2000/svg">
+      <title id="cp1-t">Enzymes and substrates concentrated inside a compartment</title>
+      <desc id="cp1-d">On the left, three enzyme molecules and six substrate molecules are spread through a large volume of cytoplasm. On the right, the same numbers are packed into a small membrane-bound compartment, where they collide far more often, so the reaction is faster.</desc>
+      <text class="lbl" x="130" y="22" text-anchor="middle">same numbers of molecules</text>
+      <rect class="bulk" x="10" y="36" width="118" height="168" rx="8" />
+      {spreadE.map(([x, y, r]) => <path class="enz" d={pac(x, y, 11, r)} />)}
+      {spreadS.map(([x, y]) => <circle class="sub" cx={x} cy={y} r="4.5" />)}
+      <circle class="mem-o" cx="192" cy="124" r="40" />
+      <circle class="mem-i" cx="192" cy="124" r="40" />
+      {packedE.map(([x, y, r]) => <path class="enz" d={pac(x, y, 11, r)} />)}
+      {packedS.map(([x, y]) => <circle class="sub" cx={x} cy={y} r="4.5" />)}
+      <text class="lbl" x="69" y="222" text-anchor="middle">spread through</text>
+      <text class="lbl" x="69" y="236" text-anchor="middle">the cytoplasm</text>
+      <text class="lbl" x="192" y="186" text-anchor="middle">in a compartment:</text>
+      <text class="lbl" x="192" y="200" text-anchor="middle">more collisions,</text>
+      <text class="lbl" x="192" y="214" text-anchor="middle">faster reactions</text>
+    </svg>
+  </div>
+
+  <div class="panel">
+    <p class="panel-t">2. Incompatible processes kept apart</p>
+    <svg viewBox="0 0 260 240" role="img" aria-labelledby="cp2-t cp2-d" xmlns="http://www.w3.org/2000/svg">
+      <title id="cp2-t">A lysosome keeps its digestive enzymes apart from the rest of the cell</title>
+      <desc id="cp2-d">A lysosome is a sac of single membrane filled with hydrolytic enzymes. Proton pumps in its membrane keep the inside at about pH 4.5 to 5, the optimum for these enzymes, while the cytosol around it is at about pH 7.2. Proteins and other macromolecules in the cytosol are outside the membrane, so they are not digested.</desc>
+      <circle class="lyso" cx="128" cy="116" r="66" />
+      <circle class="mem-o" cx="128" cy="116" r="66" />
+      <circle class="mem-i" cx="128" cy="116" r="66" />
+      {hydrolases.map(([x, y, r]) => <path class="hyd" d={pac(x, y, 11, r)} />)}
+      <text class="ph" x="128" y="112" text-anchor="middle">pH ≈ 4.5–5</text>
+      <text class="lbl" x="128" y="128" text-anchor="middle">hydrolases</text>
+      <!-- proton pump in the lysosome membrane: H⁺ moved in -->
+      <rect class="pump" x="74" y="58" width="14" height="22" rx="4" transform="rotate(-45 81 69)" />
+      <path class="arrow" d="M46 36 L72 60" marker-end="url(#cp-ah)" />
+      <text class="lbl" x="8" y="28">H⁺ pumped in</text>
+      {outsideP.map(([x, y]) => beads(x, y).map(([bx, by]) => <circle class="prot" cx={bx} cy={by} r="2.8" />))}
+      <text class="lbl" x="128" y="208" text-anchor="middle">cytosol pH ≈ 7.2: its proteins</text>
+      <text class="lbl" x="128" y="222" text-anchor="middle">are outside the membrane, so</text>
+      <text class="lbl" x="128" y="236" text-anchor="middle">they are not digested</text>
+      <defs><marker id="cp-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" class="ah" /></marker></defs>
+    </svg>
+  </div>
+
+  <div class="panel">
+    <p class="panel-t">3. Digestion inside a phagocytic vacuole</p>
+    <svg viewBox="0 0 260 240" role="img" aria-labelledby="cp3-t cp3-d" xmlns="http://www.w3.org/2000/svg">
+      <title id="cp3-t">A bacterium being digested in a phagocytic vacuole</title>
+      <desc id="cp3-d">A white blood cell has engulfed a bacterium by endocytosis, so the bacterium is inside a phagocytic vacuole bounded by a membrane. Lysosomes fuse with the vacuole and add their hydrolytic enzymes. The bacterium is digested inside the vacuole, and the small products, such as amino acids and sugars, are absorbed into the cytoplasm.</desc>
+      <circle class="vac" cx="104" cy="118" r="62" />
+      <circle class="mem-o" cx="104" cy="118" r="62" />
+      <circle class="mem-i" cx="104" cy="118" r="62" />
+      <rect class="bact" x="62" y="104" width="78" height="30" rx="15" transform="rotate(-18 101 119)" />
+      <text class="lbl" x="104" y="172" text-anchor="middle">bacterium</text>
+      {[[70, 84], [134, 88], [66, 142], [140, 146], [152, 116]].map(([x, y]) => <circle class="hyd-dot" cx={x} cy={y} r="3.5" />)}
+      <!-- lysosomes: one fusing with the vacuole, one approaching -->
+      <circle class="lyso" cx="170" cy="70" r="17" /><circle class="mem-o" cx="170" cy="70" r="17" /><circle class="mem-i" cx="170" cy="70" r="17" />
+      <circle class="lyso" cx="214" cy="44" r="15" /><circle class="mem-o" cx="214" cy="44" r="15" /><circle class="mem-i" cx="214" cy="44" r="15" />
+      {[[166, 66], [176, 74], [210, 40], [219, 49]].map(([x, y]) => <circle class="hyd-dot" cx={x} cy={y} r="3.5" />)}
+      <text class="lbl" x="196" y="16" text-anchor="middle">lysosomes</text>
+      <!-- products leaving into the cytoplasm -->
+      <path class="arrow" d="M160 150 L204 170" marker-end="url(#cp-ah3)" />
+      {[[214, 168], [226, 176], [218, 186], [232, 162]].map(([x, y]) => <circle class="sub" cx={x} cy={y} r="3.5" />)}
+      <text class="lbl" x="196" y="206" text-anchor="middle">small products</text>
+      <text class="lbl" x="196" y="220" text-anchor="middle">absorbed into</text>
+      <text class="lbl" x="196" y="234" text-anchor="middle">the cytoplasm</text>
+      <text class="lbl" x="60" y="200" text-anchor="middle">phagocytic</text>
+      <text class="lbl" x="60" y="214" text-anchor="middle">vacuole</text>
+      <defs><marker id="cp-ah3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" class="ah" /></marker></defs>
+    </svg>
+  </div>
+</div>
+
+<style>
+  .panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: var(--space-4); }
+  .panel-t { margin: 0 0 var(--space-2); font-weight: 750; font-size: var(--step--1); }
+  svg { font-family: var(--font-sans); }
+  .lbl { font-size: 12.5px; fill: var(--text); }
+  .ph { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .bulk { fill: var(--surface); stroke: var(--text-muted); stroke-width: 1.4; stroke-dasharray: 5 4; }
+  .mem-o { fill: none; stroke: var(--bio-head); stroke-width: 7; }
+  .mem-i { fill: none; stroke: var(--bio-tail); stroke-width: 2.2; }
+  .enz { fill: var(--bio-protein); }
+  .sub { fill: var(--bio-glucose); stroke: color-mix(in srgb, var(--bio-glucose) 55%, black); stroke-width: 0.8; }
+  .lyso { fill: color-mix(in srgb, var(--bio-k) 14%, var(--surface)); }
+  .vac { fill: color-mix(in srgb, var(--bio-water) 10%, var(--surface)); }
+  .hyd { fill: var(--bio-k); }
+  .hyd-dot { fill: var(--bio-k); }
+  .pump { fill: var(--bio-protein); }
+  .prot { fill: var(--bio-protein-2); }
+  .bact { fill: var(--bio-carb); stroke: color-mix(in srgb, var(--bio-carb) 55%, black); stroke-width: 1.2; }
+  .arrow { stroke: var(--text); stroke-width: 1.6; fill: none; }
+  .ah { fill: var(--text); }
+</style>
