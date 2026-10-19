@@ -1,0 +1,123 @@
+---
+/** Hot desert adaptations: saguaro cactus and fennec fox (B4.1.8). */
+const ribs = [-18, -9, 0, 9, 18];
+const spines = Array.from({ length: 13 }, (_, i) => 70 + i * 16);
+// Stem cross-section inset: pleated outline
+const pleat = (cx: number, cy: number, r: number, n = 14, depth = 6) =>
+  Array.from({ length: n * 2 + 1 }, (_, i) => {
+    const a = (i / (n * 2)) * Math.PI * 2;
+    const rr = i % 2 ? r - depth : r;
+    return `${i ? 'L' : 'M'}${(cx + rr * Math.cos(a)).toFixed(1)} ${(cy + rr * Math.sin(a)).toFixed(1)}`;
+  }).join('') + 'Z';
+---
+<svg viewBox="0 0 540 760" role="img" aria-labelledby="des-t des-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="des-t">Adaptations of the saguaro cactus and the fennec fox to hot deserts</title>
+  <desc id="des-d">Top: a saguaro cactus, a tall upright green stem with two arms, ribbed lengthwise and covered in clusters of spines. Below the ground a wide network of shallow roots spreads out, with one deeper taproot. Two cross-sections show the pleated stem shrunken in drought and swollen after rain. Labels describe spines, the pleated water-storing stem, a thick waxy cuticle, CAM photosynthesis with stomata open at night, the upright shape, and the shallow and deep roots. Bottom: a fennec fox with very large ears, pale sandy fur and furry soles, above a burrow in the sand. Labels describe heat loss from the ears, reflection of sunlight by the pale coat, insulation by thick fur, nocturnal behaviour, the burrow, and water conservation.</desc>
+  <text class="ph" x="10" y="22">A  Saguaro cactus, <tspan font-style="italic">Carnegiea gigantea</tspan> (Sonoran Desert)</text>
+  <path class="sun-ray" d="M40 52 L40 40 M52 64 L62 58 M28 64 L18 58" />
+  <circle class="sun" cx="40" cy="70" r="11" />
+  <line class="ground" x1="0" x2="540" y1="300" y2="300" />
+  <rect class="soil" x="0" y="300" width="540" height="78" />
+  <path class="stem" d="M128 300 L128 74 Q150 50 172 74 L172 300 Z" />
+  <path class="stem" d="M128 200 L104 200 Q92 200 92 188 L92 132 Q102 118 112 132 L112 178 L128 178 Z" />
+  <path class="stem" d="M172 160 L194 160 Q206 160 206 148 L206 104 Q196 90 186 104 L186 140 L172 140 Z" />
+  {ribs.map((o) => <line class="rib" x1={150 + o} x2={150 + o} y1={o === 0 ? 62 : 72} y2="298" />)}
+  {spines.map((y) => [-18, 0, 18].map((o) => <g class="sp"><line x1={150 + o} y1={y} x2={150 + o - 5} y2={y - 4} /><line x1={150 + o} y1={y} x2={150 + o + 5} y2={y - 4} /></g>))}
+  <path class="rootl" d="M138 302 C110 306 60 310 8 314 M162 302 C200 306 250 310 300 316 M140 304 C110 316 70 326 30 330 M160 304 C196 318 230 326 262 332 M150 304 L150 368" />
+  <g class="inset">
+    <path class="stem" d={pleat(380, 336, 22, 14, 7)} />
+    <path class="stem full" d={pleat(470, 336, 30, 14, 3)} />
+    <text class="cap" x="380" y="372" text-anchor="middle">drought</text>
+    <text class="cap" x="470" y="372" text-anchor="middle">after rain</text>
+  </g>
+  <g class="leads">
+    <path d="M168 86 L298 64" />
+    <path d="M172 230 L298 120" />
+    <path d="M172 268 L298 178" />
+  </g>
+  <g class="lab">
+    <text x="302" y="50"><tspan class="b">Spines</tspan> are leaves reduced to</text>
+    <text x="302" y="67">almost no surface area; they shade</text>
+    <text x="302" y="84">the stem and deter herbivores</text>
+    <text x="302" y="106"><tspan class="b">Pleated stem</tspan> stores water: it</text>
+    <text x="302" y="123">swells after rain, shrinks in drought</text>
+    <text x="302" y="145"><tspan class="b">Green stem</tspan> photosynthesizes</text>
+    <text x="302" y="164"><tspan class="b">Thick waxy cuticle</tspan>; <tspan class="b">CAM</tspan>:</text>
+    <text x="302" y="181">stomata open at night, when it is</text>
+    <text x="302" y="198">cooler, and close by day</text>
+    <text x="302" y="222"><tspan class="b">Upright column</tspan>: the midday sun</text>
+    <text x="302" y="239">strikes mainly the top of the stem</text>
+    <text x="10" y="340"><tspan class="b">Shallow roots</tspan></text>
+    <text x="10" y="356">spread widely to</text>
+    <text x="10" y="372">absorb rain fast</text>
+    <text x="158" y="358"><tspan class="b">Taproot</tspan></text>
+    <text x="158" y="374">anchors</text>
+  </g>
+
+  <line class="div" x1="0" x2="540" y1="392" y2="392" />
+  <text class="ph" x="10" y="420">B  Fennec fox, <tspan font-style="italic">Vulpes zerda</tspan> (Sahara)</text>
+  <rect class="soil" x="0" y="620" width="540" height="140" />
+  <line class="ground" x1="0" x2="540" y1="620" y2="620" />
+  <path class="burrow" d="M300 620 C320 650 360 676 420 686 C460 692 500 690 530 684" />
+  <ellipse class="den" cx="460" cy="694" rx="44" ry="20" />
+  <g class="fox">
+    <path class="ear" d="M150 520 L128 448 L172 506 Z" />
+    <path class="ear" d="M178 512 L196 440 L204 512 Z" />
+    <path class="ear-in" d="M152 512 L136 466 L166 504 Z" />
+    <path class="ear-in" d="M182 506 L194 460 L198 506 Z" />
+    <ellipse class="fur" cx="170" cy="534" rx="30" ry="24" />
+    <path class="fur" d="M146 540 L120 548 L148 552 Z" />
+    <circle class="eye" cx="164" cy="530" r="3" /><circle class="eye" cx="138" cy="547" r="2.6" />
+    <ellipse class="fur" cx="240" cy="570" rx="64" ry="30" />
+    <path class="fur" d="M300 564 C340 552 372 566 384 590 C362 590 330 586 300 580 Z" />
+    <path class="leg" d="M200 590 L196 616 M222 594 L222 616 M262 594 L264 616 M284 588 L290 616" />
+    <g class="pads"><ellipse cx="196" cy="617" rx="7" ry="3" /><ellipse cx="222" cy="617" rx="7" ry="3" /><ellipse cx="264" cy="617" rx="7" ry="3" /><ellipse cx="290" cy="617" rx="7" ry="3" /></g>
+  </g>
+  <g class="leads">
+    <path d="M190 470 L300 448" />
+    <path d="M300 556 L330 524" />
+    <path d="M222 618 L170 652" />
+  </g>
+  <g class="lab">
+    <text x="304" y="440"><tspan class="b">Very large ears</tspan> with many blood</text>
+    <text x="304" y="457">vessels radiate heat; also used to</text>
+    <text x="304" y="474">hear prey moving underground</text>
+    <text x="334" y="496"><tspan class="b">Pale, sandy fur</tspan> reflects</text>
+    <text x="334" y="513">sunlight; thick fur</text>
+    <text x="334" y="530">insulates against cold</text>
+    <text x="334" y="547">nights and hot days</text>
+    <text x="10" y="666"><tspan class="b">Furry soles</tspan> insulate</text>
+    <text x="10" y="683">the feet from hot sand</text>
+    <text x="10" y="700">and grip loose sand</text>
+    <text x="300" y="726"><tspan class="b">Nocturnal</tspan>: spends the hot day</text>
+    <text x="300" y="743">in a cool burrow dug in the sand</text>
+  </g>
+  <text class="note" x="10" y="726">Gets most of its water from</text>
+  <text class="note" x="10" y="743">food; concentrated urine.</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .ph { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .sun { fill: var(--bio-glucose); }
+  .sun-ray { stroke: var(--bio-glucose); stroke-width: 2.5; stroke-linecap: round; }
+  .ground { stroke: var(--border-strong); stroke-width: 2; }
+  .soil { fill: color-mix(in srgb, var(--bio-tail) 40%, var(--surface)); }
+  .stem { fill: color-mix(in srgb, var(--bio-carb) 55%, var(--surface)); stroke: color-mix(in srgb, var(--bio-carb) 70%, var(--text)); stroke-width: 2; stroke-linejoin: round; }
+  .stem.full { fill: color-mix(in srgb, var(--bio-carb) 65%, var(--surface)); }
+  .rib { stroke: color-mix(in srgb, var(--bio-carb) 70%, var(--text)); stroke-width: 1.2; }
+  .sp line { stroke: var(--text); stroke-width: 1.3; stroke-linecap: round; }
+  .rootl { fill: none; stroke: color-mix(in srgb, var(--bio-head) 60%, var(--text)); stroke-width: 2; }
+  .cap { font-size: 13px; fill: var(--text); font-weight: 650; }
+  .leads path { fill: none; stroke: var(--text); stroke-width: 1.2; }
+  .lab text { font-size: 14px; fill: var(--text); }
+  .lab .b { font-weight: 750; }
+  .div { stroke: var(--border-strong); stroke-width: 1; }
+  .burrow { fill: none; stroke: color-mix(in srgb, var(--bio-head) 50%, var(--text)); stroke-width: 14; stroke-linecap: round; opacity: 0.55; }
+  .den { fill: color-mix(in srgb, var(--bio-head) 50%, var(--text)); opacity: 0.55; }
+  .fur, .ear { fill: color-mix(in srgb, var(--bio-tail) 70%, var(--surface)); stroke: color-mix(in srgb, var(--bio-head) 70%, var(--text)); stroke-width: 1.8; stroke-linejoin: round; }
+  .ear-in { fill: color-mix(in srgb, var(--bio-k) 35%, var(--surface)); }
+  .eye { fill: var(--text); }
+  .leg { stroke: color-mix(in srgb, var(--bio-head) 70%, var(--text)); stroke-width: 6; stroke-linecap: round; }
+  .pads ellipse { fill: var(--surface); stroke: var(--text); stroke-width: 1.2; }
+  .note { font-size: 14px; fill: var(--text); font-style: italic; }
+</style>

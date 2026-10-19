@@ -1,0 +1,127 @@
+---
+/** Two mangrove trees and their adaptations to anoxic, saline, tidal mud (B4.1.2). */
+const props = [
+  { x0: 165, y0: 170, x1: 92, y1: 292 }, { x0: 167, y0: 186, x1: 118, y1: 293 }, { x0: 170, y0: 200, x1: 140, y1: 294 },
+  { x0: 176, y0: 172, x1: 250, y1: 296 }, { x0: 175, y0: 190, x1: 226, y1: 295 }, { x0: 173, y0: 204, x1: 200, y1: 295 },
+];
+const arch = (p: (typeof props)[number]) => {
+  const mx = (p.x0 + p.x1) / 2 + (p.x1 < p.x0 ? -18 : 18);
+  return `M${p.x0} ${p.y0} Q${mx} ${p.y0 - 18} ${p.x1} ${p.y1}`;
+};
+// Avicennia: pneumatophores rising from cable roots (panel B, mud surface ≈ 640)
+const pneus = [70, 92, 112, 136, 158, 222, 246, 268, 290, 312, 334];
+---
+<svg viewBox="0 0 540 752" role="img" aria-labelledby="man-t man-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="man-t">Adaptations of two mangrove trees</title>
+  <desc id="man-d">Top: a red mangrove, Rhizophora mangle, standing in tidal mud with high and low tide levels marked. Arching prop roots grow out from the trunk and down into the mud, and more roots hang down from the branches. Long, pointed seedlings hang from the branches: they germinate while still attached and later drop, float and root in the mud. Labels explain that lenticels on the roots above the mud let air in, that roots exclude most salt from the seawater, and that the mud is waterlogged, anaerobic and salty. Bottom: a grey mangrove, Avicennia marina, with cable roots running just below the mud surface and many pencil-like pneumatophores growing vertically up out of the mud. An enlarged leaf shows salt crystals secreted by salt glands. A note says both trees accumulate solutes so that their water potential is lower than that of seawater.</desc>
+  <defs>
+    <marker id="man-ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker>
+  </defs>
+
+  <text class="ph" x="10" y="22">A  Red mangrove, <tspan font-style="italic">Rhizophora mangle</tspan></text>
+  <rect class="sea" x="0" y="186" width="320" height="108" />
+  <path class="mud" d="M0 294 C80 291 200 296 320 297 L320 340 L0 340 Z" />
+  <line class="tide" x1="0" x2="320" y1="186" y2="186" />
+  <line class="tide low" x1="0" x2="320" y1="270" y2="270" />
+  <text class="tl" x="6" y="181">high tide</text>
+  <text class="tl" x="6" y="265">low tide</text>
+  <path class="trunk" d="M164 210 L166 110 L178 110 L180 210 Z" />
+  {props.map((p) => <path class="root" d={arch(p)} />)}
+  <path class="root thin" d="M120 96 C116 150 112 220 108 293 M224 98 C228 160 232 230 236 296" />
+  <g class="crown">
+    <ellipse cx="120" cy="88" rx="62" ry="36" /><ellipse cx="180" cy="74" rx="66" ry="40" /><ellipse cx="236" cy="92" rx="56" ry="32" />
+  </g>
+  <g class="prop-seed">
+    <path d="M254 104 L258 170 L262 104 Z" /><path d="M272 100 L275 152 L279 100 Z" />
+    <path d="M282 255 L304 262 L282 266 Z" class="float" />
+  </g>
+  <g class="lenticel">{([[106, 236], [132, 248], [226, 240], [242, 262]] as const).map(([x, y]) => <circle cx={x} cy={y} r="2.4" />)}</g>
+  <text class="mudt" x="12" y="322">waterlogged, anaerobic, salty mud</text>
+  <g class="leads">
+    <path d="M214 212 L334 196" />
+    <path d="M243 261 L334 252" />
+    <path d="M150 292 L334 306" />
+    <path d="M262 150 L334 116" />
+  </g>
+  <g class="lab">
+    <text x="338" y="180"><tspan class="b">Prop (stilt) roots</tspan> arch</text>
+    <text x="338" y="197">from the trunk and anchor</text>
+    <text x="338" y="214">the tree in soft mud</text>
+    <text x="338" y="240"><tspan class="b">Lenticels</tspan> on roots above</text>
+    <text x="338" y="257">the mud let air in; air spaces</text>
+    <text x="338" y="274">carry O₂ to submerged roots</text>
+    <text x="338" y="300"><tspan class="b">Roots exclude most salt</tspan></text>
+    <text x="338" y="317">as they take up water</text>
+    <text x="338" y="60"><tspan class="b">Viviparous seedlings</tspan></text>
+    <text x="338" y="77">germinate on the tree, then</text>
+    <text x="338" y="94">drop, float on the tide and</text>
+    <text x="338" y="111">take root in the mud</text>
+  </g>
+
+  <line class="div" x1="0" x2="540" y1="352" y2="352" />
+  <text class="ph" x="10" y="382">B  Grey mangrove, <tspan font-style="italic">Avicennia marina</tspan></text>
+  <rect class="sea" x="0" y="560" width="380" height="82" />
+  <path class="mud" d="M0 642 L380 642 L380 700 L0 700 Z" />
+  <line class="tide" x1="0" x2="380" y1="560" y2="560" />
+  <text class="tl" x="6" y="555">high tide</text>
+  <path class="trunk" d="M190 642 L192 470 L206 470 L208 642 Z" />
+  <g class="crown">
+    <ellipse cx="150" cy="450" rx="64" ry="40" /><ellipse cx="208" cy="432" rx="70" ry="44" /><ellipse cx="262" cy="456" rx="58" ry="36" />
+  </g>
+  <path class="cable" d="M192 650 C150 656 90 656 50 654 M206 650 C250 656 310 656 350 654" />
+  {pneus.map((x) => <line class="pneu" x1={x} x2={x} y1={655} y2={612 - (x % 3) * 4} />)}
+  <text class="mudt" x="12" y="690">anaerobic mud</text>
+  <g class="leaf-inset">
+    <ellipse cx="460" cy="440" rx="54" ry="22" class="leafe" />
+    <line x1="406" y1="440" x2="514" y2="440" class="mid" />
+    {([[436, 432], [452, 449], [470, 430], [486, 446], [500, 436], [444, 444], [478, 440]] as const).map(([x, y]) => <rect class="salt" x={x - 3} y={y - 3} width="6" height="6" />)}
+  </g>
+  <path class="leads-a" d="M300 448 L404 442" marker-end="url(#man-ar)" />
+  <g class="leads">
+    <path d="M312 620 L392 596" />
+    <path d="M300 654 L392 672" />
+  </g>
+  <g class="lab">
+    <text x="404" y="482"><tspan class="b">Salt glands</tspan> in</text>
+    <text x="404" y="499">the leaves secrete</text>
+    <text x="404" y="516">excess salt, which</text>
+    <text x="404" y="533">forms crystals</text>
+    <text x="396" y="572"><tspan class="b">Pneumatophores</tspan>:</text>
+    <text x="396" y="589">vertical roots that</text>
+    <text x="396" y="606">grow up out of the</text>
+    <text x="396" y="623">mud take in air at</text>
+    <text x="396" y="640">low tide</text>
+    <text x="396" y="668"><tspan class="b">Cable roots</tspan> just</text>
+    <text x="396" y="685">below the surface</text>
+  </g>
+  <text class="note" x="10" y="724">Both trees: root and leaf cells hold high concentrations of solutes, so their water</text>
+  <text class="note" x="10" y="740">potential is lower than that of seawater and water still enters the roots by osmosis.</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .ph { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .sea { fill: color-mix(in srgb, var(--bio-water) 20%, var(--surface)); }
+  .mud { fill: color-mix(in srgb, var(--bio-head) 32%, var(--text-muted)); }
+  .tide { stroke: var(--bio-water); stroke-width: 2; stroke-dasharray: 7 5; }
+  .tide.low { stroke-dasharray: 3 4; }
+  .tl { font-size: 13px; fill: var(--text); font-weight: 650; }
+  .trunk { fill: color-mix(in srgb, var(--bio-head) 55%, var(--text)); }
+  .root { fill: none; stroke: color-mix(in srgb, var(--bio-head) 55%, var(--text)); stroke-width: 4.5; stroke-linecap: round; }
+  .root.thin { stroke-width: 2.5; }
+  .crown ellipse { fill: color-mix(in srgb, var(--bio-carb) 70%, var(--surface)); stroke: var(--bio-carb); stroke-width: 1.5; }
+  .prop-seed path { fill: var(--bio-carb); stroke: color-mix(in srgb, var(--bio-carb) 60%, var(--text)); stroke-width: 1; }
+  .lenticel circle { fill: var(--surface); stroke: var(--text); stroke-width: 1; }
+  .mudt { font-size: 13px; fill: var(--surface); font-weight: 700; }
+  .leads path { fill: none; stroke: var(--text); stroke-width: 1.2; }
+  .leads-a { fill: none; stroke: var(--text); stroke-width: 1.4; }
+  .ah { fill: var(--text); }
+  .lab text { font-size: 14px; fill: var(--text); }
+  .lab .b { font-weight: 750; }
+  .div { stroke: var(--border-strong); stroke-width: 1; }
+  .cable { fill: none; stroke: color-mix(in srgb, var(--bio-head) 55%, var(--text)); stroke-width: 3.5; }
+  .pneu { stroke: color-mix(in srgb, var(--bio-head) 55%, var(--text)); stroke-width: 4; stroke-linecap: round; }
+  .leafe { fill: color-mix(in srgb, var(--bio-carb) 55%, var(--surface)); stroke: var(--bio-carb); stroke-width: 1.5; }
+  .mid { stroke: var(--bio-carb); stroke-width: 1.5; }
+  .salt { fill: var(--surface); stroke: var(--text); stroke-width: 1; }
+  .note { font-size: 13.5px; fill: var(--text); font-style: italic; }
+</style>

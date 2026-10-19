@@ -1,0 +1,137 @@
+---
+/** Marram grass (Ammophila arenaria): rolled leaf in transverse section, and the plant in a dune (B4.1.2). */
+const C = { x: 160, y: 185 };
+const R_OUT = 132, R_SCL = 118, R_GROOVE = 102, R_TIP = 54;
+const GAP = 9; // half-width of the slit between the leaf margins, degrees
+const a0 = -90 + GAP, a1 = 270 - GAP;
+const N = 7; // ridges
+const rad = (d: number) => (d * Math.PI) / 180;
+const P = (r: number, d: number) => [C.x + r * Math.cos(rad(d)), C.y + r * Math.sin(rad(d))] as const;
+const f = (n: number) => n.toFixed(1);
+const ridgeR = (d: number) => {
+  const u = ((d - a0) / (a1 - a0)) * N;
+  const fr = u - Math.floor(u);
+  return R_GROOVE - (R_GROOVE - R_TIP) * Math.pow(Math.sin(Math.PI * fr), 1.4);
+};
+// Outline: outer arc clockwise, then the ridged inner surface back.
+let d = `M${f(P(R_OUT, a0)[0])} ${f(P(R_OUT, a0)[1])} A${R_OUT} ${R_OUT} 0 1 1 ${f(P(R_OUT, a1)[0])} ${f(P(R_OUT, a1)[1])}`;
+for (let k = 0; k <= 240; k++) {
+  const ang = a1 - ((a1 - a0) * k) / 240;
+  const [x, y] = P(ridgeR(ang), ang);
+  d += `L${f(x)} ${f(y)}`;
+}
+d += 'Z';
+const scl = `M${f(P(R_OUT - 4, a0 + 1)[0])} ${f(P(R_OUT - 4, a0 + 1)[1])} A${R_OUT - 4} ${R_OUT - 4} 0 1 1 ${f(P(R_OUT - 4, a1 - 1)[0])} ${f(P(R_OUT - 4, a1 - 1)[1])} L${f(P(R_SCL, a1 - 1)[0])} ${f(P(R_SCL, a1 - 1)[1])} A${R_SCL} ${R_SCL} 0 1 0 ${f(P(R_SCL, a0 + 1)[0])} ${f(P(R_SCL, a0 + 1)[1])} Z`;
+const step = (a1 - a0) / N;
+const ridges = Array.from({ length: N }, (_, i) => a0 + step * (i + 0.5));
+const grooves = Array.from({ length: N - 1 }, (_, i) => a0 + step * (i + 1));
+const hairs = ridges.flatMap((m) => [-0.3, -0.18, 0.18, 0.3].map((o) => {
+  const ang = m + o * step;
+  const r = ridgeR(ang);
+  const [x1, y1] = P(r, ang);
+  const side = o < 0 ? -1 : 1;
+  const [x2, y2] = P(r - 3, ang + side * 7);
+  return { x1, y1, x2, y2 };
+}));
+const stomata = grooves.flatMap((g) => [-0.12, 0.12].map((o) => P(ridgeR(g + o * step) - 1, g + o * step)));
+const hinge = grooves.map((g) => P(R_GROOVE + 6, g));
+const vb = ridges.map((m) => P(84, m));
+// Leaders: label anchor points on the structure
+const lead = {
+  cuticle: P(R_OUT + 1, -45),
+  hair: (() => { const h = hairs[2]!; return [h.x2, h.y2] as const; })(),
+  stoma: stomata[1]!,
+  hinge: hinge[1]!,
+  scl: P(R_SCL + 6, 40),
+};
+---
+<svg viewBox="0 0 540 680" role="img" aria-labelledby="mar-t mar-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="mar-t">Adaptations of marram grass to sand dunes</title>
+  <desc id="mar-d">Top: a transverse section of a marram grass leaf rolled into a tube with a narrow slit between its edges. The outer surface has a thick waxy cuticle and no stomata, with a layer of sclerenchyma fibres beneath it. The inner surface has tall ridges, each containing a vascular bundle and covered in hairs. Stomata lie sunken in the grooves between the ridges, and hinge cells sit at the bottom of the grooves. Humid air is trapped inside the roll. Bottom: a marram plant on a sand dune. Leaf tufts stand above the sand. Below, rhizomes run sideways and upwards through layers of sand that have buried the plant, with new shoots growing up to the surface, and long roots reach damp sand deep in the dune.</desc>
+  <text class="ph" x="12" y="24">A  Leaf in transverse section (rolled in dry conditions)</text>
+  <path class="leaf" d={d} />
+  <path class="scl" d={scl} />
+  <path class="cut" d={`M${f(P(R_OUT, a0)[0])} ${f(P(R_OUT, a0)[1])} A${R_OUT} ${R_OUT} 0 1 1 ${f(P(R_OUT, a1)[0])} ${f(P(R_OUT, a1)[1])}`} />
+  {vb.map(([x, y]) => <circle class="vb" cx={f(x)} cy={f(y)} r="7" />)}
+  {hinge.map(([x, y]) => <g><circle class="hc" cx={f(x - 4)} cy={f(y)} r="4.5" /><circle class="hc" cx={f(x + 4)} cy={f(y)} r="4.5" /></g>)}
+  {hairs.map((h) => <line class="hair" x1={f(h.x1)} y1={f(h.y1)} x2={f(h.x2)} y2={f(h.y2)} />)}
+  {stomata.map(([x, y]) => <circle class="st" cx={f(x)} cy={f(y)} r="3.2" />)}
+  <text class="air" x={C.x} y={C.y - 4} text-anchor="middle">humid</text>
+  <text class="air" x={C.x} y={C.y + 12} text-anchor="middle">air</text>
+
+  <g class="leads">
+    <path d={`M${f(lead.cuticle[0])} ${f(lead.cuticle[1])} L330 60`} />
+    <path d={`M${f(lead.hair[0])} ${f(lead.hair[1])} L330 128`} />
+    <path d={`M${f(lead.stoma[0])} ${f(lead.stoma[1])} L330 196`} />
+    <path d={`M${f(lead.hinge[0])} ${f(lead.hinge[1])} L330 262`} />
+    <path d={`M${f(lead.scl[0])} ${f(lead.scl[1])} L330 316`} />
+  </g>
+  <g class="lab">
+    <text x="334" y="56"><tspan class="b">Thick waxy cuticle</tspan><tspan x="334" dy="17">on the outer surface, which</tspan><tspan x="334" dy="17">has no stomata</tspan></text>
+    <text x="334" y="124"><tspan class="b">Hairs</tspan> trap moist air<tspan x="334" dy="17">and slow air movement</tspan></text>
+    <text x="334" y="192"><tspan class="b">Stomata sunken in grooves</tspan><tspan x="334" dy="17">on the inner surface, where</tspan><tspan x="334" dy="17">the air stays humid</tspan></text>
+    <text x="334" y="258"><tspan class="b">Hinge cells</tspan> lose turgor in<tspan x="334" dy="17">drought, so the leaf rolls up</tspan></text>
+    <text x="334" y="312"><tspan class="b">Sclerenchyma</tspan> fibres keep<tspan x="334" dy="17">the leaf stiff when it is dry</tspan></text>
+  </g>
+  <text class="note" x="12" y="346">Rolling encloses the stomata, reducing transpiration in dry, windy conditions.</text>
+
+  <text class="ph" x="12" y="388">B  The plant in a mobile dune</text>
+  <rect class="air-bg" x="0" y="400" width="540" height="70" />
+  <path class="sand1" d="M0 470 C90 455 170 445 260 448 C350 451 450 462 540 470 L540 680 L0 680 Z" />
+  <path class="layer" d="M0 520 C120 510 260 506 540 516" />
+  <path class="layer" d="M0 570 C140 562 300 560 540 566" />
+  <rect class="damp" x="0" y="630" width="540" height="50" />
+  <text class="dl" x="530" y="668" text-anchor="end">damp sand</text>
+  {[140, 220, 300].map((x) => (
+    <g class="tuft">
+      <path d={`M${x} 448 C${x - 4} 425 ${x - 18} 410 ${x - 30} 398`} />
+      <path d={`M${x} 448 C${x - 2} 420 ${x - 6} 402 ${x - 10} 386`} />
+      <path d={`M${x} 448 C${x + 2} 420 ${x + 8} 404 ${x + 14} 390`} />
+      <path d={`M${x} 448 C${x + 6} 428 ${x + 20} 414 ${x + 32} 404`} />
+    </g>
+  ))}
+  <path class="rhiz" d="M140 448 L140 520 L220 520 L220 448 M220 520 L300 520 L300 448 M140 520 L140 570 L260 570 L260 520" />
+  <path class="root" d="M140 570 C136 600 130 620 124 664 M180 570 C184 600 192 630 196 668 M260 570 C262 600 270 630 276 666 M140 520 C120 540 110 556 100 568 M300 520 C318 534 330 546 340 560" />
+  <g class="leads">
+    <path d="M138 522 L118 512" />
+    <path d="M224 452 L380 432" />
+    <path d="M196 640 L380 612" />
+    <path d="M262 570 L380 546" />
+  </g>
+  <g class="lab">
+    <text x="8" y="496"><tspan class="b">Buried</tspan> by</text>
+    <text x="8" y="513">blowing sand</text>
+    <text x="384" y="420"><tspan class="b">New shoots</tspan> grow up</text>
+    <text x="384" y="437">through the sand;</text>
+    <text x="384" y="454">burial stimulates growth</text>
+    <text x="384" y="534"><tspan class="b">Rhizomes</tspan> spread</text>
+    <text x="384" y="551">sideways and upwards,</text>
+    <text x="384" y="568">binding the sand</text>
+    <text x="384" y="604"><tspan class="b">Long roots</tspan> reach</text>
+    <text x="384" y="621">water deep in the dune</text>
+  </g>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .ph { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .leaf { fill: color-mix(in srgb, var(--bio-carb) 35%, var(--surface)); stroke: var(--bio-carb); stroke-width: 2; }
+  .scl { fill: color-mix(in srgb, var(--bio-tail) 60%, var(--surface)); stroke: none; }
+  .cut { fill: none; stroke: var(--bio-glucose); stroke-width: 6; stroke-linecap: round; }
+  .vb { fill: color-mix(in srgb, var(--bio-protein) 45%, var(--surface)); stroke: var(--bio-protein); stroke-width: 1.5; }
+  .hc { fill: color-mix(in srgb, var(--bio-water) 30%, var(--surface)); stroke: var(--bio-water); stroke-width: 1.2; }
+  .hair { stroke: var(--text); stroke-width: 1.5; stroke-linecap: round; }
+  .st { fill: var(--surface); stroke: var(--text); stroke-width: 2; }
+  .air { font-size: 14px; font-style: italic; fill: var(--text-muted); }
+  .leads path { fill: none; stroke: var(--text); stroke-width: 1.2; }
+  .lab text { font-size: 14px; fill: var(--text); }
+  .lab .b { font-weight: 750; }
+  .note { font-size: 14px; fill: var(--text); font-style: italic; }
+  .air-bg { fill: var(--surface); }
+  .sand1 { fill: color-mix(in srgb, var(--bio-tail) 45%, var(--surface)); }
+  .layer { fill: none; stroke: color-mix(in srgb, var(--bio-head) 55%, var(--surface)); stroke-width: 1.5; stroke-dasharray: 6 5; }
+  .damp { fill: color-mix(in srgb, var(--bio-water) 25%, var(--surface)); opacity: 0.8; }
+  .dl { font-size: 13px; fill: var(--text); font-weight: 650; }
+  .tuft path { fill: none; stroke: var(--bio-carb); stroke-width: 3.5; stroke-linecap: round; }
+  .rhiz { fill: none; stroke: color-mix(in srgb, var(--bio-head) 75%, var(--text)); stroke-width: 4; stroke-linejoin: round; }
+  .root { fill: none; stroke: var(--text-muted); stroke-width: 1.6; }
+</style>

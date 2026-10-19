@@ -1,0 +1,207 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: B4.1.1
+    stem: >-
+      Which of the following is the most complete description of the habitat of the red mangrove (Rhizophora mangle)?
+    options:
+      - id: a
+        text: A tree that excludes salt from its roots and produces seedlings that germinate on the parent.
+        why: These are adaptations of the tree, not a description of where it lives.
+      - id: b
+        text: A producer at the base of food chains that shelters young fish among its roots.
+        why: This describes part of its role in the ecosystem (its niche), not its habitat.
+      - id: c
+        text: The intertidal zone of sheltered tropical and subtropical coasts of the Americas and West Africa, in mangrove swamps.
+        why: Correct. It gives the geographical location, the physical location (intertidal zone of sheltered shores) and the type of ecosystem.
+      - id: d
+        text: Any coast where the water is salty.
+        why: Too vague. It gives no geographical location, and mangroves do not grow on exposed or cold coasts.
+    answer: c
+
+  - id: q2
+    level: SL
+    understanding: B4.1.2
+    stem: >-
+      In dry weather the leaves of marram grass roll up with the stomata on the inside. How does this reduce water loss?
+    options:
+      - id: a
+        text: Humid air is trapped around the stomata, so the concentration gradient for water vapour diffusing out is reduced.
+        why: Correct. Rolling, hairs and sunken stomata keep the air next to the stomata humid and still, so less water vapour diffuses out.
+      - id: b
+        text: Rolling closes the stomata, so no gas exchange can take place.
+        why: Rolling encloses the stomata but does not close them; some gas exchange continues. Stomata are closed by their guard cells.
+      - id: c
+        text: The rolled leaf has a larger surface area exposed to the wind.
+        why: Rolling reduces the area exposed to the wind; a larger exposed area would increase transpiration.
+      - id: d
+        text: Water is absorbed from the air through the hairs on the inner surface.
+        why: The hairs trap moist air and slow air movement; they do not absorb water for the plant.
+    answer: a
+
+  - id: q3
+    level: SL
+    understanding: B4.1.2
+    stem: >-
+      What is the main function of the pneumatophores of a grey mangrove (Avicennia marina)?
+    options:
+      - id: a
+        text: To absorb water from the air at high tide.
+        why: Pneumatophores are covered by seawater at high tide; they are not for absorbing water from the air.
+      - id: b
+        text: To secrete excess salt taken up from the mud.
+        why: Avicennia secretes salt through glands in its leaves, not through pneumatophores.
+      - id: c
+        text: To prop the tree up in soft mud.
+        why: Support in soft mud is the role of the arching prop (stilt) roots of the red mangrove, a different species.
+      - id: d
+        text: To take in oxygen from the air when exposed at low tide, for roots growing in anaerobic mud.
+        why: Correct. The waterlogged mud has almost no oxygen. Pneumatophores grow up into the air and take in oxygen through lenticels.
+    answer: d
+
+  - id: q4
+    level: SL
+    understanding: B4.1.3
+    stem: >-
+      A species of fish lives in rivers where the water is between 5 °C and 22 °C and grows fastest between 10 °C and
+      15 °C. Which statement is correct?
+    options:
+      - id: a
+        text: 10–15 °C is the species' range of tolerance.
+        why: That is the optimum range. The range of tolerance is the whole range in which it can survive, about 5–22 °C.
+      - id: b
+        text: At 20 °C the fish is in a zone of physiological stress, and in a river at 25 °C temperature is a limiting factor.
+        why: Correct. 20 °C is within the range of tolerance but outside the optimum, so the fish survive but grow less; 25 °C is beyond the upper limit.
+      - id: c
+        text: At 20 °C the fish cannot survive.
+        why: 20 °C is inside the range of tolerance (5–22 °C), so the fish can survive, although under stress.
+      - id: d
+        text: The fish will be found in every river with water between 5 °C and 22 °C.
+        why: Tolerance only shows where it could live. Other abiotic factors, competition, predators and dispersal also affect where it is found.
+    answer: b
+
+  - id: q5
+    level: SL
+    understanding: B4.1.4
+    stem: >-
+      Along a transect from a meadow into a wood, light fell from 100% to 5% of open-meadow light. A woodland herb had
+      0% cover in full light, a peak of 47% cover at about 20% light, and 9% cover at 5% light. Pearson's correlation
+      coefficient between light and herb cover was r = −0.69. Which conclusion is best supported?
+    options:
+      - id: a
+        text: The herb grows best in the deepest shade.
+        why: Cover in the deepest shade (9%) was much lower than at about 20% light (47%), so the deepest shade is not its optimum.
+      - id: b
+        text: There is no relationship between light and the herb's cover, because r is not close to 1.
+        why: There is a clear pattern; it is hump-shaped, which a single linear r value describes poorly.
+      - id: c
+        text: The herb has an optimum at intermediate light, and the negative r value hides this hump-shaped pattern.
+        why: Correct. Cover rises from deep shade to about 20% light and then falls to zero in full light, as expected for a tolerance curve.
+      - id: d
+        text: Low light causes the herb to grow, because the correlation is negative.
+        why: Correlation does not show cause, and a negative r would mean less cover with more light overall, not that shade causes growth.
+    answer: c
+
+  - id: q6
+    level: SL
+    understanding: B4.1.4
+    stem: >-
+      A student wants to find out whether the distribution of a moss on a hillside is correlated with soil moisture.
+      Which method is most appropriate?
+    options:
+      - id: a
+        text: Place quadrats at regular intervals along a transect from wet to dry ground, and in each record moss cover and measure soil moisture with a sensor.
+        why: Correct. The transect crosses the gradient, and both the species' abundance and the abiotic variable are measured at the same points.
+      - id: b
+        text: Place one quadrat where the moss is most common and record its cover.
+        why: One sample cannot show how cover changes with soil moisture, and no abiotic data are collected.
+      - id: c
+        text: Measure soil moisture at random points over the whole hillside.
+        why: This gives no data on the moss, so no correlation can be calculated.
+      - id: d
+        text: Grow the moss in a laboratory at one soil moisture level.
+        why: One level gives no comparison; and the guide's skill requires field data from a natural or semi-natural habitat.
+    answer: a
+
+  - id: q7
+    level: SL
+    understanding: B4.1.5
+    stem: >-
+      Why are reef-building corals rarely found deeper than about 50 m, even in clear tropical water?
+    options:
+      - id: a
+        text: The water is too cold for calcium carbonate to be deposited.
+        why: Temperature does fall with depth in some places, but the main reason is lack of light for the zooxanthellae.
+      - id: b
+        text: Too little light reaches that depth for the zooxanthellae in the corals' cells to photosynthesize enough.
+        why: Correct. Light decreases rapidly with depth, and the corals depend on sugars made by their photosynthetic zooxanthellae.
+      - id: c
+        text: The salinity of seawater increases with depth beyond what corals can tolerate.
+        why: Salinity changes very little with depth in the open ocean, and stays within the range corals tolerate.
+      - id: d
+        text: Corals need to be exposed to air at low tide to obtain oxygen.
+        why: Corals take oxygen from the water; exposure to air at low tide would dry them out and kill them.
+    answer: b
+
+  - id: q8
+    level: SL
+    understanding: B4.1.6
+    stem: >-
+      On a biome graph of annual precipitation against mean annual temperature, three sites are plotted —
+      site P (−10 °C, 15 cm), site Q (25 °C, 15 cm) and site R (27 °C, 250 cm). Which biomes are most likely at P, Q
+      and R?
+    options:
+      - id: a
+        text: "P: hot desert; Q: tundra; R: taiga"
+        why: P is far too cold for hot desert, and R is far too warm for taiga.
+      - id: b
+        text: "P: taiga; Q: savanna; R: temperate forest"
+        why: −10 °C is colder than the taiga, 15 cm is too little rain for savanna, and 27 °C is a tropical temperature.
+      - id: c
+        text: "P: tundra; Q: savanna; R: tropical forest"
+        why: P and R are right, but at 25 °C only 15 cm of rain a year gives desert, not savanna, because of high evaporation.
+      - id: d
+        text: "P: tundra; Q: hot desert; R: tropical forest"
+        why: Correct. P is very cold and dry (tundra), Q is hot with very little rain (hot desert), and R is hot and very wet (tropical forest).
+    answer: d
+
+  - id: q9
+    level: SL
+    understanding: B4.1.7
+    stem: >-
+      American cacti and African euphorbias belong to unrelated plant families, yet both have swollen green stems,
+      spines and CAM photosynthesis. What best explains this?
+    options:
+      - id: a
+        text: They share a recent common ancestor that already had these features.
+        why: Unrelated families do not share a recent ancestor with these traits; similarity inherited from a common ancestor would make the structures homologous.
+      - id: b
+        text: Plants in deserts change their structure during their lifetime to survive the drought.
+        why: These features are inherited adaptations that evolved over many generations, not changes made by individual plants.
+      - id: c
+        text: Similar desert conditions exerted similar selection pressures, causing convergent evolution of analogous structures.
+        why: Correct. Similar climates in different places selected for similar adaptations in unrelated groups.
+      - id: d
+        text: Seeds were carried between the continents, so they are the same species.
+        why: They are unrelated families, not one species, so dispersal cannot explain their similarity.
+    answer: c
+
+  - id: q10
+    level: SL
+    understanding: B4.1.8
+    stem: >-
+      Which pair correctly matches a named species with an adaptation to its biome?
+    options:
+      - id: a
+        text: Saguaro cactus — stomata open in the heat of the day so that it can photosynthesize when light is brightest.
+        why: The saguaro uses CAM, so its stomata open at night and close by day, reducing water loss.
+      - id: b
+        text: Fennec fox — very large ears with many blood vessels radiate heat, preventing overheating in the hot desert.
+        why: Correct. The large surface area of the ears, supplied with blood, loses heat to the surroundings.
+      - id: c
+        text: Spider monkey — short arms and a short tail reduce heat loss in the cold rainforest canopy.
+        why: Rainforest is hot all year; spider monkeys have long arms and a long prehensile tail for moving through the canopy.
+      - id: d
+        text: Yellow meranti — loses its leaves in a cold winter to save water.
+        why: There is no cold season in tropical rainforest; yellow meranti is evergreen and photosynthesizes all year.
+    answer: b
