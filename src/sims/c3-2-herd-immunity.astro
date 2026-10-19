@@ -1,0 +1,179 @@
+---
+import { N, simulate, stateAt, threshold } from './models/c3-2-herd-immunity';
+
+const d = { r0: 3, coverage: 0.5, seed: 11 };
+const r = simulate(d);
+const COLS = 30;
+const S = 12;
+const cls = ['sus', 'vac', 'inf', 'rec'];
+const people = Array.from({ length: N }, (_, i) => ({ x: 6 + (i % COLS) * S, y: 6 + Math.floor(i / COLS) * S, c: cls[stateAt(r, i, r.generations)]! }));
+const thr = threshold(d.r0);
+const unvac = N - Math.round(d.coverage * N);
+const CW = 300, CH = 120;
+const maxCases = Math.max(10, ...r.newCases);
+const bars = (cases: number[]) => {
+  const n = Math.max(cases.length, 10);
+  const w = (CW - 30) / n;
+  return cases.map((c, g) => ({ x: 26 + g * w, w: Math.max(1, w - 2), h: (c / maxCases) * (CH - 30), g }));
+};
+const pct = (x: number) => `${Math.round(x * 100)}%`;
+---
+<div class="herd" data-herd data-seed={d.seed}>
+  <div class="layout">
+    <div class="out">
+      <svg class="grid" viewBox={`0 0 ${COLS * S} ${COLS * S}`} role="img" aria-labelledby="herd-t" data-grid>
+        <title id="herd-t">A population of 900 people: vaccinated, never infected, infectious now and already infected</title>
+        {people.map((p, i) => (
+          <g data-p={i} class={p.c} transform={`translate(${p.x} ${p.y})`}><circle r="4.4" /><rect x="-4" y="-4" width="8" height="8" rx="1" /></g>
+        ))}
+      </svg>
+      <ul class="key">
+        <li><span class="sw vac"></span> vaccinated (immune)</li>
+        <li><span class="sw sus"></span> not vaccinated, never infected</li>
+        <li><span class="sw inf"></span> infectious in this generation</li>
+        <li><span class="sw rec"></span> infected earlier, now recovered</li>
+      </ul>
+    </div>
+    <div class="controls">
+      <label class="slider"><span>Basic reproduction number, R₀: <output data-out="r0">{d.r0}</output></span>
+        <input type="range" min="1" max="18" step="0.5" value={d.r0} data-param="r0" />
+        <span class="hint">average number of people one case infects when nobody is immune</span>
+      </label>
+      <label class="slider"><span>Percentage vaccinated: <output data-out="cov">{pct(d.coverage)}</output></span>
+        <input type="range" min="0" max="100" step="5" value={d.coverage * 100} data-param="cov" />
+      </label>
+      <div class="bar" aria-hidden="true">
+        <div class="fill" data-fill style={`width:${d.coverage * 100}%`}></div>
+        <div class="thr" data-thr style={`left:${thr * 100}%`}></div>
+      </div>
+      <p class="thr-text" data-thr-text>Herd immunity threshold = 1 − 1/R₀ = 1 − 1/{d.r0} = <strong>{pct(thr)}</strong></p>
+      <label class="slider"><span>Show generation: <output data-out="gen">{r.generations}</output> of <span data-gens>{r.generations}</span></span>
+        <input type="range" min="0" max={r.generations} step="1" value={r.generations} data-param="gen" />
+      </label>
+      <div class="presets">
+        <span>Try:</span>
+        <button class="btn" type="button" data-preset='{"r0":15,"cov":80}'>Measles (R₀ ≈ 15)</button>
+        <button class="btn" type="button" data-preset='{"r0":3,"cov":50}'>Early COVID-19 (R₀ ≈ 3)</button>
+        <button class="btn" type="button" data-preset='{"r0":1.5,"cov":20}'>Seasonal flu (R₀ ≈ 1.5)</button>
+        <button class="btn" type="button" data-reseed>New outbreak (new random seed)</button>
+      </div>
+      <svg class="curve" viewBox={`0 0 ${CW} ${CH}`} role="img" aria-labelledby="herd-c">
+        <title id="herd-c">New infections in each generation of the outbreak</title>
+        <line class="ax" x1="24" y1={CH - 20} x2={CW - 2} y2={CH - 20} />
+        <line class="ax" x1="24" y1="8" x2="24" y2={CH - 20} />
+        <g data-bars>{bars(r.newCases).map((b) => <rect class="b" x={b.x} y={CH - 20 - b.h} width={b.w} height={b.h} />)}</g>
+        <text class="cl" x={(CW + 24) / 2} y={CH - 4} text-anchor="middle">generation →</text>
+        <text class="cl" x="20" y="16" text-anchor="end" data-ymax>{maxCases}</text>
+        <text class="cl" transform={`translate(12 ${(CH - 12) / 2}) rotate(-90)`} text-anchor="middle">new cases</text>
+      </svg>
+    </div>
+  </div>
+  <p class="readout" aria-live="polite" data-readout>
+    With R₀ = {d.r0} and {pct(d.coverage)} vaccinated (threshold {pct(thr)}): {r.totalInfected} of the {unvac} unvaccinated people were infected over {r.generations} generations, and {r.protectedUnvaccinated} were never infected.
+  </p>
+  <p class="model-note">Qualitative model: 900 people, a vaccine that is 100% effective, and random contacts (the grid is only a display). Each infectious person meets R₀ people on average and infects any who are not immune.</p>
+</div>
+
+<script>
+  import { N, simulate, stateAt, threshold } from './models/c3-2-herd-immunity';
+
+  const cls = ['sus', 'vac', 'inf', 'rec'];
+  document.querySelectorAll<HTMLElement>('[data-herd]').forEach((root) => {
+    const input = (k: string) => root.querySelector<HTMLInputElement>(`[data-param="${k}"]`)!;
+    const out = (k: string, v: string) => (root.querySelector(`[data-out="${k}"]`)!.textContent = v);
+    const people = [...root.querySelectorAll<SVGGElement>('[data-p]')];
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    const barsG = root.querySelector<SVGGElement>('[data-bars]')!;
+    let seed = Number(root.dataset.seed);
+    let result = simulate({ r0: 3, coverage: 0.5, seed });
+    let key = '';
+    let raf = 0;
+    let timer = 0;
+    const pct = (x: number) => `${Math.round(x * 100)}%`;
+
+    const run = () => {
+      raf = 0;
+      const r0 = Number(input('r0').value);
+      const coverage = Number(input('cov').value) / 100;
+      const k = `${r0}|${coverage}|${seed}`;
+      const genIn = input('gen');
+      if (k !== key) {
+        key = k;
+        result = simulate({ r0, coverage, seed });
+        genIn.max = String(result.generations);
+        genIn.value = String(result.generations);
+        root.querySelector('[data-gens]')!.textContent = String(result.generations);
+        // epidemic curve
+        const CW = 300, CH = 120;
+        const maxCases = Math.max(10, ...result.newCases);
+        const n = Math.max(result.newCases.length, 10);
+        const w = (CW - 30) / n;
+        barsG.innerHTML = result.newCases.map((c, g) => { const h = (c / maxCases) * (CH - 30); return `<rect class="b" data-g="${g}" x="${26 + g * w}" y="${CH - 20 - h}" width="${Math.max(1, w - 2)}" height="${h}" />`; }).join('');
+        root.querySelector('[data-ymax]')!.textContent = String(maxCases);
+      }
+      const g = Math.min(result.generations, Number(genIn.value));
+      out('r0', String(r0)); out('cov', pct(coverage)); out('gen', String(g));
+      const thr = threshold(r0);
+      (root.querySelector('[data-fill]') as HTMLElement).style.width = `${coverage * 100}%`;
+      (root.querySelector('[data-thr]') as HTMLElement).style.left = `${thr * 100}%`;
+      root.querySelector('[data-thr-text]')!.innerHTML = `Herd immunity threshold = 1 − 1/R₀ = 1 − 1/${r0} = <strong>${pct(thr)}</strong>`;
+      people.forEach((p, i) => p.setAttribute('class', cls[stateAt(result, i, g)]!));
+      barsG.querySelectorAll('rect').forEach((b) => b.classList.toggle('now', Number(b.dataset.g) === g));
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        const unvac = N - Math.round(coverage * N);
+        let infectedSoFar = 0;
+        for (let i = 0; i < N; i++) { const a = result.infectedAt[i]!; if (a >= 0 && a <= g) infectedSoFar++; }
+        const above = coverage >= thr;
+        const verdict = above
+          ? ' Coverage is above the threshold: each case infects fewer than one new person on average, so the outbreak dies out and most unvaccinated people are protected by herd immunity.'
+          : ' Coverage is below the threshold, so each case infects more than one new person on average while many people are still susceptible, and the infection spreads.';
+        readout.textContent = `With R₀ = ${r0} and ${pct(coverage)} vaccinated (threshold ${pct(thr)}): by generation ${g}, ${infectedSoFar} of the ${unvac} unvaccinated people had been infected; at the end ${result.protectedUnvaccinated} had never been infected.` + verdict;
+      }, 350);
+    };
+    const schedule = () => { if (!raf) raf = requestAnimationFrame(run); };
+    root.querySelectorAll('[data-param]').forEach((el) => el.addEventListener('input', schedule));
+    root.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach((b) => b.addEventListener('click', () => {
+      const p = JSON.parse(b.dataset.preset!) as Record<string, number>;
+      for (const [k, v] of Object.entries(p)) input(k).value = String(v);
+      schedule();
+    }));
+    root.querySelector('[data-reseed]')!.addEventListener('click', () => { seed += 1; schedule(); });
+  });
+</script>
+
+<style>
+  .herd { container-type: inline-size; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 44rem) { .layout { grid-template-columns: minmax(0, 1fr) minmax(15rem, 1fr); align-items: start; } }
+  .grid { width: 100%; max-width: 26rem; height: auto; display: block; margin: 0 auto; background: var(--surface-2); border-radius: var(--radius-m); }
+  .grid g circle, .grid g rect { stroke-width: 1.2; }
+  .grid .vac circle, .grid :not(.vac) > rect { display: none; }
+  .grid .vac rect { fill: var(--bio-water); stroke: var(--bio-water); }
+  .grid .sus circle { fill: var(--surface); stroke: var(--text-muted); }
+  .grid .inf circle { fill: var(--bio-k); stroke: var(--text); stroke-width: 1.6; }
+  .grid .rec circle { fill: color-mix(in srgb, var(--bio-k) 45%, var(--surface)); stroke: var(--bio-k); }
+  .key { list-style: none; margin: var(--space-2) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); font-size: var(--step--1); }
+  .key li { display: flex; align-items: center; gap: var(--space-2); margin: 0; }
+  .sw { display: inline-block; width: 0.85rem; height: 0.85rem; border-radius: 50%; border: 1.5px solid var(--text-muted); flex: none; }
+  .sw.vac { background: var(--bio-water); border-color: var(--bio-water); border-radius: 2px; }
+  .sw.sus { background: var(--surface); }
+  .sw.inf { background: var(--bio-k); border-color: var(--text); }
+  .sw.rec { background: color-mix(in srgb, var(--bio-k) 45%, var(--surface)); border-color: var(--bio-k); }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  .hint { font-weight: 400; color: var(--text-muted); font-size: 0.8rem; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .bar { position: relative; height: 1.1rem; background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: 4px; }
+  .fill { position: absolute; inset: 0 auto 0 0; background: var(--bio-water); border-radius: 3px 0 0 3px; }
+  .thr { position: absolute; top: -0.35rem; bottom: -0.35rem; width: 0; border-left: 3px dashed var(--text); }
+  .thr-text { margin: 0; }
+  .presets { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .curve { width: 100%; max-width: 22rem; height: auto; font-family: var(--font-sans); }
+  .curve .ax { stroke: var(--text-muted); stroke-width: 1.2; }
+  .curve :global(.b) { fill: color-mix(in srgb, var(--bio-k) 55%, var(--surface)); }
+  .curve :global(.b.now) { fill: var(--bio-k); }
+  .curve .cl { font-size: 12px; fill: var(--text-muted); }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

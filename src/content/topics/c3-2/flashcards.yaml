@@ -1,0 +1,73 @@
+cards:
+  - id: c1
+    level: SL
+    front: What are the four main groups of human pathogens, and which domain causes no known human disease?
+    back: Viruses, bacteria, fungi and protists. No archaea are known to cause disease in humans.
+  - id: c2
+    level: SL
+    front: How did careful observation help control childbed fever and cholera?
+    back: In Vienna, Semmelweis saw more deaths on the doctors' ward and cut them by making doctors wash their hands in chlorinated lime. In London, John Snow mapped cholera cases round the Broad Street pump, showing spread by contaminated water.
+  - id: c3
+    level: SL
+    front: How does the skin act as a physical and a chemical barrier?
+    back: Physical — a tough outer layer of dead, keratin-filled cells. Chemical — sebum (with fatty acids) and lactic acid in sweat make the surface acidic, inhibiting bacteria and fungi.
+  - id: c4
+    level: SL
+    front: How do mucous membranes defend against pathogens?
+    back: They secrete sticky mucus that traps microorganisms and contains lysozyme, an enzyme that breaks down bacterial cell walls; in the airways cilia sweep the mucus away.
+  - id: c5
+    level: SL
+    front: Outline how a cut is sealed by blood clotting.
+    back: Platelets release clotting factors → cascade of reactions → prothrombin converted to thrombin → thrombin converts soluble fibrinogen to insoluble fibrin → fibrin mesh traps red blood cells, forming a clot.
+  - id: c6
+    level: SL
+    front: Innate vs adaptive immune system
+    back: Innate — responds to broad categories of pathogen in the same way and does not change during life (e.g. phagocytes). Adaptive — specific to each antigen and builds a memory, so responses improve (lymphocytes).
+  - id: c7
+    level: SL
+    front: Outline how phagocytes control infection.
+    back: They squeeze out of capillaries by amoeboid movement, move to the infection, recognize pathogens, engulf them by endocytosis into a vacuole and digest them with enzymes from lysosomes.
+  - id: c8
+    level: SL
+    front: Where are lymphocytes found, and how many antibody types can one B-cell make?
+    back: They circulate in the blood and are contained in large numbers in lymph nodes. Each B-cell makes only one specific type of antibody; there are huge numbers of different B-cells.
+  - id: c9
+    level: SL
+    front: What is an antigen? Give an example on human cells.
+    back: A molecule, usually a protein or glycoprotein on the surface of a pathogen, that triggers production of specific antibodies. The A and B antigens on red blood cells can trigger an immune response after a mismatched transfusion.
+  - id: c10
+    level: SL
+    front: Describe the structure of an antibody.
+    back: Y-shaped protein of two heavy and two light polypeptide chains joined by disulfide bonds. Variable regions at the tips form two identical antigen-binding sites; the constant region is the same in all antibodies of that class.
+  - id: c11
+    level: SL
+    front: What two things are needed to activate a B-cell?
+    back: Its receptors must bind the specific antigen, and it must make contact with a helper T-cell that has been activated by the same antigen.
+  - id: c12
+    level: SL
+    front: Why do activated B-cells divide before making antibodies, and what do they become?
+    back: Few B-cells fit any one antigen, so they divide by mitosis into a large clone. Most become plasma cells (extensive rough ER) that secrete one specific antibody; some become memory cells.
+  - id: c13
+    level: SL
+    front: What is immunity and what causes it?
+    back: The ability to eliminate a particular infectious disease. It is due to long-lived memory cells that rapidly make the specific antibody if the antigen returns (secondary response).
+  - id: c14
+    level: SL
+    front: Give four ways HIV is transmitted.
+    back: Sex without a condom; sharing hypodermic needles; transfusion of infected blood or blood products; from mother to baby in pregnancy, at birth or by breastfeeding. All involve body fluids.
+  - id: c15
+    level: SL
+    front: Why does HIV infection lead to AIDS?
+    back: HIV infects and kills helper T-cells. Without them B-cells are not activated, antibody production falls and opportunistic infections (e.g. TB, Pneumocystis pneumonia, Kaposi's sarcoma) develop — AIDS.
+  - id: c16
+    level: SL
+    front: Why are antibiotics ineffective against viruses?
+    back: Antibiotics block bacterial processes such as cell wall synthesis and 70S ribosomes. Viruses have no metabolism, wall or ribosomes of their own and use the host cell's machinery, so there is no target.
+  - id: c17
+    level: SL
+    front: Name four zoonoses and how each reaches humans.
+    back: Bovine TB — unpasteurized milk from infected cattle. Rabies — bite or scratch of an infected dog. Japanese encephalitis — mosquitoes that fed on infected pigs or birds. COVID-19 — probably from bats, then person to person.
+  - id: c18
+    level: SL
+    front: What is in a vaccine, and what is the herd immunity threshold?
+    back: Antigens, or DNA/RNA coding for antigens; it triggers a primary response and memory cells without causing disease. Herd immunity threshold ≈ 1 − 1/R₀ (e.g. about 93% for measles with R₀ ≈ 15).

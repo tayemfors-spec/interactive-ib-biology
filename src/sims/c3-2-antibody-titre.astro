@@ -1,0 +1,146 @@
+---
+import { linePath, range, sx, sy, type Frame } from './chart';
+import { firstExposureSummary, secondExposureSummary, titre, type TitreParams } from './models/c3-2-antibody-titre';
+
+const d: TitreParams = { second: 60, memory: true, sameAntigen: true };
+const DAYS = 150;
+const frame: Frame = {
+  w: 640, h: 340, left: 60, right: 18, top: 30, bottom: 52,
+  x: { min: 0, max: DAYS, ticks: range(0, DAYS, 25), label: 'Time / days' },
+  y: { min: 0, max: 12, ticks: range(0, 12, 2), label: 'Antibody concentration / a.u.' },
+};
+const f1 = (x: number) => titre(d, x).first;
+const f2 = (x: number) => (d.sameAntigen ? NaN : titre(d, x).second);
+const s1 = firstExposureSummary();
+const s2 = secondExposureSummary(d);
+const rows = range(0, DAYS, 10);
+const fmt = (n: number) => n.toFixed(2);
+---
+<div class="titre" data-titre data-frame={JSON.stringify(frame)}>
+  <div class="layout">
+    <div class="out">
+      <svg class="chart" viewBox={`0 0 ${frame.w} ${frame.h}`} role="img" aria-labelledby="titre-t" data-chart>
+        <title id="titre-t">Antibody concentration in the blood against time after a first and a second exposure to an antigen</title>
+        <g class="grid">
+          {frame.x.ticks.map((t) => <line x1={sx(frame, t)} x2={sx(frame, t)} y1={frame.top} y2={frame.h - frame.bottom} />)}
+          {frame.y.ticks.map((t) => <line x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, t)} y2={sy(frame, t)} />)}
+        </g>
+        <g class="ticks">
+          {frame.x.ticks.map((t) => <text x={sx(frame, t)} y={frame.h - frame.bottom + 20} text-anchor="middle">{t}</text>)}
+          {frame.y.ticks.map((t) => <text x={frame.left - 8} y={sy(frame, t)} dy="0.35em" text-anchor="end">{t}</text>)}
+        </g>
+        <text class="axis" x={(frame.left + frame.w - frame.right) / 2} y={frame.h - 10} text-anchor="middle">{frame.x.label} →</text>
+        <text class="axis" transform={`translate(17 ${(frame.top + frame.h - frame.bottom) / 2}) rotate(-90)`} text-anchor="middle">{frame.y.label} →</text>
+        <g class="expo">
+          <line x1={sx(frame, 0)} x2={sx(frame, 0)} y1={frame.top - 6} y2={frame.h - frame.bottom} />
+          <text x={sx(frame, 0) + 4} y={frame.top - 12} data-first-label>1st exposure (infection)</text>
+          <line data-second-line x1={sx(frame, d.second)} x2={sx(frame, d.second)} y1={frame.top - 6} y2={frame.h - frame.bottom} />
+          <text data-second-label x={sx(frame, d.second) + 4} y={frame.top + 10}>2nd exposure</text>
+        </g>
+        <path class="line first" data-line="first" d={linePath(frame, f1, 300)} />
+        <path class="line second" data-line="second" d={linePath(frame, f2, 300)} />
+      </svg>
+      <div class="legend" aria-hidden="true">
+        <span><span class="key first"></span> antibodies against antigen 1</span>
+        <span data-legend-second hidden><span class="key second"></span> antibodies against antigen 2</span>
+      </div>
+    </div>
+    <div class="controls">
+      <label class="slider"><span>Day of the second exposure: <output data-out="second">{d.second}</output></span>
+        <input type="range" min="20" max="110" step="5" value={d.second} data-param="second" />
+      </label>
+      <label class="check"><input type="checkbox" checked data-param="memory" /> Memory cells were made in the first response</label>
+      <label class="check"><input type="checkbox" data-param="different" /> The second exposure is a different antigen</label>
+      <label class="check"><input type="checkbox" data-param="vaccine" /> The first exposure was a vaccination</label>
+    </div>
+  </div>
+  <p class="readout" aria-live="polite" data-readout>
+    Primary response: antibodies first appear about a week after exposure and peak at {fmt(s1.peak)} units on day {s1.dayOfPeak.toFixed(0)}. Secondary response: the peak is {fmt(s2.peak)} units only {s2.daysToPeak.toFixed(0)} days after the second exposure, about {(s2.peak / s1.peak).toFixed(0)} times higher, and antibodies stay high for much longer.
+  </p>
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <thead><tr><th scope="col">Day</th><th scope="col">Antibodies against antigen 1 / a.u.</th><th scope="col" data-th2>Antibodies against antigen 2 / a.u.</th></tr></thead>
+      <tbody data-tbody>{rows.map((x) => { const t = titre(d, x); return <tr><th scope="row">{x}</th><td>{fmt(t.first)}</td><td>{fmt(t.second)}</td></tr>; })}</tbody>
+    </table>
+  </details>
+  <p class="model-note">Qualitative model: arbitrary units (a.u.), with typical shapes rather than measured values. Real secondary responses are often 10–100 times larger than the primary response.</p>
+</div>
+
+<script>
+  import { linePath, range, sx, type Frame } from './chart';
+  import { firstExposureSummary, secondExposureSummary, titre } from './models/c3-2-antibody-titre';
+
+  document.querySelectorAll<HTMLElement>('[data-titre]').forEach((root) => {
+    const frame = JSON.parse(root.dataset.frame!) as Frame;
+    const input = (k: string) => root.querySelector<HTMLInputElement>(`[data-param="${k}"]`)!;
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    const tbody = root.querySelector<HTMLElement>('[data-tbody]')!;
+    let raf = 0;
+    let timer = 0;
+    const run = () => {
+      raf = 0;
+      const p = { second: Number(input('second').value), memory: input('memory').checked, sameAntigen: !input('different').checked };
+      const vaccine = input('vaccine').checked;
+      root.querySelector('[data-out="second"]')!.textContent = String(p.second);
+      const x = String(sx(frame, p.second));
+      const line = root.querySelector('[data-second-line]')!;
+      line.setAttribute('x1', x); line.setAttribute('x2', x);
+      const lab = root.querySelector('[data-second-label]')!;
+      lab.setAttribute('x', String(sx(frame, p.second) + 4));
+      lab.textContent = p.sameAntigen ? '2nd exposure' : '2nd: new antigen';
+      root.querySelector('[data-first-label]')!.textContent = vaccine ? '1st exposure (vaccine)' : '1st exposure (infection)';
+      root.querySelector('[data-line="first"]')!.setAttribute('d', linePath(frame, (d) => titre(p, d).first, 300));
+      root.querySelector('[data-line="second"]')!.setAttribute('d', linePath(frame, (d) => (p.sameAntigen ? NaN : titre(p, d).second), 300));
+      (root.querySelector('[data-legend-second]') as HTMLElement).hidden = p.sameAntigen;
+      tbody.innerHTML = range(0, frame.x.max, 10).map((d) => { const t = titre(p, d); return `<tr><th scope="row">${d}</th><td>${t.first.toFixed(2)}</td><td>${t.second.toFixed(2)}</td></tr>`; }).join('');
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        const s1 = firstExposureSummary();
+        const s2 = secondExposureSummary(p);
+        const first = vaccine
+          ? `After vaccination the primary response peaks at ${s1.peak.toFixed(2)} units on day ${s1.dayOfPeak.toFixed(0)}, without the person having the disease.`
+          : `Primary response: antibodies first appear about a week after infection and peak at ${s1.peak.toFixed(2)} units on day ${s1.dayOfPeak.toFixed(0)}.`;
+        let second: string;
+        if (!p.sameAntigen) second = ' A different antigen is met for the first time, so there are no memory cells for it: it gets a slow, small primary response of its own.';
+        else if (!p.memory) second = ' Without memory cells the second exposure gives just another slow, small primary response.';
+        else second = ` Secondary response: memory cells make the specific antibody quickly — a peak of ${s2.peak.toFixed(1)} units only ${s2.daysToPeak.toFixed(0)} days after the second exposure, about ${(s2.peak / s1.peak).toFixed(0)} times higher, lasting much longer.${vaccine ? ' This is how vaccination gives immunity.' : ''}`;
+        readout.textContent = first + second;
+      }, 350);
+    };
+    const schedule = () => { if (!raf) raf = requestAnimationFrame(run); };
+    root.querySelectorAll('[data-param]').forEach((el) => { el.addEventListener('input', schedule); el.addEventListener('change', schedule); });
+  });
+</script>
+
+<style>
+  .titre { container-type: inline-size; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 46rem) { .layout { grid-template-columns: minmax(0, 1.7fr) minmax(14rem, 1fr); align-items: start; } }
+  .chart { width: 100%; height: auto; font-family: var(--font-sans); }
+  .grid line { stroke: var(--border); stroke-width: 1; }
+  .ticks text { font-size: 15px; fill: var(--text-muted); }
+  .axis { font-size: 16px; font-weight: 650; fill: var(--text); }
+  .expo line { stroke: var(--text-muted); stroke-width: 1.5; stroke-dasharray: 3 4; }
+  .expo text { font-size: 14px; fill: var(--text); font-weight: 600; }
+  .line { fill: none; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+  .first { stroke: var(--bio-protein); }
+  .second { stroke: var(--bio-k); stroke-dasharray: 10 6; }
+  .legend { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); font-size: var(--step--1); color: var(--text-muted); margin-top: var(--space-1); }
+  .legend > span { display: inline-flex; align-items: center; gap: var(--space-2); }
+  .legend > span[hidden] { display: none; }
+  .key { display: inline-block; width: 2rem; height: 0; border-top: 3.5px solid; }
+  .key.first { border-color: var(--bio-protein); }
+  .key.second { border-color: var(--bio-k); border-top-style: dashed; }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  .check { display: flex; gap: var(--space-2); align-items: center; font-weight: 600; min-height: 24px; }
+  .check input { width: 1.1rem; height: 1.1rem; flex: none; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); overflow-x: auto; }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  th, td { padding: 0.2rem 0.7rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

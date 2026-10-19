@@ -1,0 +1,200 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: C3.2.1
+    stem: Which group of organisms includes no species known to cause disease in humans?
+    options:
+      - id: a
+        text: Protists
+        why: Protists include major human pathogens, such as Plasmodium, which causes malaria.
+      - id: b
+        text: Fungi
+        why: Several fungi are human pathogens, for example Candida albicans (thrush) and the fungi that cause athlete's foot.
+      - id: c
+        text: Archaea
+        why: Correct. Many archaea live in and on the human body, for example in the gut, but none is known to cause human disease.
+      - id: d
+        text: Bacteria
+        why: Many bacteria are pathogens, such as Vibrio cholerae (cholera) and Mycobacterium tuberculosis (tuberculosis).
+    answer: c
+
+  - id: q2
+    level: SL
+    understanding: C3.2.3
+    stem: Which describes the role of thrombin in blood clotting?
+    options:
+      - id: a
+        text: It is an enzyme that converts soluble fibrinogen into insoluble fibrin.
+        why: Correct. Thrombin is produced near the end of the cascade and catalyses the formation of fibrin, whose fibres form the mesh of the clot.
+      - id: b
+        text: It is released by platelets and converts prothrombin into fibrinogen.
+        why: Platelets release clotting factors, not thrombin, and prothrombin is converted into thrombin, not into fibrinogen.
+      - id: c
+        text: It forms the insoluble fibres that trap red blood cells.
+        why: The fibres are made of fibrin. Thrombin is the enzyme that makes fibrin; it is not part of the mesh.
+      - id: d
+        text: It is a soluble plasma protein that is converted into thrombin by fibrin.
+        why: This reverses the roles. Prothrombin is the inactive precursor; thrombin acts on fibrinogen to form fibrin.
+    answer: a
+
+  - id: q3
+    level: SL
+    understanding: C3.2.5
+    stem: Which sequence correctly describes how a phagocyte deals with bacteria at a site of infection?
+    options:
+      - id: a
+        text: It produces antibodies specific to the bacteria, which bind to them and digest them.
+        why: Antibodies are made by plasma cells (from B-lymphocytes), not by phagocytes, and antibodies do not digest pathogens.
+      - id: b
+        text: It engulfs the bacteria by exocytosis and releases enzymes into the blood to digest them.
+        why: Engulfing is endocytosis (taking material in). Digestion happens inside the cell, in the vacuole, not in the blood.
+      - id: c
+        text: It divides by mitosis into a clone of cells that each recognize only that species of bacterium.
+        why: That describes clonal expansion of B-cells in the adaptive system. Phagocytes are innate and are not specific to one pathogen.
+      - id: d
+        text: It leaves a capillary by amoeboid movement, engulfs the bacteria by endocytosis, and lysosomes add enzymes that digest them.
+        why: Correct. This is phagocytosis — non-specific recognition, endocytosis into a vacuole and digestion by lysosomal enzymes.
+    answer: d
+
+  - id: q4
+    level: SL
+    understanding: C3.2.8
+    stem: What is required for a B-lymphocyte to be activated so that it can produce antibodies?
+    options:
+      - id: a
+        text: Binding of any antigen to its receptors, without the involvement of other cells.
+        why: Antigen binding alone is not enough, and the antigen must be the specific one that fits that B-cell's receptors.
+      - id: b
+        text: Binding of its specific antigen, and contact with a helper T-cell activated by the same antigen.
+        why: Correct. Both signals are needed — direct binding of the specific antigen and contact with a helper T-cell activated by that antigen.
+      - id: c
+        text: Contact with a macrophage that has engulfed the pathogen, which then converts it into a plasma cell.
+        why: Macrophages present antigen to helper T-cells. It is the activated helper T-cell, not the macrophage, that activates the B-cell.
+      - id: d
+        text: Infection of the B-cell by the pathogen, which switches on its antibody genes.
+        why: B-cells are activated by recognizing antigen on the outside; they do not need to be infected.
+    answer: b
+
+  - id: q5
+    level: SL
+    understanding: C3.2.7
+    stem: A patient with blood group A is mistakenly given a transfusion of group B red blood cells. Why is this dangerous?
+    options:
+      - id: a
+        text: The patient's plasma contains anti-B antibodies, which bind the B antigens on the donated red cells, causing them to clump and be destroyed.
+        why: Correct. The B antigens on the transfused cells are foreign to a group A person, whose plasma contains anti-B antibodies.
+      - id: b
+        text: The donated red cells contain anti-A antibodies that attack the patient's own red cells.
+        why: Antibodies are in the plasma, not inside red cells, and transfusions are usually of red cells with little plasma.
+      - id: c
+        text: The A antigens on the patient's cells are destroyed by enzymes released by the donated cells.
+        why: Red blood cells do not release enzymes that destroy antigens. The problem is antibodies binding to antigens.
+      - id: d
+        text: Group B red cells cannot carry oxygen in a group A patient.
+        why: Blood group antigens do not affect oxygen transport by haemoglobin. The danger is an immune reaction.
+    answer: a
+
+  - id: q6
+    level: SL
+    understanding: C3.2.10
+    stem: >-
+      A person's blood antibody concentration against a virus was measured after two exposures to it. After the
+      first exposure, antibodies were first detected on day 7 and reached a peak of 1.0 arbitrary units on day 14.
+      After the second exposure, 60 days later, antibodies rose within 2 days to a peak of 10 units on day 7.
+      What best explains the difference?
+    options:
+      - id: a
+        text: Antibodies made after the first exposure stayed in the blood and multiplied when the virus returned.
+        why: Antibodies are proteins; they cannot multiply. Most antibodies from the first response had already been removed.
+      - id: b
+        text: The virus mutated between the exposures, so a different antigen was recognized.
+        why: A changed antigen would be met for the first time, giving another slow primary response, not a faster, larger one.
+      - id: c
+        text: Memory cells formed in the first response rapidly produced plasma cells making the specific antibody.
+        why: Correct. Memory cells survive after the first response; on re-exposure they quickly give rise to many plasma cells, so the secondary response is faster and about ten times larger here.
+      - id: d
+        text: Phagocytes had learned to recognize the virus and produced the extra antibody.
+        why: Phagocytes belong to the innate system; they do not change through life and do not make antibodies.
+    answer: c
+
+  - id: q7
+    level: SL
+    understanding: C3.2.12
+    stem: Why do people with untreated HIV infection eventually develop opportunistic infections?
+    options:
+      - id: a
+        text: HIV infects and destroys red blood cells, so tissues receive less oxygen.
+        why: HIV infects lymphocytes, mainly helper T-cells, not red blood cells.
+      - id: b
+        text: HIV kills helper T-cells, so B-cells are not activated and too few antibodies are produced.
+        why: Correct. Loss of helper T-cells means B-cells cannot be activated, so the body cannot make antibodies against new pathogens.
+      - id: c
+        text: HIV destroys the skin and mucous membranes, so pathogens can enter more easily.
+        why: HIV does not destroy the primary barriers; it damages the adaptive immune system.
+      - id: d
+        text: HIV produces toxins that kill phagocytes, so pathogens are not engulfed.
+        why: The key effect of HIV is the loss of helper T-cells; it does not work by releasing toxins.
+    answer: b
+
+  - id: q8
+    level: SL
+    understanding: C3.2.14
+    stem: >-
+      A population of Staphylococcus aureus was treated with methicillin, and after several weeks most of the
+      bacteria were methicillin-resistant (MRSA). Which explanation is correct?
+    options:
+      - id: a
+        text: Methicillin caused mutations that made the bacteria resistant.
+        why: Mutations arise at random; the antibiotic does not cause the specific mutation needed. It selects among the variation already present.
+      - id: b
+        text: The bacteria gradually got used to methicillin, and passed this tolerance to their offspring.
+        why: Characteristics acquired during a lifetime are not inherited. Resistance comes from genes that some bacteria already had.
+      - id: c
+        text: The patient's immune system became resistant to methicillin.
+        why: Resistance is a property of the bacteria, not of the patient.
+      - id: d
+        text: A few bacteria already had a resistance gene; they survived the antibiotic and reproduced, so the gene became common.
+        why: Correct. This is natural selection — variation, selection by the antibiotic, and reproduction of the survivors.
+    answer: d
+
+  - id: q9
+    level: SL
+    understanding: C3.2.17
+    stem: >-
+      A disease has a basic reproduction number (R₀) of 4. Using 1 − 1/R₀, what percentage of the population
+      must be immune for herd immunity, and why does this protect unvaccinated people?
+    options:
+      - id: a
+        text: 25%, because each infected person then infects at most one unvaccinated person.
+        why: 25% is 1/R₀, the fraction that may stay non-immune, not the fraction that must be immune.
+      - id: b
+        text: 100%, because any unvaccinated person can start an epidemic.
+        why: Herd immunity does not need everyone to be immune; once the threshold is passed, chains of infection die out.
+      - id: c
+        text: 75%, because above this level each case infects fewer than one other person on average, so outbreaks die out.
+        why: Correct. 1 − 1/4 = 0.75. With more than 75% immune, each case causes on average fewer than 4 × 0.25 = 1 new case, so spread is impeded.
+      - id: d
+        text: 40%, because each immune person protects four others.
+        why: This misreads R₀. It is the number of people one case infects when nobody is immune, not the number one immune person protects.
+    answer: c
+
+  - id: q10
+    level: SL
+    understanding: C3.2.18
+    stem: >-
+      In an illustrative data set, hospital admissions with COVID-19 in one region fell from 1200 per week to 900
+      per week after a vaccination campaign. What is the percentage change?
+    options:
+      - id: a
+        text: −25% (a 25% decrease)
+        why: Correct. (900 − 1200) ÷ 1200 × 100 = −25%.
+      - id: b
+        text: −33% (a 33% decrease)
+        why: This divides the change by the final value (300 ÷ 900). Percentage change uses the initial value as the reference.
+      - id: c
+        text: +25% (a 25% increase)
+        why: The admissions fell, so the change is negative — a decrease.
+      - id: d
+        text: −300%
+        why: 300 is the absolute change in admissions per week, not a percentage. Divide by the initial value and multiply by 100.
+    answer: a

@@ -1,0 +1,102 @@
+---
+/** Sealing of a cut by blood clotting (C3.2.3). Animated by c3-2-clotting.ts; drawn in its step-1 start state. */
+import { FACTORS, FIBRES, FIBRINOGEN, GAP, LUMEN, PLATELETS, RBCS, SKIN, WALL } from './c3-2-clotting';
+const [g0, g1] = GAP;
+const term = (k: string, x: number, y: number, w: number, label: string) => ({ k, x, y, w, label });
+const row1 = [term('factors', 8, 276, 122, 'clotting factors'), term('prothrombin', 206, 276, 104, 'prothrombin'), term('thrombin', 394, 276, 86, 'thrombin')];
+const row2 = [term('fibrinogen', 8, 328, 164, 'fibrinogen (soluble)'), term('fibrin', 330, 328, 150, 'fibrin (insoluble)')];
+const thrombinAt = [[244, 96], [276, 112], [262, 72], [286, 92]];
+---
+<svg viewBox="0 0 520 370" xmlns="http://www.w3.org/2000/svg" class="clot">
+  <text class="side" x="10" y="22">Outside the body</text>
+  <text class="side" x={(g0 + g1) / 2} y="22" text-anchor="middle">cut</text>
+  <path class="lead" d={`M${(g0 + g1) / 2} 28 V46`} />
+  <!-- skin and the vessel wall, broken by the cut -->
+  <rect class="skin" x="0" y={SKIN[0]} width={g0} height={SKIN[1] - SKIN[0]} />
+  <rect class="skin" x={g1} y={SKIN[0]} width={520 - g1} height={SKIN[1] - SKIN[0]} />
+  <text class="tag" x="12" y="82">skin</text>
+  <rect class="wall" x="0" y={WALL[0]} width={g0} height={WALL[1] - WALL[0]} />
+  <rect class="wall" x={g1} y={WALL[0]} width={520 - g1} height={WALL[1] - WALL[0]} />
+  <rect class="plasma" x="0" y={LUMEN[0]} width="520" height={LUMEN[1] - LUMEN[0]} />
+  <rect class="wall" x="0" y={LUMEN[1]} width="520" height="12" />
+  <text class="tag" x="508" y="190" text-anchor="end">blood plasma in a vessel</text>
+  <path data-el="leak" class="leak" d={`M${g0} ${LUMEN[0]} L${g0} ${SKIN[0]} C${g0 - 16} 40 ${g1 + 16} 40 ${g1} ${SKIN[0]} L${g1} ${LUMEN[0]} Z`} style="opacity:0" />
+
+  <!-- soluble fibrinogen molecules in the plasma -->
+  {FIBRINOGEN.map(([x, y]) => <line data-el="fibrinogen" class="fibrinogen" x1={x - 7} y1={y - 3} x2={x + 7} y2={y + 3} />)}
+  <!-- insoluble fibrin fibres (drawn in by the driver) -->
+  {FIBRES.map((d) => <path data-el="fibre" class="fibre" d={d} style="opacity:0" />)}
+  <!-- red blood cells (biconcave discs seen side-on) -->
+  {RBCS.map((r) => (
+    <g data-el="rbc" transform={`translate(${r.home[0]} ${r.home[1]})`}>
+      <ellipse class="rbc" rx="13" ry="7.5" /><ellipse class="rbc-in" rx="6" ry="3" />
+    </g>
+  ))}
+  <!-- platelets -->
+  {PLATELETS.map((p) => (
+    <g data-el="platelet" transform={`translate(${p.home[0]} ${p.home[1]})`}><ellipse class="platelet" rx="7" ry="4.2" /></g>
+  ))}
+  {FACTORS.map(([x, y]) => <circle data-el="factor" class="factor" cx={x} cy={y} r="3.6" style="opacity:0" />)}
+  {thrombinAt.map(([x, y]) => <path data-el="thrombin" class="thrombin" d={`M${x} ${y! - 6} L${x! + 6} ${y} L${x} ${y! + 6} L${x! - 6} ${y} Z`} style="opacity:0" />)}
+  <g data-el="clot-label" style="opacity:0">
+    <path class="lead" d={`M${g1 + 4} 66 L${g1 + 40} 44`} />
+    <text class="tag strong" x={g1 + 44} y="34">clot: a fibrin mesh</text>
+    <text class="tag strong" x={g1 + 44} y="50">with trapped red cells</text>
+  </g>
+
+  <!-- legend -->
+  <g class="legend">
+    <ellipse class="platelet" cx="16" cy="222" rx="7" ry="4.2" /><text x="28" y="226">platelet</text>
+    <g transform="translate(108 222)"><ellipse class="rbc" rx="10" ry="6" /><ellipse class="rbc-in" rx="4.5" ry="2.2" /></g><text x="124" y="226">red blood cell</text>
+    <circle class="factor" cx="234" cy="222" r="3.6" /><text x="244" y="226">clotting factor</text>
+    <path class="thrombin" d="M352 216 L358 222 L352 228 L346 222 Z" /><text x="364" y="226">thrombin</text>
+    <line class="fibrinogen" x1="430" y1="219" x2="444" y2="225" /><text x="450" y="226">fibrinogen</text>
+  </g>
+
+  <!-- the reactions -->
+  <g class="rx">
+    {[...row1, ...row2].map((r) => (
+      <g data-el={`rx-${r.k}`}>
+        <rect x={r.x} y={r.y - 18} width={r.w} height="26" rx="6" />
+        <text x={r.x + r.w / 2} y={r.y} text-anchor="middle">{r.label}</text>
+      </g>
+    ))}
+    <path class="rx-arrow" d="M134 271 H198" marker-end="url(#clot-arrow)" />
+    <text class="rx-note" x="166" y="262" text-anchor="middle">cascade</text>
+    <path data-el="rx-arrow1" class="rx-arrow" d="M314 271 H386" marker-end="url(#clot-arrow)" />
+    <text class="rx-note" x="350" y="262" text-anchor="middle">activated</text>
+    <path data-el="rx-arrow2" class="rx-arrow" d="M176 323 H322" marker-end="url(#clot-arrow)" />
+    <text class="rx-note" x="249" y="314" text-anchor="middle">thrombin (enzyme)</text>
+  </g>
+  <defs>
+    <marker id="clot-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" class="ah" /></marker>
+  </defs>
+</svg>
+<style>
+  .clot { font-family: var(--font-sans); }
+  .side { font-size: 13px; font-weight: 700; fill: var(--text-muted); }
+  .tag { font-size: 13px; fill: var(--text); }
+  .tag.strong { font-weight: 700; }
+  .lead { stroke: var(--text); stroke-width: 1.3; fill: none; }
+  .skin { fill: color-mix(in srgb, var(--bio-tail) 55%, var(--surface)); stroke: color-mix(in srgb, var(--bio-tail) 70%, black); stroke-width: 1; }
+  .wall { fill: color-mix(in srgb, var(--bio-chol) 45%, var(--surface)); }
+  .plasma { fill: color-mix(in srgb, var(--bio-glucose) 14%, var(--surface)); }
+  .leak { fill: var(--bio-k); }
+  .fibrinogen { stroke: var(--bio-carb); stroke-width: 3; stroke-linecap: round; }
+  .fibre { fill: none; stroke: var(--bio-carb); stroke-width: 3.2; stroke-linecap: round; }
+  .rbc { fill: var(--bio-k); stroke: color-mix(in srgb, var(--bio-k) 60%, black); stroke-width: 1; }
+  .rbc-in { fill: color-mix(in srgb, var(--bio-k) 55%, white); }
+  .platelet { fill: var(--bio-protein-2); stroke: color-mix(in srgb, var(--bio-protein-2) 60%, black); stroke-width: 1; }
+  [data-el='platelet'].stuck .platelet { stroke-width: 2.4; stroke-dasharray: 2 2; }
+  .factor { fill: var(--bio-glucose); stroke: color-mix(in srgb, var(--bio-glucose) 55%, black); stroke-width: 0.8; }
+  .thrombin { fill: var(--bio-protein); }
+  .legend text { font-size: 13px; fill: var(--text); }
+  .rx rect { fill: var(--surface-2); stroke: var(--border); stroke-width: 1; }
+  .rx text { font-size: 14px; fill: var(--text); }
+  .rx .on rect { fill: color-mix(in srgb, var(--bio-glucose) 30%, var(--surface)); stroke: var(--text); stroke-width: 2; }
+  .rx .on text { font-weight: 800; }
+  .rx-arrow { stroke: var(--text-muted); stroke-width: 2; fill: none; }
+  .rx-arrow.on { stroke: var(--text); stroke-width: 3; }
+  .rx-note { font-size: 13px; fill: var(--text-muted); font-style: italic; }
+  .ah { fill: var(--text); }
+</style>

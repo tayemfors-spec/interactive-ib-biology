@@ -1,0 +1,206 @@
+# Visuals for C3.2 (SL only). Label and step text here is what readers see in the 3D viewer, the
+# animation captions and the text descriptions. Label ids must match anchors in the scene modules.
+visuals:
+  - id: immunity
+    kind: viewer3d
+    title: The antibody response in 3D
+    alt: A macrophage engulfs a bacterium and presents its antigens; helper T-cells activate a B-cell, whose clone makes antibodies and memory cells.
+    description: >-
+      A process model of the adaptive immune response to a bacterial infection, in nine steps. A rod-shaped
+      bacterium with antigen molecules (gold) on its surface reaches a macrophage (large, irregular, purple),
+      which engulfs it by endocytosis into a vacuole. Lysosomes (orange) fuse with the vacuole and their
+      enzymes digest the bacterium. Fragments of its antigens are then displayed on the macrophage surface by
+      MHC proteins. Of the many helper T-cells (blue), only the one with receptors that fit this antigen
+      binds and is activated. That helper T-cell then binds to and activates the one B-cell (green) whose
+      Y-shaped receptors have bound the same antigen. The activated B-cell divides by mitosis three times to
+      give a clone of eight cells. Most become large plasma cells with extensive rough endoplasmic reticulum,
+      which secrete antibodies (blue Y shapes); a few become memory cells (orange). Antibodies bind antigens,
+      linking bacteria into clumps (agglutination) so phagocytes can remove them. After the infection, the
+      antibodies and plasma cells disappear but the memory cells remain. A second model shows the structure
+      of one antibody molecule.
+    scenes:
+      - id: response
+        module: c3-2-immune-response
+        title: The antibody response
+        labels:
+          - id: pathogen
+            name: Pathogen (bacterium)
+            steps: [infection]
+            text: A bacterium that has entered the tissues through a cut. Its surface carries antigens. It is about 2 µm long, much smaller than the macrophage (proportions here are schematic).
+          - id: antigen
+            name: Antigens on the pathogen surface
+            steps: [infection]
+            text: Molecules on the outer surface of the pathogen, usually proteins or glycoproteins, that the immune system recognizes as non-self. Each antigen has a particular shape that only some receptors and antibodies fit.
+          - id: macrophage
+            name: Macrophage (a phagocyte)
+            steps: [infection, phagocytosis, presentation]
+            text: A large phagocytic white blood cell of the innate immune system. It has squeezed out of a capillary and moved through the tissue by amoeboid movement. It engulfs any pathogen it recognizes as foreign.
+          - id: lysosome
+            name: Lysosomes
+            steps: [phagocytosis]
+            text: Vesicles of hydrolytic (digestive) enzymes. They fuse with the vacuole containing the engulfed bacterium, and the enzymes break the bacterium down.
+          - id: mhc
+            name: MHC proteins presenting antigen
+            steps: [presentation, t-activation]
+            text: Fragments of the digested pathogen's antigens are held in MHC proteins on the macrophage surface. The macrophage is now an antigen-presenting cell, displaying what it has found to helper T-cells.
+          - id: helper-t
+            name: Matching helper T-cell
+            steps: [t-activation, b-activation]
+            text: A helper T-lymphocyte whose receptors fit this particular antigen. It binds to the presented antigen and is activated (shown by the glow); it then activates the B-cell specific to the same antigen.
+          - id: other-t
+            name: Helper T-cells with other receptors
+            steps: [t-activation]
+            text: Every helper T-cell has receptors for one antigen only. These have receptors of different shapes, so they do not bind this antigen and are not activated.
+          - id: b-cell
+            name: Matching B-cell
+            steps: [b-activation]
+            text: A B-lymphocyte whose receptors (membrane-bound copies of the antibody it can make) have bound the antigen directly. It is activated only when the matching activated helper T-cell also binds to it.
+          - id: other-b
+            name: B-cells with other receptors
+            steps: [b-activation, clonal-expansion]
+            text: The body has a vast number of B-cells, each able to make one type of antibody. These do not fit this antigen, so they stay inactive and do not divide.
+          - id: clone
+            name: Clone of B-cells
+            steps: [clonal-expansion]
+            text: The activated B-cell divides repeatedly by mitosis. All the cells in the clone are genetically identical and can make exactly the same antibody. Real clones contain thousands of cells.
+          - id: plasma
+            name: Plasma cells
+            steps: [plasma-cells, antibodies-act]
+            text: Most cells of the clone become plasma cells. They are larger, with extensive rough endoplasmic reticulum (shown as rings) and Golgi apparatus, and secrete large amounts of one specific antibody.
+          - id: antibody
+            name: Antibodies
+            steps: [plasma-cells, antibodies-act]
+            text: Y-shaped proteins secreted by plasma cells into the blood and tissue fluid. Each has two identical binding sites that fit the antigen that triggered the response.
+          - id: agglutination
+            name: Agglutination
+            steps: [antibodies-act]
+            text: Each antibody has two binding sites, so it can link two bacteria. Many antibodies stick bacteria together in clumps that are easier for phagocytes to engulf. Antibodies also coat and neutralize pathogens.
+          - id: memory
+            name: Memory cells
+            steps: [plasma-cells, memory]
+            text: Long-lived lymphocytes from the same clone that do not secrete antibodies now. They remain for years after the infection and respond quickly if the same antigen enters the body again.
+        steps:
+          - id: infection
+            title: A pathogen enters the tissues
+            caption: A bacterium has entered the body tissues, for example through a cut. Its surface carries antigens. A macrophage, a phagocyte of the innate immune system, has left the blood and moved towards it by amoeboid movement.
+          - id: phagocytosis
+            title: Phagocytosis
+            caption: The macrophage recognizes the bacterium as foreign and engulfs it by endocytosis, so it ends up in a vacuole. Lysosomes fuse with the vacuole and their enzymes digest the bacterium. Phagocytes do this to any pathogen in the same way (innate, non-specific).
+          - id: presentation
+            title: Antigen presentation
+            caption: Fragments of the bacterium's antigens are moved to the macrophage surface and displayed there, held by MHC proteins. The macrophage now presents the antigen to the cells of the adaptive immune system.
+          - id: t-activation
+            title: A matching helper T-cell is activated
+            caption: Each helper T-cell has receptors for one antigen. Only the helper T-cell whose receptors fit the presented antigen binds to it, and it is activated. Helper T-cells with other receptors are not.
+          - id: b-activation
+            title: The matching B-cell is activated
+            caption: A B-cell whose receptors fit the same antigen has bound it directly. The activated helper T-cell binds to this B-cell and releases signalling proteins. Only with both signals — the antigen and the helper T-cell — is the B-cell activated.
+          - id: clonal-expansion
+            title: Clonal selection and expansion
+            caption: Only the selected B-cell divides. Repeated mitosis produces a large clone of genetically identical B-cells, all able to make the same antibody. Few B-cells fit any one antigen, so this is needed to make enough antibody.
+          - id: plasma-cells
+            title: Plasma cells and memory cells
+            caption: Most cells of the clone become plasma cells, which have extensive rough ER and secrete large quantities of one specific antibody. A few become memory cells, which do not secrete antibodies now but survive for a long time.
+          - id: antibodies-act
+            title: Antibodies bind the antigens
+            caption: Antibodies bind specifically to the antigens on the bacteria. With two binding sites each, they link bacteria into clumps (agglutination). Coated, clumped pathogens are neutralized and are more easily engulfed and destroyed by phagocytes.
+          - id: memory
+            title: Memory cells remain
+            caption: The infection is cleared. Over the following weeks the plasma cells die and the antibody concentration falls, but memory cells persist. If the same antigen returns, they make the specific antibody much faster and in larger amounts — this is immunity.
+      - id: antibody
+        module: c3-2-antibody
+        title: Antibody structure
+        labels:
+          - id: heavy
+            name: Heavy chain (×2)
+            text: Each antibody has two identical heavy (long) polypeptide chains. Each forms the inner half of one arm and half of the stem, so the protein has quaternary structure.
+          - id: light
+            name: Light chain (×2)
+            text: Two identical light (shorter) polypeptide chains, one on the outer side of each arm. Each light chain is held to a heavy chain by a disulfide bond.
+          - id: variable
+            name: Variable region
+            text: The tips of the heavy and light chains in each arm. Their amino acid sequence differs greatly between antibodies made by different B-cell clones, giving each antibody its specificity.
+          - id: site
+            name: Antigen-binding site
+            text: A pocket formed by the variable regions of one heavy and one light chain. Its shape and chemical properties are complementary to one antigen. Each antibody has two identical binding sites.
+          - id: antigen
+            name: Bound antigen
+            text: Part of an antigen fitted into one binding site. Binding is specific, like a substrate in an enzyme's active site, but the antigen is not chemically changed.
+          - id: constant
+            name: Constant region
+            text: The rest of the molecule, including the stem. It is the same in all antibodies of one class, whatever antigen they bind, and helps phagocytes and other parts of the immune system recognize antibody-coated pathogens.
+          - id: hinge
+            name: Hinge region
+            text: A flexible part of the heavy chains between the arms and the stem. It lets the arms move, so an antibody can bind antigens on two separate pathogens at once.
+          - id: disulfide
+            name: Disulfide bonds
+            text: Covalent S–S bonds between cysteine residues. They hold the two heavy chains together at the hinge and attach each light chain to a heavy chain.
+
+  - id: clotting
+    kind: anim
+    module: c3-2-clotting
+    title: How blood clotting seals a cut
+    alt: Step-by-step diagram of platelets releasing clotting factors at a cut, thrombin forming, fibrinogen becoming fibrin and the fibrin mesh trapping red cells.
+    description: >-
+      A cross-section of skin and a small blood vessel with a cut through both, shown in five steps. The lower
+      part is the lumen of the vessel with red blood cells and platelets in the plasma; above is the air. A strip
+      at the bottom shows the reactions: clotting factors start a cascade that converts prothrombin to thrombin,
+      and thrombin converts soluble fibrinogen into insoluble fibrin. In the last step a mesh of fibrin fibres
+      across the cut has trapped red blood cells, forming a clot that seals the wound.
+    steps:
+      - id: cut
+        title: The skin is cut
+        caption: A cut breaks the skin and the wall of a blood vessel. Blood starts to escape, and pathogens could enter through the gap. Platelets — small cell fragments — are carried in the plasma with the red blood cells.
+      - id: platelets
+        title: Platelets release clotting factors
+        caption: Platelets stick to the damaged tissue at the edges of the cut and release clotting factors (yellow dots) into the plasma.
+      - id: cascade
+        title: A cascade produces thrombin
+        caption: The clotting factors start a cascade — a chain of reactions in which each product activates the next step. Near the end, the inactive plasma protein prothrombin is converted into the active enzyme thrombin. The cascade makes the response rapid and amplified.
+      - id: fibrin
+        title: Thrombin makes fibrin
+        caption: Thrombin converts fibrinogen, a soluble plasma protein, into fibrin, which is insoluble. Fibrin forms long fibres that join into a mesh across the cut.
+      - id: clot
+        title: A clot seals the cut
+        caption: Red blood cells are trapped in the fibrin mesh, forming a clot. The clot stops further blood loss and blocks the entry of pathogens; it later dries to a scab while the skin heals.
+
+  - id: antibody-titre
+    kind: sim
+    module: c3-2-antibody-titre
+    title: Primary and secondary immune responses
+    alt: Graph of antibody concentration against time after a first and second exposure to the same antigen, with sliders.
+    description: >-
+      A line graph of antibody concentration in the blood (arbitrary units) against time in days. After the first
+      exposure to an antigen (an infection or a vaccine) there is a lag of about a week, then the concentration
+      rises slowly to a low peak and falls again: the primary response. After a second exposure to the same
+      antigen, memory cells respond within a few days, giving a much faster rise, a peak about ten times higher in
+      this model, and a slower fall: the secondary response. A slider sets the day of the second exposure, a
+      checkbox removes memory cells to show that the second response then looks like the first, and another
+      makes the second exposure a different antigen.
+
+  - id: herd-immunity
+    kind: sim
+    module: c3-2-herd-immunity
+    title: Herd immunity
+    alt: A grid of 900 people showing how an infection spreads for chosen values of vaccination coverage and R₀, with the herd immunity threshold marked.
+    description: >-
+      A grid of 900 people, some vaccinated, into which five infected people are introduced. Each infected person
+      meets R₀ randomly chosen people while infectious, and infects any of them who are not immune. Sliders set the
+      basic reproduction number R₀ and the percentage vaccinated, and a third slider steps through the generations
+      of the outbreak. A bar compares vaccination coverage with the herd immunity threshold, 1 − 1/R₀. Below the
+      threshold the infection spreads through most unvaccinated people; above it, each case leads on average to
+      fewer than one new case, so outbreaks die out quickly and most unvaccinated people are protected too.
+
+  - id: resistance
+    kind: sim
+    module: c3-2-resistance
+    title: Evolution of antibiotic resistance
+    alt: Graph of numbers of susceptible, singly resistant and multiresistant bacteria over generations under different antibiotic treatments.
+    description: >-
+      A line graph with a logarithmic scale of bacterial numbers against generations, for four strains: susceptible
+      to both antibiotics, resistant to antibiotic A, resistant to antibiotic B, and resistant to both
+      (multiresistant). New resistance arises rarely by mutation or by gaining a resistance gene from another
+      bacterium. Choose no antibiotic, antibiotic A only, A followed by B, or A and B together. An antibiotic kills
+      the bacteria that are not resistant to it, so any resistant variants survive, reproduce and take over the
+      population. Using one antibiotic after another lets a multiresistant strain build up step by step; a slider
+      changes how often resistance genes arise.

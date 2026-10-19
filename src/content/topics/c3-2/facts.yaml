@@ -1,0 +1,139 @@
+facts:
+  - id: f1
+    claim: Human pathogens are mainly viruses, bacteria, fungi and protists; no archaea are known to cause human disease.
+    where: ["index.mdx#pathogens", "quiz.yaml:q1", "flashcards.yaml:c1", "mustKnow"]
+    confidence: high
+    basis: IB guide C3.2.1; standard microbiology (Campbell Biology)
+    status: checked
+  - id: f2
+    claim: Semmelweis (Vienna General Hospital, 1840s) found higher childbed fever mortality on the doctors' ward and reduced it by handwashing with chlorinated lime; John Snow linked the 1854 Soho cholera outbreak to the Broad Street pump.
+    where: ["index.mdx#pathogens", "flashcards.yaml:c2"]
+    confidence: high
+    basis: Standard history of medicine; IB guide C3.2.1 NOS
+    status: checked
+  - id: f3
+    claim: Skin is a physical barrier (dead keratinized cells) and chemical barrier (sebum fatty acids, lactic acid, acidic pH); mucus traps pathogens and contains lysozyme.
+    where: ["index.mdx#pathogens", "flashcards.yaml:c3", "flashcards.yaml:c4", "mustKnow"]
+    confidence: high
+    basis: Standard human physiology; IB guide C3.2.2
+    status: checked
+  - id: f4
+    claim: Platelets release clotting factors; a cascade converts prothrombin to thrombin; thrombin converts soluble fibrinogen to insoluble fibrin, which traps erythrocytes.
+    where: ["index.mdx#clotting", "visuals.yaml:clotting", "quiz.yaml:q2", "flashcards.yaml:c5", "mistakes"]
+    confidence: high
+    basis: IB guide C3.2.3; standard physiology
+    status: checked
+  - id: f5
+    claim: Phagocytes leave capillaries by amoeboid movement, engulf pathogens by endocytosis and digest them with lysosomal enzymes; macrophages and neutrophils are phagocytes; pus is largely dead phagocytes.
+    where: ["index.mdx#innate", "visuals.yaml:immunity", "quiz.yaml:q3", "flashcards.yaml:c7"]
+    confidence: high
+    basis: IB guide C3.2.5; Janeway's Immunobiology
+    status: checked
+  - id: f6
+    claim: Macrophages display antigen fragments on MHC proteins (antigen presentation) to helper T-cells.
+    where: ["visuals.yaml:immunity", "diagram c3-2-immune-response", "index.mdx#response"]
+    confidence: high
+    basis: Janeway's Immunobiology (MHC class II presentation to CD4 T-cells); beyond IB minimum but standard
+    status: checked
+  - id: f7
+    claim: B-cell activation requires binding of the specific antigen and contact with a helper T-cell activated by the same antigen (plus signalling proteins/cytokines).
+    where: ["index.mdx#response", "visuals.yaml:immunity", "quiz.yaml:q4", "flashcards.yaml:c11", "mistakes"]
+    confidence: high
+    basis: IB guide C3.2.8; Janeway
+    status: checked
+  - id: f8
+    claim: Activated B-cells divide by mitosis into a clone; most become plasma cells with extensive rough ER secreting one antibody; some become long-lived memory cells.
+    where: ["index.mdx#response", "visuals.yaml:immunity", "flashcards.yaml:c12", "flashcards.yaml:c13"]
+    confidence: high
+    basis: IB guide C3.2.9–C3.2.10
+    status: checked
+  - id: f9
+    claim: An antibody (IgG) has two heavy and two light chains joined by disulfide bonds, two identical antigen-binding sites formed by variable regions, a constant region and a flexible hinge.
+    where: ["visuals.yaml:immunity (antibody scene)", "index.mdx#lymphocytes", "flashcards.yaml:c10", "mustKnow"]
+    confidence: high
+    basis: Janeway's Immunobiology; Alberts
+    status: checked
+  - id: f10
+    claim: ABO table — group A has A antigen and anti-B; B has B antigen and anti-A; AB neither antibody; O has anti-A and anti-B. Rh D antigen can stimulate new antibody production in an Rh-negative recipient.
+    where: ["index.mdx#lymphocytes", "quiz.yaml:q5", "flashcards.yaml:c9"]
+    confidence: high
+    basis: Standard haematology
+    status: checked
+  - id: f11
+    claim: Secondary response is faster (lag ~2 days vs ~7), larger (model 10×; real often 10–100×) and longer-lasting than the primary response. Model numbers are illustrative.
+    where: ["sims/models/c3-2-antibody-titre.ts", "visuals.yaml:antibody-titre", "quiz.yaml:q6"]
+    confidence: medium
+    basis: Textbook primary/secondary response curves (Campbell, Janeway); exact values vary with antigen and antibody class
+    status: open
+  - id: f12
+    claim: HIV is transmitted in blood, semen, vaginal and rectal fluids and breast milk (sex without a condom, shared needles, transfusion, mother to baby); not by saliva, touching or insects.
+    where: ["index.mdx#hiv", "flashcards.yaml:c14"]
+    confidence: high
+    basis: WHO/CDC HIV fact sheets; IB guide C3.2.11
+    status: checked
+  - id: f13
+    claim: HIV infects mainly helper T-cells (via CD4); their loss stops B-cell activation and antibody production, leading to opportunistic infections such as TB, Pneumocystis pneumonia and Kaposi's sarcoma (caused by a herpesvirus, HHV-8).
+    where: ["index.mdx#hiv", "quiz.yaml:q7", "flashcards.yaml:c15", "mistakes"]
+    confidence: high
+    basis: IB guide C3.2.12; CDC AIDS-defining conditions
+    status: checked
+  - id: f14
+    claim: Penicillin blocks peptidoglycan cell wall synthesis; streptomycin and tetracycline act on 70S ribosomes; ciprofloxacin inhibits bacterial DNA gyrase.
+    where: ["index.mdx#antibiotics", "flashcards.yaml:c16"]
+    confidence: high
+    basis: Standard pharmacology/microbiology
+    status: checked
+  - id: f15
+    claim: MRSA (methicillin-resistant Staphylococcus aureus) is a multiresistant hospital pathogen; resistance genes spread by gene transfer, often on plasmids.
+    where: ["index.mdx#antibiotics", "quiz.yaml:q8", "visuals.yaml:resistance"]
+    confidence: high
+    basis: Standard microbiology; IB guide C3.2.14
+    status: checked
+  - id: f16
+    claim: Halicin was identified in 2020 by machine-learning screening of a chemical library (Stokes et al., Cell 2020).
+    where: ["index.mdx#antibiotics"]
+    confidence: medium
+    basis: Stokes et al. 2020, Cell 180:688
+    status: open
+  - id: f17
+    claim: About 60% of known human infectious diseases are zoonotic, and about 75% of emerging ones.
+    where: ["index.mdx#zoonoses"]
+    confidence: medium
+    basis: Taylor et al. 2001 (Phil Trans R Soc B); CDC; Jones et al. 2008 (Nature)
+    status: open
+  - id: f18
+    claim: Bovine TB (Mycobacterium bovis) from cattle via unpasteurized milk or droplets; rabies (lyssavirus) mainly from dog bites; Japanese encephalitis (flavivirus) from pigs and wading birds via Culex mosquitoes; SARS-CoV-2 probably from bats, possibly via an intermediate mammal (origin debated).
+    where: ["index.mdx#zoonoses", "flashcards.yaml:c17", "mustKnow"]
+    confidence: high
+    basis: WHO fact sheets on rabies, Japanese encephalitis, zoonotic TB; WHO SAGO reports on SARS-CoV-2 origins
+    status: checked
+  - id: f19
+    claim: Vaccine types — inactivated/attenuated (polio, MMR), subunit (hepatitis B, HPV), mRNA (COVID-19), adenovirus-vector DNA (Oxford–AstraZeneca COVID-19).
+    where: ["index.mdx#vaccines", "flashcards.yaml:c18"]
+    confidence: high
+    basis: WHO vaccine fact sheets
+    status: checked
+  - id: f20
+    claim: Herd immunity threshold ≈ 1 − 1/R₀; measles R₀ ≈ 12–18 gives ≈ 92–94%; early SARS-CoV-2 R₀ ≈ 3 and seasonal flu ≈ 1.5 (sim presets).
+    where: ["index.mdx#vaccines", "sims/c3-2-herd-immunity.astro", "quiz.yaml:q9", "flashcards.yaml:c18", "mustKnow"]
+    confidence: medium
+    basis: Anderson & May; Guerra et al. 2017 (measles R₀ range); R₀ estimates vary by setting and variant
+    status: open
+  - id: f21
+    claim: Wakefield's 1998 MMR–autism paper was retracted (2010) and was followed by falls in MMR uptake and measles outbreaks.
+    where: ["index.mdx#vaccines"]
+    confidence: high
+    basis: The Lancet retraction 2010; UK vaccination statistics
+    status: checked
+  - id: f22
+    claim: Percentage difference is given relative to a stated reference group ((A − B) ÷ A × 100); some sources use the mean of the two values. Worked example and quiz data are illustrative, not real.
+    where: ["index.mdx#covid-data", "quiz.yaml:q10"]
+    confidence: medium
+    basis: IB guide C3.2.18 asks for percentage difference and change but gives no formula; convention should be confirmed by a teacher
+    status: open
+  - id: f23
+    claim: Proportions in the 3D immune-response model are schematic (a bacterium ~2 µm is drawn relatively large against a macrophage ~20 µm); the clone is shown as 8 cells.
+    where: ["visuals.yaml:immunity"]
+    confidence: high
+    basis: Deliberate simplification, stated in label text
+    status: checked
