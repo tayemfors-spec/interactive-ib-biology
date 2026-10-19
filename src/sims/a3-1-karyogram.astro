@@ -1,0 +1,316 @@
+---
+import { chromosomesOf, samples, shuffle } from './models/a3-1-karyogram';
+import { chromButton } from './a3-1-karyogram-view';
+
+const rows = [
+  ['1', '2', '3', '4', '5'],
+  ['6', '7', '8', '9', '10', '11', '12'],
+  ['13', '14', '15', '16', '17', '18'],
+  ['19', '20', '21', '22', 'sex'],
+];
+const first = shuffle(chromosomesOf(samples[0]!), 1);
+const spreadHtml = first.map((c, i) => chromButton(c, { selected: false, tabbable: i === 0, where: 'in the spread' })).join('');
+---
+<div class="kary" data-kary>
+  <div class="bar">
+    <div class="samples" role="radiogroup" aria-label="Choose a cell to sort">
+      {samples.map((s, i) => (
+        <button type="button" class="btn" role="radio" aria-checked={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-sample={s.id}>Person {s.id}</button>
+      ))}
+    </div>
+    <div class="actions">
+      <button type="button" class="btn btn-primary" data-act="check">Check</button>
+      <button type="button" class="btn" data-act="solve">Sort for me</button>
+      <button type="button" class="btn" data-act="reset">Start again</button>
+    </div>
+  </div>
+
+  <p class="status" aria-live="polite" data-status>Select a chromosome in the spread, then choose the pair it belongs to.</p>
+
+  <div class="spread-wrap">
+    <div class="spread-head">
+      <span class="area-title" id="kary-spread-t">Metaphase spread <span class="count" data-left>({first.length} left)</span></span>
+      <button type="button" class="btn small" data-slot-btn="spread">Return to spread</button>
+    </div>
+    <div class="spread" role="group" aria-labelledby="kary-spread-t" data-spread set:html={spreadHtml} />
+  </div>
+
+  <div class="board" role="group" aria-label="Karyogram: homologous pairs" data-board>
+    {rows.map((row) => (
+      <div class="row">
+        {row.map((s) => (
+          <div class:list={['slot', { sex: s === 'sex' }]} data-slot={s}>
+            <div class="slot-chroms" data-slot-chroms={s}></div>
+            <button type="button" class="slot-btn" data-slot-btn={s} tabindex={s === '1' ? 0 : -1}>
+              <span class="visually-hidden">{s === 'sex' ? 'Place in sex chromosomes,' : 'Place in pair'} </span>{s === 'sex' ? 'X / Y' : s}<span class="mark" aria-hidden="true" data-mark></span>
+            </button>
+          </div>
+        ))}
+      </div>
+    ))}
+  </div>
+
+  <div class="deduce" data-deduce>
+    <p class="area-title">What does this karyogram show?</p>
+    <div class="q">
+      <span id="kary-q1">Sex chromosomes:</span>
+      <div class="opts" role="group" aria-labelledby="kary-q1">
+        <button type="button" class="btn small" aria-pressed="false" data-guess="sex" data-value="female">XX – female</button>
+        <button type="button" class="btn small" aria-pressed="false" data-guess="sex" data-value="male">XY – male</button>
+      </div>
+    </div>
+    <div class="q">
+      <span id="kary-q2">Chromosome number:</span>
+      <div class="opts" role="group" aria-labelledby="kary-q2">
+        <button type="button" class="btn small" aria-pressed="false" data-guess="count" data-value="46">46 – typical</button>
+        <button type="button" class="btn small" aria-pressed="false" data-guess="count" data-value="47">47 – one extra</button>
+      </div>
+    </div>
+    <p class="feedback" aria-live="polite" data-feedback>Sort the chromosomes (or count them), then decide.</p>
+  </div>
+
+  <details class="how">
+    <summary>How to tell chromosomes apart</summary>
+    <ul>
+      <li><strong>Length:</strong> pairs are numbered roughly from longest (1) to shortest; chromosome 21 is in fact slightly shorter than 22.</li>
+      <li><strong>Centromere position:</strong> near the middle (metacentric: 1, 3, 16, 19, 20), off-centre (submetacentric: 2, 4–12, 17, 18, X) or near one end (acrocentric: 13–15, 21, 22 and Y).</li>
+      <li><strong>Banding:</strong> both homologues of a pair have the same pattern of dark and light bands.</li>
+      <li><strong>Keyboard:</strong> in the spread, use the arrow keys to move between chromosomes and Enter to select one; press Tab to reach the pairs, use the arrow keys to choose one and press Enter to place it. Each chromosome's length, centromere position and a banding-pattern letter are read out.</li>
+    </ul>
+  </details>
+  <p class="model-note">Schematic drawings: lengths are to scale (from the human reference genome) and centromere positions are approximate, but the banding patterns are simplified stand-ins, not real G-band maps.</p>
+</div>
+
+<script>
+  import { check, chromosomesOf, diagnose, samples, shuffle, slotIds, solve, type Chromosome, type SampleId } from './models/a3-1-karyogram';
+  import { chromButton, slotContents } from './a3-1-karyogram-view';
+
+  const slotName = (s: string) => (s === 'sex' ? 'the sex chromosomes' : `pair ${s}`);
+
+  document.querySelectorAll<HTMLElement>('[data-kary]').forEach((root) => {
+    const $ = <T extends Element = HTMLElement>(sel: string) => root.querySelector<T>(sel)!;
+    const spread = $('[data-spread]');
+    const status = $('[data-status]');
+    const feedback = $('[data-feedback]');
+    const slotBtns = [...root.querySelectorAll<HTMLButtonElement>('.slot-btn')];
+
+    let sampleId: SampleId = 'A';
+    let seed = 1;
+    let chroms: Chromosome[] = [];
+    let placement: Record<string, string | undefined> = {};
+    let order: Record<string, number> = {};
+    let tick = 0;
+    let selected: string | null = null;
+    let rover: string | null = null;
+    let guesses: Record<string, string> = {};
+
+    const say = (msg: string) => (status.textContent = msg);
+    const sample = () => samples.find((s) => s.id === sampleId)!;
+
+    const load = (id: SampleId, newSeed: number) => {
+      sampleId = id;
+      seed = newSeed;
+      chroms = shuffle(chromosomesOf(sample()), seed);
+      placement = {};
+      order = {};
+      selected = null;
+      rover = chroms[0]!.uid;
+      guesses = {};
+      root.querySelectorAll<HTMLButtonElement>('[data-guess]').forEach((b) => b.setAttribute('aria-pressed', 'false'));
+      feedback.textContent = 'Sort the chromosomes (or count them), then decide.';
+      clearMarks();
+      render();
+    };
+
+    const clearMarks = () => {
+      root.querySelectorAll<HTMLElement>('[data-slot]').forEach((el) => delete el.dataset.state);
+      root.querySelectorAll<HTMLElement>('[data-mark]').forEach((el) => (el.textContent = ''));
+    };
+
+    const render = (focusUid?: string) => {
+      const loose = chroms.filter((c) => !placement[c.uid]);
+      if (!rover || !chroms.some((c) => c.uid === rover)) rover = (loose[0] ?? chroms[0]!).uid;
+      spread.innerHTML = loose.length
+        ? loose.map((c) => chromButton(c, { selected: c.uid === selected, tabbable: c.uid === rover, where: 'in the spread' })).join('')
+        : '<p class="empty">All chromosomes are in the karyogram. Press Check.</p>';
+      $('[data-left]').textContent = `(${loose.length} left)`;
+      for (const s of slotIds) {
+        const placed = chroms.filter((c) => placement[c.uid] === s).sort((a, b) => order[a.uid]! - order[b.uid]!);
+        $(`[data-slot-chroms="${s}"]`).innerHTML = slotContents(placed, selected, rover, slotName(s));
+      }
+      // keep exactly one chromosome button in the tab order
+      const all = [...root.querySelectorAll<HTMLButtonElement>('.chrom')];
+      if (all.length && !all.some((b) => b.tabIndex === 0)) all[0]!.tabIndex = 0;
+      if (focusUid) root.querySelector<HTMLButtonElement>(`.chrom[data-uid="${focusUid}"]`)?.focus();
+    };
+
+    const select = (uid: string) => {
+      selected = selected === uid ? null : uid;
+      rover = uid;
+      render(uid);
+      if (selected) {
+        const where = placement[uid] ? `from ${slotName(placement[uid]!)}` : 'from the spread';
+        say(`Chromosome selected ${where}. Now choose the pair it belongs to.`);
+      } else say('Selection cleared.');
+    };
+
+    const place = (slot: string, viaKeyboard: boolean) => {
+      if (!selected) { say('Select a chromosome first, then choose a pair.'); return; }
+      const uid = selected;
+      clearMarks();
+      if (slot === 'spread') { delete placement[uid]; say('Chromosome returned to the spread.'); }
+      else {
+        placement[uid] = slot;
+        order[uid] = ++tick;
+        say(`Placed in ${slotName(slot)}.`);
+      }
+      selected = null;
+      const loose = chroms.filter((c) => !placement[c.uid]);
+      rover = (loose[0] ?? chroms.find((c) => c.uid === uid)!).uid;
+      render();
+      if (viaKeyboard) root.querySelector<HTMLButtonElement>(`[data-slot-btn="${slot}"]`)?.focus();
+    };
+
+    const runCheck = () => {
+      const r = check(chroms, placement);
+      root.querySelectorAll<HTMLElement>('[data-slot]').forEach((el) => {
+        const st = r.slots[el.dataset.slot!]!;
+        el.dataset.state = st;
+        el.querySelector('[data-mark]')!.textContent = st === 'ok' ? ' ✓' : st === 'wrong' ? ' ✗' : st === 'incomplete' ? ' …' : '';
+      });
+      const wrong = slotIds.filter((s) => r.slots[s] === 'wrong').map((s) => (s === 'sex' ? 'X / Y' : s));
+      if (r.complete) {
+        const d = diagnose(chroms);
+        say(`All ${r.total} groups are correct. Karyotype: ${d.formula}.`);
+      } else {
+        say(`${r.correct} of ${r.total} groups correct.` +
+          (wrong.length ? ` Wrong chromosome in ${wrong.length === 1 ? 'pair' : 'pairs'} ${wrong.join(', ')} (marked ✗).` : '') +
+          (r.unplaced ? ` ${r.unplaced} still in the spread.` : ''));
+      }
+    };
+
+    const guess = (btn: HTMLButtonElement) => {
+      const kind = btn.dataset.guess!;
+      guesses[kind] = btn.dataset.value!;
+      root.querySelectorAll<HTMLButtonElement>(`[data-guess="${kind}"]`).forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      const d = diagnose(chroms);
+      const parts: string[] = [];
+      if (guesses.sex) {
+        parts.push(guesses.sex === d.sex
+          ? `Sex: correct — ${d.sex === 'male' ? 'one X and one much smaller Y, so male' : 'two X chromosomes and no Y, so female'}.`
+          : `Sex: not quite — look at the X / Y group: ${d.sex === 'male' ? 'there is a small Y chromosome' : 'there are two X chromosomes and no Y'}.`);
+      }
+      if (guesses.count) {
+        parts.push(Number(guesses.count) === d.count
+          ? `Number: correct — ${d.count} chromosomes${d.trisomies.length ? `, with three copies of chromosome ${d.trisomies.join(', ')} (trisomy 21, the cause of Down syndrome)` : ', in 23 pairs'}.`
+          : `Number: not quite — count again, or look for a group with three chromosomes instead of two.`);
+      }
+      feedback.textContent = parts.join(' ');
+    };
+
+    root.addEventListener('click', (e) => {
+      const t = e.target as HTMLElement;
+      const chrom = t.closest<HTMLButtonElement>('.chrom');
+      if (chrom) { select(chrom.dataset.uid!); return; }
+      const slotBtn = t.closest<HTMLButtonElement>('[data-slot-btn]');
+      if (slotBtn) { place(slotBtn.dataset.slotBtn!, e.detail === 0); return; }
+      const slot = t.closest<HTMLElement>('[data-slot]');
+      if (slot) { place(slot.dataset.slot!, false); return; }
+      if (t.closest('[data-spread]') && selected && placement[selected]) { place('spread', false); return; }
+      const sampleBtn = t.closest<HTMLButtonElement>('[data-sample]');
+      if (sampleBtn) { chooseSample(sampleBtn); return; }
+      const act = t.closest<HTMLButtonElement>('[data-act]')?.dataset.act;
+      if (act === 'check') runCheck();
+      else if (act === 'solve') {
+        placement = solve(chroms);
+        chroms.forEach((c, i) => (order[c.uid] = i));
+        selected = null;
+        render();
+        runCheck();
+      } else if (act === 'reset') { load(sampleId, seed + 1); say('Chromosomes shuffled back into the spread.'); }
+      const g = t.closest<HTMLButtonElement>('[data-guess]');
+      if (g) guess(g);
+    });
+
+    // roving focus: arrow keys move within the chromosomes, and within the pairs
+    root.addEventListener('keydown', (e) => {
+      const t = e.target as HTMLElement;
+      const d = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+      const home = e.key === 'Home', end = e.key === 'End';
+      if (!d && !home && !end) return;
+      const group = t.classList.contains('chrom') ? [...root.querySelectorAll<HTMLButtonElement>('.chrom')]
+        : t.classList.contains('slot-btn') ? slotBtns
+        : t.matches('[data-sample]') ? [...root.querySelectorAll<HTMLButtonElement>('[data-sample]')] : null;
+      if (!group) return;
+      e.preventDefault();
+      const i = group.indexOf(t as HTMLButtonElement);
+      const next = group[home ? 0 : end ? group.length - 1 : (i + d + group.length) % group.length]!;
+      group.forEach((b) => (b.tabIndex = b === next ? 0 : -1));
+      if (next.classList.contains('chrom')) rover = next.dataset.uid!;
+      next.focus();
+      if (next.matches('[data-sample]')) chooseSample(next);
+    });
+
+    const chooseSample = (btn: HTMLButtonElement) => {
+      root.querySelectorAll<HTMLButtonElement>('[data-sample]').forEach((b) => {
+        const on = b === btn;
+        b.setAttribute('aria-checked', String(on));
+        b.tabIndex = on ? 0 : -1;
+      });
+      load(btn.dataset.sample as SampleId, 1);
+      say(`Person ${btn.dataset.sample}: ${chroms.length} chromosomes in the spread. Select one, then choose its pair.`);
+    };
+
+    load('A', 1);
+  });
+</script>
+
+<style>
+  .kary { container-type: inline-size; }
+  .bar { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); justify-content: space-between; margin-bottom: var(--space-2); }
+  .samples, .actions, .opts { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .samples .btn[aria-checked='true'] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-strong); }
+  .btn.small { min-height: 2rem; padding: 0.3rem 0.7rem; }
+  .status { margin: 0 0 var(--space-3); padding: var(--space-2) var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); min-height: 2.6em; }
+  .area-title { font-weight: 700; font-size: var(--step--1); color: var(--text-muted); margin: 0; }
+  .count { font-weight: 600; }
+  .spread-wrap { border: 1px dashed var(--border-strong); border-radius: var(--radius-m); padding: var(--space-2) var(--space-3) var(--space-3); margin-bottom: var(--space-3); }
+  .spread-head { display: flex; flex-wrap: wrap; gap: var(--space-2); justify-content: space-between; align-items: center; margin-bottom: var(--space-2); }
+  .spread { display: flex; flex-wrap: wrap; gap: 6px 4px; align-items: flex-end; min-height: 4rem; }
+  .spread :global(.empty) { margin: 0; font-size: var(--step--1); color: var(--text-muted); align-self: center; }
+
+  .board { display: grid; gap: var(--space-2); }
+  .row { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: flex-end; justify-content: center; padding-bottom: var(--space-2); border-bottom: 1px solid var(--border); }
+  .slot { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; min-width: 2.6rem; padding: 4px 3px 0; border-radius: var(--radius-s); border: 2px solid transparent; cursor: pointer; }
+  .slot:hover { background: var(--surface-2); }
+  .slot-chroms { display: flex; gap: 2px; align-items: flex-start; min-height: 26px; }
+  .slot-btn { font: inherit; font-size: 0.8rem; font-weight: 700; color: var(--text); background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: 4px; min-width: 2.2rem; min-height: 24px; margin-top: 3px; padding: 0 4px; cursor: pointer; white-space: nowrap; }
+  .slot.sex { min-width: 3.4rem; }
+  .slot[data-state='ok'] { border-color: var(--good); background: var(--good-soft); }
+  .slot[data-state='wrong'] { border-color: var(--bad); background: var(--bad-soft); }
+  .slot[data-state='incomplete'] { border-color: var(--warn); background: var(--warn-soft); }
+  .slot[data-state='ok'] .slot-btn { color: var(--good); }
+  .slot[data-state='wrong'] .slot-btn { color: var(--bad); }
+  .slot[data-state='incomplete'] .slot-btn { color: var(--warn); }
+
+  .kary :global(.chrom) { display: inline-flex; align-items: flex-start; justify-content: center; min-width: 24px; min-height: 24px; padding: 2px; background: transparent; border: 2px solid transparent; border-radius: 5px; cursor: pointer; }
+  .kary :global(.chrom:hover) { background: var(--surface-3); }
+  .kary :global(.chrom[aria-pressed='true']) { border-color: var(--focus); background: color-mix(in srgb, var(--focus) 18%, transparent); }
+  .kary :global(.chrom-svg) { display: block; }
+  .kary :global(.chromatid) { fill: color-mix(in srgb, var(--bio-protein) 22%, var(--surface)); stroke: var(--text-muted); stroke-width: 0.8; }
+  .kary :global(.band) { fill: var(--text); opacity: 0.8; }
+  .kary :global(.cen) { fill: var(--bio-head); }
+
+  .deduce { margin-top: var(--space-3); padding: var(--space-3); border-radius: var(--radius-m); background: var(--surface-2); display: grid; gap: var(--space-2); font-size: var(--step--1); }
+  .q { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .q > span { font-weight: 650; min-width: 9.5rem; }
+  .feedback { margin: 0; }
+  .how { margin-top: var(--space-3); font-size: var(--step--1); }
+  .how summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  .how ul { margin: var(--space-2) 0 0; padding-left: 1.2rem; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+  @container (max-width: 30rem) {
+    .row { gap: 4px; }
+    .slot { min-width: 2.2rem; padding: 3px 1px 0; }
+  }
+</style>
