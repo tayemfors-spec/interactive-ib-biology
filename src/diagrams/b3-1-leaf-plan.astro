@@ -1,0 +1,46 @@
+---
+/**
+ * Exam-style plan diagram of a transverse section of a dicotyledonous leaf (B3.1.8): tissue
+ * boundaries only, no individual cells, ruled label lines. The vein has xylem towards the upper surface.
+ */
+const L = 40, Rt = 430; // left and right edges of the drawing
+const y = { cut: 36, ue: 46, pal: 128, spg: 222, le: 236 };
+const vein = { x: 210, y: 150, rx: 40, ry: 30 };
+const labels: { text: string; y: number; to: [number, number] }[] = [
+  { text: 'waxy cuticle', y: 26, to: [400, 36] },
+  { text: 'upper epidermis', y: 58, to: [400, 41] },
+  { text: 'palisade mesophyll', y: 92, to: [400, 90] },
+  { text: 'xylem', y: 132, to: [222, 138] },
+  { text: 'phloem', y: 166, to: [222, 164] },
+  { text: 'spongy mesophyll', y: 200, to: [400, 196] },
+  { text: 'lower epidermis', y: 254, to: [400, 229] },
+];
+---
+<svg viewBox="0 0 640 280" role="img" aria-labelledby="leafp-t leafp-d" xmlns="http://www.w3.org/2000/svg" class="leafp">
+  <title id="leafp-t">Plan diagram of a transverse section of a dicotyledonous leaf</title>
+  <desc id="leafp-d">A plan diagram with ruled label lines. From the top: waxy cuticle, upper epidermis, a thick layer of palisade mesophyll, spongy mesophyll and lower epidermis. A vein lies at the boundary of the palisade and spongy mesophyll, with xylem in its upper half and phloem in its lower half. Only the boundaries between tissues are drawn, not individual cells.</desc>
+  <!-- outline of the section and tissue boundaries -->
+  <path class="edge" d={`M${L} ${y.cut} H${Rt} M${L} ${y.le + 6} H${Rt}`} />
+  <path class="bound" d={`M${L} ${y.ue} H${Rt} M${L} ${y.pal} H${vein.x - vein.rx} M${vein.x + vein.rx} ${y.pal} H${Rt} M${L} ${y.spg} H${Rt}`} />
+  <path class="cutline" d={`M${L} ${y.cut} V${y.le + 6} M${Rt} ${y.cut} V${y.le + 6}`} />
+  <ellipse class="bound" cx={vein.x} cy={vein.y} rx={vein.rx} ry={vein.ry} />
+  <path class="bound" d={`M${vein.x - vein.rx + 3} ${vein.y + 2} H${vein.x + vein.rx - 3}`} />
+  <path class="cuticle" d={`M${L} ${y.cut - 3} H${Rt}`} />
+  <path class="cuticle" d={`M${L} ${y.le + 9} H${Rt}`} />
+  <g class="labels">
+    {labels.map((l) => (
+      <>
+        <path class="lead" d={`M${l.to[0]} ${l.to[1]} L452 ${l.y}`} />
+        <text x="458" y={l.y} dy="0.35em">{l.text}</text>
+      </>
+    ))}
+  </g>
+</svg>
+<style>
+  .leafp { font-family: var(--font-sans); }
+  .edge, .bound, .cutline { fill: none; stroke: var(--text); stroke-width: 2; }
+  .cutline { stroke-dasharray: 2 0; }
+  .cuticle { stroke: var(--text); stroke-width: 1.2; }
+  .lead { stroke: var(--text); stroke-width: 1.2; }
+  .labels text { font-size: 18px; fill: var(--text); }
+</style>

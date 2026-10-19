@@ -1,0 +1,130 @@
+---
+/**
+ * Transverse section of part of a dicotyledonous leaf, drawn as cells (B3.1.7), with the route of
+ * CO₂ in and O₂ and water vapour out through a stoma. Numbered markers and a key, as in B2.1.
+ */
+let s = 5;
+const rnd = () => { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; };
+const X0 = 16, X1 = 784;
+const vein = { x: 190, y: 228, r: 42 };
+const chamber = { x: 520, y: 300, rx: 54, ry: 30 };
+const stomaX = 520;
+
+const upper = Array.from({ length: 20 }, (_, i) => X0 + i * 38.4);
+const palisade = Array.from({ length: 25 }, (_, i) => X0 + 2 + i * 30.7);
+const lower = Array.from({ length: 20 }, (_, i) => X0 + i * 38.4).filter((x) => x + 38 < stomaX - 22 || x > stomaX + 22);
+// spongy mesophyll: rounded cells with air spaces between them
+const spongy: { x: number; y: number; rx: number; ry: number }[] = [];
+for (let row = 0; row < 4; row++) {
+  for (let col = 0; col < 17; col++) {
+    const x = X0 + 24 + col * 45 + (row % 2) * 20 + (rnd() - 0.5) * 10;
+    const y = 200 + row * 34 + (rnd() - 0.5) * 8;
+    if (x > X1 - 18) continue;
+    if (Math.hypot(x - vein.x, y - vein.y) < vein.r + 18) continue;
+    if (((x - chamber.x) / (chamber.rx + 10)) ** 2 + ((y - chamber.y) / (chamber.ry + 12)) ** 2 < 1) continue;
+    spongy.push({ x, y, rx: 15 + rnd() * 5, ry: 11 + rnd() * 4 });
+  }
+}
+const xylem = [[-16, -14], [0, -20], [16, -14], [-8, -2], [9, -3], [-22, 2], [23, 1]];
+const phloem = [[-14, 14], [-5, 20], [5, 20], [14, 14], [-6, 10], [6, 10], [0, 28], [-18, 22], [18, 22]];
+const markers: { n: number; x: number; y: number; to: [number, number] }[] = [
+  { n: 1, x: 300, y: 12, to: [330, 29] },
+  { n: 2, x: 404, y: 12, to: [420, 46] },
+  { n: 3, x: 650, y: 12, to: [652, 96] },
+  { n: 4, x: 770, y: 230, to: [740, 236] },
+  { n: 5, x: 610, y: 210, to: [588, 252] },
+  { n: 6, x: 110, y: 168, to: [175, 212] },
+  { n: 7, x: 110, y: 300, to: [178, 246] },
+  { n: 8, x: 300, y: 386, to: [320, 346] },
+  { n: 9, x: 440, y: 386, to: [500, 346] },
+  { n: 10, x: 600, y: 386, to: [527, 352] },
+];
+const key = [
+  'Waxy cuticle: reduces water loss; gases cannot pass through it',
+  'Upper epidermis: transparent cells that secrete the cuticle',
+  'Palisade mesophyll: tightly packed cells, main site of photosynthesis',
+  'Spongy mesophyll: loose cells with a large, moist surface for gas exchange',
+  'Air spaces: connect with the stomata; gases diffuse through them',
+  'Xylem (upper side of the vein): supplies water to replace losses',
+  'Phloem (lower side of the vein): carries sugars away',
+  'Lower epidermis: has most of the stomata',
+  'Guard cells: change shape to open or close the stoma',
+  'Stoma: pore for CO₂ in, O₂ and water vapour out',
+];
+---
+<svg viewBox="0 0 800 440" role="img" aria-labelledby="leafs-t leafs-d" xmlns="http://www.w3.org/2000/svg" class="leafs">
+  <title id="leafs-t">Transverse section of a dicotyledonous leaf, showing cells</title>
+  <desc id="leafs-d">From top to bottom: waxy cuticle, a single layer of upper epidermis, tall palisade mesophyll cells packed with chloroplasts, spongy mesophyll cells with large air spaces between them, and the lower epidermis with a stoma between two guard cells. A vein in the spongy mesophyll has xylem towards the upper side and phloem towards the lower side. Arrows show carbon dioxide entering through the stoma and oxygen and water vapour leaving.</desc>
+  <defs>
+    <marker id="leafs-a" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path class="mk" d="M0 0 L10 5 L0 10 Z" /></marker>
+  </defs>
+  <rect class="cuticle" x={X0} y="26" width={X1 - X0} height="8" rx="3" />
+  {upper.map((x) => <rect class="epi" x={x} y="34" width="38.4" height="30" />)}
+  {palisade.map((x) => (
+    <g>
+      <rect class="pal" x={x} y="66" width="28" height="112" rx="9" />
+      {[0, 1, 2, 3, 4, 5].map((k) => <ellipse class="chl" cx={x + (k % 2 ? 22 : 6)} cy={78 + k * 17} rx="4" ry="6" />)}
+    </g>
+  ))}
+  {spongy.map((c) => (
+    <g>
+      <ellipse class="spg" cx={c.x} cy={c.y} rx={c.rx} ry={c.ry} />
+      <ellipse class="chl" cx={c.x - c.rx * 0.5} cy={c.y} rx="3.5" ry="2.5" />
+      <ellipse class="chl" cx={c.x + c.rx * 0.5} cy={c.y - 2} rx="3.5" ry="2.5" />
+    </g>
+  ))}
+  <!-- vein: xylem above, phloem below, inside a bundle sheath -->
+  <circle class="sheath" cx={vein.x} cy={vein.y} r={vein.r} />
+  {xylem.map(([dx, dy]) => <circle class="xy" cx={vein.x + dx!} cy={vein.y + dy!} r="6.5" />)}
+  {phloem.map(([dx, dy]) => <circle class="ph" cx={vein.x + dx!} cy={vein.y + dy!} r="3.6" />)}
+  <!-- lower epidermis and a stoma -->
+  {lower.map((x) => <rect class="epi" x={x} y="330" width="38.4" height="24" />)}
+  <rect class="epi" x={stomaX - 60} y="330" width="34" height="24" />
+  <rect class="epi" x={stomaX + 26} y="330" width="34" height="24" />
+  <ellipse class="guard" cx={stomaX - 13} cy="342" rx="12" ry="15" />
+  <ellipse class="guard" cx={stomaX + 13} cy="342" rx="12" ry="15" />
+  {[-1, 1].map((sg) => <><ellipse class="chl" cx={stomaX + sg * 15} cy="336" rx="3" ry="2.4" /><ellipse class="chl" cx={stomaX + sg * 14} cy="349" rx="3" ry="2.4" /></>)}
+  <rect class="cuticle" x={X0} y="354" width={stomaX - 26 - X0} height="5" rx="2" />
+  <rect class="cuticle" x={stomaX + 26} y="354" width={X1 - stomaX - 26} height="5" rx="2" />
+  <!-- gases -->
+  <path class="gas co2" d={`M${stomaX - 6} 422 V346 Q${stomaX - 10} 296 ${stomaX - 70} 268`} />
+  <path class="gas o2" d={`M${stomaX + 40} 262 Q${stomaX + 6} 290 ${stomaX + 4} 340 V418`} />
+  <text class="g-t" x={stomaX - 14} y="434" text-anchor="end">CO₂ in</text>
+  <text class="g-t" x={stomaX + 14} y="434">O₂ and water vapour out</text>
+
+  <g class="markers">
+    {markers.map((m) => (
+      <g>
+        <path class="lead" d={`M${m.x} ${m.y} L${m.to[0]} ${m.to[1]}`} />
+        <circle cx={m.x} cy={m.y} r="12" />
+        <text x={m.x} y={m.y} dy="0.36em" text-anchor="middle">{m.n}</text>
+      </g>
+    ))}
+  </g>
+</svg>
+<ol class="key">
+  {key.map((k) => <li>{k}</li>)}
+</ol>
+<style>
+  .leafs { font-family: var(--font-sans); }
+  .cuticle { fill: color-mix(in srgb, var(--bio-glucose) 70%, transparent); }
+  .epi { fill: color-mix(in srgb, var(--bio-carb) 8%, var(--surface)); stroke: color-mix(in srgb, var(--bio-carb) 60%, var(--text-muted)); stroke-width: 1.4; }
+  .pal { fill: color-mix(in srgb, var(--bio-carb) 18%, var(--surface)); stroke: color-mix(in srgb, var(--bio-carb) 70%, var(--text-muted)); stroke-width: 1.4; }
+  .spg { fill: color-mix(in srgb, var(--bio-carb) 14%, var(--surface)); stroke: color-mix(in srgb, var(--bio-carb) 70%, var(--text-muted)); stroke-width: 1.4; }
+  .chl { fill: var(--bio-carb); }
+  .guard { fill: color-mix(in srgb, var(--bio-carb) 30%, var(--surface)); stroke: color-mix(in srgb, var(--bio-carb) 70%, black); stroke-width: 1.6; }
+  .sheath { fill: color-mix(in srgb, var(--bio-tail) 25%, var(--surface)); stroke: var(--text-muted); stroke-width: 1.4; }
+  .xy { fill: var(--surface); stroke: var(--bio-protein); stroke-width: 3; }
+  .ph { fill: color-mix(in srgb, var(--bio-head) 40%, var(--surface)); stroke: var(--bio-head); stroke-width: 1.2; }
+  .gas { fill: none; stroke-width: 3; marker-end: url(#leafs-a); }
+  .co2 { stroke: var(--text); }
+  .o2 { stroke: var(--bio-water); stroke-dasharray: 8 4; }
+  .mk { fill: var(--text); }
+  .g-t { font-size: 15px; font-weight: 700; fill: var(--text); }
+  .markers circle { fill: var(--surface); stroke: var(--text); stroke-width: 1.8; }
+  .markers text { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .lead { stroke: var(--text); stroke-width: 1.3; }
+  .key { columns: 2 17rem; column-gap: var(--space-5); margin: var(--space-3) 0 0; padding: 0; list-style: none; counter-reset: k; font-size: var(--step--1); }
+  .key li { break-inside: avoid; margin: 0 0 0.3rem; display: grid; grid-template-columns: 1.7rem 1fr; counter-increment: k; }
+  .key li::before { content: counter(k); font-weight: 800; display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; border: 1.5px solid var(--text); border-radius: 50%; font-size: 0.75rem; margin-top: 0.1rem; }
+</style>

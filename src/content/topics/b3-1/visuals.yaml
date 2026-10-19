@@ -1,0 +1,171 @@
+# Visuals for B3.1. Label/step text here is what readers see in the 3D viewer and the text descriptions,
+# so it is written to exam standard. Label ids must match anchors in the scene modules (src/scenes).
+visuals:
+  - id: lungs
+    kind: viewer3d
+    title: Alveoli and airways in 3D
+    alt: A cluster of alveoli wrapped in capillaries, one cut open to show its thin wall, and a schematic thorax with airways, ribs and diaphragm.
+    description: >-
+      The first model shows a cluster of alveoli at the end of a terminal bronchiole, each covered by a dense
+      network of capillaries. The front alveolus is cut in half so you can look inside it. Its wall is made of
+      extremely thin type I pneumocytes; two rounded type II pneumocytes bulge into the air space and contain
+      granules of surfactant, which spreads over the film of moisture lining the alveolus. Capillaries, whose
+      walls are a single layer of endothelium, are pressed against the outside of the wall, with red blood cells
+      passing through in single file. Blood arrives from a branch of the pulmonary artery and leaves towards the
+      pulmonary vein. Four steps show ventilation renewing the alveolar air, oxygen diffusing into the blood,
+      carbon dioxide diffusing out, and blood flow keeping both gradients steep. The second model shows the
+      thorax from the front, with the front of the rib cage removed: the trachea with C-shaped cartilage rings,
+      two bronchi, branching bronchioles ending in alveoli, the two lungs, ribs with intercostal muscles between
+      them, and the dome-shaped diaphragm below.
+    scenes:
+      - id: alveoli
+        module: b3-1-alveoli
+        title: Alveoli and capillaries
+        labels:
+          - id: bronchiole
+            name: Bronchiole and alveolar duct
+            text: The narrowest airways. A terminal bronchiole leads into an alveolar duct, which opens into a cluster of alveoli. Bronchioles have no cartilage rings.
+          - id: alveolus
+            name: Alveolus
+            text: A tiny air sac about 0.2–0.3 mm across. An adult's lungs have several hundred million of them, giving a total gas-exchange surface of roughly 50–100 m².
+          - id: air
+            name: Air in the alveolus
+            text: Ventilation keeps this air high in oxygen and low in carbon dioxide compared with the blood arriving in the capillaries, so both gases diffuse down steep gradients.
+          - id: capillaries
+            name: Capillary network
+            text: A dense, basket-like network of capillaries covers every alveolus, so almost the whole alveolar surface is in contact with blood.
+          - id: arteriole
+            name: From the pulmonary artery
+            text: A branch of the pulmonary artery brings deoxygenated blood (low O₂, high CO₂) from the right side of the heart to the capillaries. Blue here shows deoxygenated blood.
+          - id: venule
+            name: To the pulmonary vein
+            text: Oxygenated blood (high O₂, low CO₂) leaves the capillaries and returns to the left side of the heart through the pulmonary vein.
+          - id: type1
+            name: Type I pneumocytes
+            text: Extremely thin, flattened cells that make up most of the alveolar wall. Their thinness keeps the diffusion distance between air and blood very short.
+          - id: type2
+            name: Type II pneumocyte
+            text: A rounded cell in the alveolar wall that secretes surfactant (stored in granules) into the moisture lining the alveolus. Type II cells can also divide to replace damaged type I cells.
+          - id: surfactant
+            name: Moisture film with surfactant
+            text: Gases dissolve in this film before diffusing. Surfactant reduces its surface tension, so the moist alveolar walls do not stick together and the alveoli do not collapse when air is breathed out.
+          - id: endothelium
+            name: Capillary endothelium
+            text: The capillary wall is a single layer of thin endothelial cells, pressed against the alveolar wall. Here it is cut across at the edge of the opened alveolus.
+          - id: rbc
+            name: Red blood cells
+            text: Red blood cells pass through the capillaries in single file, close to the wall. Haemoglobin inside them binds the oxygen that diffuses in. Blue cells have not yet picked up oxygen; red ones have.
+          - id: diffusion
+            name: Short diffusion distance
+            text: Air and blood are separated only by a type I pneumocyte and the capillary endothelium, about 0.5 µm in total. (The model draws the wall far thicker than it is.)
+        steps:
+          - id: ventilation
+            title: Ventilation renews the air
+            caption: Breathing out removes stale air with a raised CO₂ concentration (dark molecules) through the bronchiole; breathing in brings fresh air with a high O₂ concentration (pale molecules) into the alveoli. This keeps the O₂ concentration in the alveolus higher, and the CO₂ concentration lower, than in the blood.
+          - id: o2-in
+            title: Oxygen diffuses into the blood
+            caption: O₂ dissolves in the moisture film, then diffuses through the type I pneumocyte and the capillary endothelium into the blood, where it binds to haemoglobin in red blood cells. Molecules move both ways at random, but more move into the blood than out — a net movement down the concentration gradient.
+          - id: co2-out
+            title: Carbon dioxide diffuses out
+            caption: Blood arriving from respiring tissues has a higher CO₂ concentration than the alveolar air, so CO₂ diffuses the other way, from the plasma and red blood cells across the same thin barrier into the air in the alveolus, to be breathed out.
+          - id: blood-flow
+            title: Blood flow keeps the gradients steep
+            caption: Blood flows continuously through the capillaries. Each red blood cell picks up oxygen within the first part of the capillary (blue to red) and is carried away to the pulmonary vein, while deoxygenated blood keeps arriving. Together with ventilation, this stops the concentrations on the two sides becoming equal, so diffusion continues.
+      - id: airways
+        module: b3-1-airways
+        title: Airways and thorax
+        labels:
+          - id: trachea
+            name: Trachea
+            text: The windpipe, carrying air between the larynx and the bronchi. It is lined with ciliated epithelium and mucus-secreting cells that trap and remove dust and pathogens.
+          - id: cartilage
+            name: C-shaped cartilage rings
+            text: Rings of cartilage hold the trachea open while the pressure inside it changes during breathing. They are open at the back, where the trachea lies against the oesophagus.
+          - id: bronchus
+            name: Bronchi
+            text: The trachea divides into two bronchi, one to each lung. The right bronchus is shorter, wider and more vertical than the left. Bronchi are also supported by cartilage.
+          - id: bronchiole
+            name: Bronchioles
+            text: The bronchi branch again and again into narrower bronchioles, a branched network that carries air to every part of the lung. Bronchioles have smooth muscle but no cartilage.
+          - id: alveoli
+            name: Alveoli
+            text: The bronchioles end in clusters of alveoli, where gas exchange happens (see the other model). They are drawn far larger than they really are.
+          - id: lung
+            name: Lungs
+            text: Two spongy organs inside the thorax, made mostly of alveoli, airways and blood vessels. The lungs follow the movements of the chest wall and diaphragm, so their volume changes as the thorax changes size.
+          - id: ribs
+            name: Ribs
+            text: The ribs form a protective cage around the thorax. Moving them up and out increases the volume of the thorax; moving them down and in decreases it.
+          - id: intercostals
+            name: Intercostal muscles
+            text: Two antagonistic layers of muscle between the ribs. The external intercostals contract to move the ribs up and out (inspiration); the internal intercostals contract to pull them down and in (forced expiration).
+          - id: diaphragm
+            name: Diaphragm
+            text: A dome-shaped sheet of muscle separating the thorax from the abdomen. When it contracts it flattens and moves down, increasing the volume of the thorax.
+
+  - id: ventilation
+    kind: anim
+    module: b3-1-ventilation
+    title: Inspiration and expiration
+    alt: The thorax changing shape during inspiration, quiet expiration and forced expiration, with lung volume and pressure traces.
+    description: >-
+      A front view of the thorax beside two graphs that are drawn as the animation runs: the volume of air in the
+      lungs, and the pressure in the lungs compared with atmospheric pressure. A list shows which muscles are
+      contracting. During inspiration the external intercostal muscles and the diaphragm contract, the rib cage
+      moves up and out and the diaphragm flattens, the volume of the thorax increases and the pressure falls below
+      atmospheric, so air flows in. In quiet expiration the muscles relax and the lungs recoil, so the thorax gets
+      smaller, the pressure rises above atmospheric and air flows out. In forced expiration the internal
+      intercostals and abdominal muscles contract, pushing more air out and taking the volume below the resting level.
+    steps:
+      - id: inspire
+        title: Inspiration
+        caption: The external intercostal muscles contract, moving the ribs up and out, and the diaphragm contracts, flattening and moving down. The volume of the thorax increases, so the pressure inside the lungs falls below atmospheric pressure. Air flows in until the pressure inside is equal to atmospheric pressure again.
+      - id: expire
+        title: Expiration at rest (passive)
+        caption: The external intercostals and the diaphragm relax. The stretched lungs recoil elastically, the ribs fall down and in, and the abdominal organs push the relaxed diaphragm back up into a dome. The volume of the thorax decreases, the pressure rises above atmospheric and air flows out. No muscle contraction is needed.
+      - id: forced
+        title: Forced breathing
+        caption: During exercise, a deeper breath in is followed by forced expiration. The internal intercostal muscles contract, pulling the ribs down and in, and the abdominal muscles contract, pushing the abdominal organs and the diaphragm further up. The thorax becomes smaller than at rest, the pressure rises further above atmospheric, and extra air (part of the expiratory reserve) is pushed out.
+
+  - id: spirometer
+    kind: sim
+    module: b3-1-spirometer
+    title: Lung volumes from a spirometer trace
+    alt: A spirometer trace of tidal breathing and one maximal breath, with a slider for exercise and a practice mode.
+    description: >-
+      A graph of the volume of air in the lungs against time. Several tidal breaths go up and down by about 0.5 dm³.
+      Then the person breathes in as deeply as possible and out as fully as possible, before breathing normally again.
+      Brackets mark the tidal volume, inspiratory reserve volume, expiratory reserve volume and vital capacity; the
+      residual volume that always stays in the lungs is shaded. An exercise slider increases the tidal volume and the
+      ventilation rate: the extra tidal volume comes from the two reserve volumes, so the vital capacity does not
+      change. A cursor slider reads the volume at any time. In practice mode a new trace is drawn without labels and
+      you read a volume or rate from it.
+
+  - id: stomata
+    kind: sim
+    module: b3-1-stomata
+    title: Measuring stomatal density
+    alt: A microscope field of view of leaf epidermis with stomata to count, and a running calculation of stomatal density.
+    description: >-
+      A circular field of view of a leaf epidermis at high power, showing wavy-walled epidermal cells and scattered
+      stomata. You can tick stomata off as you count them and record the count for each field of view. A slider sets
+      the diameter of the field, from which the area is calculated as π multiplied by the radius squared. After each
+      count the working shows the mean number of stomata and the stomatal density (mean count divided by field
+      area, in stomata per mm²). A chart plots the estimate from each single field and the running mean, showing that
+      single counts vary but the mean becomes more reliable as more fields are counted. You can compare the lower and
+      upper epidermis.
+
+  - id: dissociation
+    kind: sim
+    module: b3-1-dissociation
+    level: AHL
+    title: Oxygen dissociation curves and the Bohr shift
+    alt: Graph of haemoglobin saturation against partial pressure of oxygen with sliders for tissue oxygen and carbon dioxide.
+    description: >-
+      A graph of percentage saturation of haemoglobin against the partial pressure of oxygen in kilopascals. The adult
+      haemoglobin curve is S-shaped (sigmoid): it is shallow at low partial pressures, steep between about 2 and 6 kPa,
+      and levels off near 100 % above about 10 kPa. Points mark the saturation in the lungs (about 97 % at 13.3 kPa)
+      and in a respiring tissue. Sliders set the partial pressures of oxygen and carbon dioxide in the tissue. Raising
+      the carbon dioxide lowers the pH and moves the curve to the right (the Bohr shift), so more oxygen is released at
+      the same partial pressure of oxygen. Optional curves show foetal haemoglobin, to the left of the adult curve
+      because it has a higher affinity for oxygen, and myoglobin, a hyperbola far to the left.

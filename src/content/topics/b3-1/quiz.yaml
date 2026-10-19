@@ -1,0 +1,208 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: B3.1.3
+    stem: >-
+      Blood flows continuously through the capillaries around the alveoli. Why does this increase the rate
+      at which oxygen enters the blood?
+    options:
+      - id: a
+        text: The pressure of the flowing blood pushes oxygen through the alveolar wall.
+        why: Oxygen crosses the wall by diffusion, driven by its concentration gradient, not by the pressure of the blood (mass flow).
+      - id: b
+        text: The moving blood increases the surface area of the alveoli.
+        why: Blood flow does not change the area of the alveoli. Area comes from the number of alveoli and the extent of the capillary network.
+      - id: c
+        text: Red blood cells actively pump oxygen in from the alveolar air.
+        why: No pumping is involved. Oxygen enters the blood by passive diffusion; haemoglobin binds it once it is inside.
+      - id: d
+        text: Oxygenated blood is carried away and replaced by deoxygenated blood, so the oxygen concentration in the capillaries stays lower than in the alveolar air.
+        why: Correct. Continuous blood flow maintains the concentration gradient, so net diffusion of oxygen into the blood continues.
+    answer: d
+
+  - id: q2
+    level: SL
+    understanding: B3.1.4
+    stem: >-
+      Premature babies sometimes cannot yet secrete enough surfactant and have great difficulty breathing.
+      What is the role of surfactant in a healthy lung?
+    options:
+      - id: a
+        text: It reduces the surface tension of the moisture lining the alveoli, so the alveoli do not collapse when air is breathed out.
+        why: Correct. Without surfactant the moist walls stick together and the alveoli collapse, so each breath takes much more effort.
+      - id: b
+        text: It dissolves oxygen so that oxygen diffuses faster across the alveolar wall.
+        why: Oxygen dissolves in the water of the moisture film; surfactant's job is to lower the surface tension of that water, not to speed up diffusion.
+      - id: c
+        text: It is secreted by type I pneumocytes to make the alveolar wall thinner.
+        why: Surfactant is secreted by type II pneumocytes, and it does not change the thickness of the wall.
+      - id: d
+        text: It kills bacteria that reach the alveoli in inhaled air.
+        why: Pathogens are removed by mucus, cilia and phagocytes. Surfactant's key role in gas exchange is lowering surface tension.
+    answer: a
+
+  - id: q3
+    level: SL
+    understanding: B3.1.5
+    stem: Which events happen during inspiration?
+    options:
+      - id: a
+        text: The diaphragm relaxes and moves down; the pressure in the thorax rises above atmospheric.
+        why: The diaphragm contracts (not relaxes) to move down, and the pressure falls rather than rises when the thorax gets larger.
+      - id: b
+        text: The internal intercostal muscles contract, moving the ribs up and out; the volume of the thorax decreases.
+        why: The external intercostals move the ribs up and out. The internal intercostals pull them down and in during forced expiration, and the volume increases during inspiration.
+      - id: c
+        text: The external intercostal muscles and the diaphragm contract; the volume of the thorax increases and its pressure falls below atmospheric.
+        why: Correct. The rib cage moves up and out and the diaphragm flattens, so the thorax gets larger, the pressure falls and air flows in.
+      - id: d
+        text: The lungs expand by themselves, pulling the ribs up and the diaphragm down.
+        why: The lungs have no muscle to expand themselves. The muscles of the chest wall and diaphragm change the volume, and the lungs follow.
+    answer: c
+
+  - id: q4
+    level: SL
+    understanding: B3.1.6
+    stem: >-
+      On a spirometer trace, a student's normal breaths go up and down between 2.4 dm³ and 2.9 dm³. When the
+      student breathes in as deeply as possible the trace reaches 5.8 dm³, and after breathing out as fully as
+      possible it falls to 1.2 dm³. What is the student's vital capacity?
+    options:
+      - id: a
+        text: 0.5 dm³
+        why: This is the tidal volume, the difference between the top and bottom of a normal breath (2.9 − 2.4).
+      - id: b
+        text: 4.6 dm³
+        why: Correct. Vital capacity is from the highest to the lowest point of the deep breath, 5.8 − 1.2 = 4.6 dm³, which equals IRV (2.9) + TV (0.5) + ERV (1.2).
+      - id: c
+        text: 5.8 dm³
+        why: This is the total lung capacity, read from zero. It includes the residual volume (1.2 dm³), which cannot be breathed out.
+      - id: d
+        text: 2.9 dm³
+        why: This is the inspiratory reserve volume (5.8 − 2.9), only one part of the vital capacity.
+    answer: b
+
+  - id: q5
+    level: SL
+    understanding: B3.1.8
+    stem: >-
+      A student draws a plan diagram of a transverse section of a dicotyledonous leaf. Which feature is
+      correct for this kind of drawing?
+    options:
+      - id: a
+        text: Each palisade mesophyll cell is drawn with its chloroplasts.
+        why: A plan diagram shows only the outlines of tissues. Individual cells and their contents are not drawn.
+      - id: b
+        text: The spongy mesophyll is drawn between the upper epidermis and the palisade mesophyll.
+        why: The palisade mesophyll lies directly under the upper epidermis; the spongy mesophyll is below it, above the lower epidermis.
+      - id: c
+        text: In the vein, the phloem is drawn towards the upper surface and the xylem towards the lower surface.
+        why: This reverses them. In a leaf vein the xylem is towards the upper surface and the phloem towards the lower surface.
+      - id: d
+        text: Tissue boundaries are drawn as continuous lines, with the xylem in the vein on the side nearer the upper epidermis.
+        why: Correct. A plan diagram shows the boundaries of tissues only, in the correct positions.
+    answer: d
+
+  - id: q6
+    level: SL
+    understanding: B3.1.9
+    stem: >-
+      A leafy shoot with open stomata is in still air at 20 °C. Which change would decrease its rate of
+      transpiration?
+    options:
+      - id: a
+        text: Raising the temperature to 30 °C
+        why: A higher temperature increases evaporation from the mesophyll cell walls and the rate of diffusion, so transpiration increases.
+      - id: b
+        text: Placing a fan beside the shoot
+        why: Moving air removes the humid air near the stomata, which steepens the gradient and increases transpiration.
+      - id: c
+        text: Increasing the humidity of the air around the shoot
+        why: Correct. More humid air reduces the concentration gradient of water vapour between the air spaces and the air outside, so water vapour diffuses out more slowly.
+      - id: d
+        text: Increasing the light intensity
+        why: Brighter light keeps stomata open (or opens them wider) for photosynthesis, so transpiration increases.
+    answer: c
+
+  - id: q7
+    level: SL
+    understanding: B3.1.10
+    stem: >-
+      A student counts stomata in five fields of view of a leaf cast and finds a mean of 19 stomata per field.
+      The diameter of the field of view is 0.40 mm. What is the stomatal density?
+    options:
+      - id: a
+        text: 151 stomata per mm²
+        why: Correct. Area = π × 0.20² = 0.126 mm², and 19 ÷ 0.126 = 151 mm⁻².
+      - id: b
+        text: 38 stomata per mm²
+        why: This uses the diameter as if it were the radius (π × 0.40² = 0.503 mm²). The radius is half the diameter.
+      - id: c
+        text: 475 stomata per mm²
+        why: This leaves out π, dividing by 0.20² = 0.04 mm² instead of by the area of a circle.
+      - id: d
+        text: 48 stomata per mm²
+        why: This divides the count by the diameter (19 ÷ 0.40). Density must be count per unit area.
+    answer: a
+
+  - id: q8
+    level: AHL
+    understanding: B3.1.11
+    stem: How is a foetus able to take up oxygen from its mother's blood in the placenta?
+    options:
+      - id: a
+        text: Maternal and foetal blood mix in the placenta, so maternal red blood cells deliver oxygen directly to the foetus.
+        why: The two bloods are kept separate in the placenta. Oxygen has to diffuse from one to the other.
+      - id: b
+        text: Foetal haemoglobin has a higher affinity for oxygen than adult haemoglobin, so oxygen dissociates from maternal haemoglobin and binds to foetal haemoglobin.
+        why: Correct. At the partial pressures of oxygen in the placenta, foetal haemoglobin is more saturated than maternal haemoglobin, so oxygen moves towards it.
+      - id: c
+        text: Foetal haemoglobin has a lower affinity for oxygen, so it releases oxygen more easily to the foetal tissues.
+        why: Foetal haemoglobin's affinity is higher, not lower; that is what allows it to take oxygen from maternal haemoglobin.
+      - id: d
+        text: Each foetal haemoglobin molecule can carry eight oxygen molecules instead of four.
+        why: Both foetal and adult haemoglobin have four haem groups and carry at most four O₂. The difference is in affinity, not capacity.
+    answer: b
+
+  - id: q9
+    level: AHL
+    understanding: B3.1.13
+    stem: >-
+      The percentage saturation of adult haemoglobin was measured at different partial pressures of oxygen
+      (pO₂). Results — 1 kPa, 3 %; 2 kPa, 18 %; 3 kPa, 40 %; 4 kPa, 59 %; 5 kPa, 72 %; 8 kPa, 90 %; 13 kPa, 97 %.
+      Which conclusion is supported by these data?
+    options:
+      - id: a
+        text: Saturation is directly proportional to pO₂, so each 1 kPa fall in pO₂ releases the same amount of oxygen.
+        why: The rise is not constant. Saturation rises by 15 percentage points from 1 to 2 kPa and by 22 from 2 to 3 kPa, but by only 7 in total from 8 to 13 kPa, so the relationship is not linear.
+      - id: b
+        text: Haemoglobin has its highest affinity for oxygen at very low pO₂, below 2 kPa.
+        why: Saturation rises least between 0 and 2 kPa, because binding the first O₂ is hardest. Affinity increases once some O₂ has bound.
+      - id: c
+        text: Saturation changes most steeply between about 2 and 5 kPa, so a small fall in pO₂ in respiring tissues releases a large proportion of the oxygen.
+        why: Correct. This steep middle section of the sigmoid curve is caused by cooperative binding and matches the pO₂ found in respiring tissues.
+      - id: d
+        text: Most of the oxygen is released between 13 kPa and 8 kPa.
+        why: Saturation only falls from 97 % to 90 % over this range. Most oxygen is released at lower partial pressures.
+    answer: c
+
+  - id: q10
+    level: AHL
+    understanding: B3.1.12
+    stem: >-
+      Blood passing through a contracting muscle has a higher concentration of carbon dioxide than blood in
+      the lungs. What is the effect of this on oxygen transport?
+    options:
+      - id: a
+        text: The dissociation curve shifts to the left, so haemoglobin releases more oxygen in the muscle.
+        why: The direction is wrong. A shift to the left would mean a higher affinity, so less oxygen would be released.
+      - id: b
+        text: Carbon dioxide competes with oxygen for the haem groups, displacing oxygen from them.
+        why: Carbon dioxide binds allosterically to the globin chains, not to the haem. (Carbon monoxide is the gas that competes for haem.)
+      - id: c
+        text: The affinity of haemoglobin for oxygen increases, so the muscle cells keep more oxygen in their blood.
+        why: Carbon dioxide reduces affinity, so haemoglobin gives up more oxygen to the tissue, not less.
+      - id: d
+        text: The affinity of haemoglobin for oxygen decreases, the curve shifts to the right, and more oxygen is released at the same pO₂.
+        why: Correct. This is the Bohr shift. Lower pH and carbaminohaemoglobin formation reduce affinity, supplying more oxygen to the most active tissues.
+    answer: d

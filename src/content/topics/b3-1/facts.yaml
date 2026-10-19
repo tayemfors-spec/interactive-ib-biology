@@ -1,0 +1,181 @@
+facts:
+  - id: f1
+    claim: As size increases, SA:V falls (area ∝ length², volume ∝ length³) and the distance from the centre to the surface increases, so large organisms need specialized exchange surfaces. Cube values 6:1, 3:1, 1.5:1 for sides 1, 2, 4 mm.
+    where: ["index.mdx#exchange", "flashcards.yaml:c1"]
+    confidence: high
+    basis: Geometry; IB guide B3.1.1
+    status: checked
+  - id: f2
+    claim: Gas-exchange surfaces are permeable, thin, moist and have a large surface area.
+    where: ["index.mdx#exchange", "index.mdx (mustKnow)", "flashcards.yaml:c2"]
+    confidence: high
+    basis: IB guide B3.1.2; Campbell Biology ch. 42
+    status: checked
+  - id: f3
+    claim: Concentration gradients are maintained by dense capillary networks, continuous blood flow and ventilation (air for lungs, water for gills).
+    where: ["index.mdx#gradients", "quiz.yaml:q1", "flashcards.yaml:c3", "visuals.yaml:lungs alveoli step blood-flow"]
+    confidence: high
+    basis: IB guide B3.1.3
+    status: checked
+  - id: f4
+    claim: Bony fish ventilate gills with a one-way flow of water (mouth → gill filaments → gill openings/operculum), with countercurrent blood flow in the lamellae; water holds far less dissolved O₂ than the same volume of air.
+    where: ["index.mdx#gradients", "flashcards.yaml:c4"]
+    confidence: high
+    basis: Campbell Biology ch. 42 (countercurrent exchange in fish gills); air ≈ 210 cm³ O₂ dm⁻³ vs water ≈ 5–10 cm³ dm⁻³
+    status: checked
+  - id: f5
+    claim: An adult human lung pair contains roughly 300–500 million alveoli (mean ≈ 480 million in Ochs et al. 2004), each ≈ 0.2–0.3 mm across, with a total alveolar surface area of about 50–100 m² (often quoted as ≈ 70 m²).
+    where: ["index.mdx#lungs", "visuals.yaml:lungs alveoli alveolus", "flashcards.yaml:c5"]
+    confidence: medium
+    basis: Ochs et al. (2004) Am J Respir Crit Care Med 169:120; Weibel (morphometry); study guide gives 300 million and 0.2–0.5 mm
+    status: open
+  - id: f6
+    claim: The air–blood barrier (type I pneumocyte, fused basement membrane, capillary endothelium) is about 0.5 µm thick at its thinnest/harmonic mean (often quoted 0.2–0.6 µm).
+    where: ["index.mdx#lungs", "index.mdx (mustKnow)", "visuals.yaml:lungs alveoli diffusion", "diagrams/b3-1-alveoli key 10"]
+    confidence: high
+    basis: Weibel morphometry (harmonic mean thickness ≈ 0.6 µm; thin parts ≈ 0.2 µm); study guide says less than 1 µm
+    status: checked
+  - id: f7
+    claim: Type I pneumocytes cover about 95 % of the alveolar surface; type II pneumocytes secrete surfactant (phospholipids, mainly dipalmitoylphosphatidylcholine, plus surfactant proteins) from lamellar bodies and can divide to replace type I cells.
+    where: ["index.mdx#lungs", "visuals.yaml:lungs alveoli type1 type2", "flashcards.yaml:c6"]
+    confidence: high
+    basis: Standard histology (Junqueira); IB guide B2.3.8
+    status: checked
+  - id: f8
+    claim: Surfactant reduces the surface tension of the alveolar moisture film, preventing the walls sticking together and the alveoli collapsing on expiration; premature babies may lack enough surfactant (respiratory distress).
+    where: ["index.mdx#lungs", "index.mdx (mistakes)", "quiz.yaml:q2", "visuals.yaml:lungs alveoli surfactant"]
+    confidence: high
+    basis: Standard physiology (Guyton & Hall); IB guide B3.1.4
+    status: checked
+  - id: f9
+    claim: Capillary surface area in contact with alveoli is almost as large as the alveolar surface area; red blood cells pass through pulmonary capillaries in single file (capillary diameter ≈ 5–8 µm, RBC ≈ 7.5 µm).
+    where: ["index.mdx#lungs", "visuals.yaml:lungs alveoli rbc capillaries"]
+    confidence: high
+    basis: Weibel; study guide p. 117
+    status: checked
+  - id: f10
+    claim: Pulmonary capillary blood equilibrates with alveolar O₂ within roughly the first third of its transit through the capillary at rest (≈ 0.25 of ≈ 0.75 s). The 3D model turns red blood cells from blue to red after one third of the capillary.
+    where: ["visuals.yaml:lungs alveoli step blood-flow", "scenes/b3-1-alveoli.ts"]
+    confidence: high
+    basis: West's Respiratory Physiology (diffusion limitation)
+    status: checked
+  - id: f11
+    claim: Trachea has C-shaped cartilage rings open at the back (posterior, next to the oesophagus); bronchi have cartilage; bronchioles lack cartilage; the right main bronchus is shorter, wider and more vertical than the left.
+    where: ["visuals.yaml:lungs airways", "scenes/b3-1-airways.ts"]
+    confidence: high
+    basis: Gray's Anatomy
+    status: checked
+  - id: f12
+    claim: Inspiration — external intercostals contract (ribs up and out) and diaphragm contracts (flattens, moves down); thorax volume increases, pressure falls below atmospheric, air flows in. Quiet expiration is passive (elastic recoil). Forced expiration uses internal intercostals (ribs down and in) and abdominal muscles (push diaphragm up).
+    where: ["index.mdx#ventilation", "quiz.yaml:q3", "visuals.yaml:ventilation", "flashcards.yaml:c7 c8", "index.mdx (mistakes)"]
+    confidence: high
+    basis: Guyton & Hall; IB guide B3.1.5; study guide p. 116
+    status: checked
+  - id: f13
+    claim: Pressure in the lungs is drawn proportional to airflow (−dV/dt, airflow × airway resistance) — below atmospheric during inspiration and above during expiration, atmospheric when flow stops; at rest the swings are only ≈ 0.1 kPa (≈ 1 cmH₂O).
+    where: ["anims/b3-1-ventilation.ts", "visuals.yaml:ventilation"]
+    confidence: high
+    basis: Guyton & Hall (alveolar pressure ≈ −1 cmH₂O in inspiration, +1 cmH₂O in expiration at rest)
+    status: checked
+  - id: f14
+    claim: Typical young-adult lung volumes used in the sim — TV 0.5, IRV 3.0, ERV 1.1, RV 1.2 dm³; VC 4.6 dm³, TLC 5.8 dm³; resting rate 12 min⁻¹, minute ventilation 6 dm³ min⁻¹. Values vary with sex, height, age and fitness (female VC often ≈ 3–3.5 dm³).
+    where: ["sims/models/b3-1-spirometer.ts", "index.mdx#lung-volumes", "visuals.yaml:spirometer"]
+    confidence: medium
+    basis: Guyton & Hall (TV 500 mL, IRV 3000 mL, ERV 1100 mL, RV 1200 mL, VC 4600 mL, TLC 5800 mL for an average young adult man)
+    status: checked
+  - id: f15
+    claim: In the exercise model, tidal volume rises to ≈ 2.5 dm³ and rate to ≈ 40 breaths per minute (minute ventilation ≈ 100 dm³ min⁻¹); ≈ 70 % of the extra TV comes from the IRV and ≈ 30 % from the ERV, VC unchanged.
+    where: ["sims/models/b3-1-spirometer.ts", "index.mdx#lung-volumes"]
+    confidence: medium
+    basis: Exercise physiology texts (McArdle) — TV at heavy exercise ≈ 50–60 % of VC; end-expiratory lung volume falls modestly; split between reserves is an illustrative simplification
+    status: open
+  - id: f16
+    claim: Resting ventilation rate about 12–16 breaths per minute in adults.
+    where: ["index.mdx#lung-volumes"]
+    confidence: high
+    basis: Standard clinical reference range (12–20 min⁻¹)
+    status: checked
+  - id: f17
+    claim: Spirometer practice — tidal volume repeated at least three times for consistency; simple spirometers use a container of air over water; electronic ones integrate flow; residual volume cannot be measured by spirometry.
+    where: ["index.mdx#lung-volumes", "flashcards.yaml:c10"]
+    confidence: high
+    basis: Study guide p. 117; standard physiology
+    status: checked
+  - id: f18
+    claim: Leaf adaptations — waxy cuticle (reduces water loss, almost impermeable to gases), epidermis (secretes cuticle, transparent upper cells, contains guard cells), stomata/guard cells (open and close pore), air spaces connected to stomata, spongy mesophyll (large moist surface), veins (xylem water supply, phloem removes sugars). Many dicots have most stomata on the lower epidermis.
+    where: ["index.mdx#leaves", "diagrams/b3-1-leaf-section", "flashcards.yaml:c11"]
+    confidence: high
+    basis: IB guide B3.1.7; Raven Biology of Plants
+    status: checked
+  - id: f19
+    claim: In a dicot leaf vein, xylem lies towards the upper (adaxial) surface and phloem towards the lower (abaxial) surface.
+    where: ["index.mdx#leaves", "diagrams/b3-1-leaf-plan", "diagrams/b3-1-leaf-section", "quiz.yaml:q5"]
+    confidence: high
+    basis: Plant anatomy (Esau); study guide p. 118
+    status: checked
+  - id: f20
+    claim: Transpiration factors — temperature ↑ rate ↑; humidity ↑ rate ↓; wind ↑ rate ↑ (strong wind may close stomata); light ↑ rate ↑ (stomatal opening); water shortage closes stomata.
+    where: ["index.mdx#transpiration", "quiz.yaml:q6", "flashcards.yaml:c13"]
+    confidence: high
+    basis: IB guide B3.1.9; Taiz & Zeiger Plant Physiology
+    status: checked
+  - id: f21
+    claim: Stomatal density = mean count ÷ field area; field area = π (d/2)²; for d = 0.40 mm, area = 0.126 mm² and a mean of 19 gives 151 mm⁻². Distractors 38 (diameter used as radius), 475 (π omitted), 48 (÷ diameter).
+    where: ["index.mdx#stomatal-density", "quiz.yaml:q7", "sims/models/b3-1-stomata.ts", "tests/unit/b3-1.test.ts"]
+    confidence: high
+    basis: Arithmetic; IB guide B3.1.10
+    status: checked
+  - id: f22
+    claim: Illustrative stomatal densities in the sim — lower epidermis 150 mm⁻², upper 40 mm⁻²; high-power field diameter ≈ 0.3–0.6 mm; stoma (guard-cell pair) ≈ 40 µm long; patch-to-patch variation ±20 %.
+    where: ["sims/models/b3-1-stomata.ts", "visuals.yaml:stomata"]
+    confidence: medium
+    basis: Typical mesophytic dicots have ≈ 100–300 mm⁻² abaxial, fewer adaxial (Willmer & Fricker, Stomata); values are illustrative, not for a named species
+    status: open
+  - id: f23
+    claim: Adult haemoglobin is α₂β₂ and foetal haemoglobin α₂γ₂; each subunit has a haem with Fe²⁺ binding one O₂ (four O₂ per molecule). HbF has a higher O₂ affinity because it binds 2,3-BPG less strongly; HbF is largely replaced by HbA during the first ≈ 6 months after birth. Maternal and foetal blood do not mix in the placenta.
+    where: ["index.mdx#haemoglobin", "quiz.yaml:q8", "flashcards.yaml:c17"]
+    confidence: high
+    basis: Lehninger Principles of Biochemistry; Guyton & Hall
+    status: checked
+  - id: f24
+    claim: CO₂ binds to the N-terminal amino groups of the globin chains (not to haem), forming carbaminohaemoglobin, which stabilises the low-affinity (T) state; H⁺ also binds (e.g. to histidine residues), lowering affinity. Both are allosteric effects.
+    where: ["index.mdx#haemoglobin", "index.mdx#dissociation", "index.mdx (mistakes)", "quiz.yaml:q10", "flashcards.yaml:c16"]
+    confidence: high
+    basis: Lehninger; Berg Biochemistry
+    status: checked
+  - id: f25
+    claim: Dissociation model — Hill equation, n = 2.7; adult P50 = 3.5 kPa (≈ 26–27 mmHg) at pH 7.4, pCO₂ 5.3 kPa, 37 °C; foetal P50 = 2.5 kPa (≈ 19 mmHg); myoglobin n = 1, P50 ≈ 0.37 kPa (≈ 2.8 mmHg). Saturation ≈ 97 % at 13.3 kPa, ≈ 75 % at 5.3 kPa.
+    where: ["sims/models/b3-1-dissociation.ts", "tests/unit/b3-1.test.ts", "index.mdx#dissociation", "quiz.yaml:q9"]
+    confidence: high
+    basis: Severinghaus (1979) standard curve; Lehninger (myoglobin P50 ≈ 0.26–0.37 kPa); foetal P50 ≈ 19–20 mmHg (Guyton & Hall)
+    status: checked
+  - id: f26
+    claim: Bohr shift model — pH from Henderson–Hasselbalch with HCO₃⁻ fixed at 24 mmol dm⁻³ and CO₂ solubility 0.23 mmol dm⁻³ kPa⁻¹; log₁₀P50 rises by 0.48 per unit fall in pH (CO₂ Bohr coefficient). Fixed bicarbonate exaggerates pH change slightly compared with buffered blood; qualitative direction is correct.
+    where: ["sims/models/b3-1-dissociation.ts", "tests/unit/b3-1.test.ts"]
+    confidence: medium
+    basis: Bohr coefficient ≈ −0.48 (CO₂) / −0.40 (fixed acid) from physiology literature; simplification noted on screen
+    status: open
+  - id: f27
+    claim: Alveolar pO₂ ≈ 13 kPa (study guide uses 13 kPa; often 13.3); atmospheric pO₂ ≈ 21.2 kPa at sea level; resting tissue ≈ 5 kPa; actively respiring muscle ≈ 2–3 kPa or lower.
+    where: ["index.mdx#dissociation", "sims/models/b3-1-dissociation.ts"]
+    confidence: high
+    basis: West's Respiratory Physiology
+    status: checked
+  - id: f28
+    claim: The Bohr shift moves the curve to the RIGHT. (The study guide page 120 text says "to the left" — a typo; its own graph shows the higher-CO₂ curve to the right.)
+    where: ["index.mdx#dissociation", "index.mdx (mistakes)", "quiz.yaml:q10", "flashcards.yaml:c18"]
+    confidence: high
+    basis: Standard physiology; flagged for the teacher because the study guide wording conflicts
+    status: open
+  - id: f29
+    claim: The quiz q9 data table (1→3 %, 2→18 %, 3→40 %, 4→59 %, 5→72 %, 8→90 %, 13→97 %) is generated from the same Hill model (P50 3.5 kPa, n 2.7).
+    where: ["quiz.yaml:q9"]
+    confidence: high
+    basis: Computed from sims/models/b3-1-dissociation.ts
+    status: checked
+  - id: f30
+    claim: Brainstem chemoreceptors adjust ventilation rate in response to blood pH/CO₂ (C3.1.15).
+    where: ["index.mdx#ventilation"]
+    confidence: high
+    basis: IB guide C3.1.15
+    status: checked
