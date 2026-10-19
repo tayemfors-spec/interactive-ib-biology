@@ -305,6 +305,9 @@ export async function mountViewer(fig: HTMLElement, scenes: SceneDef[]): Promise
     const mod = await loader();
     ctx.reducedMotion = prefersReducedMotion();
     built = await mod.build(ctx);
+    // Instanced meshes are culled using a bounding sphere computed once; instances that move later
+    // could wrongly vanish. They are cheap to draw, so never cull them.
+    scene.traverse((o) => { if (o instanceof THREE.InstancedMesh) o.frustumCulled = false; });
     const c = mod.camera;
     camera.fov = c.fov ?? 40;
     camera.position.set(...c.position);
