@@ -1,0 +1,73 @@
+cards:
+  - id: c1
+    level: AHL
+    front: List the structural features shared by all viruses.
+    back: Small, fixed size; nucleic acid (DNA or RNA) as genetic material; a capsid made of protein; no cytoplasm; few or no enzymes.
+  - id: c2
+    level: AHL
+    front: Why are viruses not cells?
+    back: They have no cytoplasm, plasma membrane, ribosomes or metabolism, so they cannot make ATP or proteins. They reproduce only by being assembled inside a host cell.
+  - id: c3
+    level: AHL
+    front: Why does a virus have a fixed size?
+    back: It does not grow. It is assembled in the host cell from a fixed number of ready-made components, so it is full-sized as soon as assembly is complete.
+  - id: c4
+    level: AHL
+    front: Describe the structure of bacteriophage lambda.
+    back: An icosahedral protein capsid (head, about 60 nm) containing one linear molecule of double-stranded DNA, joined at one vertex to a long, flexible, non-contractile tail (about 150 nm) with a single thin tail fibre at its tip. No envelope.
+  - id: c5
+    level: AHL
+    front: Compare the genomes of lambda, coronaviruses and HIV.
+    back: Lambda — double-stranded DNA (one linear molecule). Coronaviruses — single-stranded RNA (one molecule). HIV — single-stranded RNA (two identical copies), with reverse transcriptase.
+  - id: c6
+    level: AHL
+    front: What is a virus envelope made of, and where does it come from?
+    back: A lipid bilayer taken from a membrane of the host cell as the new virus buds through it (the plasma membrane for HIV and influenza), containing glycoproteins coded for by the virus.
+  - id: c7
+    level: AHL
+    front: What does a virus rely on its host cell for?
+    back: Energy (ATP), raw materials (nucleotides, amino acids), protein synthesis (ribosomes, tRNA) and enzymes such as RNA polymerase — almost all life functions.
+  - id: c8
+    level: AHL
+    front: Give the stages of the lytic cycle of lambda in order.
+    back: Attachment of the tail fibre to the LamB receptor → injection of DNA (capsid stays outside) → replication of viral DNA and synthesis of viral proteins by host machinery → assembly of new phages → lysis of the cell, releasing about 100 phages.
+  - id: c9
+    level: AHL
+    front: What is a prophage?
+    back: Phage DNA that has been integrated into the host bacterium's chromosome in the lysogenic cycle. Its lytic genes are switched off by a viral repressor.
+  - id: c10
+    level: AHL
+    front: How is a prophage passed on?
+    back: It is replicated along with the host chromosome every time the bacterium divides, so both daughter cells inherit it.
+  - id: c11
+    level: AHL
+    front: What is induction of a prophage?
+    back: A switch from the lysogenic to the lytic cycle, triggered by stress such as DNA damage by UV light. The repressor is inactivated, the prophage is cut out of the chromosome and the lytic cycle follows.
+  - id: c12
+    level: AHL
+    front: Lytic vs lysogenic — what happens to the host cell?
+    back: Lytic — the cell is taken over, makes many new phages and is killed by lysis. Lysogenic — the cell survives and divides normally, carrying the prophage, until induction.
+  - id: c13
+    level: AHL
+    front: Why are viruses thought to have several origins?
+    back: They are extremely diverse, with no gene common to all of them and many different genome types and ways of replicating. Their few shared features can be explained by convergent evolution in extreme obligate parasites.
+  - id: c14
+    level: AHL
+    front: What is the significance of viruses using the same genetic code as cells?
+    back: Viral proteins are made by host ribosomes, so viruses must use the host's code. This suggests that viruses evolved after the genetic code was established in cells, probably from cellular genetic material.
+  - id: c15
+    level: AHL
+    front: Name three hypotheses for the origin of viruses.
+    back: Escape (progressive) — mobile genetic elements left cells and gained capsids. Reduction (regressive) — parasitic cells lost genes. Virus-first — viruses existed before cells (hard to reconcile with their dependence on cells).
+  - id: c16
+    level: AHL
+    front: Give reasons why some viruses evolve very rapidly.
+    back: High mutation rates (the RNA polymerases of most RNA viruses and reverse transcriptase do not proofread), short generation times, huge numbers of offspring, recombination or reassortment, and strong selection by immune responses and drugs.
+  - id: c17
+    level: AHL
+    front: Antigenic drift vs antigenic shift in influenza
+    back: Drift — gradual point mutations in the genes for haemagglutinin and neuraminidase, so the vaccine is updated every year. Shift — reassortment of RNA segments from two strains in one cell, producing a new subtype that can cause a pandemic.
+  - id: c18
+    level: AHL
+    front: Why is HIV treated with a combination of drugs?
+    back: Error-prone reverse transcriptase produces many variants, so resistance to any one drug evolves quickly. A variant resistant to several drugs at once is very unlikely, so combination therapy keeps the virus suppressed.

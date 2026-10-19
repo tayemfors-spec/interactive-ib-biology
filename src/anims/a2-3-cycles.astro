@@ -1,0 +1,162 @@
+---
+/**
+ * Lambda's lytic and lysogenic cycles (A2.3.3, A2.3.4) as one process with a branch.
+ * A pathway map at the top shows where each step sits; the stage below shows one E. coli cell.
+ * Drawn in the step-1 start state (phage approaching the cell); animated by a2-3-cycles.ts.
+ */
+const wavy = (cx: number, cy: number, rx: number, ry: number, a0 = 0, a1 = Math.PI * 2, n = 90) => {
+  const pts: string[] = [];
+  for (let i = 0; i <= n; i++) {
+    const a = a0 + ((a1 - a0) * i) / n;
+    const k = 1 + 0.06 * Math.sin(a * 9);
+    pts.push(`${i ? 'L' : 'M'}${(cx + rx * k * Math.cos(a)).toFixed(1)} ${(cy + ry * k * Math.sin(a)).toFixed(1)}`);
+  }
+  return pts.join(' ');
+};
+// main cell chromosome and its prophage segment (right-hand side of the loop)
+const chrom = wavy(225, 368, 108, 52) + ' Z';
+const prophage = wavy(225, 368, 108, 52, -0.42, 0.42, 20);
+// daughter cells (after division)
+const dA = { x: 20, cx: 145 };
+const dB = { x: 290, cx: 415 };
+const dChrom = (cx: number) => wavy(cx, 382, 66, 32) + ' Z';
+const dPro = (cx: number) => wavy(cx, 382, 66, 32, -0.45, 0.45, 14);
+// lytic cycle: replicated viral DNA, phage parts and assembled phages (inside positions)
+const copies = [[118, 318], [172, 434], [300, 436], [414, 404], [446, 330], [262, 306], [360, 300]];
+const heads = [[100, 368], [150, 300], [340, 420], [430, 440], [470, 372], [300, 340]];
+const tails: [number, number][] = [[130, 410], [205, 296], [390, 330], [258, 438], [470, 300], [370, 380]];
+const phagesIn = [[110, 300], [170, 344], [112, 404], [214, 430], [300, 298], [362, 360], [446, 320], [420, 424]];
+const hexAt = (r: number) => Array.from({ length: 6 }, (_, k) => { const a = Math.PI / 6 + (Math.PI / 3) * k; return `${(r * Math.cos(a)).toFixed(1)},${(r * Math.sin(a)).toFixed(1)}`; }).join(' ');
+const nodes = [
+  { label: 'Attach', x: 6, y: 38, w: 78 },
+  { label: 'Inject', x: 100, y: 38, w: 74 },
+  { label: 'Replicate', x: 206, y: 8, w: 92 },
+  { label: 'Assemble', x: 308, y: 8, w: 88 },
+  { label: 'Lyse', x: 406, y: 8, w: 60 },
+  { label: 'Integrate', x: 206, y: 68, w: 92 },
+  { label: 'Divide', x: 308, y: 68, w: 88 },
+  { label: 'Induce', x: 406, y: 68, w: 60 },
+];
+---
+<svg viewBox="0 0 560 484" xmlns="http://www.w3.org/2000/svg" class="cyc">
+  <defs>
+    <marker id="cyc-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" class="arrowhead" />
+    </marker>
+  </defs>
+
+  <!-- pathway map -->
+  <g class="map">
+    <path class="link" d="M84 52 H98" marker-end="url(#cyc-arrow)" />
+    <path class="link" d="M174 52 C 190 52, 188 22, 204 22" marker-end="url(#cyc-arrow)" />
+    <path class="link" d="M174 52 C 190 52, 188 82, 204 82" marker-end="url(#cyc-arrow)" />
+    <path class="link" d="M298 22 H306" marker-end="url(#cyc-arrow)" />
+    <path class="link" d="M396 22 H404" marker-end="url(#cyc-arrow)" />
+    <path class="link" d="M298 82 H306" marker-end="url(#cyc-arrow)" />
+    <path class="link" d="M396 82 H404" marker-end="url(#cyc-arrow)" />
+    <path class="link" d="M374 96 C 384 118, 324 118, 332 98" marker-end="url(#cyc-arrow)" />
+    <path class="link induce" data-el="induceArrow" d="M420 67 C 400 48, 290 58, 262 37" marker-end="url(#cyc-arrow)" />
+    {nodes.map((n, i) => (
+      <g class={i === 0 ? 'node on' : 'node'} data-el={`node${i}`}>
+        <rect x={n.x} y={n.y} width={n.w} height="28" rx="14" />
+        <text x={n.x + n.w / 2} y={n.y + 14} dy="0.35em" text-anchor="middle">{n.label}</text>
+      </g>
+    ))}
+    <text class="tag" x="474" y="26">lytic</text>
+    <text class="tag" x="474" y="86">lysogenic</text>
+  </g>
+
+  <g class="legend">
+    <path class="viral" d="M6 140 h22" /><text x="34" y="140" dy="0.35em">viral DNA</text>
+    <path class="host" d="M112 140 h22" /><text x="140" y="140" dy="0.35em">host chromosome</text>
+  </g>
+
+  <!-- the stage: one E. coli cell -->
+  <g data-el="cell">
+    <rect class="wall" data-el="wall" x="50" y="266" width="460" height="200" rx="100" />
+    <rect class="pm" data-el="pm" x="59" y="275" width="442" height="182" rx="91" />
+    <rect class="lamb" x="272" y="262" width="16" height="8" rx="3" />
+    <text class="cell-name" x="58" y="256">E. coli</text>
+    <path class="host" data-el="chrom" d={chrom} />
+    <path class="viral thick" data-el="prophage" d={prophage} pathLength="1" style="stroke-dasharray:1;stroke-dashoffset:1;visibility:hidden" />
+    <path class="viral" data-el="inj" d="M280 270 C 296 292, 330 280, 346 302 S 392 318, 382 332" pathLength="1" style="stroke-dasharray:1;stroke-dashoffset:1;visibility:hidden" />
+    <g data-el="vcirc" transform="translate(386 336)" style="opacity:0"><circle class="viral" r="15" /></g>
+    <g data-el="copies" style="opacity:0">
+      {copies.map(([x, y], i) => <circle class="viral" data-el={`copy${i}`} cx={x} cy={y} r="11" />)}
+    </g>
+    <g data-el="parts" style="opacity:0">
+      {heads.map(([x, y]) => <polygon class="mini-head" points={hexAt(9)} transform={`translate(${x} ${y})`} />)}
+      {tails.map(([x, y]) => <path class="mini-tail" d={`M${x} ${y - 10} v20`} />)}
+    </g>
+    <g data-el="phagesIn" style="opacity:0">
+      {phagesIn.map(([x, y], i) => (
+        <g data-el={`np${i}`} transform={`translate(${x} ${y})`}>
+          <polygon class="mini-head" points={hexAt(9)} />
+          <circle class="mini-dna" r="4" />
+          <path class="mini-tail" d="M0 9 v18" />
+        </g>
+      ))}
+    </g>
+  </g>
+
+  <!-- daughter cells (lysogenic division) -->
+  <g data-el="daughters" style="opacity:0">
+    {[dA, dB].map((d, i) => (
+      <g data-el={i === 0 ? 'dA' : 'dB'}>
+        <rect class="wall" x={d.x} y="310" width="250" height="144" rx="72" />
+        <rect class="pm" x={d.x + 8} y="318" width="234" height="128" rx="64" />
+        <path class="host" d={dChrom(d.cx)} />
+        <path class="viral thick" data-el={i === 0 ? 'dAPro' : 'dBPro'} d={dPro(d.cx)} />
+      </g>
+    ))}
+    <g data-el="dBCirc" transform="translate(503 402)" style="opacity:0"><circle class="viral" r="12" /></g>
+  </g>
+
+  <!-- the infecting phage -->
+  <g data-el="phage" transform="translate(280 -24)">
+    <polygon class="head" points="0,174 20.8,162 20.8,138 0,126 -20.8,138 -20.8,162" />
+    <path class="viral" data-el="phageDNA" d="M-2 170 C -14 160, -14 140, 0 136 S 14 150, 4 156 S -8 148, -2 144 S 8 150, 2 160 L 0 172" />
+    <rect class="tail" x="-4.5" y="174" width="9" height="70" rx="2" />
+    <g class="rings">{[0, 1, 2, 3, 4, 5, 6, 7, 8].map((k) => <path d={`M-4.5 ${181 + k * 7} h9`} />)}</g>
+    <path class="tail" d="M-4.5 244 L4.5 244 L1.6 252 L-1.6 252 Z" />
+    <path class="fibre" d="M0 252 V264" />
+  </g>
+
+  <!-- stress and labels -->
+  <g data-el="stress" style="opacity:0">
+    <path class="bolt" d="M446 200 L430 236 L444 236 L428 276 L462 228 L447 228 L460 200 Z" />
+    <text class="stress-t" x="404" y="196" text-anchor="end">UV light or other DNA damage</text>
+  </g>
+  <text class="note" data-el="burst" x="280" y="190" text-anchor="middle" style="opacity:0">about 100 new phages released</text>
+  <text class="note" data-el="toLytic" x="415" y="478" text-anchor="middle" style="opacity:0">→ continues as the lytic cycle</text>
+</svg>
+<style>
+  .cyc { font-family: var(--font-sans); }
+  .link { fill: none; stroke: var(--text-muted); stroke-width: 1.6; }
+  .link.induce { stroke-dasharray: 4 3; }
+  .link.induce.on { stroke: var(--accent-strong); stroke-width: 2.6; stroke-dasharray: none; }
+  .arrowhead { fill: var(--text-muted); }
+  .node rect { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.4; }
+  .node text { font-size: 13px; font-weight: 750; fill: var(--text); }
+  .node.on rect { fill: var(--accent); stroke: var(--accent); }
+  .node.on text { fill: var(--on-accent); }
+  .tag { font-size: 13px; font-style: italic; font-weight: 650; fill: var(--text-muted); }
+  .legend text { font-size: 12.5px; fill: var(--text-muted); }
+  .viral { fill: none; stroke: var(--bio-k); stroke-width: 3; stroke-linecap: round; }
+  .viral.thick { stroke-width: 5.5; }
+  .host { fill: none; stroke: var(--text-muted); stroke-width: 3; stroke-linejoin: round; }
+  .wall { fill: color-mix(in srgb, var(--bio-tail) 18%, var(--surface)); stroke: var(--bio-head); stroke-width: 5; }
+  .pm { fill: none; stroke: var(--bio-head); stroke-width: 2; }
+  .lamb { fill: var(--bio-carb); }
+  .cell-name { font-size: 14px; font-weight: 700; font-style: italic; fill: var(--text-muted); }
+  .head, .mini-head { fill: color-mix(in srgb, var(--bio-protein) 35%, var(--surface)); stroke: var(--bio-protein); stroke-width: 2.4; }
+  .mini-head { stroke-width: 1.8; }
+  .mini-dna { fill: var(--bio-k); }
+  .tail { fill: color-mix(in srgb, var(--bio-protein-2) 35%, var(--surface)); stroke: var(--bio-protein-2); stroke-width: 1.6; }
+  .rings path { stroke: var(--bio-protein-2); stroke-width: 1; }
+  .mini-tail { stroke: var(--bio-protein-2); stroke-width: 3; }
+  .fibre { stroke: var(--bio-glucose); stroke-width: 2.5; stroke-linecap: round; }
+  .bolt { fill: var(--bio-glucose); stroke: color-mix(in srgb, var(--bio-glucose) 60%, black); stroke-width: 1.2; }
+  .stress-t { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .note { font-size: 14px; font-weight: 700; fill: var(--text); }
+</style>

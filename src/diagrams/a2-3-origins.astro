@@ -1,0 +1,62 @@
+---
+/**
+ * Three hypotheses for where viruses came from (A2.3.5). Each card has a small sketch and real text,
+ * so it stays legible on phones. Viruses may have arisen several times, by more than one route.
+ */
+---
+<div class="ogrid">
+  <div class="card">
+    <svg viewBox="0 0 220 110" role="img" aria-labelledby="or-p">
+      <title id="or-p">Escape: a small piece of a cell's genetic material leaves the cell and gains a protein coat</title>
+      <rect class="cell" x="6" y="14" width="104" height="82" rx="38" />
+      <path class="host" d="M30 56 C 30 34, 80 34, 82 54 C 84 76, 32 78, 30 56 Z" />
+      <circle class="viral" cx="84" cy="34" r="8" />
+      <path class="arrow" d="M118 55 H150" marker-end="url(#or-arrow)" />
+      <polygon class="capsid" points="186,30 207,42 207,66 186,78 165,66 165,42" />
+      <circle class="viral" cx="186" cy="54" r="10" />
+      <defs><marker id="or-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" class="head" /></marker></defs>
+    </svg>
+    <p class="name">Escape (progressive) hypothesis</p>
+    <p>Pieces of genetic material that can move within or between cells, such as plasmids and transposons, gained genes for capsid proteins and became able to leave one cell and enter another.</p>
+  </div>
+  <div class="card">
+    <svg viewBox="0 0 220 110" role="img" aria-labelledby="or-r">
+      <title id="or-r">Reduction: a small parasitic cell living inside a host cell loses genes until only a virus-like particle remains</title>
+      <rect class="cell" x="6" y="14" width="104" height="82" rx="38" />
+      <circle class="parasite" cx="58" cy="55" r="22" />
+      <path class="host" d="M46 55 C 46 45, 70 45, 70 55 C 70 65, 46 65, 46 55 Z" />
+      <path class="arrow" d="M118 55 H150" marker-end="url(#or-arrow2)" />
+      <polygon class="capsid" points="186,36 202,45 202,63 186,72 170,63 170,45" />
+      <circle class="viral" cx="186" cy="54" r="7" />
+      <defs><marker id="or-arrow2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" class="head" /></marker></defs>
+    </svg>
+    <p class="name">Reduction (regressive) hypothesis</p>
+    <p>Small cells that lived as parasites inside other cells lost the genes they no longer needed (for example for metabolism and making ribosomes), until only what was needed to replicate inside a host was left. Giant viruses with very large genomes fit this idea.</p>
+  </div>
+  <div class="card">
+    <svg viewBox="0 0 220 110" role="img" aria-labelledby="or-v">
+      <title id="or-v">Virus first: self-copying molecules arose before cells, and cells came later</title>
+      <path class="viral" d="M20 60 C 30 40, 44 80, 56 58 S 76 44, 84 62" />
+      <path class="arrow" d="M96 55 H128" marker-end="url(#or-arrow3)" />
+      <rect class="cell" x="136" y="14" width="78" height="82" rx="34" />
+      <path class="host" d="M152 56 C 152 40, 196 40, 196 56 C 196 72, 152 72, 152 56 Z" />
+      <defs><marker id="or-arrow3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" class="head" /></marker></defs>
+    </svg>
+    <p class="name">Virus-first hypothesis</p>
+    <p>Self-replicating nucleic acids existed before the first cells, and later came to depend on them. This is hard to reconcile with the fact that every known virus needs a host cell to reproduce.</p>
+  </div>
+</div>
+<style>
+  .ogrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: var(--space-3); font-family: var(--font-sans); }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-m); padding: var(--space-3); font-size: var(--step--1); }
+  .card svg { max-width: 14rem; margin: 0 auto var(--space-2); }
+  .card p { margin: 0; }
+  .card .name { font-weight: 800; margin-bottom: var(--space-1); }
+  .cell { fill: color-mix(in srgb, var(--bio-tail) 18%, var(--surface)); stroke: var(--bio-head); stroke-width: 3; }
+  .parasite { fill: color-mix(in srgb, var(--bio-carb) 25%, var(--surface)); stroke: var(--bio-carb); stroke-width: 2.4; }
+  .host { fill: none; stroke: var(--text-muted); stroke-width: 2.4; }
+  .viral { fill: none; stroke: var(--bio-k); stroke-width: 2.6; stroke-linecap: round; }
+  .capsid { fill: color-mix(in srgb, var(--bio-protein) 30%, var(--surface)); stroke: var(--bio-protein); stroke-width: 2.6; }
+  .arrow { stroke: var(--text-muted); stroke-width: 2; fill: none; }
+  .head { fill: var(--text-muted); }
+</style>
