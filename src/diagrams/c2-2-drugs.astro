@@ -1,0 +1,115 @@
+---
+/** C2.2.12: how neonicotinoids and cocaine interfere with synaptic transmission. */
+const knob = (y: number) => `M110 ${y} V${y + 52} Q110 ${y + 92} 160 ${y + 92} H400 Q450 ${y + 92} 450 ${y + 52} V${y}`;
+const A = 34; // panel A top (presynaptic knob)
+const B = 318; // panel B top
+const memA = A + 140, memB = B + 140; // postsynaptic membrane top
+const receptor = (x: number, top: number, open = false) => {
+  const g = open ? 5 : 1;
+  return [`M${x - 16 - g} ${top - 10} h14 v38 h-14 z`, `M${x + g + 2} ${top - 10} h14 v38 h-14 z`];
+};
+const diamond = (x: number, y: number) => `M${x} ${y - 9} L${x + 9} ${y} L${x} ${y + 9} L${x - 9} ${y} Z`;
+const tri = (x: number, y: number) => `M${x} ${y - 10} L${x + 10} ${y + 8} L${x - 10} ${y + 8} Z`;
+const markers = [
+  { n: 1, x: 236, y: memA + 64, to: [200, memA - 16] as [number, number] },
+  { n: 2, x: 504, y: A + 62, to: [356, A + 110] as [number, number] },
+  { n: 3, x: 530, y: memA - 40, to: [482, memA - 18] as [number, number] },
+  { n: 4, x: 500, y: B + 30, to: [430, B + 86] as [number, number] },
+  { n: 5, x: 70, y: B + 112, to: [143, B + 112] as [number, number] },
+  { n: 6, x: 300, y: memB + 64, to: [280, memB + 18] as [number, number] },
+];
+const key = [
+  'Neonicotinoid bound to a nicotinic acetylcholine receptor in an insect synapse',
+  'Acetylcholine cannot bind to a receptor that is already occupied',
+  'Acetylcholinesterase breaks down acetylcholine but not neonicotinoids, so they stay bound',
+  'Cocaine blocks the dopamine reuptake transporter in the presynaptic membrane',
+  'Dopamine is not reabsorbed, so it stays in the synaptic cleft',
+  'Dopamine receptors on the postsynaptic membrane are stimulated again and again',
+];
+const daCleft: [number, number][] = [[150, B + 112], [190, B + 122], [232, B + 110], [262, B + 126], [300, B + 112], [340, B + 124], [376, B + 112], [214, B + 128], [322, B + 106]];
+---
+<div class="exam-diagram">
+  <svg viewBox="0 0 560 550" role="img" aria-labelledby="dr-title dr-desc" xmlns="http://www.w3.org/2000/svg" class="drugs">
+    <title id="dr-title">How neonicotinoids and cocaine affect synapses</title>
+    <desc id="dr-desc">Top: an insect cholinergic synapse in which neonicotinoid molecules occupy the acetylcholine receptors on the postsynaptic membrane, so acetylcholine cannot bind, and acetylcholinesterase cannot remove them. Bottom: a dopamine synapse in which cocaine blocks the reuptake transporter in the presynaptic membrane, so dopamine builds up in the cleft and keeps stimulating the postsynaptic receptors.</desc>
+
+    <!-- panel A: neonicotinoid -->
+    <text class="ptitle" x="10" y="20">A  Neonicotinoid pesticide (insect synapse)</text>
+    <path class="pre" d={knob(A)} />
+    <circle class="ves" cx="200" cy={A + 44} r="18" /><circle class="ves" cx="290" cy={A + 36} r="18" /><circle class="ves" cx="372" cy={A + 48} r="18" />
+    {[[196, A + 40], [205, A + 50], [286, A + 32], [295, A + 41], [368, A + 44], [377, A + 53]].map(([x, y]) => <circle class="ach" cx={x} cy={y} r="4.5" />)}
+    <rect class="post" x="20" y={memA} width="520" height="22" />
+    {[200, 280, 360].map((x) => receptor(x, memA).map((d) => <path class="rec" d={d} />))}
+    <path class="neo" d={diamond(200, memA - 18)} />
+    <path class="neo" d={diamond(280, memA - 18)} />
+    <path class="neo" d={diamond(360, memA - 18)} />
+    {[[240, A + 116], [320, A + 112]].map(([x, y]) => <path class="neo" d={diamond(x!, y!)} />)}
+    {[[330, A + 124], [350, A + 112], [160, A + 120]].map(([x, y]) => <circle class="ach" cx={x} cy={y} r="5" />)}
+    <ellipse class="ache" cx="470" cy={memA - 14} rx="22" ry="12" />
+    <text class="small" x="20" y={memA + 44}>postsynaptic membrane</text>
+    <g class="legend">
+      <path class="neo" d={diamond(330, memA + 44)} /><text x="344" y={memA + 49}>neonicotinoid</text>
+      <circle class="ach" cx="462" cy={memA + 44} r="5" /><text x="472" y={memA + 49}>ACh</text>
+    </g>
+
+    <!-- panel B: cocaine -->
+    <text class="ptitle" x="10" y={B - 14}>B  Cocaine (dopamine synapse in the brain)</text>
+    <path class="pre" d={knob(B)} />
+    <circle class="ves" cx="220" cy={B + 44} r="18" /><circle class="ves" cx="310" cy={B + 38} r="18" />
+    {[[216, B + 40], [225, B + 50], [306, B + 34], [315, B + 43]].map(([x, y]) => <circle class="da" cx={x} cy={y} r="4.5" />)}
+    <!-- dopamine transporter in the presynaptic membrane, blocked by cocaine -->
+    <rect class="dat" x="414" y={B + 70} width="30" height="34" rx="6" />
+    <path class="coc" d={tri(429, B + 112)} />
+    <path class="block" d={`M392 ${B + 128} L420 ${B + 104}`} marker-end="url(#dr-a)" />
+    <path class="cross" d={`M398 ${B + 106} l14 14 M412 ${B + 106} l-14 14`} />
+    {daCleft.map(([x, y]) => <circle class="da" cx={x} cy={y} r="5" />)}
+    <rect class="post" x="20" y={memB} width="520" height="22" />
+    {[200, 280, 360].map((x) => receptor(x, memB, true).map((d) => <path class="rec2" d={d} />))}
+    {[200, 280, 360].map((x) => <circle class="da" cx={x} cy={memB - 16} r="5" />)}
+    <text class="small" x="20" y={memB + 44}>postsynaptic membrane</text>
+    <g class="legend">
+      <path class="coc" d={tri(330, memB + 42)} /><text x="344" y={memB + 49}>cocaine</text>
+      <circle class="da" cx="420" cy={memB + 44} r="5" /><text x="430" y={memB + 49}>dopamine</text>
+    </g>
+    <defs>
+      <marker id="dr-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker>
+    </defs>
+
+    <g class="markers">
+      {markers.map((m) => (
+        <g>
+          <path class="lead" d={`M${m.x} ${m.y} L${m.to[0]} ${m.to[1]}`} />
+          <circle cx={m.x} cy={m.y} r="13" />
+          <text x={m.x} y={m.y} dy="0.36em" text-anchor="middle">{m.n}</text>
+        </g>
+      ))}
+    </g>
+  </svg>
+  <ol class="key">{key.map((k) => <li>{k}</li>)}</ol>
+</div>
+
+<style>
+  .drugs { font-family: var(--font-sans); }
+  .ptitle { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .small, .legend text { font-size: 13px; fill: var(--text-muted); font-weight: 600; }
+  .pre { fill: color-mix(in srgb, var(--bio-protein) 22%, var(--surface)); stroke: var(--bio-protein); stroke-width: 2.4; }
+  .ves { fill: color-mix(in srgb, var(--bio-tail) 50%, var(--surface)); stroke: color-mix(in srgb, var(--bio-tail) 55%, black); stroke-width: 1.2; }
+  .post { fill: color-mix(in srgb, var(--bio-tail) 45%, var(--surface)); stroke: var(--bio-head); stroke-width: 1.4; }
+  .rec { fill: var(--bio-protein); }
+  .rec2 { fill: var(--bio-protein-2); }
+  .ach { fill: var(--bio-glucose); stroke: color-mix(in srgb, var(--bio-glucose) 60%, black); stroke-width: 1; }
+  .da { fill: var(--bio-carb); stroke: color-mix(in srgb, var(--bio-carb) 60%, black); stroke-width: 1; }
+  .neo { fill: var(--text); }
+  .coc { fill: var(--bad); }
+  .ache { fill: var(--bio-chol); }
+  .dat { fill: var(--bio-protein-2); stroke: color-mix(in srgb, var(--bio-protein-2) 60%, black); }
+  .block { stroke: var(--text-muted); stroke-width: 2; stroke-dasharray: 4 3; fill: none; }
+  .cross { stroke: var(--bad); stroke-width: 3; }
+  .ah { fill: var(--text-muted); }
+  .markers circle { fill: var(--surface); stroke: var(--text); stroke-width: 1.8; }
+  .markers text { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .lead { stroke: var(--text); stroke-width: 1.4; }
+  .key { columns: 2 17rem; column-gap: var(--space-5); margin: var(--space-3) 0 0; padding: 0; list-style: none; counter-reset: k; font-size: var(--step--1); }
+  .key li { break-inside: avoid; margin: 0 0 0.3rem; display: grid; grid-template-columns: 1.7rem 1fr; counter-increment: k; }
+  .key li::before { content: counter(k); font-weight: 800; display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; border: 1.5px solid var(--text); border-radius: 50%; font-size: 0.75rem; margin-top: 0.1rem; }
+</style>

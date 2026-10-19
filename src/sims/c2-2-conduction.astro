@@ -1,0 +1,219 @@
+---
+/**
+ * C2.2.4 / C2.2.11: race an impulse along two axons. Each lane sets myelination and diameter;
+ * the maths is in models/c2-2-conduction.ts. Animation is slowed down and never autoplays.
+ */
+import {
+  SLIDER_MAX, SLIDER_MIN, conductionSpeed, effectiveDiameter, formatDiameter, formatSpeed, formatTime, internodeMm, presets, sliderFromDiameter, travelTime,
+} from './models/c2-2-conduction';
+
+const lanes = [
+  { id: 'a', name: 'Axon A', axon: { myelinated: false, diameterUm: 500 } },
+  { id: 'b', name: 'Axon B', axon: { myelinated: true, diameterUm: 16 } },
+];
+const X0 = 30, X1 = 596;
+const NODES = 12;
+const nodeX = Array.from({ length: NODES + 1 }, (_, i) => X0 + ((X1 - X0) * i) / NODES);
+const laneY = (i: number) => 58 + i * 92;
+const table = presets.map((p) => ({ name: p.name, v: conductionSpeed(p.axon), t: travelTime(p.axon) }));
+---
+<div class="cond" data-cond data-nodes={JSON.stringify(nodeX)}>
+  <svg class="track" viewBox="0 0 640 196" role="img" aria-labelledby="cd-t cd-d" data-track>
+    <title id="cd-t">Impulse race along two axons, each one metre long</title>
+    <desc id="cd-d">Two horizontal axons. A myelinated axon is drawn with myelin sheaths separated by nodes of Ranvier, and its impulse jumps from node to node. An unmyelinated axon has no sheath and its impulse moves continuously.</desc>
+    {lanes.map((l, i) => (
+      <g data-lane={l.id}>
+        <text class="lane-name" x={X0} y={laneY(i) - 28}>{l.name}</text>
+        <text class="lane-result" x={X1} y={laneY(i) - 28} text-anchor="end" data-result={l.id}>{formatSpeed(conductionSpeed(l.axon))}</text>
+        <line class="axon" x1={X0} x2={X1} y1={laneY(i)} y2={laneY(i)} data-axon={l.id} style={`stroke-width:${Math.min(16, 3 + 2.2 * Math.log10(effectiveDiameter(l.axon) * 5))}px`} />
+        <g class="myelin" data-myelin={l.id} style={l.axon.myelinated ? '' : 'display:none'}>
+          {nodeX.slice(0, -1).map((x, k) => <rect x={x + 4} y={laneY(i) - 11} width={nodeX[k + 1]! - x - 8} height="22" rx="10" />)}
+        </g>
+        <circle class="spark" r="9" cx={X0} cy={laneY(i)} data-spark={l.id} />
+        <text class="finish" x={X1 + 8} y={laneY(i)} dy="0.35em">1 m</text>
+      </g>
+    ))}
+  </svg>
+  <div class="controls">
+    {lanes.map((l) => (
+      <fieldset class="lane" data-lane-controls={l.id}>
+        <legend>{l.name}</legend>
+        <label class="check"><input type="checkbox" data-myelinated={l.id} checked={l.axon.myelinated} /> Myelinated</label>
+        <label class="slider">Diameter: <output data-out={l.id}>{formatDiameter(l.axon.diameterUm)}</output>
+          <input type="range" min={SLIDER_MIN.toFixed(3)} max={SLIDER_MAX} step="0.01" value={sliderFromDiameter(l.axon.diameterUm).toFixed(3)} data-diam={l.id} />
+        </label>
+        <label class="select">Load an example
+          <select data-preset={l.id}>
+            <option value="">Choose…</option>
+            {presets.map((p) => <option value={p.id}>{p.name}</option>)}
+          </select>
+        </label>
+        <p class="note" data-clamp={l.id} hidden></p>
+      </fieldset>
+    ))}
+  </div>
+  <div class="actions">
+    <button class="btn btn-primary" type="button" data-race>Race</button>
+    <button class="btn" type="button" data-reset>Reset</button>
+    <span class="slow" data-slow>Animation slowed down; the real times are shown below.</span>
+  </div>
+  <div class="results-wrap" tabindex="0" role="region" aria-label="Race results table"><table class="results">
+    <thead><tr><th scope="col">Axon</th><th scope="col">Type</th><th scope="col">Diameter</th><th scope="col">Speed</th><th scope="col">Time for 1 m</th></tr></thead>
+    <tbody>
+      {lanes.map((l) => (
+        <tr data-row={l.id}>
+          <th scope="row">{l.name.slice(-1)}</th>
+          <td data-c="type">{l.axon.myelinated ? `myelinated (nodes every ${internodeMm(l.axon).toFixed(1)} mm)` : 'unmyelinated'}</td>
+          <td data-c="d">{formatDiameter(effectiveDiameter(l.axon))}</td>
+          <td data-c="v">{formatSpeed(conductionSpeed(l.axon))}</td>
+          <td data-c="t">{formatTime(travelTime(l.axon))}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table></div>
+  <p class="readout" aria-live="polite" data-readout>
+    Axon B (myelinated, 16 µm) conducts about {Math.round(conductionSpeed(lanes[1]!.axon) / conductionSpeed(lanes[0]!.axon))} times faster than axon A (the squid giant axon, 0.5 mm), even though it is about 30 times narrower.
+  </p>
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <thead><tr><th scope="col">Example</th><th scope="col">Speed / m s⁻¹</th><th scope="col">Time for 1 m</th></tr></thead>
+      <tbody>{table.map((r) => <tr><th scope="row">{r.name}</th><td>{r.v.toFixed(1)}</td><td>{formatTime(r.t)}</td></tr>)}</tbody>
+    </table>
+  </details>
+  <p class="model-note">Qualitative model: speed ∝ √diameter for unmyelinated axons and ∝ diameter (about 6 m s⁻¹ per µm) for myelinated vertebrate axons. Real values also depend on temperature and species. The drawing is not to scale: real nodes of Ranvier are about 1 mm apart, so a 1 m axon has about a thousand of them.</p>
+</div>
+
+<script>
+  import { prefersReducedMotion } from '../lib/prefs';
+  import {
+    conductionSpeed, diameterFromSlider, effectiveDiameter, formatDiameter, formatSpeed, formatTime, internodeMm, presets, sliderFromDiameter, travelTime, type Axon,
+  } from './models/c2-2-conduction';
+
+  document.querySelectorAll<HTMLElement>('[data-cond]').forEach((root) => {
+    const nodes = JSON.parse(root.dataset.nodes!) as number[];
+    const ids = ['a', 'b'] as const;
+    const q = <T extends Element>(s: string) => root.querySelector<T>(s)!;
+    const readout = q<HTMLElement>('[data-readout]');
+    let raf = 0;
+    let timer = 0;
+
+    const axonOf = (id: string): Axon => ({
+      myelinated: q<HTMLInputElement>(`[data-myelinated="${id}"]`).checked,
+      diameterUm: diameterFromSlider(Number(q<HTMLInputElement>(`[data-diam="${id}"]`).value)),
+    });
+    const spark = (id: string) => q<SVGCircleElement>(`[data-spark="${id}"]`);
+    const x0 = nodes[0]!, x1 = nodes[nodes.length - 1]!;
+    /** Marker position for progress p ∈ [0, 1]: continuous, or node-to-node when myelinated. */
+    const posAt = (a: Axon, p: number) => {
+      if (!a.myelinated) return x0 + (x1 - x0) * p;
+      const k = Math.min(nodes.length - 1, Math.floor(p * (nodes.length - 1) + 1e-9));
+      return nodes[k]!;
+    };
+    const setProgress = (id: string, p: number) => spark(id).setAttribute('cx', posAt(axonOf(id), p).toFixed(1));
+
+    const describe = () => {
+      const [a, b] = ids.map(axonOf) as [Axon, Axon];
+      const va = conductionSpeed(a), vb = conductionSpeed(b);
+      const label = (x: Axon) => `${x.myelinated ? 'myelinated' : 'unmyelinated'}, ${formatDiameter(effectiveDiameter(x))}`;
+      if (Math.abs(va - vb) / Math.max(va, vb) < 0.02) return `Axons A (${label(a)}) and B (${label(b)}) conduct at about the same speed, ${formatSpeed(va)}.`;
+      const [fast, slow, fv, sv, fn, sn] = va > vb ? [a, b, va, vb, 'A', 'B'] : [b, a, vb, va, 'B', 'A'];
+      const ratio = fv / sv;
+      let s = `Axon ${fn} (${label(fast)}) conducts at ${formatSpeed(fv)}, about ${ratio >= 10 ? Math.round(ratio) : ratio.toFixed(1)} times faster than axon ${sn} (${label(slow)}, ${formatSpeed(sv)}).`;
+      if (fast.myelinated && !slow.myelinated && effectiveDiameter(fast) < effectiveDiameter(slow)) s += ' Myelin makes up for a much smaller diameter: the impulse jumps from node to node (saltatory conduction).';
+      if (fast.myelinated === slow.myelinated) s += ' Both are the same type, so the wider axon is faster.';
+      return s;
+    };
+
+    const update = () => {
+      cancelAnimationFrame(raf);
+      for (const id of ids) {
+        const a = axonOf(id);
+        const d = effectiveDiameter(a);
+        q(`[data-out="${id}"]`).textContent = formatDiameter(a.diameterUm);
+        q<SVGGElement>(`[data-myelin="${id}"]`).style.display = a.myelinated ? '' : 'none';
+        q<SVGLineElement>(`[data-axon="${id}"]`).style.strokeWidth = `${Math.min(16, Math.max(2, 3 + 2.2 * Math.log10(d * 5)))}px`;
+        q(`[data-result="${id}"]`).textContent = formatSpeed(conductionSpeed(a));
+        const row = q(`[data-row="${id}"]`);
+        row.querySelector('[data-c="type"]')!.textContent = a.myelinated ? `myelinated (nodes every ${internodeMm(a).toFixed(1)} mm)` : 'unmyelinated';
+        row.querySelector('[data-c="d"]')!.textContent = formatDiameter(d);
+        row.querySelector('[data-c="v"]')!.textContent = formatSpeed(conductionSpeed(a));
+        row.querySelector('[data-c="t"]')!.textContent = formatTime(travelTime(a));
+        const clamp = q<HTMLElement>(`[data-clamp="${id}"]`);
+        const clamped = a.myelinated && Math.abs(d - a.diameterUm) > 1e-6;
+        clamp.hidden = !clamped;
+        clamp.textContent = clamped ? `Myelinated vertebrate fibres are about 1–20 µm wide, so the model uses ${formatDiameter(d)}.` : '';
+        setProgress(id, 0);
+      }
+      clearTimeout(timer);
+      timer = window.setTimeout(() => (readout.textContent = describe()), 300);
+    };
+
+    const race = () => {
+      cancelAnimationFrame(raf);
+      const axons = ids.map(axonOf);
+      const times = axons.map((a) => travelTime(a));
+      const slowest = Math.max(...times);
+      const scale = 4 / slowest; // the slower impulse takes 4 s on screen
+      const finish = () => {
+        ids.forEach((id) => setProgress(id, 1));
+        readout.textContent = `${describe()} Real times for 1 m: A ${formatTime(times[0]!)}, B ${formatTime(times[1]!)}.`;
+      };
+      if (prefersReducedMotion()) { finish(); return; }
+      const start = performance.now();
+      const tick = (now: number) => {
+        const shown = (now - start) / 1000;
+        ids.forEach((id, i) => setProgress(id, Math.min(1, shown / (times[i]! * scale))));
+        if (shown < 4) raf = requestAnimationFrame(tick);
+        else finish();
+      };
+      raf = requestAnimationFrame(tick);
+    };
+
+    root.querySelectorAll('[data-diam]').forEach((el) => el.addEventListener('input', update));
+    root.querySelectorAll('[data-myelinated]').forEach((el) => el.addEventListener('change', update));
+    root.querySelectorAll<HTMLSelectElement>('[data-preset]').forEach((sel) => sel.addEventListener('change', () => {
+      const p = presets.find((x) => x.id === sel.value);
+      if (!p) return;
+      const id = sel.dataset.preset!;
+      q<HTMLInputElement>(`[data-myelinated="${id}"]`).checked = p.axon.myelinated;
+      q<HTMLInputElement>(`[data-diam="${id}"]`).value = sliderFromDiameter(p.axon.diameterUm).toFixed(3);
+      update();
+    }));
+    q('[data-race]').addEventListener('click', race);
+    q('[data-reset]').addEventListener('click', update);
+  });
+</script>
+
+<style>
+  .cond { container-type: inline-size; }
+  .track { width: 100%; height: auto; font-family: var(--font-sans); background: var(--surface-2); border-radius: var(--radius-m); }
+  .lane-name { font-size: 20px; font-weight: 750; fill: var(--text); }
+  .lane-result { font-size: 20px; font-weight: 750; fill: var(--accent-strong); }
+  .axon { stroke: var(--bio-protein); stroke-linecap: round; }
+  .myelin rect { fill: color-mix(in srgb, var(--bio-tail) 75%, var(--surface)); stroke: color-mix(in srgb, var(--bio-tail) 55%, black); stroke-width: 1.2; }
+  .spark { fill: var(--bio-head); stroke: var(--surface); stroke-width: 2.5; }
+  .finish { font-size: 16px; font-weight: 700; fill: var(--text-muted); }
+  .controls { display: grid; gap: var(--space-3); margin-top: var(--space-3); }
+  @container (min-width: 36rem) { .controls { grid-template-columns: 1fr 1fr; } }
+  .lane { border: 1px solid var(--border); border-radius: var(--radius-m); padding: var(--space-3); display: grid; gap: var(--space-2); font-size: var(--step--1); margin: 0; min-width: 0; }
+  .lane legend { font-weight: 750; padding: 0 var(--space-1); }
+  .check { display: flex; align-items: center; gap: var(--space-2); font-weight: 600; min-height: 24px; }
+  .check input { width: 1.1rem; height: 1.1rem; }
+  .slider, .select { display: grid; gap: var(--space-1); font-weight: 600; }
+  select { min-height: 2rem; font: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-s); max-width: 100%; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .lane input[type='range'], .lane select { width: 100%; box-sizing: border-box; margin: 0; }
+  .note { margin: 0; color: var(--warn); font-size: 0.85rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; margin-top: var(--space-3); }
+  .slow { font-size: 0.85rem; color: var(--text-muted); }
+  .results { margin-top: var(--space-3); border-collapse: collapse; font-size: var(--step--1); width: 100%; font-variant-numeric: tabular-nums; }
+  .results-wrap { overflow-x: auto; }
+  .results th, .results td, .table th, .table td { padding: 0.25rem 0.6rem; border-bottom: 1px solid var(--border); text-align: left; }
+  .results th, .results td { white-space: nowrap; }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  .table table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

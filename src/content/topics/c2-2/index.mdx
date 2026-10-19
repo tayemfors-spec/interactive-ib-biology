@@ -1,0 +1,461 @@
+---
+code: C2.2
+description: "IB Biology C2.2 neural signalling revision: 3D neuron and synapse, animated action potential, conduction and summation sims, plus self-test."
+updated: 2026-10-19
+related: [B2.1, C2.1, C3.1, B3.3]
+mustKnow:
+  - term: Neuron
+    definition: "A nerve cell. Its <strong>cell body</strong> contains the nucleus and most of the cytoplasm; many short <strong>dendrites</strong> and one long <strong>axon</strong> project from it, and electrical impulses are conducted along these fibres."
+    level: SL
+  - term: Resting potential
+    definition: "The potential difference across the membrane of a neuron that is not conducting an impulse, about −70 mV (inside negative). It depends on Na<sup>+</sup>/K<sup>+</sup> pumps (3 Na<sup>+</sup> out, 2 K<sup>+</sup> in per ATP), K<sup>+</sup> leaking out faster than Na<sup>+</sup> leaks in, and negatively charged proteins inside."
+    level: SL
+  - term: Action potential
+    definition: "A rapid depolarisation of the membrane (inside becomes positive, to about +30 to +40 mV) followed by repolarisation, caused by Na<sup>+</sup> diffusing in and then K<sup>+</sup> diffusing out. A nerve impulse is an action potential propagated along a nerve fibre."
+    level: SL
+  - term: Myelin sheath
+    definition: "Many layers of Schwann cell membrane wrapped round an axon, which insulate it. Gaps between Schwann cells are <strong>nodes of Ranvier</strong>. Myelinated fibres conduct impulses much faster than unmyelinated fibres of the same diameter."
+    level: SL
+  - term: Synapse
+    definition: "A junction between two neurons, or between a neuron and an effector (muscle or gland) cell. At a chemical synapse a neurotransmitter carries the signal across the <strong>synaptic cleft</strong>, in one direction only."
+    level: SL
+  - term: Neurotransmitter release
+    definition: "Depolarisation of the presynaptic membrane opens voltage-gated Ca<sup>2+</sup> channels; Ca<sup>2+</sup> diffuses in and acts as a signal that makes vesicles fuse with the membrane, releasing neurotransmitter by exocytosis."
+    level: SL
+  - term: Excitatory postsynaptic potential (EPSP)
+    definition: "A local depolarisation of the postsynaptic membrane. For example, <strong>acetylcholine</strong> binds to receptors that open to let Na<sup>+</sup> in. Acetylcholinesterase then breaks acetylcholine down."
+    level: SL
+  - term: Threshold potential
+    definition: "The membrane potential, about −50 mV, at which voltage-gated Na<sup>+</sup> channels open and an action potential starts. If threshold is not reached there is no action potential; if it is, a full-sized one fires (all or nothing)."
+    level: AHL
+  - term: Local currents
+    definition: "Diffusion of Na<sup>+</sup> along the inside of the axon from a depolarised region (and along the outside towards it) that brings the next region to threshold, so the action potential propagates."
+    level: AHL
+  - term: Saltatory conduction
+    definition: "In myelinated fibres, ion channels and pumps are clustered at the nodes of Ranvier, so the action potential jumps from node to node, which is much faster than continuous conduction."
+    level: AHL
+  - term: Inhibitory postsynaptic potential (IPSP) and summation
+    definition: "An inhibitory neurotransmitter such as GABA hyperpolarises the postsynaptic membrane (e.g. by opening Cl<sup>−</sup> channels). EPSPs and IPSPs from many presynaptic neurons are summed, and only if the net effect reaches threshold does the postsynaptic neuron fire."
+    level: AHL
+mistakes:
+  - wrong: "Nerve impulses are a flow of electrons along the axon, like a current in a wire."
+    right: "A nerve impulse is electrical because <strong>positively charged ions</strong> (Na<sup>+</sup> and K<sup>+</sup>) move across the membrane and along the axon. No electrons flow along the neuron."
+    level: SL
+  - wrong: "The resting potential is −70 mV because the Na<sup>+</sup>/K<sup>+</sup> pump moves 3 K<sup>+</sup> in and 2 Na<sup>+</sup> out."
+    right: "The pump moves <strong>3 Na<sup>+</sup> out and 2 K<sup>+</sup> in</strong> per ATP. Most of the negative charge inside comes from K<sup>+</sup> leaking out down the gradient the pump creates, plus negatively charged proteins inside the cell."
+    level: SL
+  - wrong: "During depolarisation Na<sup>+</sup> is pumped into the axon, and during repolarisation K<sup>+</sup> is pumped out."
+    right: "In an action potential both ions move by <strong>facilitated diffusion</strong> through voltage-gated channels, down their concentration gradients. Pumping (using ATP) is what restores the gradients."
+    level: SL
+  - wrong: "Myelin speeds up impulses because the action potential travels through the myelin."
+    right: "Myelin is an <strong>insulator</strong>: ions cannot cross the membrane where it is covered, so action potentials occur only at the nodes of Ranvier and the impulse jumps from node to node."
+    level: SL
+  - wrong: "Neurotransmitter crosses the synaptic cleft by active transport (or as an electrical signal)."
+    right: "Neurotransmitter is released by <strong>exocytosis</strong> and crosses the cleft by <strong>diffusion</strong>, then binds to receptors on the postsynaptic membrane."
+    level: SL
+  - wrong: "Sodium ions entering the presynaptic knob trigger the release of neurotransmitter."
+    right: "It is <strong>calcium ions</strong> that trigger release: depolarisation opens voltage-gated Ca<sup>2+</sup> channels and Ca<sup>2+</sup> diffuses into the knob."
+    level: SL
+  - wrong: "A correlation coefficient of r = −0.9 shows that there is almost no relationship between the variables."
+    right: "r = −0.9 is a <strong>strong negative</strong> correlation. The sign gives the direction; the closer the value is to +1 or −1, the stronger the correlation. R² = 0.81 means 81% of the variation is explained."
+    level: SL
+  - wrong: "A stronger stimulus produces bigger action potentials."
+    right: "Action potentials are <strong>all or nothing</strong>: they are always the same size. A stronger stimulus produces a higher <strong>frequency</strong> of action potentials (more per second)."
+    level: AHL
+  - wrong: "Inhibitory neurotransmitters work by blocking the release of excitatory neurotransmitters."
+    right: "Inhibitory neurotransmitters such as GABA bind to receptors on the postsynaptic membrane and <strong>hyperpolarise</strong> it (an IPSP), making it harder for EPSPs to bring the axon hillock to threshold."
+    level: AHL
+  - wrong: "Cocaine and neonicotinoids both work by blocking acetylcholine receptors."
+    right: "Neonicotinoids bind to <strong>nicotinic acetylcholine receptors</strong> in insects and are not broken down by acetylcholinesterase. Cocaine blocks the <strong>dopamine reuptake transporter</strong>, so dopamine stays in the cleft."
+    level: AHL
+---
+
+<Section id="neurons" title="Neurons carry electrical impulses" level="SL" covers="C2.2.1">
+
+<Viewer3D topic="c2-2" id="neuron" />
+
+The nervous system is built from **neurons**, cells that are specialised to carry electrical signals called **nerve impulses**. The human brain alone contains roughly 86 billion of them.
+
+Every neuron has three parts:
+
+- A **cell body** containing the **nucleus** and most of the **cytoplasm**. Here the neuron makes its proteins, including the enzymes that synthesise neurotransmitters.
+- Several short, branched **dendrites**, which receive signals from other neurons and conduct impulses towards the cell body.
+- A single long **axon**, which conducts impulses away from the cell body to other cells. Its end divides into **axon terminals** with swollen **synaptic knobs**.
+
+Dendrites and axons are both **nerve fibres**: elongated outgrowths of the cell along which impulses are conducted. Their length varies enormously. The axon of a motor neuron that carries impulses from the spinal cord to a muscle in the foot can be about 1 m long, while neurons inside the brain may have fibres less than a millimetre long.
+
+### A motor neuron
+
+The 3D model shows a **motor neuron**, which carries impulses from the central nervous system to an effector, here a skeletal muscle fibre.
+
+| Part | Structure | Function |
+|---|---|---|
+| Dendrites | many short, branched fibres | receive input at synapses |
+| Axon hillock | cone where the axon leaves the cell body | inputs are summed here; impulses begin |
+| Axon | one long fibre | conducts impulses away from the cell body |
+| Myelin sheath | layers of Schwann cell membrane | insulation; faster conduction |
+| Nodes of Ranvier | gaps in the myelin | where action potentials occur in myelinated fibres |
+| Synaptic knobs | swollen ends of terminals | release neurotransmitter |
+
+<Callout type="exam" title="Drawing a neuron">
+
+A labelled drawing of a motor neuron should show: **dendrites**, a **cell body** with its **nucleus**, a long **axon** (you may break it to show length omitted), the **myelin sheath** with **nodes of Ranvier**, and branched **axon terminals** with **synaptic knobs**. An arrow showing the direction of the impulse (cell body → terminals) earns credit too. Compare with the **Exam diagram** view of the 3D model.
+
+</Callout>
+
+</Section>
+
+<Section id="resting-potential" title="Pumping ions sets the resting potential" level="SL" covers="C2.2.2">
+
+A neuron that is not sending an impulse is not inactive: it spends energy keeping its membrane **polarised**, with a difference in charge between the inside and the outside. The voltage across the membrane is the **membrane potential**. It is measured inside the cell relative to the outside, so a negative value means the inside is negative. In a resting neuron it is about **−70 mV**, the **resting potential**.
+
+### Pumps build the gradients
+
+**Sodium–potassium pumps** in the plasma membrane use energy from **ATP** to move ions in opposite directions, both against their concentration gradients: **3 Na⁺ out** and **2 K⁺ in** for each ATP hydrolysed (see <TopicLink code="B2.1" /> for the pump cycle). The result is:
+
+- a high concentration of **Na⁺ outside** the neuron;
+- a high concentration of **K⁺ inside** it.
+
+### Why the inside is negative
+
+1. **Unequal pumping.** Each cycle moves three positive charges out but only two back in, so the pump itself makes the inside slightly more negative.
+2. **K⁺ leaks out more than Na⁺ leaks in.** The resting membrane has many open K⁺ channels but few open Na⁺ channels, so it is far more permeable to K⁺. K⁺ diffuses out down its concentration gradient, taking positive charge with it. This is the largest effect.
+3. **Negatively charged proteins** and other organic anions in the cytoplasm are too large to leave the cell.
+
+The pump's direct contribution is small; its most important job is maintaining the concentration gradients that the other effects, and every action potential, depend on. If ATP runs out, the gradients slowly run down and the neuron can no longer signal.
+
+<Callout type="exam">
+
+When asked why the resting potential is negative, give **more than one** reason: the 3:2 pumping ratio, the greater permeability of the membrane to K⁺ (so K⁺ diffuses out), and fixed negative charges (proteins) inside. Always say **3 Na⁺ out, 2 K⁺ in**.
+
+</Callout>
+
+</Section>
+
+<Section id="action-potentials" title="Nerve impulses are action potentials" level="SL" covers="C2.2.3">
+
+A **nerve impulse** is an **action potential** that travels along a nerve fibre. An action potential is a brief reversal of the resting potential, lasting a few milliseconds at any one point of the membrane, in two stages:
+
+- **Depolarisation**: sodium channels open and **Na⁺ diffuses into** the axon, down its concentration gradient. The entry of positive charge makes the inside positive, to about **+30 to +40 mV**.
+- **Repolarisation**: the sodium channels close and potassium channels open. **K⁺ diffuses out**, down its concentration gradient, and the inside becomes negative again.
+
+Both movements are **facilitated diffusion** through channels: no ATP is used in the action potential itself. Only a tiny fraction of the ions in the axon cross the membrane during one impulse, so a neuron can fire many times before the Na⁺/K⁺ pumps need to catch up.
+
+<Anim topic="c2-2" id="action-potential" />
+
+### Why it is electrical
+
+A nerve impulse is electrical because it involves the **movement of charged particles**, the positive ions Na⁺ and K⁺. This differs from the electricity in a copper wire, where electrons flow. The changes in voltage across the membrane, not a flow of electrons along the axon, are what an electrode records.
+
+### Propagation
+
+An action potential in one region of the axon triggers an action potential in the next region, which triggers the next, and so on. The impulse therefore travels along the fibre as a wave of depolarisation, from the cell body towards the axon terminals, without getting weaker. (How one region triggers the next is explained in the AHL section on local currents.)
+
+<Callout type="exam">
+
+"Na⁺ **diffuses** in through **channels**" scores; "Na⁺ is pumped in" does not. Keep the pump (active transport, restoring gradients) separate from the channels (facilitated diffusion, the impulse itself).
+
+</Callout>
+
+</Section>
+
+<Section id="speed" title="Why impulse speeds differ" level="SL" covers="C2.2.4">
+
+Impulses do not all travel at the same speed. Two features of a nerve fibre matter most.
+
+### Diameter
+
+In a wider axon the cytoplasm offers less resistance to ions moving along it, so the depolarisation spreads further and faster ahead of each action potential. The most famous example is the **giant axon of the squid**. It is unmyelinated but about 0.5 mm wide (up to about 1 mm), and conducts at about **25 m s⁻¹**. It controls the squid's escape response: the mantle contracts suddenly, shooting out a jet of water. A typical **thin unmyelinated fibre** about 1 µm wide conducts at only around **1 m s⁻¹**.
+
+### Myelination
+
+Vertebrates achieve far higher speeds with thin fibres by **myelinating** them. A myelinated fibre only 10–20 µm wide conducts at around **60–120 m s⁻¹**, several times faster than the squid giant axon although it is about 30 times narrower. Many thin fibres can then be packed into a nerve.
+
+| Fibre | Diameter | Typical speed |
+|---|---|---|
+| Thin unmyelinated fibre | about 1 µm | about 1 m s⁻¹ |
+| Squid giant axon (unmyelinated) | about 0.5 mm | about 25 m s⁻¹ |
+| Large myelinated fibre (mammal) | 15–20 µm | about 100 m s⁻¹ |
+
+### Describing correlations
+
+When two variables are measured for many fibres, a scatter graph shows whether they are **correlated**:
+
+- **Positive correlation**: as one variable increases, so does the other (speed and diameter).
+- **Negative correlation**: as one increases, the other decreases.
+
+The **correlation coefficient, r**, measures the strength of a linear correlation on a scale from −1 to +1. Values near +1 or −1 are strong; values near 0 indicate little or no correlation. The **coefficient of determination, R²** (r squared), gives the proportion of the variation in the dependent variable that is explained by variation in the independent variable. For example, R² = 0.95 means 95% of the variation in speed is accounted for by diameter, and 5% is due to other factors. A correlation alone does not prove that one variable causes the other.
+
+<Figure name="c2-2-correlation" caption="Illustrative data (not real measurements) for myelinated fibres, scattered around the typical relationship of about 6 m s⁻¹ per µm of diameter. The line is the least-squares line of best fit. Below: the sign of r gives the direction of a correlation and its size gives the strength." />
+
+<Callout type="exam">
+
+Quote **both** numbers with their meaning: "r = +0.98, a strong positive correlation; R² = 0.97, so 97% of the variation in speed is explained by variation in fibre diameter." Then add that correlation does not by itself show causation.
+
+</Callout>
+
+</Section>
+
+<Section id="synapses" title="Synapses and neurotransmitter release" level="SL" covers="C2.2.5 C2.2.6">
+
+A **synapse** is a junction where a signal passes from one cell to the next. Synapses link:
+
+- neurons to other neurons, mostly in the brain and spinal cord;
+- sensory receptor cells to sensory neurons;
+- motor neurons to **effectors**, the muscle fibres and gland cells that carry out responses.
+
+At **chemical synapses**, the only kind you need to know, the cells do not touch. The **presynaptic membrane** of the sending cell and the **postsynaptic membrane** of the receiving cell are separated by a fluid-filled **synaptic cleft**, about 20 nm wide at most synapses. A chemical **neurotransmitter** carries the signal across.
+
+### One direction only
+
+Signals cross a typical synapse in **one direction**, because:
+
+- only the presynaptic side has **vesicles** of neurotransmitter;
+- only the postsynaptic membrane has **receptors** for it.
+
+This makes nervous pathways one-way: impulses go from receptors to the central nervous system and out to effectors, not backwards.
+
+### Release of neurotransmitter
+
+Switch the 3D model to **Synapse (acetylcholine)** to follow these steps:
+
+1. An action potential arrives at the presynaptic knob and **depolarises the presynaptic membrane**.
+2. **Voltage-gated calcium channels** open. Ca²⁺ is much more concentrated in the fluid outside the neuron, so **Ca²⁺ diffuses into** the knob.
+3. Ca²⁺ acts as a **signalling chemical inside the neuron**: the rise in its concentration causes vesicles of neurotransmitter to move to the presynaptic membrane and fuse with it.
+4. The neurotransmitter is released into the cleft by **exocytosis**.
+
+Ca²⁺ is then pumped back out of the knob, so release stops when impulses stop arriving. The more impulses arrive per second, the more neurotransmitter is released.
+
+<Callout type="exam">
+
+Name **calcium ions** as the trigger for release, and say they enter by **diffusion through voltage-gated channels** opened by **depolarisation**. Calcium is the internal signal; the impulse itself does not jump across the cleft.
+
+</Callout>
+
+</Section>
+
+<Section id="epsp" title="Acetylcholine and excitatory postsynaptic potentials" level="SL" covers="C2.2.7">
+
+**Acetylcholine (ACh)** is the neurotransmitter at every **neuromuscular junction** (synapse between a motor neuron and a skeletal muscle fibre), and also at many synapses in the brain and the autonomic nervous system. It shows how a neurotransmitter generates a response.
+
+1. **Diffusion**: ACh molecules released by exocytosis diffuse across the synaptic cleft.
+2. **Binding**: ACh binds to **transmembrane receptor proteins** in the postsynaptic membrane. Each receptor is a **ligand-gated ion channel**; binding of two ACh molecules changes its shape and opens the pore.
+3. **Na⁺ entry**: Na⁺ diffuses into the postsynaptic cell through the open channels, down its concentration gradient.
+4. **Depolarisation**: the inside of the postsynaptic membrane becomes less negative. This local depolarisation is an **excitatory postsynaptic potential (EPSP)**. If it brings the membrane to the threshold potential, an action potential starts in the postsynaptic neuron or muscle fibre.
+5. **Removal**: the enzyme **acetylcholinesterase** in the cleft hydrolyses ACh into **choline** and **acetate** (ethanoate). This stops the signal within milliseconds, so each impulse gives one brief response. Choline is **reabsorbed** into the presynaptic knob and reused to make more ACh.
+
+An EPSP is not an action potential: it is **graded** (bigger when more neurotransmitter is released) and it fades with distance from the synapse. At a neuromuscular junction one impulse releases enough ACh to trigger an action potential in the muscle fibre, which then contracts (see <TopicLink code="B3.3" />).
+
+<Callout type="exam">
+
+For a 4–6 mark synapse question, include the sequence **depolarisation → Ca²⁺ in → exocytosis → diffusion across cleft → binding to receptors → Na⁺ in → depolarisation of postsynaptic membrane → neurotransmitter broken down (acetylcholinesterase)**.
+
+</Callout>
+
+</Section>
+
+<Section id="depol-repol" title="Depolarisation and repolarisation in detail" level="AHL" covers="C2.2.8">
+
+The two phases of an action potential are controlled by **voltage-gated channels**: channel proteins that open or close in response to changes in membrane potential (see <TopicLink code="B2.1" />).
+
+### Threshold and depolarisation
+
+At the resting potential (−70 mV) the voltage-gated Na⁺ and K⁺ channels are closed. A stimulus, or local currents from a neighbouring active region, makes the membrane potential less negative.
+
+- Below the **threshold potential**, about **−50 mV**, few voltage-gated Na⁺ channels open, and the membrane simply returns to rest. No action potential occurs.
+- When threshold is reached, **voltage-gated Na⁺ channels open**. Na⁺ diffuses in, which depolarises the membrane further, which opens more Na⁺ channels: a **positive feedback** loop. The potential shoots up to about **+30 to +40 mV**.
+
+This is why action potentials are **all or nothing**: once threshold is reached the positive feedback always produces a full-sized action potential, and a stronger stimulus cannot make it bigger.
+
+### Repolarisation
+
+- At the peak, the Na⁺ channels **close** (they become inactivated and cannot reopen for a short time).
+- The **voltage-gated K⁺ channels**, which respond more slowly, open. K⁺ diffuses **out** down its concentration gradient, and the inside becomes negative again.
+- The K⁺ channels are also slow to close, so the potential briefly **overshoots** to about −80 mV (**hyperpolarisation**) before returning to −70 mV.
+
+During this period, the **refractory period**, that part of the membrane cannot fire again. It makes action potentials separate events and stops them travelling backwards.
+
+<Callout type="exam">
+
+Name each channel with its trigger and its ion: "**voltage-gated Na⁺ channels** open when the **threshold** of about −50 mV is reached, so Na⁺ **diffuses in**; then **voltage-gated K⁺ channels** open and K⁺ **diffuses out**."
+
+</Callout>
+
+</Section>
+
+<Section id="local-currents" title="Local currents propagate the impulse" level="AHL" covers="C2.2.9">
+
+How does an action potential in one region trigger the next? Step through the **Local currents** step of the animation above.
+
+1. In the depolarised region, Na⁺ that has just entered makes the inside **positive**, while the neighbouring resting region is still **negative** inside.
+2. Na⁺ ions therefore **diffuse along the inside** of the axon, from the depolarised region towards the resting region next to it.
+3. On the **outside** of the membrane the charges are reversed: the depolarised region is now negative outside, so Na⁺ ions diffuse **along the outside** towards it, away from the resting region.
+4. Both movements reduce the potential difference across the membrane of the neighbouring region, which becomes less negative inside. These ion movements are the **local currents**.
+5. When this region reaches the **threshold potential**, its voltage-gated Na⁺ channels open and it fires its own action potential.
+
+The process then repeats, region by region, so the action potential travels along the axon. It cannot travel backwards, because the region it has just left is still in its **refractory period**: its Na⁺ channels cannot reopen yet.
+
+In a wider axon, ions meet less resistance as they diffuse along the inside, so the local currents bring regions further ahead to threshold more quickly. This is the physical reason for the correlation between diameter and speed.
+
+<Callout type="tip">
+
+Think of each region as **re-creating** the impulse at full size, rather than the impulse simply flowing along. That is why impulses do not fade along a metre-long axon.
+
+</Callout>
+
+</Section>
+
+<Section id="oscilloscope" title="Oscilloscope traces of nerve activity" level="AHL" covers="C2.2.10">
+
+The membrane potential of an axon can be measured with two electrodes, one inside the axon and one in the fluid outside, connected to an **oscilloscope** (today usually a computer). The trace shows **membrane potential (mV)** on the y-axis against **time (ms)** on the x-axis.
+
+<Figure name="c2-2-trace" caption="Top: one action potential, with the events at the membrane numbered. Bottom: a series of action potentials, used to measure impulse frequency." />
+
+### Reading the trace
+
+| Part of the trace | Events at the membrane |
+|---|---|
+| Flat at about −70 mV | resting potential; voltage-gated channels closed; pumps and leakage maintain it |
+| Gradual rise to −50 mV | stimulus or local currents depolarise the membrane to threshold |
+| Steep rise to about +30 to +40 mV | voltage-gated Na⁺ channels open; Na⁺ diffuses in (depolarisation) |
+| Steep fall | Na⁺ channels close; voltage-gated K⁺ channels open; K⁺ diffuses out (repolarisation) |
+| Dip below −70 mV | K⁺ channels slow to close (hyperpolarisation); refractory period |
+| Return to −70 mV | K⁺ channels close; resting potential restored |
+
+### Measuring impulse frequency
+
+Because all action potentials are the same size, information is carried by **how often** they occur. A stronger stimulus gives a higher **frequency** of impulses.
+
+- Count the action potentials in a measured time, then divide: **frequency = number of impulses ÷ time in seconds**.
+- Or measure the time from one peak to the next and take 1 ÷ that interval (in seconds).
+
+For example, 5 action potentials in 50 ms (0.05 s) is 5 ÷ 0.05 = **100 impulses per second**.
+
+<Callout type="exam">
+
+Convert milliseconds to seconds before dividing (1 ms = 0.001 s). An answer of "0.1 impulses per ms" is not wrong, but questions usually ask for impulses **per second**.
+
+</Callout>
+
+</Section>
+
+<Section id="saltatory" title="Saltatory conduction in myelinated fibres" level="AHL" covers="C2.2.11">
+
+In a myelinated fibre the axon is wrapped by **Schwann cells** (in the peripheral nervous system), each forming a sheath of many layers of membrane. The lipid-rich **myelin** is an electrical insulator: ions cannot move across the axon membrane where it is covered.
+
+- The **voltage-gated Na⁺ and K⁺ channels** and the **Na⁺/K⁺ pumps** are clustered at the **nodes of Ranvier**, the short gaps of exposed membrane between Schwann cells, about 1 mm apart.
+- Action potentials can therefore occur **only at the nodes**.
+- Local currents flow along the inside of the axon from one node to the next, under the myelin, bringing the next node to threshold.
+- The impulse **jumps from node to node**. This is **saltatory conduction** (from the Latin *saltare*, to jump).
+
+In an unmyelinated axon every small region of membrane must depolarise in turn (**continuous conduction**), which is slow. Saltatory conduction:
+
+- is much **faster**: up to about 100 m s⁻¹ or more, instead of about 1 m s⁻¹ in a thin unmyelinated fibre;
+- uses **less energy**, because ions cross the membrane only at the nodes, so less ATP is needed to pump them back.
+
+<Sim topic="c2-2" id="conduction" />
+
+In diseases such as multiple sclerosis, myelin in the central nervous system is damaged, conduction slows or fails, and control of movement is affected.
+
+<Callout type="exam">
+
+Two points are needed to explain saltatory conduction: **myelin insulates**, and **channels are concentrated at the nodes**, so the action potential **jumps from node to node**.
+
+</Callout>
+
+</Section>
+
+<Section id="exogenous" title="Chemicals that disrupt synapses" level="AHL" covers="C2.2.12">
+
+Many **exogenous chemicals** (chemicals from outside the body) act at synapses: drugs, pesticides and toxins. They work by affecting release of the neurotransmitter, its binding to receptors, or its removal from the cleft.
+
+### Neonicotinoids: blocking transmission
+
+**Neonicotinoids**, such as imidacloprid, are synthetic insecticides chemically similar to nicotine.
+
+- They bind to **nicotinic acetylcholine receptors** in the postsynaptic membranes of synapses in the insect central nervous system.
+- They bind much more strongly to insect receptors than to mammalian ones, which is why they are relatively less toxic to mammals.
+- **Acetylcholinesterase cannot break them down**, so the binding is effectively irreversible. The receptors are first overstimulated and then **acetylcholine can no longer bind**: synaptic transmission is blocked.
+- The insect is paralysed and dies.
+
+Because they are taken up by the whole plant, neonicotinoids reach nectar and pollen, and they harm **pollinators** such as bees as well as pests. For this reason the European Union banned outdoor use of the three main neonicotinoids in 2018.
+
+### Cocaine: blocking reuptake
+
+At **dopamine** synapses in the brain's reward pathways, dopamine is normally removed from the cleft by **dopamine reuptake transporters** in the presynaptic membrane.
+
+- **Cocaine binds to these transporters and blocks them**.
+- Dopamine is not reabsorbed, so it **accumulates in the synaptic cleft** and keeps binding to receptors on the postsynaptic membrane.
+- The postsynaptic neurons are stimulated for longer, producing feelings of euphoria and energy.
+- Repeated use changes the brain (for example, the number of dopamine receptors falls), which contributes to **addiction**.
+
+<Figure name="c2-2-drugs" caption="A: neonicotinoids occupy nicotinic acetylcholine receptors at insect synapses. B: cocaine blocks dopamine reuptake, so dopamine stays in the cleft." />
+
+<Callout type="exam">
+
+Keep the two examples distinct: neonicotinoids act on **receptors** (postsynaptic, insects, ACh); cocaine acts on **reuptake transporters** (presynaptic, brain, dopamine).
+
+</Callout>
+
+</Section>
+
+<Section id="summation" title="Inhibitory neurotransmitters and summation" level="AHL" covers="C2.2.13 C2.2.14">
+
+### Inhibitory postsynaptic potentials
+
+Not all neurotransmitters excite. **Inhibitory neurotransmitters** make the postsynaptic neuron **less** likely to fire. The main one in the brain is **GABA** (gamma-aminobutyric acid).
+
+- GABA binds to receptors on the postsynaptic membrane that are **chloride channels**.
+- The channels open and Cl⁻ ions diffuse into the neuron, down their concentration gradient.
+- Negative charge entering makes the inside **more negative** than the resting potential, for example −75 mV instead of −70 mV. The membrane is **hyperpolarised**.
+
+This is an **inhibitory postsynaptic potential (IPSP)**. A hyperpolarised membrane is further from the threshold, so more excitation is needed to make it fire.
+
+### Summation
+
+A neuron in the brain may receive synapses from thousands of presynaptic neurons, some excitatory and some inhibitory. A single EPSP is usually far too small to reach threshold. The postsynaptic neuron adds up all its inputs, a process called **summation**:
+
+- **Spatial summation**: EPSPs from several different presynaptic neurons arriving at the same time add together.
+- **Temporal summation**: impulses arriving in rapid succession from the same presynaptic neuron produce EPSPs that add together before each one fades.
+- IPSPs **subtract** from the total.
+
+The summed effect is felt at the **axon hillock**. If the net depolarisation there reaches the threshold potential, an action potential starts and travels along the axon; if not, nothing is sent. The output is **all or nothing**, even though the inputs are graded. Summation is how neurons integrate information and "make decisions".
+
+<Sim topic="c2-2" id="summation" />
+
+<Callout type="exam">
+
+Define both types of summation with the word **same** or **different**: temporal = repeated impulses from the **same** presynaptic neuron; spatial = impulses from **different** presynaptic neurons at the same time.
+
+</Callout>
+
+</Section>
+
+<Section id="pain-consciousness" title="Pain perception and consciousness" level="AHL" covers="C2.2.15 C2.2.16">
+
+### Pain receptors: free nerve endings
+
+Pain is detected by sensory neurons whose fine branches end as **free nerve endings** in the skin, among the cells of the epidermis. They have no specialised receptor cell or capsule: the membrane of the nerve ending itself detects the stimulus.
+
+- The endings contain channels for positively charged ions, such as **TRPV1**.
+- These channels open in response to harmful stimuli: **high temperature** (above about 43 °C), **acid**, and certain chemicals, notably **capsaicin**, the compound that makes **chilli peppers** taste hot.
+- When the channels open, positive ions (**Na⁺** and **Ca²⁺**) diffuse into the ending and depolarise it.
+- If the **threshold potential** is reached, action potentials pass along the sensory neuron to the spinal cord and then to the **brain**, where the pain is **perceived**.
+
+Capsaicin opens the same channels as heat, which is why chilli feels burning even though nothing is hot. Pain is not felt in the finger or tongue: the receptor only sends impulses, and the sensation is produced in the brain.
+
+<Figure name="c2-2-pain" caption="Free nerve endings in the skin contain TRPV1 channels, opened by heat, capsaicin and acid." />
+
+### Consciousness as an emergent property
+
+**Consciousness**, our awareness of ourselves and our surroundings, is perhaps the most remarkable product of the brain. No single neuron is conscious: each just receives, sums and sends signals as described on this page. Consciousness **emerges** from the interactions of very large numbers of neurons, roughly 86 billion in the human brain, linked by an estimated hundred trillion synapses into networks.
+
+An **emergent property** is one that a system has but its individual parts do not, arising from how the parts interact. Other examples in biology include the properties of a cell compared with its molecules, or the behaviour of a colony of social insects. Understanding how consciousness emerges is one of the biggest open questions in science.
+
+<Callout type="note" title="Connections">
+
+Neurons are only one way that cells signal: compare hormones and receptors in <TopicLink code="C2.1" />, and the integration of body systems by the nervous system in <TopicLink code="C3.1" />.
+
+</Callout>
+
+</Section>

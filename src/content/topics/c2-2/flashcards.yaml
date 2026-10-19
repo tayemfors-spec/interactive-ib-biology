@@ -1,0 +1,73 @@
+cards:
+  - id: c1
+    level: SL
+    front: Name the three main parts of a neuron and say what each does.
+    back: Cell body (contains the nucleus and most of the cytoplasm; makes proteins); dendrites (many short branched fibres that carry impulses towards the cell body); axon (one long fibre that carries impulses away from the cell body).
+  - id: c2
+    level: SL
+    front: What is the resting potential, and roughly what is its value?
+    back: The potential difference across the membrane of a neuron that is not conducting an impulse, about −70 mV (inside negative relative to outside). The membrane is polarised.
+  - id: c3
+    level: SL
+    front: Give three reasons why the inside of a resting neuron is negative.
+    back: (1) Na⁺/K⁺ pumps move 3 Na⁺ out for every 2 K⁺ in; (2) the membrane is much more permeable to K⁺, so K⁺ diffuses out down its gradient; (3) negatively charged proteins inside cannot leave.
+  - id: c4
+    level: SL
+    front: Why is a nerve impulse described as electrical?
+    back: Because it involves the movement of positively charged ions (Na⁺ in, then K⁺ out) across the membrane, which changes the voltage. It is not a flow of electrons.
+  - id: c5
+    level: SL
+    front: Depolarisation vs repolarisation
+    back: Depolarisation — Na⁺ channels open and Na⁺ diffuses in, so the inside becomes positive (to about +30 to +40 mV). Repolarisation — K⁺ channels open and K⁺ diffuses out, so the inside becomes negative again.
+  - id: c6
+    level: SL
+    front: Compare the conduction speeds of the squid giant axon, a thin unmyelinated fibre and a large myelinated fibre.
+    back: Thin unmyelinated (about 1 µm) about 1 m s⁻¹; squid giant axon (unmyelinated, about 0.5 mm) about 25 m s⁻¹; large myelinated (15–20 µm) about 100 m s⁻¹. Speed rises with diameter and much more with myelin.
+  - id: c7
+    level: SL
+    front: What do r and R² tell you about a correlation?
+    back: r (−1 to +1) gives the direction (sign) and strength (closeness to ±1) of a linear correlation. R² gives the proportion of variation in the dependent variable explained by the independent variable (e.g. 0.81 = 81%).
+  - id: c8
+    level: SL
+    front: Why do signals cross a synapse in one direction only?
+    back: Only the presynaptic neuron has vesicles of neurotransmitter, and only the postsynaptic membrane has receptors for it.
+  - id: c9
+    level: SL
+    front: What role do calcium ions play at a synapse?
+    back: Depolarisation of the presynaptic membrane opens voltage-gated Ca²⁺ channels; Ca²⁺ diffuses in and acts as a signal inside the neuron that makes vesicles fuse with the membrane and release neurotransmitter by exocytosis.
+  - id: c10
+    level: SL
+    front: How does acetylcholine generate an EPSP?
+    back: It diffuses across the cleft and binds to receptors (ligand-gated channels) in the postsynaptic membrane; the channels open, Na⁺ diffuses in and the membrane depolarises. Acetylcholinesterase then breaks ACh into choline and acetate, and choline is reabsorbed.
+  - id: c11
+    level: AHL
+    front: Why must the threshold potential be reached for an action potential to start?
+    back: Voltage-gated Na⁺ channels open only at about −50 mV. Below this the membrane returns to rest. Above it, Na⁺ entry opens more channels (positive feedback), so a full-sized action potential always follows — all or nothing.
+  - id: c12
+    level: AHL
+    front: Explain how local currents propagate an action potential.
+    back: Na⁺ that entered the depolarised region diffuses along the inside to the next region (and along the outside towards the depolarised region). This makes the next region less negative until it reaches threshold and its Na⁺ channels open. The refractory region behind cannot fire, so the impulse moves forward.
+  - id: c13
+    level: AHL
+    front: How do you calculate impulse frequency from an oscilloscope trace?
+    back: Count the action potentials and divide by the time in seconds, or take 1 ÷ the interval between peaks in seconds. E.g. 5 in 50 ms = 5 ÷ 0.05 s = 100 impulses per second.
+  - id: c14
+    level: AHL
+    front: What is saltatory conduction?
+    back: In myelinated fibres the channels and pumps are clustered at the nodes of Ranvier and myelin insulates the rest, so action potentials occur only at nodes and the impulse jumps from node to node. It is faster and uses less ATP.
+  - id: c15
+    level: AHL
+    front: Neonicotinoids vs cocaine — how does each affect synaptic transmission?
+    back: Neonicotinoids bind to nicotinic ACh receptors in insects and are not broken down by acetylcholinesterase, so transmission is blocked (paralysis, death). Cocaine blocks dopamine reuptake transporters, so dopamine accumulates in the cleft and keeps stimulating the postsynaptic neuron.
+  - id: c16
+    level: AHL
+    front: How does GABA produce an IPSP?
+    back: GABA binds to receptors that are chloride channels; Cl⁻ diffuses in, making the inside more negative (hyperpolarisation). The neuron is further from threshold.
+  - id: c17
+    level: AHL
+    front: Spatial vs temporal summation
+    back: Spatial — EPSPs from several different presynaptic neurons at the same time add together. Temporal — EPSPs from repeated impulses of the same neuron in quick succession add together. The net effect at the axon hillock decides, all or nothing, whether the neuron fires.
+  - id: c18
+    level: AHL
+    front: How do free nerve endings detect pain, and why is consciousness called an emergent property?
+    back: Their membranes contain cation channels (e.g. TRPV1) opened by heat, acid or capsaicin; Na⁺ and Ca²⁺ enter, threshold is reached, and impulses go to the brain where pain is perceived. Consciousness emerges from interactions of billions of neurons; no single neuron has it.

@@ -1,0 +1,194 @@
+---
+/**
+ * C2.2.13 / C2.2.14: summation of EPSPs and IPSPs at the axon hillock. Maths in models/c2-2-summation.ts.
+ */
+import { range, sx, sy, type Frame } from './chart';
+import { T_END, THRESHOLD, inputs, presets, simulate, type Scenario } from './models/c2-2-summation';
+
+const frame: Frame = {
+  w: 640, h: 330, left: 58, right: 16, top: 16, bottom: 64,
+  x: { min: 0, max: T_END, ticks: range(0, 50, 10), label: 'Time / ms' },
+  y: { min: -90, max: 50, ticks: [-80, -70, -50, -20, 0, 20, 40], label: 'Membrane potential at axon hillock / mV' },
+};
+const defaults: Scenario = { train: 1, interval: 5, together: 0, inhibitory: 0 };
+const res = simulate(defaults);
+const pathOf = (pts: [number, number][]) => pts.map(([t, v], i) => `${i ? 'L' : 'M'}${sx(frame, t).toFixed(1)} ${sy(frame, v).toFixed(1)}`).join('');
+const tableRows = (pts: [number, number][]): [number, number][] => range(0, 50, 2.5).map((t) => pts.find(([pt]) => Math.abs(pt - t) < 1e-6) ?? [t, NaN]);
+const knobs = [
+  { id: 'E1', x: 52, y: 52, ex: true }, { id: 'E2', x: 30, y: 116, ex: true }, { id: 'E3', x: 56, y: 182, ex: true }, { id: 'E4', x: 128, y: 30, ex: true },
+  { id: 'I1', x: 134, y: 204, ex: false }, { id: 'I2', x: 196, y: 196, ex: false },
+];
+const active = new Set(inputs(defaults).map((i) => i.source));
+const markerY = frame.h - frame.bottom + 30;
+---
+<div class="summ" data-summ data-frame={JSON.stringify(frame)}>
+  <div class="layout">
+    <svg class="cell" viewBox="0 0 300 230" role="img" aria-labelledby="sm-cell-t" data-cell>
+      <title id="sm-cell-t">Postsynaptic neuron with excitatory synapses E1 to E4 and inhibitory synapses I1 and I2</title>
+      <g class="dend">
+        {knobs.map((k) => <path d={`M${k.x} ${k.y} Q${(k.x + 130) / 2} ${(k.y + 116) / 2 + 6} 130 116`} />)}
+      </g>
+      <path class="soma" d="M130 80 C170 80, 178 100, 196 110 L196 122 C178 132, 170 152, 130 152 A36 36 0 0 1 130 80 Z" />
+      <path class="axon" d="M196 116 H292" />
+      <circle class="hillock" data-hillock cx="194" cy="116" r="9" />
+      <text class="small" x="204" y="104">axon hillock</text>
+      <text class="small" x="240" y="138" text-anchor="middle">axon →</text>
+      {knobs.map((k) => (
+        <g class={`knob ${k.ex ? 'ex' : 'in'} ${active.has(k.id) ? 'on' : ''}`} data-knob={k.id}>
+          <circle cx={k.x} cy={k.y} r="15" />
+          <text x={k.x} y={k.y} dy="0.35em" text-anchor="middle">{k.id}</text>
+        </g>
+      ))}
+    </svg>
+    <div class="controls">
+      <label class="slider">Impulses from E1: <output data-out="train">{defaults.train}</output>
+        <input type="range" min="0" max="4" step="1" value={defaults.train} data-param="train" />
+      </label>
+      <label class="slider">Gap between E1's impulses: <output data-out="interval">{defaults.interval} ms</output>
+        <input type="range" min="2" max="15" step="1" value={defaults.interval} data-param="interval" />
+      </label>
+      <label class="slider">Other excitatory neurons firing at 10 ms (E2–E4): <output data-out="together">{defaults.together}</output>
+        <input type="range" min="0" max="3" step="1" value={defaults.together} data-param="together" />
+      </label>
+      <label class="slider">Inhibitory (GABA) neurons firing at 10 ms (I1–I2): <output data-out="inhibitory">{defaults.inhibitory}</output>
+        <input type="range" min="0" max="2" step="1" value={defaults.inhibitory} data-param="inhibitory" />
+      </label>
+      <div class="presets" role="group" aria-label="Examples">
+        {presets.map((p) => <button class="btn" type="button" data-preset={p.id}>{p.name}</button>)}
+      </div>
+    </div>
+  </div>
+
+  <svg class="chart" viewBox={`0 0 ${frame.w} ${frame.h}`} role="img" aria-labelledby="sm-t" data-chart>
+    <title id="sm-t">Membrane potential at the axon hillock against time</title>
+    <g class="grid">
+      {frame.x.ticks.map((t) => <line x1={sx(frame, t)} x2={sx(frame, t)} y1={frame.top} y2={frame.h - frame.bottom} />)}
+      {[-80, -60, -40, -20, 0, 20, 40].map((t) => <line x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, t)} y2={sy(frame, t)} />)}
+    </g>
+    <line class="thr" x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, THRESHOLD)} y2={sy(frame, THRESHOLD)} />
+    <text class="thrtext" x={frame.w - frame.right - 4} y={sy(frame, THRESHOLD) - 6} text-anchor="end">threshold −50 mV</text>
+    <line class="rest" x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, -70)} y2={sy(frame, -70)} />
+    <text class="resttext" x={frame.w - frame.right - 4} y={sy(frame, -70) + 16} text-anchor="end">resting −70 mV</text>
+    <g class="ticks">
+      {frame.x.ticks.map((t) => <text x={sx(frame, t)} y={frame.h - frame.bottom + 16} text-anchor="middle">{t}</text>)}
+      {[-80, -40, 0, 40].map((t) => <text x={frame.left - 8} y={sy(frame, t)} dy="0.35em" text-anchor="end">{t > 0 ? `+${t}` : t}</text>)}
+    </g>
+    <text class="axis" x={(frame.left + frame.w - frame.right) / 2} y={frame.h - 4} text-anchor="middle">{frame.x.label} →</text>
+    <text class="axis" transform={`translate(16 ${(frame.top + frame.h - frame.bottom) / 2}) rotate(-90)`} text-anchor="middle">Potential / mV →</text>
+    <g data-markers>
+      {inputs(defaults).map((i) => <path class={i.mv > 0 ? 'mk ex' : 'mk in'} d={`M${sx(frame, i.t).toFixed(1)} ${markerY - 7} l-6 12 h12 z`} />)}
+    </g>
+    <path class="vline" d={pathOf(res.points)} data-line />
+  </svg>
+  <p class="legend"><span class="mk-key ex"></span> excitatory input (EPSP) <span class="mk-key in"></span> inhibitory input (IPSP); markers show when each impulse arrives.</p>
+  <p class="readout" aria-live="polite" data-readout>One EPSP raises the potential at the axon hillock to only {String(Math.round(res.peakSub)).replace('-', '−')} mV, below the threshold of −50 mV, so no action potential fires.</p>
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <thead><tr><th scope="col">Time / ms</th><th scope="col">Potential / mV</th></tr></thead>
+      <tbody data-tbody>{tableRows(res.points).map(([t, v]) => <tr><th scope="row">{t}</th><td>{v.toFixed(1)}</td></tr>)}</tbody>
+    </table>
+  </details>
+  <p class="model-note">Qualitative model. EPSPs (+9 mV) and IPSPs (−5 mV) are drawn larger than most real ones, so that a few inputs are enough to reach threshold. Only one action potential is shown.</p>
+</div>
+
+<script>
+  import { range, sx, sy, type Frame } from './chart';
+  import { inputs, presets, simulate, type Scenario } from './models/c2-2-summation';
+
+  document.querySelectorAll<HTMLElement>('[data-summ]').forEach((root) => {
+    const frame = JSON.parse(root.dataset.frame!) as Frame;
+    const params = ['train', 'interval', 'together', 'inhibitory'] as const;
+    const input = (k: string) => root.querySelector<HTMLInputElement>(`[data-param="${k}"]`)!;
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    const markerY = frame.h - frame.bottom + 30;
+    let timer = 0;
+    const mv = (v: number) => String(Math.round(v)).replace('-', '−');
+
+    const read = (): Scenario => ({ train: Number(input('train').value), interval: Number(input('interval').value), together: Number(input('together').value), inhibitory: Number(input('inhibitory').value) });
+
+    const sentence = (s: Scenario, r: ReturnType<typeof simulate>) => {
+      const ex = s.train + s.together, inh = s.inhibitory;
+      if (ex === 0 && inh === 0) return 'No impulses arrive, so the axon hillock stays at the resting potential, −70 mV.';
+      const what: string[] = [];
+      if (s.together > 0) what.push(`${s.together + (s.train > 0 ? 1 : 0)} excitatory neurons firing together (spatial summation)`);
+      if (s.train > 1) what.push(`${s.train} impulses from E1 ${s.interval} ms apart (${s.interval <= 4 ? 'close enough for temporal summation' : 'EPSPs partly fade between impulses'})`);
+      if (inh > 0) what.push(`${inh} inhibitory neuron${inh > 1 ? 's' : ''} releasing GABA (IPSPs)`);
+      const cause = what.length ? `With ${what.join(', ')}: ` : '';
+      if (ex === 0) return `${cause}the IPSPs hyperpolarise the membrane to ${mv(r.min)} mV, further from threshold.`;
+      if (r.fired) return `${cause}the summed potential reaches −50 mV at ${r.tFire!.toFixed(1)} ms, so an action potential fires and rises to +35 mV. A larger input would not make it bigger (all or nothing).`;
+      return `${cause}the summed potential peaks at ${mv(r.peakSub)} mV, below the threshold of −50 mV, so no action potential fires.`;
+    };
+
+    const update = () => {
+      const s = read();
+      root.querySelector('[data-out="train"]')!.textContent = String(s.train);
+      root.querySelector('[data-out="interval"]')!.textContent = `${s.interval} ms`;
+      root.querySelector('[data-out="together"]')!.textContent = String(s.together);
+      root.querySelector('[data-out="inhibitory"]')!.textContent = String(s.inhibitory);
+      const r = simulate(s);
+      root.querySelector('[data-line]')!.setAttribute('d', r.points.map(([t, v], i) => `${i ? 'L' : 'M'}${sx(frame, t).toFixed(1)} ${sy(frame, v).toFixed(1)}`).join(''));
+      const ins = inputs(s);
+      root.querySelector('[data-markers]')!.innerHTML = ins.map((i) => `<path class="mk ${i.mv > 0 ? 'ex' : 'in'}" d="M${sx(frame, i.t).toFixed(1)} ${markerY - 7} l-6 12 h12 z" />`).join('');
+      const on = new Set(ins.map((i) => i.source));
+      root.querySelectorAll<SVGGElement>('[data-knob]').forEach((g) => g.classList.toggle('on', on.has(g.dataset.knob!)));
+      root.querySelector('[data-hillock]')!.classList.toggle('fired', r.fired);
+      root.querySelector('[data-tbody]')!.innerHTML = range(0, 50, 2.5)
+        .map((t) => { const p = r.points.find(([pt]) => Math.abs(pt - t) < 1e-6); return `<tr><th scope="row">${t}</th><td>${p ? p[1].toFixed(1) : '–'}</td></tr>`; })
+        .join('');
+      clearTimeout(timer);
+      timer = window.setTimeout(() => (readout.textContent = sentence(s, r)), 300);
+    };
+
+    params.forEach((k) => input(k).addEventListener('input', update));
+    root.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach((b) => b.addEventListener('click', () => {
+      const p = presets.find((x) => x.id === b.dataset.preset);
+      if (!p) return;
+      params.forEach((k) => (input(k).value = String(p.s[k])));
+      update();
+    }));
+  });
+</script>
+
+<style>
+  .summ { container-type: inline-size; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 40rem) { .layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); align-items: center; } }
+  .cell { width: 100%; max-width: 22rem; height: auto; justify-self: center; font-family: var(--font-sans); }
+  .dend path { stroke: var(--bio-protein); stroke-width: 5; fill: none; stroke-linecap: round; }
+  .soma { fill: color-mix(in srgb, var(--bio-protein) 30%, var(--surface)); stroke: var(--bio-protein); stroke-width: 2.4; }
+  .axon { stroke: var(--bio-protein); stroke-width: 6; stroke-linecap: round; }
+  .hillock { fill: var(--surface); stroke: var(--warn); stroke-width: 3; }
+  .hillock.fired { fill: var(--bio-head); }
+  .small { font-size: 13px; font-weight: 650; fill: var(--text); }
+  .knob circle { stroke-width: 2; opacity: 0.45; }
+  .knob text { font-size: 12px; font-weight: 800; fill: var(--text); }
+  .knob.ex circle { fill: color-mix(in srgb, var(--bio-carb) 45%, var(--surface)); stroke: var(--bio-carb); }
+  .knob.in circle { fill: color-mix(in srgb, var(--bio-k) 40%, var(--surface)); stroke: var(--bio-k); }
+  .knob.on circle { opacity: 1; stroke-width: 3.5; }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .presets { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .chart { width: 100%; height: auto; margin-top: var(--space-3); font-family: var(--font-sans); }
+  .grid line { stroke: var(--border); }
+  .thr { stroke: var(--warn); stroke-width: 1.6; stroke-dasharray: 7 5; }
+  .thrtext { font-size: 14px; font-weight: 700; fill: var(--warn); }
+  .rest { stroke: var(--text-muted); stroke-width: 1.2; stroke-dasharray: 2 4; }
+  .resttext { font-size: 13px; fill: var(--text-muted); }
+  .ticks text { font-size: 14px; fill: var(--text-muted); }
+  .axis { font-size: 15px; font-weight: 650; fill: var(--text); }
+  .vline { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linejoin: round; }
+  .chart :global(.mk.ex) { fill: var(--bio-carb); }
+  .chart :global(.mk.in) { fill: var(--bio-k); }
+  .legend { font-size: 0.85rem; color: var(--text-muted); margin: var(--space-1) 0 0; }
+  .mk-key { display: inline-block; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 11px solid; vertical-align: -1px; margin-left: var(--space-2); }
+  .mk-key.ex { color: var(--bio-carb); }
+  .mk-key.in { color: var(--bio-k); }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  .table :global(th), .table :global(td) { padding: 0.2rem 0.7rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

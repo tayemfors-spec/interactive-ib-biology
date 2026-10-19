@@ -1,0 +1,122 @@
+---
+/**
+ * Exam-style 2D motor neuron (C2.2.1, C2.2.11). Numbered markers keep it legible at phone width;
+ * the key below gives the names in real text.
+ */
+const cy = 176; // axon centre line
+const body = { x: 128, y: cy, r: 44 };
+// myelin sheaths (Schwann cells): [x0, x1]; the axon is broken between the 2nd and 3rd
+const sheaths: [number, number][] = [[226, 300], [314, 388], [440, 514], [528, 602]];
+const breakX = 414;
+// dendrites: primary branches from the cell body, each splitting at its tip
+const dendrites: { a: number; len: number }[] = [
+  { a: 112, len: 54 }, { a: 145, len: 62 }, { a: 178, len: 58 }, { a: 210, len: 60 }, { a: 245, len: 54 }, { a: 75, len: 46 }, { a: 285, len: 46 },
+];
+const rad = (d: number) => (d * Math.PI) / 180;
+const dPaths = dendrites.map(({ a, len }) => {
+  const sx = body.x + Math.cos(rad(a)) * (body.r - 4);
+  const sy = body.y - Math.sin(rad(a)) * (body.r - 4);
+  const ex = body.x + Math.cos(rad(a)) * (body.r + len);
+  const ey = body.y - Math.sin(rad(a)) * (body.r + len);
+  const b = (da: number, l: number) => `M${ex.toFixed(1)} ${ey.toFixed(1)} L${(ex + Math.cos(rad(a + da)) * l).toFixed(1)} ${(ey - Math.sin(rad(a + da)) * l).toFixed(1)}`;
+  return { main: `M${sx.toFixed(1)} ${sy.toFixed(1)} L${ex.toFixed(1)} ${ey.toFixed(1)}`, branches: [b(-28, 20), b(26, 18), b(2, 14)] };
+});
+const termStart = 640;
+const knobs: [number, number][] = [[730, 104], [748, 150], [748, 202], [730, 248]];
+const markers: { n: number; x: number; y: number; to: [number, number] }[] = [
+  { n: 1, x: 44, y: 40, to: [86, 96] },
+  { n: 2, x: 92, y: 300, to: [118, 212] },
+  { n: 3, x: 172, y: 300, to: [134, 184] },
+  { n: 4, x: 210, y: 92, to: [190, 168] },
+  { n: 5, x: 414, y: 92, to: [424, 170] },
+  { n: 6, x: 264, y: 92, to: [264, 158] },
+  { n: 7, x: 350, y: 92, to: [352, 152] },
+  { n: 8, x: 306, y: 270, to: [307, 184] },
+  { n: 9, x: 664, y: 300, to: [684, 222] },
+  { n: 10, x: 786, y: 300, to: [752, 208] },
+];
+const key = [
+  'Dendrites: short branched fibres that carry impulses to the cell body',
+  'Cell body containing cytoplasm',
+  'Nucleus',
+  'Axon hillock, where action potentials start',
+  'Axon: one long fibre (most of its length omitted)',
+  'Myelin sheath formed by a Schwann cell',
+  'Nucleus of a Schwann cell',
+  'Node of Ranvier: gap in the myelin, axon membrane exposed',
+  'Axon terminals (branches at the end of the axon)',
+  'Synaptic knobs: form synapses with the next cell or effector',
+];
+---
+<div class="exam-diagram">
+  <svg viewBox="0 0 800 330" role="img" aria-labelledby="nr-title nr-desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="nr-title">Structure of a motor neuron</title>
+    <desc id="nr-desc">A cell body with a nucleus and many short branched dendrites. The axon leaves the cell body at the axon hillock and is covered by myelin sheaths of Schwann cells, separated by nodes of Ranvier. Part of the axon's length is omitted. The axon ends in branched terminals with synaptic knobs. An arrow shows the impulse travelling from the cell body towards the terminals.</desc>
+
+    <g class="neuron-line">
+      {dPaths.map((d) => <><path class="den" d={d.main} />{d.branches.map((b) => <path class="den2" d={b} />)}</>)}
+      <!-- axon (two parallel membrane lines), broken where length is omitted -->
+      <path class="axon" d={`M170 ${cy - 7} L${breakX - 8} ${cy - 7} M${breakX + 8} ${cy - 7} L${termStart} ${cy - 7} M170 ${cy + 7} L${breakX - 8} ${cy + 7} M${breakX + 8} ${cy + 7} L${termStart} ${cy + 7}`} />
+      <!-- terminal branches -->
+      {knobs.map(([x, y]) => <path class="term" d={`M${termStart} ${cy} Q${termStart + 40} ${cy} ${x - 10} ${y}`} />)}
+    </g>
+    <!-- axon hillock and cell body -->
+    <path class="cell" d={`M${body.x} ${cy - body.r} C${body.x + 34} ${cy - body.r}, ${body.x + 44} ${cy - 22}, 198 ${cy - 7} L198 ${cy + 7} C${body.x + 44} ${cy + 22}, ${body.x + 34} ${cy + body.r}, ${body.x} ${cy + body.r} A${body.r} ${body.r} 0 0 1 ${body.x} ${cy - body.r} Z`} />
+    <circle class="nucleus" cx={body.x + 4} cy={cy + 6} r="15" />
+    <!-- myelin sheaths and Schwann cell nuclei -->
+    {sheaths.map(([a, b], i) => (
+      <g>
+        <rect class="myelin" x={a} y={cy - 18} width={b - a} height="36" rx="16" />
+        <ellipse class="snuc" cx={(a + b) / 2 + (i % 2 ? 8 : -8)} cy={cy - 21} rx="13" ry="5" />
+      </g>
+    ))}
+    <!-- break marks -->
+    <path class="break" d={`M${breakX - 14} ${cy + 24} L${breakX - 2} ${cy - 24} M${breakX + 2} ${cy + 24} L${breakX + 14} ${cy - 24}`} />
+    {knobs.map(([x, y]) => <ellipse class="knob" cx={x} cy={y} rx="10" ry="12" />)}
+
+    <!-- direction of impulse -->
+    <path class="arrow" d={`M470 ${cy + 48} L600 ${cy + 48}`} marker-end="url(#nr-arrow)" />
+    <text class="note" x="535" y={cy + 70} text-anchor="middle">direction of impulse</text>
+    <defs>
+      <marker id="nr-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0 0 L10 5 L0 10 z" class="arrowhead" />
+      </marker>
+    </defs>
+
+    <g class="markers">
+      {markers.map((m) => (
+        <g>
+          <path class="lead" d={`M${m.x} ${m.y} L${m.to[0]} ${m.to[1]}`} />
+          <circle cx={m.x} cy={m.y} r="13" />
+          <text x={m.x} y={m.y} dy="0.36em" text-anchor="middle">{m.n}</text>
+        </g>
+      ))}
+    </g>
+  </svg>
+  <ol class="key">
+    {key.map((k) => <li>{k}</li>)}
+  </ol>
+</div>
+
+<style>
+  .exam-diagram svg { font-family: var(--font-sans); }
+  .den { stroke: var(--bio-protein); stroke-width: 7; stroke-linecap: round; fill: none; }
+  .den2 { stroke: var(--bio-protein); stroke-width: 3.5; stroke-linecap: round; fill: none; }
+  .axon { stroke: var(--bio-protein); stroke-width: 2.4; fill: none; }
+  .term { stroke: var(--bio-protein); stroke-width: 4; fill: none; stroke-linecap: round; }
+  .cell { fill: color-mix(in srgb, var(--bio-protein) 30%, var(--surface)); stroke: var(--bio-protein); stroke-width: 2.4; }
+  .nucleus { fill: var(--bio-protein-2); }
+  .myelin { fill: color-mix(in srgb, var(--bio-tail) 70%, var(--surface)); stroke: color-mix(in srgb, var(--bio-tail) 55%, black); stroke-width: 1.4; }
+  .snuc { fill: var(--bio-protein-2); }
+  .knob { fill: color-mix(in srgb, var(--bio-protein) 30%, var(--surface)); stroke: var(--bio-protein); stroke-width: 2.4; }
+  .break { stroke: var(--text); stroke-width: 2; fill: none; }
+  .arrow { stroke: var(--text); stroke-width: 2.4; fill: none; }
+  .arrowhead { fill: var(--text); }
+  .note { font-size: 15px; fill: var(--text-muted); font-style: italic; }
+  .markers circle { fill: var(--surface); stroke: var(--text); stroke-width: 1.8; }
+  .markers text { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .lead { stroke: var(--text); stroke-width: 1.4; }
+  .key { columns: 2 17rem; column-gap: var(--space-5); margin: var(--space-3) 0 0; padding: 0; list-style: none; counter-reset: k; font-size: var(--step--1); }
+  .key li { break-inside: avoid; margin: 0 0 0.3rem; display: grid; grid-template-columns: 1.7rem 1fr; counter-increment: k; }
+  .key li::before { content: counter(k); font-weight: 800; display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; border: 1.5px solid var(--text); border-radius: 50%; font-size: 0.75rem; margin-top: 0.1rem; }
+</style>

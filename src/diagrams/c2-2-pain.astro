@@ -1,0 +1,102 @@
+---
+/** C2.2.15: free nerve endings in the skin and the TRPV1 channel. */
+const ending = (x: number, tip: number) => `M${x} 210 C${x} 170, ${x + 10} 140, ${x + 4} ${tip}`;
+const endings = [[70, 64], [118, 54], [166, 70], [214, 58]] as const;
+const markers = [
+  { n: 1, x: 40, y: 30, to: [72, 66] as [number, number] },
+  { n: 2, x: 535, y: 150, to: [461, 126] as [number, number] },
+  { n: 3, x: 296, y: 96, to: [376, 74] as [number, number] },
+  { n: 4, x: 532, y: 192, to: [452, 176] as [number, number] },
+  { n: 5, x: 110, y: 318, to: [180, 330] as [number, number] },
+];
+const key = [
+  'Free nerve endings: bare branches of a sensory neuron among the cells of the epidermis',
+  'TRPV1 channel in the membrane of a nerve ending',
+  'Stimuli that open TRPV1: heat above about 43 °C, capsaicin from chilli peppers, or acid (H⁺)',
+  'Positive ions (Na⁺ and Ca²⁺) diffuse in, depolarising the ending to the threshold potential',
+  'Action potentials travel along the sensory neuron to the spinal cord and brain, where pain is perceived',
+];
+---
+<div class="exam-diagram">
+  <svg viewBox="0 0 560 360" role="img" aria-labelledby="pn-title pn-desc" xmlns="http://www.w3.org/2000/svg" class="pain">
+    <title id="pn-title">Pain receptors: free nerve endings and TRPV1 channels</title>
+    <desc id="pn-desc">Left: a section of skin with the epidermis above the dermis. A sensory neuron in the dermis branches into bare free nerve endings that reach into the epidermis. Right: an enlarged nerve ending membrane with an open TRPV1 channel; heat, capsaicin and acid open it and sodium and calcium ions diffuse in. An arrow shows impulses travelling to the spinal cord and brain.</desc>
+    <!-- skin -->
+    <rect class="epi" x="20" y="40" width="250" height="70" />
+    <rect class="derm" x="20" y="110" width="250" height="190" />
+    <text class="layer" x="262" y="58" text-anchor="end">epidermis</text>
+    <text class="layer" x="262" y="128" text-anchor="end">dermis</text>
+    {Array.from({ length: 10 }, (_, i) => <rect class="cellrow" x={22 + i * 25} y="42" width="24" height="22" rx="4" />)}
+    <!-- sensory neuron -->
+    {endings.map(([x, tip]) => <path class="nerve thin" d={ending(x, tip)} />)}
+    <path class="nerve" d="M70 210 Q140 230 214 210 M142 222 C150 260, 200 290, 270 300" />
+    <path class="impulse" d="M180 330 H290" marker-end="url(#pn-a)" />
+    <text class="note" x="180" y="350">to spinal cord and brain</text>
+
+    <!-- enlargement -->
+    <path class="zoom" d="M218 58 L320 30 M218 58 L320 230" />
+    <rect class="inset" x="320" y="30" width="230" height="200" rx="10" />
+    <rect class="mem" x="320" y="100" width="230" height="36" />
+    <text class="side" x="330" y="50">outside</text>
+    <text class="side" x="330" y="222">inside nerve ending</text>
+    <!-- TRPV1 (open) -->
+    <rect class="ch" x="420" y="92" width="14" height="52" rx="4" />
+    <rect class="ch" x="446" y="92" width="14" height="52" rx="4" />
+    <!-- stimuli -->
+    <path class="flame" d="M380 82 C370 70, 378 58, 384 50 C386 60, 394 62, 392 74 C398 70, 398 64, 396 60 C404 70, 402 82, 392 86 Z" />
+    <g class="caps"><polygon points="490,52 500,46 510,52 510,64 500,70 490,64" /><path d="M510 58 h14 l6 -6 h10" /></g>
+    <text class="stim" x="372" y="98">heat</text>
+    <text class="stim" x="492" y="88">capsaicin</text>
+    <text class="stim" x="460" y="62">H⁺</text>
+    <!-- ions entering -->
+    {[[440, 70, 'Na⁺', 'na'], [440, 164, 'Na⁺', 'na'], [470, 186, 'Ca²⁺', 'ca'], [412, 186, 'Na⁺', 'na']].map(([x, y, t, c]) => (
+      <g class="ion"><circle class={String(c)} cx={Number(x)} cy={Number(y)} r="12" /><text x={Number(x)} y={Number(y)} dy="0.35em" text-anchor="middle">{t}</text></g>
+    ))}
+    <path class="inflow" d="M440 84 V150" marker-end="url(#pn-a)" />
+    <defs>
+      <marker id="pn-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker>
+    </defs>
+
+    <g class="markers">
+      {markers.map((m) => (
+        <g>
+          <path class="lead" d={`M${m.x} ${m.y} L${m.to[0]} ${m.to[1]}`} />
+          <circle cx={m.x} cy={m.y} r="13" />
+          <text x={m.x} y={m.y} dy="0.36em" text-anchor="middle">{m.n}</text>
+        </g>
+      ))}
+    </g>
+  </svg>
+  <ol class="key">{key.map((k) => <li>{k}</li>)}</ol>
+</div>
+
+<style>
+  .pain { font-family: var(--font-sans); }
+  .epi { fill: color-mix(in srgb, var(--bio-head) 25%, var(--surface)); }
+  .cellrow { fill: none; stroke: color-mix(in srgb, var(--bio-head) 45%, var(--surface)); stroke-width: 1; }
+  .derm { fill: color-mix(in srgb, var(--bio-chol) 14%, var(--surface)); }
+  .layer { font-size: 13px; font-style: italic; fill: var(--text-muted); }
+  .nerve { stroke: var(--bio-protein); stroke-width: 6; fill: none; stroke-linecap: round; }
+  .nerve.thin { stroke-width: 3; }
+  .impulse { stroke: var(--text); stroke-width: 2.4; }
+  .note { font-size: 13px; fill: var(--text-muted); font-style: italic; }
+  .zoom { stroke: var(--border-strong); stroke-dasharray: 4 4; }
+  .inset { fill: var(--surface); stroke: var(--border-strong); }
+  .mem { fill: color-mix(in srgb, var(--bio-tail) 40%, var(--surface)); stroke: var(--bio-head); stroke-width: 1.4; }
+  .side { font-size: 12px; font-weight: 700; fill: var(--text-muted); }
+  .ch { fill: var(--bio-protein-2); stroke: color-mix(in srgb, var(--bio-protein-2) 60%, black); }
+  .flame { fill: var(--bio-head); }
+  .caps polygon, .caps path { fill: none; stroke: var(--text); stroke-width: 2; }
+  .stim { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .na { fill: var(--bio-na); }
+  .ca { fill: var(--bio-carb); }
+  .ion text { font-size: 9px; font-weight: 800; fill: #fff; }
+  .inflow { stroke: var(--text); stroke-width: 2; stroke-dasharray: 4 3; }
+  .ah { fill: var(--text); }
+  .markers circle { fill: var(--surface); stroke: var(--text); stroke-width: 1.8; }
+  .markers text { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .lead { stroke: var(--text); stroke-width: 1.4; }
+  .key { columns: 2 17rem; column-gap: var(--space-5); margin: var(--space-3) 0 0; padding: 0; list-style: none; counter-reset: k; font-size: var(--step--1); }
+  .key li { break-inside: avoid; margin: 0 0 0.3rem; display: grid; grid-template-columns: 1.7rem 1fr; counter-increment: k; }
+  .key li::before { content: counter(k); font-weight: 800; display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; border: 1.5px solid var(--text); border-radius: 50%; font-size: 0.75rem; margin-top: 0.1rem; }
+</style>
