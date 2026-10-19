@@ -1,0 +1,145 @@
+facts:
+  - id: f1
+    claim: Ecosystems are open systems (energy and matter cross the boundary); in a closed system only energy crosses.
+    where: [ "index.mdx#open-systems", "quiz.yaml:q1", "flashcards.yaml:c1" ]
+    confidence: high
+    basis: IB guide C4.2.1; standard systems ecology
+    status: checked
+  - id: f2
+    claim: Cave ecosystems depend mainly on imported organic matter (litter washed in, bat guano); Movile Cave (Romania) is supported by chemoautotrophic bacteria oxidizing hydrogen sulfide (and methane).
+    where: [ "index.mdx#open-systems", "flashcards.yaml:c2" ]
+    confidence: high
+    basis: Sarbu et al. (1996) Science 272:1953; standard cave ecology
+    status: checked
+  - id: f3
+    claim: Deep-ocean communities rely on sinking organic matter ("marine snow") and, at hydrothermal vents, chemoautotrophic bacteria that oxidize hydrogen sulfide.
+    where: [ "index.mdx#open-systems", "flashcards.yaml:c2", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: Campbell Biology; standard marine biology
+    status: checked
+  - id: f4
+    claim: Food-web example (British oak woodland) — winter moth caterpillars eat oak leaves; blue tits eat caterpillars; sparrowhawks eat blue tits; wood mice eat acorns, bramble seeds/berries and invertebrates such as caterpillars; tawny owls eat wood mice; red foxes eat rabbits, wood mice and blackberries; rabbits eat grasses.
+    where: [ "visuals: c4-2-food-web figure", "index.mdx#food-chains", "quiz.yaml:q9" ]
+    confidence: high
+    basis: Standard British woodland ecology (e.g. Wytham Woods studies on blue tits, winter moth and sparrowhawks); diet accounts of wood mouse, tawny owl and red fox. NOTE — Simplified web; teacher may prefer a local example.
+    status: open
+  - id: f5
+    claim: Iron-oxidizing bacteria (e.g. Acidithiobacillus ferrooxidans, found in acid mine drainage) oxidize Fe²⁺ to Fe³⁺; the energy released is used to make ATP (chemiosmosis) and reduced NAD, which are used to fix CO₂. Each Fe²⁺ yields little energy, so large amounts of iron are oxidized; Fe³⁺ forms orange-brown iron hydroxide deposits.
+    where: [ "index.mdx#autotrophs", "quiz.yaml:q2", "flashcards.yaml:c5", "index.mdx (mustKnow)" ]
+    confidence: high
+    basis: Brock Biology of Microorganisms; IB guide C4.2.7 named example
+    status: checked
+  - id: f6
+    claim: Ecological transfer efficiency is typically about 10%, with common values between about 5% and 20%.
+    where: [ "index.mdx#energy-losses", "index.mdx#pyramids", "visuals.yaml:energy-flow", "visuals.yaml:pyramid", "sim c4-2-pyramid slider range" ]
+    confidence: high
+    basis: Lindeman (1942); Campbell Biology; Pauly & Christensen (1995) mean ~10% in aquatic food webs
+    status: checked
+  - id: f7
+    claim: Producers convert only a small fraction (often about 1–2% or less) of the light reaching them into chemical energy; at Silver Springs gross production was about 1.2% of the sunlight.
+    where: [ "visuals.yaml:energy-flow step sunlight", "sim c4-2-pyramid readout", "tests/unit/c4-2.test.ts" ]
+    confidence: medium
+    basis: Odum (1957) Ecological Monographs 27:55–112 (20,810 of 1,700,000 kcal m⁻² yr⁻¹); typical photosynthetic efficiencies in ecology texts
+    status: open
+  - id: f8
+    claim: Silver Springs (Odum 1957) energy assimilated, kcal m⁻² yr⁻¹ — sunlight 1,700,000; producers 20,810; herbivores 3,368; carnivores 383; top carnivores 21; decomposers 5,060. In kJ (×4.184, 3 s.f.) — 87,100; 14,100; 1,600; 87.9; decomposers 21,200. Efficiencies ≈16.2%, 11.3%, 5.5%.
+    where: [ "src/sims/models/c4-2-pyramid.ts", "index.mdx#pyramids", "quiz.yaml:q3", "visuals.yaml:pyramid" ]
+    confidence: medium
+    basis: Odum, H. T. (1957) Trophic structure and productivity of Silver Springs, Florida. Ecological Monographs 27:55–112 (values as widely reproduced in textbooks). NOTE — Teacher to confirm the original kcal figures against the paper; page rounds the top level to 88 kJ in the prose table.
+    status: open
+  - id: f9
+    claim: The split of non-transferred energy in the pyramid model (55% heat from respiration, 30% not eaten, 15% faeces) is illustrative, not measured.
+    where: [ "src/sims/models/c4-2-pyramid.ts", "sim c4-2-pyramid model note" ]
+    confidence: high
+    basis: Labelled on screen as illustrative
+    status: checked
+  - id: f10
+    claim: Heat is produced both when ATP is made in respiration and when ATP is used; organisms cannot convert heat to chemical energy, so energy flows and is not recycled.
+    where: [ "index.mdx#energy-losses", "quiz.yaml:q5", "flashcards.yaml:c10", "flashcards.yaml:c17" ]
+    confidence: high
+    basis: IB guide C4.2.13; thermodynamics
+    status: checked
+  - id: f11
+    claim: Food chains rarely exceed four or five trophic levels; energy per unit mass is not reduced at higher levels.
+    where: [ "index.mdx#pyramids", "quiz.yaml:q4", "flashcards.yaml:c12", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: IB guide C4.2.14
+    status: checked
+  - id: f12
+    claim: Approximate mean NPP (g dry mass m⁻² yr⁻¹) — tropical rainforest 2,200; temperate deciduous forest 1,200; savanna 900; boreal forest 800; temperate grassland 600; tundra and alpine 140; open ocean 125; desert and semidesert scrub 90. Carbon ≈ 45% of dry biomass.
+    where: [ "src/diagrams/c4-2-production.astro", "index.mdx#production" ]
+    confidence: medium
+    basis: Whittaker, R. H. & Likens, G. E. (1975) in Primary Productivity of the Biosphere (Lieth & Whittaker, eds.), as tabulated in Whittaker (1975) Communities and Ecosystems; carbon fraction 0.45–0.5 is a standard conversion. NOTE — Teacher to confirm values against the table; they are labelled approximate on the page.
+    status: open
+  - id: f13
+    claim: Primary and secondary production are measured as mass of carbon per unit area per unit time, usually g m⁻² yr⁻¹; NPP = GPP − producer respiration; secondary production is lower than primary.
+    where: [ "index.mdx#production", "quiz.yaml:q8", "quiz.yaml:q10", "flashcards.yaml:c13", "flashcards.yaml:c14" ]
+    confidence: high
+    basis: IB guide C4.2.15–16
+    status: checked
+  - id: f14
+    claim: Peat bogs are carbon sinks because waterlogged, acidic, anaerobic conditions slow decomposition; drained peatland becomes a carbon source.
+    where: [ "index.mdx#carbon-cycle", "quiz.yaml:q7", "visuals.yaml:carbon-cycle", "flashcards.yaml:c15" ]
+    confidence: high
+    basis: Standard peatland carbon ecology (IPCC; Campbell)
+    status: checked
+  - id: f15
+    claim: Formation times — most peat accumulated over the last ~10,000 years (post-glacial) and is still forming; much coal formed ~300–360 million years ago (Carboniferous); oil and gas mostly from marine plankton over tens to hundreds of millions of years.
+    where: [ "index.mdx#combustion-keeling" ]
+    confidence: medium
+    basis: Standard geology texts; Carboniferous 358.9–298.9 Ma (ICS chart). NOTE — Coal also formed in other periods (e.g. Permian, Cretaceous, Paleogene); wording says "much of it".
+    status: open
+  - id: f16
+    claim: Keeling began continuous CO₂ measurements at Mauna Loa Observatory in March 1958.
+    where: [ "index.mdx#combustion-keeling", "sim c4-2-keeling note", "index.mdx (mustKnow)" ]
+    confidence: high
+    basis: Scripps CO₂ Program; NOAA GML
+    status: checked
+  - id: f17
+    claim: Mauna Loa annual mean CO₂ (ppm, rounded) — 1959 316.0; 1960 316.9; 1965 320.0; 1970 325.7; 1975 331.1; 1980 338.8; 1985 346.1; 1990 354.4; 1995 360.8; 2000 369.7; 2005 380.0; 2010 389.9; 2015 401.0; 2016 404.4; 2017 406.8; 2018 408.7; 2019 411.7; 2020 414.2; 2021 416.4; 2022 418.6; 2023 421.1; 2024 424.6.
+    where: [ "src/sims/models/c4-2-keeling.ts", "sim c4-2-keeling", "index.mdx#combustion-keeling", "tests/unit/c4-2.test.ts" ]
+    confidence: medium
+    basis: NOAA Global Monitoring Laboratory, Mauna Loa annual mean data file (co2_annmean_mlo), values recalled to ~0.1–0.3 ppm. NOTE — Teacher to check against the current NOAA file (values are revised slightly over time). Intermediate years are interpolated in the sim.
+    status: open
+  - id: f18
+    claim: Seasonal cycle at Mauna Loa peaks in May and is lowest in late September–October, with a peak-to-trough amplitude of roughly 6 ppm; the sim's monthly values are an approximation (typical cycle added to the trend).
+    where: [ "src/sims/models/c4-2-keeling.ts", "index.mdx#combustion-keeling", "quiz.yaml:q6", "visuals.yaml:keeling" ]
+    confidence: high
+    basis: NOAA GML / Scripps seasonal cycle at MLO (amplitude ~6–7 ppm)
+    status: checked
+  - id: f19
+    claim: Annual CO₂ growth rate rose from under 1 ppm per year in the 1960s to about 2–2.5 ppm per year since 2000; pre-industrial concentration was about 280 ppm.
+    where: [ "index.mdx#combustion-keeling", "sim c4-2-keeling readout" ]
+    confidence: high
+    basis: NOAA GML growth-rate data; IPCC AR6 (ice-core pre-industrial ~278–280 ppm)
+    status: checked
+  - id: f20
+    claim: The seasonal zig-zag is due to the Northern Hemisphere having most of the land vegetation; summer photosynthesis exceeds respiration, autumn/winter respiration exceeds photosynthesis. The long-term rise is mainly due to fossil fuel combustion, plus deforestation.
+    where: [ "index.mdx#combustion-keeling", "quiz.yaml:q6", "flashcards.yaml:c16", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: IB guide C4.2.20; IPCC AR6
+    status: checked
+  - id: f21
+    claim: Terrestrial photosynthesis fixes more than 100 Gt (10¹⁷ g) of carbon per year, with a similar amount returned by respiration.
+    where: [ "index.mdx#recycling" ]
+    confidence: high
+    basis: IPCC AR5/AR6 global carbon cycle (land GPP ~120–140 PgC yr⁻¹)
+    status: checked
+  - id: f22
+    claim: Almost all atmospheric O₂ comes from photosynthesis (photolysis of water).
+    where: [ "index.mdx#recycling", "src/diagrams/c4-2-interdependence.astro" ]
+    confidence: high
+    basis: Standard biogeochemistry
+    status: checked
+  - id: f23
+    claim: All elements used by organisms are recycled; decomposers release them in inorganic form; nitrogen cycle details not required.
+    where: [ "index.mdx#recycling", "flashcards.yaml:c17" ]
+    confidence: high
+    basis: IB guide C4.2.22
+    status: checked
+  - id: f24
+    claim: Illustrative energy-flow values 10,000 → 1,000 → 100 → 10 kJ m⁻² yr⁻¹ use a 10% efficiency and are labelled illustrative.
+    where: [ "src/anims/c4-2-energy-flow.astro", "visuals.yaml:energy-flow" ]
+    confidence: high
+    basis: Arithmetic; labelled on the diagram
+    status: checked

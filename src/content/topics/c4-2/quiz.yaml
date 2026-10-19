@@ -1,0 +1,202 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: C4.2.1
+    stem: >-
+      A student seals some pond water, pond plants and snails inside a glass jar and leaves it on a sunny
+      windowsill. Which statement correctly describes the jar compared with the pond?
+    options:
+      - id: a
+        text: Both are closed systems, because energy cannot leave either of them.
+        why: Energy leaves both as heat. In a closed system it is matter, not energy, that cannot cross the boundary.
+      - id: b
+        text: The jar is a closed system, because only energy crosses its boundary; the pond is an open system.
+        why: Correct. Light enters and heat leaves the sealed jar, but no matter can enter or leave. The pond exchanges both energy and matter (gases, water, organisms) with its surroundings.
+      - id: c
+        text: The jar is an open system, because light enters it.
+        why: Light is energy. Energy can cross the boundary of a closed system; what defines an open system is that matter can cross as well.
+      - id: d
+        text: The pond is a closed system, because its nutrients are recycled.
+        why: Recycling happens in open systems too. The pond is open because matter such as CO₂, water and migrating animals crosses its boundary.
+    answer: b
+
+  - id: q2
+    level: SL
+    understanding: C4.2.7
+    stem: >-
+      Acidithiobacillus ferrooxidans lives in acidic water draining from iron mines, where there is no light.
+      What is the source of the energy it uses to fix carbon dioxide?
+    options:
+      - id: a
+        text: Heat from the surrounding rocks
+        why: Cells cannot use heat as an energy source for synthesis. Chemoautotrophs use chemical energy released by oxidation reactions.
+      - id: b
+        text: Oxidation of glucose absorbed from the water
+        why: Absorbing and oxidizing organic compounds is heterotrophic nutrition. This bacterium makes its own carbon compounds from CO₂.
+      - id: c
+        text: Reduction of Fe³⁺ ions to Fe²⁺
+        why: This is the reverse reaction. Removing electrons from Fe²⁺ (oxidation) is what releases energy.
+      - id: d
+        text: Oxidation of Fe²⁺ ions to Fe³⁺
+        why: Correct. It is a chemoautotroph. Oxidizing iron(II) releases energy that is used to make ATP and reduced NAD, which fix CO₂ into carbon compounds.
+    answer: d
+
+  - id: q3
+    level: SL
+    understanding: C4.2.11
+    stem: >-
+      In Silver Springs, Florida, primary consumers gained 14,100 kJ m⁻² yr⁻¹ and secondary consumers gained
+      1,600 kJ m⁻² yr⁻¹. What was the efficiency of energy transfer from primary to secondary consumers?
+    options:
+      - id: a
+        text: 11.3%
+        why: Correct. 1,600 ÷ 14,100 × 100 = 11.3%.
+      - id: b
+        text: 8.8%
+        why: This is 14,100 ÷ 1,600, a ratio of 8.8, written as a percentage. Divide the energy of the higher level by that of the lower level.
+      - id: c
+        text: 88.7%
+        why: This is the percentage lost between the levels, not the percentage transferred.
+      - id: d
+        text: 12,500 kJ m⁻² yr⁻¹
+        why: This is the amount of energy lost (14,100 − 1,600), not an efficiency. Efficiency is a percentage.
+    answer: a
+
+  - id: q4
+    level: SL
+    understanding: C4.2.14
+    stem: Which is the main reason that food chains rarely have more than four or five trophic levels?
+    options:
+      - id: a
+        text: Organisms at higher trophic levels contain less energy per gram of tissue.
+        why: The energy content per unit mass is not reduced at higher levels. It is the total biomass that is smaller.
+      - id: b
+        text: Top predators are too large to be eaten by other animals.
+        why: Some top predators are small and many large animals are preyed upon. Body size does not set the limit.
+      - id: c
+        text: So much energy is lost at each transfer that too little remains to support another trophic level.
+        why: Correct. With roughly 10% passed on at each step, a fifth level would receive only about 0.01% of the producers' energy.
+      - id: d
+        text: Energy is used up by the organisms at each level.
+        why: Energy is never used up or destroyed. It is converted to heat or passes to decomposers.
+    answer: c
+
+  - id: q5
+    level: SL
+    understanding: C4.2.13
+    stem: Which statement about heat production in organisms is correct?
+    options:
+      - id: a
+        text: Only heterotrophs produce heat, because only they respire.
+        why: Autotrophs respire too, and they produce heat in the same way.
+      - id: b
+        text: Heat is produced both when ATP is made in cell respiration and when ATP is used in cells.
+        why: Correct. Neither process is 100% efficient, so in both some energy is converted to heat, in autotrophs and heterotrophs alike.
+      - id: c
+        text: The heat released can be converted back into chemical energy by producers.
+        why: Organisms cannot convert heat into chemical energy. This is why energy flows through ecosystems rather than cycling.
+      - id: d
+        text: Heat is produced only by endotherms such as birds and mammals.
+        why: All cells release heat during respiration and ATP use. Endotherms simply produce more and retain it to keep a constant body temperature.
+    answer: b
+
+  - id: q6
+    level: SL
+    understanding: C4.2.20
+    stem: >-
+      Atmospheric CO₂ measured at Mauna Loa falls by about 6 ppm between May and October each year and then
+      rises again. What is the main cause of this fall?
+    options:
+      - id: a
+        text: Less fossil fuel is burned during the northern summer.
+        why: Seasonal changes in combustion are far too small to cause this pattern. The long-term rise, not the zig-zag, is due to combustion.
+      - id: b
+        text: CO₂ dissolves in the oceans more readily in summer.
+        why: Warmer water actually holds less dissolved gas. The seasonal pattern is driven by land vegetation.
+      - id: c
+        text: Respiration exceeds photosynthesis during the Northern Hemisphere summer.
+        why: This is reversed. Respiration exceeds photosynthesis in the northern autumn and winter, when CO₂ rises.
+      - id: d
+        text: Photosynthesis exceeds respiration during the Northern Hemisphere growing season.
+        why: Correct. Most land and vegetation is in the Northern Hemisphere, so its summer photosynthesis removes CO₂ faster than respiration releases it.
+    answer: d
+
+  - id: q7
+    level: SL
+    understanding: C4.2.18
+    stem: >-
+      In a waterlogged peat bog, dead plant matter builds up year after year. Which describes the bog as part of the
+      carbon cycle?
+    options:
+      - id: a
+        text: A carbon sink, because photosynthesis exceeds respiration, so there is a net uptake of CO₂.
+        why: Correct. Anaerobic, acidic conditions slow decomposition, so less carbon is released by respiration than is fixed by photosynthesis.
+      - id: b
+        text: A carbon source, because peat releases CO₂ when it decomposes.
+        why: Peat accumulates because decomposition is very slow here. It would become a source if it were drained and decomposed, or burned.
+      - id: c
+        text: A carbon sink, because respiration exceeds photosynthesis.
+        why: When respiration exceeds photosynthesis there is a net release of CO₂, which defines a source, not a sink.
+      - id: d
+        text: Neither, because photosynthesis and respiration are always equal in ecosystems.
+        why: The rates are often unequal. The build-up of peat shows that more carbon is being fixed than released.
+    answer: a
+
+  - id: q8
+    level: SL
+    understanding: C4.2.16
+    stem: Why is secondary production in an ecosystem lower than primary production?
+    options:
+      - id: a
+        text: Consumers are less efficient at photosynthesis than producers.
+        why: Consumers do not photosynthesize at all. Secondary production comes from carbon compounds they obtain by feeding.
+      - id: b
+        text: Secondary production is measured in different units from primary production.
+        why: Both are measured as mass of carbon per unit area per unit time (g m⁻² yr⁻¹), so they can be compared directly.
+      - id: c
+        text: At every trophic level, carbon compounds are converted to CO₂ and water in cell respiration and lost from biomass.
+        why: Correct. Producers respire away part of their GPP, and consumers respire much of what they assimilate, so less biomass accumulates at each level.
+      - id: d
+        text: Heterotrophs grow but do not reproduce, so their biomass cannot accumulate.
+        why: Heterotrophs do reproduce, and both growth and reproduction add to biomass.
+    answer: c
+
+  - id: q9
+    level: SL
+    understanding: C4.2.10
+    stem: >-
+      Red foxes eat rabbits, which feed on grass, and they also eat blackberries. In the food chain
+      grass → rabbit → red fox, which trophic level does the fox occupy?
+    options:
+      - id: a
+        text: Primary consumer
+        why: The fox is a primary consumer only when it eats blackberries. In this chain it eats a primary consumer.
+      - id: b
+        text: Secondary consumer
+        why: Correct. The rabbit is the primary consumer, so the fox that eats it is the secondary consumer in this chain.
+      - id: c
+        text: Tertiary consumer
+        why: A tertiary consumer eats secondary consumers. Count the stages — grass (producer), rabbit (primary), fox (secondary).
+      - id: d
+        text: Producer
+        why: Foxes are heterotrophs and cannot make their own carbon compounds.
+    answer: b
+
+  - id: q10
+    level: SL
+    understanding: C4.2.15
+    stem: Which unit is most suitable for comparing the net primary production of a tropical rainforest and a tundra?
+    options:
+      - id: a
+        text: g m⁻²
+        why: This measures biomass present at one moment (standing biomass), not production, which is a rate and needs a unit of time.
+      - id: b
+        text: g yr⁻¹
+        why: Without area the value depends on how big each biome is. Production is expressed per unit area.
+      - id: c
+        text: kJ yr⁻¹
+        why: Energy units are used for energy pyramids, but this has no area. Production is the accumulation of mass of carbon per unit area per year.
+      - id: d
+        text: g m⁻² yr⁻¹
+        why: Correct. Production is mass (of carbon) accumulated per unit area per unit time, so rainforest (high) and tundra (low) can be compared fairly.
+    answer: d

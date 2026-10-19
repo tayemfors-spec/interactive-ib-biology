@@ -1,0 +1,213 @@
+---
+import { LOSS_SHARES, fmtKJ, pyramid, silverSprings, transfers, SILVER_SPRINGS_KCAL } from './models/c4-2-pyramid';
+
+const defaults = { input: 50_000, eff: 10 };
+const levels = pyramid(defaults.input, defaults.eff);
+const trans = transfers(levels);
+const pct = (v: number, max: number) => Math.max(0, Math.min(100, (v / max) * 100));
+const ss = silverSprings.levels;
+const ssT = transfers(ss);
+const short = (n: string) => n.replace(' consumers', '');
+const shares = `${Math.round(LOSS_SHARES.respiration * 100)}% / ${Math.round(LOSS_SHARES.uneaten * 100)}% / ${Math.round(LOSS_SHARES.faeces * 100)}%`;
+---
+<div class="pyr" data-pyr>
+  <div class="views" role="group" aria-label="Choose a data set">
+    <button type="button" class="btn chip" aria-pressed="true" data-mode-btn="model">Build a pyramid</button>
+    <button type="button" class="btn chip" aria-pressed="false" data-mode-btn="silver">Real data: Silver Springs</button>
+  </div>
+
+  <div class="controls" data-controls>
+    <label class="slider">Energy gained by producers: <output data-out="input">{fmtKJ(defaults.input)}</output> kJ m⁻² yr⁻¹
+      <input type="range" min="10000" max="100000" step="5000" value={defaults.input} data-param="input" />
+    </label>
+    <label class="slider">Transfer efficiency between levels: <output data-out="eff">{defaults.eff}%</output>
+      <input type="range" min="5" max="20" step="1" value={defaults.eff} data-param="eff" />
+    </label>
+  </div>
+  <p class="lead-in" data-silver-intro hidden>
+    Energy gained per year by each trophic level in Silver Springs, a clear spring-fed river in Florida (H. T. Odum, 1957). Producers are mainly submerged flowering plants (Sagittaria) and the algae growing on them; consumers include snails, insect larvae, turtles and fish.
+  </p>
+
+  <ol class="stack" data-stack aria-label="Energy pyramid, top trophic level first">
+    {[...levels].reverse().map((l, ri) => {
+      const i = levels.length - 1 - ri;
+      const t = trans[i];
+      return (
+        <li class="lvl" data-lvl={i}>
+          {i < levels.length - 1 && t && (
+            <div class="loss" data-loss>
+              <span class="split" aria-hidden="true">
+                <span class="seg pass" data-seg="pass" style={`width:${t.efficiency}%`}></span>
+                <span class="seg heat" data-seg="heat" style={`width:${(100 - t.efficiency) * LOSS_SHARES.respiration}%`}></span>
+                <span class="seg uneaten" data-seg="uneaten" style={`width:${(100 - t.efficiency) * LOSS_SHARES.uneaten}%`}></span>
+                <span class="seg faeces" data-seg="faeces" style={`width:${(100 - t.efficiency) * LOSS_SHARES.faeces}%`}></span>
+              </span>
+              <span class="loss-t" data-loss-t>{short(t.from)} → {short(t.to)}: {Math.round(t.efficiency)}% passed on; {fmtKJ(t.lost)} lost ({fmtKJ(t.heat)} as heat)</span>
+            </div>
+          )}
+          <div class="row">
+            <div class="track" aria-hidden="true"><span class="bar" data-bar style={`width:${pct(l.energy, levels[0]!.energy)}%`}></span></div>
+            <p class="lab"><strong data-name>{l.name}</strong><br /><span data-val>{fmtKJ(l.energy)} kJ m⁻² yr⁻¹</span> <span class="muted" data-pct>{i === 0 ? '(100%)' : `(${l.percentOfProducers < 1 ? Number(l.percentOfProducers.toPrecision(1)) : Math.round(l.percentOfProducers)}% of producers)`}</span></p>
+          </div>
+        </li>
+      );
+    })}
+  </ol>
+
+  <ul class="legend" role="list" data-legend>
+    <li><span class="k pass"></span> Passed to the next level</li>
+    <li><span class="k heat"></span> Heat from respiration</li>
+    <li><span class="k uneaten"></span> Not eaten (dead matter → decomposers)</li>
+    <li><span class="k faeces"></span> Eaten but egested in faeces → decomposers</li>
+  </ul>
+
+  <p class="readout" aria-live="polite" data-readout>
+    With a transfer efficiency of 10%, tertiary consumers gain {fmtKJ(levels[3]!.energy)} kJ m⁻² yr⁻¹, only 0.1% of the energy gained by producers, and a fifth level would gain just {fmtKJ(levels[4]!.energy)}. So little energy is left after four or five levels that another level of consumers cannot be supported.
+  </p>
+
+  <details class="table">
+    <summary>Show data table</summary>
+    <table data-table-model>
+      <caption>Model pyramid (energy gained per year)</caption>
+      <thead><tr><th scope="col">Trophic level</th><th scope="col">kJ m⁻² yr⁻¹</th><th scope="col">Lost before next level</th></tr></thead>
+      <tbody data-tbody>{levels.map((l, i) => <tr><th scope="row">{l.name}</th><td>{fmtKJ(l.energy)}</td><td>{trans[i] ? fmtKJ(trans[i]!.lost) : '—'}</td></tr>)}</tbody>
+    </table>
+    <table data-table-silver hidden>
+      <caption>Silver Springs, Florida (Odum, 1957); 1 kcal = 4.184 kJ</caption>
+      <thead><tr><th scope="col">Trophic level</th><th scope="col">kcal m⁻² yr⁻¹</th><th scope="col">kJ m⁻² yr⁻¹</th><th scope="col">Efficiency</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Sunlight reaching producers</th><td>{SILVER_SPRINGS_KCAL.sunlight.toLocaleString('en-GB')}</td><td>{silverSprings.sunlight.toLocaleString('en-GB')}</td><td>—</td></tr>
+        {ss.map((l, i) => <tr><th scope="row">{l.name}</th><td>{[SILVER_SPRINGS_KCAL.producers, SILVER_SPRINGS_KCAL.primary, SILVER_SPRINGS_KCAL.secondary, SILVER_SPRINGS_KCAL.tertiary][i]!.toLocaleString('en-GB')}</td><td>{fmtKJ(l.energy)}</td><td>{i === 0 ? `${((l.energy / silverSprings.sunlight) * 100).toFixed(1)}% of sunlight` : `${ssT[i - 1]!.efficiency.toFixed(1)}%`}</td></tr>)}
+        <tr><th scope="row">Decomposers (not in the pyramid)</th><td>{SILVER_SPRINGS_KCAL.decomposers.toLocaleString('en-GB')}</td><td>{silverSprings.decomposers.toLocaleString('en-GB')}</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </details>
+  <p class="model-note" data-note-model>Bars are drawn to scale, so the top levels may be too thin to see. Energy passed on is set by the slider; the split of the energy lost ({shares} heat / not eaten / faeces) is illustrative, because it varies between ecosystems.</p>
+  <p class="model-note" data-note-silver hidden>Bars are drawn to scale. Odum measured the total energy assimilated by each level; the dataset does not split the losses into heat, uneaten material and faeces, so the losses are shown as one figure.</p>
+</div>
+
+<script>
+  import { LOSS_SHARES, fmtKJ, pyramid, silverSprings, transfers } from './models/c4-2-pyramid';
+
+  document.querySelectorAll<HTMLElement>('[data-pyr]').forEach((root) => {
+    const $ = <T extends Element>(s: string) => root.querySelector<T>(s)!;
+    const $$ = <T extends Element>(s: string) => [...root.querySelectorAll<T>(s)];
+    const get = (k: string) => Number($<HTMLInputElement>(`[data-param="${k}"]`).value);
+    const out = (k: string, v: string) => ($(`[data-out="${k}"]`).textContent = v);
+    const readout = $<HTMLElement>('[data-readout]');
+    let mode: 'model' | 'silver' = 'model';
+    let timer = 0;
+    const short = (n: string) => n.replace(' consumers', '');
+    const pctOf = (v: number, max: number) => (max > 0 ? (v / max) * 100 : 0);
+    const pctText = (p: number) => (p >= 1 ? `${Math.round(p)}%` : `${Number(p.toPrecision(1))}%`);
+
+    const draw = () => {
+      const isModel = mode === 'model';
+      const levels = isModel ? pyramid(get('input'), get('eff')) : silverSprings.levels.map((l) => ({ ...l, percentOfProducers: pctOf(l.energy, silverSprings.levels[0]!.energy) }));
+      const trans = transfers(levels);
+      const max = levels[0]!.energy;
+      $$<HTMLElement>('[data-lvl]').forEach((li) => {
+        const i = Number(li.dataset.lvl);
+        const l = levels[i];
+        li.hidden = !l;
+        if (!l) return;
+        li.querySelector<HTMLElement>('[data-bar]')!.style.width = `${pctOf(l.energy, max)}%`;
+        li.querySelector('[data-val]')!.textContent = `${fmtKJ(l.energy)} kJ m⁻² yr⁻¹`;
+        li.querySelector('[data-pct]')!.textContent = i === 0 ? '(100%)' : `(${pctText(l.percentOfProducers)} of producers)`;
+        const loss = li.querySelector<HTMLElement>('[data-loss]');
+        const t = trans[i];
+        if (!loss) return;
+        loss.hidden = !t;
+        if (!t) return;
+        const rest = 100 - t.efficiency;
+        const seg = (k: string, w: number) => (loss.querySelector<HTMLElement>(`[data-seg="${k}"]`)!.style.width = `${w}%`);
+        seg('pass', t.efficiency);
+        if (isModel) { seg('heat', rest * LOSS_SHARES.respiration); seg('uneaten', rest * LOSS_SHARES.uneaten); seg('faeces', rest * LOSS_SHARES.faeces); }
+        else { seg('heat', 0); seg('uneaten', 0); seg('faeces', 0); }
+        loss.classList.toggle('lumped', !isModel);
+        loss.querySelector('[data-loss-t]')!.textContent = isModel
+          ? `${short(t.from)} → ${short(t.to)}: ${Math.round(t.efficiency)}% passed on; ${fmtKJ(t.lost)} lost (${fmtKJ(t.heat)} as heat)`
+          : `${short(t.from)} → ${short(t.to)}: ${t.efficiency.toFixed(1)}% passed on; ${fmtKJ(t.lost)} lost`;
+      });
+      if (isModel) {
+        $('[data-tbody]').innerHTML = levels.map((l, i) => `<tr><th scope="row">${l.name}</th><td>${fmtKJ(l.energy)}</td><td>${trans[i] ? fmtKJ(trans[i]!.lost) : '—'}</td></tr>`).join('');
+      }
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        if (isModel) {
+          const e = get('eff');
+          readout.textContent = `With a transfer efficiency of ${e}%, tertiary consumers gain ${fmtKJ(levels[3]!.energy)} kJ m⁻² yr⁻¹, only ${pctText(levels[3]!.percentOfProducers)} of the energy gained by producers, and a fifth level would gain just ${fmtKJ(levels[4]!.energy)}. ` +
+            (e >= 15 ? 'Even at this high efficiency most energy is lost at each step, mainly as heat from respiration.' : 'So little energy is left after four or five levels that another level of consumers cannot be supported.');
+        } else {
+          const [a, b, c] = trans;
+          readout.textContent = `Silver Springs: producers fixed about ${((levels[0]!.energy / silverSprings.sunlight) * 100).toFixed(1)}% of the sunlight energy reaching them. Efficiencies were ${a!.efficiency.toFixed(1)}%, ${b!.efficiency.toFixed(1)}% and ${c!.efficiency.toFixed(1)}%: not always 10%, but every transfer loses most of the energy. Decomposers received ${fmtKJ(silverSprings.decomposers)} kJ m⁻² yr⁻¹ from dead matter and faeces of all levels.`;
+        }
+      }, 300);
+    };
+
+    const btns = $$<HTMLButtonElement>('[data-mode-btn]');
+    btns.forEach((b) => b.addEventListener('click', () => {
+      mode = b.dataset.modeBtn as 'model' | 'silver';
+      btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      const silver = mode === 'silver';
+      $<HTMLElement>('[data-controls]').hidden = silver;
+      $<HTMLElement>('[data-silver-intro]').hidden = !silver;
+      $<HTMLElement>('[data-table-model]').hidden = silver;
+      $<HTMLElement>('[data-table-silver]').hidden = !silver;
+      $<HTMLElement>('[data-note-model]').hidden = silver;
+      $<HTMLElement>('[data-note-silver]').hidden = !silver;
+      $<HTMLElement>('[data-legend]').classList.toggle('lumped', silver);
+      draw();
+    }));
+    $$('[data-param]').forEach((el) => el.addEventListener('input', () => {
+      out('input', fmtKJ(get('input')));
+      out('eff', `${get('eff')}%`);
+      draw();
+    }));
+  });
+</script>
+
+<style>
+  .pyr { container-type: inline-size; }
+  [hidden] { display: none !important; }
+  .views { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); }
+  .chip { min-height: 2.1rem; padding: 0.3rem 0.7rem; }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); margin-bottom: var(--space-4); }
+  @container (min-width: 40rem) { .controls { grid-template-columns: 1fr 1fr; } }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .lead-in { font-size: var(--step--1); margin: 0 0 var(--space-4); }
+  .stack { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+  .lvl { margin: 0; }
+  .row { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-1); align-items: center; }
+  @container (min-width: 36rem) { .row { grid-template-columns: minmax(0, 1fr) 15rem; gap: var(--space-3); } }
+  .track { height: 2.4rem; display: flex; justify-content: center; align-items: stretch; background: repeating-linear-gradient(90deg, transparent 0 calc(10% - 1px), var(--border) calc(10% - 1px) 10%); border-radius: 3px; }
+  .bar { display: block; min-width: 2px; background: var(--bio-carb); border: 1.5px solid color-mix(in srgb, var(--bio-carb) 60%, var(--text)); border-radius: 2px; transition: width 0.25s ease; }
+  .lvl[data-lvl='1'] .bar { background: color-mix(in srgb, var(--bio-glucose) 75%, var(--surface)); border-color: var(--bio-glucose); }
+  .lvl[data-lvl='2'] .bar { background: color-mix(in srgb, var(--bio-head) 75%, var(--surface)); border-color: var(--bio-head); }
+  .lvl[data-lvl='3'] .bar { background: color-mix(in srgb, var(--bio-chol) 75%, var(--surface)); border-color: var(--bio-chol); }
+  .lvl[data-lvl='4'] .bar { background: color-mix(in srgb, var(--bio-protein-2) 75%, var(--surface)); border-color: var(--bio-protein-2); }
+  @media (prefers-reduced-motion: reduce) { .bar { transition: none; } }
+  .lab { margin: 0; font-size: var(--step--1); line-height: 1.35; }
+  .muted { color: var(--text-muted); }
+  .loss { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-1); margin: var(--space-2) 0 var(--space-3); padding-top: var(--space-1); border-top: 1px dashed var(--border); font-size: 0.8rem; color: var(--text-muted); }
+  @container (min-width: 36rem) { .loss { grid-template-columns: minmax(0, 1fr) 15rem; gap: var(--space-3); align-items: center; } }
+  .split { display: flex; height: 0.5rem; border-radius: 999px; overflow: hidden; background: var(--surface-3); }
+  .seg { display: block; height: 100%; }
+  .seg.pass, .k.pass { background: var(--bio-carb); }
+  .seg.heat, .k.heat { background: repeating-linear-gradient(135deg, var(--bad) 0 4px, color-mix(in srgb, var(--bad) 45%, var(--surface)) 4px 7px); }
+  .seg.uneaten, .k.uneaten { background: var(--bio-tail); }
+  .seg.faeces, .k.faeces { background: repeating-linear-gradient(90deg, var(--bio-protein-2) 0 3px, color-mix(in srgb, var(--bio-protein-2) 35%, var(--surface)) 3px 6px); }
+  .legend { list-style: none; padding: 0; margin: var(--space-3) 0; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); font-size: 0.8rem; color: var(--text-muted); }
+  .legend li { margin: 0; display: flex; align-items: center; gap: var(--space-2); }
+  .legend.lumped li:nth-child(n + 2) { display: none; }
+  .k { display: inline-block; width: 1.4rem; height: 0.7rem; border-radius: 3px; flex: none; }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  caption { text-align: left; font-weight: 650; padding-bottom: var(--space-1); }
+  th, td { padding: 0.2rem 0.7rem; border-bottom: 1px solid var(--border); text-align: right; }
+  th[scope='row'] { text-align: left; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

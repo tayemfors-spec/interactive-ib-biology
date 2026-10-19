@@ -1,0 +1,69 @@
+cards:
+  - id: c1
+    level: SL
+    front: Open system vs closed system
+    back: In an open system (e.g. an ecosystem) both energy and matter can enter and leave. In a closed system only energy can pass in and out.
+  - id: c2
+    level: SL
+    front: Name two types of ecosystem that are not powered directly by sunlight, and their energy sources.
+    back: Caves — organic matter carried in from outside, or in a few caves chemoautotrophic bacteria. Deep ocean below the reach of light — organic matter sinking from above, and chemoautotrophs at hydrothermal vents.
+  - id: c3
+    level: SL
+    front: Which way do the arrows point in a food chain, and what do they show?
+    back: From the organism eaten to the organism that eats it. They show the direction of transfer of energy and biomass.
+  - id: c4
+    level: SL
+    front: Autotroph — definition and the two things its external energy is used for
+    back: An organism that makes its own carbon compounds from simple inorganic substances using an external energy source. The energy is needed for carbon fixation and for the anabolic reactions that build macromolecules.
+  - id: c5
+    level: SL
+    front: Photoautotroph vs chemoautotroph
+    back: Photoautotrophs use light energy (photosynthesis). Chemoautotrophs use energy released by oxidizing inorganic substances, e.g. iron-oxidizing bacteria oxidize Fe²⁺ to Fe³⁺.
+  - id: c6
+    level: SL
+    front: How do heterotrophs obtain the carbon compounds they need?
+    back: They take in complex carbon compounds (e.g. proteins, nucleic acids) from other organisms, digest them internally or externally into small soluble molecules, absorb these and assimilate them by building their own carbon compounds.
+  - id: c7
+    level: SL
+    front: What do decomposers feed on?
+    back: Dead organic matter — faeces, dead parts of organisms (e.g. fallen leaves, shed skin) and whole dead organisms. They digest it externally and absorb the products.
+  - id: c8
+    level: SL
+    front: Do autotrophs respire?
+    back: Yes. Autotrophs and heterotrophs both release energy by oxidizing carbon compounds in cell respiration, to make ATP. Plants respire in the light and in the dark.
+  - id: c9
+    level: SL
+    front: Give three reasons why energy is lost between trophic levels.
+    back: 1) Not all organisms or parts are eaten (they go to decomposers). 2) Not all food eaten is digested — undigested material is egested in faeces. 3) Much of the energy absorbed is released in cell respiration and lost as heat.
+  - id: c10
+    level: SL
+    front: When is heat produced in cells?
+    back: Both when ATP is produced in cell respiration and when ATP is used in cells, because energy transfers are never 100% efficient. This happens in autotrophs and heterotrophs.
+  - id: c11
+    level: SL
+    front: Calculate the transfer efficiency if a level gains 20,000 kJ m⁻² yr⁻¹ and the next level gains 1,800 kJ m⁻² yr⁻¹.
+    back: 1,800 ÷ 20,000 × 100 = 9%. (So 91% of the energy is lost between these levels.)
+  - id: c12
+    level: SL
+    front: Why are there rarely more than four or five trophic levels?
+    back: Energy is lost at every transfer (typically about 90%), so after a few levels too little energy is left to support another population. Higher levels have fewer or smaller organisms and less biomass, though energy per gram is not lower.
+  - id: c13
+    level: SL
+    front: Gross vs net primary production
+    back: GPP is the total carbon compounds made by producers in photosynthesis. NPP = GPP − the carbon compounds producers use in their own respiration; it is the biomass available to consumers. Units g m⁻² yr⁻¹.
+  - id: c14
+    level: SL
+    front: Why is secondary production lower than primary production?
+    back: At every trophic level carbon compounds are oxidized to CO₂ and water in cell respiration, so biomass is lost. Uneaten and undigested material also does not become consumer biomass.
+  - id: c15
+    level: SL
+    front: Carbon sink vs carbon source
+    back: Sink — photosynthesis exceeds respiration, net uptake of CO₂ (e.g. growing forest, peat bog). Source — respiration (and combustion) exceeds photosynthesis, net release of CO₂ (e.g. drained or burning peatland).
+  - id: c16
+    level: SL
+    front: Explain the two patterns in the Keeling curve.
+    back: Annual zig-zag — CO₂ falls in the Northern Hemisphere summer (photosynthesis > respiration) and rises in autumn and winter (respiration > photosynthesis). Long-term rise — mainly combustion of fossil fuels, plus deforestation.
+  - id: c17
+    level: SL
+    front: Why can elements be recycled but energy cannot?
+    back: Decomposers return elements to the abiotic environment as inorganic substances that producers reabsorb, and atoms are unchanged. Energy ends up as heat, which organisms cannot convert back into chemical energy.

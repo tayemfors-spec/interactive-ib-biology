@@ -1,0 +1,65 @@
+---
+/** A food web for a temperate (British) oak woodland, C4.2.4 and C4.2.10. Arrows point from food to feeder. */
+const W = 112, H = 44;
+const rows = [
+  { name: 'Tertiary consumers', y: 50 },
+  { name: 'Secondary consumers', y: 150 },
+  { name: 'Primary consumers', y: 250 },
+  { name: 'Producers', y: 350 },
+];
+const nodes: Record<string, { x: number; y: number; l: string[]; cls: string }> = {
+  oak: { x: 230, y: 350, l: ['Oak tree', '(leaves, acorns)'], cls: 'p' },
+  bramble: { x: 410, y: 350, l: ['Bramble', '(seeds, berries)'], cls: 'p' },
+  grass: { x: 590, y: 350, l: ['Grasses'], cls: 'p' },
+  cat: { x: 230, y: 250, l: ['Winter moth', 'caterpillars'], cls: 'c1' },
+  mouse: { x: 410, y: 250, l: ['Wood mouse'], cls: 'c1' },
+  rabbit: { x: 590, y: 250, l: ['Rabbit'], cls: 'c1' },
+  tit: { x: 230, y: 150, l: ['Blue tit'], cls: 'c2' },
+  owl: { x: 410, y: 150, l: ['Tawny owl'], cls: 'c2' },
+  fox: { x: 560, y: 150, l: ['Red fox'], cls: 'c2' },
+  hawk: { x: 230, y: 50, l: ['Sparrowhawk'], cls: 'c3' },
+};
+// [from (food), to (feeder), optional start/end offsets]
+const edges: [string, string, number?, number?][] = [
+  ['oak', 'cat'], ['oak', 'mouse', 40, -30], ['bramble', 'mouse'], ['bramble', 'fox', 50, -10], ['grass', 'rabbit'],
+  ['cat', 'tit'], ['mouse', 'owl'], ['mouse', 'fox', 30, -30], ['rabbit', 'fox', -10, 20], ['tit', 'hawk'],
+];
+function edge([a, b, ox = 0, oxb = 0]: [string, string, number?, number?]) {
+  const A = nodes[a]!, B = nodes[b]!;
+  return `M${A.x + ox} ${A.y - H / 2 - 1} L${B.x + oxb} ${B.y + H / 2 + 9}`;
+}
+const side = `M${nodes.cat!.x + W / 2 + 1} ${nodes.cat!.y} L${nodes.mouse!.x - W / 2 - 9} ${nodes.mouse!.y}`;
+---
+<svg viewBox="0 0 660 400" role="img" aria-labelledby="fw-t fw-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="fw-t">A food web for an oak woodland</title>
+  <desc id="fw-d">Producers: oak trees, bramble and grasses. Winter moth caterpillars eat oak leaves; wood mice eat acorns, bramble seeds and berries, and also caterpillars; rabbits eat grasses. Blue tits eat caterpillars and are eaten by sparrowhawks. Tawny owls eat wood mice. Red foxes eat wood mice and rabbits and also eat blackberries. Arrows point from the organism eaten to the organism that eats it, the direction in which energy and biomass move.</desc>
+  <defs>
+    <marker id="fw-arrow" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="head" /></marker>
+  </defs>
+  {rows.map((r) => <text class="row" x="12" y={r.y + 5}>{r.name}</text>)}
+  {rows.slice(0, 3).map((r) => <line class="sep" x1="12" x2="648" y1={r.y + 50} y2={r.y + 50} />)}
+  {edges.map((e) => <path class="edge" d={edge(e)} marker-end="url(#fw-arrow)" />)}
+  <path class="edge" d={side} marker-end="url(#fw-arrow)" />
+  {Object.entries(nodes).map(([, n]) => (
+    <g class={`node ${n.cls}`}>
+      <rect x={n.x - W / 2} y={n.y - H / 2} width={W} height={H} rx="8" />
+      {n.l.length === 1
+        ? <text x={n.x} y={n.y + 5} text-anchor="middle">{n.l[0]}</text>
+        : <><text x={n.x} y={n.y - 3} text-anchor="middle">{n.l[0]}</text><text class="sub" x={n.x} y={n.y + 13} text-anchor="middle">{n.l[1]}</text></>}
+    </g>
+  ))}
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .row { font-size: 13px; font-weight: 700; fill: var(--text-muted); }
+  .sep { stroke: var(--border); stroke-width: 1; stroke-dasharray: 3 5; }
+  .edge { fill: none; stroke: var(--text); stroke-width: 1.8; }
+  .head { fill: var(--text); }
+  .node rect { stroke-width: 1.6; }
+  .node text { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .node text.sub { font-size: 12px; font-weight: 500; fill: var(--text-muted); }
+  .p rect { fill: color-mix(in srgb, var(--bio-carb) 18%, var(--surface)); stroke: var(--bio-carb); }
+  .c1 rect { fill: color-mix(in srgb, var(--bio-glucose) 16%, var(--surface)); stroke: var(--bio-glucose); }
+  .c2 rect { fill: color-mix(in srgb, var(--bio-head) 16%, var(--surface)); stroke: var(--bio-head); }
+  .c3 rect { fill: color-mix(in srgb, var(--bio-chol) 14%, var(--surface)); stroke: var(--bio-chol); }
+</style>

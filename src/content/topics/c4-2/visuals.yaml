@@ -1,0 +1,100 @@
+# Visuals for C4.2. Step captions are what readers see under each animation, so they are written to exam standard.
+visuals:
+  - id: energy-flow
+    kind: anim
+    module: c4-2-energy-flow
+    title: Energy flow through a food chain
+    alt: Step-by-step diagram of energy passing from sunlight to producers and three levels of consumers, with heat lost at every stage.
+    description: >-
+      A food chain drawn from left to right: sunlight, producers, primary consumers, secondary consumers and
+      tertiary consumers. Arrows of decreasing width show chemical energy passing along the chain when each
+      organism is eaten, with illustrative values of 10,000, 1,000, 100 and 10 kJ m⁻² yr⁻¹. A wavy arrow from every
+      level leads up to a band labelled heat lost to the environment. Dashed arrows from every level lead down to
+      decomposers and detritivores, which receive dead organisms, dead parts and faeces and also release heat.
+      A final dotted arrow shows mineral nutrients returning from decomposers to producers: nutrients cycle, but
+      energy does not.
+    steps:
+      - id: sunlight
+        title: Sunlight reaches producers
+        caption: Light is the energy source for most ecosystems. Producers convert only a small fraction of the light reaching them (often about 1–2% or less) into chemical energy in carbon compounds; the rest is reflected, passes through leaves, or is absorbed and turned straight into heat.
+      - id: producer-respiration
+        title: Producers respire
+        caption: Producers use some of the carbon compounds they make in cell respiration to release energy for their own needs. That energy ends up as heat, which is lost from the ecosystem. Only what is left is stored in new biomass (net primary production) and is available to consumers.
+      - id: primary
+        title: Primary consumers feed
+        caption: Chemical energy passes to primary consumers when they eat producers. Much of the producers' energy never reaches them, because parts of plants are not eaten or die and go to decomposers. Primary consumers then lose heat in their own respiration, so only about a tenth (typically 5–20%) of the energy is passed on.
+      - id: secondary
+        title: Secondary consumers feed
+        caption: Secondary consumers gain energy by eating primary consumers. Again most is lost — in uneaten bodies, in undigested material egested as faeces, and as heat from respiration — so this level receives roughly 100 kJ m⁻² yr⁻¹ from the original 10,000.
+      - id: tertiary
+        title: Tertiary consumers feed
+        caption: Tertiary consumers receive only about 10 kJ m⁻² yr⁻¹, about 0.1% of the producers' energy. This is too little to support a further level of consumers in most ecosystems, which is why food chains rarely have more than four or five trophic levels.
+      - id: decomposers
+        title: Decomposers use dead organic matter
+        caption: Dead organisms, dead parts (such as fallen leaves) and faeces from every trophic level contain chemical energy. Decomposers and detritivores feed on this material and release its energy in respiration, again as heat. They are not usually drawn in food chains, but a large share of an ecosystem's energy passes through them.
+      - id: flow-not-cycle
+        title: Energy flows; nutrients cycle
+        caption: Heat cannot be converted back into chemical energy by organisms, so energy flows through the ecosystem and must be resupplied continuously by sunlight. Chemical elements are different — decomposers release mineral nutrients that producers absorb and reuse, so matter is recycled.
+
+  - id: pyramid
+    kind: sim
+    module: c4-2-pyramid
+    title: Energy pyramid builder
+    alt: Stepped energy pyramid drawn to scale, with sliders for producer energy and transfer efficiency, and a real data set from Silver Springs.
+    description: >-
+      An energy pyramid made of horizontal bars, one per trophic level, with producers at the bottom and the width of each
+      bar proportional to the energy gained by that level per year (kJ m⁻² yr⁻¹). Between each pair of bars a strip shows
+      what happens to the energy of the lower level: the part passed to the next level and the parts lost as heat from
+      respiration, in material that is not eaten, and in faeces. Sliders set the energy gained by producers and the
+      transfer efficiency (5–20%). A second mode draws the pyramid from H. T. Odum's measurements of Silver Springs,
+      Florida, where the efficiencies were about 16%, 11% and 5.5% and producers fixed about 1% of the sunlight.
+
+  - id: carbon-cycle
+    kind: anim
+    module: c4-2-carbon-cycle
+    title: The carbon cycle, flux by flux
+    alt: Carbon cycle diagram in which each step highlights one group of carbon fluxes between the atmosphere, oceans, organisms, dead matter and fossil fuels.
+    description: >-
+      A carbon cycle with seven pools: carbon dioxide in the atmosphere, CO₂ and hydrogen carbonate dissolved in
+      water, producers, consumers, decomposers, dead organic matter, and peat, coal, oil and natural gas. Step by step,
+      the fluxes between them are highlighted: photosynthesis, feeding, death and egestion with digestion by
+      saprotrophs, cell respiration by all organisms, fossilization, combustion and exchange between air and oceans.
+      The last step shows every flux and explains when an ecosystem is a carbon sink or a carbon source.
+    steps:
+      - id: photosynthesis
+        title: Photosynthesis
+        caption: Producers absorb carbon dioxide from the air (or CO₂ and HCO₃⁻ from water, in aquatic ecosystems) and fix it into carbon compounds such as sugars, using light energy. This is how inorganic carbon enters food chains.
+      - id: feeding
+        title: Feeding
+        caption: Consumers obtain carbon compounds by eating producers or other consumers. They digest them and assimilate the products, building the carbon compounds of their own bodies.
+      - id: death
+        title: Death, egestion and decomposition
+        caption: Dead organisms, dead parts and faeces form dead organic matter. Saprotrophic bacteria and fungi digest it externally and absorb the products, so its carbon passes to the decomposers.
+      - id: respiration
+        title: Cell respiration
+        caption: Producers, consumers and decomposers all respire. Oxidation of carbon compounds releases carbon dioxide back into the atmosphere (or the water), completing the cycle. Respiration happens all the time, by day and by night.
+      - id: fossilization
+        title: Fossilization
+        caption: Where decomposition is incomplete — for example in waterlogged, acidic, anaerobic soils — dead organic matter builds up as peat. Over millions of years, buried organic matter was converted into coal, oil and natural gas, locking carbon away for very long periods.
+      - id: combustion
+        title: Combustion
+        caption: Burning biomass, peat, coal, oil or natural gas oxidizes carbon compounds and releases CO₂. Fires started by lightning occur naturally, but human burning of fossil fuels and forests has greatly increased the rate of combustion.
+      - id: oceans
+        title: Exchange with the oceans
+        caption: Carbon dioxide dissolves in sea water, where some forms hydrogen carbonate ions, and it can also come out of solution again. Aquatic producers absorb this dissolved carbon for photosynthesis, and aquatic organisms release CO₂ into the water when they respire.
+      - id: sinks-sources
+        title: Sinks and sources
+        caption: When photosynthesis in an ecosystem exceeds respiration (plus any combustion), it removes CO₂ from the atmosphere — a carbon sink, such as a growing forest or a peat bog. When respiration and combustion exceed photosynthesis — a drained peatland or a burning forest — it releases CO₂ and is a carbon source.
+
+  - id: keeling
+    kind: sim
+    module: c4-2-keeling
+    title: Keeling curve viewer
+    alt: Graph of atmospheric CO₂ at Mauna Loa from 1959 to 2024, with a slider to zoom in on the seasonal cycle of any year.
+    description: >-
+      A line graph of carbon dioxide concentration (ppm) at Mauna Loa Observatory, Hawaii, from 1959 to 2024. The
+      annual mean rises from about 316 ppm to about 425 ppm, and the rise has become steeper over time. A zig-zag line
+      of monthly values rises and falls each year. A year slider highlights one year and shows its months in a second
+      graph: CO₂ is highest in May and lowest in September–October, a swing of about 6 ppm, and December ends higher
+      than the previous January. Annual means are rounded NOAA values; the monthly values are an approximation made
+      from a typical seasonal cycle.
