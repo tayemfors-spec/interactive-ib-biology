@@ -1,0 +1,92 @@
+---
+/**
+ * Skeletons as anchorage and levers (B3.3.5). Left: an insect leg joint — muscles inside the tubular
+ * exoskeleton, attached to its inner surface. Right: the human forearm as a lever — muscles outside the
+ * bones, attached by tendons; the elbow is the fulcrum, the biceps insertion the effort, the hand the load.
+ */
+---
+<svg viewBox="0 0 640 380" role="img" aria-labelledby="sk-title sk-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="sk-title">Exoskeleton and endoskeleton as anchorage for muscles and as levers</title>
+  <desc id="sk-desc">Left: an insect leg cut open lengthways. The femur and tibia are hollow tubes of chitin joined by a flexible joint. Inside the femur a flexor muscle and an extensor muscle are attached to the inner surface of the exoskeleton and, by tendons, to the tibia below and above the pivot, so they bend and straighten the leg. Right: a human arm with the elbow bent at a right angle. The biceps lies outside the bones and is attached to them by tendons. The elbow joint is the fulcrum, the pull of the biceps just in front of the elbow is the effort, and a weight in the hand is the load, far from the fulcrum.</desc>
+
+  <text class="h" x="16" y="26">Exoskeleton (insect leg)</text>
+  <text class="h" x="340" y="26">Endoskeleton (human arm)</text>
+  <path class="divider" d="M320 40 V370" />
+
+  <!-- ===== insect leg: femur horizontal, tibia angled down from the joint ===== -->
+  <g>
+    <rect class="cuticle" x="20" y="96" width="186" height="64" rx="18" />
+    <g transform="rotate(52 214 128)">
+      <rect class="cuticle" x="222" y="104" width="150" height="48" rx="16" />
+    </g>
+    <path class="jointmem" d="M204 100 C220 92, 232 98, 236 108 M204 156 C214 166, 222 168, 226 160" />
+    <circle class="pivot" cx="214" cy="128" r="4.5" />
+    <!-- extensor: from upper inner wall of femur to the tibia above the pivot -->
+    <path class="muscle" d="M40 108 C90 100, 150 104, 186 112 C150 122, 90 122, 40 118 Z" />
+    <path class="tendon" d="M186 112 L210 116" />
+    <!-- flexor: from lower inner wall of femur to the tibia below the pivot -->
+    <path class="muscle" d="M40 146 C90 154, 150 152, 188 140 C150 134, 90 134, 40 138 Z" />
+    <path class="tendon" d="M188 140 L228 144" />
+
+    <path class="lead" d="M60 76 L64 96" /><text class="t" x="20" y="70">chitin exoskeleton</text>
+    <path class="lead" d="M120 196 L100 118" /><text class="t" x="70" y="210">extensor muscle</text>
+    <path class="lead" d="M120 236 L130 146" /><text class="t" x="82" y="250">flexor muscle</text>
+    <path class="lead" d="M238 74 L222 98" /><text class="t" x="200" y="68">flexible joint</text>
+    <text class="s" x="270" y="290" text-anchor="middle">tibia</text>
+    <text class="s" x="22" y="182">femur</text>
+    <text class="note" x="16" y="310">Muscles are inside the skeleton,</text>
+    <text class="note" x="16" y="328">attached to its inner surface.</text>
+    <text class="note" x="16" y="346">The leg segments act as levers.</text>
+  </g>
+
+  <!-- ===== human arm: humerus vertical, forearm horizontal ===== -->
+  <g>
+    <path class="bone" d="M400 52 V200" />
+    <circle class="bone-end" cx="400" cy="48" r="13" />
+    <path class="bone" d="M400 206 H590" />
+    <circle class="bone-end" cx="400" cy="206" r="10" />
+    <ellipse class="hand" cx="600" cy="206" rx="16" ry="12" />
+    <!-- biceps: origin at the shoulder, insertion on the forearm just in front of the elbow -->
+    <path class="tendon" d="M410 50 L420 70 M436 172 L438 198" />
+    <path class="muscle" d="M420 70 C452 96, 456 140, 436 172 C426 140, 424 100, 420 70 Z" />
+    <!-- lever annotations -->
+    <path class="fulcrum" d="M400 216 l-11 20 h22 z" />
+    <path class="force" d="M438 196 V128" /><path class="head" d="M432 136 L438 124 L444 136 Z" />
+    <rect class="load" x="588" y="226" width="26" height="26" rx="3" />
+    <path class="force" d="M601 254 V296" /><path class="head" d="M595 288 L601 300 L607 288 Z" />
+
+    <path class="lead" d="M478 84 L448 104" /><text class="t" x="482" y="88">biceps muscle</text>
+    <path class="lead" d="M478 148 L442 186" /><text class="t" x="482" y="152">tendon</text>
+    <text class="t strong" x="452" y="122">effort</text>
+    <path class="lead" d="M372 264 L396 236" /><text class="t" x="340" y="280">fulcrum</text>
+    <text class="s" x="340" y="296">(elbow joint)</text>
+    <text class="t strong" x="592" y="282" text-anchor="end">load</text>
+    <text class="s" x="478" y="190">forearm (radius, ulna)</text>
+    <text class="s" x="386" y="130" text-anchor="end">humerus</text>
+    <text class="note" x="340" y="328">Effort near the fulcrum, load far from it:</text>
+    <text class="note" x="340" y="346">a short contraction moves the hand a long</text>
+    <text class="note" x="340" y="364">way, quickly — but needs a large force.</text>
+  </g>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .h { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .t { font-size: 14px; fill: var(--text); }
+  .t.strong { font-weight: 800; }
+  .s { font-size: 13px; fill: var(--text-muted); }
+  .note { font-size: 13px; fill: var(--text-muted); font-style: italic; }
+  .divider { stroke: var(--border); stroke-width: 1.5; }
+  .cuticle { fill: color-mix(in srgb, var(--bio-head) 10%, var(--surface)); stroke: var(--bio-head); stroke-width: 7; }
+  .jointmem { stroke: var(--bio-head); stroke-width: 2.5; stroke-dasharray: 3 3; fill: none; }
+  .pivot { fill: var(--text); }
+  .muscle { fill: var(--bio-k); stroke: color-mix(in srgb, var(--bio-k) 60%, black); stroke-width: 1; }
+  .tendon { stroke: var(--text-muted); stroke-width: 3.5; stroke-linecap: round; fill: none; }
+  .bone { stroke: color-mix(in srgb, var(--bio-tail) 70%, var(--surface)); stroke-width: 15; stroke-linecap: round; fill: none; }
+  .bone-end { fill: color-mix(in srgb, var(--bio-tail) 70%, var(--surface)); }
+  .hand { fill: var(--surface-3); stroke: var(--text-muted); }
+  .fulcrum { fill: var(--text); }
+  .force { stroke: var(--warn); stroke-width: 3; }
+  .head { fill: var(--warn); }
+  .load { fill: var(--text-muted); }
+  .lead { stroke: var(--text); stroke-width: 1.2; fill: none; }
+</style>

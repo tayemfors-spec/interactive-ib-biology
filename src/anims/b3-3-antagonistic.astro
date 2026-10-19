@@ -1,0 +1,100 @@
+---
+/**
+ * Antagonistic muscles (B3.3.3, B3.3.7, B3.3.8). Drawn in the step-1 starting state (arm straight);
+ * animated by b3-3-antagonistic.ts, whose geometry functions are reused here so the two always match.
+ */
+import { E, FOREARM, REST, arm, ribs } from './b3-3-antagonistic';
+const a = arm(0);
+const r = ribs(REST);
+const vertebrae = Array.from({ length: 7 }, (_, i) => 30 + i * 46);
+---
+<svg viewBox="0 0 520 380" xmlns="http://www.w3.org/2000/svg" class="ant">
+  <!-- ===== part 1: the arm ===== -->
+  <g data-el="arm">
+    <line class="bone" x1={E[0]} y1="36" x2={E[0]} y2={E[1] - 6} />
+    <circle class="bone-fill" cx={E[0]} cy="30" r="13" />
+    <circle class="capsule" cx={E[0]} cy={E[1]} r="17" />
+    <g data-el="forearm" transform={a.forearm}>
+      <line class="bone thin" x1={E[0] + 6} y1={E[1] + 6} x2={E[0] + 6} y2={E[1] + FOREARM} />
+      <line class="bone thin" x1={E[0] - 6} y1={E[1] + 4} x2={E[0] - 6} y2={E[1] + FOREARM} />
+      <circle class="bone-fill" cx={E[0] - 9} cy={E[1] - 13} r="8" />
+      <ellipse class="hand" cx={E[0]} cy={E[1] + FOREARM + 12} rx="10" ry="14" />
+    </g>
+    <circle class="cart" cx={E[0]} cy={E[1]} r="8" />
+    <path data-el="tricepsT" class="tendon" d={a.triceps.tendons} />
+    <path data-el="triceps" class="muscle" d={a.triceps.belly} />
+    <path data-el="bicepsT" class="tendon" d={a.biceps.tendons} />
+    <path data-el="biceps" class="muscle on" d={a.biceps.belly} />
+
+    <g data-el="gonio" style="display:none">
+      <circle class="g-disc" cx={E[0]} cy={E[1]} r="30" />
+      <rect class="g-arm" x={E[0] - 5} y={E[1] - 125} width="10" height="125" rx="3" />
+      <g data-el="gMove" transform={`rotate(0 ${E[0]} ${E[1]})`}><rect class="g-arm" x={E[0] - 5} y={E[1]} width="10" height="130" rx="3" /></g>
+      <path data-el="arc" class="arc" d="" />
+      <circle class="g-pin" cx={E[0]} cy={E[1]} r="4" />
+      <path class="lead" d="M196 252 L166 196" />
+      <text class="lbl" x="200" y="262">goniometer</text>
+    </g>
+
+    <path class="lead" d="M194 40 L160 46" /><text class="lbl" x="198" y="44">tendon</text>
+    <path class="lead" d="M80 82 L116 98" /><text class="lbl" x="76" y="86" text-anchor="end">triceps</text>
+    <path class="lead" d="M80 136 L162 104" /><text class="lbl" x="76" y="140" text-anchor="end">biceps</text>
+    <path class="lead" d="M84 222 L124 188" /><text class="lbl" x="12" y="236">elbow joint</text>
+    <text class="sub" x="12" y="252">(synovial, hinge)</text>
+    <text class="sub" x="12" y="18">front of body →</text>
+  </g>
+
+  <!-- ===== part 2: the ribs ===== -->
+  <g data-el="ribs" style="display:none">
+    {vertebrae.map((y) => <rect class="vert" x="48" y={y} width="28" height="38" rx="7" />)}
+    <path data-el="int" class="int" d={r.int} />
+    <path data-el="ext" class="ext on" d={r.ext} />
+    {r.ribPaths.map((d, i) => <path data-el={`rib${i}`} class="rib" d={d} />)}
+    <path data-el="sternum" class="rib" d={r.sternum} />
+    <text class="lbl" x="62" y="372" text-anchor="middle">vertebral column</text>
+    <path class="lead" d="M410 300 L360 270" /><text class="lbl" x="414" y="306">sternum</text>
+    <path class="lead" d="M200 26 L190 112" /><text class="lbl" x="204" y="30">rib</text>
+    <path class="lead" d="M258 316 L222 238" /><text class="lbl" x="246" y="332">intercostal muscles</text>
+    <text class="sub" x="410" y="370" text-anchor="middle">front of body →</text>
+  </g>
+
+  <!-- status boxes -->
+  <g data-el="armKey" class="key">
+    <rect x="292" y="24" width="222" height="88" rx="8" />
+    <text data-el="s1" x="304" y="50">Biceps: contracting</text>
+    <text data-el="s2" x="304" y="74">Triceps: relaxed, stretched</text>
+    <text data-el="s3" x="304" y="98">Elbow flexion: 0°</text>
+  </g>
+  <g data-el="ribKey" class="key" style="display:none">
+    <rect x="292" y="24" width="222" height="88" rx="8" />
+    <path class="ext on" d="M302 46 h20" /><text data-el="r1" x="328" y="50">External: contracting</text>
+    <path class="int" d="M302 70 h20" /><text data-el="r2" x="328" y="74">Internal: stretched</text>
+    <text data-el="r3" x="304" y="98">Ribs up and out: air in</text>
+  </g>
+</svg>
+<style>
+  .ant { font-family: var(--font-sans); }
+  .bone { stroke: color-mix(in srgb, var(--bio-tail) 70%, var(--surface)); stroke-width: 14; stroke-linecap: round; }
+  .bone.thin { stroke-width: 8; }
+  .bone-fill { fill: color-mix(in srgb, var(--bio-tail) 70%, var(--surface)); }
+  .hand { fill: var(--surface-3); stroke: var(--text-muted); stroke-width: 1.2; }
+  .capsule { fill: color-mix(in srgb, var(--bio-water) 22%, var(--surface)); stroke: var(--text-muted); stroke-width: 1.4; stroke-dasharray: 3 3; }
+  .cart { fill: none; stroke: var(--bio-water); stroke-width: 2.5; }
+  .muscle { fill: color-mix(in srgb, var(--bio-k) 45%, var(--surface)); stroke: var(--bio-k); stroke-width: 1.4; }
+  .muscle.on { fill: var(--bio-k); }
+  .tendon { stroke: var(--text-muted); stroke-width: 3.5; stroke-linecap: round; fill: none; }
+  .g-disc { fill: color-mix(in srgb, var(--surface) 55%, transparent); stroke: var(--text); stroke-width: 1.4; }
+  .g-arm { fill: color-mix(in srgb, var(--surface) 60%, transparent); stroke: var(--text); stroke-width: 1.4; }
+  .g-pin { fill: var(--text); }
+  .arc { fill: none; stroke: var(--warn); stroke-width: 3; }
+  .vert { fill: color-mix(in srgb, var(--bio-tail) 55%, var(--surface)); stroke: var(--text-muted); stroke-width: 1.2; }
+  .rib { fill: none; stroke: color-mix(in srgb, var(--bio-tail) 75%, var(--text-muted)); stroke-width: 9; stroke-linecap: round; }
+  .ext { fill: none; stroke: var(--bio-k); stroke-width: 2; opacity: 0.7; }
+  .int { fill: none; stroke: var(--bio-protein-2); stroke-width: 2; stroke-dasharray: 5 3; opacity: 0.7; }
+  .ext.on, .int.on { stroke-width: 3.6; opacity: 1; }
+  .lead { stroke: var(--text); stroke-width: 1.2; fill: none; }
+  .lbl { font-size: 14px; font-weight: 600; fill: var(--text); }
+  .sub { font-size: 13px; fill: var(--text-muted); }
+  .key rect { fill: var(--surface); stroke: var(--border-strong); }
+  .key text { font-size: 13px; font-weight: 700; fill: var(--text); }
+</style>

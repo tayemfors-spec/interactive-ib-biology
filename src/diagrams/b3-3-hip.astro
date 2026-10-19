@@ -1,0 +1,66 @@
+---
+/**
+ * The human hip joint in section (B3.3.6): a ball-and-socket synovial joint between the head of the femur and
+ * the acetabulum of the pelvis. Arcs are computed from one centre so the cartilage layers and the fluid-filled
+ * gap between them are concentric.
+ */
+const H = [300, 210] as const;
+const pt = (r: number, deg: number) => {
+  const a = (deg * Math.PI) / 180;
+  return `${(H[0] + r * Math.cos(a)).toFixed(1)} ${(H[1] - r * Math.sin(a)).toFixed(1)}`;
+};
+const pelvis = `M${pt(84, -5)} L400 190 C430 150, 440 90, 430 30 L60 30 C40 120, 60 220, 120 290 C150 320, 200 320, 215 290 L${pt(84, 205)} A84 84 0 1 1 ${pt(84, -5)} Z`;
+const socketCart = `M${pt(80, 205)} A80 80 0 1 1 ${pt(80, -5)}`;
+const headCart = `M${pt(66, -35)} A66 66 0 1 0 ${pt(66, 215)}`;
+const femur = `M${pt(62, -125)} C300 300, 330 300, 345 330 L360 430 L440 430 L432 330 C440 300, 452 270, 446 250 C440 236, 420 236, 410 248 C395 262, 370 262, ${pt(62, -30)} Z`;
+const fluid = `M${pt(84, 205)} C240 300, 280 312, 340 322 L436 262 L396 198 Z`;
+const ligament = [0, 6, 12].map((o) => `M${186 + o} ${304 + o * 0.4} L${346 + o * 0.6} ${352 + o}`).join(' ');
+---
+<svg viewBox="0 0 640 450" role="img" aria-labelledby="hip-title hip-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="hip-title">Section through the human hip joint</title>
+  <desc id="hip-desc">The rounded head of the femur fits into a cup-shaped socket in the pelvis, forming a ball-and-socket joint. Smooth cartilage covers the head of the femur and lines the socket, and a thin layer of synovial fluid fills the space between them. A tough joint capsule, lined by the synovial membrane, joins the pelvis to the neck of the femur and holds the fluid in. A ligament outside the capsule joins pelvis to femur. A muscle attached to the pelvis is joined by its tendon to the femur, so it can move the femur at the joint.</desc>
+
+  <path class="fluid" d={fluid} />
+  <circle class="fluid" cx={H[0]} cy={H[1]} r="84" />
+  <path class="bone" d={pelvis} />
+  <path class="cart" d={socketCart} />
+  <path class="bone" d={femur} />
+  <circle class="bone flat" cx={H[0]} cy={H[1]} r="62" />
+  <path class="cart" d={headCart} />
+  <!-- joint capsule (with synovial membrane on its inner face) -->
+  <path class="capsule" d="M396 194 C430 218, 440 240, 432 260" />
+  <path class="synmem" d="M390 200 C420 222, 428 240, 424 256" />
+  <path class="capsule" d="M214 270 C238 306, 280 316, 334 324" />
+  <path class="synmem" d="M222 266 C244 298, 282 308, 334 316" />
+  <path class="lig" d={ligament} />
+  <!-- muscle on the ilium, tendon to the greater trochanter -->
+  <path class="muscle" d="M436 46 C480 76, 488 160, 464 204 C452 160, 446 100, 436 46 Z" />
+  <path class="tendon" d="M464 204 L450 248" />
+
+  <text class="in" x="150" y="110">pelvis</text>
+  <text class="in" x={H[0]} y={H[1] + 4} text-anchor="middle">head of femur</text>
+  <text class="in" x="400" y="400" text-anchor="middle">femur</text>
+
+  <path class="lead" d="M150 168 L232 200" /><text class="t" x="14" y="160">cartilage lining</text><text class="t" x="14" y="177">the socket</text>
+  <path class="lead" d="M168 348 L226 282" /><text class="t" x="14" y="352">joint capsule, lined by</text><text class="t" x="14" y="369">synovial membrane</text>
+  <path class="lead" d="M120 396 L262 294" /><text class="t" x="14" y="400">synovial fluid</text>
+  <path class="lead" d="M150 428 L262 330" /><text class="t" x="14" y="432">ligament</text>
+  <path class="lead" d="M512 88 L474 110" /><text class="t" x="516" y="92">muscle</text>
+  <path class="lead" d="M512 226 L458 226" /><text class="t" x="516" y="230">tendon</text>
+  <path class="lead" d="M476 300 L362 233" /><text class="t" x="480" y="296">cartilage covering</text><text class="t" x="480" y="313">the head of femur</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .bone { fill: color-mix(in srgb, var(--bio-tail) 45%, var(--surface)); stroke: color-mix(in srgb, var(--bio-tail) 40%, var(--text-muted)); stroke-width: 2.5; }
+  .bone.flat { stroke: none; }
+  .fluid { fill: color-mix(in srgb, var(--bio-water) 30%, var(--surface)); }
+  .cart { fill: none; stroke: color-mix(in srgb, var(--bio-water) 55%, var(--surface)); stroke-width: 8; }
+  .capsule { fill: none; stroke: var(--text-muted); stroke-width: 7; stroke-linecap: round; }
+  .synmem { fill: none; stroke: var(--bio-carb); stroke-width: 2; }
+  .lig { stroke: var(--text); stroke-width: 2.2; fill: none; }
+  .muscle { fill: var(--bio-k); stroke: color-mix(in srgb, var(--bio-k) 60%, black); stroke-width: 1; }
+  .tendon { stroke: var(--text-muted); stroke-width: 4; stroke-linecap: round; }
+  .in { font-size: 15px; font-weight: 700; fill: var(--text); }
+  .t { font-size: 14px; fill: var(--text); }
+  .lead { stroke: var(--text); stroke-width: 1.2; fill: none; }
+</style>

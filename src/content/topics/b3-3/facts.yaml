@@ -1,0 +1,187 @@
+facts:
+  - id: f1
+    claim: Skeletal muscle fibres are multinucleate cells formed by fusion of myoblasts; nuclei lie at the periphery under the sarcolemma; fibres contain parallel myofibrils, many mitochondria and sarcoplasmic reticulum around each myofibril.
+    where: ["index.mdx#sliding-filaments", "visuals.yaml:muscle/hierarchy", "flashcards.yaml:c2", "index.mdx (mustKnow)"]
+    confidence: high
+    basis: Standard histology (Alberts; Campbell); IB guide A2.2.9 and B3.3.2
+    status: checked
+  - id: f2
+    claim: Muscle fibres are typically 10–100 µm in diameter and can be several centimetres long; myofibrils are about 1–2 µm in diameter.
+    where: ["visuals.yaml:muscle/hierarchy muscle-fibre", "visuals.yaml:muscle/hierarchy myofibril"]
+    confidence: medium
+    basis: Standard textbook ranges (Alberts; Tortora); values vary by muscle
+    status: open
+  - id: f3
+    claim: Sarcomere bands — A-band equals the length of the thick (myosin) filaments; I-band contains thin (actin) filaments only and is bisected by the Z-line; H-zone contains myosin only; M-line at the centre.
+    where: ["index.mdx#sliding-filaments", "visuals.yaml:muscle/sarcomere", "src/diagrams/b3-3-sarcomere.astro", "flashcards.yaml:c3"]
+    confidence: high
+    basis: Huxley & Hanson / Huxley & Niedergerke (1954) sliding filament model; Alberts
+    status: checked
+  - id: f4
+    claim: During contraction the filaments do not change length; the A-band stays constant while the I-band and H-zone shorten and Z-lines move closer together.
+    where: ["index.mdx#sliding-filaments", "index.mdx (mistakes)", "quiz.yaml:q1", "flashcards.yaml:c4", "tests/unit/b3-3.test.ts"]
+    confidence: high
+    basis: Sliding filament model; IB guide B3.3.2
+    status: checked
+  - id: f5
+    claim: Model lengths used in the 3D scene and exam diagram — thick filament 1.6 µm, thin filament 1.0 µm, sarcomere 2.4 µm relaxed, 2.05 µm contracted, 2.8 µm stretched; resting sarcomere length about 2–2.5 µm.
+    where: ["src/scenes/b3-3-kit.ts", "visuals.yaml:muscle/sarcomere myosin", "visuals.yaml:muscle/hierarchy sarcomere", "quiz.yaml:q1"]
+    confidence: high
+    basis: Vertebrate skeletal muscle thick filament ≈ 1.6 µm, thin filament ≈ 1.0–1.1 µm (Gordon, Huxley & Julian 1966 length–tension work; Alberts)
+    status: checked
+  - id: f6
+    claim: In the hexagonal filament lattice each thick filament is surrounded by six thin filaments; myosin heads are absent from a central bare zone.
+    where: ["visuals.yaml:muscle/sarcomere myosin", "index.mdx#sliding-filaments", "index.mdx#relaxation"]
+    confidence: high
+    basis: X-ray diffraction and EM of vertebrate skeletal muscle (Huxley); Alberts
+    status: checked
+  - id: f7
+    claim: Contraction is triggered when an action potential spreads along the sarcolemma and T-tubules and causes the sarcoplasmic reticulum to release Ca²⁺; Ca²⁺ binds troponin, moving tropomyosin off the myosin-binding sites on actin.
+    where: ["index.mdx#sliding-filaments", "visuals.yaml:cross-bridge", "visuals.yaml:muscle/sarcomere calcium", "flashcards.yaml:c5", "index.mdx (mistakes)"]
+    confidence: high
+    basis: Excitation–contraction coupling (Alberts; Guyton & Hall)
+    status: checked
+  - id: f8
+    claim: Cross-bridge cycle order — cocked head with ADP + Pi binds actin; Pi release triggers the power stroke towards the M-line; ADP released; ATP binding detaches the head; ATP hydrolysis re-cocks the head.
+    where: ["index.mdx#sliding-filaments", "visuals.yaml:cross-bridge", "quiz.yaml:q2", "flashcards.yaml:c6", "index.mdx (mistakes)"]
+    confidence: high
+    basis: Lymn–Taylor cycle (1971); Alberts
+    status: checked
+  - id: f9
+    claim: Each power stroke moves the thin filament a few nanometres (about 5–10 nm).
+    where: ["index.mdx#sliding-filaments", "visuals.yaml:cross-bridge stroke"]
+    confidence: medium
+    basis: Optical-trap measurements (Finer, Simmons & Spudich 1994 ≈ 11 nm; other estimates ≈ 5–10 nm)
+    status: open
+  - id: f10
+    claim: Lack of ATP after death leaves myosin heads attached to actin (rigor mortis).
+    where: ["index.mdx#sliding-filaments", "visuals.yaml:cross-bridge detach", "quiz.yaml:q2"]
+    confidence: high
+    basis: Standard physiology
+    status: checked
+  - id: f11
+    claim: Ca²⁺ is returned to the sarcoplasmic reticulum by active transport (SERCA Ca²⁺-ATPase), allowing relaxation.
+    where: ["index.mdx#sliding-filaments", "visuals.yaml:cross-bridge relax", "visuals.yaml:muscle/sarcomere relax", "flashcards.yaml:c7"]
+    confidence: high
+    basis: Alberts; Guyton & Hall
+    status: checked
+  - id: f12
+    claim: Titin is the largest known protein (over 30,000 amino acids in humans; about 3–4 MDa); it spans from the Z-line to the M-line; its I-band region is elastic.
+    where: ["index.mdx#relaxation", "index.mdx (mustKnow)", "visuals.yaml:muscle/sarcomere titin"]
+    confidence: high
+    basis: Labeit & Kolmerer 1995; human titin canonical sequence ≈ 34,350 aa (UniProt Q8WZ42)
+    status: checked
+  - id: f13
+    claim: Titin keeps myosin centred, prevents overstretching, stores elastic energy when stretched and its recoil helps the sarcomere return to resting length and adds to the force of the next contraction.
+    where: ["index.mdx#relaxation", "visuals.yaml:muscle/sarcomere relax", "flashcards.yaml:c8", "quiz.yaml:q3"]
+    confidence: medium
+    basis: IB guide B3.3.3 and B3.3.8; Linke & Granzier reviews on titin passive tension. The contribution of titin recoil to active force is still researched; the page follows the guide.
+    status: open
+  - id: f14
+    claim: Biceps flexes and triceps extends the elbow; the biceps inserts on the radius just below the elbow and the triceps on the olecranon of the ulna.
+    where: ["index.mdx#relaxation", "visuals.yaml:antagonistic", "src/diagrams/b3-3-skeletons.astro", "quiz.yaml:q5"]
+    confidence: high
+    basis: Gray's Anatomy
+    status: checked
+  - id: f15
+    claim: A motor unit is one motor neuron and all the fibres it innervates; each fibre has one neuromuscular junction from one neuron; the neurotransmitter is acetylcholine; fibres of a unit are scattered through the muscle.
+    where: ["index.mdx#motor-units", "src/diagrams/b3-3-motor-unit.astro", "flashcards.yaml:c10", "quiz.yaml:q4", "index.mdx (mistakes)"]
+    confidence: high
+    basis: Standard neurophysiology (Kandel; Guyton & Hall)
+    status: checked
+  - id: f16
+    claim: Muscles for fine control (eye, fingers) have small motor units (around 10 fibres); large leg muscles have units of 1,000 or more fibres.
+    where: ["index.mdx#motor-units", "quiz.yaml:q4", "index.mdx (mistakes)"]
+    confidence: medium
+    basis: Feinstein et al. 1955 (extraocular ≈ 10 fibres per unit; medial gastrocnemius ≈ 1,000–2,000); figures vary between sources
+    status: open
+  - id: f17
+    claim: Arthropod exoskeletons are made mainly of chitin hardened with proteins (calcium carbonate in many crustaceans), with muscles attached to the inner surface; they must be moulted for growth. Vertebrate endoskeletons are bone and cartilage with muscles attached by tendons.
+    where: ["index.mdx#skeletons", "src/diagrams/b3-3-skeletons.astro", "flashcards.yaml:c11"]
+    confidence: high
+    basis: Campbell Biology; Barnes invertebrate zoology
+    status: checked
+  - id: f18
+    claim: Insect leg joints are moved by flexor and extensor muscles inside the leg; the flexor attaches below and the extensor above the joint pivot.
+    where: ["src/diagrams/b3-3-skeletons.astro", "index.mdx#skeletons"]
+    confidence: high
+    basis: Insect physiology (e.g. locust extensor and flexor tibiae muscles)
+    status: checked
+  - id: f19
+    claim: The hip is a ball-and-socket synovial joint between the head of the femur and the acetabulum of the pelvis; cartilage covers the articulating surfaces; synovial membrane lines the capsule and secretes synovial fluid; ligaments join bone to bone; tendons join muscle to bone.
+    where: ["index.mdx#hip-joint", "src/diagrams/b3-3-hip.astro", "flashcards.yaml:c13", "quiz.yaml:q6"]
+    confidence: high
+    basis: Gray's Anatomy; IB guide B3.3.6
+    status: checked
+  - id: f20
+    claim: Typical active hip ranges — flexion ≈ 120°, extension ≈ 30°, abduction ≈ 45°, adduction ≈ 30°, medial and lateral rotation ≈ 45° each; elbow flexion ≈ 0–145°.
+    where: ["src/diagrams/b3-3-rom.astro", "visuals.yaml:antagonistic measure", "flashcards.yaml:c15"]
+    confidence: medium
+    basis: AAOS normal values (Greene & Heckman 1994); other sources differ by 10–20°
+    status: open
+  - id: f21
+    claim: The elbow (humero-ulnar) hinge allows flexion and extension in one plane; pronation and supination occur at the radio-ulnar joints.
+    where: ["index.mdx#range-of-motion", "visuals.yaml:antagonistic measure"]
+    confidence: high
+    basis: Gray's Anatomy
+    status: checked
+  - id: f22
+    claim: External intercostal fibres run downwards and forwards and raise the ribs in inspiration; internal intercostal fibres run downwards and backwards and lower the ribs in forced expiration; quiet expiration is mainly passive.
+    where: ["index.mdx#intercostals", "visuals.yaml:antagonistic inhale/exhale", "src/diagrams/b3-3-intercostals.astro", "quiz.yaml:q8", "flashcards.yaml:c16", "index.mdx (mistakes)"]
+    confidence: high
+    basis: Gray's Anatomy; respiratory physiology texts. Note — parasternal parts of the internal intercostals are inspiratory; omitted at IB depth.
+    status: checked
+  - id: f23
+    claim: Arctic terns breed in the Arctic and migrate to the Antarctic each year, a round trip of tens of thousands of kilometres.
+    where: ["index.mdx#movement", "index.mdx#locomotion", "src/diagrams/b3-3-locomotion.astro", "flashcards.yaml:c1", "flashcards.yaml:c17"]
+    confidence: high
+    basis: Egevang et al. 2010 PNAS (geolocator tracking, ≈ 70,900 km mean round trip)
+    status: checked
+  - id: f24
+    claim: Acorn barnacles (Semibalanus balanoides) are sessile adults cemented to rock that filter-feed with cirri; their nauplius and cyprid larvae are motile and disperse.
+    where: ["index.mdx#movement", "flashcards.yaml:c1"]
+    confidence: high
+    basis: Barnes invertebrate zoology; marine biology texts
+    status: checked
+  - id: f25
+    claim: Young sunflower shoots track the sun during the day (heliotropism); Mimosa pudica leaflets fold rapidly when touched.
+    where: ["index.mdx#movement"]
+    confidence: high
+    basis: Atamian et al. 2016 Science (sunflower solar tracking); plant physiology texts
+    status: checked
+  - id: f26
+    claim: Great scallops (Pecten maximus) escape predatory starfish by repeatedly clapping their valves, jetting water out near the hinge and swimming away.
+    where: ["index.mdx#locomotion", "src/diagrams/b3-3-locomotion.astro", "flashcards.yaml:c17"]
+    confidence: high
+    basis: Scallop escape-response literature (e.g. Thomas & Gruffydd 1971; Brand reviews)
+    status: checked
+  - id: f27
+    claim: Male emperor moths (Saturnia pavonia) locate females by flying upwind along the female's sex pheromone plume.
+    where: ["index.mdx#locomotion", "src/diagrams/b3-3-locomotion.astro", "quiz.yaml:q9", "flashcards.yaml:c17"]
+    confidence: high
+    basis: Lepidopteran pheromone biology; species accounts of Saturnia pavonia (day-flying males assemble to calling females)
+    status: open
+  - id: f28
+    claim: Bottlenose dolphins forage by chasing fish and sometimes cooperatively herd shoals.
+    where: ["index.mdx#locomotion", "src/diagrams/b3-3-locomotion.astro"]
+    confidence: high
+    basis: Cetacean behavioural ecology (e.g. Connor; Wells)
+    status: checked
+  - id: f29
+    claim: Cetaceans have horizontal flukes (no bones) beaten up and down; flippers contain modified forelimb bones and are used for steering; dorsal fin gives stability; no hind limbs or external ears; hairless skin; blubber.
+    where: ["index.mdx#marine-mammals", "src/diagrams/b3-3-dolphin.astro", "quiz.yaml:q10", "flashcards.yaml:c18", "index.mdx (mistakes)"]
+    confidence: high
+    basis: "Berta, Sumich & Kovacs, Marine Mammals — Evolutionary Biology; IB guide B3.3.10"
+    status: checked
+  - id: f30
+    claim: The blowhole is the nostril (single in toothed whales, paired in baleen whales) on top of the head, closed by a muscular plug during dives; the airway is separated from the mouth and oesophagus; cartilage-reinforced airways allow rapid breaths that replace most of the lung air.
+    where: ["index.mdx#marine-mammals", "src/diagrams/b3-3-dolphin.astro", "flashcards.yaml:c18", "quiz.yaml:q10"]
+    confidence: medium
+    basis: Berta et al.; Ridgway physiology of diving cetaceans (tidal volume ≈ 80–90% of total lung capacity per breath). Exact percentage varies by species.
+    status: open
+  - id: f31
+    claim: True seals swim with side-to-side movements of the hind flippers; sea lions use the fore-flippers; manatees, like cetaceans, move the tail up and down.
+    where: ["index.mdx#marine-mammals"]
+    confidence: high
+    basis: Fish (1996) American Zoologist, mammalian swimming modes; Berta et al.
+    status: checked

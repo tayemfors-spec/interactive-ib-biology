@@ -1,0 +1,198 @@
+questions:
+  - id: q1
+    level: AHL
+    understanding: B3.3.2
+    stem: >-
+      In a relaxed sarcomere the distance between Z-lines is 2.4 µm, the A-band is 1.6 µm long and the H-zone
+      is 0.4 µm long. The muscle contracts until the sarcomere is 2.1 µm long. Assuming the sliding filament
+      model, what are the new lengths of the A-band and the H-zone?
+    options:
+      - id: a
+        text: A-band 1.3 µm; H-zone 0.1 µm
+        why: This shortens the A-band by the same 0.3 µm as the sarcomere. The A-band is the length of the myosin filaments, which do not change length.
+      - id: b
+        text: A-band 1.6 µm; H-zone 0.1 µm
+        why: Correct. The myosin filaments, and so the A-band, stay 1.6 µm. Each actin filament is (2.4 − 0.4) ÷ 2 = 1.0 µm, so the H-zone becomes 2.1 − 2 × 1.0 = 0.1 µm. It shortens by the full 0.3 µm.
+      - id: c
+        text: A-band 1.6 µm; H-zone 0.4 µm
+        why: This keeps the H-zone constant. The H-zone is the part of the A-band with no actin, and it narrows as the actin slides further in.
+      - id: d
+        text: A-band 1.6 µm; H-zone 0.25 µm
+        why: This shares the 0.3 µm shortening between the H-zone and the I-bands. In fact each of them shortens by the full amount the sarcomere shortens.
+    answer: b
+
+  - id: q2
+    level: AHL
+    understanding: B3.3.2
+    stem: Which event directly causes a myosin head to detach from an actin filament during the cross-bridge cycle?
+    options:
+      - id: a
+        text: Calcium ions binding to troponin
+        why: This exposes the binding sites on actin, allowing heads to attach, not to detach.
+      - id: b
+        text: Release of phosphate (Pi) from the myosin head
+        why: Release of Pi triggers the power stroke while the head is still attached to actin.
+      - id: c
+        text: Hydrolysis of ATP by the myosin head
+        why: Hydrolysis happens after the head has detached and is what re-cocks it into its high-energy position.
+      - id: d
+        text: Binding of a new ATP molecule to the myosin head
+        why: Correct. ATP binding breaks the cross-bridge. Without ATP the heads stay attached, as in rigor mortis.
+    answer: d
+
+  - id: q3
+    level: AHL
+    understanding: B3.3.3
+    stem: The triceps contracts to straighten the arm while the biceps is relaxed. Which describes what happens in the sarcomeres of the biceps?
+    options:
+      - id: a
+        text: They shorten as actin slides further between the myosin filaments.
+        why: Shortening happens in the contracting muscle, the triceps. The biceps is being lengthened.
+      - id: b
+        text: They lengthen actively, so the biceps pushes on the forearm.
+        why: Muscles cannot push, and a sarcomere cannot lengthen itself. The biceps is pulled longer by the triceps.
+      - id: c
+        text: They are stretched, and the titin in them stores elastic potential energy.
+        why: Correct. The contraction of the antagonist stretches the relaxed muscle; titin is extended and stores energy that helps the sarcomeres recoil.
+      - id: d
+        text: Their myosin heads use ATP to push the actin filaments apart.
+        why: Myosin heads only pull actin towards the M-line. In a relaxed muscle tropomyosin covers the binding sites, so there are no cross-bridges.
+    answer: c
+
+  - id: q4
+    level: AHL
+    understanding: B3.3.4
+    stem: >-
+      A motor neuron that supplies a muscle moving the eyeball forms neuromuscular junctions with about 10 muscle
+      fibres. One that supplies a calf muscle forms junctions with about 1,000 fibres. Which is the best conclusion?
+    options:
+      - id: a
+        text: Eye muscles can make finer adjustments of force, because each motor neuron that fires makes only a few fibres contract.
+        why: Correct. Force is graded by recruiting motor units, so small units allow small, precise steps in force.
+      - id: b
+        text: Each fibre in the calf muscle is supplied by about 1,000 motor neurons.
+        why: The numbers are fibres per neuron, not neurons per fibre. Each fibre receives a junction from only one motor neuron.
+      - id: c
+        text: The fibres of a calf motor unit contract one after another, so the calf contracts more slowly.
+        why: When a motor neuron fires, all the fibres in its unit contract together.
+      - id: d
+        text: The eye muscle uses a different neurotransmitter at its neuromuscular junctions.
+        why: Acetylcholine is the neurotransmitter at all vertebrate neuromuscular junctions. The difference is the size of the motor units.
+    answer: a
+
+  - id: q5
+    level: AHL
+    understanding: B3.3.5
+    stem: When the biceps flexes the elbow to lift a weight held in the hand, which correctly identifies the parts of the lever?
+    options:
+      - id: a
+        text: Fulcrum — the shoulder; effort — the elbow; load — the hand
+        why: The forearm pivots at the elbow, not the shoulder, so the elbow is the fulcrum.
+      - id: b
+        text: Fulcrum — where the biceps tendon joins the radius; effort — the elbow; load — the weight
+        why: This swaps the fulcrum and the effort. The muscle's pull is the effort; the joint is the pivot.
+      - id: c
+        text: Fulcrum — the elbow joint; effort — the biceps pulling on the radius; load — the forearm, hand and weight
+        why: Correct. The joint is the pivot, the muscle supplies the effort at its insertion, and the weight being moved is the load.
+      - id: d
+        text: Fulcrum — the hand; effort — the biceps; load — the elbow joint
+        why: The hand moves, so it cannot be the fixed pivot; the elbow is the pivot.
+    answer: c
+
+  - id: q6
+    level: AHL
+    understanding: B3.3.6
+    stem: Which tissue covers the head of the femur and lines the socket of the pelvis, giving a smooth surface that reduces friction and absorbs shocks?
+    options:
+      - id: a
+        text: Ligament
+        why: Ligaments are tough bands joining bone to bone across the joint; they limit movement and prevent dislocation.
+      - id: b
+        text: Cartilage
+        why: Correct. Smooth, tough cartilage covers the bone surfaces that meet in the joint.
+      - id: c
+        text: Tendon
+        why: Tendons join muscle to bone and transmit the force of contraction; they do not cover joint surfaces.
+      - id: d
+        text: Synovial membrane
+        why: The synovial membrane lines the joint capsule and secretes synovial fluid. It does not cover the ends of the bones.
+    answer: b
+
+  - id: q7
+    level: AHL
+    understanding: B3.3.7
+    stem: >-
+      A student photographs a friend's arm at maximum elbow flexion and uses software to measure the angle between
+      the upper arm and the forearm. It is 35°. What is the elbow flexion, measured from the anatomical position
+      (straight arm = 0°)?
+    options:
+      - id: a
+        text: 35°
+        why: This is the angle between the bones, not the flexion. It must be converted.
+      - id: b
+        text: 55°
+        why: This subtracts the angle from 90°. A straight arm is 180° between the bones, not 90°.
+      - id: c
+        text: 215°
+        why: This adds the angle to 180°. The flexion is the difference from a straight arm.
+      - id: d
+        text: 145°
+        why: Correct. A straight arm has 180° between the upper arm and forearm, so the flexion is 180° − 35° = 145°.
+    answer: d
+
+  - id: q8
+    level: AHL
+    understanding: B3.3.8
+    stem: What happens when the external intercostal muscles contract?
+    options:
+      - id: a
+        text: The ribs move up and out, and the internal intercostals are stretched.
+        why: Correct. The external fibres pull the ribs upwards and outwards, enlarging the thorax (inspiration), and stretch the relaxed internal layer.
+      - id: b
+        text: The ribs move up and out, and the internal intercostals contract at the same time.
+        why: Antagonistic muscles do not contract together; while one layer contracts the other relaxes and is stretched.
+      - id: c
+        text: The ribs move down and in, and air is forced out of the lungs.
+        why: This is the effect of the internal intercostals in forced expiration.
+      - id: d
+        text: The ribs move down and in, and air is drawn into the lungs.
+        why: Lowering the ribs reduces the volume of the thorax, which would push air out, not draw it in.
+    answer: a
+
+  - id: q9
+    level: AHL
+    understanding: B3.3.9
+    stem: Male emperor moths fly upwind for long distances, following a chemical released by females of their species. Which reason for locomotion does this illustrate?
+    options:
+      - id: a
+        text: Migration
+        why: Migration is a seasonal movement of a population between regions. The moths are tracking an individual female.
+      - id: b
+        text: Foraging for food
+        why: The chemical is a pheromone released by the female, not a food scent.
+      - id: c
+        text: Escaping from danger
+        why: The moths are moving towards the source of the chemical, not away from a threat.
+      - id: d
+        text: Searching for a mate
+        why: Correct. The female releases a sex pheromone and males fly upwind along the scent trail to find her.
+    answer: d
+
+  - id: q10
+    level: AHL
+    understanding: B3.3.10
+    stem: Which adaptation of a bottlenose dolphin is correctly matched with how it helps the dolphin swim or breathe?
+    options:
+      - id: a
+        text: Tail flukes moved from side to side — provide thrust
+        why: Dolphin flukes are horizontal and are beaten up and down. Side-to-side tail movement is typical of fish.
+      - id: b
+        text: Blowhole on top of the head — allows breathing with only the top of the head above the surface
+        why: Correct. The nostril has moved to the top of the head and is closed by a muscular flap during dives.
+      - id: c
+        text: Flippers — the main source of forward thrust
+        why: The flippers are mainly used for steering and braking; the thrust comes from the flukes.
+      - id: d
+        text: A thick coat of fur — reduces drag
+        why: Dolphins are hairless; their smooth skin and blubber give a smooth outline that reduces drag.
+    answer: b
