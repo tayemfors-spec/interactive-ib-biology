@@ -1,0 +1,294 @@
+# Visuals for B2.2. Label/step text here is what readers see in the 3D viewer and the text descriptions,
+# so it is written to exam standard. Label ids must match anchors in the scene modules (src/scenes).
+visuals:
+  - id: organelles
+    kind: viewer3d
+    title: Organelles and their compartments in 3D
+    alt: Cut-away 3D models of a nucleus with rough ER, a mitochondrion, a chloroplast and the secretory pathway, with clickable labels.
+    description: >-
+      Four cut-away models, each sliced open by a flat plane so you look into the back half. Proportions are
+      schematic: the spaces between membranes, the pores, proteins and ribosomes are drawn far larger than
+      they really are so that they can be seen. The nucleus is surrounded by a double membrane, the nuclear
+      envelope, with a narrow space between its two membranes. At each nuclear pore the outer and inner
+      membranes join, and a ring-shaped pore complex of proteins sits in the opening. On one side the outer
+      membrane runs straight into sheets of rough ER, so the space between the nuclear membranes is
+      continuous with the ER lumen; ribosomes stud the outer membrane and the ER but not the inner membrane.
+      Inside are threads and dense patches of chromatin and a nucleolus. A strand of mRNA leaves through a pore
+      and is translated by ribosomes in the cytoplasm. The mitochondrion has a smooth outer membrane and an
+      inner membrane folded into cristae, a very narrow intermembrane space crowded with protons, ATP synthase
+      and electron transport proteins in the inner membrane, and a matrix with enzymes, 70S ribosomes and loops
+      of DNA. The chloroplast has a double-membrane envelope around the stroma, stacks of thylakoids (grana)
+      joined by single lamellae, each thylakoid enclosing a small lumen, photosystems and ATP synthase in the
+      thylakoid membranes, starch grains, 70S ribosomes and DNA. The fourth model follows a protein from bound
+      ribosomes on the rough ER, through a transport vesicle and the Golgi apparatus, to exocytosis at the
+      plasma membrane, beside a free ribosome whose protein stays in the cytosol.
+    scenes:
+      - id: nucleus
+        module: b2-2-nucleus
+        title: Nucleus and rough ER
+        labels:
+          - id: envelope
+            name: Nuclear envelope (two membranes)
+            text: A double membrane around the nucleus that separates the chromosomes and nucleoplasm from the cytoplasm. Transcription happens inside it; translation happens outside it, in the cytoplasm.
+          - id: outer
+            name: Outer membrane
+            level: AHL
+            text: The outer nuclear membrane runs straight into the membrane of the rough ER, and like the RER it has ribosomes on its cytoplasmic face. At every pore it is joined to the inner membrane.
+          - id: inner
+            name: Inner membrane
+            level: AHL
+            text: Faces the nucleoplasm and has no ribosomes. A mesh of proteins lining it supports the envelope and anchors chromatin. At every pore it is joined to the outer membrane.
+          - id: space
+            name: Space between the membranes
+            level: AHL
+            text: The perinuclear space, only a few tens of nanometres wide (drawn much wider here). Because the outer membrane is continuous with the RER, this space is continuous with the ER lumen.
+          - id: pore
+            name: Nuclear pore
+            text: A channel through the envelope. Mature mRNA and ribosome subunits leave the nucleus through pores; proteins needed inside, such as histones and RNA polymerase, enter through them.
+          - id: complex
+            name: Nuclear pore complex
+            level: AHL
+            text: A large structure built from many proteins, arranged with eightfold symmetry, that fills each pore. Small molecules diffuse through it, but large ones such as proteins and mRNA are let through selectively.
+          - id: chromatin
+            name: Chromatin
+            text: DNA wound around histone proteins. Loosely packed euchromatin (threads) holds most of the genes being transcribed; densely packed heterochromatin (dark patches) lies mostly against the envelope.
+          - id: nucleolus
+            name: Nucleolus
+            text: A dense region with no membrane where ribosomal RNA is made and ribosome subunits are assembled. The subunits leave through the pores and only join into working ribosomes in the cytoplasm.
+          - id: rer
+            name: Rough ER
+            level: AHL
+            text: Flattened sacs of membrane (cisternae) with ribosomes on their cytoplasmic surface. Here the sheets branch off the outer nuclear membrane, so their lumen and the space between the nuclear membranes are one compartment.
+          - id: bound
+            name: Ribosomes on the ER
+            level: AHL
+            text: Ribosomes attached to the cytoplasmic face of the rough ER and the outer nuclear membrane. They make proteins that pass into the ER lumen, for secretion or for membranes and lysosomes.
+          - id: mrna
+            name: mRNA being translated
+            text: Mature mRNA, already modified inside the nucleus, leaves through a pore and is translated by several ribosomes at once in the cytoplasm. Unmodified pre-mRNA never reaches the ribosomes.
+          - id: free
+            name: Free ribosomes (80S)
+            text: Ribosomes in the cytoplasm that are not attached to a membrane. All translation takes place outside the nucleus, in the cytoplasm.
+          - id: cytoplasm
+            name: Cytoplasm
+            text: The region outside the nucleus and inside the plasma membrane, where translation happens. Other organelles divide it into further compartments.
+      - id: mitochondrion
+        module: b2-2-mitochondrion
+        title: Mitochondrion
+        labels:
+          - id: outer
+            name: Outer membrane
+            level: AHL
+            text: A smooth membrane that separates the contents of the mitochondrion from the cytoplasm, creating a compartment where conditions suit aerobic respiration. With the inner membrane it forms a double membrane.
+          - id: inner
+            name: Inner membrane
+            level: AHL
+            text: Holds the electron transport chains and ATP synthase, which work together to make ATP by chemiosmosis. It is impermeable to protons, so they return to the matrix mainly through ATP synthase.
+          - id: cristae
+            name: Cristae
+            level: AHL
+            text: Folds of the inner membrane that project into the matrix. They give a large surface area for electron transport chains and ATP synthase, so more ATP can be made. Very active cells have mitochondria with many cristae.
+          - id: ims
+            name: Intermembrane space
+            level: AHL
+            text: The narrow space between the two membranes, continuous with the space inside each crista. Its volume is very small (drawn wider here), so protons pumped into it quickly build up a high concentration.
+          - id: protons
+            name: Protons (H⁺)
+            level: AHL
+            text: Pumped from the matrix into the intermembrane space by the electron transport chain. Because the space is so small, their concentration there soon becomes much higher than in the matrix.
+          - id: matrix
+            name: Matrix
+            level: AHL
+            text: The fluid inside the inner membrane. Enzymes and substrates of the link reaction and Krebs cycle are concentrated here, kept apart from glycolysis in the cytoplasm, so these reactions run quickly.
+          - id: atp-synthase
+            name: ATP synthase
+            level: AHL
+            text: An enzyme in the inner membrane whose head projects into the matrix. Protons diffuse back into the matrix through it, down their concentration gradient, and the energy released is used to make ATP.
+          - id: etc
+            name: Electron transport chain
+            level: AHL
+            text: Protein complexes in the inner membrane that pass electrons from one to the next and use the energy released to pump protons into the intermembrane space.
+          - id: ribosomes
+            name: 70S ribosomes
+            level: AHL
+            text: Ribosomes like those of bacteria, smaller than the 80S ribosomes of the cytoplasm. With the mitochondrion's own DNA they allow it to make some of its own proteins.
+          - id: dna
+            name: Circular DNA
+            level: AHL
+            text: A small, naked loop of DNA carrying a few genes, including some for proteins of the inner membrane. Most mitochondrial proteins are coded by genes in the nucleus and imported.
+      - id: chloroplast
+        module: b2-2-chloroplast
+        title: Chloroplast
+        labels:
+          - id: outer
+            name: Outer membrane
+            level: AHL
+            text: The outer membrane of the chloroplast envelope. With the inner membrane it encloses the stroma, creating a compartment with conditions suited to photosynthesis.
+          - id: inner
+            name: Inner membrane
+            level: AHL
+            text: The inner membrane of the envelope (a double membrane). Its transport proteins control what enters and leaves the stroma, such as the sugar phosphates made by the Calvin cycle.
+          - id: stroma
+            name: Stroma
+            level: AHL
+            text: The fluid inside the envelope. Rubisco and the other enzymes of the Calvin cycle, and their substrates, are concentrated here, right next to the thylakoids that supply the ATP and NADPH.
+          - id: granum
+            name: Granum
+            level: AHL
+            text: A stack of thylakoids. Stacking packs a very large area of membrane, with its photosystems, into a small volume, so the light-dependent reactions can happen at a high rate.
+          - id: thylakoid
+            name: Thylakoid
+            level: AHL
+            text: A flattened sac of membrane, separate from the envelope. Its membrane holds the photosystems, electron carriers and ATP synthase needed for the light-dependent reactions.
+          - id: lumen
+            name: Thylakoid lumen
+            level: AHL
+            text: The fluid inside a thylakoid. Its volume is very small, so a high proton concentration builds up after relatively few photons have been absorbed. This gradient drives ATP synthesis.
+          - id: lamella
+            name: Stroma lamella
+            level: AHL
+            text: A single, unstacked thylakoid that links one granum to another. Its lumen is continuous with theirs, so all the thylakoids form one connected membrane system.
+          - id: photosystem
+            name: Photosystems
+            level: AHL
+            text: Large complexes of proteins and pigments, including chlorophyll, set in the thylakoid membranes. They absorb light and pass excited electrons to the electron transport chain.
+          - id: atp-synthase
+            name: ATP synthase
+            level: AHL
+            text: Set in the thylakoid membrane with its head in the stroma. Protons diffuse from the lumen into the stroma through it, so ATP is made in the stroma, where the Calvin cycle uses it.
+          - id: starch
+            name: Starch grain
+            level: AHL
+            text: A store of starch made from sugars produced by the Calvin cycle. Starch is insoluble, so it can be stored without drawing water into the chloroplast by osmosis.
+          - id: ribosomes
+            name: 70S ribosomes
+            level: AHL
+            text: Bacterium-sized ribosomes in the stroma. With the chloroplast's own DNA they make some of its proteins, including the large subunit of Rubisco.
+          - id: dna
+            name: Circular DNA
+            level: AHL
+            text: Naked, circular DNA in the stroma (there are several copies) carrying genes for some chloroplast proteins. Most chloroplast proteins are coded in the nucleus and imported.
+      - id: secretory
+        module: b2-2-secretory
+        title: Secretory pathway
+        labels:
+          - id: rer
+            name: Rough ER
+            level: AHL
+            text: A network of flattened sacs (cisternae) whose outer surface is studded with ribosomes. Proteins made by these ribosomes enter the lumen, fold and are first modified before being sent on.
+          - id: bound
+            name: Bound ribosome
+            level: AHL
+            text: An 80S ribosome attached to the ER. A signal sequence at the start of the polypeptide directs the ribosome to the ER, and the growing chain is fed through the membrane into the lumen.
+          - id: lumen
+            name: ER lumen
+            level: AHL
+            text: The space inside the rough ER. Proteins for secretion, for membranes and for lysosomes are folded here, kept separate from the cytosol.
+          - id: free
+            name: Free ribosome
+            level: AHL
+            text: An 80S ribosome that is not attached to a membrane. Its protein (purple) is released into the cytosol and kept in the cell, for example an enzyme of glycolysis.
+          - id: transport
+            name: Transport vesicle
+            level: AHL
+            text: A small sac of membrane that buds from the rough ER with proteins inside it and fuses with the cis face of the Golgi apparatus.
+          - id: cis
+            name: Cis face
+            level: AHL
+            text: The convex side of the Golgi stack, facing the ER. Vesicles from the rough ER fuse with the cisterna on this side, delivering their proteins.
+          - id: trans
+            name: Trans face
+            level: AHL
+            text: The concave side of the stack, facing the plasma membrane. Vesicles bud from it carrying finished proteins to the plasma membrane or to other organelles such as lysosomes.
+          - id: golgi
+            name: Golgi apparatus
+            level: AHL
+            text: A stack of separate, flattened, curved sacs (cisternae). Enzymes in the cisternae modify proteins as they pass from cis to trans, for example by adding carbohydrate, and sort them into vesicles.
+          - id: secretory
+            name: Secretory vesicle
+            level: AHL
+            text: Buds from the trans face and carries finished protein to the plasma membrane. Some are stored until a signal triggers release, as in pancreatic β cells, which secrete insulin when blood glucose rises.
+          - id: membrane
+            name: Plasma membrane
+            level: AHL
+            text: The secretory vesicle fuses with it (exocytosis), releasing the protein outside the cell. The vesicle membrane becomes part of the plasma membrane.
+          - id: outside
+            name: Outside the cell
+            level: AHL
+            text: Secreted proteins, such as digestive enzymes, antibodies and peptide hormones, are released into the fluid outside the cell.
+        steps:
+          - id: synthesis
+            title: Free and bound ribosomes
+            level: AHL
+            caption: Translation always starts on a free ribosome. The purple protein has no signal sequence, so its ribosome stays free and the protein is released into the cytosol. The red proteins start with a signal sequence, so their ribosomes bind to the rough ER and each growing polypeptide is fed into the ER lumen.
+          - id: rer
+            title: Folding in the rough ER
+            level: AHL
+            caption: In the lumen each polypeptide folds into its three-dimensional shape. The proteins collect at the edge of a cisterna, and a small region of the ER membrane buds off as a transport vesicle with the proteins inside it.
+          - id: to-golgi
+            title: To the cis face of the Golgi
+            level: AHL
+            caption: The transport vesicle moves through the cytoplasm to the convex cis face of the Golgi apparatus and fuses with its first cisterna, so the proteins enter the Golgi without ever crossing a membrane.
+          - id: golgi
+            title: Processing from cis to trans
+            level: AHL
+            caption: The proteins pass from cisterna to cisterna towards the trans face. Enzymes in the cisternae modify them, here by adding carbohydrate chains (green) to make glycoproteins. Some proteins are also cut to their final length.
+          - id: exocytosis
+            title: Secretion by exocytosis
+            level: AHL
+            caption: A secretory vesicle buds from the trans face and carries the finished proteins to the plasma membrane. Its membrane fuses with the plasma membrane and the proteins are released outside the cell.
+
+  - id: secretion
+    kind: anim
+    module: b2-2-secretion
+    level: AHL
+    title: From ribosome to secretion, and clathrin-coated vesicles
+    alt: Step-through animation of a protein made on the rough ER, processed in the Golgi and secreted, then a clathrin-coated vesicle forming.
+    description: >-
+      A slice through a secretory cell, with the plasma membrane along the bottom and the outside of the cell
+      below it. At the top left is a flattened sac of rough ER with ribosomes on both of its outer surfaces; to
+      the right is a free ribosome. In the middle is the Golgi apparatus, a stack of five curved cisternae with
+      its convex cis face towards the ER and its concave trans face towards the plasma membrane. Red proteins
+      are made by ribosomes on the ER and fed into its lumen, fold, and leave in a transport vesicle that fuses
+      with the cis face. They are modified as they pass through the stack, gaining green carbohydrate chains,
+      leave the trans face in a secretory vesicle, and are released outside the cell by exocytosis. The purple
+      protein made by the free ribosome stays in the cytosol. On the right, receptors in the plasma membrane
+      bind cargo outside the cell, three-legged clathrin molecules gather on the cytoplasmic side and pull the
+      membrane into a pit, a coated vesicle pinches off into the cytoplasm, and the clathrin coat falls away.
+    steps:
+      - id: ribosomes
+        title: Free and bound ribosomes
+        level: AHL
+        caption: The free ribosome makes a protein (purple) that is released into the cytosol and stays in the cell. Ribosomes bound to the rough ER make proteins (red) that are fed through the membrane into the ER lumen as they are made.
+      - id: transport-vesicle
+        title: A transport vesicle buds from the rough ER
+        level: AHL
+        caption: Inside the ER lumen the polypeptides fold. A small patch of ER membrane bulges out and pinches off as a transport vesicle with the proteins inside it. The purple protein folds in the cytosol.
+      - id: cis-face
+        title: Fusion with the cis face
+        level: AHL
+        caption: The transport vesicle moves to the Golgi apparatus and its membrane fuses with the first cisterna on the convex cis face, which faces the ER. The proteins are now inside the Golgi.
+      - id: processing
+        title: Processing in the Golgi
+        level: AHL
+        caption: The proteins pass from cisterna to cisterna towards the trans face. Enzymes in each cisterna modify them, here by adding carbohydrate (green) to make glycoproteins, so their final form is gradually produced.
+      - id: secretory-vesicle
+        title: A secretory vesicle leaves the trans face
+        level: AHL
+        caption: A secretory vesicle containing the finished proteins buds from the concave trans face and moves to the plasma membrane.
+      - id: exocytosis
+        title: Exocytosis
+        level: AHL
+        caption: The vesicle membrane fuses with the plasma membrane, and the proteins are released outside the cell. The vesicle's membrane becomes part of the plasma membrane.
+      - id: clathrin-coat
+        title: A clathrin coat assembles
+        level: AHL
+        caption: Receptor proteins in the plasma membrane bind particular cargo molecules outside the cell. Three-legged clathrin molecules gather on the cytoplasmic side and link into a curved lattice, which starts to pull the membrane inwards into a coated pit.
+      - id: budding
+        title: The coated vesicle buds off
+        level: AHL
+        caption: The pit deepens until only a narrow neck joins it to the plasma membrane. The neck is pinched off, and a clathrin-coated vesicle with the receptors and their cargo inside separates into the cytoplasm.
+      - id: uncoating
+        title: The coat is removed
+        level: AHL
+        caption: Soon after the vesicle forms, the clathrin coat comes away and the clathrin is reused for new pits. The uncoated vesicle can now fuse with its target membrane inside the cell.

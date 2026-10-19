@@ -1,0 +1,69 @@
+cards:
+  - id: c1
+    level: SL
+    front: What is an organelle? Give four examples.
+    back: A discrete subunit of a cell that is adapted, by its structure, to carry out one or more specific functions. Examples include the nucleus, mitochondria, vesicles, ribosomes and the plasma membrane.
+  - id: c2
+    level: SL
+    front: Why are the cell wall, cytoskeleton and cytoplasm not organelles?
+    back: The cell wall is outside the plasma membrane (extracellular). The cytoskeleton is a network extending through the whole cytoplasm, not a discrete unit. The cytoplasm is the whole region inside the membrane, with many functions rather than one specific one.
+  - id: c3
+    level: SL
+    front: Why is tissue for cell fractionation kept in a cold, isotonic, buffered solution?
+    back: Cold slows enzymes that would digest the organelles; isotonic stops organelles gaining or losing water by osmosis and bursting or shrivelling; buffered keeps the pH constant so proteins are not denatured.
+  - id: c4
+    level: SL
+    front: In differential centrifugation, in what order do the organelles sediment?
+    back: Largest and densest first, at the lowest speed. Nuclei (about 1,000 × g), then mitochondria and chloroplasts (about 20,000 × g), then fragments of ER and membrane, and finally ribosomes at the highest speeds (over 100,000 × g, in an ultracentrifuge).
+  - id: c5
+    level: SL
+    front: What is the advantage of separating the nucleus from the cytoplasm?
+    back: Transcription happens in the nucleus and translation in the cytoplasm, so pre-mRNA can be modified (for example, introns removed) before it meets ribosomes. Only mature mRNA leaves through the pores.
+  - id: c6
+    level: SL
+    front: Why can't prokaryotes modify mRNA before translating it?
+    back: They have no nucleus, so their DNA and ribosomes are in the same compartment. Ribosomes can start translating mRNA while it is still being transcribed.
+  - id: c7
+    level: SL
+    front: Give three advantages of compartmentalization in the cytoplasm.
+    back: Enzymes and substrates are concentrated, so reactions are faster; incompatible processes are kept apart (e.g. lysosomal hydrolases away from the cell's macromolecules); each compartment can have its own optimal conditions, such as pH 4.5–5 in lysosomes.
+  - id: c8
+    level: SL
+    front: How does a phagocyte digest a bacterium without digesting itself?
+    back: It engulfs the bacterium by endocytosis into a phagocytic vacuole. Lysosomes fuse with the vacuole, so their hydrolytic enzymes digest the bacterium inside it. The small products are then absorbed into the cytoplasm.
+  - id: c9
+    level: AHL
+    front: List four adaptations of the mitochondrion for ATP production.
+    back: A double membrane; a small intermembrane space, so a high proton concentration builds up quickly; cristae, giving a large surface area for electron transport chains and ATP synthase; a matrix in which the enzymes and substrates of the link reaction and Krebs cycle are concentrated.
+  - id: c10
+    level: AHL
+    front: List three adaptations of the chloroplast for photosynthesis.
+    back: A large surface area of thylakoid membranes (stacked in grana) carrying photosystems and ATP synthase; a small volume of fluid inside each thylakoid, so protons quickly reach a high concentration; Calvin cycle enzymes such as Rubisco and their substrates concentrated in the stroma.
+  - id: c11
+    level: AHL
+    front: Where do protons accumulate, and where is ATP made, in mitochondria and chloroplasts?
+    back: Mitochondria pump protons into the intermembrane space and make ATP in the matrix. Chloroplasts move protons into the thylakoid lumen and make ATP in the stroma.
+  - id: c12
+    level: AHL
+    front: What are the two functional benefits of the double membrane of the nucleus?
+    back: Pores can be formed by joining the outer and inner membranes; and the envelope can break up into vesicles during mitosis and meiosis, releasing the chromosomes, then be rebuilt around each daughter nucleus.
+  - id: c13
+    level: AHL
+    front: What moves through nuclear pores in each direction?
+    back: Out of the nucleus — mRNA and ribosome subunits. Into the nucleus — proteins made in the cytoplasm, such as histones and DNA and RNA polymerases, and nucleotides.
+  - id: c14
+    level: AHL
+    front: Contrast free ribosomes with ribosomes on the rough ER.
+    back: Both are identical 80S ribosomes. Free ribosomes make proteins that stay in the cytosol. Bound ribosomes, directed to the RER by a signal sequence, make proteins that enter the ER lumen, for secretion or transport to lysosomes and membranes.
+  - id: c15
+    level: AHL
+    front: Describe the structure of the Golgi apparatus and how it processes proteins.
+    back: A stack of separate, flattened, curved cisternae. Vesicles from the RER fuse with the convex cis face; enzymes modify the proteins (e.g. adding carbohydrate, cutting proinsulin to insulin) as they pass towards the concave trans face, where vesicles bud off.
+  - id: c16
+    level: AHL
+    front: Give the route of a secreted protein from ribosome to outside the cell.
+    back: Ribosome on the rough ER → RER lumen → transport vesicle → cis face of the Golgi → cisternae → trans face → secretory vesicle → fusion with the plasma membrane (exocytosis).
+  - id: c17
+    level: AHL
+    front: How does clathrin help a vesicle to form?
+    back: Receptors in the membrane bind cargo; three-legged clathrin molecules assemble into a curved lattice on the cytoplasmic side, pulling the membrane into a coated pit; the pit pinches off as a coated vesicle, and the coat is then removed and the clathrin reused.

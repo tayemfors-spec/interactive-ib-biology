@@ -1,0 +1,201 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: B2.2.1
+    stem: Which of these structures is not considered to be an organelle?
+    options:
+      - id: a
+        text: Ribosome
+        why: Ribosomes have no membrane, but they are discrete structures adapted for a specific function (translation), so they are organelles.
+      - id: b
+        text: Plasma membrane
+        why: The plasma membrane is a discrete structure with specific functions, such as controlling what enters and leaves the cell, so it counts as an organelle.
+      - id: c
+        text: Cytoskeleton
+        why: Correct. The cytoskeleton is a network of protein fibres running through the whole cytoplasm, so it is not a discrete subunit of the cell.
+      - id: d
+        text: Vesicle
+        why: A vesicle is a small, separate sac of membrane with a specific job (carrying materials), so it is an organelle.
+    answer: c
+
+  - id: q2
+    level: SL
+    understanding: B2.2.1
+    stem: >-
+      Liver tissue was homogenized in a cold, isotonic, buffered solution and centrifuged. Pellet P1 was
+      collected after 10 minutes at 1,000 × g. The supernatant was spun for 20 minutes at 20,000 × g to give
+      pellet P2, then for 3 hours at 150,000 × g to give pellet P3, leaving supernatant S. Each fraction was
+      given pyruvate and oxygen. Which fraction would take up oxygen at the highest rate?
+    options:
+      - id: a
+        text: P1
+        why: The 1,000 × g pellet contains mainly nuclei, which do not carry out aerobic respiration. Only a few unbroken cells in it could use oxygen.
+      - id: b
+        text: P2
+        why: Correct. Mitochondria sediment at about 20,000 × g, and they oxidize pyruvate (link reaction and Krebs cycle), using oxygen in the electron transport chain.
+      - id: c
+        text: P3
+        why: The 150,000 × g pellet contains ribosomes, which carry out translation, not respiration, so they use no oxygen.
+      - id: d
+        text: S
+        why: The final supernatant is the cytosol. It contains the enzymes of glycolysis, but glycolysis does not use oxygen and the cytosol cannot oxidize pyruvate.
+    answer: b
+
+  - id: q3
+    level: SL
+    understanding: B2.2.2
+    stem: What is the advantage to a eukaryotic cell of carrying out transcription and translation in separate compartments?
+    options:
+      - id: a
+        text: Translation can begin before transcription has finished, so proteins are made faster.
+        why: This describes prokaryotes, which have no nucleus. The nuclear envelope prevents it from happening in eukaryotes.
+      - id: b
+        text: DNA cannot leave the nucleus, so it cannot be translated by ribosomes by mistake.
+        why: DNA is never translated; ribosomes translate mRNA. The advantage concerns the mRNA, not the DNA.
+      - id: c
+        text: Ribosome subunits can be made in the cytoplasm, where they are needed.
+        why: Ribosome subunits are made in the nucleolus, inside the nucleus, and then exported through the pores.
+      - id: d
+        text: Pre-mRNA can be modified, for example by removing introns, before it reaches the ribosomes.
+        why: Correct. Ribosomes are only in the cytoplasm, so mRNA is fully processed in the nucleus before it can be translated.
+    answer: d
+
+  - id: q4
+    level: SL
+    understanding: B2.2.3
+    stem: >-
+      Lysosomal enzymes have an optimum pH of about 5. The inside of a lysosome is kept at about pH 4.8 and
+      the cytosol at about pH 7.2. A few lysosomes burst inside a cell. Which is the best explanation of why
+      little damage is done to the cell?
+    options:
+      - id: a
+        text: At pH 7.2 the released enzymes are much less active than at their optimum pH.
+        why: Correct. Keeping the enzymes in a compartment with its own low pH means that, if they escape, they work only slowly at the near-neutral pH of the cytosol.
+      - id: b
+        text: The cytosol contains no proteins or other macromolecules for the enzymes to digest.
+        why: The cytosol is full of proteins, nucleic acids and other macromolecules. That is exactly why the enzymes are normally kept inside lysosomes.
+      - id: c
+        text: Lysosomal enzymes can only work while they are enclosed by a membrane.
+        why: The membrane does not activate the enzymes; it separates them from the rest of the cell and allows the inside to be kept acidic.
+      - id: d
+        text: The enzymes are immediately taken back into lysosomes by exocytosis.
+        why: Exocytosis releases materials out of a cell; it does not move enzymes from the cytosol into lysosomes.
+    answer: a
+
+  - id: q5
+    level: AHL
+    understanding: B2.2.4
+    stem: Why is the small volume of the intermembrane space an adaptation of the mitochondrion for ATP production?
+    options:
+      - id: a
+        text: It concentrates the enzymes and substrates of the Krebs cycle.
+        why: The Krebs cycle enzymes are concentrated in the matrix, not in the intermembrane space.
+      - id: b
+        text: Pumping relatively few protons into it produces a steep proton concentration gradient quickly.
+        why: Correct. In a small volume a high proton concentration builds up rapidly, providing the gradient that drives ATP synthase.
+      - id: c
+        text: It gives a large surface area for the electron transport chains.
+        why: Surface area for the electron transport chain is provided by the cristae (folds of the inner membrane), not by the space between the membranes.
+      - id: d
+        text: It is where ATP synthase makes ATP from ADP and phosphate.
+        why: ATP synthase's head projects into the matrix, so ATP is made in the matrix as protons flow back into it.
+    answer: b
+
+  - id: q6
+    level: AHL
+    understanding: B2.2.5
+    stem: Which pairing of a chloroplast structure with its adaptation for photosynthesis is correct?
+    options:
+      - id: a
+        text: Grana — stacked thylakoids that give a large surface area for the enzymes of the Calvin cycle
+        why: Grana give a large membrane area for photosystems and the light-dependent reactions. The Calvin cycle enzymes are dissolved in the stroma.
+      - id: b
+        text: Thylakoid lumen — a large volume so that many protons can be stored
+        why: The lumen is very small, and that is the point — a high proton concentration builds up after relatively few photons are absorbed.
+      - id: c
+        text: Inner membrane of the envelope — holds the photosystems that absorb light
+        why: The photosystems are in the thylakoid membranes, a separate membrane system inside the stroma, not in the envelope.
+      - id: d
+        text: Stroma — contains a high concentration of Rubisco and the substrates of the Calvin cycle
+        why: Correct. Compartmentalizing these enzymes and substrates in the stroma keeps their concentrations high, so the light-independent reactions are fast.
+    answer: d
+
+  - id: q7
+    level: AHL
+    understanding: B2.2.6
+    stem: In a cell that is making proteins, which molecules must pass out of the nucleus through the nuclear pores?
+    options:
+      - id: a
+        text: mRNA and ribosome subunits
+        why: Correct. Both are made in the nucleus (ribosome subunits in the nucleolus) but are needed for translation in the cytoplasm.
+      - id: b
+        text: DNA and mRNA
+        why: DNA stays in the nucleus. Only the mRNA copies of genes leave.
+      - id: c
+        text: Histones and RNA polymerase
+        why: These proteins are made by ribosomes in the cytoplasm and must pass into the nucleus, not out of it.
+      - id: d
+        text: Polypeptides made by ribosomes inside the nucleus
+        why: Translation does not happen inside the nucleus. Polypeptides are made by ribosomes in the cytoplasm.
+    answer: a
+
+  - id: q8
+    level: AHL
+    understanding: B2.2.7
+    stem: Which protein is most likely to be made by free ribosomes rather than by ribosomes bound to the rough ER?
+    options:
+      - id: a
+        text: Insulin, secreted by β cells of the pancreas
+        why: Secreted proteins are made by ribosomes on the rough ER and enter its lumen, then pass through the Golgi apparatus.
+      - id: b
+        text: A hydrolytic enzyme found inside lysosomes
+        why: Lysosomal enzymes are transported within the cell to an organelle, so they are made on the rough ER and sorted by the Golgi apparatus.
+      - id: c
+        text: An enzyme of glycolysis, which works in the cytosol
+        why: Correct. Proteins that are retained in the cytosol are made by free ribosomes and released straight into the cytosol.
+      - id: d
+        text: A receptor protein in the plasma membrane
+        why: Membrane proteins are made by ribosomes on the rough ER, inserted into the ER membrane and carried to the plasma membrane in vesicles.
+    answer: c
+
+  - id: q9
+    level: AHL
+    understanding: B2.2.8
+    stem: >-
+      Pancreatic cells were given radioactive amino acids for 3 minutes, then only non-radioactive ones.
+      The percentage of the radioactive protein found in three compartments, X, Y and Z, was measured
+      (simplified data). After 3 minutes — X 85%, Y 5%, Z 2%. After 20 minutes — X 20%, Y 60%, Z 15%.
+      After 120 minutes — X 5%, Y 15%, Z 75%. What are X, Y and Z?
+    options:
+      - id: a
+        text: X Golgi apparatus, Y rough ER, Z secretory vesicles
+        why: This reverses the first two steps. Proteins are made by ribosomes on the rough ER, so radioactivity appears there first, before the Golgi.
+      - id: b
+        text: X rough ER, Y Golgi apparatus, Z secretory vesicles
+        why: Correct. The label appears first where the proteins are made (rough ER), moves to the Golgi apparatus for processing, then accumulates in secretory vesicles.
+      - id: c
+        text: X free ribosomes, Y nucleus, Z Golgi apparatus
+        why: Secretory proteins are made on the rough ER, not on free ribosomes, and proteins on the secretory pathway never pass through the nucleus.
+      - id: d
+        text: X rough ER, Y secretory vesicles, Z Golgi apparatus
+        why: Secretory vesicles bud from the trans face of the Golgi, so proteins must pass through the Golgi before they reach the secretory vesicles.
+    answer: b
+
+  - id: q10
+    level: AHL
+    understanding: B2.2.9
+    stem: What is the role of clathrin in the formation of vesicles?
+    options:
+      - id: a
+        text: It forms a lattice on the cytoplasmic face of a membrane that pulls the membrane into a bud.
+        why: Correct. Clathrin molecules link into a curved cage that shapes a patch of membrane into a coated pit, which pinches off as a vesicle.
+      - id: b
+        text: It is a motor protein that carries vesicles along microtubules to their target.
+        why: Vesicles are moved by separate motor proteins. Clathrin only helps the vesicle to form, and its coat is removed soon afterwards.
+      - id: c
+        text: It binds cargo molecules outside the cell and carries them through the membrane.
+        why: Cargo is bound by receptor proteins in the membrane. Clathrin is on the cytoplasmic side and never touches the cargo.
+      - id: d
+        text: It forms a permanent coat that the vesicle keeps until it fuses with its target.
+        why: The clathrin coat is removed shortly after the vesicle has formed, and the clathrin is reused for new pits.
+    answer: a

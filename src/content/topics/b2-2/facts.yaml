@@ -1,0 +1,202 @@
+facts:
+  - id: f1
+    claim: Organelles are discrete subunits of cells adapted for specific functions; nuclei, vesicles, ribosomes
+      and the plasma membrane are organelles; the cell wall, cytoskeleton and cytoplasm are not.
+    where: [ "index.mdx#organelles", "index.mdx (mustKnow, mistakes)", "quiz.yaml:q1", "flashcards.yaml:c1,c2" ]
+    confidence: high
+    basis: IB guide B2.2.1 (explicit list); reasons (extracellular wall, non-discrete cytoskeleton, diverse
+      functions of cytoplasm) follow the IB study guide's reasoning
+    status: checked
+  - id: f2
+    claim: Fractionation solution is cold (slows autolytic enzymes), isotonic (prevents osmotic damage to
+      organelles) and buffered (prevents pH change denaturing proteins).
+    where: [ "index.mdx#organelles", "flashcards.yaml:c3", "index.mdx (mustKnow)" ]
+    confidence: high
+    basis: Standard practical biology texts (e.g. Campbell; A-level/IB practical guidance)
+    status: checked
+  - id: f3
+    claim: Typical differential centrifugation values — about 1,000 × g 10 min (nuclei), 20,000 × g 20 min
+      (mitochondria, chloroplasts), 80,000 × g 60 min (microsomes — ER and plasma membrane fragments),
+      150,000 × g 3 h (ribosomes).
+    where: [ "index.mdx#organelles", "quiz.yaml:q2", "flashcards.yaml:c4", "index.mdx (mistakes)" ]
+    confidence: medium
+    basis: Campbell Biology (cell fractionation figure); values vary between protocols, so presented as typical
+    status: open
+  - id: f4
+    claim: The ultracentrifuge was developed in the 1920s (Svedberg) and cell fractionation methods from the
+      1930s onwards; fractionation showed isolated mitochondria carry out aerobic respiration and led to the
+      discovery of lysosomes in the 1950s through latent enzyme activity that rose when membranes were damaged.
+    where: [ "index.mdx#organelles (NOS callout)" ]
+    confidence: medium
+    basis: History of cell biology (Svedberg 1924–26; Claude, de Duve, Palade, Nobel 1974; Kennedy and
+      Lehninger 1949; de Duve's acid phosphatase latency, lysosome named 1955)
+    status: open
+  - id: f5
+    claim: Transcription occurs in the nucleus and translation in the cytoplasm; pre-mRNA has introns removed
+      and its ends modified (5′ cap, poly-A tail) before export through nuclear pores; ribosomes do not
+      translate mRNA inside the nucleus.
+    where: [ "index.mdx#nucleus-cytoplasm", "quiz.yaml:q3", "flashcards.yaml:c5", "visuals.yaml:organelles nucleus mrna/free/envelope", "diagrams/b2-2-transcription" ]
+    confidence: high
+    basis: Alberts; IB guide B2.2.2. (Claims of minor nuclear translation exist in the literature but are
+      not accepted textbook biology.)
+    status: checked
+  - id: f6
+    claim: In prokaryotes ribosomes can translate mRNA while it is still being transcribed; most bacterial
+      genes have no introns.
+    where: [ "index.mdx#nucleus-cytoplasm", "flashcards.yaml:c6", "diagrams/b2-2-transcription", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: Coupled transcription–translation (Miller spreads of E. coli, 1970); Alberts
+    status: checked
+  - id: f7
+    claim: Lysosomes contain dozens of hydrolytic enzymes (proteases, lipases, nucleases, carbohydrases) with
+      acidic pH optima; the lumen is kept at about pH 4.5–5 by ATP-driven proton pumps; cytosol is about
+      pH 7.2; leaked enzymes are much less active at cytosolic pH.
+    where: [ "index.mdx#compartments", "quiz.yaml:q4", "flashcards.yaml:c7", "diagrams/b2-2-compartments", "index.mdx (mustKnow, mistakes)" ]
+    confidence: high
+    basis: Alberts (lysosomes; V-type H⁺-ATPase); quiz values (optimum ≈ 5, lumen 4.8) are illustrative
+    status: checked
+  - id: f8
+    claim: Fatty acid synthesis happens in the cytosol while fatty acid breakdown (β-oxidation) happens in
+      mitochondria, an example of keeping opposing pathways apart.
+    where: [ "index.mdx#compartments" ]
+    confidence: high
+    basis: Standard biochemistry (Berg, Stryer; Lehninger)
+    status: checked
+  - id: f9
+    claim: Macrophages and neutrophils engulf bacteria by endocytosis into phagocytic vacuoles; lysosomes fuse
+      with the vacuole and digest the bacterium inside it; products are absorbed into the cytoplasm; Amoeba
+      uses food vacuoles in the same way.
+    where: [ "index.mdx#compartments", "flashcards.yaml:c8", "diagrams/b2-2-compartments" ]
+    confidence: high
+    basis: Standard immunology/cell biology; IB guide B2.2.3 named example
+    status: checked
+  - id: f10
+    claim: Mitochondrial adaptations — double membrane, small intermembrane space (protons reach high
+      concentration quickly), cristae (large area for ETC and ATP synthase), matrix (link reaction and Krebs
+      enzymes and substrates concentrated); ETC pumps H⁺ from matrix to IMS; ATP synthase head in the matrix,
+      ATP made in the matrix; inner membrane impermeable to protons, which return mainly via ATP synthase.
+    where: [ "index.mdx#mitochondrion", "quiz.yaml:q5", "flashcards.yaml:c9,c11", "visuals.yaml:organelles mitochondrion", "index.mdx (mustKnow, mistakes)" ]
+    confidence: high
+    basis: IB guide B2.2.4; Alberts (chemiosmosis; proton leak and uncoupling proteins explain "mainly")
+    status: checked
+  - id: f11
+    claim: Mitochondria and chloroplasts contain 70S ribosomes and naked circular DNA and make some of their own
+      proteins; most of their proteins are coded by nuclear genes and imported; chloroplast DNA codes the large
+      subunit of Rubisco.
+    where: [ "index.mdx#mitochondrion", "index.mdx#chloroplast", "visuals.yaml:organelles mitochondrion/chloroplast ribosomes, dna" ]
+    confidence: high
+    basis: Alberts; rbcL is chloroplast-encoded. Mammalian mitochondrial ribosomes are ≈55S, but IB uses 70S
+      (as on the A2.2 page)
+    status: checked
+  - id: f12
+    claim: Chloroplast adaptations — large thylakoid membrane area (grana) with photosystems, electron carriers
+      and ATP synthase; small thylakoid lumen so a high proton concentration builds after relatively few photons;
+      Calvin cycle enzymes (Rubisco) and substrates concentrated in stroma; protons accumulate in the lumen and
+      ATP is made in the stroma.
+    where: [ "index.mdx#chloroplast", "quiz.yaml:q6", "flashcards.yaml:c10,c11", "visuals.yaml:organelles chloroplast", "index.mdx (mustKnow, mistakes)" ]
+    confidence: high
+    basis: IB guide B2.2.5; Alberts; Taiz and Zeiger (Plant Physiology)
+    status: checked
+  - id: f13
+    claim: In the 3D chloroplast, ATP synthase and some photosystems are drawn on stroma lamellae and the ends of
+      grana (unstacked membrane); PSII is in fact concentrated in the stacked membranes inside grana and PSI and
+      ATP synthase in unstacked membranes. Labels say only "in the thylakoid membranes".
+    where: [ "scenes/b2-2-chloroplast.ts", "visuals.yaml:organelles chloroplast photosystem, atp-synthase" ]
+    confidence: high
+    basis: Lateral heterogeneity of thylakoid membranes (Andersson and Anderson 1980)
+    status: checked
+  - id: f14
+    claim: Starch is insoluble and so osmotically inactive; it is a store of sugar made by the Calvin cycle.
+    where: [ "index.mdx#chloroplast", "visuals.yaml:organelles chloroplast starch" ]
+    confidence: high
+    basis: Standard plant biology
+    status: checked
+  - id: f15
+    claim: The nuclear envelope is two membranes with a perinuclear space a few tens of nanometres wide; the outer
+      membrane is continuous with the RER and carries ribosomes; the perinuclear space is continuous with the ER
+      lumen; the inner membrane is lined by the nuclear lamina and has no ribosomes.
+    where: [ "index.mdx#nuclear-envelope", "visuals.yaml:organelles nucleus outer/inner/space/rer", "diagrams/b2-2-nucleus" ]
+    confidence: high
+    basis: Alberts (nuclear envelope; perinuclear space typically ≈ 20–50 nm, so stated loosely)
+    status: checked
+  - id: f16
+    claim: At nuclear pores the inner and outer membranes are fused; each pore holds a nuclear pore complex of
+      many proteins with eightfold symmetry; a typical mammalian nucleus has a few thousand pores; small molecules
+      diffuse through while large molecules are transported selectively.
+    where: [ "index.mdx#nuclear-envelope", "visuals.yaml:organelles nucleus pore/complex", "scenes/b2-2-nucleus.ts" ]
+    confidence: high
+    basis: Alberts; pore counts vary (≈ 2,000–5,000 in mammalian cells)
+    status: checked
+  - id: f17
+    claim: mRNA and ribosome subunits leave the nucleus through pores; histones, DNA and RNA polymerases,
+      ribosomal proteins and nucleotides enter.
+    where: [ "index.mdx#nuclear-envelope", "quiz.yaml:q7", "flashcards.yaml:c13", "visuals.yaml:organelles nucleus pore" ]
+    confidence: high
+    basis: Alberts (nuclear transport). tRNA also leaves; not mentioned to keep the quiz unambiguous
+    status: checked
+  - id: f18
+    claim: The nuclear envelope breaks into vesicles at the end of prophase in mitosis and meiosis, releasing the
+      chromosomes, and is rebuilt from the vesicles around the daughter nuclei in telophase; in many animal
+      cells the membrane is actually absorbed into the ER network.
+    where: [ "index.mdx#nuclear-envelope", "flashcards.yaml:c12", "index.mdx (accuracy note)" ]
+    confidence: medium
+    basis: IB guide B2.2.6 wording (vesicles); Ellenberg et al. 1997 and later work on ER absorption of the
+      nuclear envelope. Teacher to confirm the wording of the accuracy note is acceptable
+    status: open
+  - id: f19
+    claim: Free and bound ribosomes are identical 80S (60S + 40S) ribosomes; a signal sequence directs a
+      ribosome to the RER; free ribosomes make proteins retained in the cytosol; bound ribosomes make proteins
+      for secretion, lysosomes and membranes.
+    where: [ "index.mdx#ribosomes-rer", "quiz.yaml:q8", "flashcards.yaml:c14", "visuals.yaml:organelles secretory", "visuals.yaml:secretion step 1", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: Alberts (signal hypothesis, Blobel); IB guide B2.2.7. Simplified — free ribosomes also make proteins
+      imported into the nucleus, mitochondria and chloroplasts; not stated
+    status: checked
+  - id: f20
+    claim: Pancreatic cells secreting digestive enzymes and plasma cells secreting antibodies have extensive
+      rough ER; β cells store insulin in secretory vesicles and release it when blood glucose rises.
+    where: [ "index.mdx#ribosomes-rer", "index.mdx#golgi", "visuals.yaml:organelles secretory secretory" ]
+    confidence: high
+    basis: Standard histology and physiology
+    status: checked
+  - id: f21
+    claim: The Golgi apparatus is a stack of usually about four to eight separate cisternae in animal cells, with
+      a convex cis face towards the ER and a concave trans face towards the plasma membrane; enzymes in the
+      cisternae modify proteins (glycosylation, cleavage); proinsulin is cleaved to insulin as it leaves the
+      Golgi in secretory vesicles.
+    where: [ "index.mdx#golgi", "flashcards.yaml:c15", "visuals.yaml:organelles secretory cis/trans/golgi", "anims/b2-2-secretion" ]
+    confidence: medium
+    basis: Alberts (Golgi; proinsulin processing in immature secretory granules); cisterna numbers vary widely
+      between cell types and the cis/trans curvature convention is the usual textbook depiction
+    status: open
+  - id: f22
+    claim: Pulse-chase experiments (Jamieson and Palade, 1960s) on pancreatic cells showed radioactive protein
+      moving from rough ER to Golgi to secretory vesicles to outside the cell. Quiz q9 percentages are
+      simplified, invented values.
+    where: [ "index.mdx#golgi (note)", "quiz.yaml:q9" ]
+    confidence: high
+    basis: Jamieson and Palade (1967), J Cell Biol
+    status: checked
+  - id: f23
+    claim: Clathrin is a three-legged protein (triskelion) that assembles into a lattice of hexagons and pentagons
+      on the cytoplasmic face; receptors bind cargo (e.g. LDL); the coated pit pinches off as a coated vesicle;
+      the coat is removed soon afterwards and clathrin reused; clathrin vesicles also form at the trans-Golgi
+      (to lysosomes/endosomes); ER vesicles use different coats (COPII).
+    where: [ "index.mdx#vesicles", "quiz.yaml:q10", "flashcards.yaml:c17", "anims/b2-2-secretion", "index.mdx (mustKnow, mistakes)" ]
+    confidence: high
+    basis: Alberts (coated vesicles; dynamin, Hsc70 uncoating); IB guide B2.2.9
+    status: checked
+  - id: f24
+    claim: Vesicles are moved along microtubules by motor proteins and deliver membrane to the plasma membrane
+      when they fuse.
+    where: [ "index.mdx#vesicles", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: Alberts (kinesin, dynein)
+    status: checked
+  - id: f25
+    claim: Proportions in the 3D scenes and diagrams are schematic — membrane gaps, pores, ribosomes and proteins
+      are drawn far larger than real; nucleus typically 5–10 µm across.
+    where: [ "visuals.yaml:organelles description", "diagrams/b2-2-nucleus note" ]
+    confidence: medium
+    basis: Nuclear diameter varies widely between cell types; 5–10 µm is a common textbook range
+    status: open
