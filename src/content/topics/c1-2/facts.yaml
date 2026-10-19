@@ -1,0 +1,193 @@
+facts:
+  - id: f1
+    claim: ATP (adenosine triphosphate) is a nucleotide made of adenine, ribose and three phosphate groups; the phosphate chain is attached to carbon 5′ of ribose and adenine (N9) to carbon 1′.
+    where: ["index.mdx#atp", "visuals.yaml:respiration/atp", "diagrams/c1-2-atp", "flashcards.yaml:c1", "quiz.yaml:q1"]
+    confidence: high
+    basis: Standard biochemistry (Berg, Biochemistry; Alberts); IB guide C1.2.1
+    status: checked
+  - id: f2
+    claim: ATP is soluble, stable at cytoplasmic pH without enzymes, charged so it cannot diffuse through the phospholipid bilayer, and releases an amount of energy on hydrolysis suited to many cell tasks.
+    where: ["index.mdx#atp", "flashcards.yaml:c2", "quiz.yaml:q1"]
+    confidence: high
+    basis: Alberts; IB guide C1.2.1 asks for these properties
+    status: checked
+  - id: f3
+    claim: Hydrolysis of ATP (using water) to ADP + Pi releases energy; condensation of ADP + Pi to ATP (releasing water) requires energy. In hydrolysis the oxygen from water is incorporated into the released phosphate.
+    where: ["index.mdx#atp", "visuals.yaml:respiration/atp steps", "diagrams/c1-2-atp", "flashcards.yaml:c4"]
+    confidence: high
+    basis: Berg, Biochemistry; ¹⁸O-labelling studies of ATP hydrolysis by ATPases (water oxygen ends up in Pi)
+    status: checked
+  - id: f4
+    claim: Energy is released by the hydrolysis reaction as a whole, not by breaking a "high-energy bond" (bond breaking requires energy).
+    where: ["index.mdx (mistakes)"]
+    confidence: high
+    basis: Standard thermodynamics teaching; Alberts
+    status: checked
+  - id: f5
+    claim: Cells store little ATP; in contracting muscle the store lasts only a few seconds. A resting human turns over roughly their own body mass of ATP per day.
+    where: ["index.mdx#atp-uses", "visuals.yaml:respiration/atp adp label (recycled many times a day)"]
+    confidence: medium
+    basis: Widely quoted estimate (e.g. Alberts; Törnroth-Horsefield & Neutze 2008 give ~body mass/day); muscle ATP store ~2–3 s of maximal effort
+    status: open
+  - id: f6
+    claim: The sodium–potassium pump moves 3 Na⁺ out and 2 K⁺ in per ATP.
+    where: ["index.mdx#atp-uses"]
+    confidence: high
+    basis: Alberts; consistent with B2.1 page
+    status: checked
+  - id: f7
+    claim: Glucose and fatty acids are the principal respiratory substrates; amino acids can also be respired.
+    where: ["index.mdx#respiration"]
+    confidence: high
+    basis: IB guide C1.2.4; Berg
+    status: checked
+  - id: f8
+    claim: Human anaerobic respiration uses glucose only, needs no O₂ or mitochondria, yields 2 ATP per glucose and produces lactate (no CO₂). Aerobic respiration can use carbohydrate or lipid and yields far more ATP, producing CO₂ and water.
+    where: ["index.mdx#aerobic-anaerobic", "diagrams/c1-2-aerobic-anaerobic", "quiz.yaml:q3", "flashcards.yaml:c6 c7", "index.mdx (mustKnow)"]
+    confidence: high
+    basis: IB guide C1.2.5; Berg
+    status: checked
+  - id: f9
+    claim: Mature red blood cells have no mitochondria and depend on anaerobic respiration (glycolysis to lactate).
+    where: ["index.mdx#aerobic-anaerobic"]
+    confidence: high
+    basis: Standard physiology (Berg; Guyton)
+    status: checked
+  - id: f10
+    claim: Much of the lactate produced in exercise is converted back to glucose in the liver (Cori cycle), using extra oxygen after exercise.
+    where: ["index.mdx#aerobic-anaerobic"]
+    confidence: high
+    basis: Berg (Cori cycle); simplified for IB
+    status: checked
+  - id: f11
+    claim: In a respirometer with KOH or soda lime, CO₂ is absorbed so the fall in gas volume equals O₂ uptake; volume = πr²d; a control tube (glass beads / boiled seeds) corrects for temperature and pressure changes.
+    where: ["index.mdx#rate", "visuals.yaml:respirometer", "sims/c1-2-respirometer", "quiz.yaml:q4", "flashcards.yaml:c8 c9"]
+    confidence: high
+    basis: Standard practical (IB guide C1.2.6; school practical guides)
+    status: checked
+  - id: f12
+    claim: Without a CO₂ absorber the drop hardly moves for seeds respiring carbohydrate, because the respiratory quotient is about 1 (CO₂ released ≈ O₂ used).
+    where: ["sims/c1-2-respirometer", "models/c1-2-respirometer"]
+    confidence: high
+    basis: RQ of carbohydrate = 1.0 (Berg; plant physiology texts). Fat-rich seeds have RQ < 1, so this is a simplification
+    status: checked
+  - id: f13
+    claim: Respirometer sim values are illustrative — 0.3 mm³ O₂ g⁻¹ min⁻¹ at 20 °C, Q10 ≈ 2, falling above ~40 °C (optimum ~35–37 °C).
+    where: ["models/c1-2-respirometer", "sims/c1-2-respirometer"]
+    confidence: medium
+    basis: Order of magnitude for germinating seeds; Q10 of 2–3 typical of enzyme-catalysed processes; labelled as a qualitative model on screen
+    status: open
+  - id: f14
+    claim: Worked example — 28 mm in 8 min, r = 0.5 mm → 22.0 mm³, 2.75 mm³ min⁻¹, 0.55 mm³ g⁻¹ min⁻¹ for 5 g. Quiz q4 — 24 mm in 6 min → 18.8 mm³ → 3.1 mm³ min⁻¹ (diameter error gives 12.6).
+    where: ["index.mdx#rate", "quiz.yaml:q4"]
+    confidence: high
+    basis: Arithmetic checked (0.7854 × 28 = 21.99; 0.7854 × 24 = 18.85; 3.1416 × 1 × 24 / 6 = 12.57)
+    status: checked
+  - id: f15
+    claim: Oxidation is loss of electrons; dehydrogenation is therefore oxidation; NAD (nicotinamide adenine dinucleotide) is reduced by accepting hydrogen (NAD⁺ + 2H → NADH + H⁺).
+    where: ["index.mdx#nad", "flashcards.yaml:c10", "index.mdx (mustKnow)"]
+    confidence: high
+    basis: Berg; IB guide C1.2.7. (The study guide's spelling "nicotine adenine dinucleotide" on p.30 is an error; it is nicotinamide.)
+    status: checked
+  - id: f16
+    claim: Glycolysis occurs in the cytoplasm, has about ten enzyme-catalysed steps, and per glucose uses 2 ATP, makes 4 ATP (net 2), reduces 2 NAD and gives 2 pyruvate; stages are phosphorylation (hexose bisphosphate), lysis (two triose phosphates), oxidation, ATP formation.
+    where: ["index.mdx#glycolysis", "visuals.yaml:stages steps 1–4", "visuals.yaml:respiration/mitochondrion glycolysis", "quiz.yaml:q5", "flashcards.yaml:c11"]
+    confidence: high
+    basis: Berg; IB guide C1.2.8
+    status: checked
+  - id: f17
+    claim: In humans pyruvate is reduced to lactate by reduced NAD, regenerating NAD; net yield 2 ATP per glucose, and the lactate step makes no ATP.
+    where: ["index.mdx#anaerobic", "visuals.yaml:anaerobic", "quiz.yaml:q6", "flashcards.yaml:c12"]
+    confidence: high
+    basis: Berg (lactate dehydrogenase); IB guide C1.2.9
+    status: checked
+  - id: f18
+    claim: In yeast pyruvate is decarboxylated to ethanal (CO₂ released), and ethanal is reduced to ethanol by reduced NAD, regenerating NAD; net 2 ATP per glucose.
+    where: ["index.mdx#anaerobic", "visuals.yaml:anaerobic", "quiz.yaml:q6", "flashcards.yaml:c13"]
+    confidence: high
+    basis: Berg (pyruvate decarboxylase, alcohol dehydrogenase); IB guide C1.2.10
+    status: checked
+  - id: f19
+    claim: Baking — Saccharomyces cerevisiae in dough; CO₂ makes dough rise and ethanol evaporates during baking. Brewing — sugars from malted barley (beer) or grape juice (wine) fermented to ethanol; CO₂ escapes via an airlock or is retained for fizz.
+    where: ["index.mdx#anaerobic", "visuals.yaml:anaerobic step uses"]
+    confidence: high
+    basis: Standard food microbiology texts
+    status: checked
+  - id: f20
+    claim: Fermentation stops when sugar runs out or ethanol becomes toxic to the yeast, at about 15% for most wine yeasts.
+    where: ["index.mdx#anaerobic"]
+    confidence: medium
+    basis: Typical wine yeast tolerance 12–15% (some strains higher); study guide also quotes ~15%
+    status: open
+  - id: f21
+    claim: Link reaction in the matrix — pyruvate decarboxylated and oxidized (NAD reduced); the acetyl group (2C) is attached to coenzyme A; fatty acids are also broken down to acetyl CoA in the matrix.
+    where: ["index.mdx#link-krebs", "visuals.yaml:stages link", "visuals.yaml:respiration/mitochondrion link", "flashcards.yaml:c14"]
+    confidence: high
+    basis: Berg (pyruvate dehydrogenase complex; β-oxidation); IB guide C1.2.11
+    status: checked
+  - id: f22
+    claim: Krebs cycle — acetyl (2C) + oxaloacetate (4C) → citrate (6C); per turn two decarboxylations (2 CO₂), four oxidations (3 NAD + 1 FAD reduced) and one ATP (GTP in some tissues) by substrate-level phosphorylation; two turns per glucose.
+    where: ["index.mdx#link-krebs", "visuals.yaml:stages krebs", "visuals.yaml:respiration/mitochondrion krebs", "quiz.yaml:q7", "flashcards.yaml:c15"]
+    confidence: high
+    basis: Berg; IB guide C1.2.12
+    status: checked
+  - id: f23
+    claim: Per glucose totals before the electron transport chain — 6 CO₂, 10 reduced NAD, 2 reduced FAD, 4 ATP (net).
+    where: ["index.mdx#link-krebs table", "visuals.yaml:stages", "anims/c1-2-stages ledger"]
+    confidence: high
+    basis: Berg (2 + 2 + 6 NADH; 2 FADH₂; 2 + 2 ATP/GTP; 2 + 4 CO₂)
+    status: checked
+  - id: f24
+    claim: Total ATP from aerobic respiration is about 30–32 per glucose; the figure is approximate (depends on shuttle used and H⁺/ATP ratio). Oxidative phosphorylation gives about 26–28.
+    where: ["index.mdx#chemiosmosis", "anims/c1-2-stages ledger", "visuals.yaml:stages", "index.mdx#aerobic-anaerobic (about 30 or more)"]
+    confidence: high
+    basis: Berg (≈30); Alberts (≈30); study guide 30–32; older texts give 36–38
+    status: checked
+  - id: f25
+    claim: Reduced NAD passes a pair of electrons to the first carrier of the chain and is reoxidized; reduced FAD enters later; electron flow powers proton pumping from the matrix into the intermembrane space.
+    where: ["index.mdx#etc", "visuals.yaml:respiration/mitochondrion etc", "flashcards.yaml:c16"]
+    confidence: high
+    basis: Berg; IB guide C1.2.13–14
+    status: checked
+  - id: f26
+    claim: ATP synthase — protons flow through the membrane part (c-ring rotor), turning the central stalk inside the non-rotating head (F1) in the matrix; conformational changes in the head's active sites make ATP from ADP + Pi.
+    where: ["index.mdx#chemiosmosis", "visuals.yaml:respiration/mitochondrion chemiosmosis", "scenes/c1-2-mitochondrion"]
+    confidence: high
+    basis: Boyer binding-change mechanism; Walker structures (Nobel 1997); Berg
+    status: checked
+  - id: f27
+    claim: Peter Mitchell proposed the chemiosmotic theory in 1961 and received the Nobel Prize in Chemistry in 1978.
+    where: ["index.mdx#chemiosmosis"]
+    confidence: high
+    basis: Mitchell, Nature 191:144 (1961); Nobel Prize records
+    status: checked
+  - id: f28
+    claim: Oxygen is the terminal electron acceptor; O₂ + 4e⁻ + 4H⁺ → 2H₂O using protons from the matrix. (The study guide's "O₂ + 2e⁻ + 2H⁺ → H₂O" is unbalanced.)
+    where: ["index.mdx#chemiosmosis", "visuals.yaml:respiration/mitochondrion oxygen", "flashcards.yaml:c17", "quiz.yaml:q9"]
+    confidence: high
+    basis: Berg (cytochrome c oxidase); IB guide C1.2.16
+    status: checked
+  - id: f29
+    claim: Cyanide blocks the final carrier (cytochrome c oxidase); DNP is an uncoupler that makes the inner membrane leaky to protons, so electron transport and O₂ use continue but ATP synthesis falls.
+    where: ["quiz.yaml:q8 q9"]
+    confidence: high
+    basis: Berg; standard pharmacology
+    status: checked
+  - id: f30
+    claim: Lipids release about 37 kJ g⁻¹ and carbohydrates about 17 kJ g⁻¹ (about twice as much per gram), because lipids contain less oxygen and more oxidizable C and H; palmitic acid is C₁₆H₃₂O₂.
+    where: ["index.mdx#substrates", "diagrams/c1-2-substrates", "quiz.yaml:q10", "flashcards.yaml:c18"]
+    confidence: high
+    basis: Atwater energy values (37 and 17 kJ g⁻¹); IB guide C1.2.17
+    status: checked
+  - id: f31
+    claim: Fatty acids are broken into 2C units in the mitochondrial matrix and enter as acetyl CoA, so they are respired only aerobically; glycerol can be converted to a glycolysis intermediate (dihydroxyacetone phosphate).
+    where: ["index.mdx#substrates", "diagrams/c1-2-substrates", "mistakes"]
+    confidence: high
+    basis: Berg (β-oxidation; glycerol kinase / glycerol 3-phosphate dehydrogenase). IB guide says glycolysis and anaerobic respiration occur only with carbohydrate substrate — glycerol mention is extra detail
+    status: open
+  - id: f32
+    claim: Cristae increase the area of the inner membrane for electron transport chains and ATP synthase; the space inside a crista is continuous with the intermembrane space; the matrix contains the link reaction and Krebs cycle enzymes, DNA and 70S ribosomes.
+    where: ["visuals.yaml:respiration/mitochondrion labels", "index.mdx#etc"]
+    confidence: high
+    basis: Alberts; IB guide B2.2.4 (mitochondrion adaptations)
+    status: checked

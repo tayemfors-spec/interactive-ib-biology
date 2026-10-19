@@ -1,0 +1,445 @@
+---
+code: C1.2
+description: "IB Biology C1.2 cell respiration revision: ATP in 3D, a respirometer simulation, glycolysis to chemiosmosis step by step, then self-test."
+updated: 2026-10-19
+related: [C1.1, C1.3, B2.2, C4.2]
+mustKnow:
+  - term: ATP (adenosine triphosphate)
+    definition: "A nucleotide made of adenine, the pentose sugar ribose and three phosphate groups. It is the molecule that distributes energy within cells: it is soluble, stable at the pH of the cytoplasm, cannot diffuse through membranes and releases a useful amount of energy when its terminal phosphate is removed."
+    level: SL
+  - term: ATP–ADP interconversion
+    definition: "Hydrolysis of ATP to ADP and phosphate (Pi) releases energy for cell processes. Making ATP from ADP and Pi (a condensation, or phosphorylation, reaction) requires energy, which comes from cell respiration."
+    level: SL
+  - term: Cell respiration
+    definition: "The controlled release of energy from organic compounds such as glucose and fatty acids in cells, used to produce ATP. It is a set of enzyme-catalysed reactions inside every living cell, not the same as breathing or gas exchange."
+    level: SL
+  - term: Aerobic vs anaerobic respiration (humans)
+    definition: "Aerobic respiration uses oxygen and mitochondria, can use carbohydrates or lipids and gives a large yield of ATP, with CO<sub>2</sub> and water as waste. Anaerobic respiration needs no oxygen, happens in the cytoplasm only, uses glucose and gives a small yield (2 ATP), with lactate as waste."
+    level: SL
+  - term: Respirometer
+    definition: "Apparatus for measuring the rate of respiration, usually from O<sub>2</sub> uptake: a CO<sub>2</sub> absorber (KOH or soda lime) is included so that any fall in gas volume is due to oxygen being used."
+    level: SL
+  - term: Oxidation, reduction and NAD
+    definition: "Oxidation is loss of electrons; removing hydrogen (dehydrogenation) is therefore oxidation. NAD accepts the hydrogen and is <strong>reduced</strong>. Oxidation and reduction always happen together (redox)."
+    level: AHL
+  - term: Glycolysis
+    definition: "A pathway in the cytoplasm that converts glucose (6C) into two pyruvate (3C) by phosphorylation, lysis, oxidation and ATP formation. Net yield per glucose: 2 ATP and 2 reduced NAD. It needs no oxygen."
+    level: AHL
+  - term: Link reaction and Krebs cycle
+    definition: "In the matrix, pyruvate is oxidized and decarboxylated to an acetyl group carried by coenzyme A. In the Krebs cycle acetyl (2C) + oxaloacetate (4C) → citrate (6C); two decarboxylations and four oxidations regenerate oxaloacetate, producing CO<sub>2</sub>, reduced NAD, reduced FAD and ATP."
+    level: AHL
+  - term: Electron transport chain and chemiosmosis
+    definition: "Electrons from reduced NAD pass along carriers in the inner mitochondrial membrane, and the energy released pumps protons into the intermembrane space. Protons diffuse back through <strong>ATP synthase</strong>, which uses their energy to phosphorylate ADP."
+    level: AHL
+  - term: Oxygen as terminal electron acceptor
+    definition: "At the end of the chain O<sub>2</sub> accepts electrons and protons from the matrix, forming water. This keeps electrons flowing; without oxygen, the chain, link reaction and Krebs cycle all stop."
+    level: AHL
+  - term: Lipids vs carbohydrates as substrates
+    definition: "Lipids release about twice as much energy per gram as carbohydrates because they contain less oxygen and more oxidizable carbon and hydrogen. Fatty acids enter respiration as acetyl CoA, so they can only be respired aerobically; only carbohydrate can be used in glycolysis and anaerobic respiration."
+    level: AHL
+mistakes:
+  - wrong: "Respiration is breathing, or the exchange of gases in the lungs."
+    right: "Cell respiration is a set of chemical reactions inside cells that releases energy from organic compounds to make ATP. Ventilation moves air in and out of the lungs, and gas exchange is the diffusion of O<sub>2</sub> and CO<sub>2</sub> across a surface; both serve respiration but are different processes."
+    level: SL
+  - wrong: "Respiration produces (creates) energy."
+    right: "Energy cannot be created. Respiration <strong>releases</strong> chemical energy from organic compounds and transfers part of it to ATP; the rest is lost as heat."
+    level: SL
+  - wrong: "ATP stores energy in a high-energy bond that releases energy when it breaks."
+    right: "Breaking any bond needs energy. Energy is released by the hydrolysis <strong>reaction</strong> as a whole, because ADP and phosphate together have less chemical energy than ATP and water."
+    level: SL
+  - wrong: "Anaerobic respiration in human muscle produces carbon dioxide (or ethanol)."
+    right: "In humans, anaerobic respiration produces <strong>lactate</strong> only, with no CO<sub>2</sub>. Ethanol and CO<sub>2</sub> are the products of anaerobic respiration in yeast."
+    level: SL
+  - wrong: "The drop in a respirometer moves because the organisms produce carbon dioxide."
+    right: "KOH or soda lime absorbs the CO<sub>2</sub>, so the gas volume falls by the volume of <strong>oxygen</strong> used, and the drop moves towards the organisms."
+    level: SL
+  - wrong: "Glycolysis produces 4 ATP per glucose."
+    right: "Glycolysis makes 4 ATP but uses 2 in phosphorylation, so the <strong>net</strong> yield is 2 ATP (and 2 reduced NAD) per glucose."
+    level: AHL
+  - wrong: "Oxygen is used in the Krebs cycle."
+    right: "Oxygen is only used at the end of the electron transport chain. The Krebs cycle stops without oxygen because reduced NAD cannot be reoxidized, so no NAD is available to accept hydrogen."
+    level: AHL
+  - wrong: "Converting pyruvate to lactate produces extra ATP."
+    right: "The lactate step produces no ATP. Its function is to regenerate NAD so that glycolysis can continue; all the ATP (net 2 per glucose) comes from glycolysis."
+    level: AHL
+  - wrong: "ATP synthase pumps protons into the intermembrane space."
+    right: "The electron carriers pump protons from the matrix <strong>into</strong> the intermembrane space. Protons then diffuse passively back into the matrix through ATP synthase, and this flow drives ATP synthesis."
+    level: AHL
+  - wrong: "Fatty acids are respired by glycolysis."
+    right: "Fatty acids are broken into 2C acetyl groups in the matrix and enter as acetyl CoA, so they can only be respired aerobically. Glycolysis and anaerobic respiration need carbohydrate."
+    level: AHL
+---
+
+<Section id="atp" title="ATP: the molecule that distributes energy" level="SL" covers="C1.2.1 C1.2.3">
+
+<Viewer3D topic="c1-2" id="respiration" />
+
+Every cell needs a supply of energy for its activities, and it uses one molecule to deliver it: **ATP** (**adenosine triphosphate**). ATP is a **nucleotide**, made of:
+
+- the base **adenine**;
+- the five-carbon sugar **ribose** (adenine + ribose = adenosine);
+- a chain of **three phosphate groups**, attached to carbon 5′ of the ribose.
+
+### Why ATP suits its job
+
+ATP works like a currency: it is made in one place and spent in many others. Its properties fit this role.
+
+- It is **soluble in water**, so it moves quickly through the cytoplasm to wherever it is needed.
+- It is **stable** at the pH of the cytoplasm and does not break down unless an enzyme hydrolyses it, so energy is not lost by accident.
+- It **cannot diffuse through the phospholipid bilayer**, because it is charged, so it stays in the cell, and its movement between compartments is controlled by transport proteins.
+- Removing one phosphate releases an amount of energy that is **enough for many cell tasks**, but not so much that most is wasted as heat.
+- It is **easily regenerated** from ADP. Each ATP is used and remade many times a day.
+
+### Energy transfers between ATP and ADP
+
+**Hydrolysis** of ATP uses a water molecule to remove the terminal phosphate. The products are **ADP** (adenosine diphosphate) and inorganic phosphate (**Pi**), and **energy is released**:
+
+ATP + H₂O → ADP + Pi (energy released)
+
+The reverse, joining Pi to ADP, is a **condensation** reaction (also called **phosphorylation**). It releases water and **requires energy**, which comes mainly from cell respiration (and in plants, also from photosynthesis):
+
+ADP + Pi → ATP + H₂O (energy required)
+
+You do not need to know the amount of energy in kilojoules, only that it is enough for many of the tasks a cell carries out.
+
+<Callout type="exam" title="Describing ATP">
+
+Give the full name (**adenosine triphosphate**), say it is a **nucleotide**, and name its three parts. For energy, use the right direction: hydrolysis of ATP **releases** energy; synthesis of ATP from ADP and phosphate **requires** energy.
+
+</Callout>
+
+<Callout type="tip" title="Using the 3D model">
+
+Step through **ATP and ADP** to watch the terminal phosphate being hydrolysed and replaced. Higher level students can switch to **Stages in a mitochondrion** to see where each stage of aerobic respiration happens. The **Exam diagram** view shows a simple drawing of ATP.
+
+</Callout>
+
+</Section>
+
+<Section id="atp-uses" title="What ATP is used for" level="SL" covers="C1.2.2">
+
+ATP supplies energy to almost every energy-requiring process in a cell. Usually an enzyme or other protein hydrolyses the ATP and uses the energy released directly, often by a **conformational change** (change in shape) of the protein. Three main groups of processes depend on it.
+
+### Active transport
+
+**Pump proteins** in membranes use ATP to move particles **against** their concentration gradient. For example, the sodium–potassium pump moves three Na⁺ out of a cell and two K⁺ in for each ATP hydrolysed (see <TopicLink code="B2.1" />).
+
+### Synthesis of macromolecules (anabolism)
+
+Building large molecules from smaller ones by condensation reactions needs energy. ATP provides it for:
+
+- linking amino acids into proteins during translation;
+- making DNA and RNA from nucleotides;
+- building polysaccharides such as glycogen and starch from sugars.
+
+### Movement
+
+- **Movement of the whole cell**, such as the beating of a sperm cell's flagellum or the crawling of a white blood cell.
+- **Movement within cells**, such as the movement of chromosomes towards the poles during mitosis and meiosis, which is done by motor proteins and microtubules of the spindle, and the transport of vesicles.
+- In multicellular animals, **muscle contraction** depends on ATP-powered movement of protein filaments.
+
+Cells keep only a small store of ATP (in a contracting muscle, enough for just a few seconds), so respiration has to make it continuously. A resting human recycles roughly their own body mass of ATP each day.
+
+</Section>
+
+<Section id="respiration" title="Cell respiration produces ATP" level="SL" covers="C1.2.4">
+
+**Cell respiration** is the controlled release of energy from organic (carbon) compounds inside cells, used to make ATP. It happens in **every living cell**, all the time, as a series of enzyme-catalysed steps, so energy is released gradually rather than all at once as in burning.
+
+- The **principal substrates** are **glucose** (and other carbohydrates) and **fatty acids** (from lipids).
+- A wide range of other carbon compounds can also be used, including amino acids when proteins are broken down.
+- Only part of the energy released is captured in ATP; the rest is lost as **heat**, which helps keep birds and mammals warm.
+
+### Respiration is not gas exchange
+
+Students often mix up three processes that are linked but different:
+
+| | What it is | Where |
+|---|---|---|
+| **Cell respiration** | Chemical reactions that release energy from organic compounds to make ATP | Inside every cell (cytoplasm and mitochondria) |
+| **Gas exchange** | Diffusion of O₂ into, and CO₂ out of, an organism across a surface | Exchange surfaces, such as alveoli, gills or leaves |
+| **Ventilation** | Movement of air or water over a gas exchange surface, for example breathing | Lungs, gills |
+
+Gas exchange supplies the oxygen that aerobic respiration uses and removes the CO₂ it produces (see <TopicLink code="B3.1" />). A single-celled organism carries out respiration and gas exchange, but it does not breathe.
+
+<Callout type="exam">
+
+"Respiration" in an answer means **cell respiration** unless the question says otherwise. Never write that respiration "produces energy" — it **releases** energy from organic compounds and uses it to make ATP.
+
+</Callout>
+
+</Section>
+
+<Section id="aerobic-anaerobic" title="Aerobic and anaerobic respiration in humans" level="SL" covers="C1.2.5">
+
+Human cells can respire with or without oxygen. Both start in the same way, by breaking glucose down to a three-carbon compound in the cytoplasm; what happens next depends on whether oxygen is available.
+
+| | Aerobic | Anaerobic |
+|---|---|---|
+| Oxygen needed? | Yes | No |
+| Substrates | Carbohydrates (glucose) or lipids (fatty acids) | Glucose (carbohydrate) only |
+| Yield of ATP per glucose | Large — about 30 or more | Small — 2 |
+| Waste products | Carbon dioxide and water | Lactate |
+| Where in the cell | Cytoplasm and **mitochondria** | Cytoplasm only |
+
+The word equations, with glucose as the substrate, are:
+
+- **Aerobic:** glucose + oxygen → carbon dioxide + water
+- **Anaerobic (humans):** glucose → lactate
+
+In both cases energy is released and used to make ATP. Mitochondria are needed for aerobic respiration but not for anaerobic respiration, so red blood cells, which have no mitochondria, rely on anaerobic respiration.
+
+<Figure name="c1-2-aerobic-anaerobic" caption="Glucose is first broken down to pyruvate in the cytoplasm. Without oxygen it is converted to lactate, still in the cytoplasm. With oxygen, pyruvate is broken down completely to carbon dioxide and water in the mitochondria, giving far more ATP." />
+
+### When humans use anaerobic respiration
+
+Anaerobic respiration produces ATP more quickly than oxygen can be delivered to the muscles, so it is used for short, intense bursts of activity such as sprinting or lifting a heavy weight. Its disadvantages are the small yield of ATP per glucose and the build-up of lactate, which lowers the pH. After the exercise, extra oxygen is needed to deal with the lactate, much of which is converted back to glucose in the liver.
+
+<Callout type="exam">
+
+Learn the two word equations exactly, and in a comparison give **matched pairs** (oxygen: used / not used; products: CO₂ and water / lactate; yield: large / small; location: cytoplasm and mitochondria / cytoplasm only).
+
+</Callout>
+
+</Section>
+
+<Section id="rate" title="Measuring the rate of respiration" level="SL" covers="C1.2.6">
+
+The **rate of cell respiration** can be measured from how fast a substrate is used or a product forms, for example:
+
+- **oxygen uptake**, using a respirometer (below);
+- **carbon dioxide production**, using a CO₂ sensor and data logger, or a pH indicator (CO₂ forms an acid in solution);
+- with yeast, the volume of gas released, or the loss in mass as CO₂ escapes.
+
+### A simple respirometer
+
+Small organisms, such as germinating seeds or invertebrates, are sealed in a tube with a **CO₂ absorber**, such as potassium hydroxide (KOH) solution or soda lime. As the organisms take in oxygen and release CO₂, the CO₂ is absorbed, so the volume of gas in the tube **falls by the volume of oxygen used**. A drop of coloured fluid in an attached capillary tube moves towards the organisms.
+
+<Sim topic="c1-2" id="respirometer" />
+
+### Calculating the rate
+
+1. Find the **distance moved** by the drop: start reading − end reading.
+2. Convert it to a **volume of oxygen**: volume = π r² × distance, where r is the internal radius of the capillary.
+3. Divide by the **time** taken, and by the **mass** of organisms if you want to compare samples of different sizes.
+
+For example, a drop that moves from 90 mm to 62 mm in 8 minutes in a capillary of radius 0.5 mm has moved 28 mm. Volume = 3.14 × 0.5² × 28 ≈ 22.0 mm³, so the rate is 22.0 ÷ 8 ≈ 2.75 mm³ O₂ min⁻¹. For 5 g of seeds this is about 0.55 mm³ g⁻¹ min⁻¹. Repeat the measurement and calculate a mean.
+
+### Variables and controls
+
+- **Independent variables** that can be investigated include temperature, the type or stage of organism (germinating or dormant seeds), and, with yeast, the concentration of glucose or other sugars.
+- **Controlled variables**: temperature (a water bath), mass of organisms, volume of the tube and amount of KOH.
+- **Control**: an identical tube with glass beads or boiled seeds instead of living ones. Gas volume changes with temperature and air pressure, so any movement in the control tube is used to correct the readings.
+- Temperature affects respiration because its steps are catalysed by **enzymes**: the rate rises with temperature up to an optimum and then falls as enzymes denature (see <TopicLink code="C1.1" />).
+
+If animals are used, choose invertebrates, keep them away from the KOH, handle them gently and return them to their habitat afterwards. KOH is corrosive, so wear eye protection.
+
+<Callout type="exam">
+
+In rate calculations show every step and give **units** (mm³ min⁻¹, or mm³ g⁻¹ min⁻¹). Remember that the KOH absorbs CO₂, so the respirometer measures **oxygen uptake**.
+
+</Callout>
+
+</Section>
+
+<Section id="nad" title="Oxidation, reduction and NAD" level="AHL" covers="C1.2.7">
+
+The energy released in respiration comes from **oxidizing** the substrate. Most of the oxidations in respiration do not involve oxygen at all: they remove hydrogen.
+
+- **Oxidation** is the **loss of electrons** (it can also be seen as adding oxygen or removing hydrogen).
+- **Reduction** is the **gain of electrons** (or removing oxygen, or adding hydrogen).
+
+A hydrogen atom is a proton with one electron. So when hydrogen atoms are removed from a substrate — a **dehydrogenation** reaction — the substrate loses electrons and has been **oxidized**.
+
+The electrons cannot just float free: whatever accepts them is **reduced**. Oxidation and reduction therefore always happen together, as **redox reactions**. In respiration the main acceptor is **NAD** (nicotinamide adenine dinucleotide), a coenzyme that carries hydrogen.
+
+NAD + 2H → reduced NAD
+
+(More precisely, NAD⁺ accepts two electrons and one proton, giving NADH, and the other proton is released as H⁺. At IB level you can write "reduced NAD".)
+
+Energy released by oxidizing the substrate is transferred to the reduced NAD. Reduced NAD carries the hydrogen, and its energy, to the electron transport chain, where it is oxidized back to NAD and can be used again. A smaller amount of hydrogen is carried by a second carrier, **FAD**, in the Krebs cycle.
+
+<Callout type="note" title="A memory aid">
+
+**OIL RIG**: Oxidation Is Loss (of electrons), Reduction Is Gain. If NAD becomes reduced in a reaction, the substrate must have been oxidized.
+
+</Callout>
+
+</Section>
+
+<Section id="glycolysis" title="Glycolysis" level="AHL" covers="C1.2.8">
+
+**Glycolysis** ("sugar splitting") is the first stage of respiration of glucose, both aerobic and anaerobic. It takes place in the **cytoplasm**, needs no oxygen, and turns one glucose (6C) into **two pyruvate** (3C) in a series of about ten small steps, **each catalysed by a different enzyme**. You need to know four stages but not the names of the intermediates.
+
+1. **Phosphorylation**: two phosphate groups from **2 ATP** are added to glucose, forming hexose bisphosphate. This makes the sugar less stable, so it can be split.
+2. **Lysis**: the 6C hexose bisphosphate splits into **two triose phosphates** (3C).
+3. **Oxidation**: two hydrogen atoms are removed from each triose phosphate and accepted by NAD, giving **2 reduced NAD** per glucose.
+4. **ATP formation**: the energy released by oxidation is used to make **4 ATP** (2 from each triose phosphate) by transferring phosphate groups to ADP, and **pyruvate** is formed.
+
+**Net yield per glucose: 2 ATP** (4 made − 2 used) **and 2 reduced NAD**, plus 2 pyruvate.
+
+<Anim topic="c1-2" id="stages" />
+
+The animation follows one glucose all the way through aerobic respiration, keeping a running total. The link reaction, Krebs cycle and electron transport chain are explained in the sections below.
+
+<Callout type="exam">
+
+When asked to outline glycolysis, use the four key words in order — **phosphorylation, lysis, oxidation, ATP formation** — and state the **net** gain of 2 ATP and 2 reduced NAD per glucose.
+
+</Callout>
+
+</Section>
+
+<Section id="anaerobic" title="Anaerobic respiration: regenerating NAD" level="AHL" covers="C1.2.9 C1.2.10">
+
+Glycolysis reduces NAD. A cell has only a small amount of NAD, so if reduced NAD is not oxidized back to NAD, glycolysis soon stops. In aerobic conditions the electron transport chain regenerates NAD. Without oxygen, cells must use **pyruvate** to accept the hydrogen instead.
+
+### Lactate in humans
+
+In human cells, pyruvate accepts hydrogen from reduced NAD and is **reduced to lactate** (3C). This **regenerates NAD**, so glycolysis can continue and keep producing ATP. The net yield is **2 ATP per glucose**, all from glycolysis; the lactate step itself makes no ATP.
+
+### Ethanol and CO₂ in yeast
+
+Yeasts are single-celled fungi that can respire aerobically or anaerobically. The anaerobic pathway in yeast is the **same as in humans except for how NAD is regenerated**:
+
+1. pyruvate (3C) is **decarboxylated** to ethanal (2C), releasing **CO₂**;
+2. ethanal accepts hydrogen from reduced NAD and is reduced to **ethanol** (2C), regenerating NAD.
+
+The net yield is again 2 ATP per glucose, but the final products differ: **lactate** in humans, **ethanol and CO₂** in yeast.
+
+<Anim topic="c1-2" id="anaerobic" />
+
+### Uses in baking and brewing
+
+- **Baking**: yeast (*Saccharomyces cerevisiae*) is mixed into bread dough. It quickly uses up the oxygen, then respires anaerobically. The **CO₂** forms bubbles that make the dough rise; the small amount of ethanol evaporates during baking.
+- **Brewing**: yeast is grown in a sugary liquid without oxygen, such as grape juice for wine or a solution of sugars from malted barley for beer. The useful product is **ethanol**; CO₂ escapes through an airlock or is kept to make the drink fizzy. Fermentation stops when the sugar runs out or the ethanol concentration becomes toxic to the yeast (about 15% for most wine yeasts).
+
+<Callout type="exam">
+
+Explain anaerobic respiration in terms of **NAD regeneration**: "pyruvate is reduced, using hydrogen from reduced NAD, so NAD is regenerated and glycolysis can continue." Simply stating the products is not enough at HL.
+
+</Callout>
+
+</Section>
+
+<Section id="link-krebs" title="The link reaction and the Krebs cycle" level="AHL" covers="C1.2.11 C1.2.12">
+
+If oxygen is available, pyruvate is taken into the **matrix** of the mitochondrion by a transport protein.
+
+### The link reaction
+
+Each pyruvate (3C) is changed in two ways:
+
+- **decarboxylation**: one carbon is removed as **CO₂**;
+- **oxidation**: hydrogen is removed and accepted by NAD, giving **reduced NAD**.
+
+This leaves a two-carbon **acetyl group**, which is attached to **coenzyme A (CoA)**, forming **acetyl CoA**. Lipids are broken down to acetyl groups in the matrix too, so both carbohydrates and lipids reach the Krebs cycle as acetyl CoA, and CoA transfers the acetyl group into the cycle. Per glucose, the link reaction happens **twice**.
+
+### The Krebs cycle
+
+1. The acetyl group (2C) is transferred from CoA to **oxaloacetate** (4C), forming **citrate** (6C). CoA is released and reused.
+2. Citrate is converted back to oxaloacetate through several intermediates (whose names you do not need). On the way there are:
+   - **two decarboxylations**, releasing 2 CO₂;
+   - **four oxidations**, all dehydrogenations: three reduce NAD and one reduces FAD;
+   - one reaction that makes **ATP** directly.
+3. Oxaloacetate is regenerated, ready to accept another acetyl group.
+
+Each glucose produces two acetyl groups, so the cycle turns **twice per glucose**.
+
+| Per glucose | Glycolysis | Link reaction | Krebs cycle | Total |
+|---|---|---|---|---|
+| CO₂ | 0 | 2 | 4 | 6 |
+| Reduced NAD | 2 | 2 | 6 | 10 |
+| Reduced FAD | 0 | 0 | 2 | 2 |
+| ATP (net) | 2 | 0 | 2 | 4 |
+
+So far only 4 ATP have been made, but all six carbons of glucose have left as CO₂. Most of the energy is now held by the reduced NAD and reduced FAD.
+
+<Callout type="exam">
+
+Count carbons to check your answer: 2C (acetyl) + 4C (oxaloacetate) → 6C (citrate); two CO₂ are lost, so 6C → 4C. The only Krebs cycle intermediates you need to name are **citrate** and **oxaloacetate**.
+
+</Callout>
+
+</Section>
+
+<Section id="etc" title="The electron transport chain and the proton gradient" level="AHL" covers="C1.2.13 C1.2.14">
+
+The **electron transport chain** is a series of electron carriers, mostly proteins, in the **inner mitochondrial membrane**. The inner membrane is folded into **cristae**, which give a large area for many chains and ATP synthase molecules.
+
+### Reduced NAD hands over its energy
+
+Reduced NAD comes from **glycolysis, the link reaction and the Krebs cycle**. It transfers a **pair of electrons** (as part of its hydrogen) to the **first carrier** in the chain. This transfers energy to the chain and converts reduced NAD back to **NAD**, which returns to accept more hydrogen. Reduced FAD passes its electrons to the chain at a later point.
+
+### Pumping protons
+
+The electrons pass from one carrier to the next. At each transfer they lose some energy, and some carriers use it to **pump protons** (H⁺) from the **matrix** into the **intermembrane space**.
+
+- The intermembrane space is small, so the proton concentration there rises quickly.
+- The inner membrane is almost impermeable to protons, so they cannot simply leak back.
+
+The result is a **proton gradient**: a high H⁺ concentration in the intermembrane space and a low concentration in the matrix, with the intermembrane side also positively charged. This gradient is a store of **potential energy**. You do not need to know the names of the protein complexes.
+
+Switch the [3D model](#v-c1-2-respiration) to **Stages in a mitochondrion** to see where each stage happens; one crista is enlarged so the carriers and ATP synthase can be seen.
+
+<Callout type="exam">
+
+State the direction precisely: protons are pumped **from the matrix into the intermembrane space**, using energy released by **electrons** flowing along the chain.
+
+</Callout>
+
+</Section>
+
+<Section id="chemiosmosis" title="Chemiosmosis and the role of oxygen" level="AHL" covers="C1.2.15 C1.2.16">
+
+### ATP synthase
+
+Protons can only diffuse back into the matrix in significant numbers through **ATP synthase**, an enzyme that spans the inner membrane. As they flow **down their concentration gradient**, ATP synthase couples the energy they release to the phosphorylation of ADP:
+
+1. Protons pass through the part of ATP synthase in the membrane, making it **rotate**, together with a central stalk.
+2. The rotating stalk turns inside the **head** of the enzyme, which projects into the matrix and does not rotate.
+3. This causes **conformational changes** in the active sites in the head, which bind ADP and Pi, join them to form **ATP**, and release it.
+
+Making ATP using the energy of a proton gradient is called **chemiosmosis**. It was proposed by Peter Mitchell in 1961, against strong opposition, and became accepted as evidence built up; he was awarded the Nobel Prize in 1978. The same mechanism makes ATP in chloroplasts (see <TopicLink code="C1.3" />).
+
+### Oxygen as the terminal electron acceptor
+
+At the end of the chain, the electrons, now with little energy, are passed to **oxygen**, the **final (terminal) electron acceptor**. Oxygen also accepts **protons from the matrix**, forming **water**:
+
+O₂ + 4e⁻ + 4H⁺ → 2H₂O
+
+- Removing electrons from the end of the chain keeps them **flowing**, so protons keep being pumped.
+- Taking protons from the matrix also helps to keep the gradient steep.
+- The water produced is called **metabolic water**.
+
+**Without oxygen**, electrons cannot leave the chain, so it stops. Reduced NAD can no longer be oxidized, NAD runs out and the link reaction and Krebs cycle stop too. Only glycolysis can continue, with anaerobic regeneration of NAD. This is why oxygen increases the ATP yield so much: in total, aerobic respiration gives **about 30–32 ATP** per glucose (the exact figure is uncertain and varies), compared with 2 ATP anaerobically.
+
+<Callout type="exam">
+
+In chemiosmosis questions, link three ideas: electron flow **pumps** protons into the intermembrane space; protons **diffuse back** through ATP synthase; the flow drives **phosphorylation of ADP**. In oxygen questions, say that oxygen accepts **electrons and protons** to form water.
+
+</Callout>
+
+</Section>
+
+<Section id="substrates" title="Lipids and carbohydrates as respiratory substrates" level="AHL" covers="C1.2.17">
+
+Both carbohydrates and lipids are respired, but they differ in the amount of energy they release and in the pathways they can use.
+
+### Energy per gram
+
+Lipids release about **twice as much energy per gram** as carbohydrates (about 37 kJ g⁻¹ compared with about 17 kJ g⁻¹). This is because:
+
+- lipids contain **much less oxygen** in proportion to carbon and hydrogen (for example, a typical fatty acid such as palmitic acid, C₁₆H₃₂O₂, compared with glucose, C₆H₁₂O₆), so they are less oxidized to begin with;
+- they contain **more oxidizable hydrogen and carbon** per gram, so more hydrogen can be removed and passed to the electron transport chain.
+
+### Pathways
+
+- **Carbohydrates**: glucose is respired through **glycolysis**, so it can be used **aerobically or anaerobically**.
+- **Lipids**: triglycerides are first hydrolysed to glycerol and fatty acids. **Fatty acids** are broken into two-carbon fragments in the mitochondrial matrix, which enter as **acetyl CoA**, bypassing glycolysis and the link reaction. They can therefore be respired **only aerobically**. Glycerol, a small part of each triglyceride, can be converted into an intermediate of glycolysis.
+
+<Figure name="c1-2-substrates" level="AHL" caption="Glucose enters respiration through glycolysis, so it can be respired with or without oxygen. Fatty acids are cut into two-carbon acetyl groups in the mitochondrion and enter as acetyl CoA, so they can only be respired aerobically. Glycerol from lipids can join glycolysis." />
+
+This explains why muscles use mainly glucose and stored glycogen during intense exercise, when oxygen is in short supply, but use more fat during long periods of steady, aerobic activity. See <TopicLink code="B1.1" /> for lipids as energy stores and <TopicLink code="C4.2" /> for energy flow through ecosystems.
+
+</Section>

@@ -1,0 +1,93 @@
+---
+/** Anaerobic respiration in humans and yeast (C1.2.9, C1.2.10). Step-1 start state; c1-2-anaerobic.ts animates it. */
+const beads = (x0: number, y: number, n: number, gap = 18) => Array.from({ length: n }, (_, i) => [x0 + i * gap, y] as const);
+const bubbles = [[478, 362], [492, 344], [470, 330], [500, 318], [486, 300], [474, 352]];
+const dough = [[96, 372], [116, 362], [136, 374], [152, 360], [106, 352], [130, 350]];
+---
+<svg viewBox="0 0 640 410" xmlns="http://www.w3.org/2000/svg" class="ana">
+  <!-- glycolysis band -->
+  <rect class="band" x="8" y="8" width="624" height="140" rx="12" />
+  <text class="h" x="22" y="32">Glycolysis in the cytoplasm — the same in humans and yeast</text>
+  <g data-el="glc">{beads(40, 80, 6).map(([x, y]) => <circle class="c" cx={x} cy={y} r="8" />)}</g>
+  <text data-el="glc-t" class="lbl" x="85" y="110" text-anchor="middle">glucose (6C)</text>
+  <g data-el="pyr1" style="opacity:0">{beads(190, 64, 3).map(([x, y]) => <circle class="c" cx={x} cy={y} r="8" />)}</g>
+  <g data-el="pyr2" style="opacity:0">{beads(190, 96, 3).map(([x, y]) => <circle class="c" cx={x} cy={y} r="8" />)}</g>
+  <text data-el="pyr-t" class="lbl" x="208" y="126" text-anchor="middle" style="opacity:0">2 pyruvate (3C)</text>
+  <path class="arrow" d="M150 80 H176" />
+  <g data-el="g-nad1" transform="translate(320 64)"><rect data-el="g-nadbox1" class="nad" x="-50" y="-13" width="100" height="26" rx="13" /><text data-el="g-nadt1" class="tk" text-anchor="middle" y="5">NAD</text></g>
+  <g data-el="g-nad2" transform="translate(320 98)"><rect data-el="g-nadbox2" class="nad" x="-50" y="-13" width="100" height="26" rx="13" /><text data-el="g-nadt2" class="tk" text-anchor="middle" y="5">NAD</text></g>
+  <text data-el="g-atp" class="lbl" x="268" y="134" style="opacity:0">net yield: 2 ATP</text>
+  <!-- NAD meter -->
+  <text class="sm" x="410" y="58">NAD available for glycolysis</text>
+  <rect class="meter" x="410" y="66" width="210" height="18" rx="9" />
+  <rect data-el="meter" class="meter-fill" x="410" y="66" width="210" height="18" rx="9" />
+  <text data-el="meter-t" class="warn" x="410" y="108"></text>
+  <text data-el="meter-t2" class="warn" x="410" y="126"></text>
+
+  <!-- humans -->
+  <g data-el="human">
+    <rect class="panel" x="8" y="160" width="304" height="130" rx="12" />
+    <text class="h" x="22" y="184">Humans (e.g. muscle in a sprint)</text>
+    <g data-el="h-pyr" transform="translate(0 0)">{beads(34, 240, 3).map(([x, y]) => <circle class="c" cx={x} cy={y} r="8" />)}</g>
+    <text data-el="h-pyr-t" class="lbl" x="52" y="272" text-anchor="middle">pyruvate</text>
+    <path class="arrow" d="M90 240 H196" />
+    <g data-el="h-nad" transform="translate(142 212)"><rect data-el="h-nadbox" class="nad red" x="-50" y="-13" width="100" height="26" rx="13" /><text data-el="h-nadt" class="tk" text-anchor="middle" y="5">reduced NAD</text></g>
+    <text data-el="h-lac-t" class="lbl" x="250" y="272" text-anchor="middle" style="opacity:0">lactate (3C)</text>
+    <text data-el="h-note" class="sm" x="142" y="284" text-anchor="middle" style="opacity:0">pyruvate is reduced</text>
+  </g>
+
+  <!-- yeast -->
+  <g data-el="yeast">
+    <rect class="panel" x="328" y="160" width="304" height="130" rx="12" />
+    <text class="h" x="342" y="184">Yeast</text>
+    <g data-el="y-pyr">{beads(344, 240, 2).map(([x, y]) => <circle class="c" cx={x} cy={y} r="8" />)}</g>
+    <text data-el="y-pyr-t" class="lbl" x="362" y="272" text-anchor="middle">pyruvate</text>
+    <path class="arrow" d="M398 240 H428" />
+    <path class="arrow" d="M498 240 H528" />
+    <g data-el="y-co2" transform="translate(380 240)"><circle class="c" r="8" /><text data-el="y-co2-t" class="lbl" x="12" y="-8" style="opacity:0">CO₂</text></g>
+    <text data-el="y-eth-t" class="lbl" x="464" y="272" text-anchor="middle" style="opacity:0">ethanal (2C)</text>
+    <text data-el="y-ol-t" class="lbl" x="580" y="272" text-anchor="middle" style="opacity:0">ethanol (2C)</text>
+    <g data-el="y-nad" transform="translate(560 212)"><rect data-el="y-nadbox" class="nad red" x="-50" y="-13" width="100" height="26" rx="13" /><text data-el="y-nadt" class="tk" text-anchor="middle" y="5">reduced NAD</text></g>
+  </g>
+
+  <!-- uses -->
+  <g data-el="uses" style="opacity:0">
+    <rect class="panel" x="8" y="298" width="624" height="104" rx="12" />
+    <text class="h" x="200" y="322">Baking (bread)</text>
+    <ellipse data-el="dough" class="dough" cx="124" cy="370" rx="58" ry="20" />
+    {dough.map(([x, y]) => <circle data-bubble class="bubble" cx={x} cy={y} r="4" />)}
+    <text class="sm" x="200" y="344">CO₂ bubbles make the dough rise;</text>
+    <text class="sm" x="200" y="362">ethanol evaporates during baking</text>
+    <text class="h" x="572" y="322" text-anchor="middle">Brewing</text>
+    <g transform="translate(-34 0)">
+    <path class="flask" d="M466 300 h40 v18 l22 38 q6 30 -20 30 h-44 q-26 0 -20 -30 l22 -38 z" />
+    <path class="liquid" d="M447 352 l-1 4 q-6 26 18 26 h44 q24 0 18 -26 l-1 -4 z" />
+    {bubbles.map(([x, y]) => <circle data-bubble2 class="bubble" cx={x} cy={y} r="3.5" />)}
+    </g>
+    <text class="sm" x="520" y="346">ethanol in beer</text>
+    <text class="sm" x="520" y="364">and wine; CO₂</text>
+    <text class="sm" x="520" y="382">escapes</text>
+  </g>
+  <defs><marker id="ana-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker></defs>
+</svg>
+<style>
+  .ana { font-family: var(--font-sans); }
+  .band { fill: color-mix(in srgb, var(--bio-glucose) 8%, var(--surface)); stroke: var(--border); }
+  .panel { fill: var(--surface-2); stroke: var(--border); }
+  .h { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .lbl { font-size: 13.5px; font-weight: 650; fill: var(--text); }
+  .sm { font-size: 13px; fill: var(--text-muted); }
+  .warn { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .c { fill: var(--bio-glucose); stroke: color-mix(in srgb, var(--bio-glucose) 55%, black); stroke-width: 1.2; }
+  .arrow { stroke: var(--text-muted); stroke-width: 2; marker-end: url(#ana-arr); }
+  .nad { fill: color-mix(in srgb, var(--text-muted) 30%, var(--surface)); stroke: var(--text-muted); }
+  .nad.red { fill: color-mix(in srgb, var(--bio-carb) 55%, white); stroke: var(--bio-carb); }
+  .tk { font-size: 13px; font-weight: 800; fill: #000; }
+  .meter { fill: var(--surface); stroke: var(--border-strong); }
+  .meter-fill { fill: color-mix(in srgb, var(--text-muted) 55%, var(--surface)); }
+  .dough { fill: color-mix(in srgb, var(--bio-tail) 60%, var(--surface)); stroke: var(--bio-head); stroke-width: 2; }
+  .bubble { fill: var(--surface); stroke: var(--text-muted); stroke-width: 1.2; }
+  .flask { fill: none; stroke: var(--text-muted); stroke-width: 2.2; }
+  .ah { fill: var(--text-muted); }
+  .liquid { fill: color-mix(in srgb, var(--bio-glucose) 35%, var(--surface)); }
+</style>
