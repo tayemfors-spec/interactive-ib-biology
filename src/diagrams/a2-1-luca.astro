@@ -1,0 +1,58 @@
+---
+/** LUCA as the last common ancestor of the three domains, with early lineages that went extinct (A2.1.7). */
+---
+<svg viewBox="0 0 640 360" role="img" aria-labelledby="luca-t luca-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="luca-t">The last universal common ancestor (LUCA)</title>
+  <desc id="luca-d">A tree with time running upwards. A single lineage rises from earlier cells to a node labelled LUCA. Below LUCA, other early lineages branch off and end in crosses because they became extinct. From LUCA one branch leads to Bacteria and another divides to give Archaea and Eukaryotes, which are alive today. A box lists features shared by all living organisms because they were inherited from LUCA: the same genetic code, DNA, RNA and proteins, ribosomes, ATP, the same 20 amino acids and a membrane-bound cell.</desc>
+  <path class="time" d="M26 330 V70 M18 82 L26 68 L34 82" />
+  <text class="muted" x="40" y="80">time</text>
+  <line class="today" x1="60" x2="470" y1="60" y2="60" />
+  <text class="muted" x="478" y="65">present day</text>
+
+  <!-- extinct early lineages (branch off below LUCA) -->
+  <path class="extinct" d="M300 318 C270 302 230 290 196 268" />
+  <path class="extinct" d="M300 300 C280 284 252 264 226 238" />
+  <path class="extinct" d="M300 308 C330 296 364 286 392 266" />
+  {[[196, 268], [226, 238], [392, 266]].map(([x, y]) => <path class="cross" d={`M${x! - 7} ${y! - 7} L${x! + 7} ${y! + 7} M${x! + 7} ${y! - 7} L${x! - 7} ${y! + 7}`} />)}
+  <text class="lbl" x="60" y="292">other early lineages</text>
+  <text class="lbl" x="60" y="310">became extinct</text>
+
+  <!-- LUCA's lineage and descendants -->
+  <path class="trunk dotted" d="M300 352 V330" />
+  <path class="trunk" d="M300 330 V230" />
+  <path class="branch" d="M300 230 L130 64" />
+  <path class="branch" d="M300 230 L398 150 L330 64 M398 150 L460 64" />
+  <circle class="node" cx="300" cy="230" r="9" />
+  <rect class="tag" x="314" y="234" width="62" height="28" rx="6" />
+  <text class="tagt" x="345" y="253" text-anchor="middle">LUCA</text>
+  <text class="muted" x="312" y="344">earlier cells</text>
+
+  <text class="dom" x="130" y="40" text-anchor="middle">Bacteria</text>
+  <text class="dom" x="330" y="40" text-anchor="middle">Archaea</text>
+  <text class="dom" x="466" y="40" text-anchor="middle">Eukaryotes</text>
+
+  <rect class="box" x="476" y="96" width="156" height="200" rx="8" />
+  <text class="bh" x="488" y="120">Shared by all</text>
+  <text class="bh" x="488" y="138">life today:</text>
+  {['same genetic code', 'DNA, RNA, protein', 'ribosomes', 'ATP', '20 amino acids', 'membrane-bound', 'cell'].map((t, i) => (
+    <text class="lbl" x="488" y={162 + i * 19}>{i === 6 ? '   ' : '• '}{t}</text>
+  ))}
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .time { fill: none; stroke: var(--text-muted); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .today { stroke: var(--border-strong); stroke-width: 1.5; stroke-dasharray: 6 5; }
+  .muted { font-size: 14px; fill: var(--text-muted); font-style: italic; }
+  .lbl { font-size: 14px; fill: var(--text); }
+  .extinct { fill: none; stroke: var(--text-muted); stroke-width: 3; stroke-dasharray: 2 0; opacity: 0.7; }
+  .cross { stroke: var(--bad); stroke-width: 3; stroke-linecap: round; }
+  .trunk { stroke: var(--bio-protein); stroke-width: 5; stroke-linecap: round; }
+  .trunk.dotted { stroke-dasharray: 2 6; }
+  .branch { fill: none; stroke: var(--bio-protein); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+  .node { fill: var(--bio-glucose); stroke: var(--text); stroke-width: 2; }
+  .tag { fill: var(--surface); stroke: var(--bio-glucose); stroke-width: 2; }
+  .tagt { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .dom { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .box { fill: var(--surface); stroke: var(--border-strong); }
+  .bh { font-size: 14px; font-weight: 800; fill: var(--text); }
+</style>

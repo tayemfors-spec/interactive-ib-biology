@@ -1,0 +1,90 @@
+# Visuals for A2.1 (all AHL). Step captions here are what readers see under each animation and in the
+# text descriptions, so they are written to exam standard. Static figures live in src/diagrams/a2-1-*.astro.
+visuals:
+  - id: miller-urey
+    kind: anim
+    module: a2-1-miller-urey
+    level: AHL
+    title: The Miller–Urey experiment
+    alt: Step-through of the Miller–Urey apparatus, from boiling water and a spark-lit gas mixture to amino acids collected after a week.
+    description: >-
+      A diagram of the closed glass apparatus used by Stanley Miller and Harold Urey, shown in seven steps.
+      At the lower left a flask of water is heated so that it boils; it represents the ocean. Water vapour
+      rises through a glass tube into a large flask at the upper right containing methane, ammonia and hydrogen,
+      representing the early atmosphere. Two electrodes make electric sparks in this flask, representing
+      lightning. Below it a water-cooled condenser turns the vapour back into liquid, and the liquid collects
+      in a U-shaped trap with a tap for taking samples, before flowing back into the boiling flask, so the
+      contents circulate continuously. A day counter runs to day 7 while the liquid turns red-brown, and a
+      panel then lists the products detected: amino acids such as glycine and alanine, plus other organic
+      compounds. In the last step the gas labels change to show the mixture now thought more likely, mainly
+      carbon dioxide and nitrogen.
+    steps:
+      - id: ocean
+        title: The "ocean"
+        caption: Water is boiled in the lower flask. It represents the oceans of pre-biotic Earth, and boiling it supplies water vapour that circulates round the sealed glass apparatus.
+      - id: atmosphere
+        title: The "early atmosphere"
+        caption: The large flask holds methane (CH₄), ammonia (NH₃) and hydrogen (H₂), with water vapour from the boiling flask. In 1952 this was thought to match the early atmosphere — a reducing mixture, rich in hydrogen and with no free oxygen.
+      - id: sparks
+        title: Sparks for "lightning"
+        caption: Electric sparks between two electrodes supply energy, as lightning might have done. The energy breaks bonds in the gas molecules, so new, reactive substances form that go on to react with each other.
+      - id: condenser
+        title: Cooling and condensing
+        caption: The water-cooled condenser turns the vapour back into liquid, like rain falling from the atmosphere. Newly formed substances dissolve in the droplets and are carried down out of the spark flask.
+      - id: collect
+        title: Products collect for a week
+        caption: The liquid collects in a U-shaped trap and flows back to the boiling flask, so the cycle runs continuously. Over about a week the water turns pink and then deep red-brown as organic compounds build up.
+      - id: results
+        title: Amino acids detected
+        caption: Samples taken from the trap were analysed by chromatography. They contained amino acids, including glycine and alanine, and other organic compounds. When stored samples were re-analysed in 2008 with modern methods, more than 20 amino acids were found. Carbon compounds had formed from inorganic gases with no living things present.
+      - id: evaluate
+        title: Evaluating the experiment
+        caption: Strengths — a controlled, repeatable test of a clear hypothesis, confirmed by many later experiments. Limitations — the early atmosphere is now thought to have been less reducing, mainly CO₂ and N₂ with little methane, ammonia or hydrogen, which gives far fewer amino acids. Only small monomers formed, not polymers, self-replicating molecules or cells.
+
+  - id: vesicles
+    kind: anim
+    module: a2-1-vesicles
+    level: AHL
+    title: Fatty acids assembling into a vesicle
+    alt: Fatty acid molecules in water coalesce into micelles, then a bilayer sheet, which closes into a spherical, water-filled vesicle.
+    description: >-
+      A side view of fatty acid molecules in water, each drawn as a round hydrophilic carboxyl head with one
+      hydrophobic hydrocarbon tail, shown in five steps. At first the molecules are scattered. They then cluster
+      into small spherical micelles with the heads on the outside and the tails packed in the centre, away from
+      water. Next they rearrange into a bilayer sheet: two layers with tails facing inwards and heads facing the
+      water on both sides. The two ends of the sheet are marked as exposed edges where tails touch water. The
+      sheet then curves round until its edges meet, forming a closed spherical bilayer — a vesicle — with water
+      inside. In the last step molecules such as RNA are shown trapped inside the water-filled compartment.
+    steps:
+      - id: dispersed
+        title: Fatty acids in water
+        caption: Each fatty acid has a hydrophilic carboxyl group (–COOH, or –COO⁻ when ionized) and a single hydrophobic hydrocarbon chain. At low concentration the molecules are scattered and move about randomly.
+      - id: micelles
+        title: Micelles form
+        caption: Above a critical concentration, fatty acids cluster spontaneously into micelles — spheres with the heads facing the water and the tails hidden inside. A micelle is a single layer with no water inside it.
+      - id: bilayer
+        title: A bilayer sheet
+        caption: Under suitable conditions (for example a pH close to neutral or slightly alkaline, where some carboxyl groups are ionized and some are not) the molecules pack into a bilayer, two layers with their tails facing each other. At the edges of a flat sheet, tails are still exposed to water, which is unstable.
+      - id: closing
+        title: The sheet closes into a sphere
+        caption: The sheet curves round until its edges meet and fuse. This removes all exposed edges, so every tail is shielded from water. No enzyme or energy input is needed — it is driven by the hydrophobic tails being kept away from water.
+      - id: vesicle
+        title: A compartment
+        caption: The result is a vesicle, a spherical bilayer enclosing water. Molecules inside, such as RNA, are kept together and separated from the outside, so the internal chemistry can become different from the surroundings — an essential step towards a cell.
+
+  - id: timeline
+    kind: sim
+    module: a2-1-timeline
+    level: AHL
+    title: Early Earth and early life timeline
+    alt: Slide through 4.54 billion years from the formation of the Earth to the present to see key events, evidence and their uncertainty.
+    description: >-
+      A to-scale time axis from the formation of the Earth about 4.54 billion years ago to the present, with a
+      slider that moves a marker through time. A card shows the most recent event at the chosen time, how it is
+      dated and how certain it is. Events include the oldest zircon crystals showing liquid water (about 4.4
+      billion years ago), disputed carbon isotope evidence of life at 4.1 billion years ago, molecular-clock
+      estimates for LUCA (about 3.9 to 4.3 billion years ago), possible microfossils in hydrothermal vent
+      deposits, isotopic evidence from Greenland at 3.7 billion years ago, stromatolites from about 3.4 to 3.5
+      billion years ago, the Great Oxidation Event about 2.4 billion years ago, eukaryotes, the Cambrian
+      explosion and modern humans. Panels show the time on a 24-hour clock of Earth history, whether there was
+      free oxygen and what kind of evidence of life exists by that time.

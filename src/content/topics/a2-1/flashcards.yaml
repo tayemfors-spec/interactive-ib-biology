@@ -1,0 +1,65 @@
+cards:
+  - id: c1
+    level: AHL
+    front: List four features of the atmosphere and surface of pre-biotic Earth.
+    back: Little or no free O₂; therefore no ozone layer, so intense UV reached the surface; higher CO₂ and CH₄ concentrations; a strong greenhouse effect giving warm temperatures. Also frequent lightning and volcanic activity.
+  - id: c2
+    level: AHL
+    front: Why do carbon compounds not form spontaneously in the environment today as they may have done on early Earth?
+    back: Free oxygen in the atmosphere would oxidize and break them down, and any that formed would quickly be consumed by microorganisms. The ozone layer also now blocks most of the UV that drove some reactions.
+  - id: c3
+    level: AHL
+    front: Why is a cell described as the smallest unit of self-sustaining life?
+    back: A cell can carry out all the functions of life by itself — metabolism, growth, response, homeostasis, reproduction and so on. Its parts, such as ribosomes or mitochondria, cannot sustain themselves outside the cell.
+  - id: c4
+    level: AHL
+    front: Give two reasons why viruses are usually considered non-living.
+    back: They have no metabolism of their own (no ribosomes, no ATP production), and they can be replicated only inside a host cell using its machinery. Outside a host they are inert particles.
+  - id: c5
+    level: AHL
+    front: Name the four requirements that had to be met for the first cells to evolve.
+    back: Catalysis, self-replication of molecules, self-assembly, and compartmentalization.
+  - id: c6
+    level: AHL
+    front: Why are hypotheses about the origin of cells difficult to test?
+    back: The exact conditions on pre-biotic Earth are unknown and cannot be reproduced; protocells were tiny and soft and did not fossilize; and most rocks from that time have been destroyed or altered.
+  - id: c7
+    level: AHL
+    front: Describe the Miller–Urey apparatus and what each part represented.
+    back: Boiling water (the ocean) supplied water vapour to a flask of CH₄, NH₃ and H₂ (the atmosphere). Electric sparks represented lightning. A condenser cooled the vapour (rain), and products collected in a trap and circulated back for a week.
+  - id: c8
+    level: AHL
+    front: What did the Miller–Urey experiment produce, and what did it show?
+    back: Amino acids such as glycine and alanine, and other organic compounds. It showed that carbon compounds can form from inorganic substances without life, given an energy source and the conditions used.
+  - id: c9
+    level: AHL
+    front: Give two limitations of the Miller–Urey experiment.
+    back: The early atmosphere is now thought to have been less reducing (mainly CO₂ and N₂), which gives far fewer amino acids. Only monomers formed — no polymers, self-replicating molecules or cells. (Also simplified conditions and mixed L- and D-amino acids.)
+  - id: c10
+    level: AHL
+    front: Micelle vs vesicle
+    back: Both form spontaneously from amphipathic molecules such as fatty acids. A micelle is a single layer with tails in the centre and no water inside. A vesicle is a bilayer enclosing water, so it forms a compartment.
+  - id: c11
+    level: AHL
+    front: Why was the formation of vesicles an essential step in the origin of cells?
+    back: A membrane-bound compartment keeps molecules together and separate from the surroundings, so the internal chemistry can become different from outside, and the protocell can act as a unit for natural selection.
+  - id: c12
+    level: AHL
+    front: Why is RNA thought to have been the first genetic material?
+    back: Its base sequence can store information and be copied by complementary base pairing, and it can fold into ribozymes that catalyse reactions. So RNA could have been both the genes and the enzymes, solving the "which came first" problem of DNA and proteins.
+  - id: c13
+    level: AHL
+    front: What is a ribozyme? Give the example still found in all cells.
+    back: An RNA molecule that acts as a catalyst. Ribosomal RNA in the large subunit of the ribosome catalyses the formation of peptide bonds during translation.
+  - id: c14
+    level: AHL
+    front: What is LUCA, and what is the main evidence for it?
+    back: The last universal common ancestor — the most recent population from which all organisms alive today are descended. Evidence — the universal genetic code, and genes and biochemistry shared by all organisms. Other early lineages became extinct, probably through competition.
+  - id: c15
+    level: AHL
+    front: Outline three approaches used to estimate when the first cells and LUCA existed.
+    back: Fossils (e.g. stromatolites about 3.4–3.5 billion years old) in radiometrically dated rocks; carbon isotope ratios (a low ¹³C/¹²C ratio suggests carbon fixed by organisms, e.g. 3.7 billion years ago in Greenland); and the molecular clock based on sequence differences, calibrated with fossils.
+  - id: c16
+    level: AHL
+    front: Why are alkaline hydrothermal vents a likely place for LUCA to have evolved?
+    back: They provide H₂ and CO₂ for making organic molecules and releasing energy, iron–sulfur minerals that could catalyse reactions, micropores that act as compartments, and natural H⁺ gradients. Conserved genes suggest LUCA was anaerobic, used H₂ and fixed CO₂, and vent precipitates contain possible early fossils.

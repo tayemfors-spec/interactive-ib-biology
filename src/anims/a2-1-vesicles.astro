@@ -1,0 +1,62 @@
+---
+/** Fatty acids coalescing into micelles, a bilayer sheet and a closed vesicle (A2.1.5). Animated by a2-1-vesicles.ts. */
+import { CX, CY, N, poseTransform, stages } from './a2-1-vesicles';
+const { dispersed } = stages();
+const rna = [[-20, -14], [12, -22], [-6, 6], [20, 8], [-22, 20], [6, 24]];
+---
+<svg viewBox="0 0 520 330" xmlns="http://www.w3.org/2000/svg" class="fa">
+  <text class="side" x="10" y="20">Water</text>
+  <g class="tags">
+    <text data-el="tag-dispersed" x="260" y="22" text-anchor="middle">Single fatty acid molecules in water</text>
+    <text data-el="tag-micelle" x="260" y="22" text-anchor="middle" style="opacity:0">Micelles: heads outside, tails hidden inside</text>
+    <text data-el="tag-sheet" x="260" y="22" text-anchor="middle" style="opacity:0">A bilayer: two layers, tails facing inwards</text>
+    <text data-el="tag-closing" x="260" y="22" text-anchor="middle" style="opacity:0">The sheet curves round until its edges meet</text>
+    <text data-el="tag-vesicle" x="260" y="22" text-anchor="middle" style="opacity:0">A vesicle: a closed, water-filled compartment</text>
+  </g>
+
+  <g data-el="contents" style="opacity:0">
+    <circle class="lumen" cx={CX} cy={CY} r="40" />
+    {rna.map(([x, y]) => <path class="rna" d={`M${CX + x! - 7} ${CY + y!} q3.5 -6 7 0 t7 0`} />)}
+  </g>
+
+  {Array.from({ length: N }, (_, k) => (
+    <g data-fa={k} transform={poseTransform(dispersed[k]!)}>
+      <line class="tail" x1="4.5" y1="0" x2="14.5" y2="0" />
+      <circle class="head" r="4.5" />
+    </g>
+  ))}
+
+  <g data-el="edges" style="opacity:0">
+    <circle class="edge" cx="64" cy={CY} r="22" />
+    <circle class="edge" cx="456" cy={CY} r="22" />
+    <text class="edge-t" x="64" y={CY + 40} text-anchor="middle">exposed edge:</text>
+    <text class="edge-t" x="64" y={CY + 55} text-anchor="middle">tails meet water</text>
+    <text class="edge-t" x="456" y={CY + 40} text-anchor="middle">exposed edge:</text>
+    <text class="edge-t" x="456" y={CY + 55} text-anchor="middle">tails meet water</text>
+  </g>
+
+  <g data-el="callouts" style="opacity:0" class="callouts">
+    <path class="lead" d="M352 104 L330 116" /><text x="356" y="102">bilayer of fatty acids</text>
+    <path class="lead" d="M352 214 L284 176" /><text x="356" y="212">water-filled interior:</text><text x="356" y="228">molecules such as RNA</text><text x="356" y="244">are trapped inside</text>
+    <path class="lead" d="M168 104 L200 124" /><text x="164" y="94" text-anchor="end">no edges, so no</text><text x="164" y="110" text-anchor="end">tails exposed</text>
+  </g>
+
+  <g class="legend" transform="translate(40 300)">
+    <circle class="head" cx="0" cy="0" r="6" /><text x="12" y="5">carboxyl group (hydrophilic)</text>
+    <line class="tail" x1="228" y1="0" x2="256" y2="0" /><text x="264" y="5">hydrocarbon chain (hydrophobic)</text>
+  </g>
+</svg>
+<style>
+  .fa { font-family: var(--font-sans); }
+  .side { font-size: 13px; font-weight: 700; fill: var(--text-muted); }
+  .tags text { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .head { fill: var(--bio-head); }
+  .tail { stroke: var(--bio-tail); stroke-width: 3.5; stroke-linecap: round; }
+  .lumen { fill: color-mix(in srgb, var(--bio-water) 22%, transparent); }
+  .rna { fill: none; stroke: var(--bio-protein-2); stroke-width: 2.5; stroke-linecap: round; }
+  .edge { fill: none; stroke: var(--bad); stroke-width: 2.5; stroke-dasharray: 5 4; }
+  .edge-t { font-size: 12px; font-weight: 700; fill: var(--bad); }
+  .callouts text { font-size: 13px; fill: var(--text); }
+  .lead { stroke: var(--text); stroke-width: 1.2; fill: none; }
+  .legend text { font-size: 13px; fill: var(--text); }
+</style>
