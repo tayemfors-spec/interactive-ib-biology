@@ -1,0 +1,335 @@
+---
+code: A3.2
+description: "IB Biology A3.2 classification and cladistics (HL): read and rotate an interactive cladogram, build one from DNA data and use a molecular clock."
+updated: 2026-10-19
+related: [A3.1, A4.1, A2.1, D4.1]
+mustKnow:
+  - term: Taxon (plural taxa)
+    definition: "Any group used to classify organisms, such as a genus, family or phylum. In the traditional hierarchy each taxon has a fixed <strong>rank</strong>: domain, kingdom, phylum, class, order, family, genus, species."
+    level: AHL
+  - term: Clade
+    definition: "A group of organisms made up of a common ancestor and <strong>all</strong> of the species that evolved from it, living or extinct. Members share characteristics inherited from that ancestor."
+    level: AHL
+  - term: Cladistics
+    definition: "A method of classification that groups organisms into clades according to their evolutionary relationships, using shared characteristics and especially base or amino acid sequences. Clades are not given fixed ranks."
+    level: AHL
+  - term: Cladogram
+    definition: "A branching diagram showing the probable sequence of divergence of a group of organisms from common ancestors. It is a <strong>hypothesis</strong> about their evolutionary relationships, not proof."
+    level: AHL
+  - term: Root
+    definition: "The base of a cladogram. It represents the common ancestor of every organism shown on the cladogram."
+    level: AHL
+  - term: Node
+    definition: "A branching point on a cladogram. It represents a <strong>hypothetical common ancestor</strong> that split to give two (or more) lineages; everything that branches from it forms a clade."
+    level: AHL
+  - term: Terminal branch
+    definition: "A branch that ends at the tips of a cladogram without dividing further, leading to a species or to a group that is not subdivided on that cladogram."
+    level: AHL
+  - term: Molecular clock
+    definition: "Estimating how long ago two clades diverged from the number of differences in a gene or protein sequence, assuming the differences built up at a roughly constant, calibrated rate. It gives estimates only."
+    level: AHL
+  - term: Parsimony analysis
+    definition: "Choosing the cladogram that accounts for the observed sequence differences with the <strong>smallest number of changes</strong>; this is taken as the most probable hypothesis."
+    level: AHL
+  - term: Domain
+    definition: "The highest taxonomic level, above kingdom. All organisms belong to one of three domains, <strong>Bacteria</strong>, <strong>Archaea</strong> and <strong>Eukarya</strong>, distinguished by ribosomal RNA base sequences."
+    level: AHL
+mistakes:
+  - wrong: "Species whose names are next to each other at the tips of a cladogram are the most closely related."
+    right: "Relationships are shown by where branches join, not by the order of the names. Trace back from the tips: the species whose lineages meet at the most recent node (furthest from the root) are the most closely related. Rotating a node changes the order but not the relationships."
+    level: AHL
+  - wrong: "A node on a cladogram represents a species that is alive today, or one of the species at the tips."
+    right: "A node represents a <strong>hypothetical common ancestor</strong>, an ancestral population that split into two lineages. Living species are at the ends of terminal branches; none of them is the ancestor of another."
+    level: AHL
+  - wrong: "Humans evolved from chimpanzees."
+    right: "Humans and chimpanzees share a common ancestor that lived several million years ago. Both species have been evolving separately since that split."
+    level: AHL
+  - wrong: "A clade is any group of species that look similar."
+    right: "A clade is a common ancestor plus <strong>all</strong> its descendants. Species can look alike because of convergent evolution without being in the same clade, and a group that leaves out some descendants (such as reptiles without birds) is not a clade."
+    level: AHL
+  - wrong: "The molecular clock gives the exact date when two species split."
+    right: "It gives only an <strong>estimate</strong>, because the rate at which differences build up varies with generation time, population size, the intensity of selection and other factors, and the calibration itself is uncertain."
+    level: AHL
+  - wrong: "A cladogram built from sequence data proves how the species evolved."
+    right: "A cladogram is a hypothesis. Parsimony picks the most probable tree, but evolution does not always take the shortest route; agreement between trees from several different genes makes the hypothesis stronger but still not proven."
+    level: AHL
+  - wrong: "Fixed ranks such as order and family are natural units that all biologists agree on."
+    right: "Ranks are arbitrary: divergence is gradual, so there is no objective point at which a group becomes different enough to be a family rather than a genus. Cladistics uses unranked clades instead."
+    level: AHL
+  - wrong: "Archaea are just an unusual kind of bacteria."
+    right: "rRNA base sequences show that archaea are as different from bacteria as they are from eukaryotes, so they form a separate <strong>domain</strong>. In fact Archaea and Eukarya share a more recent common ancestor with each other than either does with Bacteria."
+    level: AHL
+  - wrong: "Domains are a lower level of classification than kingdoms."
+    right: "Domains are the <strong>highest</strong> level, added above kingdoms in the three-domain system: each domain contains one or more kingdoms."
+    level: AHL
+---
+
+<Section id="need" title="Why classify organisms?" level="AHL" covers="A3.2.1">
+
+About two million species have been named and described, and many more remain undiscovered: estimates of the total run to several million or more. Without a system for sorting this diversity, information about organisms would be almost impossible to organise or find. **Classification** is the process of placing organisms into groups.
+
+Once organisms have been classified, a wide range of further study becomes possible:
+
+- **Storing and finding information.** Knowledge about each species is filed under its group, so biologists can retrieve what is already known about it and its relatives.
+- **Identification.** An unfamiliar organism can be assigned to a large group (for example, flowering plants) and then to smaller and smaller groups until its species is found, often using a dichotomous key. Each species has a two-part scientific name used worldwide (see <TopicLink code="A3.1" />).
+- **Prediction.** Members of a group share many characteristics, so the features of a poorly studied species can be predicted from better-known members of its group.
+- **Studying evolution.** Groups reflect shared ancestry, so a classification suggests hypotheses about how and when species evolved.
+- **Conservation.** Knowing how many distinct species and lineages live in an area, and how unusual they are, helps set priorities for protecting biodiversity.
+
+<Callout type="exam">
+
+If asked why classification is needed, link it to the **immense diversity of species**, then give at least two specific uses (information retrieval, identification, prediction, research into evolutionary origins). A list of uses without the reason why classification is needed scores less well.
+
+</Callout>
+
+</Section>
+
+<Section id="hierarchy" title="Problems with the traditional hierarchy of taxa" level="AHL" covers="A3.2.2">
+
+A **taxon** (plural **taxa**) is any group used in classification, and **taxonomy** is the science of naming organisms and placing them in taxa. In the traditional system each taxon has a **rank** in a fixed hierarchy: species are grouped into genera, genera into families, and so on up to kingdoms. Moving up the hierarchy, each taxon contains more species that share fewer characteristics.
+
+| Rank | Human | Grey wolf |
+|---|---|---|
+| Kingdom | Animalia | Animalia |
+| Phylum | Chordata | Chordata |
+| Class | Mammalia | Mammalia |
+| Order | Primates | Carnivora |
+| Family | Hominidae | Canidae |
+| Genus | *Homo* | *Canis* |
+| Species | *Homo sapiens* | *Canis lupus* |
+
+### Why the hierarchy does not fit evolution well
+
+- **Divergence is gradual.** Lineages split and then drift apart slowly, so there is no objective point at which a group becomes different enough to be a separate genus, family or order. Two taxonomists can agree on which species belong together yet disagree on the rank to give the group.
+- **Ranks are not comparable.** A "family" of insects and a "family" of mammals may differ hugely in age and in the number of species, so ranks say little about how much divergence has happened.
+- **Species boundaries can be unclear**, for example where populations are partly interbreeding or reproduce asexually.
+- **Some traditional taxa do not match the branching of evolution.** The class Reptilia excludes birds, which are placed in their own class, Aves, even though crocodiles are more closely related to birds than to lizards. Grouping all "fish" together ignores the fact that a salmon is more closely related to humans than to a shark.
+
+<Callout type="note" title="Nature of science: a paradigm shift">
+
+Fixed ranks are **arbitrary** because they impose steps on a pattern of gradual variation. **Cladistics** replaces them with **unranked clades**: a clade is defined by common ancestry, not by being "a family" or "an order". This change in how biologists think about classification is an example of a **paradigm shift**. Ranked names are still widely used, but they are increasingly expected to correspond to clades.
+
+</Callout>
+
+</Section>
+
+<Section id="evolutionary" title="Classification based on evolutionary relationships" level="AHL" covers="A3.2.3">
+
+Most biologists agree that the ideal classification follows **evolutionary relationships**. Each group should then meet two conditions:
+
+1. **All** the species that evolved from the group's common ancestor are included in it.
+2. **Only** species that evolved from that common ancestor are included.
+
+A group that meets both conditions is a clade (also called a **monophyletic** group). "Reptiles" in the traditional sense fail condition 1, because birds evolved from the same common ancestor but are left out.
+
+### The advantage: prediction
+
+Because every member of a clade inherited characteristics from the same ancestor, the characteristics of one member can be **predicted** from the others with reasonable confidence:
+
+- A newly discovered species of mammal can be expected to have hair, mammary glands, three middle-ear bones and a diaphragm, before anyone has studied it in detail.
+- The anticancer drug **paclitaxel** (Taxol) was first isolated from the bark of the Pacific yew (*Taxus brevifolia*). Related yew species were then investigated, and a closely related compound found in the needles of the European yew (*Taxus baccata*) can be converted into the drug, which does not require trees to be felled. Searching relatives of a useful species is effective because related species tend to make similar chemicals.
+
+Classifications that do not follow evolutionary relationships make such predictions unreliable, because the members of a group may resemble each other only superficially.
+
+<Callout type="exam">
+
+In explanations, connect the three ideas in order: members of a clade **share a common ancestor** → they **inherit shared characteristics** from it → so characteristics of members can be **predicted**.
+
+</Callout>
+
+</Section>
+
+<Section id="clades" title="Clades: common ancestry and shared characteristics" level="AHL" covers="A3.2.4">
+
+A **clade** is a group of organisms that have evolved from a common ancestor, including the ancestral species and **all** of its descendants, whether living or extinct. Because of their common ancestry, members of a clade share characteristics.
+
+Clades are **nested**: every species belongs to many clades of different sizes. A human is in the mammal clade, which is nested inside the amniote clade, inside the tetrapods, inside the bony vertebrates, and so on. A clade can contain millions of species or very few: *Ginkgo biloba* is the only living member of a clade that was once diverse.
+
+### Evidence for placing organisms in a clade
+
+The **most objective evidence** comes from **base sequences of genes** and **amino acid sequences of proteins**:
+
+- Sequences provide a very large number of characters (every base or amino acid position) that can be compared directly and counted.
+- Each character has discrete states (A, C, G or T), so comparisons depend much less on personal judgement than descriptions of shape do.
+- Homologous genes, such as those for ribosomal RNA or cytochrome c, are found in very many organisms, so even distantly related groups can be compared.
+
+**Morphological traits** (structure and form) can also be used to assign organisms to clades, and are the only option for most **extinct species known from fossils**. However, structures can look alike because of **convergent evolution** in unrelated lineages (the wings of bats, birds and insects, for example), so morphology is more likely to mislead. Only **homologous** characteristics, inherited from a common ancestor, indicate membership of a clade.
+
+<Callout type="tip">
+
+When you meet a group name, ask: "Does it include the common ancestor and **every** descendant?" If yes, it is a clade. Mammals and tetrapods are clades; "fish", "invertebrates" and "reptiles without birds" are not.
+
+</Callout>
+
+</Section>
+
+<Section id="analysing" title="Analysing cladograms" level="AHL" covers="A3.2.7">
+
+A **cladogram** is a branching diagram that shows the probable sequence in which a group of organisms diverged from common ancestors. To analyse one you need four terms:
+
+- **Root**: the base of the cladogram, representing the common ancestor of every organism on it.
+- **Node**: a branching point. It represents a **hypothetical common ancestor**, an ancestral species that split into two lineages (occasionally more). It is "hypothetical" because the ancestor is inferred, not known as a fossil.
+- **Terminal branch**: a branch ending at the tips, leading to a species or to a group not subdivided on the diagram.
+- **Clade**: any node together with everything that branches from it.
+
+<Sim topic="a3-2" id="cladogram" />
+
+### Deducing relationships
+
+1. To find the **common ancestor** of two species, trace their branches back from the tips until they meet. That node is their most recent common ancestor.
+2. Two species whose branches meet at a node **further from the root** shared a common ancestor **more recently**, so they are more closely related.
+3. To find a **clade**, choose a node and include every terminal branch that comes off it. Clades can be nested inside larger clades.
+
+The order of names along the tips carries **no information**. A node can be **rotated**, swapping its two branches like a hanging mobile, without changing any relationship. Two cladograms that look different may show exactly the same hypothesis.
+
+Some cladograms add numbers to show sequence differences, and some are drawn to scale, with branch lengths proportional to the estimated time since each split. Unless a scale is given, branch length means nothing.
+
+### Cladograms are hypotheses
+
+A cladogram is a **hypothesis** about evolutionary relationships, based on the evidence available. It can be tested and may be revised when new sequences or fossils are found. When cladograms constructed independently from several different genes show the same branching pattern, the hypothesis is much stronger, but it is still not proof.
+
+<Callout type="exam">
+
+In "deduce" questions, refer to **nodes**: "species X and Y share a more recent common ancestor (the node joining them) than either does with Z." Never say one living species evolved from another living species on the tips.
+
+</Callout>
+
+</Section>
+
+<Section id="molecular-clock" title="The molecular clock" level="AHL" covers="A3.2.5">
+
+After two lineages split from a common ancestor, mutations accumulate independently in each of them. Over long periods, the differences between their base sequences, and therefore between the amino acid sequences of their proteins, **build up gradually**. If differences accumulate at a roughly **constant rate**, the number of differences can be used to estimate the time since the two clades **diverged**. This is the **molecular clock**: the more differences, the longer ago the split.
+
+### Calibrating and using the clock
+
+The rate has to be **calibrated** using a split whose date is known independently, usually from **fossils** that can be dated by radiometric methods.
+
+- Calibration: two species known from fossils to have diverged 20 million years ago differ at 60 bases in a gene, so the rate is 60 ÷ 20 = **3 differences per million years**.
+- Estimate: two other species differ at 21 bases in the same gene, so they diverged about 21 ÷ 3 = **7 million years ago**.
+
+Both lineages accumulate changes after the split, so each lineage changes at half the rate measured between the two species. For example, human and chimpanzee genomes differ at roughly 1.2% of aligned bases; at a rate of about 1 × 10⁻⁹ changes per base per year in each lineage, this gives a split around 6 million years ago, which fits the fossil record. Slower rates measured directly in families would place it earlier, which shows how sensitive the estimates are to the rate assumed.
+
+<Sim topic="a3-2" id="molecular-clock" />
+
+### Why it gives only estimates
+
+The rate of change is not truly constant. It is affected by:
+
+- **Generation time**: species with short generations copy their DNA more times per year, so they tend to accumulate changes faster.
+- **Population size**: in small populations, chance (genetic drift) plays a larger part in which new mutations spread.
+- **Intensity of selection**: in genes whose function is essential, most changes are harmful and removed by natural selection (see <TopicLink code="D4.1" />), so these genes change slowly; other genes change faster.
+- **Other factors**, such as the efficiency of DNA repair, and the same base changing more than once over very long periods.
+
+Each gene therefore has its own clock rate. Slowly changing sequences such as rRNA are used to compare very distantly related groups; fast-changing sequences such as animal mitochondrial DNA are used for recent splits.
+
+<Callout type="exam">
+
+When asked why the molecular clock gives estimates, name the **assumption** (constant rate of mutation) and then give **specific factors** that make the rate vary: generation time, population size and selective pressure.
+
+</Callout>
+
+</Section>
+
+<Section id="constructing" title="Building cladograms from sequence data" level="AHL" covers="A3.2.6">
+
+Base sequences of genes and amino acid sequences of proteins are the main data used to construct cladograms. With a small set of sample data you can do it by hand:
+
+1. **Align** the sequences of the same gene so that homologous positions line up in columns.
+2. **Identify the positions that vary** between species.
+3. **Count the differences** between each pair of species and record them in a table.
+4. **Group the most similar pair first**, joining them at a node.
+5. Add the next most similar species or group at the next node down, and continue until all are included.
+6. The most different species branches off **nearest the root**.
+
+<Anim topic="a3-2" id="building" />
+
+### Parsimony
+
+Many different trees could link the same species. **Parsimony analysis** selects the cladogram that accounts for all the observed sequence variation with the **smallest number of sequence changes**, on the reasoning that this is the most probable route. In the sample data, the tree that groups P with Q needs 10 base changes, while the alternatives need 12, so it is chosen. With real data sets of many species and thousands of bases, computer software compares the possible trees.
+
+<Callout type="note" title="Nature of science: criteria for judgement">
+
+Different **criteria for judgement** can lead to different hypotheses. Parsimony is one criterion; other methods weigh how likely each kind of mutation is, and morphology or a different gene may support a different tree. Evolution does not always take the shortest path, so the most parsimonious tree is the most probable hypothesis, not a certainty.
+
+</Callout>
+
+<Callout type="exam" title="Constructing a cladogram from data: must include">
+
+- every species named at the end of a **terminal branch**;
+- the **most similar** species (fewest differences) joined at the node **furthest from the root**;
+- the **most different** species branching off **nearest the root**;
+- a **root**, with branches joining at clear **nodes**.
+
+</Callout>
+
+</Section>
+
+<Section id="testing" title="Testing classifications with cladistics" level="AHL" covers="A3.2.8">
+
+Traditional classifications were mostly based on **morphology**. As sequence data have become available for more and more species, cladistics has been used to check whether these groups correspond to clades. There are three possible outcomes:
+
+- The traditional group **is a clade**: the classification is confirmed, as it has been in many cases.
+- The group contains species that **do not all share one common ancestor** exclusive to the group, so it is split and species are moved.
+- Species that **share a common ancestor** have been placed in **different groups**, so groups are merged or species are moved together.
+
+### Case study: the figwort family (Scrophulariaceae)
+
+The figwort family was once one of the largest families of flowering plants, with several thousand species, grouped mainly on the structure of their flowers: typically tubular, two-lipped and bilaterally symmetrical. From the 1990s, cladistic analysis of chloroplast gene sequences showed that the family was made up of several separate clades. As a result:
+
+- snapdragons, foxgloves and speedwells were moved to the plantain family (Plantaginaceae), even though plantains have tiny wind-pollinated flowers that look nothing like theirs;
+- partly parasitic species such as eyebrights and yellow rattle were moved to the broomrape family (Orobanchaceae), with fully parasitic relatives;
+- monkeyflowers were moved to a different family, and some new families were created;
+- a few genera, such as the butterfly bush (*Buddleja*), were moved **into** the figwort family.
+
+Fewer than half of the species remain in the figwort family. You do not need to memorise these details.
+
+Cladistics has also shown that the classes Reptilia and Aves do not match evolutionary relationships: birds are a clade nested within the reptiles, closest to the crocodilians.
+
+<Callout type="note" title="Nature of science: falsification">
+
+Scientific knowledge claims can be **falsified**. The old figwort family was supported by similarities in flower structure that arose by **convergent evolution** or are also shared with other families, rather than by common ancestry. Sequence data showed this classification to be false, so it was changed. Where traditional and cladistic classifications disagree, cladistics is usually trusted more because its evidence is more objective. See <TopicLink code="A4.1" /> for convergent evolution.
+
+</Callout>
+
+</Section>
+
+<Section id="domains" title="The three domains" level="AHL" covers="A3.2.9">
+
+Traditional classification divided organisms into two kinds of cell, **prokaryotes** and **eukaryotes**, and in the five-kingdom system all prokaryotes were placed in a single kingdom. In 1977 Carl Woese and George Fox compared the base sequences of **ribosomal RNA (rRNA)** from the small subunit of the ribosome in a wide range of organisms. They found that prokaryotes fall into **two groups that are as different from each other as either is from eukaryotes**. Methane-producing prokaryotes, now called archaea, were the first members of the second group to be recognised.
+
+This led to a revolutionary reclassification, with a new taxonomic level **above kingdoms**: all organisms are classified into three **domains**, **Bacteria**, **Archaea** and **Eukarya**. The names were formalised in 1990.
+
+rRNA was a good choice because it is present in **all** cellular organisms, has the same essential function in protein synthesis, and changes **slowly**, so even very distantly related organisms can be aligned and compared.
+
+<Figure name="a3-2-domains" level="AHL" caption="The three domains, based on rRNA base sequences. Archaea and Eukarya share a more recent common ancestor with each other than with Bacteria. The older five-kingdom system put all prokaryotes in one kingdom, now split between two domains, while its four eukaryotic kingdoms all belong to the domain Eukarya." />
+
+The domains also differ in other features, which supports the rRNA evidence:
+
+<div role="region" aria-label="Comparison of the three domains" tabIndex={0} style={{ overflowX: "auto" }}>
+
+| Feature | Bacteria | Archaea | Eukarya |
+|---|---|---|---|
+| Nucleus and membrane-bound organelles | absent | absent | present |
+| Peptidoglycan in cell wall | present | absent | absent |
+| Membrane lipids | unbranched fatty acids, ester-linked | branched chains, ether-linked | unbranched fatty acids, ester-linked |
+| Histone proteins with DNA | absent | present in many | present |
+| Ribosome size (cytoplasm) | 70S | 70S | 80S |
+| First amino acid of a new protein | formyl-methionine | methionine | methionine |
+
+</div>
+
+Many archaea live in **extreme environments** such as hot springs or very salty water, but archaea are also abundant in soil, the oceans and animal intestines.
+
+<Callout type="note" title="An idea biologists disagree about">
+
+Some recent genome evidence suggests that eukaryotes arose from **within** the Archaea, from a lineage related to the recently discovered Asgard archaea. If so, there would be only two primary domains, with eukaryotes as a branch of the Archaea. This is still debated; the three-domain system is the one you need for the IB.
+
+</Callout>
+
+<Callout type="exam">
+
+The three-domain system is based on **rRNA base sequences**, not on cell structure. Write "domain" (not kingdom) for Bacteria, Archaea and Eukarya, and remember that domains rank **above** kingdoms. The origin of the first cells and the last universal common ancestor are covered in <TopicLink code="A2.1" />.
+
+</Callout>
+
+</Section>

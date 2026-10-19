@@ -1,0 +1,73 @@
+# Visuals for A3.2 (AHL only). Step captions here are what readers see in the animation controls,
+# so they are written to exam standard. The domains diagram is a static Figure (src/diagrams/a3-2-domains.astro).
+visuals:
+  - id: cladogram
+    kind: sim
+    module: a3-2-cladogram
+    level: AHL
+    title: Cladogram reader
+    alt: An interactive cladogram of nine vertebrates with numbered node buttons that highlight clades and can be rotated.
+    description: >-
+      A rectangular cladogram of nine vertebrates, drawn with the root on the left and the species names on
+      the right. The lamprey branches off first, then the shark, the salmon and the frog. The amniotes then
+      split into the mammals (human and mouse) and the reptiles; within the reptiles the lizard branches off
+      first, leaving the crocodile and the pigeon as each other's closest relatives, so birds are part of the
+      reptile clade. Each of the eight nodes is a numbered button. Selecting one highlights the clade it
+      defines and explains that the node represents the hypothetical common ancestor of every species in that
+      clade, with characteristics they share. A rotate button swaps the two branches at the selected node:
+      the order of the names changes, but every clade, and so every relationship, stays the same. A practice
+      panel asks which of two species is more closely related to a third and highlights the most recent common
+      ancestor in its feedback.
+
+  - id: molecular-clock
+    kind: sim
+    module: a3-2-molecular-clock
+    level: AHL
+    title: Molecular clock calculator
+    alt: Sliders set a fossil calibration and the number of base differences, and a graph reads off the estimated divergence time.
+    description: >-
+      A graph of the number of base differences in a gene (y-axis) against time since two species diverged
+      (x-axis, million years). A pair of species whose split has been dated from fossils calibrates the clock:
+      its date and number of differences fix a straight line through the origin, whose gradient is the rate in
+      differences per million years. A second slider sets the number of differences between a new pair of
+      species; reading across to the line and down to the axis gives the estimated time since they diverged
+      (differences ÷ rate). A further slider allows for the rate being faster or slower than calibrated and
+      shows the resulting range of dates as dashed lines and a bar on the time axis. The sim lists the
+      assumptions and limitations: a constant rate, calibration with independently dated splits, the same gene
+      in every comparison, and rates that vary with generation time, population size and selection pressure.
+
+  - id: building
+    kind: anim
+    module: a3-2-building
+    level: AHL
+    title: Building a cladogram from base sequences
+    alt: Seven steps that turn four aligned DNA sequences into a difference matrix and then a cladogram checked by parsimony.
+    description: >-
+      Sample data: a 16-base section of the same gene in four species, P, Q, R and S. The sequences are
+      aligned, the positions that vary are highlighted, and the differences between every pair are counted
+      into a table (P–Q 2, P–R 4, Q–R 4, P–S 8, Q–S 8, R–S 6). The cladogram is then built by grouping the
+      most similar species first: P and Q join at a node, R joins them next, and S, the most different, joins
+      last, nearest the root. Finally, parsimony is used to check the tree: it accounts for all the variation
+      with 10 base changes, whereas grouping P with R instead would need 12.
+    steps:
+      - id: align
+        title: Align the sequences
+        caption: Line up the sequences of the same gene so that each column contains bases at the same position (homologous bases). In real data, gaps are inserted where bases have been added or lost, so that the rest still lines up.
+      - id: variable
+        title: Find the positions that vary
+        caption: Compare the bases in each column. Six positions are the same in all four species; ten vary. Each difference is the result of a mutation (a base substitution) in one of the lineages since they shared a common ancestor.
+      - id: count
+        title: Count differences for each pair
+        caption: Count how many positions differ between every pair of species and record them in a table. The fewer the differences, the more recently the two species are likely to have shared a common ancestor.
+      - id: closest
+        title: Group the most similar pair first
+        caption: P and Q differ at only 2 positions, the smallest number in the table, so they are joined first. The node where their branches meet represents their hypothetical most recent common ancestor.
+      - id: next
+        title: Add the next most similar species
+        caption: R differs from both P and Q at 4 positions, fewer than any comparison with S, so R joins the P–Q clade at the next node down the tree.
+      - id: root
+        title: Add the most different species and the root
+        caption: S differs from the others at 6 to 8 positions, so it branches off nearest the root. The root represents the common ancestor of all four species; S is the most distantly related.
+      - id: parsimony
+        title: Check with parsimony
+        caption: Mapping the base changes onto the branches shows that this tree explains all the differences with 10 changes. Grouping P with R instead would need 12. Parsimony selects the tree needing the fewest changes as the most probable hypothesis — it is not proof of how the species evolved.

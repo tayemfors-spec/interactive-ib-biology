@@ -1,0 +1,104 @@
+---
+/**
+ * A3.2.6: building a cladogram from sample base sequences. Drawn in the step-1 start state (sequences
+ * not yet lined up); animated by a3-2-building.ts. Data and checks: src/sims/models/a3-2-sequences.ts.
+ */
+import { differences, pairs, sequences, species, variableSites } from '../sims/models/a3-2-sequences';
+
+const X0 = 64, CW = 26;
+const rowY = { P: 62, Q: 86, R: 110, S: 134 } as const;
+const startShift = { P: 0, Q: 39, R: 13, S: 26 } as const;
+const len = sequences.P.length;
+const varying = variableSites();
+const colX = { P: 92, Q: 142, R: 192 } as Record<string, number>;
+const cellY = { Q: 216, R: 246, S: 276 } as Record<string, number>;
+---
+<svg viewBox="0 0 520 410" xmlns="http://www.w3.org/2000/svg" class="build">
+  <text class="head" x="24" y="20">Aligned sequences (sample data)</text>
+  <text class="note" x="500" y="20" text-anchor="end" data-el="varCount" style="opacity:0">{varying.length} of {len} positions vary</text>
+  <g data-el="colNums" style="opacity:0">
+    {Array.from({ length: len }, (_, i) => <text class="num" x={X0 + i * CW + CW / 2} y="40" text-anchor="middle">{i + 1}</text>)}
+  </g>
+  {varying.map((i) => <rect class="vcol" data-el={`v${i}`} x={X0 + i * CW + 1} y="48" width={CW - 2} height="98" rx="4" style="opacity:0" />)}
+  {species.map((s) => (
+    <g>
+      <text class="sp" x="30" y={rowY[s]} dy="0.35em">{s}</text>
+      <g data-el={`row${s}`} transform={`translate(${startShift[s]} 0)`}>
+        {[...sequences[s]].map((b, i) => <text class="base" x={X0 + i * CW + CW / 2} y={rowY[s]} dy="0.35em" text-anchor="middle">{b}</text>)}
+      </g>
+    </g>
+  ))}
+
+  <text class="head" x="24" y="176">Number of differences</text>
+  <g data-el="matrix" style="opacity:0">
+    {['P', 'Q', 'R'].map((s) => <text class="sp" x={colX[s]} y="194" text-anchor="middle">{s}</text>)}
+    {['Q', 'R', 'S'].map((s) => <text class="sp" x="50" y={cellY[s]} dy="0.35em" text-anchor="middle">{s}</text>)}
+    {pairs.map(([a, b]) => (
+      <g data-el={`c${a}${b}`}>
+        <rect class="cell" x={colX[a]! - 22} y={cellY[b]! - 13} width="44" height="26" rx="5" />
+        <text class="val" x={colX[a]} y={cellY[b]} dy="0.35em" text-anchor="middle">{differences(sequences[a], sequences[b])}</text>
+      </g>
+    ))}
+  </g>
+
+  <text class="head" x="290" y="176">Cladogram</text>
+  <g class="tree">
+    <g data-el="gPQ" style="opacity:0">
+      <path d="M430 200V232M430 200H470M430 232H470" />
+      <circle class="nd" cx="430" cy="216" r="4" />
+      <text class="sp" x="478" y="200" dy="0.35em">P</text>
+      <text class="sp" x="478" y="232" dy="0.35em">Q</text>
+    </g>
+    <g data-el="gR" style="opacity:0">
+      <path d="M390 216V264M390 216H430M390 264H470" />
+      <circle class="nd" cx="390" cy="240" r="4" />
+      <text class="sp" x="478" y="264" dy="0.35em">R</text>
+    </g>
+    <g data-el="gS" style="opacity:0">
+      <path d="M350 240V296M350 240H390M350 296H470M320 268H350" />
+      <circle class="nd" cx="350" cy="268" r="4" />
+      <text class="sp" x="478" y="296" dy="0.35em">S</text>
+      <text class="note" x="316" y="290">root</text>
+    </g>
+    <g data-el="changes" class="chg" style="opacity:0">
+      <text x="452" y="194" text-anchor="middle">1</text>
+      <text x="452" y="226" text-anchor="middle">1</text>
+      <text x="410" y="210" text-anchor="middle">2</text>
+      <text x="440" y="258" text-anchor="middle">1</text>
+      <text x="370" y="234" text-anchor="middle">2</text>
+      <text x="420" y="290" text-anchor="middle">3</text>
+      <text class="total" x="290" y="332">Total: 10 base changes</text>
+      <text class="note" x="290" y="352">the most parsimonious tree</text>
+    </g>
+  </g>
+
+  <g data-el="alt" class="tree alt" style="opacity:0">
+    <text class="head" x="24" y="316">Alternative: P grouped with R</text>
+    <path d="M140 334V354M140 334H170M140 354H170M110 344V374M110 344H140M110 374H170M80 359V394M80 359H110M80 394H170M62 376H80" />
+    <text class="sp sm" x="176" y="334" dy="0.35em">P</text>
+    <text class="sp sm" x="176" y="354" dy="0.35em">R</text>
+    <text class="sp sm" x="176" y="374" dy="0.35em">Q</text>
+    <text class="sp sm" x="176" y="394" dy="0.35em">S</text>
+    <text class="bad" x="212" y="368">needs 12 changes</text>
+  </g>
+</svg>
+<style>
+  .build { font-family: var(--font-sans); }
+  .head { font-size: 14px; font-weight: 750; fill: var(--text-muted); }
+  .note { font-size: 13px; font-style: italic; fill: var(--text-muted); }
+  .num { font-size: 12px; fill: var(--text-muted); font-variant-numeric: tabular-nums; }
+  .sp { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .sp.sm { font-size: 14px; }
+  .base { font-family: var(--font-mono); font-size: 17px; font-weight: 650; fill: var(--text); }
+  .vcol { fill: color-mix(in srgb, var(--bio-glucose) 32%, transparent); }
+  .cell { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.2; transition: fill 0.2s; }
+  .cell.hi { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2.5; }
+  .val { font-size: 15px; font-weight: 750; fill: var(--text); font-variant-numeric: tabular-nums; }
+  .tree path { fill: none; stroke: var(--text); stroke-width: 2.5; stroke-linecap: round; }
+  .alt path { stroke-width: 2; stroke: var(--text-muted); }
+  .nd { fill: var(--accent); }
+  .chg text { font-size: 14px; font-weight: 800; fill: var(--ahl); }
+  .chg .total { font-size: 15px; fill: var(--text); }
+  .chg .note { font-weight: 400; }
+  .bad { font-size: 14px; font-weight: 750; fill: var(--bad); }
+</style>
