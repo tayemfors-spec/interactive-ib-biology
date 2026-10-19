@@ -1,0 +1,235 @@
+facts:
+  - id: f1
+    claim: Evolution is change in the heritable characteristics of a population; acquired (non-genetic) changes are not evolution.
+    where: ["index.mdx#defining", "index.mdx (mustKnow)", "quiz.yaml:q1", "flashcards.yaml:c1"]
+    confidence: high
+    basis: IB guide A4.1.1; Futuyma, Evolution
+    status: checked
+  - id: f2
+    claim: Lamarckism (inheritance of acquired characteristics) has no known mechanism and is rejected; the giraffe-neck example is the standard illustration.
+    where: ["index.mdx#defining", "index.mdx (mistakes)", "quiz.yaml:q1", "flashcards.yaml:c3"]
+    confidence: high
+    basis: Standard history of evolutionary biology (Futuyma; Campbell Biology)
+    status: checked
+  - id: f3
+    claim: Evolution by natural selection is called a theory because it cannot be formally proven to correspond to reality, though it is unlikely ever to be falsified (pragmatic truth).
+    where: ["index.mdx#defining", "flashcards.yaml:c4"]
+    confidence: high
+    basis: IB guide A4.1.1 NOS statement
+    status: checked
+  - id: f4
+    claim: All organisms use DNA with the same four bases and an almost universal genetic code (minor variants exist, e.g. in mitochondria).
+    where: ["index.mdx#sequences"]
+    confidence: high
+    basis: Alberts, Molecular Biology of the Cell
+    status: checked
+  - id: f5
+    claim: "Approximate cytochrome c amino acid differences from humans: chimpanzee 0, rhesus monkey 1, dog 11, horse 12, chicken 13, tuna 21, baker's yeast about 45; human cytochrome c has 104 amino acids."
+    where: ["index.mdx#sequences"]
+    confidence: medium
+    basis: Classic Dickerson (1972) / Margoliash comparisons as reproduced in textbooks; values differ by one or two between sources, especially for dog and yeast
+    status: open
+  - id: f6
+    claim: Ribosomal RNA sequences are used to compare all forms of life.
+    where: ["index.mdx#sequences"]
+    confidence: high
+    basis: Woese's rRNA phylogeny; Campbell Biology
+    status: checked
+  - id: f7
+    claim: Dogs were domesticated from grey wolves at least 15 000 years ago and all breeds remain one interfertile species.
+    where: ["index.mdx#breeding"]
+    confidence: medium
+    basis: Archaeological and genomic studies (e.g. Bergström et al. 2020) give ≥15 000 years; some estimates are older
+    status: checked
+  - id: f8
+    claim: Cabbage, kale, Brussels sprouts, broccoli, cauliflower and kohlrabi are all varieties of Brassica oleracea, selected for terminal bud, leaves, lateral buds, inflorescences and stem respectively.
+    where: ["index.mdx#breeding", "flashcards.yaml:c7"]
+    confidence: high
+    basis: Standard crop botany; Campbell Biology
+    status: checked
+  - id: f9
+    claim: Maize was domesticated from teosinte in Mexico about 9000 years ago.
+    where: ["index.mdx#breeding", "flashcards.yaml:c7"]
+    confidence: high
+    basis: Matsuoka et al. 2002 (PNAS); Piperno et al. 2009 (Balsas valley)
+    status: checked
+  - id: f10
+    claim: Wild carrot roots are thin and pale; most modern cultivated carrots are orange because of high carotene content.
+    where: ["index.mdx#breeding"]
+    confidence: high
+    basis: Standard horticulture; carotenoid biochemistry of Daucus carota
+    status: checked
+  - id: f11
+    claim: The pentadactyl limb plan is humerus; radius and ulna; carpals; metacarpals and phalanges in five digits, found in amphibians, reptiles, birds and mammals.
+    where: ["index.mdx#homologous", "visuals.yaml:limbs", "flashcards.yaml:c8", "quiz.yaml:q3"]
+    confidence: high
+    basis: Kardong, Vertebrates; Romer & Parsons, The Vertebrate Body
+    status: checked
+  - id: f12
+    claim: "Human phalangeal formula 2-3-3-3-3 (14 phalanges); 8 carpals in two rows; radius on thumb side and rotates across ulna; ulna forms the olecranon."
+    where: ["sims/models/a4-1-limbs.ts (human)", "src/sims/a4-1-limbs.astro"]
+    confidence: high
+    basis: Gray's Anatomy
+    status: checked
+  - id: f13
+    claim: Bat wing — long humerus and radius, reduced ulna fused to radius, greatly elongated metacarpals and phalanges of digits 2–5 supporting the patagium, short free clawed thumb.
+    where: ["sims/models/a4-1-limbs.ts (bat)"]
+    confidence: high
+    basis: Kardong; Hill & Smith, Bats. Exact phalanx counts per digit vary between bat families, so the drawing shows two per digit schematically
+    status: checked
+  - id: f14
+    claim: Dolphin flipper — short flattened humerus, radius and ulna; immobile elbow and wrist; hyperphalangy in digits 2 and 3.
+    where: ["sims/models/a4-1-limbs.ts (dolphin)"]
+    confidence: high
+    basis: Cooper et al. 2007 (Anat Rec) on cetacean flipper; Kardong. Exact phalanx counts drawn (1, 7, 5, 2, 1) are schematic and vary between individuals
+    status: open
+  - id: f15
+    claim: Bird wing — only two free carpals (radiale and ulnare); remaining carpals and three metacarpals fused into the carpometacarpus; three digits with 1, 2 and 1 phalanges; ulna thicker than radius and bears the secondary feathers; humerus often pneumatized.
+    where: ["sims/models/a4-1-limbs.ts (bird)"]
+    confidence: high
+    basis: Proctor & Lynch, Manual of Ornithology; Kardong. Digit identity (I–III vs II–IV) is debated, so the page avoids numbering them
+    status: checked
+  - id: f16
+    claim: Horse foreleg — single functional digit 3 (cannon bone plus three phalanges, the distal one in the hoof); splint bones are reduced metacarpals 2 and 4; ulna reduced to proximal part fused to radius; the "knee" is the carpus.
+    where: ["sims/models/a4-1-limbs.ts (horse)", "index.mdx#homologous"]
+    confidence: high
+    basis: Sisson & Grossman's Anatomy of the Domestic Animals
+    status: checked
+  - id: f17
+    claim: Mole forelimb — very short broad humerus, stout radius and ulna with large olecranon, broad hand with large claws, and an extra sickle-shaped sesamoid (os falciforme) beside the thumb.
+    where: ["sims/models/a4-1-limbs.ts (mole)"]
+    confidence: high
+    basis: Mitgutsch et al. 2012 (Biol Lett) on the mole "extra thumb"; Kardong
+    status: checked
+  - id: f18
+    claim: Insect wings are outgrowths of the exoskeleton (cuticle containing chitin) stiffened by veins, with no bones, moved by thoracic muscles.
+    where: ["index.mdx#analogous", "sims/models/a4-1-limbs.ts (insect)", "quiz.yaml:q4"]
+    confidence: high
+    basis: Gullan & Cranston, The Insects
+    status: checked
+  - id: f19
+    claim: Vertebrate retinas are inverted (nerve fibres in front of photoreceptors, causing a blind spot); octopus retinas are not, so they lack a blind spot; their last common ancestor lacked a camera eye and lived over 500 million years ago.
+    where: ["index.mdx#analogous", "quiz.yaml:q3"]
+    confidence: high
+    basis: Land & Nilsson, Animal Eyes; Campbell Biology
+    status: checked
+  - id: f20
+    claim: Fish tail fins are vertical and beat side to side; whale flukes are horizontal, stiffened by fibrous tissue rather than fin rays, and beat up and down.
+    where: ["index.mdx#analogous"]
+    confidence: high
+    basis: Standard vertebrate zoology (Kardong)
+    status: checked
+  - id: f21
+    claim: Birds evolved flight from non-flying theropod dinosaurs; bats from non-flying mammals — so their wings are analogous though their forelimbs are homologous.
+    where: ["index.mdx#analogous", "index.mdx (mistakes)", "flashcards.yaml:c11"]
+    confidence: high
+    basis: Standard palaeontology (Benton, Vertebrate Palaeontology)
+    status: checked
+  - id: f22
+    claim: Speciation is the only way new species arise, increases species number; extinction decreases it; gradual change within one lineage is not speciation.
+    where: ["index.mdx#splitting", "quiz.yaml:q5", "flashcards.yaml:c12"]
+    confidence: high
+    basis: IB guide A4.1.6
+    status: checked
+  - id: f23
+    claim: Darwin sketched a branching evolutionary tree in his 1837 notebook.
+    where: ["index.mdx#splitting"]
+    confidence: high
+    basis: Darwin's Notebook B (1837), "I think" tree
+    status: checked
+  - id: f24
+    claim: Bonobos (Pan paniscus) live only south of the Congo River; common chimpanzees (Pan troglodytes) north and east of it; neither swims; ranges do not overlap.
+    where: ["index.mdx#isolation", "visuals.yaml:speciation", "quiz.yaml:q6", "flashcards.yaml:c14"]
+    confidence: high
+    basis: IUCN range maps; IB guide A4.1.7
+    status: checked
+  - id: f25
+    claim: The bonobo–chimpanzee split happened roughly 1–2 million years ago, probably when founders crossed the Congo during a dry period of low water.
+    where: ["index.mdx#isolation", "visuals.yaml:speciation", "quiz.yaml:q6"]
+    confidence: medium
+    basis: Genomic estimates range from about 0.9 to 2 million years (Prüfer et al. 2012; de Manuel et al. 2016); the low-water crossing is a hypothesis (Takemoto et al. 2015)
+    status: open
+  - id: f26
+    claim: Absence of gorillas south of the Congo leaves more terrestrial plant food for bonobos, a likely selection pressure behind larger, more stable and less aggressive groups.
+    where: ["index.mdx#isolation", "visuals.yaml:speciation", "quiz.yaml:q6", "flashcards.yaml:c14"]
+    confidence: medium
+    basis: Wrangham's hypothesis (Wrangham & Peterson 1996; Malenky & Wrangham 1994) — widely cited but still a hypothesis
+    status: open
+  - id: f27
+    claim: Bonobos are more slender with longer legs and smaller, rounder heads; their groups are female-led and less aggressive than male-dominated chimpanzee groups.
+    where: ["index.mdx#isolation"]
+    confidence: high
+    basis: Primatology texts (Furuichi 2011; de Waal)
+    status: checked
+  - id: f28
+    claim: Bonobo–chimpanzee hybrids have been born in captivity and genomes show small amounts of ancient gene flow between them.
+    where: ["index.mdx#isolation"]
+    confidence: high
+    basis: de Manuel et al. 2016, Science 354:477
+    status: checked
+  - id: f29
+    claim: Rhagoletis pomonella originally used hawthorn; an apple host race arose after apples were introduced to North America; flies mate on their host fruit and apples ripen earlier, reducing gene flow between host races.
+    where: ["index.mdx#sympatric", "visuals.yaml:speciation", "flashcards.yaml:c15"]
+    confidence: high
+    basis: Bush 1969; Feder et al. 1988, 2003
+    status: checked
+  - id: f30
+    claim: Periodical cicadas have 13- or 17-year cycles; Magicicada neotredecim (13-year) is thought to have arisen from 17-year ancestors; 13- and 17-year broods coincide every 221 years (13 × 17).
+    where: ["index.mdx#sympatric", "visuals.yaml:speciation", "flashcards.yaml:c15"]
+    confidence: high
+    basis: Marshall & Cooley 2000 (Evolution); Simon et al. 2000
+    status: checked
+  - id: f31
+    claim: Darwin's finches descend from one ancestral seed-eating finch (a tanager) from mainland South America, within the last roughly 1–3 million years, and now number about 15–18 species; up to about ten coexist on one island.
+    where: ["index.mdx#radiation", "src/diagrams/a4-1-radiation.astro", "quiz.yaml:q8", "flashcards.yaml:c16"]
+    confidence: medium
+    basis: Lamichhaney et al. 2015 (Nature); Petren et al. 2005; Grant & Grant, 40 Years of Evolution. Dates and species counts vary between studies
+    status: open
+  - id: f32
+    claim: "Finch diets: warbler finch insects from leaves; vegetarian finch buds, leaves, fruit; woodpecker finch uses cactus spines or twigs as tools for larvae; cactus finch cactus flowers, nectar, pollen, seeds; large, medium, small ground finches seeds of matching size/hardness. Warbler finches are the earliest-branching lineage and tree and ground finches are sister groups."
+    where: ["index.mdx#radiation", "src/diagrams/a4-1-radiation.astro"]
+    confidence: high
+    basis: Grant & Grant 2008; Lamichhaney et al. 2015. Branching order within ground finches is simplified in the figure
+    status: checked
+  - id: f33
+    claim: Horse 2n = 64, donkey 2n = 62, mule 2n = 63; mule = male donkey × female horse; mules are almost always sterile because chromosomes cannot pair at meiosis.
+    where: ["index.mdx#barriers", "visuals.yaml:polyploidy", "quiz.yaml:q9", "flashcards.yaml:c17"]
+    confidence: high
+    basis: Standard cytogenetics (Chandley 1988; IB guide A4.1.10)
+    status: checked
+  - id: f34
+    claim: Sea urchin sperm bindin binds species-specifically to egg receptors, a gametic barrier to hybridization.
+    where: ["index.mdx#barriers"]
+    confidence: high
+    basis: Vacquier 1998 (Science); Campbell Biology
+    status: checked
+  - id: f35
+    claim: Fireflies use species-specific flash patterns in courtship; birds of paradise and cranes have elaborate courtship displays.
+    where: ["index.mdx#barriers"]
+    confidence: high
+    basis: Lewis & Cratsley 2008 (Annu Rev Entomol); standard ornithology
+    status: checked
+  - id: f36
+    claim: Polyploidy arises when chromosomes are replicated but the cell does not divide; an autotetraploid crossed with a diploid gives sterile triploids; an allotetraploid (AABB) from a sterile AB hybrid is fertile and isolated from both parents.
+    where: ["index.mdx#polyploidy", "visuals.yaml:polyploidy", "quiz.yaml:q10", "flashcards.yaml:c18"]
+    confidence: high
+    basis: Campbell Biology; Soltis & Soltis, Polyploidy and Genome Evolution
+    status: checked
+  - id: f37
+    claim: Persicaria has over 100 species, many formed by hybridization and polyploidy; P. maculosa (2n = 44) is an allotetraploid from P. lapathifolia and P. foliosa, each 2n = 22.
+    where: ["index.mdx#polyploidy", "visuals.yaml:polyploidy", "quiz.yaml:q10", "flashcards.yaml:c18"]
+    confidence: medium
+    basis: Kim, Donoghue et al. 2008 (Systematic Botany) on the allotetraploid origin of P. maculosa; chromosome count of P. foliosa should be confirmed
+    status: open
+  - id: f38
+    claim: Bread wheat is an allohexaploid (2n = 42) derived from three ancestral grass species.
+    where: ["index.mdx#polyploidy"]
+    confidence: high
+    basis: Marcussen et al. 2014 (Science); standard plant genetics
+    status: checked
+  - id: f39
+    claim: Hawaiian honeycreepers and African Great Lakes cichlids (hundreds of species) are major adaptive radiations.
+    where: ["index.mdx#radiation"]
+    confidence: high
+    basis: Lerner et al. 2011; Seehausen 2006
+    status: checked

@@ -1,0 +1,130 @@
+---
+/** Allopatric speciation (Pan, Congo River) with AHL sympatric steps. Animated by a4-1-speciation.ts. */
+import { APPLE, B13, B17, BAR_W, FLY_START, HAW, NORTH, RIVER, SOUTH, TX0, TX1, tx, YEARS } from './a4-1-speciation';
+const ticks = [0, 50, 100, 150, 200];
+---
+<svg viewBox="0 0 520 360" xmlns="http://www.w3.org/2000/svg" class="spec">
+  <!-- ===== allopatric: one population split by the Congo River ===== -->
+  <g data-el="allo">
+    <rect class="land" x="0" y="30" width="520" height="300" />
+    <text class="side" x="12" y="22">North of the river</text>
+    <text class="side" x="12" y="350">South of the river</text>
+    <path data-el="river" class="river" d={RIVER} stroke-width="26" />
+    <text class="river-t" x="12" y="210">Congo River</text>
+    <text data-el="low" class="river-low" x="250" y="210" style="opacity:0">dry period: river low</text>
+
+    <g data-el="flow" class="flow">
+      <path d="M70 92 Q96 78 122 92" /><path d="M170 112 Q196 98 222 112" /><path d="M120 128 Q150 140 180 128" />
+      <text x="110" y="152">interbreeding: gene flow</text>
+    </g>
+    <g data-el="block" class="block" style="opacity:0">
+      <path class="arr" d="M300 134 L300 224" />
+      <path class="x" d="M288 166 L312 190 M312 166 L288 190" />
+      <text x="318" y="226">no gene flow</text>
+    </g>
+
+    {SOUTH.map(([x, y]) => <circle data-ape="s" class="ape" cx={x} cy={y} r="6.5" style="opacity:0" />)}
+    {NORTH.map(([x, y]) => <circle data-ape="n" class="ape" cx={x} cy={y} r="6.5" />)}
+
+    <g class="pool">
+      <rect class="box" x="352" y="38" width="160" height="72" rx="8" />
+      <text x="362" y="58">North gene pool</text>
+      <text class="cap" x="362" y="103">frequencies of 2 alleles</text>
+      <rect class="allele2" x="362" y="70" width={BAR_W} height="16" rx="3" />
+      <rect data-el="barN" class="allele1" x="362" y="70" width={BAR_W * 0.5} height="16" rx="3" />
+    </g>
+    <g data-el="sPool" class="pool" style="opacity:0">
+      <rect class="box" x="352" y="246" width="160" height="72" rx="8" />
+      <text x="362" y="266">South gene pool</text>
+      <text class="cap" x="362" y="311">frequencies of 2 alleles</text>
+      <rect class="allele2" x="362" y="278" width={BAR_W} height="16" rx="3" />
+      <rect data-el="barS" class="allele1" x="362" y="278" width={BAR_W * 0.8} height="16" rx="3" />
+    </g>
+
+    <g data-el="tags" class="tags" style="opacity:0">
+      <text x="12" y="48">Gorillas compete for ground plants</text>
+      <text x="12" y="232">No gorillas: more ground plants to eat</text>
+      <text class="sub" x="352" y="336">small founder group: drift</text>
+    </g>
+    <g data-el="names" class="names" style="opacity:0">
+      <text x="12" y="48">Common chimpanzee <tspan class="it">Pan troglodytes</tspan></text>
+      <text x="12" y="232">Bonobo <tspan class="it">Pan paniscus</tspan></text>
+    </g>
+  </g>
+
+  <!-- ===== AHL sympatric (behavioural): host races of the apple maggot fly ===== -->
+  <g data-el="symB" style="opacity:0">
+    <text class="side" x="260" y="24" text-anchor="middle">Same area, no geographic barrier</text>
+    <text class="sub-c" x="260" y="44" text-anchor="middle">Apple maggot flies mate on the fruit they prefer</text>
+    <g class="tree">
+      <rect class="trunk" x={HAW[0] - 7} y="212" width="14" height="58" />
+      <circle class="crown" cx={HAW[0]} cy={HAW[1]} r="58" />
+      {[[-30, -20], [18, -34], [34, 6], [-12, 26], [-40, 14], [8, 2]].map(([dx, dy]) => <circle class="haw" cx={HAW[0] + dx!} cy={HAW[1] + dy!} r="4.5" />)}
+      <rect class="trunk" x={APPLE[0] - 8} y="212" width="16" height="58" />
+      <circle class="crown" cx={APPLE[0]} cy={APPLE[1]} r="58" />
+      {[[-28, -18], [20, -30], [32, 10], [-14, 28], [2, -2]].map(([dx, dy]) => <circle class="apple" cx={APPLE[0] + dx!} cy={APPLE[1] + dy!} r="8" />)}
+    </g>
+    <text class="tree-t" x={HAW[0]} y="292" text-anchor="middle">Hawthorn</text>
+    <text class="tree-t" x={APPLE[0]} y="292" text-anchor="middle">Apple</text>
+    {FLY_START.map(([x, y]) => <circle data-fly class="fly" cx={x} cy={y} r="5" />)}
+    <g data-el="hostLbl" class="tags" style="opacity:0">
+      <text x={HAW[0]} y="316" text-anchor="middle">hawthorn race</text>
+      <text x={APPLE[0]} y="316" text-anchor="middle">apple race</text>
+      <text class="sub" x="260" y="344" text-anchor="middle">little gene flow between the two races</text>
+    </g>
+  </g>
+
+  <!-- ===== AHL sympatric (temporal): periodical cicadas ===== -->
+  <g data-el="symT" style="opacity:0">
+    <text class="side" x="260" y="24" text-anchor="middle">Same area, different breeding times</text>
+    <text class="sub-c" x="260" y="44" text-anchor="middle">Years when adult periodical cicadas emerge to breed</text>
+    <text class="row-t" x={TX0} y="112">17-year cicadas</text>
+    <path class="axis" d={`M${TX0} 130 H${TX1}`} />
+    {B17.map((y) => <circle data-b17 class="c17" cx={tx(y)} cy="130" r="6" style="opacity:0" />)}
+    <text class="row-t" x={TX0} y="192">13-year cicadas</text>
+    <path class="axis" d={`M${TX0} 210 H${TX1}`} />
+    {B13.map((y) => <circle data-b13 class="c13" cx={tx(y)} cy="210" r="6" style="opacity:0" />)}
+    <path class="axis" d={`M${TX0} 262 H${TX1}`} />
+    {ticks.map((y) => <><path class="axis" d={`M${tx(y)} 262 v6`} /><text class="tick" x={tx(y)} y="284" text-anchor="middle">{y}</text></>)}
+    <text class="tick" x="260" y="306" text-anchor="middle">years</text>
+    <g data-el="meet" class="meet" style="opacity:0">
+      <path d={`M${tx(YEARS)} 98 V250`} />
+      <text x={tx(YEARS) - 6} y="244" text-anchor="end">together only every 221 years</text>
+    </g>
+  </g>
+</svg>
+<style>
+  .spec { font-family: var(--font-sans); }
+  .land { fill: color-mix(in srgb, var(--bio-carb) 14%, transparent); }
+  .side { font-size: 14px; font-weight: 700; fill: var(--text-muted); }
+  .river { fill: none; stroke: var(--bio-water); stroke-linecap: round; }
+  .river-t { font-size: 13px; font-style: italic; font-weight: 650; fill: var(--bio-water); }
+  .river-low { font-size: 13px; font-weight: 650; fill: var(--text); }
+  .ape { fill: var(--bio-protein); stroke: var(--text); stroke-width: 1; }
+  .flow path { fill: none; stroke: var(--text); stroke-width: 1.6; stroke-dasharray: 3 3; }
+  .flow text, .block text { font-size: 13px; font-weight: 650; fill: var(--text); }
+  .block .arr { stroke: var(--text); stroke-width: 2; stroke-dasharray: 4 4; }
+  .block .x { stroke: var(--bad); stroke-width: 4; stroke-linecap: round; }
+  .pool .box { fill: var(--surface); stroke: var(--border-strong); }
+  .pool text { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .pool .cap { font-size: 12px; font-weight: 500; fill: var(--text-muted); }
+  .allele1 { fill: var(--bio-carb); }
+  .allele2 { fill: var(--bio-glucose); }
+  .tags text, .names text { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .tags .sub, .sub { font-size: 12px; font-weight: 600; fill: var(--text-muted); }
+  .sub-c { font-size: 13px; fill: var(--text-muted); }
+  .it { font-style: italic; font-weight: 600; }
+  .crown { fill: color-mix(in srgb, var(--bio-carb) 30%, transparent); stroke: var(--bio-carb); stroke-width: 1.5; }
+  .trunk { fill: color-mix(in srgb, var(--bio-head) 55%, var(--text-muted)); }
+  .haw { fill: var(--bio-k); }
+  .apple { fill: color-mix(in srgb, var(--bio-k) 70%, var(--bio-glucose)); stroke: var(--text); stroke-width: 0.8; }
+  .tree-t { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .fly { fill: var(--bio-protein); stroke: var(--text); stroke-width: 1.2; }
+  .row-t { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .axis { stroke: var(--text-muted); stroke-width: 1.5; fill: none; }
+  .tick { font-size: 12px; fill: var(--text-muted); }
+  .c17 { fill: var(--bio-protein); stroke: var(--text); stroke-width: 1; }
+  .c13 { fill: var(--bio-head); stroke: var(--text); stroke-width: 1; }
+  .meet path { stroke: var(--bad); stroke-width: 2; stroke-dasharray: 5 4; }
+  .meet text { font-size: 13px; font-weight: 700; fill: var(--bad); }
+</style>

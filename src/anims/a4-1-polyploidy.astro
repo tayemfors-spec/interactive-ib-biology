@@ -1,0 +1,121 @@
+---
+/** Sterile hybrids (mule) and allopolyploid speciation (Persicaria). Animated by a4-1-polyploidy.ts. */
+import { G1, G2, G_A, G_B, HYB, HYB_R, LEN_A, LEN_B, LEN_D, P_A, P_B, inGamete, inParent } from './a4-1-polyploidy';
+const chr = (L: number) => ({ x: -3.5, y: -L / 2, width: 7, height: L, rx: 3.5 });
+const idx = [0, 1, 2];
+---
+<svg viewBox="0 0 520 384" xmlns="http://www.w3.org/2000/svg" class="poly">
+  <!-- ===== the mule: a sterile interspecific hybrid ===== -->
+  <g data-el="mule">
+    <g data-el="mParents">
+      <text class="lbl" x={P_A[0]} y="24" text-anchor="middle">Horse: 2n = 64</text>
+      <circle class="cell" cx={P_A[0]} cy={P_A[1]} r="46" />
+      {idx.map((i) => [0, 1].map((c) => { const [x, y] = inParent(P_A, i, c); return <rect class="ch-h" transform={`translate(${x} ${y})`} {...chr(LEN_A[i]!)} />; }))}
+      <text class="lbl" x={P_B[0]} y="24" text-anchor="middle">Donkey: 2n = 62</text>
+      <circle class="cell" cx={P_B[0]} cy={P_B[1]} r="46" />
+      {idx.map((i) => [0, 1].map((c) => { const [x, y] = inParent(P_B, i, c); return <rect class="ch-d" transform={`translate(${x} ${y})`} {...chr(LEN_D[i]!)} />; }))}
+      <text class="cross" x="260" y="90" text-anchor="middle">×</text>
+    </g>
+    <circle data-el="mGamH" class="cell gam" cx={G_A[0]} cy={G_A[1]} r="22" style="opacity:0" />
+    <circle data-el="mGamD" class="cell gam" cx={G_B[0]} cy={G_B[1]} r="22" style="opacity:0" />
+    <g data-el="mGamLbl" style="opacity:0">
+      <text class="sm" x={G_A[0] - 30} y={G_A[1] + 4} text-anchor="end">egg, n = 32</text>
+      <text class="sm" x={G_B[0] + 30} y={G_B[1] + 4}>sperm, n = 31</text>
+    </g>
+    <circle data-el="mCell" class="cell big" cx={HYB[0]} cy={HYB[1]} r={HYB_R} style="opacity:0" />
+    {idx.map((i) => { const [x, y] = inGamete(G_A, i); return <g data-el={`h${i}`} transform={`translate(${x} ${y})`} style="opacity:0"><rect class="ch-h" {...chr(LEN_A[i]!)} /></g>; })}
+    {idx.map((i) => { const [x, y] = inGamete(G_B, i); return <g data-el={`d${i}`} transform={`translate(${x} ${y})`} style="opacity:0"><rect class="ch-d" {...chr(LEN_D[i]!)} /></g>; })}
+    <g data-el="mLbl" style="opacity:0">
+      <text class="lbl" x="332" y="232">Mule: 2n = 63</text>
+      <text class="sm" x="332" y="252">32 horse + 31 donkey</text>
+      <text class="sm" x="332" y="270">chromosomes</text>
+    </g>
+    <g data-el="mFail" style="opacity:0">
+      {[0, 1, 2].map((i) => <path class="x" d={`M${208 + i * 36} ${HYB[1] - 6} l20 12 m0 -12 l-20 12`} />)}
+      <text class="bad" x="332" y="226">Meiosis fails:</text>
+      <text class="sm" x="332" y="246">horse and donkey</text>
+      <text class="sm" x="332" y="264">chromosomes are not</text>
+      <text class="sm" x="332" y="282">homologous, and 63 is odd</text>
+      <text class="bad" x="260" y="340" text-anchor="middle">Few or no viable gametes: the mule is sterile</text>
+    </g>
+  </g>
+
+  <!-- ===== plants: hybridization then chromosome doubling ===== -->
+  <g data-el="plant" style="opacity:0">
+    <g data-el="pParents">
+      <text class="lbl" x={P_A[0]} y="24" text-anchor="middle">Species A: 2n = 22</text>
+      <circle class="cell" cx={P_A[0]} cy={P_A[1]} r="46" />
+      {idx.map((i) => [0, 1].map((c) => { const [x, y] = inParent(P_A, i, c); return <rect class="ch-a" transform={`translate(${x} ${y})`} {...chr(LEN_A[i]!)} />; }))}
+      <text class="set" x={P_A[0]} y={P_A[1] + 40} text-anchor="middle">AA</text>
+      <text class="lbl" x={P_B[0]} y="24" text-anchor="middle">Species B: 2n = 22</text>
+      <circle class="cell" cx={P_B[0]} cy={P_B[1]} r="46" />
+      {idx.map((i) => [0, 1].map((c) => { const [x, y] = inParent(P_B, i, c); return <rect class="ch-b" transform={`translate(${x} ${y})`} {...chr(LEN_B[i]!)} />; }))}
+      <text class="set" x={P_B[0]} y={P_B[1] + 40} text-anchor="middle">BB</text>
+      <text class="cross" x="260" y="90" text-anchor="middle">×</text>
+    </g>
+    <circle data-el="pGamA" class="cell gam" cx={G_A[0]} cy={G_A[1]} r="22" style="opacity:0" />
+    <circle data-el="pGamB" class="cell gam" cx={G_B[0]} cy={G_B[1]} r="22" style="opacity:0" />
+    <g data-el="pGamLbl" style="opacity:0">
+      <text class="sm" x={G_A[0] - 30} y={G_A[1] + 4} text-anchor="end">gamete A, n = 11</text>
+      <text class="sm" x={G_B[0] + 30} y={G_B[1] + 4}>gamete B, n = 11</text>
+    </g>
+    <circle data-el="pCell" class="cell big" cx={HYB[0]} cy={HYB[1]} r={HYB_R} style="opacity:0" />
+    <circle data-el="pG1" class="cell gam" cx={G1[0]} cy={G1[1]} r="36" style="opacity:0" />
+    <circle data-el="pG2" class="cell gam" cx={G2[0]} cy={G2[1]} r="36" style="opacity:0" />
+    {(['A', 'B'] as const).map((set) => idx.map((i) => {
+      const [x, y] = inGamete(set === 'A' ? G_A : G_B, i);
+      const L = (set === 'A' ? LEN_A : LEN_B)[i]!;
+      const cls = set === 'A' ? 'ch-a' : 'ch-b';
+      return <>
+        <g data-el={`${set}${i}c`} transform={`translate(${x} ${y})`} style="opacity:0"><rect class={cls} {...chr(L)} /></g>
+        <g data-el={`${set}${i}`} transform={`translate(${x} ${y})`} style="opacity:0"><rect class={cls} {...chr(L)} /></g>
+      </>;
+    }))}
+    <g data-el="lHyb" style="opacity:0">
+      <text class="lbl" x="332" y="232">Hybrid AB: 2n = 22</text>
+      <text class="bad" x="332" y="252">sterile: no chromosome</text>
+      <text class="bad" x="332" y="270">has a homologous partner</text>
+    </g>
+    <g data-el="lTet" style="opacity:0">
+      <text class="lbl" x="332" y="232">Chromosomes double:</text>
+      <text class="lbl" x="332" y="252">allotetraploid AABB</text>
+      <text class="sm" x="332" y="270">2n = 44</text>
+    </g>
+    <g data-el="lMei" style="opacity:0">
+      <text class="lbl" x="332" y="226">Meiosis works:</text>
+      <text class="sm" x="332" y="246">each chromosome now</text>
+      <text class="sm" x="332" y="264">has a homologous partner</text>
+    </g>
+    <g data-el="lGam" style="opacity:0">
+      <text class="sm" x={G1[0]} y="376" text-anchor="middle">gamete AB, n = 22</text>
+      <text class="sm" x={G2[0]} y="376" text-anchor="middle">gamete AB, n = 22</text>
+    </g>
+    <g data-el="result" class="result" style="opacity:0">
+      <rect class="box" x="20" y="8" width="480" height="148" rx="10" />
+      <text class="good" x="36" y="34">AB gamete + AB gamete → AABB: fertile ✓</text>
+      <text class="bad" x="36" y="58">AB gamete + A gamete from species A → AAB, 2n = 33: sterile ✕</text>
+      <text class="sm" x="36" y="84">The allotetraploid cannot produce fertile offspring with either</text>
+      <text class="sm" x="36" y="104">parent species, so it is a new species, formed in one generation.</text>
+      <text class="lbl" x="36" y="134">Example: <tspan class="it">Persicaria maculosa</tspan> (2n = 44)</text>
+    </g>
+  </g>
+</svg>
+<style>
+  .poly { font-family: var(--font-sans); }
+  .cell { fill: color-mix(in srgb, var(--bio-carb) 10%, var(--surface)); stroke: var(--text-muted); stroke-width: 1.6; }
+  .cell.gam { stroke-dasharray: 4 3; }
+  .cell.big { stroke-width: 2; }
+  .ch-h { fill: var(--bio-head); stroke: var(--text); stroke-width: 1; }
+  .ch-d { fill: var(--bio-na); stroke: var(--text); stroke-width: 1; }
+  .ch-a { fill: var(--bio-protein); stroke: var(--text); stroke-width: 1; }
+  .ch-b { fill: var(--bio-glucose); stroke: var(--text); stroke-width: 1; stroke-dasharray: 3 2; }
+  .lbl { font-size: 14px; font-weight: 700; fill: var(--text); }
+  .sm { font-size: 13px; fill: var(--text); }
+  .set { font-size: 13px; font-weight: 800; fill: var(--text-muted); }
+  .cross { font-size: 30px; font-weight: 700; fill: var(--text-muted); }
+  .bad { font-size: 13px; font-weight: 700; fill: var(--bad); }
+  .good { font-size: 13px; font-weight: 700; fill: var(--good); }
+  .it { font-style: italic; }
+  .x { stroke: var(--bad); stroke-width: 3; stroke-linecap: round; }
+  .result .box { fill: var(--surface); stroke: var(--border-strong); }
+</style>

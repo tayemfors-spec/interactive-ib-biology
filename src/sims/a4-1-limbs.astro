@@ -1,0 +1,192 @@
+---
+/**
+ * A4.1.4–A4.1.5: compare vertebrate forelimbs (homologous, pentadactyl plan) with an insect wing (analogous).
+ * Geometry and per-bone notes live in models/a4-1-limbs.ts. Each bone group keeps one colour in every limb.
+ */
+import { boneInfo, boneKeys, defaultShown, limbs, summary, type Seg } from './models/a4-1-limbs';
+
+const f = (n: number) => n.toFixed(1);
+/** Pull line ends in so that round caps leave a small gap between neighbouring bones. */
+const ends = (s: Seg) => {
+  const dx = s.x2 - s.x1;
+  const dy = s.y2 - s.y1;
+  const len = Math.hypot(dx, dy) || 1;
+  const k = Math.min(s.w / 2 + 0.6, len / 2 - 0.4) / len;
+  return { x1: f(s.x1 + dx * k), y1: f(s.y1 + dy * k), x2: f(s.x2 - dx * k), y2: f(s.y2 - dy * k) };
+};
+const initial = limbs.filter((l) => defaultShown.includes(l.id));
+---
+<div class="limbs" data-limbs>
+  <div class="controls">
+    <div class="ctrl">
+      <p class="ctrl-h" id="limbs-pick-h">Compare these limbs</p>
+      <div class="chips" role="group" aria-labelledby="limbs-pick-h">
+        {limbs.map((l) => (
+          <button type="button" class="btn chip" data-animal={l.id} aria-pressed={defaultShown.includes(l.id) ? 'true' : 'false'}>{l.name}</button>
+        ))}
+      </div>
+    </div>
+    <div class="ctrl">
+      <p class="ctrl-h" id="limbs-bone-h">Highlight a bone</p>
+      <div class="chips" role="radiogroup" aria-labelledby="limbs-bone-h">
+        <button type="button" class="btn chip" role="radio" aria-checked="true" tabindex="0" data-bone-btn="all">All bones</button>
+        {boneKeys.map((b) => (
+          <button type="button" class="btn chip" role="radio" aria-checked="false" tabindex="-1" data-bone-btn={b}>
+            <span class={`sw sw-${b}`} aria-hidden="true"></span>{boneInfo[b].name}
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <ul class="cards" role="list">
+    {limbs.map((l) => (
+      <li class="lcard" data-limb={l.id} data-kind={l.kind} hidden={!defaultShown.includes(l.id)}>
+        <svg viewBox="0 0 240 320" role="img" aria-labelledby={`limb-${l.id}-t`} class="art">
+          <title id={`limb-${l.id}-t`}>{l.kind === 'homologous' ? `${l.name}: forelimb skeleton with colour-coded bones` : `${l.name}: a membrane with veins and no bones`}</title>
+          {l.outline && <path class="soft" d={l.outline} />}
+          {l.id === 'insect' && (
+            <g class="insect">
+              <ellipse class="thorax" cx="54" cy="66" rx="30" ry="40" />
+              <path class="wing" d="M78 46 C140 10 222 30 228 92 C232 150 170 226 126 288 C110 250 96 170 80 96 Z" />
+              <path class="vein" d="M80 52 C130 30 196 40 224 88 M80 62 C130 70 180 110 196 168 M82 76 C114 120 136 190 150 250 M84 90 C96 150 108 220 126 284 M150 84 L176 128 M118 140 L142 190" />
+              <text class="nb" x="120" y="312" text-anchor="middle" data-nobones style="display:none">no bones</text>
+            </g>
+          )}
+          {l.extras?.map((s) => { const e = ends(s); return <g class="bone extra" data-bone={s.bone}><line class="ol" {...e} stroke-width={s.w + 2.4} /><line class="fill" {...e} stroke-width={s.w} /></g>; })}
+          {l.segs.map((s) => { const e = ends(s); return <g class="bone" data-bone={s.bone}><line class="ol" {...e} stroke-width={s.w + 2.4} /><line class={`fill c-${s.bone}`} {...e} stroke-width={s.w} /></g>; })}
+          {l.blobs.map((b) => <ellipse class={`bone blob c-${b.bone}`} data-bone={b.bone} cx={b.cx} cy={b.cy} rx={b.rx} ry={b.ry} />)}
+        </svg>
+        <h3 class="name">{l.name}</h3>
+        <p class="use">{l.use}</p>
+        <p class="note" data-note hidden></p>
+      </li>
+    ))}
+  </ul>
+  <p class="status" aria-live="polite" data-status>{summary(initial, 'all')}</p>
+
+  <div class="explain">
+    <p><strong>Homologous:</strong> every vertebrate limb here has the same bones in the same order (one humerus, a radius and an ulna, carpals, metacarpals and phalanges), even though the limbs do very different jobs. The shared plan was inherited from a common ancestor; adaptive radiation then modified it for each way of life.</p>
+    <p><strong>Analogous:</strong> the insect wing does the same job as the bird and bat wings but has a completely different structure and origin. It is the product of <strong>convergent evolution</strong>. (Bird and bat wings are homologous as forelimbs, but flight evolved separately in each group, so as wings they are analogous.)</p>
+  </div>
+  <p class="fine">Skeletons are schematic: bone sizes are not to scale, but the bones present, fused or reduced, and the number of digits, are shown as they are.</p>
+</div>
+
+<script>
+  import { boneKeys, limbs, summary, type BoneKey } from './models/a4-1-limbs';
+
+  document.querySelectorAll<HTMLElement>('[data-limbs]').forEach((root) => {
+    const animalBtns = [...root.querySelectorAll<HTMLButtonElement>('[data-animal]')];
+    const boneBtns = [...root.querySelectorAll<HTMLButtonElement>('[data-bone-btn]')];
+    const cards = [...root.querySelectorAll<HTMLElement>('[data-limb]')];
+    const status = root.querySelector<HTMLElement>('[data-status]')!;
+    let bone: BoneKey | 'all' = 'all';
+    let timer = 0;
+
+    const shown = () => limbs.filter((l) => animalBtns.find((b) => b.dataset.animal === l.id)?.getAttribute('aria-pressed') === 'true');
+    const announce = () => {
+      clearTimeout(timer);
+      timer = window.setTimeout(() => { status.textContent = summary(shown(), bone); }, 250);
+    };
+
+    const update = () => {
+      const ids = new Set(shown().map((l) => l.id));
+      cards.forEach((card) => {
+        const limb = limbs.find((l) => l.id === card.dataset.limb)!;
+        card.hidden = !ids.has(limb.id);
+        card.querySelectorAll<SVGElement>('[data-bone]').forEach((el) => {
+          el.classList.toggle('dim', bone !== 'all' && el.dataset.bone !== bone);
+          el.classList.toggle('lit', bone !== 'all' && el.dataset.bone === bone);
+        });
+        const note = card.querySelector<HTMLElement>('[data-note]')!;
+        note.hidden = bone === 'all';
+        if (bone !== 'all') note.textContent = limb.notes[bone];
+        const nb = card.querySelector<SVGTextElement>('[data-nobones]');
+        if (nb) nb.style.display = bone === 'all' ? 'none' : '';
+      });
+      announce();
+    };
+
+    animalBtns.forEach((b) => b.addEventListener('click', () => {
+      b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+      update();
+    }));
+
+    const choose = (btn: HTMLButtonElement, focus = false) => {
+      boneBtns.forEach((x) => { const on = x === btn; x.setAttribute('aria-checked', String(on)); x.tabIndex = on ? 0 : -1; x.classList.toggle('is-active', on); });
+      if (focus) btn.focus();
+      const v = btn.dataset.boneBtn!;
+      bone = (boneKeys as string[]).includes(v) ? (v as BoneKey) : 'all';
+      update();
+    };
+    boneBtns.forEach((b, i) => {
+      b.addEventListener('click', () => choose(b));
+      b.addEventListener('keydown', (e) => {
+        const d = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+        if (d) { e.preventDefault(); choose(boneBtns[(i + d + boneBtns.length) % boneBtns.length]!, true); }
+      });
+    });
+    boneBtns[0]!.classList.add('is-active');
+  });
+</script>
+
+<style>
+  .limbs {
+    container-type: inline-size;
+    --c-humerus: var(--bio-head);
+    --c-radius: var(--bio-protein);
+    --c-ulna: var(--bio-na);
+    --c-carpals: var(--bio-carb);
+    --c-metacarpals: var(--bio-tail);
+    --c-phalanges: var(--bio-k);
+  }
+  .controls { display: grid; gap: var(--space-3); margin-bottom: var(--space-3); }
+  @container (min-width: 44rem) { .controls { grid-template-columns: 1fr 1fr; } }
+  .ctrl-h { font-weight: 700; font-size: var(--step--1); margin: 0 0 var(--space-1); color: var(--text-muted); }
+  .chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .chip { min-height: 2.25rem; font-size: var(--step--1); padding-inline: 0.7rem; }
+  .chip[aria-pressed='true'], .chip.is-active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-strong); }
+  .sw { display: inline-block; width: 0.8rem; height: 0.8rem; border-radius: 50%; margin-right: 0.35rem; border: 1px solid var(--text); flex: none; }
+  .sw-humerus { background: var(--c-humerus); }
+  .sw-radius { background: var(--c-radius); }
+  .sw-ulna { background: var(--c-ulna); }
+  .sw-carpals { background: var(--c-carpals); }
+  .sw-metacarpals { background: var(--c-metacarpals); }
+  .sw-phalanges { background: var(--c-phalanges); }
+
+  .cards { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @container (min-width: 36rem) { .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .lcard { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-m); padding: var(--space-2); display: flex; flex-direction: column; }
+  .lcard[hidden] { display: none; }
+  .lcard[data-kind='analogous'] { border-style: dashed; border-color: var(--border-strong); }
+  .art { width: 100%; height: auto; display: block; font-family: var(--font-sans); }
+  .name { font-size: var(--step--1); font-weight: 750; margin: var(--space-1) 0 0; }
+  .use { font-size: 0.8rem; color: var(--text-muted); margin: 0; }
+  .note { font-size: 0.82rem; margin: var(--space-2) 0 0; padding-top: var(--space-2); border-top: 1px solid var(--border); }
+
+  .bone line { stroke-linecap: round; }
+  .bone .ol { stroke: var(--text); }
+  .c-humerus { stroke: var(--c-humerus); fill: var(--c-humerus); }
+  .c-radius { stroke: var(--c-radius); fill: var(--c-radius); }
+  .c-ulna { stroke: var(--c-ulna); fill: var(--c-ulna); }
+  .c-carpals { stroke: var(--c-carpals); fill: var(--c-carpals); }
+  .c-metacarpals { stroke: var(--c-metacarpals); fill: var(--c-metacarpals); }
+  .c-phalanges { stroke: var(--c-phalanges); fill: var(--c-phalanges); }
+  .blob { stroke: var(--text) !important; stroke-width: 1.2; }
+  .extra .fill { stroke: var(--surface-3); }
+  .bone { transition: opacity 0.2s; }
+  .bone.dim { opacity: 0.14; }
+  .bone.lit .ol, .blob.lit { stroke-width: 2.4; }
+  .soft { fill: color-mix(in srgb, var(--text-muted) 14%, transparent); stroke: color-mix(in srgb, var(--text-muted) 45%, transparent); stroke-width: 1.2; stroke-dasharray: 4 3; }
+  .insect .thorax { fill: color-mix(in srgb, var(--text-muted) 35%, transparent); stroke: var(--text-muted); stroke-width: 1.5; }
+  .insect .wing { fill: color-mix(in srgb, var(--bio-water) 16%, transparent); stroke: var(--text-muted); stroke-width: 1.6; }
+  .insect .vein { fill: none; stroke: var(--text-muted); stroke-width: 1.6; }
+  .nb { font-size: 22px; font-weight: 800; fill: var(--bad); }
+  @media (prefers-reduced-motion: reduce) { .bone { transition: none; } }
+
+  .status { font-size: var(--step--1); font-weight: 650; margin: var(--space-3) 0 var(--space-2); }
+  .explain { font-size: var(--step--1); padding: var(--space-3); background: var(--accent-soft); border-radius: var(--radius-m); }
+  .explain p { margin: 0 0 var(--space-2); }
+  .explain p:last-child { margin: 0; }
+  .fine { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

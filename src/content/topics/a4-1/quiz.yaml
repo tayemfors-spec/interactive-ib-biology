@@ -1,0 +1,199 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: A4.1.1
+    stem: Which of the following is an example of evolution?
+    options:
+      - id: a
+        text: A mouse kept in a cold room for a winter grows thicker fur.
+        why: This is a change within one individual's lifetime, caused by its environment. It is an acquired characteristic and is not inherited.
+      - id: b
+        text: Over 40 years, the proportion of dark-winged moths in a population rises as the allele for dark wings becomes more common.
+        why: Correct. The heritable characteristics of a population have changed, because an allele frequency in the gene pool has changed.
+      - id: c
+        text: A tree on an exposed hillside grows lopsided because of strong prevailing winds.
+        why: The shape is caused by the environment, not by genes. Seeds from this tree would grow normally in a sheltered place, so this is not evolution.
+      - id: d
+        text: Giraffes' necks became longer because each generation stretched to reach leaves and passed the longer necks on to their young.
+        why: This is Lamarckism, the inheritance of acquired characteristics. Stretching does not change the genes in gametes, so the change cannot be inherited.
+    answer: b
+
+  - id: q2
+    level: SL
+    understanding: A4.1.2
+    stem: >-
+      The base sequence of the same 300-base section of a gene was compared between species P and four other species.
+      Number of differences from P — species Q: 4; species R: 31; species S: 12; species T: 58.
+      Which conclusion is best supported by these data?
+    options:
+      - id: a
+        text: Species T is the most closely related to species P.
+        why: T has the most differences from P, so it is the least closely related. More differences mean a more distant common ancestor.
+      - id: b
+        text: Species Q and species R must be closely related to each other.
+        why: The data only compare each species with P. To judge how closely Q and R are related, their sequences would have to be compared with each other.
+      - id: c
+        text: Species S evolved from species Q.
+        why: Living species do not evolve from each other. Two living species share a common ancestor; the data cannot show one is the ancestor of the other.
+      - id: d
+        text: Species P shares a more recent common ancestor with S than with R.
+        why: Correct. P and S differ at 12 bases, P and R at 31. Fewer differences have accumulated since P and S split, so their split was more recent.
+    answer: d
+
+  - id: q3
+    level: SL
+    understanding: A4.1.4
+    stem: Which pair of structures is homologous?
+    options:
+      - id: a
+        text: The wing of a bat and the flipper of a whale
+        why: Correct. Both are pentadactyl forelimbs with the same bones (humerus, radius, ulna, carpals, metacarpals, phalanges), inherited from a common mammal ancestor, though they now have different functions.
+      - id: b
+        text: The wing of a butterfly and the wing of a bird
+        why: These have the same function but completely different structures and origins (cuticle with veins versus a bony limb with feathers). They are analogous.
+      - id: c
+        text: The eye of an octopus and the eye of a human
+        why: Both are camera eyes, but they develop differently and their common ancestor had no such eye. They are analogous, the result of convergent evolution.
+      - id: d
+        text: The spines of a cactus and the spines of a hedgehog
+        why: Cactus spines are modified leaves and hedgehog spines are modified hairs. They have a similar protective function but different origins, so they are analogous.
+    answer: a
+
+  - id: q4
+    level: SL
+    understanding: A4.1.5
+    stem: What is the best explanation for the similarities between the wings of birds and the wings of insects?
+    options:
+      - id: a
+        text: Birds and insects inherited their wings from a common ancestor that could fly.
+        why: The common ancestor of birds and insects was a simple animal without wings. Their wings evolved separately.
+      - id: b
+        text: Both wings are modified pentadactyl limbs.
+        why: Only the bird wing is a pentadactyl limb. The insect wing has no bones; it is an outgrowth of the exoskeleton.
+      - id: c
+        text: Similar selection pressures for flight led to similar structures evolving independently, by convergent evolution.
+        why: Correct. Analogous structures have the same function but different evolutionary origins, so they are explained by convergent evolution.
+      - id: d
+        text: The need to fly caused mutations that produced wings in both groups.
+        why: Mutations are random; they are not produced because an organism needs them. Natural selection then acts on the variation that exists.
+    answer: c
+
+  - id: q5
+    level: SL
+    understanding: A4.1.6
+    stem: >-
+      Fossils show that over 3 million years a single lineage of mammals gradually became larger, with no branching
+      of the lineage. Which statement about this lineage is correct?
+    options:
+      - id: a
+        text: Speciation has occurred, increasing the number of species on Earth by one.
+        why: There was only ever one species at any one time, so the number of species did not increase.
+      - id: b
+        text: This is evolutionary change but not speciation, because no splitting has occurred.
+        why: Correct. Heritable characteristics changed, so this is evolution, but speciation requires a species to split into two, which adds to the number of species.
+      - id: c
+        text: This is speciation, because the later animals could not have interbred with the earlier ones.
+        why: Gradual change within one lineage is not treated as speciation, even if early and late forms look very different.
+      - id: d
+        text: No evolution has occurred, because no new species was formed.
+        why: Evolution is change in heritable characteristics; it does not require new species to form. Size has changed, so evolution has happened.
+    answer: b
+
+  - id: q6
+    level: SL
+    understanding: A4.1.7
+    stem: Which statement best explains how bonobos and common chimpanzees became separate species?
+    options:
+      - id: a
+        text: The two populations continued to interbreed across the Congo River, but different selection acted on each side.
+        why: Interbreeding causes gene flow, which keeps gene pools similar. Speciation requires the populations to be reproductively isolated.
+      - id: b
+        text: Bonobos evolved from modern common chimpanzees that crossed the river recently.
+        why: Neither living species is the ancestor of the other. Both evolved from a common ancestor, roughly one to two million years ago.
+      - id: c
+        text: Apes that moved south changed their behaviour to suit their new habitat and passed these changes to their offspring.
+        why: Behaviour learned or acquired during a lifetime is not inherited genetically. This is a Lamarckian explanation.
+      - id: d
+        text: The Congo River prevented gene flow between two populations that then experienced different selection pressures, so their gene pools diverged.
+        why: Correct. Geographical isolation stopped interbreeding, and differential selection (for example, gorillas competing for food in the north only) made the populations diverge.
+    answer: d
+
+  - id: q7
+    level: AHL
+    understanding: A4.1.8
+    stem: >-
+      Two populations of one frog species live in the same pond. One population breeds in early spring and the other
+      in late spring, so they rarely interbreed. If they become separate species, how would this be described?
+    options:
+      - id: a
+        text: Sympatric speciation by temporal isolation
+        why: Correct. The populations share an area (sympatric) and are isolated by breeding at different times (temporal isolation).
+      - id: b
+        text: Allopatric speciation by temporal isolation
+        why: Allopatric speciation involves populations in different areas. These frogs live in the same pond.
+      - id: c
+        text: Sympatric speciation by geographic isolation
+        why: Geographic isolation means a physical barrier separates populations in different places, which contradicts sympatric speciation.
+      - id: d
+        text: Allopatric speciation by behavioural isolation
+        why: The populations are in the same place, and what keeps them apart is breeding time, not a difference in courtship behaviour.
+    answer: a
+
+  - id: q8
+    level: AHL
+    understanding: A4.1.9
+    stem: Up to ten species of Darwin's finch can live together on one Galápagos island. Which explains how they are able to coexist?
+    options:
+      - id: a
+        text: They interbreed freely, so they share a single gene pool.
+        why: Separate species do not share a gene pool. If they did, they would not remain distinct species.
+      - id: b
+        text: They compete strongly for the same food, so biodiversity on the island will soon fall to a single species.
+        why: Species that compete strongly for exactly the same resources cannot coexist for long. These finches coexist because they use different resources.
+      - id: c
+        text: Adaptive radiation has adapted each species to a different niche, such as a different kind of food, so they compete little.
+        why: Correct. Each species has a beak suited to a different food, so closely related species can live together without competing, which raises biodiversity.
+      - id: d
+        text: Each species arrived separately from a different mainland ancestor, already adapted to its food.
+        why: Molecular and anatomical evidence shows the Galápagos finches descend from a single ancestral species that diversified on the islands.
+    answer: c
+
+  - id: q9
+    level: AHL
+    understanding: A4.1.10
+    stem: Horses have 64 chromosomes and donkeys have 62. Why are mules, the hybrids between them, almost always sterile?
+    options:
+      - id: a
+        text: Mules have too few chromosomes for their cells to divide by mitosis.
+        why: Mitosis works normally in mules, which is why they grow into healthy adults. The problem is in meiosis.
+      - id: b
+        text: Horse and donkey chromosomes are not homologous, so they cannot pair properly in meiosis and viable gametes are very rarely formed.
+        why: Correct. Meiosis depends on homologous chromosomes pairing. The 32 horse and 31 donkey chromosomes differ in number and structure, so meiosis fails.
+      - id: c
+        text: Mules inherit two sets of donkey chromosomes and none from the horse.
+        why: A mule receives one set from each parent, 32 from the horse and 31 from the donkey.
+      - id: d
+        text: Mules have 126 chromosomes, which is too many for the nucleus to hold.
+        why: Gametes are haploid, so a mule has 32 + 31 = 63 chromosomes, not the sum of the parents' diploid numbers.
+    answer: b
+
+  - id: q10
+    level: AHL
+    understanding: A4.1.11
+    stem: >-
+      The knotweed Persicaria maculosa (2n = 44) arose from two diploid Persicaria species that each have 2n = 22.
+      Which statement describes how it arose?
+    options:
+      - id: a
+        text: The chromosome number doubled in one of the parent species, giving four identical sets of chromosomes.
+        why: That would be autopolyploidy within one species. P. maculosa contains chromosome sets from two different species, so it is an allopolyploid.
+      - id: b
+        text: The two species hybridized and the hybrid immediately had 44 chromosomes and was fertile.
+        why: Each parent's gametes have 11 chromosomes, so the first hybrid has 22, one set from each species, and is sterile.
+      - id: c
+        text: The new plants are fertile when crossed with either parent species, because they contain both parents' chromosomes.
+        why: Crosses with a parent give triploid offspring, which are sterile. This reproductive isolation is what makes the polyploid a new species.
+      - id: d
+        text: A sterile hybrid with 22 chromosomes, one set from each parent, doubled its chromosome number, so that every chromosome had a partner at meiosis.
+        why: Correct. Doubling turns the sterile AB hybrid into a fertile allotetraploid (AABB, 2n = 44) that is reproductively isolated from both parents.
+    answer: d

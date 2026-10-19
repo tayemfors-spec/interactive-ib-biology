@@ -1,0 +1,73 @@
+cards:
+  - id: c1
+    level: SL
+    front: Define evolution.
+    back: Change in the heritable characteristics of a population over generations — that is, a change in allele frequencies in its gene pool. Individuals do not evolve.
+  - id: c2
+    level: SL
+    front: What is an acquired characteristic? Is it evolution?
+    back: A change that develops during an organism's life because of its environment or use, such as muscles built by exercise or a scar. It does not change the genes in gametes, so it is not inherited and is not evolution.
+  - id: c3
+    level: SL
+    front: What is Lamarckism, and why is it rejected?
+    back: The idea that characteristics acquired by use or disuse are passed to offspring (e.g. giraffes stretching their necks). No mechanism exists for acquired changes to alter genes in gametes, and claimed cases have been falsified.
+  - id: c4
+    level: SL
+    front: Why is evolution by natural selection still called a theory?
+    back: It explains and predicts a huge range of observations and is unlikely ever to be falsified, but science cannot formally prove that a theory corresponds to reality. It is accepted as a pragmatic truth, so it keeps the name theory.
+  - id: c5
+    level: SL
+    front: How do DNA and protein sequences provide evidence for evolution?
+    back: After two lineages split from a common ancestor, mutations accumulate separately in each. So the more closely related two species are, the fewer differences in base or amino acid sequences they have. This pattern is explained by descent with modification.
+  - id: c6
+    level: SL
+    front: How is selective breeding evidence for evolution?
+    back: Domesticated breeds and crop varieties differ greatly from each other and from their wild ancestors, yet these changes took only thousands of years. Artificial selection changes heritable traits quickly, so natural selection over millions of years can explain the differences between species.
+  - id: c7
+    level: SL
+    front: Give an example of selective breeding in a crop plant.
+    back: Wild cabbage (Brassica oleracea) gave cabbage (terminal bud), kale (leaves), Brussels sprouts (lateral buds), broccoli and cauliflower (flower clusters) and kohlrabi (stem). Maize was bred from teosinte.
+  - id: c8
+    level: SL
+    front: List the bones of the pentadactyl forelimb in order from the shoulder.
+    back: One bone (humerus); two bones (radius and ulna); a group of wrist bones (carpals); five digits, each with a metacarpal and a series of phalanges.
+  - id: c9
+    level: SL
+    front: What are homologous structures and why are they evidence for evolution?
+    back: Structures with the same basic plan in different species, often with different functions (e.g. human arm, bat wing, whale flipper). The shared plan is best explained by inheritance from a common ancestor, modified by adaptive radiation.
+  - id: c10
+    level: SL
+    front: What are analogous structures? Give an example.
+    back: Structures with the same function but different structures and different evolutionary origins, produced by convergent evolution. Examples are bird and insect wings, or octopus and human camera eyes.
+  - id: c11
+    level: SL
+    front: Are bird wings and bat wings homologous or analogous?
+    back: Both. As forelimbs they are homologous (same bones from a common tetrapod ancestor). As wings they are analogous, because flight evolved separately in birds and bats.
+  - id: c12
+    level: SL
+    front: What is speciation, and how does it affect the number of species?
+    back: The splitting of one existing species into two or more. It is the only way new species arise, and it increases the number of species; extinction decreases it. Gradual change within one lineage is not speciation.
+  - id: c13
+    level: SL
+    front: Which two processes are needed for speciation?
+    back: Reproductive isolation, which stops gene flow between the populations (e.g. a geographical barrier), and differential selection, which favours different traits in each population so that their gene pools diverge.
+  - id: c14
+    level: SL
+    front: Summarise speciation of bonobos and common chimpanzees.
+    back: An ancestral population was split by the Congo River (bonobos to the south). With no gene flow, and different selection pressures on each side (no gorillas competing for food in the south), the populations diverged into Pan paniscus and Pan troglodytes.
+  - id: c15
+    level: AHL
+    front: Allopatric vs sympatric speciation, and three types of reproductive isolation
+    back: Allopatric — populations in different areas, isolated geographically. Sympatric — populations in the same area, isolated behaviourally (e.g. apple vs hawthorn maggot flies), temporally (e.g. 13- vs 17-year cicadas) or by polyploidy. Both need isolation and differential selection.
+  - id: c16
+    level: AHL
+    front: What is adaptive radiation and how does it increase biodiversity?
+    back: Rapid evolution of many species from one ancestor, each adapted to a different niche (e.g. Darwin's finches with beaks for seeds, insects, cactus flowers). Using different resources lets related species coexist without competing where niches were vacant.
+  - id: c17
+    level: AHL
+    front: Why is a mule sterile?
+    back: Horse (2n = 64) × donkey (2n = 62) gives a mule with 63 chromosomes. Horse and donkey chromosomes are not homologous and 63 is odd, so they cannot pair in meiosis and balanced gametes are very rarely made.
+  - id: c18
+    level: AHL
+    front: How can hybridization and polyploidy form a new plant species in one step?
+    back: AA × BB → hybrid AB, sterile (no homologous pairs). Chromosome doubling → allotetraploid AABB, which can do meiosis (fertile). Crosses with either parent give sterile triploids, so it is isolated at once. Example — Persicaria maculosa (2n = 44).
