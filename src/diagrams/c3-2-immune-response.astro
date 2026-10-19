@@ -1,0 +1,171 @@
+---
+/**
+ * Exam-style flow diagram of the antibody response (C3.2.5–C3.2.10): first paint of the 3D viewer.
+ * Numbered markers keep it legible at phone width; the key below gives each stage in real text.
+ */
+const yShape = (x: number, y: number, ang: number, s = 1) => {
+  // a Y with its stem base at (x, y), pointing at angle ang (degrees, 0 = up)
+  return `<g transform="translate(${x} ${y}) rotate(${ang}) scale(${s})"><path d="M0 0 V-9 M0 -9 L-6 -16 M0 -9 L6 -16" /></g>`;
+};
+const antigenKnobs = (cx: number, cy: number, w: number, h: number) => {
+  const pts: [number, number][] = [];
+  for (let i = 0; i < 4; i++) pts.push([cx - w / 2 + 8 + (i * (w - 16)) / 3, cy - h / 2 - 4], [cx - w / 2 + 8 + (i * (w - 16)) / 3, cy + h / 2 + 4]);
+  return pts;
+};
+const pathogen = (cx: number, cy: number, w = 54, h = 24) => ({ cx, cy, w, h, knobs: antigenKnobs(cx, cy, w, h) });
+const p1 = pathogen(70, 112);
+const clump = [pathogen(700, 318, 40, 18), pathogen(752, 340, 40, 18), pathogen(706, 372, 40, 18)];
+const bReceptors = [-150, -110, -70, -30, 30, 70, 110, 150, 180].map((a) => a);
+const plasma = [[492, 300], [492, 380]];
+const memory = [[586, 412], [626, 430]];
+const abFree = [[584, 300, 70], [606, 330, 110], [632, 296, 60], [652, 352, 140], [620, 370, 120]];
+const markers: { n: number; x: number; y: number }[] = [
+  { n: 1, x: 70, y: 66 },
+  { n: 2, x: 252, y: 40 },
+  { n: 3, x: 470, y: 40 },
+  { n: 4, x: 640, y: 64 },
+  { n: 5, x: 150, y: 262 },
+  { n: 6, x: 340, y: 262 },
+  { n: 7, x: 492, y: 248 },
+  { n: 8, x: 546, y: 444 },
+  { n: 9, x: 730, y: 272 },
+];
+const key = [
+  'Pathogen with antigens (proteins or glycoproteins) on its surface',
+  'Macrophage (phagocyte) engulfs the pathogen by endocytosis; lysosome enzymes digest it',
+  'Antigen fragments are presented on the macrophage surface by MHC proteins',
+  'A helper T-cell with a matching receptor binds the presented antigen and is activated',
+  'The activated helper T-cell binds to and activates the B-cell that has bound the same antigen',
+  'Clonal expansion: the activated B-cell divides by mitosis into a clone of identical cells',
+  'Plasma cells (extensive rough ER) secrete large amounts of the specific antibody',
+  'Memory cells persist for years, giving immunity: a faster, larger secondary response',
+  'Antibodies bind antigens, clumping pathogens (agglutination) for phagocytes to destroy',
+];
+---
+<div class="exam-diagram">
+  <svg viewBox="0 0 800 470" role="img" aria-labelledby="ir-title ir-desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="ir-title">The antibody response: from phagocytosis to plasma cells and memory cells</title>
+    <desc id="ir-desc">A pathogen with surface antigens is engulfed and digested by a macrophage, which presents antigen fragments on MHC proteins. A matching helper T-cell binds and is activated, then activates the B-cell that has bound the same antigen. The B-cell divides by mitosis into a clone; most become plasma cells secreting antibodies and some become memory cells. Antibodies bind the antigens and clump the pathogens.</desc>
+    <defs>
+      <marker id="ir-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" class="arrowhead" /></marker>
+    </defs>
+
+    <!-- 1 pathogen -->
+    <rect class="path" x={p1.cx - p1.w / 2} y={p1.cy - p1.h / 2} width={p1.w} height={p1.h} rx="12" />
+    {p1.knobs.map(([x, y]) => <circle class="ag" cx={x} cy={y} r="4.5" />)}
+    <text class="lbl" x="70" y="150" text-anchor="middle">pathogen</text>
+    <path class="flow" d="M108 112 L170 112" marker-end="url(#ir-arrow)" />
+
+    <!-- 2 phagocytosis -->
+    <path class="mac" d="M252 52 C292 50 318 74 314 108 C322 144 296 176 254 172 C212 178 186 150 190 114 C182 78 212 52 252 52 Z" />
+    <path class="nuc" d="M214 128 C206 110 222 98 236 108 C246 116 258 120 262 140 C264 156 242 162 230 152 C224 146 220 138 214 128 Z" />
+    <circle class="vac" cx="270" cy="96" r="24" />
+    <rect class="path" x="256" y="89" width="28" height="14" rx="7" />
+    <circle class="lyso" cx="292" cy="128" r="6" /><circle class="lyso" cx="242" cy="78" r="6" /><circle class="lyso" cx="276" cy="140" r="5" />
+    <text class="lbl" x="252" y="196" text-anchor="middle">macrophage</text>
+    <path class="flow" d="M326 112 L382 112" marker-end="url(#ir-arrow)" />
+
+    <!-- 3 presentation and 4 helper T-cell -->
+    <path class="mac" d="M470 52 C510 50 536 74 532 108 C540 144 514 176 472 172 C430 178 404 150 408 114 C400 78 430 52 470 52 Z" />
+    <path class="nuc" d="M432 128 C424 110 440 98 454 108 C464 116 476 120 480 140 C482 156 460 162 448 152 C442 146 438 138 432 128 Z" />
+    {[[528, 92], [536, 116], [530, 140]].map(([x, y]) => (
+      <g><rect class="mhc" x={x! - 2} y={y! - 6} width="12" height="12" rx="2" /><circle class="ag" cx={x! + 13} cy={y} r="4.5" /></g>
+    ))}
+    <circle class="tcell act" cx="606" cy="116" r="40" />
+    {[[566, 92], [562, 116], [566, 140], [606, 74], [646, 116], [606, 158], [636, 86], [636, 146]].map(([x, y]) => <circle class="tr" cx={x} cy={y} r="4" />)}
+    <text class="lbl" x="472" y="196" text-anchor="middle">MHC + antigen</text>
+    <text class="lbl" x="606" y="196" text-anchor="middle">helper T-cell</text>
+
+    <!-- link row 1 to row 2 -->
+    <path class="flow" d="M650 132 C700 150 712 214 640 224 L130 224 C96 224 84 248 92 284" marker-end="url(#ir-arrow)" />
+
+    <!-- 5 B-cell activation -->
+    <circle class="tcell act" cx="86" cy="340" r="36" />
+    {[[122, 340], [86, 304], [86, 376], [60, 316], [60, 364]].map(([x, y]) => <circle class="tr" cx={x} cy={y} r="4" />)}
+    <circle class="bcell act" cx="176" cy="340" r="40" />
+    <g class="y">
+      <Fragment set:html={bReceptors.map((a) => { const r = (a * Math.PI) / 180; return yShape(176 + Math.sin(r) * 40, 340 - Math.cos(r) * 40, a); }).join('')} />
+    </g>
+    <circle class="ag" cx="176" cy="286" r="5" /><circle class="ag" cx="218" cy="309" r="5" />
+    <text class="lbl" x="86" y="398" text-anchor="middle">helper T</text>
+    <text class="lbl" x="176" y="410" text-anchor="middle">B-cell</text>
+    <path class="flow" d="M226 340 L262 340" marker-end="url(#ir-arrow)" />
+
+    <!-- 6 clonal expansion -->
+    <circle class="bcell" cx="284" cy="340" r="14" />
+    <path class="tree" d="M298 340 L318 316 M298 340 L318 364 M346 316 L366 302 M346 316 L366 330 M346 364 L366 350 M346 364 L366 378" />
+    <circle class="bcell" cx="332" cy="316" r="13" /><circle class="bcell" cx="332" cy="364" r="13" />
+    {[302, 330, 350, 378].map((y) => <circle class="bcell" cx="380" cy={y} r="12" />)}
+    <text class="lbl" x="332" y="410" text-anchor="middle">clone (mitosis)</text>
+    <path class="flow" d="M398 330 L440 304" marker-end="url(#ir-arrow)" />
+    <path class="flow" d="M398 356 L440 378" marker-end="url(#ir-arrow)" />
+    <path class="flow" d="M398 370 L560 410" marker-end="url(#ir-arrow)" />
+
+    <!-- 7 plasma cells and antibodies -->
+    {plasma.map(([x, y]) => (
+      <g>
+        <circle class="bcell" cx={x} cy={y} r="34" />
+        <circle class="pnuc" cx={x! - 14} cy={y! + 6} r="12" />
+        <path class="er" d={`M${x! - 2} ${y! - 18} q 14 4 26 0 M${x! - 2} ${y! - 8} q 14 4 26 0 M${x! + 2} ${y! + 2} q 12 4 22 0 M${x! + 2} ${y! + 12} q 10 4 20 0`} />
+      </g>
+    ))}
+    <g class="y ab"><Fragment set:html={abFree.map(([x, y, a]) => yShape(x!, y!, a!, 1.3)).join('')} /></g>
+    <text class="lbl" x="492" y="436" text-anchor="middle">plasma cells</text>
+    <text class="lbl" x="616" y="276" text-anchor="middle">antibodies</text>
+    <path class="flow" d="M664 330 L680 330" marker-end="url(#ir-arrow)" />
+
+    <!-- 8 memory cells -->
+    {memory.map(([x, y]) => <circle class="mem" cx={x} cy={y} r="16" />)}
+    <text class="lbl" x="606" y="466" text-anchor="middle">memory cells</text>
+
+    <!-- 9 agglutination -->
+    {clump.map((p) => (
+      <g>
+        <rect class="path" x={p.cx - p.w / 2} y={p.cy - p.h / 2} width={p.w} height={p.h} rx="9" />
+        {p.knobs.map(([x, y]) => <circle class="ag" cx={x} cy={y} r="3.5" />)}
+      </g>
+    ))}
+    <g class="y ab"><Fragment set:html={[yShape(728, 344, -60, 1.2), yShape(712, 352, 180, 1.2), yShape(740, 372, -110, 1.2)].join('')} /></g>
+    <text class="lbl" x="728" y="404" text-anchor="middle">agglutinated</text>
+
+    <g class="markers">
+      {markers.map((m) => (
+        <g>
+          <circle cx={m.x} cy={m.y} r="13" />
+          <text x={m.x} y={m.y} dy="0.36em" text-anchor="middle">{m.n}</text>
+        </g>
+      ))}
+    </g>
+  </svg>
+  <ol class="key">
+    {key.map((k) => <li>{k}</li>)}
+  </ol>
+</div>
+
+<style>
+  .exam-diagram svg { font-family: var(--font-sans); }
+  .lbl { font-size: 16px; font-weight: 650; fill: var(--text); }
+  .path { fill: var(--bio-k); stroke: color-mix(in srgb, var(--bio-k) 60%, black); stroke-width: 1.4; }
+  .ag { fill: var(--bio-glucose); stroke: color-mix(in srgb, var(--bio-glucose) 55%, black); stroke-width: 1; }
+  .mac { fill: color-mix(in srgb, var(--bio-protein-2) 28%, transparent); stroke: var(--bio-protein-2); stroke-width: 2.4; }
+  .nuc { fill: var(--bio-na); opacity: 0.85; }
+  .vac { fill: color-mix(in srgb, var(--bio-water) 18%, transparent); stroke: var(--bio-water); stroke-width: 1.6; stroke-dasharray: 4 3; }
+  .lyso { fill: var(--bio-head); }
+  .mhc { fill: var(--text-muted); }
+  .tcell { fill: color-mix(in srgb, var(--bio-water) 55%, var(--surface)); stroke: var(--bio-water); stroke-width: 2; }
+  .tr { fill: var(--text-muted); }
+  .bcell { fill: color-mix(in srgb, var(--bio-carb) 55%, var(--surface)); stroke: var(--bio-carb); stroke-width: 2; }
+  .act { stroke: var(--bio-glucose); stroke-width: 4; }
+  .pnuc { fill: color-mix(in srgb, var(--bio-carb) 80%, black); opacity: 0.6; }
+  .er { fill: none; stroke: var(--bio-tail); stroke-width: 2.2; stroke-linecap: round; }
+  .mem { fill: color-mix(in srgb, var(--bio-head) 70%, var(--surface)); stroke: var(--bio-head); stroke-width: 2; }
+  .y :global(path) { fill: none; stroke: var(--bio-protein); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+  .tree { stroke: var(--text-muted); stroke-width: 1.5; fill: none; }
+  .flow { fill: none; stroke: var(--text); stroke-width: 2; }
+  .arrowhead { fill: var(--text); }
+  .markers circle { fill: var(--surface); stroke: var(--text); stroke-width: 1.8; }
+  .markers text { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .key { columns: 2 17rem; column-gap: var(--space-5); margin: var(--space-3) 0 0; padding: 0; list-style: none; counter-reset: k; font-size: var(--step--1); }
+  .key li { break-inside: avoid; margin: 0 0 0.3rem; display: grid; grid-template-columns: 1.7rem 1fr; counter-increment: k; }
+  .key li::before { content: counter(k); font-weight: 800; display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; border: 1.5px solid var(--text); border-radius: 50%; font-size: 0.75rem; margin-top: 0.1rem; }
+</style>

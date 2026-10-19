@@ -1,0 +1,352 @@
+---
+code: C3.2
+description: "IB Biology C3.2 defence against disease revision: step through the antibody response in 3D, model herd immunity and antibiotic resistance, then self-test."
+updated: 2026-10-19
+related: [A2.3, B2.1, D4.1, C3.1]
+mustKnow:
+  - term: Pathogen
+    definition: "An organism or virus that causes infectious disease. Human pathogens are mainly <strong>viruses, bacteria, fungi and protists</strong>; no archaea are known to cause human disease."
+    level: SL
+  - term: Primary defence
+    definition: "The <strong>skin</strong> (a tough physical barrier of dead keratinized cells, made chemically hostile by acidic secretions) and <strong>mucous membranes</strong> (sticky mucus that traps pathogens and contains the antibacterial enzyme lysozyme)."
+    level: SL
+  - term: Blood clotting
+    definition: "Platelets release <strong>clotting factors</strong>, starting a cascade that converts prothrombin to <strong>thrombin</strong>; thrombin converts soluble <strong>fibrinogen</strong> into insoluble <strong>fibrin</strong>, whose fibres trap red blood cells to form a clot that seals the cut."
+    level: SL
+  - term: Innate vs adaptive immunity
+    definition: "The <strong>innate</strong> system (e.g. phagocytes) responds in the same way to broad categories of pathogen and does not change during life. The <strong>adaptive</strong> system (lymphocytes) responds specifically to each antigen and builds a memory, so later responses are stronger."
+    level: SL
+  - term: Phagocytosis
+    definition: "Phagocytes move by amoeboid movement out of capillaries to infection sites, recognize pathogens, engulf them by <strong>endocytosis</strong> into a vacuole, and digest them with enzymes from <strong>lysosomes</strong>."
+    level: SL
+  - term: Antigen
+    definition: "A molecule, usually a protein or glycoprotein on the surface of a pathogen or cell, that is recognized as foreign and triggers the production of specific antibodies."
+    level: SL
+  - term: Antibody
+    definition: "A Y-shaped protein of four polypeptide chains (two heavy, two light) secreted by plasma cells. Its two identical <strong>variable</strong> binding sites fit one specific antigen; the <strong>constant</strong> region is shared by antibodies of the same class."
+    level: SL
+  - term: Clonal expansion and plasma cells
+    definition: "An activated B-cell divides repeatedly by <strong>mitosis</strong> to form a clone. Most cells become <strong>plasma cells</strong>, with extensive rough ER, that secrete large amounts of the one specific antibody."
+    level: SL
+  - term: Memory cells and immunity
+    definition: "<strong>Immunity</strong> is the ability to eliminate a particular infection. It comes from long-lived <strong>memory cells</strong> that give a faster, larger secondary response if the same antigen enters the body again."
+    level: SL
+  - term: Herd immunity
+    definition: "When a large enough fraction of a population is immune, each case infects fewer than one new person on average, so transmission is impeded and non-immune people are protected too. The threshold fraction is about 1 − 1/R<sub>0</sub>."
+    level: SL
+  - term: Zoonosis
+    definition: "An infectious disease that can pass from other animal species to humans, for example tuberculosis (from cattle), rabies (from dogs), Japanese encephalitis (from pigs and birds, via mosquitoes) and COVID-19."
+    level: SL
+mistakes:
+  - wrong: "Antibiotics can be used to treat viral infections such as flu or COVID-19."
+    right: "Antibiotics block processes found only in bacteria, such as building a peptidoglycan cell wall or translation by 70S ribosomes. Viruses have no metabolism, wall or ribosomes of their own, so antibiotics have nothing to act on."
+    level: SL
+  - wrong: "Bacteria become resistant because the antibiotic causes the mutation, or because they get used to it."
+    right: "Resistant variants are already present (from random mutation or gene transfer). The antibiotic kills susceptible bacteria, so resistant ones survive, reproduce and pass on the resistance genes: natural selection."
+    level: SL
+  - wrong: "Phagocytes only attack one particular type of pathogen."
+    right: "Phagocytes are part of the innate system: they engulf any pathogen they recognize as foreign, in the same way each time. Specificity belongs to the lymphocytes of the adaptive system."
+    level: SL
+  - wrong: "A B-cell is activated as soon as an antigen binds to it."
+    right: "A B-cell needs two things: its own receptors must bind the specific antigen, AND it must make contact with a helper T-cell that has been activated by the same antigen."
+    level: SL
+  - wrong: "Each plasma cell can make many kinds of antibody, adapting them to the pathogen."
+    right: "Each B-cell, and every plasma cell in its clone, makes only one type of antibody. The right antibody is produced by selecting and cloning the B-cell that already makes it."
+    level: SL
+  - wrong: "You are immune because antibodies stay in your blood for life."
+    right: "Antibodies and plasma cells decline over weeks to months. Long-term immunity is due to memory cells, which can quickly make the specific antibody again."
+    level: SL
+  - wrong: "HIV destroys all white blood cells, and people with AIDS die from the virus itself."
+    right: "HIV infects and kills certain lymphocytes, mainly helper T-cells. Without them, B-cells cannot be activated, so antibody production fails and people become ill from opportunistic infections."
+    level: SL
+  - wrong: "Vaccines give you a mild form of the disease to make you immune."
+    right: "Vaccines contain antigens (or DNA/RNA coding for them), often from killed or weakened pathogens. They stimulate a primary response and memory cells without causing the disease."
+    level: SL
+  - wrong: "Fibrinogen is converted to thrombin, which forms the clot."
+    right: "Thrombin is the enzyme: it converts soluble fibrinogen into insoluble fibrin. The fibrin fibres form a mesh that traps red blood cells."
+    level: SL
+  - wrong: "Herd immunity only works if everyone is vaccinated."
+    right: "Spread is impeded once the immune fraction exceeds about 1 − 1/R<sub>0</sub>, for example 75% when R<sub>0</sub> = 4. The few who cannot be vaccinated are then protected because the pathogen rarely reaches them."
+    level: SL
+---
+
+<Section id="pathogens" title="Pathogens and the first line of defence" level="SL" covers="C3.2.1 C3.2.2">
+
+A **pathogen** is an organism or virus that causes an **infectious disease**: one that can be passed from one host to another. Humans can be infected by a very wide range of pathogens, but most belong to four groups.
+
+<Figure name="c3-2-pathogens" caption="The four main groups of human pathogens (not to scale). Viruses are not cells; bacteria are prokaryotic; fungi and protists are eukaryotic." />
+
+The other prokaryotic domain, the **archaea**, includes many species that live in and on the human body, but **no archaea are known to cause human disease**.
+
+### Careful observation led to disease control
+
+- **Childbed fever in Vienna (1840s).** Ignaz Semmelweis noticed that many more mothers died of fever after childbirth on the ward where doctors came straight from dissecting corpses than on the ward run by midwives. He concluded that doctors were carrying "cadaverous particles" on their hands. When he made them wash in chlorinated lime solution, deaths fell sharply. This was before anyone knew that bacteria cause disease.
+- **Cholera in London (1854).** John Snow mapped the cases in an outbreak in Soho and found that they clustered round one public water pump in Broad Street. People who drew water elsewhere were mostly spared. Removing the pump handle helped stop the outbreak and showed that cholera spreads in contaminated water, not through "bad air".
+
+### Skin and mucous membranes: the primary defence
+
+Most pathogens never get inside the body, because the **skin** and **mucous membranes** keep them out.
+
+- The skin is a **physical barrier**: its outer layer is made of tough, dead, keratin-filled cells that are constantly shed, so pathogens cannot easily attach or pass through.
+- It is also a **chemical barrier**: sebaceous glands secrete sebum containing fatty acids, and lactic acid in sweat keeps the surface acidic, which inhibits the growth of many bacteria and fungi.
+- **Mucous membranes** line the airways, gut and urinogenital tract. They are thinner and moist, but the **mucus** they secrete traps microorganisms and contains **lysozyme**, an enzyme that breaks down bacterial cell walls. In the airways, cilia sweep the mucus away.
+
+<Callout type="exam">
+
+If a question asks how the skin protects against pathogens, give **both** kinds of barrier: physical (tough outer layer of dead cells) **and** chemical (acidic secretions with fatty acids). You do not need to draw the skin.
+
+</Callout>
+
+</Section>
+
+<Section id="clotting" title="Blood clotting seals cuts" level="SL" covers="C3.2.3">
+
+A cut in the skin breaks the primary barrier and the walls of blood vessels. Blood loss must be stopped quickly, and the gap must be closed before pathogens enter. Both are achieved by **blood clotting**.
+
+1. **Platelets**, small cell fragments in the blood plasma, stick to the damaged tissue at the cut and release **clotting factors**.
+2. The clotting factors set off a **cascade**: a series of reactions in which the product of each reaction activates the next. Near the end, an inactive plasma protein, **prothrombin**, is converted into the active enzyme **thrombin**.
+3. **Thrombin** converts **fibrinogen**, a soluble plasma protein, into **fibrin**, which is insoluble. Fibrin forms long fibres that join into a mesh across the wound.
+4. **Red blood cells** (erythrocytes) are trapped in the mesh, forming a **clot** that seals the cut. Exposed to air, it dries into a scab.
+
+<Anim topic="c3-2" id="clotting" />
+
+The cascade has two advantages. Because each step activates many molecules of the next, a small trigger is **amplified** into a rapid response. And because several steps must happen in turn, clotting only starts where a vessel is damaged, not in the circulating blood.
+
+<Callout type="exam">
+
+Name the molecules in the right order: clotting factors from **platelets** → cascade → **prothrombin to thrombin** → thrombin converts **soluble fibrinogen to insoluble fibrin** → fibrin mesh traps **erythrocytes**. No further detail of the cascade is needed.
+
+</Callout>
+
+</Section>
+
+<Section id="innate" title="Innate immunity and phagocytes" level="SL" covers="C3.2.4 C3.2.5">
+
+Pathogens that get past the skin and mucous membranes meet the **immune system**, which has two parts.
+
+| | Innate immune system | Adaptive immune system |
+|---|---|---|
+| Specificity | Responds to broad categories of pathogen in the same way | Responds specifically to each particular pathogen (antigen) |
+| Change during life | Does not change | Builds up a memory of pathogens met, so responses improve |
+| Speed on first infection | Immediate | Slower (days) |
+| Cells you need to know | Phagocytes | Lymphocytes (B-cells and helper T-cells) |
+
+### Phagocytes
+
+**Phagocytes** are white blood cells that ingest and destroy pathogens. Macrophages and neutrophils are examples. They circulate in the blood, but many of them leave it at sites of infection.
+
+1. **Amoeboid movement**: a phagocyte squeezes out between the cells of a capillary wall and crawls through the tissue towards the infection by extending its cytoplasm.
+2. **Recognition**: receptors on its surface recognize molecules that are common to many pathogens but absent from body cells.
+3. **Engulfing by endocytosis**: the plasma membrane extends around the pathogen and fuses, enclosing it in a vacuole (phagocytosis is a form of endocytosis; see <TopicLink code="B2.1" />).
+4. **Digestion**: **lysosomes** fuse with the vacuole and their hydrolytic enzymes digest the pathogen.
+
+Pus at an infected wound is mainly dead phagocytes, together with bacteria and tissue fluid.
+
+Phagocytes also link the two systems. A **macrophage** that has digested a pathogen displays fragments of its antigens on its surface, which starts the adaptive response (see the 3D model below).
+
+<Callout type="note" title="Beyond the guide: histamine and allergy">
+
+**Mast cells** in connective tissue release **histamine** when they detect pathogens or tissue damage. Histamine dilates nearby blood vessels and makes capillaries leakier, so more phagocytes and fluid reach the site: the redness and swelling of inflammation. In an **allergy**, the same response is triggered by a harmless substance such as pollen. This is not required for C3.2.
+
+</Callout>
+
+</Section>
+
+<Section id="lymphocytes" title="Lymphocytes, antigens and antibodies" level="SL" covers="C3.2.6 C3.2.7">
+
+### Lymphocytes
+
+**Lymphocytes** are small white blood cells with a large, rounded nucleus. They **circulate in the blood**, but large numbers are also contained in the **lymph nodes**: small swellings along the lymphatic vessels that drain tissue fluid. Pathogens carried in the lymph are filtered out there, where lymphocytes meet them.
+
+A person has an enormous number of different **B-lymphocytes** (B-cells). Each B-cell can make **one specific type of antibody**, and displays copies of it on its surface as receptors. Because there are so many different B-cells, the body can make antibodies against almost any antigen, but only a **small number** of B-cells match any one antigen.
+
+### Antigens
+
+An **antigen** is any molecule that the immune system recognizes as foreign and that triggers the production of antibodies. Most antigens are **proteins or glycoproteins**, usually on the **outer surface** of pathogens, such as the spike proteins of viruses or proteins in bacterial cell walls and flagella.
+
+Our own cells also carry surface markers. **MHC proteins**, which differ between people, mark cells as "self"; this is why transplanted organs must be closely matched in tissue type. The **ABO blood group** antigens are glycoproteins and glycolipids on red blood cells.
+
+| Blood group | Antigens on red cells | Antibodies in plasma | Can receive red cells from |
+|---|---|---|---|
+| A | A | anti-B | A, O |
+| B | B | anti-A | B, O |
+| AB | A and B | neither | A, B, AB, O |
+| O | neither | anti-A and anti-B | O only |
+
+If red cells are transfused into someone with a different blood group, their surface antigens act as foreign antigens: antibodies in the recipient bind them, clumping (agglutinating) and destroying the cells. Antigens such as the Rhesus (D) antigen can also stimulate the recipient to start making new antibodies against them.
+
+### Antibodies
+
+Switch the 3D model below to **Antibody structure**. An antibody is a protein made of **two heavy and two light polypeptide chains** held together by disulfide bonds. The tips of the arms are **variable regions** that form two identical **antigen-binding sites**; the rest is the **constant region**. Binding is specific, like a substrate in an enzyme's active site, but the antigen is not chemically changed.
+
+</Section>
+
+<Section id="response" title="Activation, clonal expansion and memory" level="SL" covers="C3.2.8 C3.2.9 C3.2.10">
+
+<Viewer3D topic="c3-2" id="immunity" />
+
+### Activation of B-cells by helper T-cells
+
+There are **antigen-specific B-cells** and **antigen-specific helper T-cells** (helper T-lymphocytes). A B-cell produces antibodies, and memory cells, **only after it has been activated**. Activation needs two things:
+
+1. **Direct binding of the specific antigen** to the receptors on the B-cell.
+2. **Contact with a helper T-cell that has been activated by the same antigen.** Helper T-cells are activated when their receptors bind the antigen presented by a macrophage. The activated helper T-cell binds to the matching B-cell and releases signalling proteins.
+
+This double check helps prevent the immune system from attacking the body's own cells.
+
+### Clonal expansion
+
+Because only a few B-cells match an antigen, they could not make enough antibody on their own. So an activated B-cell first **divides repeatedly by mitosis**, producing a **clone** of genetically identical cells that can all make the same antibody (**clonal selection**: the antigen selects which B-cell is cloned). Most cells of the clone differentiate into **plasma cells**: larger cells with extensive **rough endoplasmic reticulum** and Golgi apparatus, which synthesize and secrete large amounts of antibody. Antibodies help to destroy pathogens by making them clump together (**agglutination**), by **neutralizing** them or their toxins, and by making them easier for phagocytes to engulf.
+
+### Memory cells and immunity
+
+**Immunity** is the ability to eliminate a particular infectious disease from the body. After an infection, antibodies and plasma cells gradually disappear, but some cells of the clone survive for years as **memory cells**. If the same antigen enters again, memory cells divide and produce plasma cells rapidly, so antibody is made sooner, in larger amounts and for longer. This **secondary response** usually clears the pathogen before symptoms develop.
+
+<Sim topic="c3-2" id="antibody-titre" />
+
+<Callout type="exam">
+
+For "explain how antibodies are produced", give the sequence: antigen presentation by a macrophage → activation of a **specific helper T-cell** → activation of the **specific B-cell** (needs antigen binding **and** the helper T-cell) → **mitosis** to form a clone → **plasma cells** secrete antibodies; some become **memory cells**.
+
+</Callout>
+
+</Section>
+
+<Section id="hiv" title="HIV and AIDS" level="SL" covers="C3.2.11 C3.2.12">
+
+**HIV** (human immunodeficiency virus) is a retrovirus (see <TopicLink code="A2.3" />). It does not survive long outside the body, and it is transmitted only when **body fluids** from an infected person enter another person's body. Blood, semen, vaginal and rectal fluids and breast milk can contain the virus. Examples of transmission:
+
+- **sexual intercourse without a condom**, vaginal or anal;
+- **sharing hypodermic needles**, for example among people who inject drugs, or needlestick injuries;
+- **transfusion** of infected blood or blood products (now prevented in most countries by screening donated blood);
+- from **mother to baby** during pregnancy, at birth or through **breastfeeding**.
+
+HIV is not passed on by touching, sharing cups, coughing, saliva or insect bites.
+
+### From HIV infection to AIDS
+
+HIV infects and kills only **certain types of lymphocyte**, mainly **helper T-cells**, which carry the CD4 receptor protein that the virus binds to. At first the immune system controls the infection and makes antibodies against HIV (a person with these is "HIV-positive"). Over several years without treatment, the number of helper T-cells falls. Without helper T-cells, B-cells cannot be activated, so the body **loses the ability to produce antibodies** against new pathogens.
+
+The person then develops **opportunistic infections**: diseases caused by pathogens that a healthy immune system would control, such as tuberculosis, a pneumonia caused by the fungus *Pneumocystis*, and Kaposi's sarcoma, a cancer caused by a herpesvirus. This collection of diseases is **AIDS** (acquired immunodeficiency syndrome). Antiretroviral drugs block viral enzymes such as reverse transcriptase; they cannot cure the infection but keep the virus at very low levels, so treated people can expect a near-normal lifespan and are much less likely to transmit the virus.
+
+<Callout type="exam">
+
+Link the steps: HIV kills **helper T-cells** → **B-cells are not activated** → **fewer antibodies** → **opportunistic infections**. Saying only that "HIV destroys the immune system" earns little credit.
+
+</Callout>
+
+</Section>
+
+<Section id="antibiotics" title="Antibiotics and antibiotic resistance" level="SL" covers="C3.2.13 C3.2.14">
+
+An **antibiotic** is a chemical that inhibits or kills microorganisms. Antibacterial antibiotics work because they **block processes that occur in bacteria but not in eukaryotic cells**, so they can be used inside the body without harming our cells.
+
+| Bacterial target | Example antibiotic | Why human cells are unaffected |
+|---|---|---|
+| Building the peptidoglycan cell wall | penicillin | Animal cells have no cell wall |
+| Protein synthesis on 70S ribosomes | streptomycin, tetracycline | Human cytoplasmic ribosomes are 80S |
+| DNA replication (bacterial DNA gyrase) | ciprofloxacin | Human cells use different enzymes |
+
+### Why antibiotics do not work against viruses
+
+Viruses are not cells. They have **no metabolism, no cell wall and no ribosomes** of their own; they reproduce inside host cells using the host's ribosomes, enzymes and ATP. There is therefore nothing for an antibacterial antibiotic to act on, and blocking the host's own processes would harm the host cells. Viral infections are treated with **antiviral** drugs that target viral enzymes, or prevented by vaccines.
+
+### Evolution of resistance
+
+**Resistance** evolves by natural selection (see <TopicLink code="D4.1" />):
+
+1. **Variation**: a few bacteria in a population carry a gene for resistance, from a random mutation or by **gene transfer** from other bacteria, often on a plasmid.
+2. **Selection**: the antibiotic kills the susceptible bacteria. The resistant ones survive.
+3. **Reproduction**: survivors multiply rapidly, so the resistance gene becomes common. It can spread to other species by gene transfer.
+
+Repeated use of different antibiotics selects for strains with **multiple resistance**, such as **MRSA** (methicillin-resistant *Staphylococcus aureus*), which infects wounds and blood of hospital patients and resists many antibiotics.
+
+<Sim topic="c3-2" id="resistance" />
+
+To slow the emergence of multiresistant bacteria: prescribe antibiotics only for bacterial infections and take them as directed; keep hospital hygiene high to stop cross-infection; avoid routine use in livestock to promote growth; and develop new antibiotics. A new technique is helping: computers **screen chemical libraries** of millions of compounds to find molecules likely to kill bacteria, which are then tested. Halicin, found this way in 2020, is one example.
+
+</Section>
+
+<Section id="zoonoses" title="Zoonoses" level="SL" covers="C3.2.15">
+
+A **zoonosis** is an infectious disease that can be transmitted from other animal species to humans in natural conditions. Zoonoses are very common: around 60% of known human infectious diseases, and most new (emerging) ones, come from animals. They reach humans by many routes.
+
+| Zoonosis | Pathogen | Animal source | How it reaches humans |
+|---|---|---|---|
+| Tuberculosis (bovine TB) | Bacterium, *Mycobacterium bovis* | Cattle | Drinking unpasteurized milk from infected cows; breathing in droplets |
+| Rabies | Virus (a lyssavirus) | Mainly dogs; also bats, foxes and other mammals | Saliva from a bite or scratch of an infected animal |
+| Japanese encephalitis | Virus (a flavivirus) | Pigs and wading birds | Bites of mosquitoes that have fed on infected animals |
+| COVID-19 | Virus, SARS-CoV-2 (a coronavirus) | Probably bats, possibly via another mammal | First crossed to humans in late 2019; then spread person to person in airborne droplets |
+
+Most human TB is now caused by *M. tuberculosis* and spreads between people, but bovine TB shows how a pathogen of cattle can infect humans. Rabies is almost always fatal once symptoms start, but a vaccine given soon after a bite prevents it.
+
+**COVID-19** shows the profound consequences when a zoonosis can also spread efficiently between humans. Within months SARS-CoV-2 had spread worldwide: the pandemic killed millions of people, overloaded health systems and disrupted economies and education, until vaccines and immunity from infection reduced deaths.
+
+</Section>
+
+<Section id="vaccines" title="Vaccines and herd immunity" level="SL" covers="C3.2.16 C3.2.17">
+
+**Immunization** is the use of a **vaccine** to make a person immune to a specific pathogen. A vaccine contains **antigens**, or **nucleic acid (DNA or RNA) with a sequence that codes for an antigen**, so that the body's own cells make the antigen. It stimulates the development of immunity **without causing the disease**.
+
+| Type of vaccine | What it contains | Example |
+|---|---|---|
+| Inactivated or attenuated | Killed whole pathogens, or live ones weakened so they do not cause disease | Polio, MMR (measles, mumps, rubella) |
+| Subunit | Purified antigens, usually proteins | Hepatitis B, HPV |
+| mRNA | mRNA coding for an antigen, in lipid nanoparticles | COVID-19 vaccines coding for the spike protein |
+| Viral vector (DNA) | A harmless, modified adenovirus carrying DNA that codes for an antigen | Oxford–AstraZeneca COVID-19 vaccine |
+
+The vaccine triggers a **primary response**: helper T-cells and B-cells are activated, plasma cells make antibodies and **memory cells** are produced. If the real pathogen later enters, the **secondary response** destroys it before it can cause disease. Some vaccines need booster doses.
+
+### Herd immunity
+
+If a high enough proportion of a population is immune, an infected person mostly meets immune people, so the pathogen cannot spread. This is **herd immunity**. It also protects people who cannot be vaccinated, such as newborn babies and people with weakened immune systems, so members of a population depend on each other. The proportion needed depends on the **basic reproduction number**, R<sub>0</sub>, the average number of people one case infects in a population with no immunity:
+
+**herd immunity threshold ≈ 1 − 1/R<sub>0</sub>**
+
+For measles, R<sub>0</sub> is about 12–18, so about 92–94% of people must be immune. A vaccine that is not 100% effective raises the coverage needed.
+
+<Sim topic="c3-2" id="herd-immunity" />
+
+<Callout type="tip" title="Nature of science: evaluating research and media reports">
+
+Scientists publish results so that others can evaluate them, but the media often report findings before that evaluation is finished. Vaccines are tested rigorously in large trials, and the risk of serious side effects is minimal, but not zero. Science gives well-supported, pragmatic conclusions rather than absolute certainty. A fraudulent 1998 paper claiming a link between the MMR vaccine and autism was retracted, but media coverage reduced vaccination rates and measles outbreaks followed.
+
+</Callout>
+
+</Section>
+
+<Section id="covid-data" title="Evaluating COVID-19 pandemic data" level="SL" covers="C3.2.18">
+
+Huge amounts of data were collected during the COVID-19 pandemic. Two calculations are especially useful.
+
+**Percentage change** compares the same quantity at two times:
+
+percentage change = (final value − initial value) ÷ initial value × 100
+
+**Percentage difference** compares two groups (or places) at the same time, relative to a stated reference value:
+
+percentage difference = (value A − value B) ÷ value A × 100, where A is the reference group
+
+Always say which group is the reference, because the answer depends on it.
+
+### Worked example
+
+The table shows **illustrative** weekly death rates from COVID-19 in one age group, in the pattern reported by many countries in 2021–2022 (not real figures).
+
+| Period | Unvaccinated (per 100 000) | Vaccinated (per 100 000) |
+|---|---|---|
+| Period 1 | 40.0 | 6.0 |
+| Period 2 | 25.0 | 5.0 |
+
+- **Percentage difference** in period 1, with the unvaccinated as reference: (40.0 − 6.0) ÷ 40.0 × 100 = **85% lower** in vaccinated people.
+- **Percentage change** for unvaccinated people from period 1 to period 2: (25.0 − 40.0) ÷ 40.0 × 100 = **−37.5%**, a 37.5% decrease.
+
+When evaluating such data, consider: are the groups comparable (age, health)? How were deaths attributed to COVID-19? Did testing rates change? Rates per 100 000 are needed because the groups are of different sizes, and correlation alone does not prove cause.
+
+<Callout type="exam">
+
+A negative percentage change is a **decrease**: state it in words. Give answers to a sensible number of significant figures, and show the formula with the values substituted.
+
+</Callout>
+
+</Section>

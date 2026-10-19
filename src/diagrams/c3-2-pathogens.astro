@@ -1,0 +1,74 @@
+---
+/** The four main groups of human pathogens (C3.2.1), schematic and not to scale. */
+const spikes = Array.from({ length: 14 }, (_, i) => (i / 14) * Math.PI * 2);
+const panels = [
+  { x: 0, y: 0, title: 'Viruses', lines: ['not cells; about 20–300 nm', 'e.g. SARS-CoV-2 (COVID-19),', 'HIV, measles virus'] },
+  { x: 280, y: 0, title: 'Bacteria', lines: ['prokaryotic cells; about 1–5 µm', 'e.g. Vibrio cholerae (cholera),', 'Mycobacterium tuberculosis (TB)'] },
+  { x: 0, y: 220, title: 'Fungi', lines: ['eukaryotic cells', 'e.g. Candida albicans (thrush),', 'fungi causing athlete’s foot'] },
+  { x: 280, y: 220, title: 'Protists', lines: ['eukaryotic, mostly unicellular', 'e.g. Plasmodium (malaria),', 'carried by mosquitoes'] },
+];
+---
+<svg viewBox="0 0 560 440" role="img" aria-labelledby="pg-t pg-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="pg-t">The four main groups of pathogens</title>
+  <desc id="pg-d">Four panels, not to scale. Viruses are not cells: a protein capsid around nucleic acid, sometimes with a lipid envelope and spikes. Bacteria are prokaryotic cells with a cell wall, naked circular DNA and 70S ribosomes. Fungi and protists are eukaryotic cells with a nucleus: a budding yeast cell and a Plasmodium cell in a red blood cell.</desc>
+  {panels.map((p) => (
+    <g transform={`translate(${p.x} ${p.y})`}>
+      <rect class="panel" x="4" y="4" width="272" height="212" rx="10" />
+      <text class="ttl" x="140" y="30" text-anchor="middle">{p.title}</text>
+      {p.lines.map((l, i) => <text class="ln" x="140" y={158 + i * 18} text-anchor="middle">{l}</text>)}
+    </g>
+  ))}
+  <!-- virus: envelope, spikes, capsid, RNA -->
+  <g transform="translate(140 90)">
+    {spikes.map((a) => <line class="spike" x1={Math.cos(a) * 34} y1={Math.sin(a) * 34} x2={Math.cos(a) * 46} y2={Math.sin(a) * 46} />)}
+    {spikes.map((a) => <circle class="spike-h" cx={Math.cos(a) * 47} cy={Math.sin(a) * 47} r="4" />)}
+    <circle class="env" r="35" />
+    <circle class="cap" r="25" />
+    <path class="rna" d="M-14 -6 C-6 -18 4 6 12 -6 C18 -14 6 14 -4 8 C-12 4 -8 14 0 14" />
+  </g>
+  <!-- bacterium: wall, membrane, nucleoid, ribosomes, flagellum -->
+  <g transform="translate(420 92)">
+    <rect class="wall" x="-70" y="-30" width="140" height="60" rx="30" />
+    <rect class="mem" x="-64" y="-24" width="128" height="48" rx="24" />
+    <path class="dna" d="M-30 0 C-24 -14 -8 12 2 -6 C10 -18 22 10 28 -2 C32 -10 18 -12 6 4 C-6 16 -24 12 -30 0 Z" />
+    {[[-48, -8], [-44, 10], [40, -10], [46, 8], [-14, 16], [14, -16], [52, -2]].map(([x, y]) => <circle class="ribo" cx={x} cy={y} r="2.6" />)}
+    <path class="flag" d="M70 0 C84 -12 92 12 106 0 C114 -8 120 4 126 0" />
+  </g>
+  <!-- fungus: budding yeast with nucleus and vacuole -->
+  <g transform="translate(140 312)">
+    <ellipse class="fwall" cx="-12" cy="0" rx="40" ry="32" />
+    <ellipse class="fwall" cx="38" cy="-14" rx="18" ry="15" />
+    <circle class="nuc" cx="-22" cy="4" r="12" />
+    <circle class="vac" cx="4" cy="-8" r="9" />
+  </g>
+  <!-- protist: Plasmodium (ring stage) inside a red blood cell -->
+  <g transform="translate(420 312)">
+    <ellipse class="rbc" rx="60" ry="44" />
+    <circle class="ring" cx="8" cy="-4" r="14" />
+    <circle class="pnuc" cx="18" cy="-12" r="5" />
+    <text class="sm" x="0" y="28" text-anchor="middle">in a red blood cell</text>
+  </g>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .panel { fill: var(--surface-2); stroke: var(--border); }
+  .ttl { font-size: 17px; font-weight: 800; fill: var(--text); }
+  .ln { font-size: 14px; fill: var(--text); }
+  .sm { font-size: 12px; fill: var(--text); }
+  .spike { stroke: var(--bio-carb); stroke-width: 3; }
+  .spike-h { fill: var(--bio-carb); }
+  .env { fill: color-mix(in srgb, var(--bio-head) 30%, var(--surface)); stroke: var(--bio-head); stroke-width: 4; }
+  .cap { fill: color-mix(in srgb, var(--bio-protein) 25%, var(--surface)); stroke: var(--bio-protein); stroke-width: 3; }
+  .rna { fill: none; stroke: var(--bio-k); stroke-width: 2.4; }
+  .wall { fill: color-mix(in srgb, var(--bio-carb) 30%, var(--surface)); stroke: var(--bio-carb); stroke-width: 2.5; }
+  .mem { fill: color-mix(in srgb, var(--bio-tail) 25%, var(--surface)); stroke: var(--bio-head); stroke-width: 2; }
+  .dna { fill: none; stroke: var(--bio-k); stroke-width: 2; }
+  .ribo { fill: var(--bio-protein-2); }
+  .flag { fill: none; stroke: var(--text-muted); stroke-width: 2.2; }
+  .fwall { fill: color-mix(in srgb, var(--bio-glucose) 22%, var(--surface)); stroke: var(--bio-glucose); stroke-width: 3; }
+  .nuc { fill: var(--bio-na); opacity: 0.8; }
+  .vac { fill: color-mix(in srgb, var(--bio-water) 30%, var(--surface)); stroke: var(--bio-water); stroke-width: 1.5; }
+  .rbc { fill: color-mix(in srgb, var(--bio-k) 35%, var(--surface)); stroke: var(--bio-k); stroke-width: 2.5; }
+  .ring { fill: none; stroke: var(--bio-protein-2); stroke-width: 3.5; }
+  .pnuc { fill: var(--bio-protein-2); }
+</style>
