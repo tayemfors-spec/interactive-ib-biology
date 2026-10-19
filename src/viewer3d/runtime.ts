@@ -220,6 +220,11 @@ export async function mountViewer(fig: HTMLElement, scenes: SceneDef[]): Promise
         if (!clash) break;
         it.y = clash.y + clash.h + 3 + ch / 2;
       }
+      // keep the whole chip inside the stage (the anchor dot may then sit slightly off the point)
+      const minX = narrow ? cw / 2 + 2 : 9;
+      const maxX = narrow ? w - cw / 2 - 2 : w - cw + 5;
+      it.x = Math.max(minX, Math.min(maxX, it.x));
+      it.y = Math.max(ch / 2 + 2, Math.min(h - ch / 2 - 2, it.y));
       placed.push({ x: left(), y: top(), w: cw, h: ch });
       it.l.el.style.transform = `translate(${it.x.toFixed(1)}px, ${it.y.toFixed(1)}px)`;
     }

@@ -23,6 +23,7 @@ Sources used: the official *Biology guide, first assessment 2025* (May 2023 upda
 | S9 | B4.1.2 | Sand-dune grass | The guide doesn't name a species | Site uses marram grass (*Ammophila arenaria*) as the example | open |
 | S10 | D1.2.11 | Point-mutation example | The guide doesn't name one | Site uses sickle-cell anaemia (HBB, GAG→GTG, Glu→Val) | checked (textbook standard) |
 | S11 | several | "Local example" understandings (A3.1.14, A4.2.3, A4.2.4, B2.1.11, C4.1 invasive species, D1.3 CRISPR) | The guide leaves the choice of example to the student or school | The site gives a worked example and flags it as "your teacher may use a local example" | open |
+| S13 | B3.1 | Bohr shift direction | The Allott study guide (p. 120) says the curve shifts "to the left" with more CO₂ | Site says **to the right** (lower affinity, more O₂ released in respiring tissue), which is the standard, correct statement | checked (textbook) |
 | S12 | all | Shared phrasing with the guide | After rewriting, the remaining 7+ word overlaps are lists of technical terms, ratios (9:3:3:1), species names or standard definitions (e.g. the reference conditions for water potential) | Kept: these are facts and term lists, not creative wording | checked |
 
 ## Topic content
