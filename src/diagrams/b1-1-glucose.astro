@@ -1,0 +1,104 @@
+---
+/**
+ * Exam-style ring forms of α-D-glucose and β-D-glucose (B1.1.4), in the flat convention used in IB exams:
+ * ring O at the top right, C1 at the right, C4 at the left, carbon 6 (CH₂OH) above C5.
+ * "Up" on the page = above the plane of the ring. Substituents (above / below):
+ *   C1: α H / OH, β OH / H · C2: H / OH · C3: OH / H · C4: H / OH · C5: CH₂OH / H.
+ * Bonds are shortened so they stop short of the atom symbols.
+ */
+type P = [number, number];
+const R = 56;
+const DX = R / 2;
+const DY = (R * Math.sqrt(3)) / 2;
+const STUB = 30;
+const IN = 24; // inner stubs (inside the ring)
+const cy = 122;
+const f = (n: number) => n.toFixed(1);
+
+const mol = (cx: number, beta: boolean) => {
+  const v = { C1: [cx + R, cy], O: [cx + DX, cy - DY], C5: [cx - DX, cy - DY], C4: [cx - R, cy], C3: [cx - DX, cy + DY], C2: [cx + DX, cy + DY] } as Record<string, P>;
+  // [from atom, dx, dy, text, kind]: kind "oh" groups get the OH highlight colour
+  const subs: { at: string; dx: number; dy: number; text: string; c1?: boolean }[] = [
+    { at: 'C1', dx: 0, dy: -STUB, text: beta ? 'OH' : 'H', c1: beta },
+    { at: 'C1', dx: 0, dy: STUB, text: beta ? 'H' : 'OH', c1: !beta },
+    { at: 'C2', dx: 0, dy: -IN, text: 'H' },
+    { at: 'C2', dx: 0, dy: STUB, text: 'OH' },
+    { at: 'C3', dx: 0, dy: -IN, text: 'OH' },
+    { at: 'C3', dx: 0, dy: STUB, text: 'H' },
+    { at: 'C4', dx: 0, dy: -STUB, text: 'H' },
+    { at: 'C4', dx: 0, dy: STUB, text: 'OH' },
+    { at: 'C5', dx: 0, dy: IN, text: 'H' },
+    { at: 'C5', dx: 0, dy: -STUB, text: 'CH₂OH' },
+  ];
+  const ring: [string, string][] = [['C1', 'O'], ['O', 'C5'], ['C5', 'C4'], ['C4', 'C3'], ['C3', 'C2'], ['C2', 'C1']];
+  const nums: [string, number, number][] = [['1', R + 13, 5], ['2', DX + 12, DY + 16], ['3', -DX - 12, DY + 16], ['4', -R - 13, 5], ['5', -DX - 14, -DY - 2]];
+  return { cx, v, subs, ring, nums, beta };
+};
+const mols = [mol(150, false), mol(450, true)];
+
+/** Line from a to b, trimmed by s0 at a and s1 at b. */
+const trim = (a: P, b: P, s0: number, s1: number) => {
+  const d = Math.hypot(b[0] - a[0], b[1] - a[1]);
+  const ux = (b[0] - a[0]) / d, uy = (b[1] - a[1]) / d;
+  return { x1: f(a[0] + ux * s0), y1: f(a[1] + uy * s0), x2: f(b[0] - ux * s1), y2: f(b[1] - uy * s1) };
+};
+const key = [
+  'Ring of five carbon atoms and one oxygen atom; carbon 6 (CH₂OH) lies outside the ring, above carbon 5.',
+  'α-glucose: the –OH on carbon 1 is below the ring, on the opposite side to the CH₂OH.',
+  'β-glucose: the –OH on carbon 1 is above the ring, on the same side as the CH₂OH. Every other group is the same in both.',
+];
+---
+<div class="exam-diagram">
+  <svg viewBox="0 0 600 262" role="img" aria-labelledby="glc-t glc-d" xmlns="http://www.w3.org/2000/svg">
+    <title id="glc-t">Ring forms of alpha-glucose and beta-glucose</title>
+    <desc id="glc-d">Two hexagonal rings, each with five carbons numbered 1 to 5 and an oxygen at the top right. Carbon 6, as a CH2OH group, is above carbon 5. Going round from carbon 1, the groups above and below the ring are: carbon 2, H above and OH below; carbon 3, OH above and H below; carbon 4, H above and OH below; carbon 5, CH2OH above and H below. In alpha-glucose carbon 1 has H above and OH below. In beta-glucose carbon 1 has OH above and H below.</desc>
+    {mols.map((m) => (
+      <g>
+        {m.ring.map(([a, b]) => <line class="bond" {...trim(m.v[a]!, m.v[b]!, a === 'O' ? 10 : 9, b === 'O' ? 10 : 9)} />)}
+        {m.subs.map((s) => {
+          const a = m.v[s.at]!;
+          const b: P = [a[0] + s.dx, a[1] + s.dy];
+          const up = s.dy < 0;
+          const ty = up ? b[1] - 4 : b[1] + 15;
+          const isC6 = s.text === 'CH₂OH';
+          return (
+            <>
+              <line class="bond" {...trim(a, b, 9, 0)} />
+              {s.c1 && <rect class="hl" x={f(b[0] - 19)} y={f(up ? b[1] - 22 : b[1] - 1)} width="38" height="25" rx="10" />}
+              {isC6 ? (
+                <text class="t" x={f(b[0] - 8)} y={f(ty)}><tspan class="n6">6</tspan> CH₂OH</text>
+              ) : (
+                <text class={s.text === 'OH' ? 't oh' : 't h'} x={f(b[0] + (s.text === 'OH' ? (s.at === 'C4' ? -5 : 5) : 0))} y={f(ty)} text-anchor="middle">{s.text}</text>
+              )}
+            </>
+          );
+        })}
+        {Object.entries(m.v).map(([k, [x, y]]) => <text class={k === 'O' ? 'atom ro' : 'atom'} x={f(x)} y={f(y)} dy="0.36em" text-anchor="middle">{k === 'O' ? 'O' : 'C'}</text>)}
+        {m.nums.map(([n, dx, dy]) => <text class="num" x={f(m.cx + dx)} y={f(cy + dy)} text-anchor="middle">{n}</text>)}
+        <text class="name" x={m.cx} y="254" text-anchor="middle">{m.beta ? 'β-glucose' : 'α-glucose'}</text>
+      </g>
+    ))}
+    <text class="note" x="300" y="112" text-anchor="middle">–OH on C1:</text>
+    <text class="note" x="300" y="130" text-anchor="middle">α below,</text>
+    <text class="note" x="300" y="148" text-anchor="middle">β above</text>
+  </svg>
+  <ol class="key">
+    {key.map((k) => <li>{k}</li>)}
+  </ol>
+</div>
+<style>
+  .exam-diagram svg { font-family: var(--font-sans); max-width: 38rem; margin-inline: auto; }
+  .bond { stroke: var(--text); stroke-width: 2.4; stroke-linecap: round; }
+  .atom { font-size: 18px; font-weight: 750; fill: var(--text); }
+  .atom.ro { fill: var(--bio-k); font-weight: 800; }
+  .t { font-size: 15px; fill: var(--text); }
+  .t.oh { font-weight: 700; }
+  .n6 { font-size: 12px; font-weight: 800; fill: var(--text-muted); }
+  .num { font-size: 12px; font-weight: 800; fill: var(--text-muted); }
+  .name { font-size: 18px; font-weight: 750; fill: var(--text); }
+  .note { font-size: 14px; font-style: italic; fill: var(--text-muted); }
+  .hl { fill: none; stroke: var(--bio-k); stroke-width: 2.2; stroke-dasharray: 4 3; }
+  .key { margin: var(--space-3) auto 0; padding: 0 0 3rem; list-style: none; counter-reset: k; font-size: var(--step--1); max-width: 40rem; }
+  .key li { margin: 0 0 0.3rem; display: grid; grid-template-columns: 1.7rem 1fr; counter-increment: k; }
+  .key li::before { content: counter(k); font-weight: 800; display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; border: 1.5px solid var(--text); border-radius: 50%; font-size: 0.75rem; margin-top: 0.1rem; }
+</style>

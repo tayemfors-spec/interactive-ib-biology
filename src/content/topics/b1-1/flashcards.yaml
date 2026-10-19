@@ -1,0 +1,73 @@
+cards:
+  - id: c1
+    level: SL
+    front: Why can carbon form such a diversity of compounds?
+    back: A carbon atom has four outer-shell electrons, so it forms up to four covalent bonds (single, or a mix of single and double) with other carbon atoms and with non-metals such as H, O, N and P. This gives unbranched and branched chains, single rings and fused rings.
+  - id: c2
+    level: SL
+    front: Give the meaning of the SI prefixes kilo, centi, milli, micro and nano.
+    back: kilo (k) × 10³; centi (c) × 10⁻²; milli (m) × 10⁻³; micro (μ) × 10⁻⁶; nano (n) × 10⁻⁹. They are agreed internationally, so every scientist reads a measurement the same way.
+  - id: c3
+    level: SL
+    front: What is a condensation reaction? Give three types of polymer made this way.
+    back: Two molecules are joined by a new covalent bond and a water molecule is released (–OH from one, –H from the other). Polysaccharides (glycosidic bonds), polypeptides (peptide bonds) and nucleic acids (sugar–phosphate bonds) are all built by condensation.
+  - id: c4
+    level: SL
+    front: What happens to the water molecule in a hydrolysis reaction?
+    back: It is used up. It is split into –H and –OH, which are added to the two products as the bond between them breaks. Digestion of polymers into monomers is by hydrolysis.
+  - id: c5
+    level: SL
+    front: How do you tell a pentose from a hexose in a ring diagram?
+    back: Count all the carbon atoms, including those outside the ring. Pentoses (e.g. ribose) have five, hexoses (e.g. glucose, fructose) six. Don't count ring corners - fructose is a hexose with a five-membered ring.
+  - id: c6
+    level: SL
+    front: α-glucose vs β-glucose
+    back: The only difference is at carbon 1. In α-glucose the –OH on carbon 1 is below the ring (opposite side to the CH₂OH); in β-glucose it is above (same side as the CH₂OH).
+  - id: c7
+    level: SL
+    front: Link four properties of glucose to how it is used.
+    back: Soluble (polar –OH groups) → dissolves in cytoplasm and plasma; easily transported → carried in blood plasma; chemically stable → can be carried and stored without breaking down; high energy yield on oxidation → substrate for cell respiration.
+  - id: c8
+    level: SL
+    front: Compare amylose, amylopectin and glycogen.
+    back: All are made of α-glucose. Amylose - unbranched 1,4 chains coiled into a helix. Amylopectin - 1,4 chains with 1,6 branches. Glycogen - like amylopectin but more highly branched. Starch (amylose + amylopectin) is stored in plants; glycogen in animals and fungi.
+  - id: c9
+    level: SL
+    front: Why are starch and glycogen good energy stores?
+    back: They are compact (coiled and branched); they are large, so relatively insoluble and have no osmotic effect; and α-glucose can easily be added or removed at the chain ends by condensation and hydrolysis - quickly, because branching gives many ends.
+  - id: c10
+    level: SL
+    front: How does the structure of cellulose suit it to its function?
+    back: β-glucose units are linked by 1,4 bonds with alternate units inverted, so the chains are straight. Parallel chains are cross-linked by many hydrogen bonds into microfibrils with very high tensile strength, forming plant cell walls.
+  - id: c11
+    level: SL
+    front: How do the ABO antigens show the role of glycoproteins in cell recognition?
+    back: Red blood cells carry glycoproteins with carbohydrate chains. Group O cells have the H antigen; the A or B allele adds one extra sugar, making A or B antigens. Antibodies recognize antigens the person lacks as non-self, so mismatched transfused cells clump.
+  - id: c12
+    level: SL
+    front: Define a lipid and give four groups of lipids.
+    back: Substances from living organisms that dissolve in non-polar solvents but only sparingly in water (mostly hydrocarbon, few polar groups). Fats and oils (triglycerides), waxes, phospholipids and steroids.
+  - id: c13
+    level: SL
+    front: How is a triglyceride formed?
+    back: One glycerol (three –OH groups) and three fatty acids (each with –COOH) join by three condensation reactions, forming three ester bonds and releasing three water molecules.
+  - id: c14
+    level: SL
+    front: Why do phospholipids form bilayers in water?
+    back: They are amphipathic - a hydrophilic phosphate head and two hydrophobic fatty acid tails (glycerol + 2 fatty acids + phosphate). In water they arrange spontaneously with tails facing inwards, away from water, and heads facing the water on both sides.
+  - id: c15
+    level: SL
+    front: Saturated, monounsaturated and polyunsaturated - and the effect on melting point
+    back: No C=C, one C=C, two or more C=C. Cis double bonds bend the chain, so chains pack less tightly and the melting point is lower (stearic 69 °C, oleic 13 °C, linoleic −5 °C, all 18 C). Trans double bonds leave the chain nearly straight.
+  - id: c16
+    level: SL
+    front: Why do plants store oils but birds and mammals store fats?
+    back: Stores must stay liquid to be mobilized. Plant tissues can be cold, so they need unsaturated oils with low melting points. Endotherms keep a constant high body temperature (about 37–40 °C), at which more saturated fats are still soft or liquid.
+  - id: c17
+    level: SL
+    front: Why are triglycerides in adipose tissue suited to long-term energy storage and insulation?
+    back: About 37 kJ g⁻¹ (about twice glycogen's 17 kJ g⁻¹); stored without water (glycogen holds about 3 g per gram), so much lighter; inert and no osmotic effect. Fat conducts heat poorly, so subcutaneous fat and blubber reduce heat loss, especially in cold water.
+  - id: c18
+    level: SL
+    front: How do you identify a steroid, and why can steroid hormones cross membranes?
+    back: Look for four fused rings of carbon atoms - three six-membered and one five-membered (e.g. cholesterol, testosterone, oestradiol). Steroids are mostly hydrocarbon and non-polar, so they dissolve in the bilayer and diffuse through it.

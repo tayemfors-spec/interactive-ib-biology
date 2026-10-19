@@ -1,0 +1,62 @@
+---
+/**
+ * ABO blood group antigens (B1.1.7): the end of a carbohydrate chain on a red-blood-cell glycoprotein.
+ * H antigen (group O): Fuc α1-2 Gal β1-4 GlcNAc β- …
+ * A antigen: the A-allele enzyme also adds GalNAc (α1-3) to that Gal.  B antigen: the B-allele enzyme adds Gal (α1-3).
+ * Symbols follow the usual glycan convention: Gal = circle, GlcNAc / GalNAc = square, Fuc = triangle.
+ */
+const panels = [
+  { x: 100, title: 'Group O', sub: 'H antigen only', extra: null as null | 'GalNAc' | 'Gal' },
+  { x: 300, title: 'Group A', sub: 'A antigen', extra: 'GalNAc' as const },
+  { x: 500, title: 'Group B', sub: 'B antigen', extra: 'Gal' as const },
+];
+const memY = 222;
+---
+<svg viewBox="0 0 600 300" role="img" aria-labelledby="abo-t abo-d" xmlns="http://www.w3.org/2000/svg" class="abo">
+  <title id="abo-t">ABO antigens on red blood cells</title>
+  <desc id="abo-d">Three patches of red blood cell membrane, each with a glycoprotein carrying a short carbohydrate chain on the outer surface. In group O the chain ends in the H antigen: N-acetylglucosamine, then galactose with a fucose attached. In group A one more sugar, N-acetylgalactosamine, is attached to that galactose. In group B a different extra sugar, galactose, is attached instead. People with group AB have both A and B antigens.</desc>
+  <text class="side" x="8" y="18">Outside the cell</text>
+  <rect class="mem" x="0" y={memY} width="600" height="34" />
+  <text class="side" x="8" y="292">Cytoplasm</text>
+  {panels.map((p) => (
+    <g>
+      <rect class="prot" x={p.x - 22} y={memY - 24} width="44" height="82" rx="18" />
+      <line class="link" x1={p.x} y1={memY - 24} x2={p.x} y2="168" />
+      <rect class="sq glcnac" x={p.x - 13} y="150" width="26" height="26" />
+      <text class="lab" x={p.x + 20} y="168">GlcNAc</text>
+      <line class="link" x1={p.x} y1="150" x2={p.x} y2="118" />
+      <circle class="gal" cx={p.x} cy="106" r="14" />
+      <text class="lab" x={p.x + 20} y="111">Gal</text>
+      <line class="link" x1={p.x - 10} y1="96" x2={p.x - 30} y2="74" />
+      <polygon class="fuc" points={`${p.x - 40},56 ${p.x - 25},82 ${p.x - 55},82`} />
+      <text class="lab" x={p.x - 40} y="48" text-anchor="middle">Fuc</text>
+      {p.extra && (
+        <>
+          <line class="link" x1={p.x + 10} y1="96" x2={p.x + 28} y2="76" />
+          {p.extra === 'GalNAc'
+            ? <rect class="sq galnac" x={p.x + 24} y="48" width="26" height="26" />
+            : <circle class="gal" cx={p.x + 37} cy="61" r="14" />}
+          <text class="lab strong" x={p.x + 37} y="40" text-anchor="middle">{p.extra}</text>
+        </>
+      )}
+      <text class="title" x={p.x + 28} y="196">{p.title}</text>
+      <text class="sub" x={p.x + 28} y="212">{p.sub}</text>
+    </g>
+  ))}
+</svg>
+<style>
+  .abo { font-family: var(--font-sans); }
+  .side { font-size: 13px; font-weight: 700; fill: var(--text-muted); }
+  .mem { fill: color-mix(in srgb, var(--bio-tail) 45%, transparent); stroke: var(--bio-head); stroke-width: 6; stroke-dasharray: 2 4; }
+  .prot { fill: var(--bio-protein); }
+  .link { stroke: var(--text); stroke-width: 2.4; }
+  .sq, .gal, .fuc { stroke: var(--text); stroke-width: 1.6; }
+  .glcnac { fill: var(--bio-protein); }
+  .galnac { fill: var(--bio-glucose); }
+  .gal { fill: var(--bio-glucose); }
+  .fuc { fill: var(--bio-k); }
+  .lab { font-size: 13px; fill: var(--text); }
+  .lab.strong { font-weight: 800; }
+  .title { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .sub { font-size: 12.5px; fill: var(--text-muted); }
+</style>

@@ -1,0 +1,215 @@
+---
+import { KJ_PER_G, formatMass, heatLoss, relativeLoss, storageMass } from './models/b1-1-energy';
+const d = { energy: 10000, water: 3, fat: 1, env: 10, medium: 'air' as const };
+const m = storageMass(d.energy, d.water);
+const W = 460;
+const scale = (g: number) => (g / storageMass(20000, 4).glycogenWet) * (W - 210);
+const loss = heatLoss(d.fat, d.env, d.medium);
+const rel = relativeLoss(d.fat, d.env, d.medium);
+const summary = (e: number, w: number) => {
+  const s = storageMass(e, w);
+  return `To store ${e.toLocaleString('en-GB')} kJ you need ${formatMass(s.fat)} of triglyceride, but ${formatMass(s.glycogenDry)} of glycogen` +
+    (w > 0 ? `, which is stored with ${formatMass(s.glycogenDry * w)} of water: ${formatMass(s.glycogenWet)} in all, ${s.ratio.toFixed(1)} times the mass of fat.` : `: ${s.ratio.toFixed(1)} times the mass of fat.`);
+};
+---
+<div class="es" data-energy>
+  <section class="part" aria-labelledby="es-h1">
+    <h3 id="es-h1" class="ph">1 · Storing energy: fat or glycogen?</h3>
+    <div class="grid">
+      <div>
+        <svg viewBox={`0 0 ${W} 196`} class="bars" role="img" aria-labelledby="es-bt" data-bars>
+          <title id="es-bt">Mass needed to store the chosen amount of energy</title>
+          <text class="bl" x="0" y="34">Triglyceride</text>
+          <text class="bs" x="0" y="50">{KJ_PER_G.fat} kJ g⁻¹</text>
+          <rect class="b fat" x="140" y="20" height="30" width={scale(m.fat).toFixed(1)} data-bar="fat" />
+          <text class="bv" x={(146 + scale(m.fat)).toFixed(1)} y="40" data-val="fat">{formatMass(m.fat)}</text>
+
+          <text class="bl" x="0" y="96">Glycogen (dry)</text>
+          <text class="bs" x="0" y="112">{KJ_PER_G.glycogen} kJ g⁻¹</text>
+          <rect class="b gly" x="140" y="82" height="30" width={scale(m.glycogenDry).toFixed(1)} data-bar="dry" />
+          <text class="bv" x={(146 + scale(m.glycogenDry)).toFixed(1)} y="102" data-val="dry">{formatMass(m.glycogenDry)}</text>
+
+          <text class="bl" x="0" y="158">Glycogen + water</text>
+          <text class="bs" x="0" y="174">as stored in cells</text>
+          <rect class="b gly" x="140" y="144" height="30" width={scale(m.glycogenDry).toFixed(1)} data-bar="wet-g" />
+          <rect class="b wat" x={(140 + scale(m.glycogenDry)).toFixed(1)} y="144" height="30" width={scale(m.glycogenDry * d.water).toFixed(1)} data-bar="wet-w" />
+          <text class="bv" x={(146 + scale(m.glycogenWet)).toFixed(1)} y="164" data-val="wet">{formatMass(m.glycogenWet)}</text>
+        </svg>
+        <p class="legend"><span class="sw fat"></span>triglyceride <span class="sw gly"></span>glycogen <span class="sw wat"></span>water held with glycogen</p>
+      </div>
+      <div class="controls">
+        <label class="slider">Energy to store: <output data-out="energy">{d.energy.toLocaleString('en-GB')} kJ</output>
+          <input type="range" min="1000" max="20000" step="500" value={d.energy} data-param="energy" />
+        </label>
+        <label class="slider">Water stored with each gram of glycogen: <output data-out="water">{d.water} g</output>
+          <input type="range" min="0" max="4" step="0.5" value={d.water} data-param="water" />
+        </label>
+        <p class="state" aria-live="polite" data-state1>{summary(d.energy, d.water)}</p>
+      </div>
+    </div>
+    <details class="table">
+      <summary>Show data table</summary>
+      <table>
+        <thead><tr><th scope="col">Store</th><th scope="col">Energy per gram</th><th scope="col">Mass needed</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Triglyceride</th><td>{KJ_PER_G.fat} kJ g⁻¹</td><td data-cell="fat">{formatMass(m.fat)}</td></tr>
+          <tr><th scope="row">Glycogen (dry)</th><td>{KJ_PER_G.glycogen} kJ g⁻¹</td><td data-cell="dry">{formatMass(m.glycogenDry)}</td></tr>
+          <tr><th scope="row">Glycogen + water</th><td data-cell="wetkj">{(KJ_PER_G.glycogen / (1 + d.water)).toFixed(1)} kJ g⁻¹</td><td data-cell="wet">{formatMass(m.glycogenWet)}</td></tr>
+        </tbody>
+      </table>
+    </details>
+  </section>
+
+  <section class="part" aria-labelledby="es-h2">
+    <h3 id="es-h2" class="ph">2 · Fat as a heat insulator</h3>
+    <div class="grid">
+      <div>
+        <svg viewBox="0 0 460 150" class="layers" aria-hidden="true">
+          <rect class="core" x="0" y="20" width="120" height="110" rx="6" />
+          <text class="lt" x="60" y="70" text-anchor="middle">body core</text>
+          <text class="lt" x="60" y="88" text-anchor="middle">37 °C</text>
+          <rect class="tissue" x="120" y="20" width="22" height="110" />
+          <rect class="fatl" x="142" y="20" height="110" data-fatbar width={(d.fat * 22).toFixed(1)} />
+          <rect class="env" x={(142 + d.fat * 22).toFixed(1)} y="20" height="110" data-envbar width={(460 - 142 - d.fat * 22).toFixed(1)} />
+          <text class="lt" x="440" y="70" text-anchor="end" data-envtext>surroundings: air</text>
+          <text class="lt" x="440" y="88" text-anchor="end" data-envtemp>{d.env} °C</text>
+        </svg>
+        <div class="meter" role="meter" aria-label="Heat loss compared with no fat layer" aria-valuemin="0" aria-valuemax="100" aria-valuenow={Math.round(rel)} data-meter>
+          <span class="bar"><span class="fill" data-fill style={`width:${rel.toFixed(0)}%`}></span></span>
+          <span class="ends"><span>no heat loss</span><span>as much as with no fat</span></span>
+        </div>
+      </div>
+      <div class="controls">
+        <label class="slider">Thickness of fat layer: <output data-out="fat">{d.fat} cm</output>
+          <input type="range" min="0" max="8" step="0.5" value={d.fat} data-param="fat" />
+        </label>
+        <label class="slider">Temperature of surroundings: <output data-out="env">{d.env} °C</output>
+          <input type="range" min="-2" max="30" step="1" value={d.env} data-param="env" />
+        </label>
+        <div class="media" role="group" aria-label="Surroundings">
+          <button class="btn" type="button" data-medium="air" aria-pressed="true">In air</button>
+          <button class="btn" type="button" data-medium="water" aria-pressed="false">In water</button>
+        </div>
+        <p class="state" aria-live="polite" data-state2>Heat loss: about {Math.round(loss)} W per m² of skin, {Math.round(rel)}% of the loss with no fat layer.</p>
+        <div class="presets">
+          <span>Try:</span>
+          <button class="btn" type="button" data-preset='{"fat":0.5,"env":0,"medium":"water"}'>Thin fat, polar sea</button>
+          <button class="btn" type="button" data-preset='{"fat":6,"env":0,"medium":"water"}'>Thick blubber, polar sea</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <p class="model-note">Part 1 uses standard energy values. Part 2 is a qualitative model: it shows the direction and rough size of each effect, ignoring blood flow, shivering and fur.</p>
+</div>
+
+<script>
+  import { formatMass, heatLoss, relativeLoss, storageMass, KJ_PER_G, type Medium } from './models/b1-1-energy';
+
+  document.querySelectorAll<HTMLElement>('[data-energy]').forEach((root) => {
+    const inputs = Object.fromEntries([...root.querySelectorAll<HTMLInputElement>('[data-param]')].map((i) => [i.dataset.param!, i]));
+    const val = (k: string) => Number(inputs[k]!.value);
+    const q = <T extends Element>(s: string) => root.querySelector<T>(s)!;
+    let medium: Medium = 'air';
+    const W = 460;
+    const maxWet = storageMass(20000, 4).glycogenWet;
+    const scale = (g: number) => (g / maxWet) * (W - 210);
+    let t1 = 0, t2 = 0;
+
+    const update = () => {
+      const e = val('energy'), w = val('water');
+      const m = storageMass(e, w);
+      q('[data-out="energy"]').textContent = `${e.toLocaleString('en-GB')} kJ`;
+      q('[data-out="water"]').textContent = `${w} g`;
+      const bar = (k: string, x: number, width: number) => { const r = q<SVGRectElement>(`[data-bar="${k}"]`); r.setAttribute('x', x.toFixed(1)); r.setAttribute('width', width.toFixed(1)); };
+      bar('fat', 140, scale(m.fat));
+      bar('dry', 140, scale(m.glycogenDry));
+      bar('wet-g', 140, scale(m.glycogenDry));
+      bar('wet-w', 140 + scale(m.glycogenDry), scale(m.glycogenDry * w));
+      const label = (k: string, g: number) => { const t = q<SVGTextElement>(`[data-val="${k}"]`); t.textContent = formatMass(g); t.setAttribute('x', (146 + scale(g)).toFixed(1)); };
+      label('fat', m.fat); label('dry', m.glycogenDry); label('wet', m.glycogenWet);
+      q('[data-cell="fat"]').textContent = formatMass(m.fat);
+      q('[data-cell="dry"]').textContent = formatMass(m.glycogenDry);
+      q('[data-cell="wet"]').textContent = formatMass(m.glycogenWet);
+      q('[data-cell="wetkj"]').textContent = `${(KJ_PER_G.glycogen / (1 + w)).toFixed(1)} kJ g⁻¹`;
+      clearTimeout(t1);
+      t1 = window.setTimeout(() => {
+        q('[data-state1]').textContent = `To store ${e.toLocaleString('en-GB')} kJ you need ${formatMass(m.fat)} of triglyceride, but ${formatMass(m.glycogenDry)} of glycogen` +
+          (w > 0 ? `, which is stored with ${formatMass(m.glycogenDry * w)} of water: ${formatMass(m.glycogenWet)} in all, ${m.ratio.toFixed(1)} times the mass of fat.` : `: ${m.ratio.toFixed(1)} times the mass of fat.`);
+      }, 250);
+
+      const fat = val('fat'), env = val('env');
+      q('[data-out="fat"]').textContent = `${fat} cm`;
+      q('[data-out="env"]').textContent = `${env} °C`;
+      const fw = fat * 22;
+      q('[data-fatbar]').setAttribute('width', fw.toFixed(1));
+      q('[data-envbar]').setAttribute('x', (142 + fw).toFixed(1));
+      q('[data-envbar]').setAttribute('width', (460 - 142 - fw).toFixed(1));
+      q('[data-envbar]').classList.toggle('wet', medium === 'water');
+      q('[data-envtext]').textContent = `surroundings: ${medium}`;
+      q('[data-envtemp]').textContent = `${env} °C`;
+      const loss = heatLoss(fat, env, medium);
+      const rel = relativeLoss(fat, env, medium);
+      q<HTMLElement>('[data-fill]').style.width = `${rel.toFixed(0)}%`;
+      q('[data-meter]').setAttribute('aria-valuenow', String(Math.round(rel)));
+      root.querySelectorAll<HTMLButtonElement>('[data-medium]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.medium === medium)));
+      clearTimeout(t2);
+      t2 = window.setTimeout(() => {
+        q('[data-state2]').textContent = loss === 0
+          ? 'No heat is lost: the surroundings are at body temperature.'
+          : `Heat loss: about ${Math.round(loss)} W per m² of skin, ${Math.round(rel)}% of the loss with no fat layer.`;
+      }, 250);
+    };
+    Object.values(inputs).forEach((i) => i.addEventListener('input', update));
+    root.querySelectorAll<HTMLButtonElement>('[data-medium]').forEach((b) => b.addEventListener('click', () => { medium = b.dataset.medium as Medium; update(); }));
+    root.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach((b) => b.addEventListener('click', () => {
+      const p = JSON.parse(b.dataset.preset!) as { fat: number; env: number; medium: Medium };
+      inputs.fat!.value = String(p.fat);
+      inputs.env!.value = String(p.env);
+      medium = p.medium;
+      update();
+    }));
+    update();
+  });
+</script>
+
+<style>
+  .es { container-type: inline-size; display: grid; gap: var(--space-4); }
+  .part { display: grid; gap: var(--space-3); }
+  .ph { margin: 0; font-size: var(--step-0); }
+  .grid { display: grid; gap: var(--space-4); }
+  @container (min-width: 40rem) { .grid { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); align-items: start; } }
+  .bars, .layers { width: 100%; height: auto; font-family: var(--font-sans); background: var(--surface-2); border-radius: var(--radius-m); padding: 8px; box-sizing: border-box; }
+  .bl { font-size: 14px; font-weight: 700; fill: var(--text); }
+  .bs { font-size: 12px; fill: var(--text-muted); }
+  .bv { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .b { stroke: var(--text); stroke-width: 1; }
+  .fat { fill: var(--bio-tail); }
+  .gly { fill: var(--bio-glucose); }
+  .wat { fill: color-mix(in srgb, var(--bio-water) 30%, transparent); stroke: var(--bio-water); stroke-dasharray: 5 3; stroke-width: 1.6; }
+  .legend { margin: var(--space-2) 0 0; font-size: 0.8rem; color: var(--text-muted); display: flex; flex-wrap: wrap; gap: 0.3rem 0.8rem; align-items: center; }
+  .sw { display: inline-block; width: 0.9rem; height: 0.9rem; border-radius: 3px; border: 1px solid var(--text); vertical-align: -0.15rem; margin-right: 0.2rem; }
+  .sw.fat { background: var(--bio-tail); }
+  .sw.gly { background: var(--bio-glucose); }
+  .sw.wat { background: color-mix(in srgb, var(--bio-water) 30%, transparent); border: 1.5px dashed var(--bio-water); }
+  .core { fill: color-mix(in srgb, var(--bio-chol) 30%, var(--surface)); }
+  .tissue { fill: color-mix(in srgb, var(--bio-chol) 55%, var(--surface)); }
+  .fatl { fill: var(--bio-tail); }
+  .env { fill: color-mix(in srgb, var(--border) 50%, var(--surface)); }
+  .env.wet { fill: color-mix(in srgb, var(--bio-water) 25%, var(--surface)); }
+  .lt { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .state { margin: 0; padding: var(--space-3); border-radius: var(--radius-m); background: var(--surface-2); }
+  .media, .presets { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .media .btn[aria-pressed='true'] { background: var(--accent-soft); border-color: var(--accent); }
+  .meter { margin-top: var(--space-3); }
+  .bar { display: block; height: 0.8rem; border-radius: 999px; background: var(--surface-3); position: relative; overflow: hidden; border: 1px solid var(--border-strong); }
+  .fill { display: block; height: 100%; background: var(--bio-chol); }
+  .ends { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .table { font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); }
+  th, td { border: 1px solid var(--border); padding: 0.3rem 0.6rem; text-align: left; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: 0; }
+</style>
