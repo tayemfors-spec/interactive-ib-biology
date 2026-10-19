@@ -1,0 +1,62 @@
+---
+/**
+ * Range of human cell sizes (B2.3.5) on a logarithmic scale from 1 µm to 1 m. Built in HTML so the labels
+ * stay readable on phones; bars are decorative and every value is also given as text. Values are approximate
+ * and recorded in facts.yaml.
+ */
+interface Bar { from: number; to: number; kind: 'width' | 'length' }
+interface Row { name: string; bars: Bar[]; text: string }
+const rows: Row[] = [
+  { name: 'Red blood cell', bars: [{ from: 6.5, to: 8, kind: 'width' }], text: 'about 7–8 µm across, 2 µm thick' },
+  { name: 'White blood cells', bars: [{ from: 7, to: 20, kind: 'width' }], text: '7–20 µm across (lymphocytes smallest)' },
+  { name: 'Sperm', bars: [{ from: 2.5, to: 3.5, kind: 'width' }, { from: 50, to: 60, kind: 'length' }], text: 'head about 3 µm wide; 50–60 µm long' },
+  { name: 'Egg (secondary oocyte)', bars: [{ from: 100, to: 120, kind: 'width' }], text: 'about 110 µm across' },
+  { name: 'Motor neuron', bars: [{ from: 20, to: 100, kind: 'width' }, { from: 1000, to: 1_000_000, kind: 'length' }], text: 'cell body 20–100 µm; axon up to about 1 m' },
+  { name: 'Striated muscle fibre', bars: [{ from: 10, to: 100, kind: 'width' }, { from: 1000, to: 100_000, kind: 'length' }], text: '10–100 µm wide; millimetres to over 10 cm long' },
+];
+const ticks = [
+  { v: 1, t: '1 µm' }, { v: 10, t: '10 µm' }, { v: 100, t: '100 µm' }, { v: 1e3, t: '1 mm' },
+  { v: 1e4, t: '1 cm' }, { v: 1e5, t: '10 cm' }, { v: 1e6, t: '1 m' },
+];
+const pos = (v: number) => (Math.log10(v) / 6) * 100;
+---
+<div class="sizes" role="group" aria-label="Range of sizes of human cells on a logarithmic scale">
+  <div class="axis" aria-hidden="true">
+    {ticks.map((k) => <span style={`left:${pos(k.v)}%`}>{k.t}</span>)}
+  </div>
+  <ul>
+    {rows.map((r) => (
+      <li>
+        <span class="name">{r.name}</span>
+        <span class="track" aria-hidden="true">
+          {ticks.map((k) => <span class="grid" style={`left:${pos(k.v)}%`} />)}
+          {r.bars.map((b) => <span class={`bar ${b.kind}`} style={`left:${pos(b.from)}%;width:max(0.5rem, ${(pos(b.to) - pos(b.from)).toFixed(2)}%)`} />)}
+        </span>
+        <span class="val">{r.text}</span>
+      </li>
+    ))}
+  </ul>
+  <p class="key"><span class="sw width"></span> width or diameter <span class="sw length"></span> length <span class="muted">· logarithmic scale: each grid line is 10 times the one before</span></p>
+</div>
+
+<style>
+  .sizes { display: grid; gap: var(--space-2); font-size: var(--step--1); }
+  .axis { position: relative; height: 1.4rem; margin: 0 1px; }
+  .axis span { position: absolute; transform: translateX(-50%); white-space: nowrap; font-size: 0.75rem; font-weight: 650; color: var(--text-muted); }
+  .axis span:first-child { transform: none; }
+  .axis span:last-child { transform: translateX(-100%); }
+  ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
+  li { display: grid; row-gap: 0.15rem; }
+  .name { font-weight: 700; }
+  .track { position: relative; height: 1rem; border-radius: 4px; background: var(--surface); border: 1px solid var(--border); }
+  .grid { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--border); }
+  .bar { position: absolute; top: 2px; bottom: 2px; border-radius: 3px; }
+  .bar.width { background: var(--bio-protein); }
+  .bar.length { background: repeating-linear-gradient(135deg, var(--bio-head) 0 4px, color-mix(in srgb, var(--bio-head) 35%, var(--surface)) 4px 8px); border: 1px solid var(--bio-head); }
+  .val { color: var(--text-muted); }
+  .key { margin: var(--space-1) 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+  .sw { display: inline-block; width: 1.4rem; height: 0.8rem; border-radius: 3px; }
+  .sw.width { background: var(--bio-protein); }
+  .sw.length { background: repeating-linear-gradient(135deg, var(--bio-head) 0 4px, color-mix(in srgb, var(--bio-head) 35%, var(--surface)) 4px 8px); border: 1px solid var(--bio-head); }
+  .muted { color: var(--text-muted); }
+</style>

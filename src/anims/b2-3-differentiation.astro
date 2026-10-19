@@ -1,0 +1,130 @@
+---
+/**
+ * From zygote to specialized cells (B2.3.1, B2.3.2). Drawn in the step-1 start state (egg and sperm);
+ * animated by b2-3-differentiation.ts. The embryo is drawn schematically as a strip of 16 cells so that a
+ * morphogen gradient along it can be shown.
+ */
+import { rng } from '../viewer3d/kit';
+
+const cells = Array.from({ length: 16 }, (_, i) => i);
+// morphogen particles: denser near the source at the left, sparser to the right
+const rand = rng(23);
+const dots: [number, number][] = [];
+for (let i = 0; dots.length < 46 && i < 4000; i++) {
+  const x = 50 + rand() * 410, y = 64 + rand() * 112;
+  const keep = Math.exp(-(x - 50) / 130);
+  if (rand() < keep) dots.push([x, y]);
+}
+---
+<svg viewBox="0 0 520 360" xmlns="http://www.w3.org/2000/svg" class="diff-anim">
+  <!-- step 3–4: concentration wedge -->
+  <g data-el="wedge" style="opacity:0">
+    <polygon class="wedge" points="62,252 62,206 458,248 458,252" />
+    <text class="lbl" x="62" y="198">morphogen concentration: high</text>
+    <text class="lbl" x="458" y="236" text-anchor="end">low</text>
+    <g data-el="thresholds" style="opacity:0">
+      <line class="thr" x1="210" x2="210" y1="206" y2="256" />
+      <line class="thr" x1="360" x2="360" y1="206" y2="256" />
+    </g>
+  </g>
+  <g data-el="legend" style="opacity:0">
+    <rect class="lg a" x="62" y="262" width="16" height="16" rx="3" /><text class="lbl" x="84" y="275">gene A on</text>
+    <rect class="lg b" x="222" y="262" width="16" height="16" rx="3" /><text class="lbl" x="244" y="275">gene B on</text>
+    <rect class="lg c" x="372" y="262" width="16" height="16" rx="3" /><text class="lbl" x="394" y="275">gene C on</text>
+    <text class="lbl muted" x="62" y="302">Every cell has genes A, B and C.</text>
+    <text class="lbl muted" x="62" y="320">The morphogen level decides which one is expressed.</text>
+  </g>
+
+  <!-- morphogen source and particles -->
+  <g data-el="source" style="opacity:0">
+    <circle class="src" cx="34" cy="120" r="15" />
+    <text class="lbl" x="34" y="158" text-anchor="middle">source</text>
+  </g>
+  <g data-el="dots" style="opacity:0">
+    {dots.map(([x, y], j) => <circle class="mdot" data-el={`m${j}`} data-x={x.toFixed(0)} cx={x.toFixed(1)} cy={y.toFixed(1)} r="3.2" />)}
+  </g>
+
+  <!-- the 16 cells; each is drawn at radius 24 and scaled by the driver -->
+  {cells.map((i) => (
+    <g data-el={`c${i}`} transform="translate(260 120) scale(2.75)">
+      <circle class="cell" data-part="round" r="24" vector-effect="non-scaling-stroke" />
+      <g class="shape nerve" data-part="nerve" style="opacity:0">
+        <path d="M0 0 L-20 -16 M0 0 L-22 8 M0 0 L-6 -22 M0 0 L10 -20 M0 0 L27 6" vector-effect="non-scaling-stroke" />
+        <circle r="11" vector-effect="non-scaling-stroke" />
+      </g>
+      <ellipse class="shape muscle" data-part="muscle" rx="24" ry="10" style="opacity:0" vector-effect="non-scaling-stroke" />
+      <rect class="shape epi" data-part="epi" x="-20" y="-20" width="40" height="40" rx="5" style="opacity:0" vector-effect="non-scaling-stroke" />
+      <circle class="nuc" data-part="nuc" r="7" vector-effect="non-scaling-stroke" />
+    </g>
+  ))}
+
+  <!-- sperm -->
+  <g data-el="sperm" transform="translate(430 56)">
+    <path class="tail" d="M8 0 C20 -8 30 8 42 0 S62 -8 74 0" />
+    <ellipse class="head" cx="0" cy="0" rx="9" ry="6" />
+  </g>
+
+  <!-- labels -->
+  <text data-el="lblEgg" class="lbl" x="180" y="40" text-anchor="middle">egg cell (n)</text>
+  <text data-el="lblSperm" class="lbl" x="404" y="34" text-anchor="middle">sperm (n)</text>
+  <text data-el="lblZyg" class="lbl strong" x="260" y="214" text-anchor="middle" style="opacity:0">nuclei fuse: zygote (2n), one unspecialized cell</text>
+  <text data-el="count" class="lbl strong" x="260" y="30" text-anchor="middle" style="opacity:0">cells: 1</text>
+  <text data-el="lblEmb" class="lbl" x="260" y="198" text-anchor="middle" style="opacity:0">early embryo: unspecialized cells with identical genes</text>
+  <g data-el="types" style="opacity:0">
+    <text class="lbl strong" x="135" y="198" text-anchor="middle">nerve cells</text>
+    <text class="lbl strong" x="285" y="198" text-anchor="middle">muscle cells</text>
+    <text class="lbl strong" x="410" y="198" text-anchor="middle">epithelial cells</text>
+  </g>
+  <g data-el="stemTag" style="opacity:0">
+    <circle class="ring" cx="285" cy="95" r="29" />
+    <text class="lbl strong" x="285" y="40" text-anchor="middle">one cell stays a stem cell</text>
+    <path class="arrow" d="M285 46 L285 63" />
+  </g>
+
+  <!-- step 6: stem cell properties -->
+  <g data-el="stem" style="opacity:0">
+    <circle class="cell b stemc" cx="80" cy="300" r="22" /><circle class="nuc" cx="80" cy="300" r="7" />
+    <text class="lbl" x="80" y="344" text-anchor="middle">stem cell</text>
+    <path class="arrow" d="M106 292 L196 262" /><path class="arrow" d="M106 308 L196 328" />
+    <circle class="cell b stemc" cx="222" cy="256" r="22" /><circle class="nuc" cx="222" cy="256" r="7" />
+    <circle class="cell b" cx="222" cy="330" r="22" /><circle class="nuc" cx="222" cy="330" r="7" />
+    <text class="lbl strong" x="252" y="252">self-renewal:</text>
+    <text class="lbl" x="252" y="268">still a stem cell, can divide again</text>
+    <path class="arrow" d="M250 330 L330 330" />
+    <ellipse class="shape muscle on" cx="372" cy="330" rx="34" ry="13" /><circle class="nuc" cx="372" cy="330" r="7" />
+    <text class="lbl strong" x="252" y="312">differentiation</text>
+    <text class="lbl" x="416" y="334">specialized</text>
+  </g>
+  <defs>
+    <marker id="b23-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" class="arrowhead" />
+    </marker>
+  </defs>
+</svg>
+<style>
+  .diff-anim { font-family: var(--font-sans); }
+  .lbl { font-size: 13px; fill: var(--text); }
+  .lbl.strong { font-weight: 750; }
+  .lbl.muted { fill: var(--text-muted); font-size: 12.5px; }
+  .cell { fill: color-mix(in srgb, var(--bio-tail) 38%, var(--surface)); stroke: var(--text); stroke-width: 1.5; }
+  .cell.a { fill: color-mix(in srgb, var(--bio-protein) 45%, var(--surface)); }
+  .cell.b { fill: color-mix(in srgb, var(--bio-k) 40%, var(--surface)); }
+  .cell.c { fill: color-mix(in srgb, var(--bio-carb) 45%, var(--surface)); }
+  .stemc { stroke-width: 2.5; stroke-dasharray: 4 3; }
+  .nuc { fill: color-mix(in srgb, var(--bio-na) 55%, var(--surface)); stroke: var(--text); stroke-width: 1; }
+  .shape { stroke: var(--text); stroke-width: 1.5; }
+  .nerve path { stroke: color-mix(in srgb, var(--bio-protein) 80%, var(--text)); stroke-width: 3.5; stroke-linecap: round; fill: none; }
+  .nerve circle, .lg.a { fill: color-mix(in srgb, var(--bio-protein) 45%, var(--surface)); }
+  .muscle, .lg.b { fill: color-mix(in srgb, var(--bio-k) 40%, var(--surface)); }
+  .epi, .lg.c { fill: color-mix(in srgb, var(--bio-carb) 45%, var(--surface)); }
+  .lg { stroke: var(--text); stroke-width: 1; }
+  .wedge { fill: color-mix(in srgb, var(--bio-protein-2) 40%, var(--surface)); stroke: var(--bio-protein-2); stroke-width: 1.5; }
+  .thr { stroke: var(--text); stroke-width: 1.4; stroke-dasharray: 4 4; }
+  .src { fill: var(--bio-protein-2); stroke: var(--text); stroke-width: 1.5; }
+  .mdot { fill: var(--bio-protein-2); }
+  .head { fill: color-mix(in srgb, var(--bio-na) 55%, var(--surface)); stroke: var(--text); stroke-width: 1.5; }
+  .tail { fill: none; stroke: var(--text); stroke-width: 2; }
+  .ring { fill: none; stroke: var(--text); stroke-width: 2.5; stroke-dasharray: 5 4; }
+  .arrow { fill: none; stroke: var(--text); stroke-width: 2; marker-end: url(#b23-arrow); }
+  .arrowhead { fill: var(--text); }
+</style>

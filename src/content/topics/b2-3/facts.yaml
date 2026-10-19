@@ -1,0 +1,157 @@
+facts:
+  - id: f1
+    claim: Fertilization fuses haploid gametes to give a diploid zygote; mitosis then produces genetically identical, unspecialized embryo cells.
+    where: [ "index.mdx#differentiation", "flashcards.yaml:c1", "quiz.yaml:q1", "visuals.yaml:differentiation" ]
+    confidence: high
+    basis: Standard developmental biology (Gilbert, Developmental Biology; Campbell); IB guide B2.3.1
+    status: checked
+  - id: f2
+    claim: Differentiation results from differential gene expression; differentiated cells retain the full genome (genomic equivalence).
+    where: [ "index.mdx#differentiation", "index.mdx (mustKnow, mistakes)", "flashcards.yaml:c3", "quiz.yaml:q1" ]
+    confidence: high
+    basis: Gilbert (genomic equivalence, nuclear transfer experiments); Alberts
+    status: checked
+  - id: f3
+    claim: Morphogens form concentration gradients from a source; cells respond to different concentrations by expressing different genes (often transcription factors).
+    where: [ "index.mdx#differentiation", "index.mdx (mustKnow)", "flashcards.yaml:c2", "visuals.yaml:differentiation" ]
+    confidence: high
+    basis: Wolpert's positional information model; Gilbert
+    status: checked
+  - id: f4
+    claim: Bicoid protein forms an anterior-to-posterior gradient in the Drosophila embryo that specifies head and thorax; Sonic hedgehog from the floor plate/notochord forms a gradient that specifies ventral neuron types in the vertebrate neural tube.
+    where: [ "index.mdx#differentiation" ]
+    confidence: high
+    basis: Driever and Nüsslein-Volhard (1988); Briscoe and Ericson on Shh neural tube patterning; Gilbert
+    status: checked
+  - id: f5
+    claim: Stem cells are defined by self-renewal (repeated division) and the capacity to differentiate along different pathways; division is often asymmetric (one stem cell, one differentiating cell).
+    where: [ "index.mdx#stem-cells", "flashcards.yaml:c4", "quiz.yaml:q2", "visuals.yaml:differentiation stem" ]
+    confidence: high
+    basis: Alberts (stem cells and renewal of tissues); IB guide B2.3.2
+    status: checked
+  - id: f6
+    claim: The zygote and cells of the first few cleavage divisions are totipotent (including extra-embryonic tissue such as placenta); inner cell mass cells of the blastocyst (about day 5) are pluripotent; adult stem cells are multipotent.
+    where: [ "index.mdx#stem-cells", "index.mdx (mustKnow, mistakes)", "flashcards.yaml:c5", "quiz.yaml:q3", "diagrams/b2-3-potency" ]
+    confidence: high
+    basis: Gilbert; Alberts; IB guide B2.3.4. The exact stage at which human blastomeres stop being totipotent (around 4–8 cells) is not stated precisely on the page.
+    status: checked
+  - id: f7
+    claim: The trophoblast (outer layer of the blastocyst) gives rise to the embryonic part of the placenta; the inner cell mass gives rise to the embryo.
+    where: [ "index.mdx#stem-cells", "diagrams/b2-3-potency" ]
+    confidence: high
+    basis: Standard human embryology (Langman's Medical Embryology)
+    status: checked
+  - id: f8
+    claim: A stem cell niche is the microenvironment (neighbouring cells, extracellular matrix, blood supply) that maintains stem cells in a quiescent, undifferentiated state or promotes their proliferation and differentiation.
+    where: [ "index.mdx#niches", "index.mdx (mustKnow)", "flashcards.yaml:c6", "quiz.yaml:q4" ]
+    confidence: high
+    basis: Scadden (2006) Nature 441:1075; IB guide B2.3.3
+    status: checked
+  - id: f9
+    claim: Haematopoietic stem cells in red bone marrow (adults — pelvis, sternum, ribs, vertebrae, proximal ends of long bones such as the femur) produce all blood cell types via progenitors; they cannot make unrelated cells such as neurons.
+    where: [ "index.mdx#niches", "flashcards.yaml:c7", "diagrams/b2-3-potency" ]
+    confidence: high
+    basis: Standard haematology (Hoffbrand); Alberts
+    status: checked
+  - id: f10
+    claim: About two million red blood cells are produced every second in an adult.
+    where: [ "index.mdx#niches" ]
+    confidence: medium
+    basis: Commonly cited estimate (≈2–2.5 × 10⁶ s⁻¹), derived from ~2.5 × 10¹³ RBCs with a 120-day lifespan
+    status: open
+  - id: f11
+    claim: Hair follicle stem cells reside in the bulge (outer root sheath below the sebaceous gland); they are quiescent for long periods, are activated at the start of each growth phase (anagen) by signals including those from the dermal papilla, their progeny proliferate in the bulb (matrix) to form the hair, and they contribute to epidermal repair after wounding.
+    where: [ "index.mdx#niches", "flashcards.yaml:c7", "diagrams/b2-3-potency" ]
+    confidence: high
+    basis: Cotsarelis et al. (1990) Cell 61:1329; Ito et al. (2005) Nat Med 11:1351; Fuchs lab reviews
+    status: checked
+  - id: f12
+    claim: "Human cell sizes used: red blood cell ~7–8 µm diameter, ~2 µm thick (≈1 µm at centre); white blood cells ~7–20 µm (small lymphocytes smallest, monocytes largest); sperm head ~3 µm wide and ~5 µm long, whole cell ~50–60 µm; secondary oocyte ~110 µm (without zona); motor neuron cell body ~20–100 µm, axon up to ~1 m; skeletal muscle fibre 10–100 µm diameter, mm to >10 cm long."
+    where: [ "index.mdx#cell-size", "diagrams/b2-3-sizes", "diagrams/b2-3-gametes", "flashcards.yaml:c8 c9", "quiz.yaml:q5" ]
+    confidence: medium
+    basis: Standard histology (Junqueira's Basic Histology; Ross & Pawlina); WHO sperm morphology manual; values vary between sources, especially muscle fibre length and neuron cell body size
+    status: open
+  - id: f13
+    claim: Activated B lymphocytes enlarge and become plasma cells with extensive rough ER for antibody secretion.
+    where: [ "index.mdx#cell-size" ]
+    confidence: high
+    basis: Janeway's Immunobiology
+    status: checked
+  - id: f14
+    claim: "For a cube of side L, SA = 6L², V = L³ and SA:V = 6/L; doubling L multiplies SA by 4 and V by 8. SA = V at L = 6."
+    where: [ "index.mdx#sav", "index.mdx (mustKnow, mistakes)", "flashcards.yaml:c10", "quiz.yaml:q6", "visuals.yaml:sav", "tests/unit/b2-3.test.ts" ]
+    confidence: high
+    basis: Geometry; verified by unit tests
+    status: checked
+  - id: f15
+    claim: For a given volume a sphere has the minimum surface area; a sphere of volume 1 has SA ≈ 4.84; a square plate with side 8 times its thickness has SA:V = (2 + 4/8)/h, i.e. 10/L at the volume of a cube of side L.
+    where: [ "index.mdx#sav", "index.mdx#sav-adaptations", "visuals.yaml:sav", "quiz.yaml:q7" ]
+    confidence: high
+    basis: Isoperimetric inequality; arithmetic checked in unit tests
+    status: checked
+  - id: f16
+    claim: Dividing a cell into 8 geometrically similar cells halves each length, leaves total volume unchanged and doubles total surface area and SA:V.
+    where: [ "visuals.yaml:sav", "tests/unit/b2-3.test.ts" ]
+    confidence: high
+    basis: Geometry (scale factor 1/2 → area ×1/4 each, ×8 cells)
+    status: checked
+  - id: f17
+    claim: "Erythrocyte volume ≈ 90 µm³ (90 fL) and surface area ≈ 135–140 µm², giving SA:V ≈ 1.5 µm⁻¹; a sphere of 90 µm³ has SA ≈ 97 µm² (SA:V ≈ 1.1 µm⁻¹)."
+    where: [ "diagrams/b2-3-sav-adaptations", "quiz.yaml:q7" ]
+    confidence: medium
+    basis: Mean corpuscular volume 80–100 fL; RBC surface area ~136 µm² (Evans & Fung 1972); sphere value calculated
+    status: open
+  - id: f18
+    claim: Proximal convoluted tubule cells have an apical brush border of microvilli and basal infoldings (invaginations) of the plasma membrane with many mitochondria between them; Na⁺/K⁺ pumps are in the basolateral membrane and drive sodium-dependent glucose cotransport at the apical membrane.
+    where: [ "index.mdx#sav-adaptations", "flashcards.yaml:c12", "diagrams/b2-3-sav-adaptations" ]
+    confidence: high
+    basis: Junqueira's Basic Histology (kidney); Boron & Boulpaep Medical Physiology; IB guide B2.3.7
+    status: checked
+  - id: f19
+    claim: Type I pneumocytes are extremely thin squamous cells covering ~95% of the alveolar surface; the air–blood barrier is about 0.5 µm thick (harmonic mean ~0.6 µm in humans, as thin as ~0.2 µm in places).
+    where: [ "index.mdx#pneumocytes", "flashcards.yaml:c13", "diagrams/b2-3-pneumocytes" ]
+    confidence: medium
+    basis: Weibel morphometry; Crapo et al. (1982); textbook ranges vary (0.2–0.6 µm)
+    status: open
+  - id: f20
+    claim: Type II pneumocytes are cuboidal with apical microvilli and lamellar bodies that store surfactant (phospholipids, mainly dipalmitoylphosphatidylcholine, plus surfactant proteins), released by exocytosis; surfactant reduces surface tension and prevents alveolar collapse; type II cells cover ~5% of the surface but outnumber type I cells and act as progenitors for type I cells.
+    where: [ "index.mdx#pneumocytes", "index.mdx (mustKnow, mistakes)", "flashcards.yaml:c13", "quiz.yaml:q8", "diagrams/b2-3-pneumocytes" ]
+    confidence: high
+    basis: Crapo et al. (1982) Am Rev Respir Dis 126:332 (type II ~60% of alveolar epithelial cells); Barkauskas et al. (2013) on AT2 progenitors; IB guide B2.3.8
+    status: checked
+  - id: f21
+    claim: Cardiac muscle cells are branched, joined by intercalated discs containing gap junctions and desmosomes, usually have one central nucleus (a minority have two), and are about 100 µm long (≈50–150 µm) and 10–25 µm wide.
+    where: [ "index.mdx#muscle", "index.mdx (mustKnow, mistakes)", "flashcards.yaml:c15", "quiz.yaml:q9", "diagrams/b2-3-muscle" ]
+    confidence: medium
+    basis: Ross & Pawlina Histology; length values vary between sources (Allott gives 50–100 µm)
+    status: open
+  - id: f22
+    claim: Skeletal muscle fibres are unbranched, multinucleate (peripheral nuclei) cells formed by fusion of myoblasts, 10–100 µm in diameter and from millimetres to over 10 cm long.
+    where: [ "index.mdx#muscle", "index.mdx#cell-size", "flashcards.yaml:c15 c16", "diagrams/b2-3-muscle" ]
+    confidence: medium
+    basis: Ross & Pawlina; maximum fibre length in human muscles (e.g. sartorius) is debated — reports range from ~10 cm to longer
+    status: open
+  - id: f23
+    claim: "Sperm adaptations: acrosome (Golgi-derived vesicle with hydrolytic enzymes such as acrosin and hyaluronidase), condensed haploid nucleus, proximal centriole that forms the zygote's centrosome in humans, mid-piece with helically arranged mitochondria, flagellum with a 9 + 2 axoneme."
+    where: [ "index.mdx#gametes", "index.mdx (mistakes)", "flashcards.yaml:c17", "diagrams/b2-3-gametes" ]
+    confidence: high
+    basis: Alberts (sperm); Schatten (1994) on paternal centriole inheritance in humans; IB guide B2.3.10
+    status: checked
+  - id: f24
+    claim: The ovulated human egg is a secondary oocyte arrested at metaphase II (haploid chromosome number, n = 23); meiosis II is completed after sperm entry. It is surrounded by the zona pellucida (glycoproteins ZP1–ZP4) and the corona radiata; cortical granules undergo exocytosis after fertilization and modify the zona to block polyspermy.
+    where: [ "index.mdx#gametes", "flashcards.yaml:c18", "quiz.yaml:q10", "diagrams/b2-3-gametes" ]
+    confidence: high
+    basis: Langman's Medical Embryology; Gilbert; IB mark schemes accept "haploid nucleus"
+    status: checked
+  - id: f25
+    claim: Human egg cytoplasm contains lipid droplets and other nutrients, many mitochondria and stored mRNA and ribosomes that support the embryo until its own genes are active; humans have little yolk.
+    where: [ "index.mdx#gametes", "diagrams/b2-3-gametes" ]
+    confidence: high
+    basis: Gilbert; Alberts
+    status: checked
+  - id: f26
+    claim: Pluripotent cells of the inner cell mass form after about 5 days; a bone marrow transplant restores blood production because donor haematopoietic stem cells engraft in the recipient's niche.
+    where: [ "index.mdx#stem-cells", "index.mdx#niches" ]
+    confidence: high
+    basis: Langman's (blastocyst day 5); standard haematology
+    status: checked

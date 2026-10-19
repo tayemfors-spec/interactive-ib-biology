@@ -1,0 +1,49 @@
+# Visuals for B2.3. Step captions here are what readers see in the animation and its text description,
+# so they are written to exam standard. Static figures live in src/diagrams/b2-3-*.astro.
+visuals:
+  - id: sav
+    kind: sim
+    module: b2-3-sav
+    title: Surface area-to-volume ratio explorer
+    alt: A cube whose side length can be changed, with its surface area, volume and SA:V ratio and a graph of SA:V against size.
+    description: >-
+      A slider sets the side length L of a cube from 1 to 10 µm. The cube is drawn to scale, and the working is shown
+      for its surface area (6L²), volume (L³) and surface area-to-volume ratio (6/L). A line graph plots SA:V against
+      size: the ratio falls steeply at first and then more slowly as the cube gets bigger. Two other shapes with the
+      same volume can be chosen: a sphere, which has the lowest SA:V of any shape, and a flattened cell eight times
+      wider than it is thick, which has a higher SA:V. A second graph shows the surface area and volume of the cube:
+      volume rises faster and overtakes surface area at L = 6 µm, where SA:V = 1. A button divides the cell into eight
+      smaller cells of the same shape: the total volume is unchanged, but the total surface area and the SA:V ratio
+      both double, which is why cells divide when they become large. A data table gives values for cubes of side 1 to
+      10 µm.
+
+  - id: differentiation
+    kind: anim
+    module: b2-3-differentiation
+    title: From zygote to specialized cells
+    alt: Step-by-step diagram of a zygote dividing into an embryo whose cells differentiate in response to a morphogen gradient.
+    description: >-
+      A schematic diagram in six steps. A sperm fuses with an egg to form a zygote, which divides by mitosis into an
+      embryo of 16 unspecialized, genetically identical cells, drawn as a strip. Cells at one end release a morphogen,
+      which forms a concentration gradient along the strip. Cells exposed to high, medium and low concentrations
+      switch on different genes (A, B or C) and differentiate into nerve, muscle and epithelial cells, while one cell
+      stays a stem cell. The last step shows the two properties of a stem cell: self-renewal and differentiation.
+    steps:
+      - id: fertilization
+        title: Fertilization
+        caption: A haploid sperm fuses with a haploid egg. Their nuclei combine to form a diploid zygote, a single unspecialized cell that contains the whole genome.
+      - id: cleavage
+        title: Mitosis forms an embryo
+        caption: The zygote divides repeatedly by mitosis (1 → 2 → 4 → 8 → 16 cells). Every cell in the early embryo has the same genes and all of the cells are still unspecialized. The embryo is drawn here as a strip of cells.
+      - id: gradient
+        title: A morphogen gradient forms
+        caption: Cells at one end release a morphogen, a signalling chemical. It diffuses away from its source, so its concentration is high at that end and falls with distance. Each cell's position is signalled by the concentration it receives.
+      - id: expression
+        title: Different genes are switched on
+        caption: Every cell has genes A, B and C, but the morphogen concentration determines which one is expressed. High concentrations switch on gene A, medium concentrations gene B and low concentrations gene C. The cells now make different proteins.
+      - id: differentiate
+        title: Cells differentiate
+        caption: Expressing different genes, the cells develop along different pathways and become specialized, here as nerve, muscle and epithelial cells. One cell does not differentiate and stays a stem cell. No genes have been lost, only switched off.
+      - id: stem
+        title: Properties of stem cells
+        caption: A stem cell divides again and again (self-renewal). Often one daughter cell stays a stem cell while the other differentiates into a specialized cell. Stem cells can therefore both keep a supply of themselves and produce new specialized cells.
