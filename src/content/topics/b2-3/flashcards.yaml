@@ -1,0 +1,73 @@
+cards:
+  - id: c1
+    level: SL
+    front: What happens between fertilization and the first specialized cells?
+    back: Fusion of a haploid sperm and egg gives a diploid zygote. It divides by mitosis to form an embryo of genetically identical, unspecialized cells, which then become specialized by differentiation.
+  - id: c2
+    level: SL
+    front: How do morphogen gradients cause cells to differentiate differently?
+    back: A morphogen diffuses from a source, so its concentration falls with distance. Cells at different positions receive different concentrations, which switch on different genes; each cell then follows the pathway of differentiation set by those genes.
+  - id: c3
+    level: SL
+    front: Does a differentiated cell lose genes?
+    back: No. It keeps the full genome but expresses only some genes (for example haemoglobin genes in red blood cell precursors). The others are not transcribed.
+  - id: c4
+    level: SL
+    front: State the two properties of stem cells.
+    back: (1) Self-renewal — they can divide repeatedly, in principle endlessly, to make more stem cells. (2) They can differentiate along different pathways into specialized cell types.
+  - id: c5
+    level: SL
+    front: Totipotent vs pluripotent vs multipotent
+    back: Totipotent — any cell type including the placenta (zygote, first few divisions). Pluripotent — any body cell type, not the placenta (embryonic stem cells of the inner cell mass). Multipotent — a few related types (adult stem cells, e.g. bone marrow).
+  - id: c6
+    level: SL
+    front: What is a stem cell niche and what can it do?
+    back: The location in a tissue where adult stem cells are found. Signals from its cells, matrix and blood supply either maintain the stem cells (inactive, undifferentiated) or promote their proliferation and differentiation.
+  - id: c7
+    level: SL
+    front: Name two adult stem cell niches and what their stem cells produce.
+    back: Bone marrow — haematopoietic stem cells make all blood cell types. Hair follicles — stem cells in the bulge produce new hair at each growth phase and help repair the epidermis.
+  - id: c8
+    level: SL
+    front: Give approximate sizes of an egg, a sperm and a red blood cell.
+    back: Egg about 110 µm across. Sperm about 50–60 µm long with a head about 3 µm wide. Red blood cell about 7–8 µm across and 2 µm thick.
+  - id: c9
+    level: SL
+    front: Which human cells can be very long, and why?
+    back: Motor neurons (axon up to about 1 m) carry impulses from the spinal cord to distant muscles. Striated muscle fibres (often several cm) contract along much of a muscle's length for a strong pull.
+  - id: c10
+    level: SL
+    front: Calculate SA, V and SA:V for cubes of side 1, 2 and 4 µm.
+    back: "Side 1: 6 µm², 1 µm³, 6 µm⁻¹. Side 2: 24 µm², 8 µm³, 3 µm⁻¹. Side 4: 96 µm², 64 µm³, 1.5 µm⁻¹. SA:V = 6/L, so doubling the side halves the ratio."
+  - id: c11
+    level: SL
+    front: Why does SA:V limit the size of cells?
+    back: Exchange depends on surface area but the need for exchange depends on volume. Volume rises with the cube of length and area only with the square, so a growing cell has less membrane per unit of cytoplasm; it must divide before exchange becomes too slow.
+  - id: c12
+    level: AHL
+    front: Three adaptations that increase SA:V, with examples
+    back: Flattening — erythrocytes (biconcave discs) and type I pneumocytes. Microvilli — on the lumen side of proximal convoluted tubule cells. Invagination — infoldings of the basal membrane of proximal convoluted tubule cells.
+  - id: c13
+    level: AHL
+    front: Type I vs type II pneumocytes
+    back: Type I — extremely thin, cover about 95% of the surface, short diffusion distance for gas exchange. Type II — cuboidal, many lamellar bodies that secrete surfactant by exocytosis, reducing surface tension.
+  - id: c14
+    level: AHL
+    front: Why does the alveolar epithelium need two cell types?
+    back: Its overall function needs different adaptations that one cell could not have at once — extreme thinness for diffusion, and organelles and vesicles for secreting surfactant.
+  - id: c15
+    level: AHL
+    front: Compare cardiac muscle cells and striated muscle fibres.
+    back: Both have contractile myofibrils and many mitochondria. Cardiac — branched, intercalated discs, usually one central nucleus, about 100 µm long. Striated — unbranched, no discs, many nuclei at the edge, often several cm long.
+  - id: c16
+    level: AHL
+    front: Is a striated muscle fibre a cell?
+    back: For — one continuous plasma membrane and cytoplasm, acts as a unit. Against — many nuclei, formed by fusion of many cells, very large. Often called a syncytium.
+  - id: c17
+    level: AHL
+    front: List adaptations of a human sperm.
+    back: Acrosome with enzymes to digest the zona pellucida; small haploid nucleus; mid-piece of mitochondria making ATP; flagellum with 9 + 2 microtubules for swimming; little cytoplasm; produced in very large numbers.
+  - id: c18
+    level: AHL
+    front: List adaptations of a human egg.
+    back: Large (about 110 µm) with cytoplasm containing food reserves; haploid chromosomes; cortical granules that harden the zona pellucida after fertilization (preventing polyspermy); zona pellucida; corona radiata of follicle cells.

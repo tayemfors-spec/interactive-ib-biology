@@ -1,0 +1,134 @@
+---
+/**
+ * Levels of stem cell potency (B2.3.4) with the two adult niches required by B2.3.3.
+ * Four panels, each with an HTML caption so text stays readable at phone width.
+ */
+// blastocyst: a ring of flattened trophoblast cells, inner cell mass at the top inside
+const TB = { cx: 130, cy: 100, r: 70 };
+const ring = Array.from({ length: 16 }, (_, k) => {
+  const a = (k / 16) * Math.PI * 2;
+  return { x: TB.cx + TB.r * Math.cos(a), y: TB.cy + TB.r * Math.sin(a), deg: (a * 180) / Math.PI + 90 };
+});
+const icm: [number, number][] = [[110, 52], [132, 48], [154, 54], [100, 72], [122, 70], [144, 70], [164, 74], [132, 90]];
+// cleavage stages
+const two: [number, number][] = [[-13, 0], [13, 0]];
+const four: [number, number][] = [[-12, -12], [12, -12], [-12, 12], [12, 12]];
+const eight: [number, number][] = [[-15, -15], [0, -19], [15, -15], [-19, 0], [19, 0], [-15, 15], [0, 19], [15, 15], [0, 0]];
+---
+<div class="pot">
+  <div class="tier tier-1">
+    <p class="level"><span class="chip">Totipotent</span> any cell type, including the placenta</p>
+    <svg viewBox="0 0 360 150" role="img" aria-labelledby="pot-t1">
+      <title id="pot-t1">A zygote dividing into 2, 4 and then 8 cells; all of these cells are totipotent</title>
+      <defs>
+        <marker id="pot-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path class="head" d="M0 0 L10 5 L0 10 Z" />
+        </marker>
+      </defs>
+      <circle class="cell" cx="45" cy="70" r="30" /><circle class="nuc" cx="45" cy="70" r="8" />
+      <path class="arrow" d="M82 70 H104" />
+      <g transform="translate(140 70)">{two.map(([x, y]) => <><circle class="cell" cx={x} cy={y} r="14" /><circle class="nuc" cx={x} cy={y} r="4.5" /></>)}</g>
+      <path class="arrow" d="M174 70 H196" />
+      <g transform="translate(230 70)">{four.map(([x, y]) => <><circle class="cell" cx={x} cy={y} r="11.5" /><circle class="nuc" cx={x} cy={y} r="3.5" /></>)}</g>
+      <path class="arrow" d="M262 70 H284" />
+      <g transform="translate(318 70)">{eight.map(([x, y]) => <><circle class="cell" cx={x} cy={y} r="9.5" /><circle class="nuc" cx={x} cy={y} r="3" /></>)}</g>
+      <text class="t" x="45" y="126" text-anchor="middle">zygote</text>
+      <text class="t" x="230" y="126" text-anchor="middle">cells of the first few divisions</text>
+    </svg>
+    <p class="note">The <strong>zygote</strong> and the cells produced by its first few mitotic divisions can each give rise to a complete organism: every cell type of the body plus the placenta and other membranes outside the embryo.</p>
+  </div>
+
+  <div class="tier tier-2">
+    <p class="level"><span class="chip">Pluripotent</span> any body cell type, but not the placenta</p>
+    <svg viewBox="0 0 360 200" role="img" aria-labelledby="pot-t2">
+      <title id="pot-t2">Section through a blastocyst: an outer layer of trophoblast cells, a fluid-filled cavity and an inner cell mass of embryonic stem cells</title>
+      <circle class="cavity" cx={TB.cx} cy={TB.cy} r={TB.r} />
+      {ring.map((c) => <ellipse class="cell tropho" cx={c.x.toFixed(1)} cy={c.y.toFixed(1)} rx="15" ry="7" transform={`rotate(${c.deg.toFixed(1)} ${c.x.toFixed(1)} ${c.y.toFixed(1)})`} />)}
+      {icm.map(([x, y]) => <><circle class="cell esc" cx={x} cy={y} r="11" /><circle class="nuc" cx={x} cy={y} r="3.5" /></>)}
+      <path class="lead" d="M168 60 L218 40" /><text class="t" x="222" y="36">inner cell mass:</text><text class="t b" x="222" y="52">embryonic stem cells</text>
+      <path class="lead" d="M196 126 L218 140" /><text class="t" x="222" y="144">trophoblast</text><text class="t" x="222" y="160">(forms the placenta)</text>
+      <path class="lead" d="M132 130 L132 182" /><text class="t" x="140" y="192">fluid-filled cavity</text>
+    </svg>
+    <p class="note">After about five days the embryo is a hollow <strong>blastocyst</strong>. Cells of the inner cell mass (<strong>embryonic stem cells</strong>) can become any of the cell types of the body, but no longer the placenta, which develops from the outer trophoblast.</p>
+  </div>
+
+  <div class="tier tier-3">
+    <p class="level"><span class="chip">Multipotent</span> a few related cell types · niche: bone marrow</p>
+    <svg viewBox="0 0 360 200" role="img" aria-labelledby="pot-t3">
+      <title id="pot-t3">A haematopoietic stem cell in the bone marrow producing red blood cells, white blood cells and platelets</title>
+      <rect class="marrow" x="6" y="14" width="128" height="172" rx="14" />
+      <text class="t" x="70" y="34" text-anchor="middle">bone marrow niche</text>
+      <circle class="cell hsc" cx="64" cy="118" r="24" /><circle class="nuc" cx="64" cy="118" r="11" />
+      <path class="arrow" d="M80 99 C 96 66, 32 62, 44 94" />
+      <text class="t" x="70" y="60" text-anchor="middle">self-renewal</text>
+      <text class="t" x="64" y="168" text-anchor="middle">stem cell</text>
+      <path class="arrow dashed" d="M92 112 L184 46" /><path class="arrow dashed" d="M92 116 L184 86" /><path class="arrow dashed" d="M92 120 L184 128" /><path class="arrow dashed" d="M92 124 L184 166" />
+      <circle class="rbc" cx="206" cy="40" r="15" /><circle class="rbc-c" cx="206" cy="40" r="6" />
+      <text class="t" x="230" y="45">red blood cells</text>
+      <circle class="cell wbc" cx="206" cy="86" r="15" /><path class="lobe" d="M197 86 a4 5 0 1 1 6 -5 a4 5 0 1 1 6 5 a4 5 0 1 1 -2 7 a4 5 0 1 1 -8 0 Z" />
+      <text class="t" x="230" y="91">neutrophils</text>
+      <circle class="cell wbc" cx="206" cy="128" r="13" /><circle class="nuc big" cx="207" cy="128" r="10" />
+      <text class="t" x="230" y="133">lymphocytes</text>
+      <ellipse class="plt" cx="198" cy="166" rx="5" ry="3" /><ellipse class="plt" cx="210" cy="172" rx="4" ry="3" /><ellipse class="plt" cx="214" cy="162" rx="4" ry="2.5" />
+      <text class="t" x="230" y="172">platelets</text>
+    </svg>
+    <p class="note"><strong>Haematopoietic stem cells</strong> in the red marrow of bones such as the pelvis, sternum and femur divide to replace themselves and to make all the types of blood cell, via progenitor cells (dashed arrows simplify this). They cannot make nerve or liver cells.</p>
+  </div>
+
+  <div class="tier tier-4">
+    <p class="level"><span class="chip">Multipotent</span> niche: hair follicle</p>
+    <svg viewBox="0 0 360 200" role="img" aria-labelledby="pot-t4">
+      <title id="pot-t4">Section of a hair follicle in the skin, with stem cells in the bulge below the sebaceous gland and dividing cells in the bulb</title>
+      <rect class="epi" x="0" y="14" width="360" height="22" />
+      <text class="t" x="352" y="30" text-anchor="end">epidermis</text>
+      <path class="foll" d="M120 36 L120 150 C120 178 128 188 150 188 C172 188 180 178 180 150 L180 36" />
+      <path class="hair" d="M142 4 L142 160 C142 172 158 172 158 160 L158 4 Z" />
+      <ellipse class="papilla" cx="150" cy="176" rx="12" ry="9" />
+      <path class="gland" d="M180 52 C 214 48 222 84 182 86" />
+      <circle class="stem" cx="124" cy="104" r="4" /><circle class="stem" cx="124" cy="116" r="4" /><circle class="stem" cx="176" cy="104" r="4" /><circle class="stem" cx="176" cy="116" r="4" /><circle class="stem" cx="124" cy="92" r="4" /><circle class="stem" cx="176" cy="92" r="4" />
+      <path class="cap" d="M60 196 C 90 186 110 196 136 186 M164 186 C 190 196 210 186 240 194" />
+      <path class="lead" d="M200 70 L232 62" /><text class="t" x="236" y="66">sebaceous gland</text>
+      <path class="lead" d="M180 104 L232 106" /><text class="t b" x="236" y="104">bulge: stem cells</text><text class="t" x="236" y="120">(the niche)</text>
+      <path class="lead" d="M168 170 L232 160" /><text class="t" x="236" y="160">bulb: dividing cells</text><text class="t" x="236" y="176">make the hair</text>
+      <path class="lead" d="M120 60 L84 60" /><text class="t" x="80" y="64" text-anchor="end">hair</text>
+      <path class="lead" d="M80 192 L64 178" /><text class="t" x="60" y="174" text-anchor="end">capillary</text>
+    </svg>
+    <p class="note">Stem cells in the <strong>bulge</strong> of each hair follicle stay inactive for long periods, then divide to start a new phase of hair growth. Their descendants move down to the bulb, where rapid divisions produce the hair. They also help to repair the epidermis after a wound.</p>
+  </div>
+</div>
+
+<style>
+  .pot { display: grid; gap: var(--space-4); counter-reset: tier; }
+  @media (min-width: 46rem) { .pot { grid-template-columns: 1fr 1fr; } }
+  .tier { display: grid; gap: var(--space-1); align-content: start; padding: var(--space-2) var(--space-3) var(--space-3); border-radius: var(--radius-m); border: 1px solid var(--border); background: var(--surface); }
+  .tier svg { font-family: var(--font-sans); }
+  .level { margin: 0; font-size: var(--step--1); font-weight: 650; display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .chip { font-size: 0.78rem; font-weight: 800; padding: 0.05rem 0.55rem; border-radius: 999px; background: var(--accent-soft); color: var(--accent-strong); }
+  .note { margin: 0; font-size: var(--step--1); color: var(--text-muted); }
+  .t { font-size: 13px; fill: var(--text); }
+  .t.b { font-weight: 750; }
+  .cell { fill: color-mix(in srgb, var(--bio-tail) 38%, var(--surface)); stroke: var(--text); stroke-width: 1.4; }
+  .nuc { fill: color-mix(in srgb, var(--bio-na) 55%, var(--surface)); stroke: var(--text); stroke-width: 0.8; }
+  .nuc.big { stroke-width: 1; }
+  .tropho { fill: color-mix(in srgb, var(--bio-carb) 30%, var(--surface)); }
+  .esc { fill: color-mix(in srgb, var(--bio-glucose) 45%, var(--surface)); }
+  .cavity { fill: color-mix(in srgb, var(--bio-water) 12%, var(--surface)); }
+  .marrow { fill: color-mix(in srgb, var(--bio-k) 14%, var(--surface)); stroke: var(--bio-k); stroke-width: 1.4; stroke-dasharray: 5 4; }
+  .hsc { fill: color-mix(in srgb, var(--bio-glucose) 45%, var(--surface)); }
+  .wbc { fill: color-mix(in srgb, var(--bio-protein) 14%, var(--surface)); }
+  .lobe { fill: color-mix(in srgb, var(--bio-na) 55%, var(--surface)); stroke: var(--text); stroke-width: 0.8; }
+  .rbc { fill: color-mix(in srgb, var(--bio-k) 55%, var(--surface)); stroke: var(--bio-k); stroke-width: 1.5; }
+  .rbc-c { fill: color-mix(in srgb, var(--bio-k) 30%, var(--surface)); }
+  .plt { fill: color-mix(in srgb, var(--bio-protein-2) 50%, var(--surface)); stroke: var(--text); stroke-width: 0.8; }
+  .arrow { fill: none; stroke: var(--text); stroke-width: 1.8; marker-end: url(#pot-arrow); }
+  .arrow.dashed { stroke-dasharray: 4 3; }
+  .head { fill: var(--text); }
+  .lead { stroke: var(--text); stroke-width: 1.2; }
+  .epi { fill: color-mix(in srgb, var(--bio-head) 28%, var(--surface)); }
+  .foll { fill: color-mix(in srgb, var(--bio-tail) 30%, var(--surface)); stroke: var(--text); stroke-width: 1.6; }
+  .hair { fill: color-mix(in srgb, var(--text) 62%, var(--surface)); }
+  .papilla { fill: color-mix(in srgb, var(--bio-k) 35%, var(--surface)); stroke: var(--text); stroke-width: 1; }
+  .gland { fill: color-mix(in srgb, var(--bio-glucose) 35%, var(--surface)); stroke: var(--text); stroke-width: 1.4; }
+  .stem { fill: var(--bio-glucose); stroke: var(--text); stroke-width: 1; }
+  .cap { fill: none; stroke: var(--bio-k); stroke-width: 3; }
+</style>

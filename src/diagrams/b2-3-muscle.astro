@@ -1,0 +1,99 @@
+---
+/**
+ * Cardiac muscle cells compared with a striated (skeletal) muscle fibre (B2.3.9). Exam-style drawings,
+ * not to the same scale: a cardiac cell is about 100 µm long, a skeletal fibre often several centimetres.
+ */
+interface Cell { id: string; d: string; nuc: [number, number] }
+const rect = (x0: number, x1: number, y0: number, y1: number) => `M${x0} ${y0} H${x1} V${y1} H${x0} Z`;
+const cells: Cell[] = [
+  { id: 'A', d: rect(10, 120, 40, 76), nuc: [64, 58] },
+  { id: 'B', d: 'M124 40 H250 V76 H222 V112 H190 V76 H124 Z', nuc: [176, 58] },
+  { id: 'C', d: rect(254, 330, 40, 76), nuc: [294, 58] },
+  { id: 'D', d: rect(10, 150, 114, 150), nuc: [80, 132] },
+  { id: 'E', d: 'M154 114 H330 V150 H292 V186 H260 V150 H154 Z', nuc: [232, 132] },
+  { id: 'F', d: rect(10, 196, 188, 224), nuc: [104, 206] },
+  { id: 'G', d: rect(200, 330, 188, 224), nuc: [266, 206] },
+];
+/** Stepped intercalated disc, vertical (at x, from y0 to y1) or horizontal (at y, from x0 to x1). */
+const vDisc = (x: number, y0: number, y1: number) => {
+  let d = `M${x - 2} ${y0}`; let s = 1;
+  for (let y = y0 + 6; y <= y1; y += 6, s = -s) d += ` V${y} H${x + 2 * s}`;
+  return d;
+};
+const hDisc = (y: number, x0: number, x1: number) => {
+  let d = `M${x0} ${y - 2}`; let s = 1;
+  for (let x = x0 + 6; x <= x1; x += 6, s = -s) d += ` H${x} V${y + 2 * s}`;
+  return d;
+};
+const discs = [vDisc(122, 40, 76), vDisc(252, 40, 76), vDisc(152, 114, 150), vDisc(198, 188, 224), hDisc(113, 190, 222), hDisc(187, 260, 292)];
+const stripes = Array.from({ length: 54 }, (_, i) => 12 + i * 6);
+// skeletal fibre
+const fibreStripes = Array.from({ length: 40 }, (_, i) => 22 + i * 8);
+const fibreNuclei: [number, number][] = [[48, 56], [118, 144], [176, 56], [236, 144], [300, 56], [84, 144], [214, 56]];
+const myo = [70, 84, 98, 112, 126];
+---
+<div class="mus">
+  <div class="panel">
+    <svg viewBox="0 0 520 240" role="img" aria-labelledby="mu-c-t mu-c-d">
+      <title id="mu-c-t">Cardiac muscle: branched cells joined end to end by intercalated discs, each with one central nucleus</title>
+      <desc id="mu-c-d">Seven cardiac muscle cells in three rows. Two cells branch, so each is joined to three or four others. Where cells meet there is a dark, stepped intercalated disc. Every cell is striated and has a single nucleus near its centre.</desc>
+      <defs>
+        <clipPath id="mu-clip">{cells.map((c) => <path d={c.d} />)}</clipPath>
+      </defs>
+      {cells.map((c) => <path class={`cell${c.id === 'B' ? ' one' : ''}`} d={c.d} />)}
+      <g clip-path="url(#mu-clip)" class="stripes">{stripes.map((x) => <path d={`M${x} 30 V230`} />)}</g>
+      {cells.map((c) => <ellipse class="nuc" cx={c.nuc[0]} cy={c.nuc[1]} rx="11" ry="6" />)}
+      {discs.map((d) => <path class="disc" d={d} />)}
+      <text class="t b" x="186" y="26" text-anchor="middle">one branched cell</text>
+      <path class="lead" d="M252 58 L342 46" /><text class="t b" x="346" y="44">intercalated disc</text><text class="t" x="346" y="60">(joins cells end to end)</text>
+      <path class="lead" d="M222 98 L342 92" /><text class="t" x="346" y="96">branch</text>
+      <path class="lead" d="M243 132 L342 132" /><text class="t" x="346" y="128">nucleus: usually one,</text><text class="t" x="346" y="144">in the centre</text>
+      <path class="lead" d="M318 206 L342 192" /><text class="t" x="346" y="188">striations</text><text class="t" x="346" y="204">(myofibrils)</text>
+    </svg>
+    <p class="cap"><strong>Cardiac muscle cells</strong> <span class="count">branched · one nucleus · about 100 µm long</span></p>
+  </div>
+
+  <div class="panel">
+    <svg viewBox="0 0 520 200" role="img" aria-labelledby="mu-s-t mu-s-d">
+      <title id="mu-s-t">Part of a striated muscle fibre: an unbranched cylinder with many nuclei at its edge</title>
+      <desc id="mu-s-d">A short length of one long, unbranched, cylindrical muscle fibre, broken off at both ends to show that it continues. It is striated across its width and divided lengthways into many myofibrils. Many flattened nuclei lie just under the plasma membrane at the edge of the fibre.</desc>
+      <defs>
+        <clipPath id="mu-fclip"><path d="M14 50 L22 70 L12 90 L22 110 L12 130 L18 150 H326 L334 130 L324 110 L334 90 L324 70 L332 50 Z" /></clipPath>
+      </defs>
+      <path class="fibre" d="M14 50 L22 70 L12 90 L22 110 L12 130 L18 150 H326 L334 130 L324 110 L334 90 L324 70 L332 50 Z" />
+      <g clip-path="url(#mu-fclip)">
+        <g class="stripes wide">{fibreStripes.map((x) => <path d={`M${x} 50 V150`} />)}</g>
+        <g class="myo">{myo.map((y) => <path d={`M0 ${y} H340`} />)}</g>
+      </g>
+      <path class="membrane" d="M18 50 H330 M18 150 H326" />
+      {fibreNuclei.map(([x, y]) => <ellipse class="nuc" cx={x} cy={y} rx="13" ry="4.5" />)}
+      <text class="t b" x="170" y="28" text-anchor="middle">part of one fibre (it continues both ways)</text>
+      <path class="lead" d="M300 50 L342 42" /><text class="t" x="346" y="40">plasma membrane</text>
+      <path class="lead" d="M300 57 L342 72" /><text class="t b" x="346" y="70">many nuclei,</text><text class="t" x="346" y="86">at the edge</text>
+      <path class="lead" d="M318 112 L342 114" /><text class="t" x="346" y="112">myofibrils</text>
+      <path class="lead" d="M310 134 L342 142" /><text class="t" x="346" y="146">striations</text>
+      <text class="t" x="170" y="178" text-anchor="middle">unbranched; often several cm long</text>
+    </svg>
+    <p class="cap"><strong>Striated (skeletal) muscle fibre</strong> <span class="count">unbranched · many nuclei · mm to cm long</span></p>
+  </div>
+</div>
+
+<style>
+  .mus { display: grid; gap: var(--space-5); }
+  .panel { display: grid; gap: var(--space-1); align-content: start; }
+  .panel svg { font-family: var(--font-sans); max-width: 40rem; }
+  .cap { margin: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .count { font-size: 0.78rem; font-weight: 800; padding: 0.05rem 0.5rem; border-radius: 999px; background: var(--accent-soft); color: var(--accent-strong); }
+  .t { font-size: 13px; fill: var(--text); }
+  .t.b { font-weight: 750; }
+  .cell { fill: color-mix(in srgb, var(--bio-chol) 18%, var(--surface)); stroke: var(--bio-head); stroke-width: 1.6; }
+  .cell.one { fill: color-mix(in srgb, var(--bio-chol) 32%, var(--surface)); stroke-width: 2.6; }
+  .stripes path { stroke: color-mix(in srgb, var(--bio-chol) 55%, var(--surface)); stroke-width: 2; }
+  .stripes.wide path { stroke-width: 3.5; }
+  .myo path { stroke: color-mix(in srgb, var(--surface) 70%, transparent); stroke-width: 1.6; }
+  .nuc { fill: color-mix(in srgb, var(--bio-na) 55%, var(--surface)); stroke: var(--text); stroke-width: 1.2; }
+  .disc { fill: none; stroke: var(--text); stroke-width: 3; stroke-linejoin: miter; }
+  .fibre { fill: color-mix(in srgb, var(--bio-chol) 18%, var(--surface)); stroke: var(--text-muted); stroke-width: 1.2; stroke-dasharray: 3 3; }
+  .membrane { stroke: var(--bio-head); stroke-width: 2.6; }
+  .lead { stroke: var(--text); stroke-width: 1.1; }
+</style>

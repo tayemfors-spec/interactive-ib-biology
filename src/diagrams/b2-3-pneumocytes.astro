@@ -1,0 +1,86 @@
+---
+/**
+ * Section through part of an alveolar wall (B2.3.8): extremely thin type I pneumocytes and a cuboidal type II
+ * pneumocyte with lamellar bodies discharging surfactant. Proportions are schematic: the type I cell is drawn
+ * thicker than to scale so that it is visible.
+ */
+const villi = Array.from({ length: 8 }, (_, i) => 346 + i * 11);
+const lamellar: [number, number][] = [[352, 150], [374, 142], [400, 147], [422, 156], [362, 172]];
+const rbcs: [number, number][] = [[116, 252], [208, 262], [430, 250]];
+---
+<svg viewBox="0 0 520 360" role="img" aria-labelledby="pn-t pn-d" xmlns="http://www.w3.org/2000/svg" class="pn">
+  <title id="pn-t">Section through part of an alveolar wall with type I and type II pneumocytes</title>
+  <desc id="pn-d">Air in the alveolus is at the top. The alveolar epithelium is one cell thick. Most of it is formed by extremely thin, flattened type I pneumocytes, across which oxygen diffuses into the blood and carbon dioxide diffuses out. A cuboidal type II pneumocyte with microvilli contains many lamellar bodies, vesicles that store surfactant; one is fusing with the plasma membrane and releasing surfactant into the thin film of fluid lining the alveolus. Under the epithelium is a basement membrane and then the thin endothelium of a blood capillary containing red blood cells.</desc>
+  <defs>
+    <marker id="pn-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path class="head" d="M0 0 L10 5 L0 10 Z" />
+    </marker>
+  </defs>
+  <rect class="air" x="0" y="0" width="520" height="190" />
+  <text class="t b" x="8" y="22">air in alveolus</text>
+
+  <!-- capillary below the epithelium -->
+  <rect class="blood" x="0" y="208" width="520" height="92" />
+  {rbcs.map(([x, y]) => <path class="rbc" d={`M${x - 26} ${y - 4} C${x - 26} ${y - 12} ${x - 10} ${y - 12} ${x - 4} ${y - 7} C${x} ${y - 4} ${x + 4} ${y - 4} ${x + 8} ${y - 7} C${x + 14} ${y - 12} ${x + 30} ${y - 12} ${x + 30} ${y - 4} L${x + 30} ${y + 4} C${x + 30} ${y + 12} ${x + 14} ${y + 12} ${x + 8} ${y + 7} C${x + 4} ${y + 4} ${x} ${y + 4} ${x - 4} ${y + 7} C${x - 10} ${y + 12} ${x - 26} ${y + 12} ${x - 26} ${y + 4} Z`} />)}
+  <rect class="endo" x="0" y="202" width="520" height="6" />
+  <rect class="endo" x="0" y="300" width="520" height="6" />
+  <ellipse class="nuc" cx="330" cy="304" rx="22" ry="5" />
+  <rect class="bm" x="0" y="198" width="520" height="4" />
+
+  <!-- fluid film lining the alveolus -->
+  <path class="film" d="M0 188 H118 C124 174 176 174 182 188 H330 V122 H440 V188 H520" />
+
+  <!-- type I pneumocytes -->
+  <path class="cell t1" d="M0 191 H118 C124 177 176 177 182 191 H329 V198 H0 Z" />
+  <ellipse class="nuc" cx="150" cy="190" rx="24" ry="6" />
+  <path class="cell t1" d="M441 191 H520 V198 H441 Z" />
+
+  <!-- type II pneumocyte -->
+  {villi.map((x) => <rect class="villus" x={x} y="118" width="6" height="12" rx="3" />)}
+  <path class="cell t2" d="M331 198 V138 C331 129 337 126 346 126 H424 C433 126 439 129 439 138 V198 Z" />
+  <ellipse class="nuc" cx="400" cy="180" rx="24" ry="13" />
+  {lamellar.map(([x, y]) => <g class="lam"><circle cx={x} cy={y} r="9" /><path d={`M${x - 6} ${y - 2} A7 7 0 0 1 ${x + 6} ${y - 2} M${x - 5} ${y + 3} A6 6 0 0 0 ${x + 5} ${y + 3}`} /></g>)}
+  <path class="lam-open" d="M404 126 C404 136 418 136 418 126" />
+  <path class="surf" d="M408 118 C404 108 414 104 410 94 M414 118 C420 110 412 104 420 96" />
+
+  <!-- gas exchange across a type I cell -->
+  <path class="gas" d="M262 116 V268" /><text class="t b" x="250" y="110" text-anchor="middle">O₂</text>
+  <path class="gas" d="M292 268 V116" /><text class="t b" x="304" y="110" text-anchor="middle">CO₂</text>
+  <path class="dim" d="M16 189 V208 M12 189 H20 M12 208 H20" />
+  <text class="t" x="26" y="232">≈ 0.5 µm from air to blood</text>
+
+  <!-- labels -->
+  <path class="lead" d="M60 162 V192" /><text class="t b" x="12" y="142">type I pneumocyte:</text><text class="t" x="12" y="158">extremely thin</text>
+  <path class="lead" d="M150 116 L196 186" /><text class="t" x="70" y="104">fluid film with surfactant</text>
+  <path class="lead" d="M318 40 L346 132" /><text class="t b" x="318" y="34" text-anchor="end">type II pneumocyte</text>
+  <path class="lead" d="M468 52 L425 146" /><text class="t" x="512" y="30" text-anchor="end">lamellar bodies</text><text class="t" x="512" y="46" text-anchor="end">store surfactant</text>
+  <path class="lead" d="M444 114 L420 106" /><text class="t" x="446" y="118">surfactant</text><text class="t" x="446" y="134">released by</text><text class="t" x="446" y="150">exocytosis</text>
+  <text class="t" x="12" y="290">capillary (blood plasma)</text>
+  <path class="lead" d="M252 278 L232 266" /><text class="t" x="256" y="290">red blood cell</text>
+  <path class="lead" d="M250 330 L250 306" /><text class="t" x="250" y="346" text-anchor="middle">capillary endothelium</text>
+  <path class="lead" d="M470 330 L470 200" /><text class="t" x="512" y="346" text-anchor="end">basement membrane</text>
+</svg>
+<style>
+  .pn { font-family: var(--font-sans); }
+  .t { font-size: 13px; fill: var(--text); }
+  .t.b { font-weight: 750; }
+  .air { fill: color-mix(in srgb, var(--bio-water) 8%, var(--surface)); }
+  .blood { fill: color-mix(in srgb, var(--bio-k) 10%, var(--surface)); }
+  .rbc { fill: color-mix(in srgb, var(--bio-k) 50%, var(--surface)); stroke: var(--bio-k); stroke-width: 1.4; }
+  .endo { fill: color-mix(in srgb, var(--bio-tail) 30%, var(--surface)); stroke: var(--bio-head); stroke-width: 1.2; }
+  .bm { fill: color-mix(in srgb, var(--text) 45%, var(--surface)); }
+  .film { fill: none; stroke: color-mix(in srgb, var(--bio-water) 60%, var(--surface)); stroke-width: 4; }
+  .cell { stroke: var(--bio-head); stroke-width: 1.6; stroke-linejoin: round; }
+  .t1 { fill: color-mix(in srgb, var(--bio-tail) 40%, var(--surface)); }
+  .t2 { fill: color-mix(in srgb, var(--bio-tail) 40%, var(--surface)); }
+  .villus { fill: color-mix(in srgb, var(--bio-tail) 40%, var(--surface)); stroke: var(--bio-head); stroke-width: 1.2; }
+  .nuc { fill: color-mix(in srgb, var(--bio-na) 40%, var(--surface)); stroke: var(--text); stroke-width: 1.2; }
+  .lam circle { fill: color-mix(in srgb, var(--bio-glucose) 35%, var(--surface)); stroke: var(--text); stroke-width: 1.2; }
+  .lam path, .lam-open { fill: none; stroke: var(--text); stroke-width: 1; }
+  .lam-open { stroke-width: 1.4; }
+  .surf { fill: none; stroke: var(--bio-glucose); stroke-width: 2.4; stroke-linecap: round; }
+  .gas { stroke: var(--bio-protein); stroke-width: 2.4; marker-end: url(#pn-arrow); }
+  .head { fill: var(--bio-protein); }
+  .dim { fill: none; stroke: var(--text); stroke-width: 1.3; }
+  .lead { stroke: var(--text); stroke-width: 1.1; }
+</style>

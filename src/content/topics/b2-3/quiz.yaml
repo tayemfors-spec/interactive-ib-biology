@@ -1,0 +1,196 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: B2.3.1
+    stem: >-
+      All the cells of an early-stage embryo are produced by mitosis from the zygote, yet they go on to develop into
+      many different cell types. Which statement best explains this?
+    options:
+      - id: a
+        text: Cells lose the genes they do not need, so each cell type keeps a different set of genes.
+        why: Mitosis produces genetically identical cells and differentiated cells keep the full genome. They differ in which genes are expressed, not which genes they have.
+      - id: b
+        text: Mutations during mitosis give each cell a slightly different genome.
+        why: Mutations are rare, random and not directed at producing a useful cell type. They cannot explain the reliable development of the same cell types in every embryo.
+      - id: c
+        text: Different concentrations of morphogens in different parts of the embryo switch on different genes in different cells.
+        why: Correct. A morphogen forms a concentration gradient, so a cell's position determines the concentration it receives and therefore which genes it expresses and which pathway of differentiation it follows.
+      - id: d
+        text: Some embryo cells are produced by meiosis, so they have half the number of chromosomes.
+        why: The cells of the embryo are all produced by mitosis and are diploid. Meiosis produces gametes, not body cells.
+    answer: c
+
+  - id: q2
+    level: SL
+    understanding: B2.3.2
+    stem: Which two properties together define a stem cell?
+    options:
+      - id: a
+        text: It can divide repeatedly to produce more stem cells, and it can differentiate along different pathways.
+        why: Correct. Self-renewal plus the capacity to differentiate into more than one cell type are the two defining properties.
+      - id: b
+        text: It is specialized for one function, and it can divide by meiosis.
+        why: Stem cells are unspecialized, and they divide by mitosis. Meiosis produces gametes.
+      - id: c
+        text: It can divide repeatedly, and it is found only in embryos.
+        why: The first part is right, but adults also have stem cells, in niches such as bone marrow and hair follicles.
+      - id: d
+        text: It has no nucleus, and it can therefore become any cell type.
+        why: Stem cells have a nucleus with the full genome. It is the genes in the nucleus that allow them to differentiate.
+    answer: a
+
+  - id: q3
+    level: SL
+    understanding: B2.3.4
+    stem: >-
+      Cells taken from the inner cell mass of a 5-day human blastocyst can develop into nerve, muscle, blood and liver
+      cells, but not into the placenta. How are these cells best described?
+    options:
+      - id: a
+        text: Totipotent
+        why: Totipotent cells (the zygote and the cells of the first few divisions) can also form the placenta and other membranes outside the embryo. These cells cannot.
+      - id: b
+        text: Pluripotent
+        why: Correct. Pluripotent embryonic stem cells can form any of the cell types of the body, but not the placenta.
+      - id: c
+        text: Multipotent
+        why: Multipotent stem cells, such as those in bone marrow, form only a limited range of related cell types. Nerve, muscle, blood and liver cells are very different types.
+      - id: d
+        text: Fully differentiated
+        why: Differentiated cells are specialized and cannot develop into other cell types. These cells can become many types.
+    answer: b
+
+  - id: q4
+    level: SL
+    understanding: B2.3.3
+    stem: What is the role of a stem cell niche in an adult?
+    options:
+      - id: a
+        text: It is the part of the stem cell's nucleus that contains the genes for differentiation.
+        why: A niche is a location in a tissue (the stem cells' surroundings), not a part of a cell.
+      - id: b
+        text: It makes adult stem cells totipotent so that they can repair any tissue.
+        why: Adult stem cells are multipotent. Their niche controls their activity, not their potency.
+      - id: c
+        text: It is a store of differentiated cells that are released into the blood when needed.
+        why: Niches contain stem cells, which are unspecialized. Differentiated cells are produced by them.
+      - id: d
+        text: It provides conditions that either keep the stem cells inactive or make them divide and differentiate.
+        why: Correct. Signals from surrounding cells, the extracellular matrix and the blood supply maintain the stem cells or promote their proliferation and differentiation, as in bone marrow and hair follicles.
+    answer: d
+
+  - id: q5
+    level: SL
+    understanding: B2.3.5
+    stem: Which pairing of human cell and approximate size is correct?
+    options:
+      - id: a
+        text: Red blood cell — about 7–8 µm in diameter
+        why: Correct. Red blood cells are small, flattened discs, about 7–8 µm across and about 2 µm thick, small enough to pass through capillaries.
+      - id: b
+        text: Egg cell — about 11 µm in diameter
+        why: This is ten times too small. The egg is about 110 µm across, one of the largest human cells, because of its large volume of cytoplasm with food reserves.
+      - id: c
+        text: Sperm cell — about 3 mm long
+        why: This confuses µm and mm. A sperm is about 50–60 µm long, with a head about 3 µm wide.
+      - id: d
+        text: Striated muscle fibre — about 1 µm long
+        why: Muscle fibres are among the longest cells, often several centimetres long and 10–100 µm wide.
+    answer: a
+
+  - id: q6
+    level: SL
+    understanding: B2.3.6
+    stem: A cell is modelled as a cube with sides of 3 mm. What is its surface area-to-volume ratio?
+    options:
+      - id: a
+        text: 0.5 mm⁻¹
+        why: This is the volume divided by the surface area (27 ÷ 54), the ratio upside down.
+      - id: b
+        text: 2 mm⁻¹
+        why: Correct. SA = 6 × 3² = 54 mm², V = 3³ = 27 mm³, so SA:V = 54 ÷ 27 = 2 mm⁻¹, a ratio of 2 to 1.
+      - id: c
+        text: 0.67 mm⁻¹
+        why: This uses 6 × 3 = 18 for the surface area. Each face has an area of L², so SA = 6L² = 54 mm².
+      - id: d
+        text: 6 mm⁻¹
+        why: SA:V = 6 only for a cube of side 1. The ratio is 6/L, so it falls as the side length increases.
+    answer: b
+
+  - id: q7
+    level: AHL
+    understanding: B2.3.7
+    stem: >-
+      A red blood cell has a volume of about 90 µm³ and a surface area of about 140 µm². A sphere of the same volume
+      would have a surface area of only about 97 µm². What does this show about the biconcave shape?
+    options:
+      - id: a
+        text: It reduces the SA:V ratio, so the cell loses less oxygen as it travels around the body.
+        why: The biconcave cell has more surface area for the same volume, so its SA:V is higher (about 1.5 µm⁻¹ compared with about 1.1 µm⁻¹), not lower.
+      - id: b
+        text: It increases the volume of the cell, so it can carry more haemoglobin.
+        why: The volume is the same in both cases (90 µm³). Only the surface area differs.
+      - id: c
+        text: It has the same SA:V as a sphere, because SA:V depends only on volume.
+        why: SA:V depends on shape as well as size. For a given volume the sphere has the smallest surface area.
+      - id: d
+        text: Flattening increases the SA:V ratio, so oxygen enters and leaves the cell more quickly.
+        why: Correct. The flattened shape gives about 45% more membrane for the same volume, and no haemoglobin is far from the surface.
+    answer: d
+
+  - id: q8
+    level: AHL
+    understanding: B2.3.8
+    stem: Which statement about lamellar bodies in the alveoli is correct?
+    options:
+      - id: a
+        text: They are found in type I pneumocytes and are where gas exchange occurs.
+        why: Type I pneumocytes are extremely thin with few organelles. Gas exchange happens by diffusion across the thin type I cells, not in vesicles.
+      - id: b
+        text: They release surfactant, which increases surface tension and holds the alveolar walls together.
+        why: Surfactant reduces surface tension. That is what stops the walls sticking together and the alveoli collapsing.
+      - id: c
+        text: They are vesicles in type II pneumocytes that release surfactant by exocytosis.
+        why: Correct. Lamellar bodies store surfactant in type II pneumocytes and discharge it into the fluid lining the alveolus by exocytosis.
+      - id: d
+        text: They are vesicles that take up oxygen by endocytosis.
+        why: Oxygen is small and non-polar and crosses membranes by simple diffusion. No vesicles are needed.
+    answer: c
+
+  - id: q9
+    level: AHL
+    understanding: B2.3.9
+    stem: Which feature is found in cardiac muscle cells but not in striated (skeletal) muscle fibres?
+    options:
+      - id: a
+        text: Intercalated discs joining the cells end to end
+        why: Correct. Intercalated discs, with gap junctions, join branched cardiac cells so that impulses pass rapidly from cell to cell.
+      - id: b
+        text: Myofibrils that give a striated appearance
+        why: Both types contain contractile myofibrils and both look striated. This is a similarity.
+      - id: c
+        text: Many mitochondria
+        why: Both muscle types contain many mitochondria to supply the ATP needed for contraction.
+      - id: d
+        text: Many nuclei per cell
+        why: This describes skeletal muscle fibres. Cardiac muscle cells usually have one central nucleus.
+    answer: a
+
+  - id: q10
+    level: AHL
+    understanding: B2.3.10
+    stem: What is the function of the cortical granules of a human egg?
+    options:
+      - id: a
+        text: They contain enzymes that digest a path through the zona pellucida.
+        why: This is the role of the acrosome in the sperm head, not of structures in the egg.
+      - id: b
+        text: After a sperm enters, they release their contents to harden the zona pellucida and prevent more sperm entering.
+        why: Correct. Exocytosis of the cortical granules modifies the zona pellucida so that no further sperm can get through, preventing polyspermy.
+      - id: c
+        text: They store lipid and other nutrients for the early embryo.
+        why: Food reserves are in the cytoplasm as lipid droplets and other nutrients. Cortical granules are vesicles just inside the plasma membrane with a different role.
+      - id: d
+        text: They produce ATP to move the egg along the oviduct.
+        why: The egg is not motile; it is moved by cilia and muscle contractions in the oviduct. ATP is made by mitochondria.
+    answer: b

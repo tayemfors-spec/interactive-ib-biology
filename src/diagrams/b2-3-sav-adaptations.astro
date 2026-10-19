@@ -1,0 +1,110 @@
+---
+/**
+ * Adaptations that increase SA:V (B2.3.7): flattening (erythrocyte) and microvilli plus basal invaginations
+ * (proximal convoluted tubule cell). Exam-style drawings; the plasma membrane is one continuous line.
+ */
+// ---- PCT cell (with parts of its two neighbours) ----
+const TOP = 96, BOT = 318, VH = 34, VW = 7, VGAP = 11;
+/** Outline of an epithelial cell from x0 to x1: microvilli along the top, basal infoldings rising from the base. */
+function cellOutline(x0: number, x1: number, folds: number[], foldTop: number) {
+  let d = `M${x0} ${BOT} L${x0} ${TOP}`;
+  for (let x = x0 + 4; x + VW <= x1 - 4; x += VGAP) d += ` L${x} ${TOP} L${x} ${TOP - VH + VW / 2} A${VW / 2} ${VW / 2} 0 0 1 ${x + VW} ${TOP - VH + VW / 2} L${x + VW} ${TOP}`;
+  d += ` L${x1} ${TOP} L${x1} ${BOT}`;
+  // base, right to left, with narrow infoldings of the membrane
+  for (const f of [...folds].reverse()) d += ` L${f + 3} ${BOT} L${f + 3} ${foldTop} A3 3 0 0 0 ${f - 3} ${foldTop} L${f - 3} ${BOT}`;
+  return `${d} L${x0} ${BOT} Z`;
+}
+const folds = [142, 166, 190, 214, 238, 262, 284];
+const main = cellOutline(122, 302, folds, 226);
+const left = cellOutline(52, 120, [70, 94], 236);
+const right = cellOutline(304, 352, [326], 236);
+// elongated mitochondria between the infoldings, and a few in the apical cytoplasm
+const mitos = [154, 178, 202, 226, 250, 273, 293].map((x) => ({ x, y: 272, rx: 6, ry: 30 }));
+const apMitos = [{ x: 160, y: 132, rx: 13, ry: 6 }, { x: 262, y: 128, rx: 13, ry: 6 }];
+const cristae = (m: { x: number; y: number; rx: number; ry: number }) =>
+  Array.from({ length: 4 }, (_, i) => {
+    const y = m.y - m.ry * 0.6 + (i * m.ry * 1.2) / 3;
+    return `M${m.x - m.rx + 2} ${y.toFixed(1)} h${m.rx * 1.2}`;
+  }).join(' ');
+---
+<div class="adapt">
+  <div class="panel">
+    <svg viewBox="0 0 420 200" role="img" aria-labelledby="ad-rbc-t ad-rbc-d">
+      <title id="ad-rbc-t">An erythrocyte in face view and in section, showing its flattened biconcave shape</title>
+      <desc id="ad-rbc-d">Face view: a disc about 7 to 8 micrometres across with a paler centre. Section: a biconcave disc, about 2 micrometres thick at the rim and about 1 micrometre at the centre.</desc>
+      <circle class="rbc" cx="78" cy="96" r="60" />
+      <circle class="rbc-c" cx="78" cy="96" r="25" />
+      <path class="dim" d="M18 172 H138 M18 166 V178 M138 166 V178" />
+      <text class="t" x="78" y="192" text-anchor="middle">7–8 µm</text>
+      <text class="t" x="78" y="24" text-anchor="middle">face view</text>
+      <path class="rbc" d="M200 72 C200 50 244 50 262 66 C272 74 288 74 298 66 C316 50 360 52 360 72 L360 120 C360 140 316 142 298 126 C288 118 272 118 262 126 C244 142 200 140 200 120 Z" />
+      <text class="t" x="280" y="24" text-anchor="middle">section (cut through)</text>
+      <path class="dim" d="M376 58 V134 M370 58 H382 M370 134 H382" />
+      <text class="t" x="388" y="92">≈ 2</text><text class="t" x="388" y="108">µm</text>
+      <path class="lead" d="M280 74 L280 172" />
+      <text class="t" x="280" y="190" text-anchor="middle">≈ 1 µm thick at the centre</text>
+    </svg>
+    <p class="cap"><strong>Flattening: erythrocyte</strong></p>
+    <p class="note">A red blood cell (volume about 90 µm³) has a surface area of about 140 µm², so SA:V ≈ 1.5 µm⁻¹. A sphere of the same volume would have only about 97 µm² (SA:V ≈ 1.1 µm⁻¹). No haemoglobin is more than about 1 µm from the surface, so O₂ loading and unloading is fast. Type I pneumocytes are an even more extreme example of flattening.</p>
+  </div>
+
+  <div class="panel">
+    <svg viewBox="0 0 520 380" role="img" aria-labelledby="ad-pct-t ad-pct-d">
+      <title id="ad-pct-t">A proximal convoluted tubule cell with microvilli on the side facing the lumen and infoldings of the membrane at its base</title>
+      <desc id="ad-pct-d">A tall epithelial cell between two neighbours, joined to them near the top by tight junctions. Its surface facing the tubule lumen has a dense brush border of microvilli. The basal plasma membrane folds deeply inwards, and elongated mitochondria lie in the cytoplasm between the folds. A basement membrane lies under the cells, with interstitial fluid and blood capillaries beyond it.</desc>
+      <defs>
+        <marker id="ad-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path class="head" d="M0 0 L10 5 L0 10 Z" />
+        </marker>
+      </defs>
+      <rect class="lumen" x="0" y="0" width="520" height="56" />
+      <text class="t" x="8" y="22">lumen of tubule (filtrate)</text>
+      <path class="cell nb" d={left} /><path class="cell nb" d={right} />
+      <path class="cell" d={main} />
+      <ellipse class="nuc" cx="212" cy="176" rx="34" ry="27" />
+      <circle class="nucleolus" cx="220" cy="172" r="7" />
+      {[...mitos, ...apMitos].map((m) => <><ellipse class="mito" cx={m.x} cy={m.y} rx={m.rx} ry={m.ry} /><path class="cristae" d={cristae(m)} transform={m.ry < m.rx ? `rotate(90 ${m.x} ${m.y})` : undefined} /></>)}
+      <rect class="tj" x="118.5" y="98" width="5" height="16" /><rect class="tj" x="300.5" y="98" width="5" height="16" />
+      <rect class="bm" x="40" y="322" width="324" height="6" rx="2" />
+      <text class="t" x="8" y="352">interstitial fluid</text>
+      <text class="t" x="8" y="370">→ blood capillary</text>
+      <path class="flow" d="M30 60 V318" /><text class="t small" transform="translate(24 200) rotate(-90)" text-anchor="middle">reabsorption</text>
+
+      <path class="lead" d="M290 70 L368 50" /><text class="t b" x="372" y="46">microvilli</text><text class="t" x="372" y="62">(brush border)</text>
+      <path class="lead" d="M305 106 L368 104" /><text class="t" x="372" y="108">tight junction</text>
+      <path class="lead" d="M246 176 L368 160" /><text class="t" x="372" y="164">nucleus</text>
+      <path class="lead" d="M296 262 L368 222" /><text class="t" x="372" y="218">mitochondria</text><text class="t" x="372" y="234">(ATP for Na⁺ pumps)</text>
+      <path class="lead" d="M288 300 L368 282" /><text class="t b" x="372" y="278">basal infoldings</text><text class="t" x="372" y="294">(invaginations)</text>
+      <path class="lead" d="M364 325 L370 334" /><text class="t" x="372" y="346">basement membrane</text>
+    </svg>
+    <p class="cap"><strong>Microvilli and invagination: proximal convoluted tubule cell</strong></p>
+    <p class="note">Facing the filtrate, thousands of <strong>microvilli</strong> greatly increase the area of membrane carrying cotransporters for reabsorption. At the base, deep <strong>invaginations</strong> of the plasma membrane increase the area for Na⁺/K⁺ pumps and other transporters that move reabsorbed substances out towards the blood, with mitochondria packed between the folds to supply ATP.</p>
+  </div>
+</div>
+
+<style>
+  .adapt { display: grid; gap: var(--space-5); }
+  .panel { display: grid; gap: var(--space-1); align-content: start; }
+  .panel svg { font-family: var(--font-sans); }
+  .panel:first-child svg { max-width: 34rem; }
+  .cap { margin: 0; }
+  .note { margin: 0; font-size: var(--step--1); color: var(--text-muted); }
+  .t { font-size: 13px; fill: var(--text); }
+  .t.b { font-weight: 750; }
+  .t.small { font-size: 12px; fill: var(--text-muted); }
+  .rbc { fill: color-mix(in srgb, var(--bio-k) 50%, var(--surface)); stroke: var(--bio-k); stroke-width: 2; }
+  .rbc-c { fill: color-mix(in srgb, var(--bio-k) 28%, var(--surface)); }
+  .dim { fill: none; stroke: var(--text); stroke-width: 1.3; }
+  .lead { stroke: var(--text); stroke-width: 1.2; }
+  .lumen { fill: color-mix(in srgb, var(--bio-water) 12%, var(--surface)); }
+  .cell { fill: color-mix(in srgb, var(--bio-tail) 26%, var(--surface)); stroke: var(--bio-head); stroke-width: 2.2; stroke-linejoin: round; }
+  .cell.nb { fill: color-mix(in srgb, var(--bio-tail) 14%, var(--surface)); stroke-width: 1.6; }
+  .nuc { fill: color-mix(in srgb, var(--bio-na) 22%, var(--surface)); stroke: var(--text); stroke-width: 2.2; }
+  .nucleolus { fill: color-mix(in srgb, var(--text) 70%, var(--surface)); }
+  .mito { fill: color-mix(in srgb, var(--bio-chol) 30%, var(--surface)); stroke: var(--text); stroke-width: 1.4; }
+  .cristae { stroke: var(--text); stroke-width: 1; fill: none; }
+  .tj { fill: var(--text); }
+  .head { fill: var(--bio-water); }
+  .bm { fill: color-mix(in srgb, var(--text) 45%, var(--surface)); }
+  .flow { stroke: var(--bio-water); stroke-width: 2.5; stroke-dasharray: 6 5; marker-end: url(#ad-arrow); }
+</style>
