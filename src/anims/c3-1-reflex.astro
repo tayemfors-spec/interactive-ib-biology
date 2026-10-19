@@ -1,0 +1,139 @@
+---
+/**
+ * Pain reflex arc (C3.1.9): free nerve ending in the hand → sensory neuron (cell body in the dorsal
+ * root ganglion) → one relay neuron in the grey matter → motor neuron (cell body in the ventral horn,
+ * axon in the ventral root) → biceps. A separate neuron carries the signal up to the brain.
+ * Spinal cord drawn in transverse section, dorsal side at the top. Animated by c3-1-reflex.ts.
+ */
+import { ELBOW, PATHS } from './c3-1-reflex';
+const grey = 'M0 -14 C -8 -22, -14 -36, -26 -46 C -33 -42, -31 -30, -22 -18 C -34 -10, -42 4, -42 16 C -42 30, -36 40, -24 40 C -14 40, -6 22, 0 14 C 6 22, 14 40, 24 40 C 36 40, 42 30, 42 16 C 42 4, 34 -10, 22 -18 C 31 -30, 33 -42, 26 -46 C 14 -36, 8 -22, 0 -14 Z';
+const star = (x: number, y: number, r = 7) =>
+  Array.from({ length: 10 }, (_, j) => { const a = (Math.PI / 5) * j - Math.PI / 2; const rr = j % 2 ? r * 0.5 : r; return `${(x + rr * Math.cos(a)).toFixed(1)},${(y + rr * Math.sin(a)).toFixed(1)}`; }).join(' ');
+---
+<svg viewBox="0 0 560 380" xmlns="http://www.w3.org/2000/svg" class="reflex">
+  <!-- brain (schematic) -->
+  <g data-el="brain" class="brain-g">
+    <path class="brain" d="M446 60 C 436 52, 438 34, 452 28 C 458 16, 478 14, 488 22 C 502 16, 520 24, 520 38 C 530 46, 526 62, 512 64 C 504 72, 488 72, 480 66 C 470 72, 454 70, 446 60 Z" />
+    <path class="brain-line" d="M456 44 C 466 36, 476 46, 486 38 M472 56 C 482 50, 494 58, 506 48" />
+  </g>
+  <text class="lbl" x="436" y="40" text-anchor="end">brain</text>
+
+  <!-- spinal cord, transverse section -->
+  <ellipse class="white" cx="420" cy="180" rx="72" ry="58" />
+  <path class="grey" d={grey} transform="translate(420 180)" />
+  <circle class="canal" cx="420" cy="180" r="3" />
+
+  <!-- arm: upper arm fixed, forearm rotates about the elbow -->
+  <rect class="skin" x="88" y="104" width="44" height="176" rx="22" />
+  <path class="biceps" data-el="biceps" d="M120 150 C 146 166, 146 222, 120 238 C 128 214, 128 174, 120 150 Z" />
+  <g data-el="forearm" transform={`rotate(0 ${ELBOW[0]} ${ELBOW[1]})`}>
+    <rect class="skin" x="96" y="246" width="166" height="32" rx="16" />
+    <ellipse class="skin" cx="268" cy="264" rx="20" ry="14" />
+    <path class="sens" d="M268 270 L112 270" />
+    <g class="ending"><path d="M268 270 l8 -4 M268 270 l9 2 M268 270 l6 6" /></g>
+  </g>
+
+  <!-- candle -->
+  <rect class="candle" x="258" y="304" width="22" height="44" rx="3" />
+  <path class="wick" d="M269 304 v-6" />
+  <path class="flame" data-el="flame" d="M269 298 C 258 290, 262 280, 269 268 C 276 280, 280 290, 269 298 Z" />
+
+  <!-- neurons -->
+  <path class="nerve" d={PATHS.trunk} />
+  <path class="sens" d={PATHS.sensoryFixed} data-el="sensory" />
+  <ellipse class="ganglion" cx="330" cy="143" rx="15" ry="9" />
+  <path class="sens" d="M330 143 V130" /><circle class="sens-body" cx="330" cy="126" r="6" />
+  <path class="motor" d={PATHS.motor} data-el="motor" />
+  <path class="motor" d="M124 166 l12 -4 M124 166 l12 6 M124 166 l10 14" />
+  <polygon class="motor-body" points={star(392, 208)} />
+  <path class="relay" d={PATHS.relay} data-el="relay" />
+  <circle class="relay-body" cx="407" cy="176" r="5" />
+  <path class="asc" d={PATHS.ascending} data-el="ascending" />
+  <circle class="asc-body" cx="403" cy="140" r="4.5" />
+
+  <!-- impulse -->
+  <circle class="impulse" data-el="impulse" cx="268" cy="270" r="7" style="opacity:0" />
+  <circle class="ring" data-el="ring" cx="268" cy="270" r="10" style="opacity:0" />
+
+  <!-- labels, revealed step by step -->
+  <g class="lbls" data-el="lab-0">
+    <path class="lead" data-el="lead-receptor" d="M226 318 L262 274" />
+    <text class="lbl" x="222" y="322" text-anchor="end">free nerve endings</text>
+    <text class="lbl" x="222" y="337" text-anchor="end">(pain receptors)</text>
+    <text class="lbl" x="288" y="330">stimulus: heat</text>
+  </g>
+  <g class="lbls" data-el="lab-1" style="opacity:0">
+    <path class="lead" d="M176 86 L186 108" />
+    <text class="lbl" x="150" y="82">spinal nerve: sensory + motor fibres</text>
+    <path class="lead" d="M310 108 L326 122" />
+    <text class="lbl" x="316" y="98" text-anchor="end">dorsal root ganglion</text>
+    <text class="lbl sm" x="316" y="111" text-anchor="end">(sensory cell body)</text>
+    <text class="lbl" x="380" y="128" text-anchor="middle">dorsal root</text>
+  </g>
+  <g class="lbls" data-el="lab-2" style="opacity:0">
+    <path class="lead" d="M482 138 L411 174" />
+    <text class="lbl" x="484" y="134">relay</text>
+    <text class="lbl" x="484" y="148">neuron</text>
+    <path class="lead" d="M462 264 L446 214" />
+    <text class="lbl" x="462" y="276" text-anchor="middle">grey matter</text>
+    <path class="lead" d="M512 296 L488 206" />
+    <text class="lbl" x="512" y="308" text-anchor="middle">white matter</text>
+  </g>
+  <g class="lbls" data-el="lab-3" style="opacity:0">
+    <path class="lead" d="M372 262 L390 216" />
+    <text class="lbl" x="372" y="276" text-anchor="middle">motor neuron</text>
+    <text class="lbl" x="372" y="290" text-anchor="middle">cell body</text>
+    <path class="lead" d="M318 238 L340 208" />
+    <text class="lbl" x="314" y="250" text-anchor="middle">ventral root</text>
+  </g>
+  <g class="lbls" data-el="lab-4" style="opacity:0">
+    <path class="lead" d="M80 190 L130 196" />
+    <text class="lbl" x="82" y="164" text-anchor="end">biceps</text>
+    <text class="lbl" x="82" y="178" text-anchor="end">muscle</text>
+    <text class="lbl sm" x="82" y="192" text-anchor="end">(effector)</text>
+  </g>
+  <g class="lbls" data-el="lab-5" style="opacity:0">
+    <text class="lbl sm" x="556" y="94" text-anchor="end">to the brain</text>
+    <text class="lbl sm" x="556" y="108" text-anchor="end">in white matter</text>
+  </g>
+
+  <g class="legend" transform="translate(10 366)">
+    <path class="sens" d="M0 0 h22" /><text x="28" y="4">sensory neuron</text>
+    <path class="relay" d="M128 0 h22" /><text x="156" y="4">relay neuron</text>
+    <path class="motor" d="M246 0 h22" /><text x="274" y="4">motor neuron</text>
+    <path class="asc" d="M366 0 h22" /><text x="394" y="4">neuron to brain</text>
+  </g>
+</svg>
+<style>
+  .reflex { font-family: var(--font-sans); }
+  .lbl { font-size: 12.5px; fill: var(--text); }
+  .lbl.sm, .sm { font-size: 11.5px; }
+  .lead { stroke: var(--text-muted); stroke-width: 1; fill: none; }
+  .white { fill: color-mix(in srgb, var(--surface) 85%, var(--bio-tail)); stroke: var(--border-strong); stroke-width: 1.5; }
+  .grey { fill: color-mix(in srgb, var(--text-muted) 32%, var(--surface)); stroke: var(--text-muted); stroke-width: 1; }
+  .canal { fill: var(--surface); stroke: var(--text-muted); }
+  .skin { fill: color-mix(in srgb, var(--bio-head) 28%, var(--surface)); stroke: color-mix(in srgb, var(--bio-head) 60%, var(--text)); stroke-width: 1.2; }
+  .biceps { fill: color-mix(in srgb, var(--bio-chol) 60%, var(--surface)); stroke: var(--bio-chol); stroke-width: 1.2; }
+  .candle { fill: var(--surface-3); stroke: var(--border-strong); }
+  .wick { stroke: var(--text); stroke-width: 1.5; }
+  .flame { fill: var(--bio-glucose); stroke: var(--bio-head); stroke-width: 1.5; }
+  .nerve { fill: none; stroke: color-mix(in srgb, var(--text-muted) 30%, transparent); stroke-width: 11; stroke-linecap: round; }
+  .sens, .motor, .relay, .asc { fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  .sens { stroke: var(--bio-protein); }
+  .motor { stroke: var(--bio-protein-2); }
+  .relay { stroke: var(--bio-carb); }
+  .asc { stroke: var(--bio-head); stroke-dasharray: 6 4; }
+  .ending path { stroke: var(--bio-protein); stroke-width: 2; stroke-linecap: round; }
+  .ganglion { fill: color-mix(in srgb, var(--bio-protein) 20%, var(--surface)); stroke: var(--bio-protein); stroke-width: 1.2; }
+  .sens-body { fill: var(--bio-protein); }
+  .motor-body { fill: var(--bio-protein-2); }
+  .relay-body { fill: var(--bio-carb); }
+  .asc-body { fill: var(--bio-head); }
+  .brain { fill: color-mix(in srgb, var(--bio-chol) 22%, var(--surface)); stroke: var(--bio-chol); stroke-width: 1.5; }
+  .brain-line { fill: none; stroke: var(--bio-chol); stroke-width: 1.2; }
+  .brain-g.lit .brain { fill: color-mix(in srgb, var(--bio-glucose) 55%, var(--surface)); }
+  .impulse { fill: var(--bio-glucose); stroke: var(--text); stroke-width: 1.5; }
+  .ring { fill: none; stroke: var(--bio-glucose); stroke-width: 3; }
+  .active { stroke-width: 5; }
+  .legend text { font-size: 12px; fill: var(--text); }
+</style>

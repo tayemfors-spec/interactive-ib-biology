@@ -1,0 +1,156 @@
+---
+/**
+ * Endocrine control (C3.1.11–C3.1.13): the hypothalamus and pituitary gland, melatonin from the
+ * pineal gland, and epinephrine from the adrenal glands. Left: glands in the body. Right: a panel
+ * that changes with the step. Animated by c3-1-endocrine.ts.
+ */
+import { EP } from './c3-1-endocrine';
+const hour = (h: number) => 270 + (h - 12) * 11.25; // 12:00 → 12:00 next day
+const nightL = hour(20), nightR = hour(30);
+---
+<svg viewBox="0 0 560 380" xmlns="http://www.w3.org/2000/svg" class="endo">
+  <!-- ======= body panel ======= -->
+  <g class="body">
+    <circle class="skin" cx="80" cy="62" r="38" />
+    <rect class="skin" x="70" y="96" width="20" height="30" />
+    <rect class="skin" x="30" y="122" width="100" height="230" rx="28" />
+    <circle class="eye" cx="66" cy="66" r="3.5" /><circle class="eye" cx="94" cy="66" r="3.5" />
+    <path class="heart" d="M94 184 C 84 176, 80 170, 82 165 C 84 160, 91 160, 94 166 C 97 160, 104 160, 106 165 C 108 170, 104 176, 94 184 Z" />
+    <ellipse class="kidney" cx="60" cy="252" rx="9" ry="16" /><ellipse class="kidney" cx="100" cy="252" rx="9" ry="16" />
+  </g>
+  <g class="gland" data-el="g-pineal"><circle cx="80" cy="42" r="4.5" /></g>
+  <g class="gland" data-el="g-hypo"><ellipse cx="80" cy="57" rx="8" ry="5" /></g>
+  <g class="gland" data-el="g-pit"><circle cx="80" cy="71" r="4.5" /></g>
+  <g class="gland" data-el="g-thyroid"><ellipse cx="74" cy="114" rx="5" ry="7" /><ellipse cx="86" cy="114" rx="5" ry="7" /></g>
+  <g class="gland" data-el="g-adrenal"><path d="M51 238 L60 226 L69 238 Z M91 238 L100 226 L109 238 Z" /></g>
+  <g class="blbl">
+    <path class="lead" d="M85 42 L146 34" /><text x="148" y="38">pineal gland</text>
+    <path class="lead" d="M88 57 L146 56" /><text x="148" y="60">hypothalamus</text>
+    <path class="lead" d="M85 72 L146 80" /><text x="148" y="84">pituitary gland</text>
+    <path class="lead" d="M91 114 L146 114" /><text x="148" y="118">thyroid gland</text>
+    <path class="lead" d="M108 176 L146 174" /><text x="148" y="178">heart</text>
+    <path class="lead" d="M106 232 L146 226" /><text x="148" y="230">adrenal glands</text>
+    <path class="lead" d="M109 256 L146 258" /><text x="148" y="262">kidneys</text>
+  </g>
+  <path class="arrow" data-el="b-tsh" d="M86 75 C 100 86, 100 100, 90 107" marker-end="url(#en-ah)" style="opacity:0" />
+  <g data-el="b-light" style="opacity:0">
+    <circle class="sun" cx="16" cy="20" r="9" />
+    <path class="ray" d="M26 28 L60 60" marker-end="url(#en-ah)" />
+  </g>
+  {[0, 1, 2, 3].map((i) => <circle class="epi" data-el={`e${i}`} cx={EP[0]![0]} cy={EP[0]![1]} r="4.5" style="opacity:0" />)}
+  <line class="sep" x1="236" y1="8" x2="236" y2="372" />
+
+  <!-- ======= panel: hypothalamus and pituitary ======= -->
+  <g data-el="p-hp">
+    <text class="ttl" x="394" y="20" text-anchor="middle">Hypothalamus and pituitary gland</text>
+    <rect class="hypo" x="248" y="30" width="294" height="84" rx="18" />
+    <text class="bold" x="260" y="48">hypothalamus</text>
+    <text class="sm" x="530" y="48" text-anchor="end">neurosecretory cells</text>
+    <path class="stalk" d="M396 112 L452 112 L448 188 L420 198 L402 188 Z" />
+    <ellipse class="lobe" cx="360" cy="224" rx="58" ry="36" />
+    <ellipse class="lobe post" cx="466" cy="218" rx="38" ry="32" />
+    <text class="sm" x="352" y="232" text-anchor="middle">anterior</text><text class="sm" x="352" y="246" text-anchor="middle">pituitary</text>
+    <text class="sm" x="474" y="216" text-anchor="middle">posterior</text><text class="sm" x="474" y="230" text-anchor="middle">pituitary</text>
+    <!-- anterior route: releasing hormones → portal vessels -->
+    <path class="axon" d="M300 66 C 310 96, 352 108, 382 122" />
+    <path class="axon" d="M334 80 C 344 100, 366 110, 388 124" />
+    <circle class="nsc" cx="300" cy="66" r="7" /><circle class="nsc" cx="334" cy="80" r="7" />
+    <path class="portal" d="M386 124 C 386 150, 374 172, 362 200" />
+    <path class="cap" d="M376 120 q10 10 20 0 M352 202 q10 10 20 0" />
+    <!-- posterior route: hormones travel down axons -->
+    <path class="axon" d="M472 64 C 466 90, 440 106, 436 130 C 434 160, 452 180, 462 204" />
+    <path class="axon" d="M504 76 C 494 100, 448 112, 442 134 C 440 160, 456 182, 472 210" />
+    <circle class="nsc" cx="472" cy="64" r="7" /><circle class="nsc" cx="504" cy="76" r="7" />
+    <!-- blood leaving the pituitary -->
+    <rect class="blood" x="248" y="300" width="294" height="16" rx="8" />
+    <path class="exit" d="M360 260 V300 M466 250 V300" />
+    <g data-el="l-portal" style="opacity:0">
+      <path class="lead" d="M326 168 L372 168" /><text class="sm" x="324" y="164" text-anchor="end">portal</text><text class="sm" x="324" y="177" text-anchor="end">vessels</text>
+      <text class="sm hor-a" x="300" y="336" text-anchor="middle">TSH, FSH, LH, GH…</text>
+    </g>
+    <g data-el="l-post" style="opacity:0"><text class="sm hor-p" x="470" y="336" text-anchor="middle">ADH, oxytocin</text></g>
+    <text class="sm" x="394" y="358" text-anchor="middle">blood carries hormones to target organs</text>
+    <g data-el="l-fb" style="opacity:0">
+      <path class="fb" d="M534 298 C 556 240, 556 140, 538 108" marker-end="url(#en-ah)" />
+      <text class="fbt" x="0" y="0" transform="translate(524 222) rotate(-90)" text-anchor="middle">thyroxine: negative feedback</text>
+    </g>
+    {[0, 1].map((i) => <circle class="h-post" data-el={`ph${i}`} r="5" style="opacity:0" />)}
+    {[0, 1].map((i) => <circle class="h-rel" data-el={`rh${i}`} r="5" style="opacity:0" />)}
+    {[0, 1].map((i) => <circle class="h-ant" data-el={`ah${i}`} r="5" style="opacity:0" />)}
+  </g>
+
+  <!-- ======= panel: melatonin ======= -->
+  <g data-el="p-mel" style="opacity:0">
+    <text class="ttl" x="394" y="20" text-anchor="middle">Melatonin from the pineal gland</text>
+    <rect class="night" x={nightL} y="40" width={nightR - nightL} height="230" />
+    <text class="sm" x={(nightL + nightR) / 2} y="56" text-anchor="middle">dark</text>
+    <text class="sm" x={(270 + nightL) / 2} y="56" text-anchor="middle">light</text>
+    <text class="sm" x={(nightR + 540) / 2} y="56" text-anchor="middle">light</text>
+    <path class="axis" d="M270 40 V270 H540" />
+    <path class="mel" d="M270 266 L 360 266 C 378 264, 392 150, 414 104 C 428 80, 446 80, 458 104 C 472 140, 482 250, 500 264 L 540 266" />
+    {[12, 18, 24, 30, 36].map((h) => <text class="tick" x={hour(h)} y="286" text-anchor="middle">{String(h % 24).padStart(2, '0')}:00</text>)}
+    <text class="sm" x="0" y="0" transform="translate(258 160) rotate(-90)" text-anchor="middle">melatonin in blood</text>
+    <text class="sm" x="405" y="304" text-anchor="middle">time of day</text>
+    <text class="sm" x="394" y="330" text-anchor="middle">light → retina → SCN in the hypothalamus → pineal gland</text>
+    <text class="sm" x="394" y="350" text-anchor="middle">light suppresses secretion; darkness allows it</text>
+  </g>
+
+  <!-- ======= panel: epinephrine ======= -->
+  <g data-el="p-epi" style="opacity:0">
+    <text class="ttl" x="394" y="20" text-anchor="middle">Epinephrine (adrenaline) from the adrenal glands</text>
+    {[
+      'Heart rate and stroke volume increase',
+      'Bronchioles widen; ventilation rate rises',
+      'Liver breaks down glycogen to glucose',
+      'Arterioles to skeletal muscle widen',
+      'Arterioles to gut and skin narrow',
+      'Fatty acids released from adipose tissue',
+      'Pupils dilate; alertness increases',
+    ].map((s, i) => <g><circle class="dotk" cx="258" cy={58 + i * 34} r="5" /><text x="272" y={62 + i * 34}>{s}</text></g>)}
+    <rect class="result" x="248" y="296" width="294" height="54" rx="10" />
+    <text class="bold" x="394" y="318" text-anchor="middle">More O₂ and glucose reach muscles,</text>
+    <text class="bold" x="394" y="336" text-anchor="middle">ready for intense contraction</text>
+  </g>
+
+  <defs><marker id="en-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker></defs>
+</svg>
+<style>
+  .endo { font-family: var(--font-sans); }
+  .endo text { font-size: 12.5px; fill: var(--text); }
+  .endo .sm { font-size: 11.5px; }
+  .endo .bold { font-weight: 750; }
+  .endo .ttl { font-size: 13.5px; font-weight: 750; }
+  .endo .tick { font-size: 11px; fill: var(--text-muted); }
+  .blbl text { font-size: 11.5px; }
+  .skin { fill: color-mix(in srgb, var(--bio-head) 18%, var(--surface)); stroke: color-mix(in srgb, var(--bio-head) 55%, var(--text)); stroke-width: 1.2; }
+  .eye { fill: var(--text); }
+  .heart { fill: color-mix(in srgb, var(--bio-chol) 55%, var(--surface)); stroke: var(--bio-chol); }
+  .kidney { fill: color-mix(in srgb, var(--bio-chol) 30%, var(--surface)); stroke: var(--bio-chol); }
+  .gland { fill: var(--surface-3); stroke: var(--text-muted); stroke-width: 1.2; transition: fill 0.2s; }
+  .gland.hot { fill: var(--bio-glucose); stroke: var(--text); }
+  .lead { stroke: var(--text-muted); stroke-width: 1; fill: none; }
+  .arrow, .ray { stroke: var(--text); stroke-width: 1.6; fill: none; }
+  .ah { fill: var(--text); }
+  .sun { fill: var(--bio-glucose); stroke: var(--bio-head); stroke-width: 1.5; }
+  .epi { fill: var(--bio-chol); stroke: var(--text); stroke-width: 1; }
+  .sep { stroke: var(--border); stroke-width: 1.5; }
+  .hypo { fill: color-mix(in srgb, var(--bio-protein) 12%, var(--surface)); stroke: var(--bio-protein); stroke-width: 1.5; }
+  .stalk { fill: color-mix(in srgb, var(--bio-protein) 12%, var(--surface)); stroke: var(--bio-protein); stroke-width: 1.2; }
+  .lobe { fill: color-mix(in srgb, var(--bio-carb) 16%, var(--surface)); stroke: var(--bio-carb); stroke-width: 1.5; }
+  .lobe.post { fill: color-mix(in srgb, var(--bio-protein-2) 16%, var(--surface)); stroke: var(--bio-protein-2); }
+  .axon { fill: none; stroke: var(--bio-protein); stroke-width: 2; }
+  .nsc { fill: var(--bio-protein); }
+  .portal, .exit { fill: none; stroke: var(--bio-chol); stroke-width: 4; stroke-linecap: round; }
+  .cap { fill: none; stroke: var(--bio-chol); stroke-width: 2; }
+  .blood { fill: color-mix(in srgb, var(--bio-chol) 45%, var(--surface)); stroke: var(--bio-chol); }
+  .h-post { fill: var(--bio-protein-2); stroke: var(--text); stroke-width: 1; }
+  .h-rel { fill: var(--bio-carb); stroke: var(--text); stroke-width: 1; }
+  .h-ant { fill: var(--bio-glucose); stroke: var(--text); stroke-width: 1; }
+  .fb { fill: none; stroke: var(--bad); stroke-width: 2; stroke-dasharray: 6 4; }
+  .endo .fbt { font-size: 11.5px; font-weight: 700; fill: var(--text); }
+  .night { fill: color-mix(in srgb, var(--bio-protein-2) 18%, var(--surface)); }
+  .axis { fill: none; stroke: var(--text-muted); stroke-width: 1.5; }
+  .mel { fill: none; stroke: var(--bio-protein-2); stroke-width: 3.5; stroke-linecap: round; }
+  .dotk { fill: var(--bio-chol); }
+  .result { fill: var(--accent-soft); stroke: var(--accent); }
+</style>

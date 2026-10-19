@@ -1,0 +1,48 @@
+---
+/** C3.1.23: positive feedback between ethylene production and fruit ripening, and synchronization of ripening. */
+const fruits = [[470, 150, 1], [540, 120, 0.6], [560, 196, 0.4], [480, 226, 0.5], [600, 160, 0.25]] as const;
+const gas = [[500, 136], [516, 150], [504, 170], [526, 176], [520, 200], [540, 150], [498, 196], [560, 168], [578, 150], [540, 222]];
+---
+<svg viewBox="0 0 640 290" role="img" aria-labelledby="rip-t rip-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="rip-t">Positive feedback in fruit ripening</title>
+  <desc id="rip-d">A loop of two boxes. Ethylene (ethene) stimulates the changes of ripening, and ripening tissue makes more ethylene, so each increases the other: positive feedback. The changes listed are starch converted to sugars, cell walls softened, chlorophyll broken down, new pigments made and scents released. On the right, a ripening fruit gives off ethylene gas, which diffuses to neighbouring fruits and triggers their ripening too, so a whole group of fruits ripens rapidly and at the same time.</desc>
+  <rect class="node eth" x="20" y="24" width="196" height="54" rx="27" />
+  <text class="h" x="118" y="47" text-anchor="middle">Ethylene (ethene)</text>
+  <text class="s" x="118" y="65" text-anchor="middle">a gaseous phytohormone</text>
+  <rect class="node rip" x="20" y="190" width="196" height="54" rx="27" />
+  <text class="h" x="118" y="213" text-anchor="middle">Ripening</text>
+  <text class="s" x="118" y="231" text-anchor="middle">changes in the fruit</text>
+  <path class="loop" d="M60 80 C 30 120, 30 150, 60 188" marker-end="url(#rip-ah)" />
+  <path class="loop" d="M176 188 C 206 150, 206 120, 176 80" marker-end="url(#rip-ah)" />
+  <text class="plus" x="28" y="140" text-anchor="middle">+</text>
+  <text class="plus" x="208" y="140" text-anchor="middle">+</text>
+  <text class="s" x="118" y="128" text-anchor="middle">positive</text>
+  <text class="s" x="118" y="144" text-anchor="middle">feedback</text>
+  <text class="tiny" x="118" y="270" text-anchor="middle">ethylene → ripening → more ethylene → …</text>
+
+  <text class="h" x="248" y="44">Ripening changes</text>
+  {['starch → sugars (sweeter)', 'cell walls broken down (softer)', 'chlorophyll broken down', 'new pigments (colour)', 'scent compounds released'].map((s, i) => <g><circle class="dot" cx="254" cy={66 + i * 26} r="4" /><text class="s" x="264" y={70 + i * 26}>{s}</text></g>)}
+
+  {fruits.map(([x, y, r]) => <circle class="fruit" cx={x} cy={y} r="24" style={`--ripe:${Math.round(r * 100)}%`} />)}
+  {gas.map(([x, y]) => <circle class="gas" cx={x} cy={y} r="3" />)}
+  <text class="h" x="540" y="44" text-anchor="middle">Synchronized ripening</text>
+  <text class="s" x="540" y="66" text-anchor="middle">ethylene gas diffuses</text>
+  <text class="s" x="540" y="82" text-anchor="middle">to nearby fruits</text>
+  <text class="s" x="540" y="270" text-anchor="middle">fruits ripen quickly, together</text>
+  <defs><marker id="rip-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker></defs>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .node { stroke-width: 1.5; }
+  .eth { fill: color-mix(in srgb, var(--bio-protein) 14%, var(--surface)); stroke: var(--bio-protein); }
+  .rip { fill: color-mix(in srgb, var(--bio-head) 16%, var(--surface)); stroke: var(--bio-head); }
+  .h { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .s { font-size: 13px; fill: var(--text); }
+  .tiny { font-size: 12px; fill: var(--text-muted); font-style: italic; }
+  .plus { font-size: 22px; font-weight: 800; fill: var(--good); }
+  .loop { fill: none; stroke: var(--text); stroke-width: 2.2; }
+  .ah { fill: var(--text); }
+  .dot { fill: var(--bio-head); }
+  .fruit { fill: color-mix(in srgb, var(--bio-chol) var(--ripe), var(--bio-carb)); stroke: var(--text); stroke-width: 1; }
+  .gas { fill: none; stroke: var(--bio-protein); stroke-width: 1.5; }
+</style>

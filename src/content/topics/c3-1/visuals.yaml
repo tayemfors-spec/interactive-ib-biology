@@ -1,0 +1,120 @@
+# Visuals for C3.1. Step captions here are what readers see in the animations and text descriptions,
+# so they are written to exam standard.
+visuals:
+  - id: reflex
+    kind: anim
+    module: c3-1-reflex
+    title: The pain reflex arc
+    alt: Step-by-step diagram of a pain reflex from free nerve endings in the hand, through the spinal cord, to the biceps muscle.
+    description: >-
+      On the left an arm, with the upper arm vertical and the forearm held forwards so that the fingertip is just
+      above a candle flame. On the right the spinal cord is shown in transverse section, dorsal side at the top: a
+      butterfly-shaped area of grey matter surrounded by white matter, with a central canal. A spinal nerve from the
+      arm divides into a dorsal root, which has a swelling (the dorsal root ganglion) containing the cell body of the
+      sensory neuron, and a ventral root. Inside the grey matter a single relay neuron connects the sensory neuron to
+      a motor neuron whose cell body is in the ventral horn. The motor neuron's axon runs out through the ventral root
+      and the spinal nerve to the biceps. A separate neuron carries a signal up the white matter to the brain. The six
+      steps follow a nerve impulse around the arc and show the arm flexing to pull the hand away.
+    steps:
+      - id: stimulus
+        title: Stimulus at the receptor
+        caption: The fingertip touches a flame. Free nerve endings of a sensory neuron in the skin act as pain receptors — heat that could damage the tissue stimulates them, and nerve impulses start. No separate receptor cell is needed.
+      - id: sensory
+        title: Sensory neuron to the spinal cord
+        caption: Impulses travel along the long axon of the sensory neuron, through a spinal nerve and the dorsal root, into the grey matter of the spinal cord. The sensory neuron's cell body lies in the dorsal root ganglion, a swelling on the dorsal root.
+      - id: relay
+        title: Relay neuron in the grey matter
+        caption: In the grey matter the sensory neuron synapses with a single relay neuron (interneuron), which passes the signal on to a motor neuron. This is where the reflex is integrated, without any input from the brain.
+      - id: motor
+        title: Motor neuron to the muscle
+        caption: The relay neuron synapses with a motor neuron whose cell body is in the ventral horn of the grey matter. Impulses travel out along its axon, through the ventral root and the same spinal nerve, to the arm.
+      - id: effector
+        title: The effector responds
+        caption: At motor end plates the motor neuron stimulates the biceps, a skeletal muscle (the effector), to contract. The arm flexes at the elbow and the hand is pulled away from the flame. The response is involuntary and fast because the brain is not involved.
+      - id: brain
+        title: The brain becomes aware
+        caption: The sensory neuron also synapses with a neuron that carries impulses up the spinal cord, in the white matter, to the brain. The pain is felt consciously only when these signals reach the cerebral hemispheres — after the hand has already started to move.
+
+  - id: heart-rate
+    kind: sim
+    module: c3-1-heart-rate
+    title: Feedback control of heart rate and ventilation rate
+    alt: Sliders for exercise intensity and blood pressure show signals from receptors to the medulla and the resulting heart and ventilation rates.
+    description: >-
+      Two signal pathways and a graph. In the heart-rate panel, chemoreceptors in the carotid and aortic bodies
+      (sensing blood pH, CO₂ and O₂) and baroreceptors in the carotid sinus and aortic arch (sensing blood pressure)
+      send impulses to the cardiovascular centre in the medulla. The medulla sends impulses along a sympathetic nerve,
+      which speeds the heart and strengthens its contractions, and along the vagus nerve (parasympathetic), which slows
+      it; both act on the sinoatrial node. In the ventilation panel, chemoreceptors in the brainstem and in the carotid
+      and aortic bodies signal to the respiratory centre in the medulla, which controls the diaphragm and intercostal
+      muscles. Raising exercise intensity increases CO₂ production and lowers blood pH, so heart rate, stroke volume,
+      ventilation rate and tidal volume all rise, which keeps pH close to normal. Raising blood pressure increases
+      baroreceptor firing and vagus activity, so heart rate falls. A thought-experiment switch blocks the chemoreceptor
+      signals to the respiratory centre: ventilation then cannot rise, CO₂ accumulates and pH falls far below normal.
+      The model is qualitative.
+
+  - id: endocrine
+    kind: anim
+    module: c3-1-endocrine
+    title: Hormonal control by the hypothalamus, pineal and adrenal glands
+    alt: Diagram of the endocrine glands with a close-up of the hypothalamus and pituitary, a melatonin graph and the effects of epinephrine.
+    description: >-
+      On the left, an outline of the human body showing the pineal gland, hypothalamus and pituitary gland in the
+      head, the thyroid gland in the neck, the heart, and the adrenal glands on top of the kidneys. On the right, a
+      panel changes with each step. The first four steps show the hypothalamus above the pituitary gland:
+      neurosecretory cells send hormones down their axons to the posterior pituitary, or release releasing hormones
+      into portal blood vessels that run to the anterior pituitary, which then secretes its own hormones into the
+      blood. A negative feedback arrow shows thyroxine inhibiting the hypothalamus and pituitary. The fifth step shows
+      a 24-hour graph of melatonin in the blood: low during the day, rising after dark, peaking in the middle of the
+      night and falling before morning. The last step lists the effects of epinephrine from the adrenal glands.
+    steps:
+      - id: hub
+        title: The hypothalamus controls the pituitary
+        caption: The hypothalamus, at the base of the brain, receives nerve impulses from many brain regions and monitors the blood. It links the nervous and endocrine systems by controlling the pituitary gland just below it, whose hormones regulate many other glands.
+      - id: posterior
+        title: Hormones made in the hypothalamus
+        caption: Neurosecretory cells in the hypothalamus make ADH and oxytocin. The hormones pass down the cells' axons to the posterior pituitary, which stores them and releases them into the blood when impulses arrive.
+      - id: anterior
+        title: Releasing hormones and the anterior pituitary
+        caption: Other neurosecretory cells secrete releasing hormones into portal blood vessels that lead to the anterior pituitary. In response, its cells secrete their own hormones, such as TSH, FSH, LH and growth hormone, into the blood.
+      - id: feedback
+        title: Target glands and negative feedback
+        caption: TSH stimulates the thyroid gland to secrete thyroxine. Rising thyroxine inhibits the release of TRH by the hypothalamus and of TSH by the anterior pituitary, keeping thyroxine within a narrow range (negative feedback).
+      - id: melatonin
+        title: Melatonin and the sleep–wake cycle
+        caption: Light detected by the retina inhibits melatonin secretion by the pineal gland, via the suprachiasmatic nucleus (SCN) of the hypothalamus. After dark secretion rises, peaking in the middle of the night; melatonin promotes sleep, and levels fall again before waking.
+      - id: epinephrine
+        title: Epinephrine prepares the body for action
+        caption: In danger, stress or vigorous exercise, sympathetic nerves stimulate the adrenal glands to secrete epinephrine (adrenaline) into the blood. It acts on many tissues at once, so skeletal muscles receive more oxygen and glucose for intense contraction.
+
+  - id: phototropism
+    kind: anim
+    module: c3-1-phototropism
+    level: AHL
+    title: How auxin causes phototropism
+    alt: A seedling shoot bends towards light from one side as auxin moves to the shaded side and makes those cells elongate.
+    description: >-
+      On the left, a seedling growing in a pot. On the right, a close-up of a block of cells just below the shoot
+      tip, in four columns: the two left columns are on the side away from the light (the shaded side) and the two
+      right columns are on the lit side. Auxin is shown as orange dots. With light from above, auxin is spread evenly
+      and the shoot grows straight. With light from the right, auxin efflux carriers (PIN proteins) move to the
+      membranes facing the shaded side, and auxin is pumped across to the shaded side. A close-up of a cell wall shows
+      acid growth: proton pumps secrete hydrogen ions into the wall, expansins loosen the cross-links between
+      cellulose microfibrils and the cell elongates. Finally the shaded-side cells are longer than the lit-side cells
+      and the shoot bends towards the light; the angle of curvature, about 43 degrees, is marked.
+    steps:
+      - id: even
+        title: Light from above
+        caption: With light from above, the shoot tip makes auxin, which is transported down both sides of the shoot equally. Cells on both sides elongate at the same rate, so the shoot grows straight up.
+      - id: detect
+        title: Light from one side
+        caption: Light now comes from the right only. Photoreceptor proteins (phototropins) in the shoot tip absorb blue light and detect the direction it comes from.
+      - id: redistribute
+        title: Auxin moves to the shaded side
+        caption: Auxin efflux carriers (PIN proteins) are moved to the membranes facing the shaded side of the cells, so auxin is pumped sideways from cell to cell. Auxin becomes more concentrated on the shaded side.
+      - id: acid
+        title: Acid growth in shaded-side cells
+        caption: Auxin activates proton pumps that secrete H⁺ into the cell wall (apoplast). The acidic wall activates expansins, which loosen the cross-links between cellulose microfibrils, so turgor pressure stretches the wall and the cell elongates.
+      - id: bend
+        title: The shoot bends towards the light
+        caption: Shaded-side cells elongate more than lit-side cells, so the shoot curves towards the light (positive phototropism). The angle of curvature, between the vertical and the tip, can be measured to compare responses.

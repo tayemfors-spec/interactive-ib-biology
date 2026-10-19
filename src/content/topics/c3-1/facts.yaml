@@ -1,0 +1,187 @@
+facts:
+  - id: f1
+    claim: Cells, tissues, organs and organ systems form a hierarchy of subsystems; integration produces emergent properties (cheetah as an effective predator).
+    where: [ "index.mdx#integration", "src/diagrams/c3-1-hierarchy.astro", "flashcards.yaml:c1", "flashcards.yaml:c2" ]
+    confidence: high
+    basis: IB guide C3.1.1–C3.1.2; Campbell Biology (levels of organization)
+    status: checked
+  - id: f2
+    claim: Cheetahs can sprint at more than 90 km/h (recorded maximum about 29 m/s ≈ 104 km/h).
+    where: [ "index.mdx#integration" ]
+    confidence: high
+    basis: Sharp (1997) Journal of Zoology 241 493; Wilson et al. (2013) Nature 498 185 (wild cheetahs up to 25.9 m/s)
+    status: checked
+  - id: f3
+    claim: Nervous signals are electrical impulses along neurons (chemical at synapses), fast and short-lived, acting on specific cells; hormones are carried in the blood to all tissues, act on cells with receptors, slower and often longer-lasting.
+    where: [ "index.mdx#signalling", "quiz.yaml:q1", "flashcards.yaml:c3", "index.mdx (mustKnow, mistakes)" ]
+    confidence: high
+    basis: Campbell Biology ch. 45; IB guide C3.1.3
+    status: checked
+  - id: f4
+    claim: Blood transports O₂, CO₂, products of digestion (to the liver via the hepatic portal vein, then to tissues), urea from liver to kidneys, hormones, and heat from active organs to the skin.
+    where: [ "index.mdx#signalling", "flashcards.yaml:c4" ]
+    confidence: high
+    basis: Standard physiology (Campbell; Tortora)
+    status: checked
+  - id: f5
+    claim: Cerebral hemispheres integrate information from multiple inputs and are involved in learning and memory and in initiating voluntary movement; learning involves changes in synaptic connections.
+    where: [ "index.mdx#cns", "src/diagrams/c3-1-cns.astro" ]
+    confidence: high
+    basis: Kandel, Principles of Neural Science; IB guide C3.1.4
+    status: checked
+  - id: f6
+    claim: Spinal cord grey matter contains cell bodies and synapses (relay and motor neurons); white matter contains myelinated axons carrying signals to and from the brain; spinal cord integrates reflexes (unconscious processes).
+    where: [ "index.mdx#cns", "index.mdx#reflex", "visuals.yaml:reflex" ]
+    confidence: high
+    basis: Standard neuroanatomy (Kandel; Tortora)
+    status: checked
+  - id: f7
+    claim: The cerebellum coordinates skeletal muscle contraction, posture and balance using input about intended movement and feedback from proprioceptors, the vestibular system and eyes; damage causes ataxia (clumsy movements, unsteady gait) without muscle weakness; it is involved in motor learning.
+    where: [ "index.mdx#cns", "flashcards.yaml:c6", "src/diagrams/c3-1-cns.astro" ]
+    confidence: high
+    basis: Kandel, Principles of Neural Science (cerebellum chapter)
+    status: checked
+  - id: f8
+    claim: Sensory neurons carry impulses from receptors into the CNS via dorsal roots (or cranial nerves); their cell bodies are in ganglia (dorsal root ganglia) outside the CNS. Motor neuron cell bodies are in the ventral horn of grey matter; axons leave via ventral roots.
+    where: [ "index.mdx#neurons-nerves", "index.mdx#reflex", "quiz.yaml:q2", "visuals.yaml:reflex", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: Standard neuroanatomy (Bell–Magendie law; Tortora)
+    status: checked
+  - id: f9
+    claim: Voluntary movement — signals from the motor cortex descend the spinal cord and are passed to lower motor neurons, which stimulate skeletal muscle at motor end plates.
+    where: [ "index.mdx#neurons-nerves" ]
+    confidence: high
+    basis: Kandel; IB guide C3.1.7 (simplified to "output from the cerebral hemispheres to muscles through motor neurons")
+    status: checked
+  - id: f10
+    claim: A nerve is a bundle of nerve fibres, usually mixed sensory and motor, with an epineurium (outer sheath), perineurium around fascicles, myelinated and unmyelinated fibres (unmyelinated axons grouped in Schwann cells) and blood vessels.
+    where: [ "index.mdx#neurons-nerves", "src/diagrams/c3-1-nerve-ts.astro", "quiz.yaml:q5", "flashcards.yaml:c7" ]
+    confidence: high
+    basis: Histology texts (Ross & Pawlina; Junqueira); IB guide C3.1.8
+    status: checked
+  - id: f11
+    claim: Pain reflex arc (IB example) — free nerve endings in the hand as pain receptors, sensory neuron, one relay neuron in the grey matter, motor neuron, skeletal muscle effector; pain is perceived after the withdrawal begins. The real withdrawal reflex is polysynaptic; the single relay neuron is the IB simplification.
+    where: [ "index.mdx#reflex", "visuals.yaml:reflex", "flashcards.yaml:c8", "flashcards.yaml:c9" ]
+    confidence: high
+    basis: IB guide C3.1.9; Kandel (flexion-withdrawal reflex)
+    status: checked
+  - id: f12
+    claim: The biceps is used as the effector (flexing the elbow to lift the hand). Real withdrawal involves several flexor muscles.
+    where: [ "visuals.yaml:reflex", "index.mdx#reflex" ]
+    confidence: medium
+    basis: Editorial simplification consistent with study-guide description (muscles that flex the arm at the elbow)
+    status: open
+  - id: f13
+    claim: Melatonin is secreted by the pineal gland; light detected by the retina (melanopsin ganglion cells) inhibits it via the suprachiasmatic nucleus of the hypothalamus; levels rise in the evening, peak in the middle of the night (about 02:00–04:00) and fall before waking; melatonin promotes sleepiness and lowers core temperature.
+    where: [ "index.mdx#hormones", "visuals.yaml:endocrine", "src/anims/c3-1-endocrine.astro", "quiz.yaml:q6", "flashcards.yaml:c10" ]
+    confidence: high
+    basis: Arendt (2005) and standard endocrinology texts; IB guide C3.1.11
+    status: checked
+  - id: f14
+    claim: Epinephrine is secreted by the adrenal glands (medulla) on sympathetic stimulation; effects include increased heart rate and stroke volume, bronchodilation, hepatic glycogenolysis, vasodilation in skeletal muscle and vasoconstriction in gut and skin, pupil dilation and lipolysis.
+    where: [ "index.mdx#hormones", "visuals.yaml:endocrine", "src/anims/c3-1-endocrine.astro", "flashcards.yaml:c11" ]
+    confidence: high
+    basis: Guyton & Hall Textbook of Medical Physiology (adrenal medulla)
+    status: checked
+  - id: f15
+    claim: ADH and oxytocin are made by neurosecretory cells in the hypothalamus and released from the posterior pituitary; hypothalamic releasing hormones reach the anterior pituitary via portal vessels; the anterior pituitary secretes TSH, FSH, LH, GH (and ACTH, prolactin); thyroxine inhibits TRH and TSH release by negative feedback.
+    where: [ "index.mdx#hormones", "visuals.yaml:endocrine", "src/anims/c3-1-endocrine.astro" ]
+    confidence: high
+    basis: Guyton & Hall; Campbell ch. 45. (Anterior/posterior differences are beyond the IB requirement and are labelled as such.)
+    status: checked
+  - id: f16
+    claim: Baroreceptors are in the aortic arch and carotid sinuses; peripheral chemoreceptors in the carotid and aortic bodies detect pH, CO₂ and O₂; central chemoreceptors are in the medulla.
+    where: [ "index.mdx#heart-rate", "index.mdx#ventilation", "visuals.yaml:heart-rate", "src/sims/c3-1-heart-rate.astro", "quiz.yaml:q3", "flashcards.yaml:c12" ]
+    confidence: high
+    basis: Guyton & Hall (baroreceptor reflex; chemoreceptor control of respiration); IB guide C3.1.14
+    status: checked
+  - id: f17
+    claim: The cardiovascular centre in the medulla increases heart rate and contractility via sympathetic (cardiac accelerator) nerves and decreases heart rate via the vagus nerve; a rise in blood pressure increases vagal and decreases sympathetic output.
+    where: [ "index.mdx#heart-rate", "src/sims/models/c3-1-heart-rate.ts", "quiz.yaml:q3", "flashcards.yaml:c13", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: Guyton & Hall (nervous regulation of the circulation)
+    status: checked
+  - id: f18
+    claim: Sim values — resting heart rate 70 min⁻¹, stroke volume 70 cm³, cardiac output ≈ 4.9 dm³ min⁻¹, maximum heart rate ≈ 185 min⁻¹, maximum stroke volume ≈ 110 cm³; resting ventilation 12 breaths min⁻¹ × 0.5 dm³; maximal exercise about 40 breaths min⁻¹ and tidal volume about 2.5 dm³ (≈ 100 dm³ min⁻¹).
+    where: [ "src/sims/models/c3-1-heart-rate.ts", "src/sims/c3-1-heart-rate.astro" ]
+    confidence: medium
+    basis: Typical textbook values for an untrained young adult (Guyton & Hall; McArdle, Exercise Physiology). The model is labelled qualitative.
+    status: open
+  - id: f19
+    claim: Blood pH is normally 7.35–7.45; pH = 6.1 + log10([HCO₃⁻]/(0.23 × pCO₂ in kPa)) gives 7.40 at pCO₂ 5.3 kPa and HCO₃⁻ 24 mmol dm⁻³; in moderate exercise arterial pCO₂ stays close to normal because ventilation rises with CO₂ production; in very hard exercise lactic acid lowers HCO₃⁻ and pH.
+    where: [ "index.mdx#ventilation", "src/sims/models/c3-1-heart-rate.ts" ]
+    confidence: high
+    basis: Henderson–Hasselbalch equation for the bicarbonate buffer (Guyton & Hall); exercise physiology (McArdle)
+    status: checked
+  - id: f20
+    claim: CO₂ + H₂O ⇌ H₂CO₃ ⇌ H⁺ + HCO₃⁻, catalysed by carbonic anhydrase in red blood cells; the respiratory centre in the medulla signals via phrenic nerves to the diaphragm and via intercostal nerves to the external intercostal muscles.
+    where: [ "index.mdx#ventilation", "visuals.yaml:heart-rate", "src/sims/c3-1-heart-rate.astro", "quiz.yaml:q4" ]
+    confidence: high
+    basis: Guyton & Hall (regulation of respiration); IB guide C3.1.15
+    status: checked
+  - id: f21
+    claim: Intrinsic SA node rate is faster than the resting heart rate (≈ 100 vs ≈ 70 min⁻¹) because vagal tone dominates at rest.
+    where: [ "src/sims/c3-1-heart-rate.astro (readout)" ]
+    confidence: high
+    basis: Guyton & Hall (denervated/transplanted heart rate ~100 min⁻¹)
+    status: checked
+  - id: f22
+    claim: Peristalsis — circular muscle contracts behind the bolus and relaxes in front; it is coordinated by the enteric nervous system (myenteric and submucosal plexuses) and can occur in isolated gut; swallowing is initiated voluntarily; egestion is controlled voluntarily via the external anal sphincter (skeletal muscle), learned in early childhood.
+    where: [ "index.mdx#peristalsis", "src/diagrams/c3-1-peristalsis.astro", "flashcards.yaml:c14", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: Guyton & Hall (gastrointestinal physiology); IB guide C3.1.16
+    status: checked
+  - id: f23
+    claim: Tropism experiments — qualitative (drawings) vs quantitative (angle of curvature); precision limited by 1° protractor divisions; reliability improved by repeats, means and spread.
+    where: [ "index.mdx#tropisms", "src/diagrams/c3-1-tropism-measure.astro", "quiz.yaml:q7" ]
+    confidence: high
+    basis: IB guide C3.1.17 (NOS); standard practical methodology
+    status: checked
+  - id: f24
+    claim: Phototropism is detected by phototropins (blue-light photoreceptors) in the shoot tip; lateral auxin redistribution to the shaded side involves relocation of PIN efflux carriers (e.g. PIN3) to shaded-side membranes.
+    where: [ "index.mdx#auxin-growth", "visuals.yaml:phototropism" ]
+    confidence: high
+    basis: Ding et al. (2011) Nature Cell Biology 13 447 (PIN3 relocalization); Christie (2007) Annu Rev Plant Biol (phototropins)
+    status: checked
+  - id: f25
+    claim: Chemiosmotic model of polar auxin transport — IAAH diffuses in from the acidic wall (pH ≈ 5.5), ionizes to IAA⁻ in the cytoplasm (pH ≈ 7) and leaves through PIN efflux carriers; proton pumps maintain the gradient. (AUX1/LAX influx carriers also exist but are not required.)
+    where: [ "index.mdx#phytohormones", "src/diagrams/c3-1-auxin-transport.astro", "quiz.yaml:q8", "flashcards.yaml:c15" ]
+    confidence: high
+    basis: Taiz & Zeiger, Plant Physiology and Development (auxin transport); IB guide C3.1.20
+    status: checked
+  - id: f26
+    claim: Acid growth — auxin activates plasma-membrane H⁺-ATPases, the apoplast is acidified, expansins loosen wall polysaccharide cross-links (hydrogen bonds between cellulose microfibrils and hemicelluloses), and turgor drives elongation.
+    where: [ "index.mdx#auxin-growth", "visuals.yaml:phototropism", "quiz.yaml:q9", "flashcards.yaml:c16" ]
+    confidence: high
+    basis: Cosgrove (2005) Nature Reviews MCB 6 850; Taiz & Zeiger
+    status: checked
+  - id: f27
+    claim: Phytohormone table — auxin (elongation, phototropism, apical dominance, lateral roots), cytokinins (cell division, side buds), gibberellins (stem elongation, germination), abscisic acid (stomatal closure, dormancy), ethylene (ripening, leaf abscission).
+    where: [ "index.mdx#phytohormones" ]
+    confidence: high
+    basis: Taiz & Zeiger; Campbell ch. 39
+    status: checked
+  - id: f28
+    claim: Auxin from shoot tips moves to roots and promotes lateral root formation; cytokinin from root tips moves in the xylem to shoots and promotes cell division and lateral bud outgrowth; high auxin:cytokinin promotes roots and high cytokinin:auxin promotes shoots in tissue culture.
+    where: [ "index.mdx#root-shoot", "src/diagrams/c3-1-root-shoot.astro", "flashcards.yaml:c17" ]
+    confidence: high
+    basis: Skoog & Miller (1957); Taiz & Zeiger; IB guide C3.1.22
+    status: checked
+  - id: f29
+    claim: The statement that a larger root system sends more cytokinin to the shoot (and a larger shoot more auxin to the roots), matching their growth, is a simplified model of root–shoot integration.
+    where: [ "index.mdx#root-shoot", "src/diagrams/c3-1-root-shoot.astro" ]
+    confidence: medium
+    basis: Consistent with the IB guide's account; real control also involves nutrient signals (e.g. nitrate–cytokinin signalling)
+    status: open
+  - id: f30
+    claim: Ethylene (ethene, C₂H₄) is a gaseous phytohormone; in climacteric fruits (tomato, banana, apple) ripening is autocatalytic — ethylene stimulates its own synthesis — so ripening is rapid and synchronized; bananas are ripened commercially with ethylene.
+    where: [ "index.mdx#ripening", "src/diagrams/c3-1-ripening.astro", "quiz.yaml:q10", "flashcards.yaml:c18", "index.mdx (mustKnow, mistakes)" ]
+    confidence: high
+    basis: Taiz & Zeiger (ethylene, climacteric ripening); IB guide C3.1.23
+    status: checked
+  - id: f31
+    claim: The phototropism animation's angle of curvature (≈ 43°) and seedling drawings are illustrative, not measured data.
+    where: [ "visuals.yaml:phototropism", "src/diagrams/c3-1-tropism-measure.astro" ]
+    confidence: high
+    basis: Editorial
+    status: checked

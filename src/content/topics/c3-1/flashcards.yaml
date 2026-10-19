@@ -1,0 +1,73 @@
+cards:
+  - id: c1
+    level: SL
+    front: What is an emergent property? Give the C3.1 example.
+    back: A property of a whole system that its parts do not have on their own, arising from their integration. A cheetah is an effective predator because its muscular, skeletal, nervous, respiratory and circulatory systems work together.
+  - id: c2
+    level: SL
+    front: List the levels of organization from cell to organism.
+    back: Cells → tissues → organs → organ systems → organism. Each level is a subsystem of the level above.
+  - id: c3
+    level: SL
+    front: Give three contrasts between nervous and endocrine signalling.
+    back: Impulses along neurons vs hormones in the blood; fast and short-lived vs slower and longer-lasting; acts on the specific cells the neurons reach vs any cell with receptors for the hormone.
+  - id: c4
+    level: SL
+    front: Give three materials the blood transports between organs.
+    back: Any three — O₂ from lungs to tissues; CO₂ to the lungs; glucose from the small intestine to the liver and tissues; urea from the liver to the kidneys; hormones from glands to target cells; heat from active organs to the skin.
+  - id: c5
+    level: SL
+    front: Conscious vs unconscious processes — where is each integrated?
+    back: Conscious (aware, voluntary, e.g. deciding to pick something up) — cerebral hemispheres. Unconscious (automatic, e.g. reflexes) — spinal cord; heart and ventilation rates — medulla.
+  - id: c6
+    level: SL
+    front: What does the cerebellum do?
+    back: Coordinates skeletal muscle contraction and balance. It compares the intended movement with feedback from muscles, joints, the inner ear and eyes and adjusts timing and force so movements are smooth.
+  - id: c7
+    level: SL
+    front: What can you identify in a transverse section of a nerve?
+    back: An outer protective sheath of connective tissue; bundles of fibres, each in its own sheath; myelinated fibres (rings — myelin around an axon); unmyelinated fibres (small, no myelin ring); blood vessels.
+  - id: c8
+    level: SL
+    front: Name the parts of a pain reflex arc in order.
+    back: Free nerve endings (pain receptors) in the hand → sensory neuron (cell body in the dorsal root ganglion, enters via the dorsal root) → relay neuron in the grey matter → motor neuron (leaves via the ventral root) → skeletal muscle (effector).
+  - id: c9
+    level: SL
+    front: Why is a reflex fast?
+    back: Few neurons and only two synapses in the spinal cord are involved, and the response does not wait for the brain. The brain is informed afterwards, so pain is felt after the movement has started.
+  - id: c10
+    level: SL
+    front: Describe the daily pattern of melatonin secretion.
+    back: Secreted by the pineal gland. Low in daylight because light inhibits it (via the retina and the SCN of the hypothalamus); rises in the evening, peaks in the middle of the night, falls before morning. It promotes sleep.
+  - id: c11
+    level: SL
+    front: Give four effects of epinephrine that support intense muscle contraction.
+    back: Any four — heart rate and stroke volume rise; bronchioles widen and ventilation increases; liver breaks down glycogen to glucose; arterioles to skeletal muscle widen while those to gut and skin narrow; pupils dilate.
+  - id: c12
+    level: SL
+    front: Where are baroreceptors and chemoreceptors that influence heart rate?
+    back: Baroreceptors — walls of the aortic arch and carotid sinuses (blood pressure). Chemoreceptors — carotid and aortic bodies (pH, CO₂, O₂), plus chemoreceptors in the medulla.
+  - id: c13
+    level: SL
+    front: Which nerves from the medulla speed up and slow down the heart?
+    back: Sympathetic (cardiac accelerator) nerves increase heart rate and stroke volume. The vagus nerve (parasympathetic) decreases heart rate. Both act on the SA node.
+  - id: c14
+    level: SL
+    front: Outline the control of peristalsis.
+    back: Swallowing is started voluntarily by the CNS, and egestion is under voluntary control of the anal sphincter. In between, peristalsis is involuntary, coordinated by the enteric nervous system in the gut wall.
+  - id: c15
+    level: AHL
+    front: How do auxin efflux carriers create an auxin gradient?
+    back: Uncharged auxin diffuses into cells, then ionizes in the cytoplasm and is trapped. It leaves only through efflux carriers (PIN proteins). When all cells place them on the same side, auxin is passed in one direction and concentrates in one region.
+  - id: c16
+    level: AHL
+    front: Outline the acid growth hypothesis.
+    back: Auxin stimulates proton pumps that secrete H⁺ into the cell wall. The low pH activates expansins, which loosen cross-links between cellulose molecules. Turgor stretches the wall and the cell elongates.
+  - id: c17
+    level: AHL
+    front: Auxin and cytokinin — where made, where do they go, what do they do?
+    back: Auxin — made in shoot tips, transported to roots, promotes lateral root formation. Cytokinin — made in root tips, carried in the xylem to shoots, promotes cell division and side-bud growth. Together they keep root and shoot growth matched.
+  - id: c18
+    level: AHL
+    front: Why is fruit ripening an example of positive feedback, and what is the benefit?
+    back: Ethylene stimulates ripening and ripening stimulates more ethylene production, so the change amplifies itself. Ethylene gas also spreads to neighbouring fruits, so ripening is rapid and synchronized — attracting seed-dispersing animals.

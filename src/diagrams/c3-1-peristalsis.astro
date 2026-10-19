@@ -1,0 +1,65 @@
+---
+/** C3.1.16: voluntary control of swallowing and egestion (CNS) and involuntary peristalsis (ENS). */
+const CY = 240;
+const bump = (x: number, c: number, w: number) => Math.exp(-(((x - c) / w) ** 2));
+// half-height of the lumen along the gut: squeezed behind the bolus, stretched around it, relaxed ahead
+const lumen = (x: number) => 20 - 15 * bump(x, 205, 26) + 16 * bump(x, 292, 34) + 6 * bump(x, 380, 40);
+const xs = Array.from({ length: 113 }, (_, i) => 40 + i * 5);
+const edge = (off: (x: number) => number, sign: number) => xs.map((x, i) => `${i ? 'L' : 'M'}${x} ${(CY + sign * off(x)).toFixed(1)}`).join(' ');
+const band = (inner: (x: number) => number, outer: (x: number) => number, sign: number) =>
+  `${edge(inner, sign)} ${[...xs].reverse().map((x) => `L${x} ${(CY + sign * outer(x)).toFixed(1)}`).join(' ')} Z`;
+const circIn = lumen, circOut = (x: number) => lumen(x) + 13, longOut = (x: number) => lumen(x) + 19;
+const plexus = xs.filter((_, i) => i % 6 === 3);
+---
+<svg viewBox="0 0 640 340" role="img" aria-labelledby="per-t per-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="per-t">Nervous control of swallowing, peristalsis and egestion</title>
+  <desc id="per-d">Top: the gut from mouth to anus in three zones. Swallowing is started voluntarily by the central nervous system; peristalsis along the oesophagus, stomach and intestines is involuntary and coordinated by the enteric nervous system; egestion of faeces through the anus is under voluntary control by the central nervous system. Bottom: a section of gut wall with a bolus of food. The circular muscle is contracted behind the bolus, narrowing the gut and pushing the bolus forwards, and relaxed in front of it. The longitudinal muscle lies outside the circular muscle, and a network of enteric neurons lies between the two layers.</desc>
+  <rect class="z cns" x="8" y="8" width="150" height="88" rx="10" />
+  <rect class="z ens" x="166" y="8" width="308" height="88" rx="10" />
+  <rect class="z cns" x="482" y="8" width="150" height="88" rx="10" />
+  <text class="h" x="83" y="30" text-anchor="middle">Swallowing</text>
+  <text class="t" x="83" y="50" text-anchor="middle">started voluntarily:</text>
+  <text class="t" x="83" y="66" text-anchor="middle">brain (CNS)</text>
+  <text class="h" x="320" y="30" text-anchor="middle">Peristalsis</text>
+  <text class="t" x="320" y="50" text-anchor="middle">oesophagus → stomach → intestines:</text>
+  <text class="t" x="320" y="66" text-anchor="middle">involuntary, coordinated by the enteric</text>
+  <text class="t" x="320" y="82" text-anchor="middle">nervous system (ENS) in the gut wall</text>
+  <text class="h" x="557" y="30" text-anchor="middle">Egestion</text>
+  <text class="t" x="557" y="50" text-anchor="middle">voluntary control of</text>
+  <text class="t" x="557" y="66" text-anchor="middle">the anus: CNS</text>
+  <path class="flow" d="M30 110 H610" marker-end="url(#per-ah)" />
+  <text class="t" x="320" y="126" text-anchor="middle">mouth → anus</text>
+
+  <text class="h" x="320" y="150" text-anchor="middle">Peristalsis in a section of gut wall</text>
+  <path class="long" d={band(circOut, longOut, -1)} /><path class="long" d={band(circOut, longOut, 1)} />
+  <path class="circ" d={band(circIn, circOut, -1)} /><path class="circ" d={band(circIn, circOut, 1)} />
+  <path class="lumen" d={`${edge(lumen, -1)} ${[...xs].reverse().map((x) => `L${x} ${(CY + lumen(x)).toFixed(1)}`).join(' ')} Z`} />
+  <ellipse class="bolus" cx="292" cy={CY} rx="44" ry="31" />
+  {plexus.map((x) => <g><circle class="ens-n" cx={x} cy={(CY - circOut(x) - 1).toFixed(1)} r="3" /><circle class="ens-n" cx={x} cy={(CY + circOut(x) + 1).toFixed(1)} r="3" /></g>)}
+  <path class="ens-l" d={edge((x) => circOut(x) + 1, -1)} /><path class="ens-l" d={edge((x) => circOut(x) + 1, 1)} />
+  <path class="flow" d="M360 240 H440" marker-end="url(#per-ah)" />
+  <text class="t" x="400" y="232" text-anchor="middle">bolus moves</text>
+
+  <path class="lead" d="M150 296 L200 262" /><text class="t" x="150" y="312" text-anchor="middle">circular muscle contracted</text><text class="t" x="150" y="327" text-anchor="middle">behind the bolus</text>
+  <path class="lead" d="M440 296 L392 268" /><text class="t" x="460" y="312" text-anchor="middle">circular muscle relaxed</text><text class="t" x="460" y="327" text-anchor="middle">in front of the bolus</text>
+  <path class="lead" d="M560 168 L560 214" /><text class="t" x="560" y="162" text-anchor="middle">longitudinal muscle</text>
+  <path class="lead" d="M80 168 L84 218" /><text class="t" x="80" y="162" text-anchor="middle">enteric neurons</text>
+  <defs><marker id="per-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker></defs>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .z { stroke-width: 1.5; }
+  .cns { fill: color-mix(in srgb, var(--bio-protein) 14%, var(--surface)); stroke: var(--bio-protein); }
+  .ens { fill: color-mix(in srgb, var(--bio-carb) 14%, var(--surface)); stroke: var(--bio-carb); }
+  .h { font-size: 14px; font-weight: 750; fill: var(--text); }
+  .t { font-size: 12.5px; fill: var(--text); }
+  .flow { stroke: var(--text); stroke-width: 2; fill: none; }
+  .ah { fill: var(--text); }
+  .long { fill: color-mix(in srgb, var(--bio-chol) 30%, var(--surface)); stroke: var(--bio-chol); stroke-width: 0.8; }
+  .circ { fill: color-mix(in srgb, var(--bio-chol) 60%, var(--surface)); stroke: var(--bio-chol); stroke-width: 0.8; }
+  .lumen { fill: var(--surface); }
+  .bolus { fill: color-mix(in srgb, var(--bio-glucose) 55%, var(--surface)); stroke: var(--bio-head); stroke-width: 1.5; }
+  .ens-n { fill: var(--bio-carb); stroke: var(--text); stroke-width: 0.6; }
+  .ens-l { fill: none; stroke: var(--bio-carb); stroke-width: 1.2; }
+  .lead { stroke: var(--text-muted); stroke-width: 1; fill: none; }
+</style>

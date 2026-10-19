@@ -1,0 +1,77 @@
+---
+/** C3.1.17: observing tropic responses in seedlings — set-up, qualitative recording and measuring the angle of curvature. */
+// a seedling bent by angle a (degrees) towards the right: straight lower part, then an arc
+const seedling = (x: number, base: number, h: number, a: number) => {
+  const low = h * 0.45, L = h * 0.55, th = (a * Math.PI) / 180;
+  if (a === 0) return { d: `M${x} ${base} V${base - h}`, tip: [x, base - h] as [number, number] };
+  const R = L / th, y0 = base - low;
+  const tx = x + R * (1 - Math.cos(th)), ty = y0 - R * Math.sin(th);
+  return { d: `M${x} ${base} V${y0} A${R.toFixed(1)} ${R.toFixed(1)} 0 0 1 ${tx.toFixed(1)} ${ty.toFixed(1)}`, tip: [tx, ty] as [number, number] };
+};
+const boxS = [86, 110, 134].map((x, i) => seedling(x, 214, 70, [38, 44, 30][i]!));
+const before = [250, 274, 298].map((x) => seedling(x, 214, 70, 0));
+const after = [338, 362, 386].map((x, i) => seedling(x, 214, 70, [38, 44, 30][i]!));
+const big = seedling(500, 250, 170, 45);
+const bx = 500, by = 250 - 170 * 0.45; // start of the bend
+const dir = [Math.sin(Math.PI / 4), -Math.cos(Math.PI / 4)];
+---
+<svg viewBox="0 0 640 300" role="img" aria-labelledby="trop-t trop-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="trop-t">Observing and measuring phototropism in seedlings</title>
+  <desc id="trop-d">Three panels. First, seedlings grow in a light-proof box with a slit on one side, so light reaches them from one direction only; a control group receives light evenly from above. Second, the seedlings are recorded qualitatively with simple drawings at the start, when they are straight, and after 24 hours, when their shoots have bent towards the light. Third, the response is measured quantitatively: a vertical line is drawn up from where the shoot starts to bend, a second line along the tip, and the angle between them, the angle of curvature, is measured with a protractor, here 45 degrees.</desc>
+  <text class="h" x="110" y="22" text-anchor="middle">1 Set-up</text>
+  <text class="h" x="320" y="22" text-anchor="middle">2 Record (qualitative)</text>
+  <text class="h" x="532" y="22" text-anchor="middle">3 Measure (quantitative)</text>
+  <!-- panel 1 -->
+  <rect class="boxin" x="30" y="60" width="160" height="172" />
+  <path class="box" d="M190 118 V60 H30 V232 H190 V150" />
+  <rect class="lamp" x="198" y="122" width="10" height="24" rx="3" />
+  <path class="ray" d="M196 134 H150" marker-end="url(#tr-ah)" />
+  <rect class="dish" x="66" y="214" width="88" height="14" rx="3" />
+  {boxS.map((s) => <g><path class="stem" d={s.d} /><circle class="tipc" cx={s.tip[0]} cy={s.tip[1]} r="3.5" /></g>)}
+  <text class="s" x="110" y="252" text-anchor="middle">light-proof box with a slit:</text>
+  <text class="s" x="110" y="268" text-anchor="middle">light from one side only</text>
+  <text class="s" x="110" y="288" text-anchor="middle">(control: light from above)</text>
+  <!-- panel 2 -->
+  <line class="sep" x1="218" y1="10" x2="218" y2="292" />
+  <line class="ground" x1="236" y1="214" x2="312" y2="214" />
+  <line class="ground" x1="324" y1="214" x2="400" y2="214" />
+  {before.map((s) => <path class="pen" d={s.d} />)}
+  {after.map((s) => <path class="pen" d={s.d} />)}
+  <text class="s" x="274" y="236" text-anchor="middle">0 h</text>
+  <text class="s" x="362" y="236" text-anchor="middle">24 h</text>
+  <path class="ray" d="M412 100 H390" marker-end="url(#tr-ah)" /><text class="s" x="404" y="90" text-anchor="middle">light</text>
+  <text class="s" x="320" y="262" text-anchor="middle">simple line drawings, to scale,</text>
+  <text class="s" x="320" y="278" text-anchor="middle">with time and light direction</text>
+  <!-- panel 3 -->
+  <line class="sep" x1="424" y1="10" x2="424" y2="292" />
+  <line class="ground" x1="450" y1="250" x2="560" y2="250" />
+  <path class="prot" d={`M${bx - 70} ${by} A70 70 0 0 1 ${bx + 70} ${by} Z`} />
+  <path class="stem" d={big.d} />
+  <path class="guide" d={`M${bx} ${by} V${by - 104}`} />
+  <path class="guide" d={`M${bx} ${by} L${(bx + dir[0]! * 112).toFixed(1)} ${(by + dir[1]! * 112).toFixed(1)}`} />
+  <path class="arc" d={`M${bx} ${by - 34} A34 34 0 0 1 ${(bx + dir[0]! * 34).toFixed(1)} ${(by + dir[1]! * 34).toFixed(1)}`} />
+  <text class="b" x={bx - 6} y={by - 40} text-anchor="end">θ = 45°</text>
+  <text class="s" x="532" y="272" text-anchor="middle">angle between the vertical and</text>
+  <text class="s" x="532" y="288" text-anchor="middle">the tip = angle of curvature</text>
+  <defs><marker id="tr-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker></defs>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .h { font-size: 14px; font-weight: 750; fill: var(--text); }
+  .s { font-size: 12.5px; fill: var(--text); }
+  .b { font-size: 13.5px; font-weight: 750; fill: var(--text); }
+  .boxin { fill: color-mix(in srgb, var(--text) 12%, var(--surface)); }
+  .box { fill: none; stroke: var(--text); stroke-width: 3; }
+  .lamp { fill: var(--bio-glucose); stroke: var(--bio-head); }
+  .ray { stroke: var(--bio-head); stroke-width: 2; }
+  .ah { fill: var(--bio-head); }
+  .dish { fill: color-mix(in srgb, var(--text-muted) 50%, var(--surface)); }
+  .stem { fill: none; stroke: var(--bio-carb); stroke-width: 6; stroke-linecap: round; }
+  .tipc { fill: var(--bio-carb); }
+  .pen { fill: none; stroke: var(--text); stroke-width: 2; stroke-linecap: round; }
+  .ground { stroke: var(--text-muted); stroke-width: 2; }
+  .sep { stroke: var(--border); stroke-width: 1.5; }
+  .prot { fill: color-mix(in srgb, var(--bio-protein) 10%, var(--surface)); stroke: var(--bio-protein); stroke-width: 1.2; }
+  .guide { stroke: var(--text); stroke-width: 1.4; stroke-dasharray: 5 4; fill: none; }
+  .arc { stroke: var(--bad); stroke-width: 2.2; fill: none; }
+</style>

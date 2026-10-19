@@ -1,0 +1,59 @@
+---
+/** C3.1.20: polar auxin transport between cells by auxin efflux carriers (PIN proteins) on one side of each cell. */
+const cells = [30, 236, 442];
+const W = 168;
+---
+<svg viewBox="0 0 640 300" role="img" aria-labelledby="aux-t aux-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="aux-t">Auxin efflux carriers move auxin from cell to cell</title>
+  <desc id="aux-d">Three plant cells in a row, separated by cell walls. Auxin enters each cell by diffusing across the plasma membrane in its uncharged form. The cytoplasm is less acidic than the cell wall, so inside the cell auxin loses a hydrogen ion and becomes negatively charged, which traps it. Auxin efflux carriers are located only in the right-hand plasma membrane of every cell, so auxin leaves each cell on the right, gains a hydrogen ion in the acidic cell wall and diffuses into the next cell. Because every cell places its carriers on the same side, auxin is moved in one direction through the tissue and builds up at one end. Proton pumps in the membrane keep the cell wall acidic.</desc>
+  {cells.map((x) => (
+    <g>
+      <rect class="wall" x={x - 6} y="58" width={W + 12} height="168" rx="12" />
+      <rect class="cyto" x={x} y="64" width={W} height="156" rx="8" />
+      {[0, 1, 2].map((k) => <rect class="pin" x={x + W - 7} y={86 + k * 44} width="10" height="22" rx="3" />)}
+      <ellipse class="pump" cx={x + 2} cy="200" rx="6" ry="11" />
+      <text class="t" x={x + W / 2} y="124" text-anchor="middle">IAA⁻ trapped</text>
+      <text class="s" x={x + W / 2} y="140" text-anchor="middle">(cytoplasm pH ≈ 7)</text>
+      <path class="out" d={`M${x + W / 2 + 22} 108 L${x + W + 14} 108`} marker-end="url(#aux-ah)" />
+      <path class="out" d={`M${x + W / 2 + 22} 152 L${x + W + 14} 152`} marker-end="url(#aux-ah)" />
+    </g>
+  ))}
+  {[cells[1]!, cells[2]!].map((x) => <path class="in" d={`M${x - 24} 178 L${x + 26} 178`} marker-end="url(#aux-ah2)" />)}
+  <path class="in" d="M2 178 L54 178" marker-end="url(#aux-ah2)" />
+  <text class="s" x="214" y="248" text-anchor="middle">cell wall</text>
+  <text class="s" x="214" y="263" text-anchor="middle">pH ≈ 5.5</text>
+  <text class="s" x="420" y="248" text-anchor="middle">IAA⁻ + H⁺ → IAAH,</text>
+  <text class="s" x="420" y="263" text-anchor="middle">which diffuses into the next cell</text>
+  <text class="s" x="30" y="248">proton pump keeps</text>
+  <text class="s" x="30" y="263">the wall acidic</text>
+  <path class="lead" d="M40 238 L34 210" />
+
+  <g class="key">
+    <rect class="pin" x="30" y="6" width="10" height="20" rx="3" /><text class="s" x="46" y="21">auxin efflux carrier (PIN protein), on one side of each cell only</text>
+    <path class="out" d="M24 40 h30" marker-end="url(#aux-ah)" /><text class="s" x="62" y="45">IAA⁻ carried out by efflux carriers</text>
+    <path class="in" d="M330 40 h30" marker-end="url(#aux-ah2)" /><text class="s" x="368" y="45">uncharged IAAH diffuses in</text>
+  </g>
+  <path class="net" d="M120 286 H520" marker-end="url(#aux-ah3)" />
+  <text class="t" x="320" y="280" text-anchor="middle">net (polar) movement of auxin</text>
+  <defs>
+    <marker id="aux-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ah-out" /></marker>
+    <marker id="aux-ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ah-in" /></marker>
+    <marker id="aux-ah3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ah-net" /></marker>
+  </defs>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .wall { fill: color-mix(in srgb, var(--bio-carb) 35%, var(--surface)); stroke: var(--bio-carb); stroke-width: 1.5; }
+  .cyto { fill: var(--surface); stroke: var(--bio-head); stroke-width: 2; stroke-dasharray: 3 2; }
+  .pin { fill: var(--bio-protein-2); }
+  .pump { fill: var(--bio-protein); }
+  .t { font-size: 13.5px; font-weight: 700; fill: var(--text); }
+  .s { font-size: 12.5px; fill: var(--text); }
+  .out { stroke: var(--bio-protein-2); stroke-width: 2.4; fill: none; }
+  .in { stroke: var(--bio-head); stroke-width: 2.4; fill: none; stroke-dasharray: 5 3; }
+  .net { stroke: var(--text); stroke-width: 2.5; fill: none; }
+  .ah-out { fill: var(--bio-protein-2); }
+  .ah-in { fill: var(--bio-head); }
+  .ah-net { fill: var(--text); }
+  .lead { stroke: var(--text-muted); stroke-width: 1; }
+</style>

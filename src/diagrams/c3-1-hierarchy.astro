@@ -1,0 +1,70 @@
+---
+/** C3.1.2: cells → tissues → organs → organ systems → organism, with the cheetah as the integrated whole. */
+const levels = [
+  { x: 8, t: 'Cell', s: ['muscle fibre'] },
+  { x: 134, t: 'Tissue', s: ['skeletal muscle', 'tissue'] },
+  { x: 260, t: 'Organ', s: ['a leg muscle'] },
+  { x: 386, t: 'Organ system', s: ['muscles + bones', '+ nerves'] },
+  { x: 512, t: 'Organism', s: ['cheetah'] },
+];
+const stripes = Array.from({ length: 9 }, (_, i) => 26 + i * 9);
+const spots = [[548, 118], [562, 110], [576, 120], [590, 112], [556, 128], [584, 130], [600, 124]];
+---
+<svg viewBox="0 0 640 300" role="img" aria-labelledby="hier-t hier-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="hier-t">Levels of organization in a cheetah</title>
+  <desc id="hier-d">Five boxes linked by arrows: a muscle fibre (cell) is part of skeletal muscle tissue, which forms a leg muscle (organ), which works with bones and nerves in the musculoskeletal and nervous systems (organ systems), which together make up the cheetah (organism). Below, a bar shows that the cheetah's speed is an emergent property that comes from integrating its muscular, skeletal, nervous, respiratory and circulatory systems.</desc>
+  {levels.map((l, i) => (
+    <g>
+      <rect class="box" x={l.x} y="34" width="120" height="150" rx="10" />
+      <text class="lvl" x={l.x + 60} y="24" text-anchor="middle">{l.t}</text>
+      {l.s.map((line, j) => <text class="sub" x={l.x + 60} y={160 + j * 14 - (l.s.length - 1) * 7} text-anchor="middle">{line}</text>)}
+      {i < 4 && <path class="arr" d={`M${l.x + 121} 109 h4`} marker-end="url(#hier-ah)" />}
+    </g>
+  ))}
+  <!-- cell: one striated fibre -->
+  <rect class="fibre" x="22" y="90" width="92" height="22" rx="11" />
+  {stripes.map((x) => <line class="stripe" x1={x} x2={x} y1="92" y2="110" />)}
+  <circle class="nuc" cx="40" cy="91" r="3" /><circle class="nuc" cx="86" cy="111" r="3" />
+  <!-- tissue: parallel fibres -->
+  {[0, 1, 2, 3, 4].map((k) => <rect class="fibre" x="146" y={78 + k * 13} width="96" height="11" rx="5.5" />)}
+  <!-- organ: muscle with tendons -->
+  <path class="muscle" d="M320 52 C 352 74, 352 136, 320 150 C 288 136, 288 74, 320 52 Z" />
+  <path class="tendon" d="M320 40 V54 M320 148 V164" />
+  <!-- system: leg bones with a muscle and a nerve -->
+  <path class="bone" d="M430 50 L438 100 L426 138" />
+  <path class="muscle" d="M440 58 C 456 72, 456 96, 440 104 C 436 90, 436 70, 440 58 Z" />
+  <path class="nerve" d="M418 50 C 410 80, 426 100, 416 138" />
+  <text class="tiny" x="462" y="80">muscle</text><text class="tiny" x="446" y="128">bone</text><text class="tiny" x="392" y="46">nerve</text>
+  <!-- organism: a running cheetah (schematic) -->
+  <ellipse class="cat" cx="574" cy="118" rx="40" ry="14" />
+  <circle class="cat" cx="616" cy="104" r="9" />
+  <path class="catl" d="M546 126 L528 150 M556 128 L566 154 M594 126 L610 150 M600 124 L584 152" />
+  <path class="catl" d="M536 112 C 524 100, 520 86, 530 78" />
+  {spots.map(([x, y]) => <circle class="spot" cx={x} cy={y} r="2" />)}
+
+  <rect class="emerge" x="8" y="210" width="624" height="80" rx="10" />
+  <text class="lvl" x="320" y="236" text-anchor="middle">Emergent property: a fast, effective predator</text>
+  <text class="sub" x="320" y="258" text-anchor="middle">Speed needs muscles, skeleton, nervous system, lungs, heart and blood working together.</text>
+  <text class="sub" x="320" y="276" text-anchor="middle">No single cell, tissue or organ can sprint: the property appears only from integration.</text>
+  <defs><marker id="hier-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker></defs>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .box { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.2; }
+  .lvl { font-size: 15px; font-weight: 750; fill: var(--text); }
+  .sub { font-size: 13px; fill: var(--text); }
+  .tiny { font-size: 11.5px; fill: var(--text-muted); }
+  .arr { stroke: var(--text); stroke-width: 2; }
+  .ah { fill: var(--text); }
+  .fibre { fill: color-mix(in srgb, var(--bio-chol) 40%, var(--surface)); stroke: var(--bio-chol); }
+  .stripe { stroke: var(--bio-chol); stroke-width: 2; }
+  .nuc { fill: var(--bio-protein-2); }
+  .muscle { fill: color-mix(in srgb, var(--bio-chol) 55%, var(--surface)); stroke: var(--bio-chol); stroke-width: 1.5; }
+  .tendon { stroke: var(--text-muted); stroke-width: 4; stroke-linecap: round; }
+  .bone { fill: none; stroke: color-mix(in srgb, var(--text-muted) 45%, var(--surface)); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+  .nerve { fill: none; stroke: var(--bio-glucose); stroke-width: 3; }
+  .cat { fill: var(--bio-glucose); }
+  .catl { fill: none; stroke: var(--bio-glucose); stroke-width: 5; stroke-linecap: round; }
+  .spot { fill: var(--text); }
+  .emerge { fill: var(--accent-soft); stroke: var(--accent); }
+</style>

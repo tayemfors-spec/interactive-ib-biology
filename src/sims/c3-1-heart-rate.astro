@@ -1,0 +1,250 @@
+---
+/**
+ * C3.1.14 and C3.1.15: negative feedback control of heart rate and of ventilation rate.
+ * The maths is in models/c3-1-heart-rate.ts; this file draws two signal-pathway panels and a graph.
+ */
+import { linePath, range, sx, sy, type Frame } from './chart';
+import { model, pressureName } from './models/c3-1-heart-rate';
+
+const frame: Frame = {
+  w: 640, h: 300, left: 58, right: 18, top: 14, bottom: 50,
+  x: { min: 0, max: 100, ticks: range(0, 100, 20), label: 'Exercise intensity (% of maximum)' },
+  y: { min: 0, max: 200, ticks: range(0, 200, 40), label: 'Rate per minute' },
+};
+const d = { exercise: 0, pressure: 0, feedback: true };
+const s = model(d);
+const hrLine = (p: number) => linePath(frame, (x) => model({ exercise: x, pressure: p, feedback: true }).heartRate);
+const brLine = (fb: boolean) => linePath(frame, (x) => model({ exercise: x, pressure: 0, feedback: fb }).breathRate);
+const rows = range(0, 100, 20).map((x) => ({ x, ...model({ ...d, exercise: x }) }));
+const W = 92; // full width of an activity bar
+const bar = (v: number) => (W * v).toFixed(1);
+const ventOut = (br: number) => 0.15 + 0.85 * ((br - 12) / 28);
+---
+<div class="hr-sim" data-hr-sim data-frame={JSON.stringify(frame)}>
+  <div class="controls">
+    <label class="slider">Exercise intensity: <output data-out="exercise">rest</output>
+      <input type="range" min="0" max="100" step="5" value={d.exercise} data-param="exercise" />
+    </label>
+    <label class="slider">Blood pressure detected by baroreceptors: <output data-out="pressure">{pressureName(d.pressure)}</output>
+      <input type="range" min="-2" max="2" step="1" value={d.pressure} data-param="pressure" />
+    </label>
+    <label class="check"><input type="checkbox" data-param="block" /> Block signals from chemoreceptors to the respiratory centre (thought experiment)</label>
+  </div>
+
+  <div class="panels">
+    <section class="panel" aria-labelledby="hr-h">
+      <h3 id="hr-h">Heart rate</h3>
+      <svg viewBox="0 0 300 272" class="flow" aria-hidden="true">
+        <g class="box"><rect x="4" y="4" width="138" height="62" rx="8" /><text x="12" y="22" class="b">Chemoreceptors</text><text x="12" y="37">carotid and aortic</text><text x="12" y="50">bodies: pH, CO₂, O₂</text></g>
+        <rect class="track" x="12" y="56" width={W} height="6" rx="3" /><rect class="lvl chemo" x="12" y="56" width={bar(s.chemo)} height="6" rx="3" data-bar="h-chemo" />
+        <g class="box"><rect x="158" y="4" width="138" height="62" rx="8" /><text x="166" y="22" class="b">Baroreceptors</text><text x="166" y="37">carotid sinus, aortic</text><text x="166" y="50">arch: blood pressure</text></g>
+        <rect class="track" x="166" y="56" width={W} height="6" rx="3" /><rect class="lvl baro" x="166" y="56" width={bar(s.baro)} height="6" rx="3" data-bar="h-baro" />
+        <path class="arrow" d="M73 68 L120 96" marker-end="url(#hr-ah)" /><path class="arrow" d="M227 68 L180 96" marker-end="url(#hr-ah)" />
+        <g class="box centre"><rect x="62" y="100" width="176" height="40" rx="8" /><text x="150" y="117" text-anchor="middle" class="b">Cardiovascular centre</text><text x="150" y="132" text-anchor="middle">in the medulla</text></g>
+        <path class="arrow" d="M110 142 L76 168" marker-end="url(#hr-ah)" /><path class="arrow" d="M190 142 L224 168" marker-end="url(#hr-ah)" />
+        <g class="box"><rect x="4" y="170" width="138" height="48" rx="8" /><text x="12" y="187" class="b">Sympathetic nerve</text><text x="12" y="201">(cardiac accelerator)</text></g>
+        <rect class="track" x="12" y="207" width={W} height="6" rx="3" /><rect class="lvl symp" x="12" y="207" width={bar(s.sympathetic)} height="6" rx="3" data-bar="symp" />
+        <g class="box"><rect x="158" y="170" width="138" height="48" rx="8" /><text x="166" y="187" class="b">Vagus nerve</text><text x="166" y="201">(parasympathetic)</text></g>
+        <rect class="track" x="166" y="207" width={W} height="6" rx="3" /><rect class="lvl vagus" x="166" y="207" width={bar(s.vagus)} height="6" rx="3" data-bar="vagus" />
+        <path class="arrow" d="M73 220 L118 244" marker-end="url(#hr-ah)" /><text x="40" y="250" class="sign">speeds up</text>
+        <path class="arrow" d="M227 220 L182 244" marker-end="url(#hr-ah)" /><text x="262" y="250" class="sign" text-anchor="middle">slows</text>
+        <g class="heart-g" data-heart style={`--beat:${(60 / s.heartRate).toFixed(2)}s`}>
+          <path class="heart" d="M150 268 C126 252 120 242 124 234 C128 226 142 226 150 236 C158 226 172 226 176 234 C180 242 174 252 150 268 Z" />
+        </g>
+        <text x="150" y="220" text-anchor="middle" class="sa">SA node</text>
+        <defs><marker id="hr-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker></defs>
+      </svg>
+      <dl class="read">
+        <div><dt>Heart rate</dt><dd data-v="hr">{Math.round(s.heartRate)} beats min⁻¹</dd></div>
+        <div><dt>Stroke volume</dt><dd data-v="sv">{Math.round(s.strokeVolume)} cm³</dd></div>
+        <div><dt>Cardiac output</dt><dd data-v="co">{s.cardiacOutput.toFixed(1)} dm³ min⁻¹</dd></div>
+      </dl>
+    </section>
+
+    <section class="panel" aria-labelledby="vr-h">
+      <h3 id="vr-h">Ventilation rate</h3>
+      <svg viewBox="0 0 300 272" class="flow" aria-hidden="true">
+        <g class="box"><rect x="4" y="4" width="138" height="62" rx="8" /><text x="12" y="22" class="b">Chemoreceptors</text><text x="12" y="37">in the brainstem</text><text x="12" y="50">(medulla): pH</text></g>
+        <rect class="track" x="12" y="56" width={W} height="6" rx="3" /><rect class="lvl chemo" x="12" y="56" width={bar(s.chemo)} height="6" rx="3" data-bar="v-chemo1" />
+        <g class="box"><rect x="158" y="4" width="138" height="62" rx="8" /><text x="166" y="22" class="b">Chemoreceptors</text><text x="166" y="37">carotid and aortic</text><text x="166" y="50">bodies: pH, CO₂, O₂</text></g>
+        <rect class="track" x="166" y="56" width={W} height="6" rx="3" /><rect class="lvl chemo" x="166" y="56" width={bar(s.chemo)} height="6" rx="3" data-bar="v-chemo2" />
+        <path class="arrow" d="M73 68 L120 96" marker-end="url(#vr-ah)" /><path class="arrow" d="M227 68 L180 96" marker-end="url(#vr-ah)" />
+        <g class="blocked" data-blocked style="opacity:0"><path d="M88 74 l20 16 M108 74 l-20 16 M192 74 l20 16 M212 74 l-20 16" /></g>
+        <g class="box centre"><rect x="62" y="100" width="176" height="40" rx="8" /><text x="150" y="117" text-anchor="middle" class="b">Respiratory centre</text><text x="150" y="132" text-anchor="middle">in the medulla (brainstem)</text></g>
+        <path class="arrow" d="M110 142 L76 168" marker-end="url(#vr-ah)" /><path class="arrow" d="M190 142 L224 168" marker-end="url(#vr-ah)" />
+        <g class="box"><rect x="4" y="170" width="138" height="48" rx="8" /><text x="12" y="187" class="b">Diaphragm</text><text x="12" y="201">(via phrenic nerves)</text></g>
+        <rect class="track" x="12" y="207" width={W} height="6" rx="3" /><rect class="lvl out" x="12" y="207" width={bar(ventOut(s.breathRate))} height="6" rx="3" data-bar="diaphragm" />
+        <g class="box"><rect x="158" y="170" width="138" height="48" rx="8" /><text x="166" y="187" class="b">Intercostal muscles</text><text x="166" y="201">(via intercostal nerves)</text></g>
+        <rect class="track" x="166" y="207" width={W} height="6" rx="3" /><rect class="lvl out" x="166" y="207" width={bar(ventOut(s.breathRate))} height="6" rx="3" data-bar="intercostal" />
+        <path class="arrow" d="M73 220 L104 236" marker-end="url(#vr-ah)" /><path class="arrow" d="M227 220 L196 236" marker-end="url(#vr-ah)" />
+        <text x="150" y="254" text-anchor="middle" class="b" data-vnote1>rate and depth of breathing</text>
+        <text x="150" y="269" text-anchor="middle" class="sign" data-vnote2>more ventilation removes CO₂ → pH rises</text>
+        <defs><marker id="vr-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker></defs>
+      </svg>
+      <dl class="read">
+        <div><dt>Blood CO₂ (pCO₂)</dt><dd data-v="pco2">{s.pco2.toFixed(1)} kPa</dd></div>
+        <div><dt>Blood pH</dt><dd data-v="ph">{s.pH.toFixed(2)}</dd></div>
+        <div><dt>Ventilation rate</dt><dd data-v="br">{Math.round(s.breathRate)} breaths min⁻¹</dd></div>
+        <div><dt>Tidal volume</dt><dd data-v="tv">{s.tidalVolume.toFixed(1)} dm³</dd></div>
+      </dl>
+    </section>
+  </div>
+
+  <svg class="chart" viewBox={`0 0 ${frame.w} ${frame.h}`} role="img" aria-labelledby="hr-chart-t">
+    <title id="hr-chart-t">Heart rate and ventilation rate against exercise intensity</title>
+    <g class="grid">
+      {frame.x.ticks.map((t) => <line x1={sx(frame, t)} x2={sx(frame, t)} y1={frame.top} y2={frame.h - frame.bottom} />)}
+      {frame.y.ticks.map((t) => <line x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, t)} y2={sy(frame, t)} />)}
+    </g>
+    <g class="ticks">
+      {frame.x.ticks.map((t) => <text x={sx(frame, t)} y={frame.h - frame.bottom + 18} text-anchor="middle">{t}</text>)}
+      {frame.y.ticks.map((t) => <text x={frame.left - 8} y={sy(frame, t)} dy="0.35em" text-anchor="end">{t}</text>)}
+    </g>
+    <text class="axis" x={(frame.left + frame.w - frame.right) / 2} y={frame.h - 8} text-anchor="middle">{frame.x.label} →</text>
+    <text class="axis" transform={`translate(16 ${(frame.top + frame.h - frame.bottom) / 2}) rotate(-90)`} text-anchor="middle">{frame.y.label} →</text>
+    <path class="line hr" d={hrLine(0)} data-line="hr" />
+    <path class="line br" d={brLine(true)} data-line="br" />
+    <text class="key-t" x={sx(frame, 62)} y={sy(frame, 166)}>heart rate (beats)</text>
+    <text class="key-t" x={sx(frame, 62)} y={sy(frame, 50)}>ventilation rate (breaths)</text>
+    <line class="marker" data-marker x1={sx(frame, 0)} x2={sx(frame, 0)} y1={frame.top} y2={frame.h - frame.bottom} />
+  </svg>
+  <p class="legend"><span class="key hr"></span> Heart rate <span class="key br"></span> Ventilation rate</p>
+
+  <p class="readout" aria-live="polite" data-readout>
+    At rest: blood pH {s.pH.toFixed(2)}, heart rate {Math.round(s.heartRate)} beats per minute and ventilation rate {Math.round(s.breathRate)} breaths per minute. The vagus nerve dominates, keeping the heart slower than the SA node's own rate.
+  </p>
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <thead><tr><th scope="col">Exercise (%)</th><th scope="col">Blood pH</th><th scope="col">Heart rate (min⁻¹)</th><th scope="col">Ventilation rate (min⁻¹)</th></tr></thead>
+      <tbody data-tbody>{rows.map((r) => <tr><th scope="row">{r.x}</th><td>{r.pH.toFixed(2)}</td><td>{Math.round(r.heartRate)}</td><td>{Math.round(r.breathRate)}</td></tr>)}</tbody>
+    </table>
+  </details>
+  <p class="model-note">Qualitative model: values are realistic in size but simplified. In real exercise, signals from the motor cortex and from receptors in muscles and joints also raise heart and ventilation rates, and adrenaline adds to the sympathetic effect.</p>
+</div>
+
+<script>
+  import { linePath, range, sx, type Frame } from './chart';
+  import { model, pressureName } from './models/c3-1-heart-rate';
+  import { prefersReducedMotion } from '../lib/prefs';
+
+  document.querySelectorAll<HTMLElement>('[data-hr-sim]').forEach((root) => {
+    const frame = JSON.parse(root.dataset.frame!) as Frame;
+    const input = (k: string) => root.querySelector<HTMLInputElement>(`[data-param="${k}"]`)!;
+    const out = (k: string, v: string) => (root.querySelector(`[data-out="${k}"]`)!.textContent = v);
+    const val = (k: string, v: string) => (root.querySelector(`[data-v="${k}"]`)!.textContent = v);
+    const W = 92;
+    const setBar = (k: string, v: number) => root.querySelector(`[data-bar="${k}"]`)!.setAttribute('width', (W * v).toFixed(1));
+    const ventOut = (br: number) => 0.15 + 0.85 * ((br - 12) / 28);
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    const heart = root.querySelector<SVGGElement>('[data-heart]')!;
+    let timer = 0;
+
+    const update = () => {
+      const exercise = Number(input('exercise').value);
+      const pressure = Number(input('pressure').value);
+      const feedback = !input('block').checked;
+      const s = model({ exercise, pressure, feedback });
+      out('exercise', exercise === 0 ? 'rest' : `${exercise}%`);
+      out('pressure', pressureName(pressure));
+      setBar('h-chemo', s.chemo); setBar('h-baro', s.baro); setBar('symp', s.sympathetic); setBar('vagus', s.vagus);
+      setBar('v-chemo1', s.chemo); setBar('v-chemo2', s.chemo);
+      setBar('diaphragm', ventOut(s.breathRate)); setBar('intercostal', ventOut(s.breathRate));
+      root.querySelector<SVGGElement>('[data-blocked]')!.style.opacity = feedback ? '0' : '1';
+      root.querySelector('[data-vnote1]')!.textContent = feedback ? 'rate and depth of breathing' : 'breathing stays at resting rate';
+      root.querySelector('[data-vnote2]')!.textContent = feedback ? 'more ventilation removes CO₂ → pH rises' : 'CO₂ is not removed faster → pH falls';
+      heart.style.setProperty('--beat', `${(60 / s.heartRate).toFixed(2)}s`);
+      heart.classList.toggle('beating', !prefersReducedMotion());
+      val('hr', `${Math.round(s.heartRate)} beats min⁻¹`);
+      val('sv', `${Math.round(s.strokeVolume)} cm³`);
+      val('co', `${s.cardiacOutput.toFixed(1)} dm³ min⁻¹`);
+      val('pco2', `${s.pco2.toFixed(1)} kPa`);
+      val('ph', s.pH.toFixed(2));
+      val('br', `${Math.round(s.breathRate)} breaths min⁻¹`);
+      val('tv', `${s.tidalVolume.toFixed(1)} dm³`);
+      root.querySelector('[data-line="hr"]')!.setAttribute('d', linePath(frame, (x) => model({ exercise: x, pressure, feedback }).heartRate));
+      root.querySelector('[data-line="br"]')!.setAttribute('d', linePath(frame, (x) => model({ exercise: x, pressure, feedback }).breathRate));
+      const mx = sx(frame, exercise).toFixed(1);
+      const marker = root.querySelector('[data-marker]')!;
+      marker.setAttribute('x1', mx); marker.setAttribute('x2', mx);
+      root.querySelector('[data-tbody]')!.innerHTML = range(0, 100, 20)
+        .map((x) => { const r = model({ exercise: x, pressure, feedback }); return `<tr><th scope="row">${x}</th><td>${r.pH.toFixed(2)}</td><td>${Math.round(r.heartRate)}</td><td>${Math.round(r.breathRate)}</td></tr>`; })
+        .join('');
+
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        const parts: string[] = [];
+        parts.push(exercise === 0 ? 'At rest' : `At ${exercise}% exercise intensity`);
+        parts.push(`: blood pH ${s.pH.toFixed(2)}, heart rate ${Math.round(s.heartRate)} beats per minute, ventilation rate ${Math.round(s.breathRate)} breaths per minute.`);
+        if (exercise > 0) parts.push(' Muscles release more CO₂, which lowers blood pH; chemoreceptors detect this and the medulla increases sympathetic and decreases vagus signals to the SA node.');
+        if (pressure > 0) parts.push(' Raised blood pressure stretches the baroreceptors, so the medulla sends more impulses along the vagus nerve and heart rate falls (negative feedback).');
+        if (pressure < 0) parts.push(' Lower blood pressure reduces baroreceptor firing, so sympathetic output rises and heart rate and stroke volume increase.');
+        if (!feedback) parts.push(exercise > 0
+          ? ` With the chemoreceptor signals blocked, ventilation cannot increase: CO₂ builds up to ${s.pco2.toFixed(1)} kPa and pH falls${s.pH < 7.35 ? ' below the normal range of 7.35–7.45' : ''}.`
+          : ' The chemoreceptor signals are blocked: try increasing exercise intensity.');
+        else if (exercise > 0) parts.push(' The respiratory centre increases the rate and depth of breathing, removing the extra CO₂, so pH stays close to normal.');
+        readout.textContent = parts.join('');
+      }, 350);
+    };
+    root.querySelectorAll('[data-param]').forEach((el) => el.addEventListener('input', update));
+    update();
+  });
+</script>
+
+<style>
+  .hr-sim { container-type: inline-size; display: grid; gap: var(--space-3); }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  @container (min-width: 40rem) { .controls { grid-template-columns: 1fr 1fr; } .check { grid-column: 1 / -1; } }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  .check { display: flex; gap: var(--space-2); align-items: center; font-weight: 600; min-height: 24px; }
+  .check input { width: 1.2rem; height: 1.2rem; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .panels { display: grid; gap: var(--space-3); }
+  @container (min-width: 40rem) { .panels { grid-template-columns: 1fr 1fr; } }
+  .panel { display: grid; gap: var(--space-2); align-content: start; background: var(--surface-2); border-radius: var(--radius-m); padding: var(--space-3); }
+  .panel h3 { margin: 0; font-size: var(--step-0); }
+  .flow { width: 100%; height: auto; font-family: var(--font-sans); }
+  .flow text { font-size: 11.5px; fill: var(--text); }
+  .flow .b { font-weight: 750; font-size: 12.5px; }
+  .flow .sign { font-style: italic; fill: var(--text-muted); }
+  .flow .sa { font-size: 11px; font-weight: 700; }
+  .box rect { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.2; }
+  .centre rect { stroke: var(--accent); stroke-width: 2; }
+  .track { fill: var(--surface-3); }
+  .lvl { transition: width 0.25s ease; }
+  .chemo { fill: var(--bio-carb); }
+  .baro { fill: var(--bio-protein); }
+  .symp { fill: var(--bio-chol); }
+  .vagus { fill: var(--bio-protein-2); }
+  .out { fill: var(--bio-head); }
+  .arrow { stroke: var(--text-muted); stroke-width: 1.6; fill: none; }
+  .ah { fill: var(--text-muted); }
+  .blocked path { stroke: var(--bad); stroke-width: 4; stroke-linecap: round; }
+  .heart { fill: var(--bio-chol); }
+  .heart-g { transform-origin: 150px 248px; transform-box: view-box; }
+  .heart-g.beating { animation: beat var(--beat) ease-in-out infinite; }
+  @keyframes beat { 0%, 60%, 100% { transform: scale(1); } 20% { transform: scale(1.14); } }
+  .read { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-1) var(--space-3); margin: 0; font-size: var(--step--1); }
+  .read div { display: grid; }
+  .read dt { color: var(--text-muted); font-weight: 600; }
+  .read dd { margin: 0; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .chart { width: 100%; height: auto; font-family: var(--font-sans); }
+  .grid line { stroke: var(--border); stroke-width: 1; }
+  .ticks text { font-size: 15px; fill: var(--text-muted); }
+  .axis { font-size: 16px; font-weight: 650; fill: var(--text); }
+  .key-t { font-size: 14px; fill: var(--text-muted); font-style: italic; }
+  .line { fill: none; stroke-width: 3.5; stroke-linecap: round; }
+  .line.hr { stroke: var(--bio-chol); }
+  .line.br { stroke: var(--bio-water); stroke-dasharray: 10 6; }
+  .marker { stroke: var(--text); stroke-width: 1.2; stroke-dasharray: 3 3; }
+  .legend { margin: 0; font-size: var(--step--1); display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap; }
+  .key { display: inline-block; width: 2rem; border-top: 3.5px solid; }
+  .key.hr { border-color: var(--bio-chol); }
+  .key.br { border-color: var(--bio-water); border-top-style: dashed; margin-left: var(--space-3); }
+  .readout { margin: 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); min-height: 4.5rem; }
+  .table { font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  th, td { padding: 0.2rem 0.7rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: 0; }
+</style>

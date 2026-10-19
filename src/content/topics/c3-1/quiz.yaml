@@ -1,0 +1,204 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: C3.1.3
+    stem: >-
+      Which statement correctly distinguishes hormonal signalling from nervous signalling in animals?
+    options:
+      - id: a
+        text: Hormones travel along neurons, while nerve impulses travel in the blood.
+        why: This reverses the routes. Nerve impulses pass along neurons; hormones are carried in the blood.
+      - id: b
+        text: Hormones reach all tissues in the blood but act only on cells with specific receptors, and their effects are usually slower and longer-lasting.
+        why: Correct. The blood takes hormones everywhere, so the specificity comes from receptors on target cells; responses are slower to start and often last longer than nervous responses.
+      - id: c
+        text: Hormones act only on the cells next to the gland that secretes them.
+        why: Endocrine glands secrete hormones into the blood, which carries them throughout the body to distant target organs.
+      - id: d
+        text: Nerve impulses act more slowly than hormones but affect more cells.
+        why: Nerve impulses are faster (milliseconds) and act only on the specific cells that the neurons connect to.
+    answer: b
+
+  - id: q2
+    level: SL
+    understanding: C3.1.9
+    stem: >-
+      In a pain withdrawal reflex arc involving the spinal cord, where is the cell body of the sensory neuron?
+    options:
+      - id: a
+        text: In the grey matter of the spinal cord, next to the relay neuron
+        why: The relay neuron and the motor neuron cell bodies are in the grey matter, but the sensory neuron's cell body is outside the spinal cord.
+      - id: b
+        text: In the ventral root
+        why: The ventral root carries motor neuron axons out of the cord. Sensory fibres enter through the dorsal root.
+      - id: c
+        text: In the skin, at the free nerve ending
+        why: The free nerve ending is the receptor end of the sensory neuron, a long way from its cell body.
+      - id: d
+        text: In the dorsal root ganglion
+        why: Correct. The dorsal root ganglion is a swelling on the dorsal root containing the cell bodies of sensory neurons.
+    answer: d
+
+  - id: q3
+    level: SL
+    understanding: C3.1.14
+    stem: >-
+      A person's blood pressure suddenly rises. Which sequence describes the response that restores normal blood pressure?
+    options:
+      - id: a
+        text: Baroreceptors in the aortic arch and carotid sinuses are stretched → the medulla increases impulses in the vagus nerve → heart rate falls
+        why: Correct. Increased stretch increases baroreceptor firing; the cardiovascular centre responds with more parasympathetic (vagus) and less sympathetic activity, slowing the heart — negative feedback.
+      - id: b
+        text: Chemoreceptors in the carotid bodies detect the pressure → the medulla increases impulses in sympathetic nerves → heart rate falls
+        why: Pressure is detected by baroreceptors, not chemoreceptors, and sympathetic nerves increase heart rate rather than decreasing it.
+      - id: c
+        text: Baroreceptors are stretched → the cerebellum sends impulses to the SA node → heart rate rises
+        why: The cardiovascular centre is in the medulla, not the cerebellum, and a rise in heart rate would increase pressure further.
+      - id: d
+        text: Baroreceptors are stretched → the pituitary gland secretes epinephrine → heart rate falls
+        why: Epinephrine comes from the adrenal glands and increases heart rate. This reflex is nervous, via the medulla.
+    answer: a
+
+  - id: q4
+    level: SL
+    understanding: C3.1.15
+    stem: >-
+      During a sprint, an athlete's ventilation rate rises. Which change in the blood is mainly responsible for stimulating the chemoreceptors?
+    options:
+      - id: a
+        text: A rise in blood pH caused by more oxygen being absorbed
+        why: Absorbing oxygen does not raise pH significantly, and during exercise pH falls rather than rises.
+      - id: b
+        text: A fall in blood glucose concentration
+        why: Chemoreceptors that control ventilation respond to pH, CO₂ and O₂, not to glucose.
+      - id: c
+        text: A fall in blood pH caused by more CO₂ forming carbonic acid, which releases H⁺
+        why: Correct. Faster respiration releases more CO₂; it reacts with water to form carbonic acid, which dissociates to release H⁺, so pH falls. Lactic acid adds to the fall in very intense exercise.
+      - id: d
+        text: A rise in blood pressure detected in the aortic arch
+        why: Blood pressure is detected by baroreceptors and mainly affects heart rate. Ventilation rate is controlled through chemoreceptors.
+    answer: c
+
+  - id: q5
+    level: SL
+    understanding: C3.1.8
+    stem: >-
+      In a light micrograph of a transverse section of a nerve, many fibres appear as rings with a dark outer rim and a pale centre,
+      while others appear as small dots with no rim. What do the rings and the dots show?
+    options:
+      - id: a
+        text: The rings are motor neurons and the dots are sensory neurons.
+        why: Sensory and motor fibres cannot be told apart by appearance; both kinds can be myelinated.
+      - id: b
+        text: The rings are blood capillaries and the dots are red blood cells.
+        why: Blood vessels are present in the connective tissue, but the many rings inside the bundles of fibres are nerve fibres.
+      - id: c
+        text: The rings are whole neurons with their nuclei, and the dots are dendrites.
+        why: A nerve contains axons of neurons; the cell bodies with their nuclei are in the CNS or in ganglia, not along the nerve.
+      - id: d
+        text: The rings are myelinated fibres (axon surrounded by a myelin sheath) and the dots are unmyelinated fibres.
+        why: Correct. Myelin forms the dark rim around a pale axon; unmyelinated axons are small and have no myelin ring.
+    answer: d
+
+  - id: q6
+    level: SL
+    understanding: C3.1.11
+    stem: >-
+      Nurses working night shifts often sleep poorly during the day. Blood samples show that their melatonin concentration
+      stays low while they are working under bright lights at night. Which explanation is best supported?
+    options:
+      - id: a
+        text: The adrenal glands stop secreting melatonin during physical activity.
+        why: Melatonin is secreted by the pineal gland, not the adrenal glands.
+      - id: b
+        text: Light detected by the retina inhibits melatonin secretion by the pineal gland, so the signal that promotes sleep is disrupted.
+        why: Correct. Light, acting through the suprachiasmatic nucleus of the hypothalamus, suppresses melatonin secretion, so the normal night-time rise does not happen and the sleep–wake cycle is disturbed.
+      - id: c
+        text: Melatonin is secreted in response to light, so the nurses have too much melatonin at night.
+        why: The pattern is the reverse — light suppresses melatonin, and the data show low melatonin.
+      - id: d
+        text: The pituitary gland secretes melatonin only during the day.
+        why: Melatonin is made by the pineal gland, and its secretion rises in darkness, not during the day.
+    answer: b
+
+  - id: q7
+    level: AHL
+    understanding: C3.1.17
+    stem: >-
+      A student measures the angle of curvature of 20 seedlings after 24 hours in light from one side, using a protractor
+      marked in 1° divisions. Which change would most improve the reliability of the mean angle?
+    options:
+      - id: a
+        text: Measuring more seedlings and repeating the experiment, then calculating the mean and standard deviation
+        why: Correct. Reliability depends on repeats; more measurements reduce the effect of individual variation and random error, and the spread shows how consistent the results are.
+      - id: b
+        text: Recording the angles to two decimal places
+        why: A protractor read to 1° cannot give meaningful decimal places; extra digits add false precision, not reliability.
+      - id: c
+        text: Describing the seedlings in words instead of measuring the angle
+        why: That would collect qualitative instead of quantitative data. It is useful as a record, but it does not make the mean angle more reliable.
+      - id: d
+        text: Using only the most strongly bent seedlings
+        why: Selecting seedlings biases the sample, making the mean less accurate, not more reliable.
+    answer: a
+
+  - id: q8
+    level: AHL
+    understanding: C3.1.20
+    stem: >-
+      Which statement explains how auxin can be moved in one direction through a plant tissue?
+    options:
+      - id: a
+        text: Auxin is pumped into cells by carriers on one side, but leaves by diffusion on all sides.
+        why: This reverses the mechanism. Auxin can diffuse in, but the charged form cannot diffuse out; it leaves only through efflux carriers.
+      - id: b
+        text: Auxin moves by mass flow in the phloem, from source to sink.
+        why: Some auxin travels in the phloem, but the directional cell-to-cell transport that forms gradients depends on efflux carriers.
+      - id: c
+        text: Auxin diffuses into cells but can leave only through efflux carriers, which all the cells place on the same side of their plasma membranes.
+        why: Correct. Because each cell exports auxin from the same side, auxin is passed from cell to cell in one direction and becomes concentrated at one end.
+      - id: d
+        text: Light breaks down auxin on one side of each cell, so it diffuses to the other side.
+        why: Light does not destroy auxin in this way; the direction of transport is set by where the efflux carriers are placed.
+    answer: c
+
+  - id: q9
+    level: AHL
+    understanding: C3.1.21
+    stem: >-
+      Shoot segments were treated with auxin and with an inhibitor of the plasma-membrane proton pumps. Compared with segments
+      treated with auxin alone, the segments with the inhibitor elongated very little. What is the most likely reason?
+    options:
+      - id: a
+        text: The inhibitor stopped auxin from entering the cells by diffusion.
+        why: Uncharged auxin enters cells by diffusion, which does not need proton pumps directly. The key effect is in the cell wall.
+      - id: b
+        text: The inhibitor stopped cell division in the segments.
+        why: Elongation of shoot segments depends on cell expansion, not cell division.
+      - id: c
+        text: Without proton pumps, the cytoplasm became too acidic for growth.
+        why: The pumps move H⁺ out of the cytoplasm into the wall; their effect on growth comes from acidifying the wall.
+      - id: d
+        text: H⁺ ions were no longer secreted into the cell walls, so the walls were not acidified and expansins could not loosen the cross-links between cellulose molecules.
+        why: Correct. Acid growth depends on auxin-stimulated proton pumping into the apoplast; without it the wall stays rigid and turgor cannot stretch the cells.
+    answer: d
+
+  - id: q10
+    level: AHL
+    understanding: C3.1.23
+    stem: >-
+      Unripe bananas stored in a sealed room ripen much faster if a few ripe bananas are added. What is the explanation?
+    options:
+      - id: a
+        text: Ripe bananas absorb ethylene from the air, which removes an inhibitor of ripening.
+        why: Ripe fruit releases, rather than absorbs, ethylene, and ethylene promotes ripening.
+      - id: b
+        text: Ripe bananas release ethylene gas, which triggers ripening in the unripe fruit; ripening then increases their own ethylene production (positive feedback).
+        why: Correct. Ethylene diffuses to the other fruits, and because ripening stimulates more ethylene production, ripening accelerates and becomes synchronized.
+      - id: c
+        text: Ripe bananas release auxin, which causes cell elongation in the unripe fruit.
+        why: Ripening is triggered by ethylene, a gaseous phytohormone. Auxin is not released as a gas.
+      - id: d
+        text: Ethylene from the ripe bananas slows its own production in the unripe fruit by negative feedback.
+        why: In ripening, ethylene production is increased by ripening, which is positive feedback.
+    answer: b
