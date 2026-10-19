@@ -1,0 +1,203 @@
+questions:
+  - id: q1
+    level: AHL
+    understanding: A2.3.1
+    stem: Which feature is found in every virus?
+    options:
+      - id: a
+        text: A lipid envelope taken from the host cell membrane
+        why: Only some viruses, such as HIV and influenza, are enveloped. Bacteriophage lambda and many plant viruses are not.
+      - id: b
+        text: DNA as the genetic material
+        why: Many viruses, including HIV, influenza and coronaviruses, have RNA genomes instead.
+      - id: c
+        text: A protein capsid enclosing the nucleic acid
+        why: Correct. Every virus has a nucleic acid genome inside a protein coat (capsid); other features vary.
+      - id: d
+        text: Ribosomes for making viral proteins
+        why: Viruses have no cytoplasm and no ribosomes. Their proteins are made by the host cell's ribosomes.
+    answer: c
+
+  - id: q2
+    level: AHL
+    understanding: A2.3.1
+    stem: >-
+      Electron micrographs show that newly released particles of a virus are all the same size, and
+      particles kept for weeks in a nutrient solution never get larger. Which statement best explains this?
+    options:
+      - id: a
+        text: Each particle is assembled from a fixed number of ready-made parts, and with no metabolism it cannot make new material to grow.
+        why: Correct. Viruses do not grow; they are full-sized as soon as assembly in the host cell is finished, and they cannot take in or build materials themselves.
+      - id: b
+        text: The capsid is too rigid to stretch, so the particles cannot take up more nutrients.
+        why: Viruses do not take up nutrients at all, whatever their capsid is like. The reason is the absence of metabolism, not rigidity.
+      - id: c
+        text: Viruses divide by binary fission as soon as they reach their maximum size.
+        why: Viruses do not divide. New particles are only produced by assembly inside a host cell.
+      - id: d
+        text: The nutrient solution lacks the enzymes that the virus needs for growth.
+        why: Viruses do not grow even inside a host; they are assembled at full size. Adding enzymes would not make a particle grow.
+    answer: a
+
+  - id: q3
+    level: AHL
+    understanding: A2.3.2
+    stem: >-
+      The genetic material of a newly discovered virus was analysed. It contains uracil but no thymine, and its
+      base composition is A 24%, U 31%, G 20%, C 25%. What type of genome does the virus have?
+    options:
+      - id: a
+        text: Double-stranded DNA
+        why: DNA contains thymine, not uracil, and in double-stranded DNA A = T and G = C.
+      - id: b
+        text: Single-stranded DNA
+        why: The presence of uracil and absence of thymine show that the nucleic acid is RNA, not DNA.
+      - id: c
+        text: Double-stranded RNA
+        why: In double-stranded RNA every A pairs with U and every G with C, so A would equal U and G would equal C. Here they are unequal.
+      - id: d
+        text: Single-stranded RNA
+        why: Correct. Uracil shows RNA, and because A ≠ U and G ≠ C the bases are not all paired, so it is single-stranded.
+    answer: d
+
+  - id: q4
+    level: AHL
+    understanding: A2.3.2
+    stem: >-
+      A detergent that dissolves lipid bilayers is added to samples of HIV and of bacteriophage lambda. Afterwards
+      the HIV can no longer infect cells, but the lambda phages are still infectious. Which explanation is correct?
+    options:
+      - id: a
+        text: Detergent breaks down RNA but not DNA.
+        why: Detergents disrupt lipid membranes; they do not break down nucleic acids. The difference is in the outer layer of the viruses.
+      - id: b
+        text: HIV is enveloped in a lipid bilayer from its host cell, which it needs to enter a new cell; lambda is not enveloped.
+        why: Correct. Destroying the envelope removes the glycoproteins and membrane that HIV uses to bind and fuse with a host cell. Lambda's outer surface is its protein capsid.
+      - id: c
+        text: Lambda has an envelope made of protein instead of lipid, so detergent cannot reach it.
+        why: Lambda has no envelope at all. The capsid is a protein coat, which every virus has.
+      - id: d
+        text: The detergent kills the bacteria that lambda lives in, but not human cells.
+        why: The viruses were treated on their own, so no host cells were involved. The result is about the structure of the virus particles.
+    answer: b
+
+  - id: q5
+    level: AHL
+    understanding: A2.3.6
+    stem: Why is a new version of the influenza vaccine produced every year?
+    options:
+      - id: a
+        text: Antibodies made in response to the vaccine destroy the vaccine itself within a year.
+        why: Antibodies bind to the antigens in the vaccine once, while immunity develops; this is not why the vaccine is changed.
+      - id: b
+        text: Influenza is a DNA virus whose genes are rearranged every time it infects a cell.
+        why: Influenza is an RNA virus. Its rapid change comes from copying errors and reassortment, not from regular rearrangement of DNA.
+      - id: c
+        text: Mutations in the genes for haemagglutinin and neuraminidase change these antigens, so antibodies from last year bind less well to new strains.
+        why: Correct. This is antigenic drift. Its RNA polymerase does not proofread, and new variants that escape existing antibodies are selected, so the vaccine must be matched to the strains expected next.
+      - id: d
+        text: Memory cells only last a year, so the same vaccine must simply be repeated.
+        why: If this were the only reason, the same vaccine could be given again. The vaccine is changed because the virus's antigens change.
+    answer: c
+
+  - id: q6
+    level: AHL
+    understanding: A2.3.3
+    stem: >-
+      A culture of E. coli was infected with bacteriophage lambda, which followed the lytic cycle, and the
+      number of phages in the culture was measured. It stayed constant for about 45 minutes, then rose about
+      100-fold over the next 15 minutes. What happened at around 45 minutes?
+    options:
+      - id: a
+        text: The host cells lysed, releasing new phages that had been assembled inside them.
+        why: Correct. During the first stage the DNA is being copied and new phages assembled inside the cells, so no new free phages appear; lysis then releases about 100 from each cell.
+      - id: b
+        text: The phages in the medium began to divide.
+        why: Phages cannot reproduce outside a host cell; they have no metabolism or ribosomes.
+      - id: c
+        text: The viral DNA was integrated into the host chromosomes.
+        why: Integration is part of the lysogenic cycle, and it produces no new phages.
+      - id: d
+        text: The phages attached to the bacteria and injected their DNA.
+        why: Attachment and injection happen at the start, and they reduce the number of free phages rather than increasing it.
+    answer: a
+
+  - id: q7
+    level: AHL
+    understanding: A2.3.4
+    stem: Which statement correctly describes the lysogenic cycle of bacteriophage lambda?
+    options:
+      - id: a
+        text: The whole phage enters the bacterium and remains inactive in the cytoplasm.
+        why: Only the DNA enters; the capsid stays outside. The DNA does not stay free in the cytoplasm.
+      - id: b
+        text: The viral DNA is copied many times, but no viral proteins are made.
+        why: Repeated copying of the viral DNA happens in the lytic cycle. In lysogeny the viral DNA is copied only once per cell division, with the chromosome.
+      - id: c
+        text: The bacterial chromosome is inserted into the phage DNA and packaged into new capsids.
+        why: This reverses what happens. The phage DNA is inserted into the bacterial chromosome, and no capsids are made.
+      - id: d
+        text: The viral DNA is inserted into the host chromosome and replicated with it each time the cell divides.
+        why: Correct. The integrated DNA is a prophage. It is inherited by both daughter cells at each division while its lytic genes are switched off.
+    answer: d
+
+  - id: q8
+    level: AHL
+    understanding: A2.3.4
+    stem: >-
+      A culture of E. coli carrying a lambda prophage grows normally. After a brief exposure to ultraviolet light,
+      most of the cells burst within about an hour, and many new phages appear. Which is the best explanation?
+    options:
+      - id: a
+        text: The UV light killed the bacteria, and phages from outside then infected the dead cells.
+        why: Viruses can only reproduce in living cells, and here the phages came from inside the cells (the culture contained prophages).
+      - id: b
+        text: DNA damage caused by UV induced the prophage to leave the chromosome and enter the lytic cycle.
+        why: Correct. Stress such as UV damage inactivates the repressor that keeps the lytic genes off. The prophage is cut out, phages are made and the cells lyse.
+      - id: c
+        text: UV light caused mutations that made the viral DNA integrate into the chromosome.
+        why: The viral DNA was already integrated (as a prophage). Integration does not cause lysis.
+      - id: d
+        text: UV light made new phages attach to the cells and inject DNA.
+        why: UV does not cause attachment, and no free phages were added. The phages came from prophages already inside the cells.
+    answer: b
+
+  - id: q9
+    level: AHL
+    understanding: A2.3.5
+    stem: Which observation best supports the hypothesis that viruses arose several times, from different origins?
+    options:
+      - id: a
+        text: Viruses use the same genetic code as cellular organisms.
+        why: This shows viruses are linked to cellular life (and probably arose after the code was established), but not that they arose more than once.
+      - id: b
+        text: All viruses have a capsid made of protein.
+        why: A feature shared by all viruses would, on its own, suggest a common ancestor rather than several origins. It is thought to have evolved convergently.
+      - id: c
+        text: No gene is found in all viruses, and they differ widely in their type of genome and way of replicating.
+        why: Correct. If all viruses shared one ancestor we would expect some genes in common. Their great diversity suggests several separate origins.
+      - id: d
+        text: All viruses can only reproduce inside a host cell.
+        why: This is true of all viruses, so it does not distinguish one origin from several. It does suggest that cells came first.
+    answer: c
+
+  - id: q10
+    level: AHL
+    understanding: A2.3.6
+    stem: >-
+      In the 1990s, many people with HIV treated with a single antiretroviral drug improved for a few months and
+      then got worse again. Today patients take three drugs together. Why is the combination more effective?
+    options:
+      - id: a
+        text: Each drug kills a different type of infected cell, so more cells are destroyed.
+        why: Antiretroviral drugs block viral enzymes or entry; they do not kill cells. The benefit is about resistance.
+      - id: b
+        text: Three drugs stimulate the immune system to make antibodies three times faster.
+        why: Antiretroviral drugs act on the virus, not by stimulating antibody production.
+      - id: c
+        text: Taking three drugs stops HIV from mutating.
+        why: Drugs do not prevent copying errors by reverse transcriptase. Mutations still occur at random.
+      - id: d
+        text: Variants resistant to one drug arise quickly because reverse transcriptase makes many errors, but a variant resistant to all three at once is very unlikely.
+        why: Correct. With a single drug, a resistant variant was quickly selected. A virus would need several resistance mutations at once to survive a combination, which is extremely rare.
+    answer: d

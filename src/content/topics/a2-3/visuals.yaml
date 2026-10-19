@@ -1,0 +1,162 @@
+# Visuals for A2.3 (AHL only). Label and step text here is what readers see in the 3D viewer, the
+# animation captions and the text descriptions. Label ids must match anchors in the scene modules.
+visuals:
+  - id: viruses
+    kind: viewer3d
+    level: AHL
+    title: Two viruses in 3D
+    alt: Bacteriophage lambda attached to the surface of E. coli, and a cut-away HIV particle with its envelope, capsid and RNA.
+    description: >-
+      Two models of virus structure. The first is bacteriophage lambda standing on a patch of the outer
+      membrane of an E. coli cell. It has an icosahedral protein head (capsid) built from many repeating
+      protein subunits, cut away at the front to show a long molecule of linear double-stranded DNA packed
+      inside. At one corner of the head a portal joins it to a long, flexible, non-contractile tail made of
+      stacked protein rings, which ends in a narrow tip and a single thin tail fibre. The fibre is bound to
+      LamB, a receptor protein in the bacterium's outer membrane. Lambda has no envelope. The second model
+      is HIV, cut open to show its layers: an outer lipid envelope taken from the host's plasma membrane,
+      studded with a few glycoprotein spikes (gp120 heads on gp41 stalks); a layer of matrix protein; and
+      a cone-shaped capsid containing two copies of single-stranded RNA coated with nucleocapsid protein,
+      together with the enzymes reverse transcriptase and integrase.
+    scenes:
+      - id: lambda
+        module: a2-3-lambda
+        title: Bacteriophage lambda
+        labels:
+          - id: capsid
+            name: Capsid (head)
+            level: AHL
+            text: A protein coat about 60 nm across with icosahedral symmetry (20 triangular faces). Lambda has no lipid envelope, so the capsid is its outer surface. Part of it is cut away here to show the DNA.
+          - id: capsomere
+            name: Capsid protein subunits
+            level: AHL
+            text: The capsid is built from many copies of a few kinds of protein, which self-assemble into a regular pattern. Using repeated subunits means only a few genes are needed to build the whole coat.
+          - id: dna
+            name: Linear double-stranded DNA
+            level: AHL
+            text: One molecule of about 48 500 base pairs, packed tightly inside the head. There is no cytoplasm around it, no ribosomes and no enzymes for metabolism.
+          - id: portal
+            name: Portal (head–tail connector)
+            level: AHL
+            text: A ring of protein at one corner (vertex) of the head, where the tail joins. DNA is pumped into the head through it during assembly and leaves through it during infection.
+          - id: tail
+            name: Tail
+            level: AHL
+            text: A hollow tube about 150 nm long, made of a stack of protein rings. It is flexible and does not contract. During infection the DNA passes along it into the host cell.
+          - id: tip
+            name: Tail tip
+            level: AHL
+            text: A cone of proteins at the end of the tail. Once the fibre has bound to the host, proteins from the tip help the DNA to cross the layers of the bacterial cell envelope.
+          - id: fibre
+            name: Tail fibre
+            level: AHL
+            text: A single thin fibre at the tip of the tail. It binds specifically to LamB, a protein in the outer membrane of E. coli, so lambda can only attach to cells that carry LamB.
+          - id: lamb
+            name: LamB receptor
+            level: AHL
+            text: A channel protein in the outer membrane of E. coli that normally lets maltose into the cell. Lambda uses it as its receptor; binding to it is the first step of infection.
+          - id: membrane
+            name: E. coli outer membrane
+            level: AHL
+            text: The outer layer of the envelope of this Gram-negative bacterium. Beneath it lie the peptidoglycan cell wall and the plasma membrane, which the injected DNA must also cross.
+      - id: hiv
+        module: a2-3-enveloped
+        title: HIV (enveloped)
+        labels:
+          - id: envelope
+            name: Lipid envelope
+            level: AHL
+            text: A phospholipid bilayer taken from the host cell's plasma membrane when the new virus buds out of the cell. It lets the virus enter its next host cell by fusing with that cell's membrane.
+          - id: gp120
+            name: Envelope glycoprotein (gp120)
+            level: AHL
+            text: The outer part of each spike, coded for by a viral gene and carrying many carbohydrate chains. It binds to the CD4 receptor and a co-receptor on helper T cells, so HIV infects mainly these cells.
+          - id: gp41
+            name: Transmembrane glycoprotein (gp41)
+            level: AHL
+            text: The stalk of each spike, anchored in the envelope. After gp120 has bound, gp41 pulls the viral envelope and the host plasma membrane together so that they fuse.
+          - id: matrix
+            name: Matrix protein
+            level: AHL
+            text: A layer of viral protein lining the inside of the envelope, linking the envelope to the inner parts of the virus.
+          - id: capsid
+            name: Cone-shaped capsid
+            level: AHL
+            text: A protein coat made of many copies of one capsid protein, arranged as a cone. It encloses the RNA genome and the viral enzymes.
+          - id: rna
+            name: Two copies of single-stranded RNA
+            level: AHL
+            text: HIV carries two identical molecules of single-stranded RNA, each about 9700 bases long and containing all nine HIV genes.
+          - id: nucleocapsid
+            name: Nucleocapsid protein
+            level: AHL
+            text: Small viral protein molecules that bind along the RNA, coating and protecting it inside the capsid.
+          - id: rt
+            name: Reverse transcriptase
+            level: AHL
+            text: A viral enzyme that copies the RNA genome into DNA inside the host cell. It does not proofread, so it makes many copying mistakes — one reason HIV evolves so quickly.
+          - id: integrase
+            name: Integrase
+            level: AHL
+            text: A viral enzyme that inserts the DNA copy of the HIV genome into a chromosome of the host cell, where it can remain for years.
+
+  - id: cycles
+    kind: anim
+    module: a2-3-cycles
+    level: AHL
+    title: Lytic and lysogenic cycles of bacteriophage lambda
+    alt: Step-by-step diagram of lambda infecting E. coli, then either bursting the cell (lytic) or joining its chromosome (lysogenic).
+    description: >-
+      A pathway map at the top shows the two cycles: after attachment and injection, the viral DNA either
+      follows the lytic cycle (replicate, assemble, lyse) or the lysogenic cycle (integrate, divide with the
+      host, and later induction, which leads into the lytic cycle). Below it, one E. coli cell is shown with
+      its host chromosome in grey and the viral DNA in red. The first five steps follow the lytic cycle to
+      lysis; the last three go back to the branch point and follow the lysogenic cycle instead.
+    steps:
+      - id: attach
+        title: Attachment
+        level: AHL
+        caption: The tail fibre of bacteriophage lambda binds to a specific receptor protein (LamB) in the outer membrane of an E. coli cell. Only cells that carry this receptor can be infected.
+      - id: inject
+        title: Injection of DNA
+        level: AHL
+        caption: The viral DNA is injected through the tail into the cytoplasm; the empty capsid stays outside. The linear DNA has short single-stranded ends that join by complementary base pairing, so it becomes a circle. It then follows one of two pathways.
+      - id: replicate
+        title: "Lytic: DNA copied, proteins made"
+        level: AHL
+        caption: Lytic cycle. The virus uses the host cell's RNA polymerase, ribosomes, ATP, nucleotides and amino acids. Viral genes are transcribed and translated, and many copies of the viral DNA and of the head and tail proteins are made.
+      - id: assemble
+        title: "Lytic: assembly"
+        level: AHL
+        caption: Capsid proteins self-assemble into heads, each head is filled with one copy of the viral DNA, and tails are attached, giving complete new phages.
+      - id: lyse
+        title: "Lytic: lysis"
+        level: AHL
+        caption: Viral enzymes break down the cell wall from inside, so the cell bursts (lysis) and dies. About 100 new phages are released and can infect other cells. The lytic cycle takes about an hour.
+      - id: integrate
+        title: "Lysogenic: integration"
+        level: AHL
+        caption: Lysogenic cycle — back at the branch point after injection. Instead of being copied, the circular viral DNA is inserted into the host chromosome at a specific site by a viral enzyme (integrase). It is now a prophage. A viral repressor protein keeps its lytic genes switched off.
+      - id: divide
+        title: "Lysogenic: copied with the host"
+        level: AHL
+        caption: Each time the bacterium replicates its chromosome and divides, the prophage is replicated with it, so both daughter cells inherit it. No new phages are made and the host cells are not harmed, possibly for many generations.
+      - id: induce
+        title: Induction
+        level: AHL
+        caption: Stress such as DNA damage by UV light inactivates the repressor. The prophage is cut out of the chromosome and the lytic cycle begins — viral DNA is copied, new phages are assembled and the cell is lysed.
+
+  - id: evolution
+    kind: sim
+    module: a2-3-evolution
+    level: AHL
+    title: How fast do viruses evolve?
+    alt: Sliders for mutation rate, generations, population size and target sites show how quickly variants and escape variants build up.
+    description: >-
+      A line graph of the percentage of a virus population against generations. A solid line shows the
+      viruses carrying at least one new mutation; a dashed line shows escape variants, in which every target
+      site (where antibodies or a drug bind) has changed. A grid of 100 symbols shows a sample of the final
+      population. With a low mutation rate, like a DNA virus with a proofreading polymerase, almost nothing
+      changes. With the high mutation rates of RNA viruses such as influenza and of retroviruses such as HIV,
+      nearly every virus carries new mutations within a few generations, and a larger population holds more
+      variants. Turning on selection by antibodies or a drug makes escape variants spread rapidly, unless
+      several target sites must all change at once, as with combination drug therapy for HIV.

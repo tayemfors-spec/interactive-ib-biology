@@ -1,0 +1,175 @@
+facts:
+  - id: f1
+    claim: All viruses share only a few features — small, fixed size; DNA or RNA genome; protein capsid; no cytoplasm; few or no enzymes — and are obligate intracellular parasites.
+    where: [ "index.mdx#shared-features", "index.mdx (mustKnow)", "quiz.yaml:q1", "flashcards.yaml:c1", "flashcards.yaml:c2" ]
+    confidence: high
+    basis: IB guide A2.3.1; standard virology (Flint et al., Principles of Virology)
+    status: checked
+  - id: f2
+    claim: Most viruses are about 20–300 nm across; giant viruses such as mimivirus are larger than some bacteria.
+    where: [ "index.mdx#shared-features", "index.mdx#diversity" ]
+    confidence: high
+    basis: Standard virology texts; mimivirus capsid ≈ 400 nm (≈ 750 nm with fibres) vs mycoplasmas ≈ 200–300 nm
+    status: checked
+  - id: f3
+    claim: Viruses do not grow; they are assembled from preformed parts and are full size when assembly is complete.
+    where: [ "index.mdx#shared-features", "index.mdx (mistakes)", "quiz.yaml:q2", "flashcards.yaml:c3" ]
+    confidence: high
+    basis: IB guide A2.3.1; standard virology
+    status: checked
+  - id: f4
+    claim: HIV particles carry reverse transcriptase and integrase (also protease); lambda relies on host enzymes (e.g. DNA polymerase III, RNA polymerase) to copy and express its genome.
+    where: [ "index.mdx#shared-features", "visuals.yaml:viruses/hiv rt, integrase" ]
+    confidence: high
+    basis: Standard HIV virion composition; lambda uses host replication machinery with phage O and P initiators and host RNA polymerase
+    status: checked
+  - id: f5
+    claim: Bacteriophage lambda has an icosahedral head (≈ 60 nm) containing one linear dsDNA molecule of ≈ 48 500 bp, a flexible non-contractile tail (≈ 150 nm) of stacked rings, a conical tip and a single central tail fibre (gpJ); it is not enveloped.
+    where: [ "index.mdx#diversity", "visuals.yaml:viruses/lambda", "diagrams/a2-3-lambda", "flashcards.yaml:c4" ]
+    confidence: high
+    basis: Lambda genome 48 502 bp (Sanger et al. 1982); structural reviews of phage lambda (Casjens & Hendrix). Laboratory lambda lacks side tail fibres (stf frameshift); only the central fibre is drawn.
+    status: checked
+  - id: f6
+    claim: The lambda tail tube is built from 32 stacked hexameric rings of gpV.
+    where: [ "scenes/a2-3-lambda.ts (geometry only)", "diagrams/a2-3-lambda" ]
+    confidence: medium
+    basis: Structural studies of the lambda tail (Katsura; Pell et al. 2009); not stated in page text
+    status: open
+  - id: f7
+    claim: Lambda binds the LamB (maltoporin) protein in the outer membrane of E. coli via the tail fibre gpJ.
+    where: [ "index.mdx#lytic", "visuals.yaml:viruses/lambda fibre, lamb", "visuals.yaml:cycles attach" ]
+    confidence: high
+    basis: Randall-Hazelbauer & Schwartz 1973; standard phage biology
+    status: checked
+  - id: f8
+    claim: After injection, lambda's 12-nucleotide complementary single-stranded (cos) ends pair, circularizing the DNA.
+    where: [ "index.mdx#lytic", "visuals.yaml:cycles inject" ]
+    confidence: high
+    basis: Standard lambda biology (cohesive ends, sealed by host DNA ligase)
+    status: checked
+  - id: f9
+    claim: A lambda lytic cycle takes about an hour and releases about 100 phages per cell.
+    where: [ "index.mdx#lytic", "index.mdx#lysogenic", "visuals.yaml:cycles lyse", "quiz.yaml:q6", "flashcards.yaml:c8" ]
+    confidence: medium
+    basis: Latent period ≈ 40–60 min at 37 °C; burst size commonly quoted as ≈ 100 (measured values range roughly 50–200 depending on strain and conditions)
+    status: open
+  - id: f10
+    claim: Lambda lysis is caused by phage-encoded proteins (holin, endolysin, spanins) that break the membranes and cell wall from inside.
+    where: [ "index.mdx#lytic", "visuals.yaml:cycles lyse" ]
+    confidence: high
+    basis: Young, phage lysis reviews
+    status: checked
+  - id: f11
+    claim: In lysogeny, lambda integrase inserts the circular phage DNA into the E. coli chromosome at a specific attachment site; the CI repressor keeps lytic genes off; the prophage is replicated with the host chromosome.
+    where: [ "index.mdx#lysogenic", "visuals.yaml:cycles integrate, divide", "quiz.yaml:q7", "flashcards.yaml:c9", "flashcards.yaml:c10" ]
+    confidence: high
+    basis: Ptashne, A Genetic Switch; site-specific recombination between attP and attB (between gal and bio)
+    status: checked
+  - id: f12
+    claim: Lysogeny is favoured when many phages infect one cell or when the host is starved.
+    where: [ "index.mdx#lysogenic" ]
+    confidence: high
+    basis: High multiplicity of infection and poor nutrition stabilize CII (Ptashne; Oppenheim et al. 2005)
+    status: checked
+  - id: f13
+    claim: DNA damage (e.g. UV) induces the prophage — RecA-stimulated cleavage of the CI repressor — leading to excision and the lytic cycle.
+    where: [ "index.mdx#lysogenic", "visuals.yaml:cycles induce", "quiz.yaml:q8", "flashcards.yaml:c11" ]
+    confidence: high
+    basis: SOS response and lambda induction (Ptashne)
+    status: checked
+  - id: f14
+    claim: HIV is ≈ 100–120 nm, enveloped with a bilayer from the host plasma membrane, carries gp120/gp41 spikes (relatively few per virion), a matrix layer, a conical capsid and two copies of ssRNA (≈ 9.7 kb, nine genes) coated with nucleocapsid protein; it infects mainly CD4 helper T cells.
+    where: [ "index.mdx#diversity", "visuals.yaml:viruses/hiv", "diagrams/a2-3-diversity", "flashcards.yaml:c5" ]
+    confidence: high
+    basis: Standard HIV structure (Briggs & Kräusslich; Zhu et al. 2006 report ≈ 14 spikes per virion)
+    status: checked
+  - id: f15
+    claim: Coronaviruses (e.g. SARS-CoV-2) have one ssRNA molecule of ≈ 30 kb, a helical nucleocapsid, spike glycoproteins and an envelope from internal host membranes (ER–Golgi intermediate compartment); virions ≈ 80–120 nm.
+    where: [ "index.mdx#diversity", "diagrams/a2-3-diversity", "flashcards.yaml:c5" ]
+    confidence: high
+    basis: SARS-CoV-2 genome 29 903 nt (Wu et al. 2020); virion 60–140 nm (Zhu et al. 2020); budding into ERGIC
+    status: checked
+  - id: f16
+    claim: Influenza A has eight segments of ssRNA, an envelope from the plasma membrane with HA and NA spikes; virions usually ≈ 80–120 nm; segments often packaged in a 7 + 1 arrangement.
+    where: [ "index.mdx#diversity", "index.mdx#rapid-evolution", "diagrams/a2-3-diversity" ]
+    confidence: high
+    basis: Standard influenza virology; Noda et al. 2006 (7 + 1 arrangement)
+    status: checked
+  - id: f17
+    claim: Tobacco mosaic virus is a non-enveloped helical rod ≈ 300 × 18 nm with ssRNA; rotavirus is non-enveloped icosahedral (≈ 70–80 nm) with dsRNA in 11 segments.
+    where: [ "index.mdx#diversity" ]
+    confidence: high
+    basis: Standard virology texts
+    status: checked
+  - id: f18
+    claim: No single gene is shared by all viruses; their diversity suggests several origins, with shared features possibly due to convergent evolution.
+    where: [ "index.mdx#origins", "quiz.yaml:q9", "flashcards.yaml:c13" ]
+    confidence: high
+    basis: IB guide A2.3.5; Koonin et al. reviews on virus origins (some "hallmark" genes are shared by many but not all viruses)
+    status: checked
+  - id: f19
+    claim: The shared genetic code is taken as evidence that viruses arose after the code was established in cells, probably from cellular genetic material.
+    where: [ "index.mdx#origins", "flashcards.yaml:c14", "quiz.yaml:q9" ]
+    confidence: medium
+    basis: IB guide notes the code is shared; the inference is the common textbook reading, but some researchers argue virus lineages are very ancient (virus-first / co-evolution views)
+    status: open
+  - id: f20
+    claim: Escape (progressive), reduction (regressive) and virus-first hypotheses; giant viruses support reduction; similarity to plasmids/transposons supports escape.
+    where: [ "index.mdx#origins", "diagrams/a2-3-origins", "flashcards.yaml:c15" ]
+    confidence: high
+    basis: Standard textbook treatment (e.g. Wessner 2010, Nature Education)
+    status: checked
+  - id: f21
+    claim: RNA-dependent RNA polymerases and reverse transcriptase lack proofreading, giving mutation rates of roughly 10⁻⁶–10⁻⁴ per base per replication, compared with about 10⁻⁸–10⁻⁶ for DNA viruses.
+    where: [ "index.mdx#rapid-evolution", "sims/a2-3-evolution (presets)", "visuals.yaml:evolution" ]
+    confidence: medium
+    basis: Sanjuán et al. 2010 (J Virol) and Sanjuán & Domingo-Calap 2016; the sim's 3.2 × 10⁻⁵ "influenza or HIV" setting and 10⁻⁸ DNA setting are illustrative orders of magnitude
+    status: open
+  - id: f22
+    claim: An untreated HIV-infected person produces billions (≈ 10¹⁰) of virions per day.
+    where: [ "index.mdx#rapid-evolution" ]
+    confidence: high
+    basis: Perelson et al. 1996 (Science)
+    status: checked
+  - id: f23
+    claim: Antigenic drift requires the influenza vaccine to be updated annually; antigenic shift by reassortment of human and avian strains produced the 1957 (H2N2) and 1968 (H3N2) pandemics.
+    where: [ "index.mdx#rapid-evolution", "index.mdx (mustKnow, mistakes)", "quiz.yaml:q5", "flashcards.yaml:c17" ]
+    confidence: high
+    basis: WHO vaccine composition reviewed twice yearly; Kilbourne 2006 (influenza pandemics of the 20th century)
+    status: checked
+  - id: f24
+    claim: Most circulating influenza A viruses are resistant to amantadine (adamantanes).
+    where: [ "index.mdx#rapid-evolution" ]
+    confidence: high
+    basis: CDC antiviral guidance (adamantanes not recommended since 2006 because of > 99% resistance)
+    status: checked
+  - id: f25
+    claim: Single-drug HIV therapy failed through rapid resistance; combination antiretroviral therapy (usually three drugs) suppresses the virus; there is no effective vaccine and infection is lifelong.
+    where: [ "index.mdx#rapid-evolution", "quiz.yaml:q10", "flashcards.yaml:c18" ]
+    confidence: high
+    basis: History of AZT monotherapy and HAART (1996 onwards); current WHO guidelines. Rare cures after stem-cell transplants are exceptions not mentioned on the page.
+    status: checked
+  - id: f26
+    claim: Recombination between HIV's two RNA copies (template switching) adds variation.
+    where: [ "index.mdx#rapid-evolution" ]
+    confidence: high
+    basis: Standard HIV evolution reviews
+    status: checked
+  - id: f27
+    claim: The evolution simulation is a qualitative Wright–Fisher model (10 000-base genome, 30-base target sites, escape fitness × 2), not real data.
+    where: [ "sims/a2-3-evolution", "src/sims/models/a2-3-evolution.ts" ]
+    confidence: high
+    basis: Model design; labelled as qualitative on screen
+    status: checked
+  - id: f28
+    claim: Coronaviruses are an exception among RNA viruses, with a proofreading exoribonuclease (nsp14 ExoN), so they mutate more slowly than influenza or HIV.
+    where: [ "index.mdx#rapid-evolution", "flashcards.yaml:c16" ]
+    confidence: high
+    basis: Denison et al. 2011 (RNA Biology); Smith et al. 2013 on coronavirus ExoN fidelity
+    status: checked
+  - id: f29
+    claim: Streamlined body shapes of sharks and dolphins are an example of convergent evolution.
+    where: [ "index.mdx#origins" ]
+    confidence: high
+    basis: Standard textbook example of analogous structures
+    status: checked

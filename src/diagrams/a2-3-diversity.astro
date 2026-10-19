@@ -1,0 +1,111 @@
+---
+/**
+ * Diversity of virus structure (A2.3.2): four named viruses drawn side by side (not to the same scale),
+ * with their genome and envelope in real text below each drawing so it stays legible on phones.
+ */
+const ring = (n: number, r: number, cx = 100, cy = 86, a0 = 0) =>
+  Array.from({ length: n }, (_, k) => {
+    const a = a0 + (k / n) * Math.PI * 2;
+    return { a, x: cx + r * Math.cos(a), y: cy + r * Math.sin(a), deg: (a * 180) / Math.PI + 90 };
+  });
+const corona = ring(14, 48);
+const hiv = ring(8, 50, 100, 86, 0.3);
+const flu = ring(18, 48, 100, 86, 0.1);
+const helix = (() => {
+  const pts: string[] = [];
+  for (let i = 0; i <= 120; i++) {
+    const t = i / 120;
+    const a = t * Math.PI * 2 * 1.6;
+    const rr = 30 - 10 * Math.sin(t * Math.PI);
+    pts.push(`${i ? 'L' : 'M'}${(100 + rr * Math.cos(a) + 5 * Math.sin(t * 40)).toFixed(1)} ${(86 + rr * Math.sin(a) + 5 * Math.cos(t * 40)).toFixed(1)}`);
+  }
+  return pts.join(' ');
+})();
+const helixBeads = Array.from({ length: 22 }, (_, i) => {
+  const t = (i + 0.5) / 22;
+  const a = t * Math.PI * 2 * 1.6;
+  const rr = 30 - 10 * Math.sin(t * Math.PI);
+  return [100 + rr * Math.cos(a) + 5 * Math.sin(t * 40), 86 + rr * Math.sin(a) + 5 * Math.cos(t * 40)];
+});
+// influenza: eight RNA segments in the typical "seven around one" arrangement
+const segs = [{ x: 100, y: 86 }, ...ring(7, 17, 100, 86, 0.4)];
+const lambdaHex = Array.from({ length: 6 }, (_, k) => { const a = Math.PI / 2 + (Math.PI / 3) * k; return `${(100 + 30 * Math.cos(a)).toFixed(1)},${(46 + 30 * Math.sin(a)).toFixed(1)}`; }).join(' ');
+---
+<div class="vgrid">
+  <div class="card">
+    <svg viewBox="0 0 200 172" role="img" aria-labelledby="dv-l">
+      <title id="dv-l">Bacteriophage lambda: a hexagonal protein head containing DNA, a long thin tail and one tail fibre</title>
+      <polygon class="capsid" points={lambdaHex} />
+      <path class="nucleic" d="M100 74 C 86 66, 82 44, 96 34 S 120 40, 112 54 S 92 56, 94 46 S 108 40, 106 52" />
+      <rect class="tail" x="96" y="77" width="8" height="70" rx="2" />
+      <path class="tail" d="M96 147 h8 l-3 7 h-2 Z" />
+      <path class="fibre" d="M100 154 V168" />
+    </svg>
+    <p class="name">Bacteriophage lambda</p>
+    <p><strong>Genome:</strong> double-stranded DNA, one linear molecule</p>
+    <p><strong>Envelope:</strong> none; icosahedral head and tail</p>
+    <p><strong>Host:</strong> <em>E. coli</em> (a bacterium)</p>
+  </div>
+  <div class="card">
+    <svg viewBox="0 0 200 172" role="img" aria-labelledby="dv-c">
+      <title id="dv-c">Coronavirus: a spherical envelope covered in club-shaped spike proteins, around a coiled RNA genome coated in protein</title>
+      {corona.map((s) => <g transform={`translate(${s.x.toFixed(1)} ${s.y.toFixed(1)}) rotate(${s.deg.toFixed(1)})`}><path class="spike-stalk" d="M0 0 V-12" /><ellipse class="spike" cx="0" cy="-17" rx="6" ry="7" /></g>)}
+      <circle class="env" cx="100" cy="86" r="48" />
+      <path class="nucleic" d={helix} />
+      {helixBeads.map(([x, y]) => <circle class="np" cx={x!.toFixed(1)} cy={y!.toFixed(1)} r="3.2" />)}
+    </svg>
+    <p class="name">Coronavirus (e.g. SARS-CoV-2)</p>
+    <p><strong>Genome:</strong> single-stranded RNA, one long molecule</p>
+    <p><strong>Envelope:</strong> yes, with spike glycoproteins</p>
+    <p><strong>Host:</strong> mammals and birds; SARS-CoV-2 infects cells lining human airways</p>
+  </div>
+  <div class="card">
+    <svg viewBox="0 0 200 172" role="img" aria-labelledby="dv-h">
+      <title id="dv-h">HIV: a spherical envelope with a few glycoprotein spikes, a matrix layer and a cone-shaped capsid holding two RNA molecules</title>
+      {hiv.map((s) => <g transform={`translate(${s.x.toFixed(1)} ${s.y.toFixed(1)}) rotate(${s.deg.toFixed(1)})`}><path class="spike-stalk" d="M0 0 V-9" /><circle class="spike" cx="-4" cy="-13" r="4" /><circle class="spike" cx="4" cy="-13" r="4" /><circle class="spike" cx="0" cy="-17" r="4" /></g>)}
+      <circle class="env" cx="100" cy="86" r="50" />
+      <circle class="matrix" cx="100" cy="86" r="43" />
+      <path class="cone" d="M78 118 C 72 112, 74 106, 80 104 L 118 52 C 128 44, 140 54, 132 64 Z" />
+      <path class="nucleic" d="M84 110 C 92 98, 98 92, 104 84 S 116 66, 124 58" />
+      <path class="nucleic" d="M88 112 C 98 104, 102 92, 110 86 S 122 70, 130 62" />
+      <circle class="enzyme" cx="114" cy="74" r="4" /><circle class="enzyme" cx="98" cy="96" r="4" />
+    </svg>
+    <p class="name">HIV (a retrovirus)</p>
+    <p><strong>Genome:</strong> single-stranded RNA, two identical copies, plus reverse transcriptase</p>
+    <p><strong>Envelope:</strong> yes, from the host plasma membrane</p>
+    <p><strong>Host:</strong> human helper T cells</p>
+  </div>
+  <div class="card">
+    <svg viewBox="0 0 200 172" role="img" aria-labelledby="dv-f">
+      <title id="dv-f">Influenza virus: an envelope with two kinds of spike, haemagglutinin and neuraminidase, around eight separate RNA segments</title>
+      {flu.map((s, i) => <g transform={`translate(${s.x.toFixed(1)} ${s.y.toFixed(1)}) rotate(${s.deg.toFixed(1)})`}>{i % 3 === 2 ? <><path class="spike-stalk" d="M0 0 V-11" /><rect class="na" x="-5" y="-19" width="10" height="9" rx="2" /></> : <rect class="ha" x="-2.6" y="-15" width="5.2" height="15" rx="2" />}</g>)}
+      <circle class="env" cx="100" cy="86" r="48" />
+      {segs.map((s, i) => <rect class="seg" x={(s.x - 3).toFixed(1)} y={(s.y - 9).toFixed(1)} width="6" height="18" rx="3" transform={`rotate(${i * 23} ${s.x.toFixed(1)} ${s.y.toFixed(1)})`} />)}
+    </svg>
+    <p class="name">Influenza A virus</p>
+    <p><strong>Genome:</strong> single-stranded RNA in eight separate segments</p>
+    <p><strong>Envelope:</strong> yes, with haemagglutinin and neuraminidase spikes</p>
+    <p><strong>Host:</strong> birds, humans, pigs and other mammals</p>
+  </div>
+</div>
+<style>
+  .vgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: var(--space-3); font-family: var(--font-sans); }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-m); padding: var(--space-2) var(--space-3) var(--space-3); font-size: var(--step--1); }
+  .card svg { max-width: 12rem; margin: 0 auto; }
+  .card p { margin: 0 0 0.25rem; }
+  .card .name { font-weight: 800; margin: var(--space-1) 0 var(--space-2); }
+  .capsid { fill: color-mix(in srgb, var(--bio-protein) 30%, var(--surface)); stroke: var(--bio-protein); stroke-width: 3; stroke-linejoin: round; }
+  .tail { fill: color-mix(in srgb, var(--bio-protein-2) 35%, var(--surface)); stroke: var(--bio-protein-2); stroke-width: 1.8; }
+  .fibre { stroke: var(--bio-glucose); stroke-width: 2.5; stroke-linecap: round; }
+  .nucleic { fill: none; stroke: var(--bio-k); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+  .env { fill: color-mix(in srgb, var(--bio-tail) 22%, var(--surface)); stroke: var(--bio-head); stroke-width: 5; }
+  .matrix { fill: none; stroke: var(--bio-protein-2); stroke-width: 3; stroke-dasharray: 3 2; }
+  .spike-stalk { stroke: var(--bio-carb); stroke-width: 2.4; }
+  .spike { fill: var(--bio-carb); }
+  .np { fill: var(--text-muted); }
+  .cone { fill: color-mix(in srgb, var(--bio-protein) 35%, var(--surface)); stroke: var(--bio-protein); stroke-width: 2; }
+  .enzyme { fill: var(--bio-glucose); }
+  .ha { fill: var(--bio-carb); }
+  .na { fill: var(--bio-protein-2); }
+  .seg { fill: color-mix(in srgb, var(--bio-k) 25%, var(--surface)); stroke: var(--bio-k); stroke-width: 2; }
+</style>

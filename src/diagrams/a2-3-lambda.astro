@@ -1,0 +1,107 @@
+---
+/**
+ * Exam-style 2D drawing of bacteriophage lambda (A2.3.2), drawn horizontally to fit a wide stage.
+ * Roughly to scale (≈3.1 px per nm): head ≈ 60 nm across, tail ≈ 140–150 nm, one thin tail fibre.
+ * Numbered markers keep it legible at phone width; the key below gives the names in real text.
+ */
+const cx = 128;
+const cy = 150;
+const r = 96; // hexagon (2D outline of the icosahedral head), one vertex pointing at the tail
+const hex = Array.from({ length: 6 }, (_, k) => {
+  const a = (Math.PI / 3) * k;
+  return [cx + r * Math.cos(a), cy + r * Math.sin(a)] as const;
+});
+const hexPts = hex.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
+const portalX = cx + r; // 224
+const tailX0 = portalX + 12;
+const tailX1 = 676;
+const ringXs = Array.from({ length: 31 }, (_, i) => tailX0 + ((i + 1) * (tailX1 - tailX0)) / 32);
+// tightly packed linear DNA: a wound coil with one end at the portal
+const dna = (() => {
+  const pts: string[] = [`M${portalX + 4} ${cy}`, `L${portalX - 22} ${cy - 2}`];
+  for (let i = 0; i <= 220; i++) {
+    const t = i / 220;
+    const a = t * 16 * Math.PI;
+    const rr = 66 - 44 * t + 5 * Math.sin(t * 61);
+    pts.push(`L${(cx + 4 + rr * Math.cos(a)).toFixed(1)} ${(cy + rr * 0.95 * Math.sin(a)).toFixed(1)}`);
+  }
+  return pts.join(' ');
+})();
+const markers: { n: number; x: number; y: number; to: [number, number] }[] = [
+  { n: 1, x: 40, y: 30, to: [78, 72] },
+  { n: 2, x: 150, y: 278, to: [140, 200] },
+  { n: 3, x: 236, y: 54, to: [230, 140] },
+  { n: 4, x: 420, y: 92, to: [420, 136] },
+  { n: 5, x: 690, y: 92, to: [688, 142] },
+  { n: 6, x: 750, y: 208, to: [748, 158] },
+];
+const key = [
+  'Capsid (head): a protein coat built from many repeating protein subunits, icosahedral in 3D (a hexagon in outline), about 60 nm across. There is no lipid envelope: the capsid is the outer surface',
+  'Genome: one linear molecule of double-stranded DNA, tightly packed inside the head',
+  'Portal (head–tail connector): the DNA leaves the head through here',
+  'Tail: a hollow, flexible, non-contractile tube of stacked protein rings, about 150 nm long; the DNA passes along it into the host',
+  'Tail tip',
+  'Tail fibre: a single thin fibre that binds the LamB receptor protein on the surface of E. coli',
+];
+---
+<div class="exam-diagram">
+  <svg viewBox="0 0 800 300" role="img" aria-labelledby="lam-title lam-desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="lam-title">Bacteriophage lambda</title>
+    <desc id="lam-desc">A virus with a hexagonal (icosahedral) protein head containing a coiled molecule of linear double-stranded DNA. The head joins, at one corner, a long thin tail made of stacked protein rings that ends in a narrow tip and a single thin tail fibre. There is no membrane envelope. A scale bar shows 50 nanometres.</desc>
+
+    <!-- head -->
+    <polygon class="capsid" points={hexPts} />
+    <g class="facets">
+      {hex.map(([x, y]) => <path d={`M${cx} ${cy} L${x.toFixed(1)} ${y.toFixed(1)}`} />)}
+    </g>
+    <path class="dna" d={dna} />
+    <!-- portal -->
+    <rect class="portal" x={portalX - 2} y={cy - 15} width="16" height="30" rx="4" />
+    <!-- tail tube with rings -->
+    <rect class="tail" x={tailX0} y={cy - 13} width={tailX1 - tailX0} height="26" rx="4" />
+    <g class="rings">{ringXs.map((x) => <path d={`M${x.toFixed(1)} ${cy - 13} V${cy + 13}`} />)}</g>
+    <path class="tail" d={`M${tailX1} ${cy - 13} L${tailX1 + 30} ${cy - 5} L${tailX1 + 30} ${cy + 5} L${tailX1} ${cy + 13} Z`} />
+    <!-- single tail fibre -->
+    <path class="fibre" d={`M${tailX1 + 30} ${cy} C ${tailX1 + 48} ${cy - 4}, ${tailX1 + 60} ${cy + 4}, ${tailX1 + 76} ${cy + 1}`} />
+    <circle class="fibre-end" cx={tailX1 + 78} cy={cy + 1} r="4" />
+
+    <!-- scale bar: 50 nm ≈ 158 px -->
+    <g class="scale">
+      <path d="M560 262 h158 M560 256 v12 M718 256 v12" />
+      <text x="639" y="292" text-anchor="middle">50 nm</text>
+    </g>
+
+    <g class="markers">
+      {markers.map((m) => (
+        <g>
+          <path class="lead" d={`M${m.x} ${m.y} L${m.to[0]} ${m.to[1]}`} />
+          <circle cx={m.x} cy={m.y} r="15" />
+          <text x={m.x} y={m.y} dy="0.36em" text-anchor="middle">{m.n}</text>
+        </g>
+      ))}
+    </g>
+  </svg>
+  <ol class="key">
+    {key.map((k) => <li>{k}</li>)}
+  </ol>
+</div>
+
+<style>
+  .exam-diagram svg { font-family: var(--font-sans); }
+  .capsid { fill: color-mix(in srgb, var(--bio-protein) 30%, var(--surface)); stroke: var(--bio-protein); stroke-width: 4; stroke-linejoin: round; }
+  .facets path { stroke: color-mix(in srgb, var(--bio-protein) 45%, transparent); stroke-width: 1.4; }
+  .dna { fill: none; stroke: var(--bio-k); stroke-width: 2.4; stroke-linejoin: round; }
+  .portal { fill: var(--bio-chol); }
+  .tail { fill: color-mix(in srgb, var(--bio-protein-2) 35%, var(--surface)); stroke: var(--bio-protein-2); stroke-width: 2.4; stroke-linejoin: round; }
+  .rings path { stroke: var(--bio-protein-2); stroke-width: 1.4; }
+  .fibre { fill: none; stroke: var(--bio-glucose); stroke-width: 3.5; stroke-linecap: round; }
+  .fibre-end { fill: var(--bio-glucose); }
+  .scale path { stroke: var(--text); stroke-width: 2; fill: none; }
+  .scale text { font-size: 22px; font-weight: 700; fill: var(--text); }
+  .markers circle { fill: var(--surface); stroke: var(--text); stroke-width: 1.8; }
+  .markers text { font-size: 17px; font-weight: 800; fill: var(--text); }
+  .lead { stroke: var(--text); stroke-width: 1.4; }
+  .key { columns: 2 17rem; column-gap: var(--space-5); margin: var(--space-3) 0 0; padding: 0; list-style: none; counter-reset: k; font-size: var(--step--1); }
+  .key li { break-inside: avoid; margin: 0 0 0.3rem; display: grid; grid-template-columns: 1.7rem 1fr; counter-increment: k; }
+  .key li::before { content: counter(k); font-weight: 800; display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; border: 1.5px solid var(--text); border-radius: 50%; font-size: 0.75rem; margin-top: 0.1rem; }
+</style>

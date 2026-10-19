@@ -1,0 +1,254 @@
+---
+code: A2.3
+description: "IB Biology A2.3 viruses (HL): 3D models of lambda and HIV, the lytic and lysogenic cycles step by step, virus origins and rapid evolution, plus a quiz."
+updated: 2026-10-19
+related: [A2.2, A1.2, C3.2, D1.2]
+mustKnow:
+  - term: Virus
+    definition: "A non-cellular infectious particle made of nucleic acid (DNA or RNA) inside a protein <strong>capsid</strong>, with no cytoplasm and few or no enzymes. It can only reproduce inside a living host cell."
+    level: AHL
+  - term: Obligate intracellular parasite
+    definition: "An agent that can reproduce only inside a host cell, because it depends on the host for energy (ATP), raw materials such as nucleotides and amino acids, and protein synthesis (ribosomes). All viruses are obligate parasites."
+    level: AHL
+  - term: Capsid
+    definition: "The protein coat that encloses a virus's nucleic acid. It is built from many copies of a few kinds of protein subunit, which self-assemble into a symmetrical shape (for example icosahedral or helical)."
+    level: AHL
+  - term: Enveloped virus
+    definition: "A virus surrounded by a lipid bilayer taken from a host cell membrane as the new virus buds through it, carrying glycoproteins coded for by viral genes (for example HIV, influenza and coronaviruses). Non-enveloped viruses, such as bacteriophage lambda, have the capsid as their outer surface."
+    level: AHL
+  - term: Bacteriophage
+    definition: "A virus that infects bacteria. <strong>Bacteriophage lambda</strong> infects <em>E. coli</em>; it has an icosahedral head containing linear double-stranded DNA and a long, flexible, non-contractile tail with a single tail fibre."
+    level: AHL
+  - term: Lytic cycle
+    definition: "A virus reproduction cycle in which the virus takes over the host cell to copy its genome and make viral proteins, new virus particles are assembled, and the host cell bursts (lysis) to release them, killing the cell."
+    level: AHL
+  - term: Lysogenic cycle
+    definition: "A cycle in which the viral DNA is inserted into the host chromosome and replicated with it each time the cell divides, without new virus particles being made, until it is induced to enter the lytic cycle."
+    level: AHL
+  - term: Prophage
+    definition: "Phage DNA integrated into the chromosome of a bacterium during the lysogenic cycle. Its lytic genes are kept switched off by a viral repressor; stress such as DNA damage can <strong>induce</strong> it to leave the chromosome and start a lytic cycle."
+    level: AHL
+  - term: Convergent evolution (in viruses)
+    definition: "The independent evolution of similar features in unrelated groups facing similar selection pressures. The few features shared by all viruses may have evolved separately in viruses of different origins, all living as extreme obligate parasites."
+    level: AHL
+  - term: Reverse transcriptase
+    definition: "An enzyme carried by retroviruses such as HIV that makes a DNA copy of the viral RNA genome. It does not proofread, so it makes many copying errors, which is one reason HIV evolves quickly."
+    level: AHL
+  - term: Antigenic drift and antigenic shift
+    definition: "<strong>Drift</strong>: gradual change in influenza surface antigens (haemagglutinin and neuraminidase) caused by point mutations. <strong>Shift</strong>: a sudden major change when two different strains infect the same cell and their RNA segments are mixed (reassortment), producing a new subtype."
+    level: AHL
+mistakes:
+  - wrong: "Viruses are very small cells, or a type of prokaryote."
+    right: "Viruses are not cells. They have no cytoplasm, no ribosomes and no metabolism of their own, so they cannot make ATP or proteins and can reproduce only inside a host cell."
+    level: AHL
+  - wrong: "All viruses have DNA, and all have a lipid envelope."
+    right: "The genetic material may be DNA or RNA, and single- or double-stranded. Some viruses are enveloped (HIV, coronaviruses) and some are not (bacteriophage lambda). Only a capsid of protein and a nucleic acid genome are found in all of them."
+    level: AHL
+  - wrong: "The envelope of a virus is a membrane that the virus makes for itself."
+    right: "The lipid bilayer of an envelope comes from a membrane of the host cell, picked up as the new virus buds through it. Only the glycoproteins embedded in it are coded for by viral genes."
+    level: AHL
+  - wrong: "New viruses grow until they reach full size."
+    right: "Viruses do not grow. They are assembled from ready-made parts and have their full, fixed size as soon as assembly is complete."
+    level: AHL
+  - wrong: "Drawing lambda like phage T4, with a thick contractile sheath, a baseplate and six bent tail fibres like legs."
+    right: "Lambda has a long, thin, flexible tail that does not contract, ending in a narrow tip with a single thin tail fibre. Its head is icosahedral (a hexagon in 2D) and contains linear double-stranded DNA."
+    level: AHL
+  - wrong: "The whole phage enters the bacterium during infection."
+    right: "Only the DNA is injected through the tail. The empty capsid and tail stay outside, attached to the cell surface."
+    level: AHL
+  - wrong: "During the lysogenic cycle the viral DNA is dormant and is not copied."
+    right: "The prophage is replicated along with the host chromosome every time the cell divides, so all the daughter cells inherit it. What is switched off is its lytic genes, so no new phages are made."
+    level: AHL
+  - wrong: "Viruses mutate in order to escape antibodies, or antiviral drugs cause the resistance mutations."
+    right: "Mutations are random copying errors that happen whether or not a drug is present. Antibodies and drugs act as selection pressures: variants that already carry escape or resistance mutations survive and reproduce more."
+    level: AHL
+  - wrong: "Antigenic shift is the gradual build-up of mutations in the influenza virus."
+    right: "That is antigenic <strong>drift</strong>. Antigenic <strong>shift</strong> is a sudden change caused by reassortment: RNA segments from two different strains infecting the same cell are packaged together, giving a virus with a new combination of surface proteins."
+    level: AHL
+  - wrong: "A course of antibiotics will cure influenza or HIV."
+    right: "Antibiotics act on bacterial structures and metabolism, which viruses do not have. Viral diseases are prevented by vaccines and treated with antiviral drugs, such as antiretroviral drugs for HIV."
+    level: AHL
+---
+
+<Section id="shared-features" title="Structural features common to viruses" level="AHL" covers="A2.3.1">
+
+<Viewer3D topic="a2-3" id="viruses" />
+
+**Viruses** are not cells. A virus particle outside a host is inert: it does not feed, respire, excrete or grow. It can only reproduce after it has entered a living cell, so every virus is an **obligate intracellular parasite**. Because viruses are so diverse, very few features are found in all of them. Compare them with the structure of cells in <TopicLink code="A2.2" />.
+
+### The features every virus has
+
+- **Small size.** Most viruses are between about 20 and 300 nm across, smaller than almost all bacteria and far smaller than plant or animal cells. A virus has to be small enough to enter its host cell.
+- **Fixed size.** Viruses do not grow. A new virus is put together inside a host cell from ready-made parts, a fixed number of each, so it has its full size as soon as assembly is complete.
+- **Nucleic acid as genetic material.** The genome is made of either **DNA or RNA**, never both. The genome is small, often only a handful of genes.
+- **A capsid made of protein.** The nucleic acid is enclosed in a protein coat, the **capsid**. It is built from many copies of one or a few kinds of protein subunit, which **self-assemble** into a symmetrical structure such as an icosahedron or a helix. Repeating subunits mean only a few genes are needed for the whole coat.
+- **No cytoplasm.** There are no ribosomes, no organelles and no metabolism inside a virus.
+- **Few or no enzymes.** Viruses use the enzymes of the host cell. The few they carry are needed to copy their genetic material or to infect the host: HIV carries **reverse transcriptase** and integrase, whereas lambda relies on host enzymes to copy its DNA.
+
+<Callout type="tip" title="Using the 3D model">
+
+Rotate the models and select labels to read about each part. Bacteriophage lambda is shown attached to the surface of its host, *E. coli*, with part of its head cut away to show the DNA. Switch to **HIV (enveloped)** to compare an enveloped virus, and use the **Exam diagram** view for the 2D drawing of lambda.
+
+</Callout>
+
+<Callout type="exam">
+
+If you are asked for features of viruses, give features they **all** share (capsid, nucleic acid, small fixed size, no cytoplasm, few or no enzymes). An envelope, a tail or reverse transcriptase are found only in some viruses.
+
+</Callout>
+
+</Section>
+
+<Section id="diversity" title="Diversity of structure in viruses" level="AHL" covers="A2.3.2">
+
+Beyond those shared features, viruses vary enormously.
+
+- **Genetic material**: DNA or RNA (see <TopicLink code="A1.2" />), which may be **single-stranded or double-stranded**, linear or circular, in one molecule or in several separate segments.
+- **Shape**: capsids may be icosahedral, helical (rod-shaped) or more complex, like the head-and-tail structure of many bacteriophages.
+- **Envelope**: some viruses are **enveloped**: as new particles bud through one of the host cell's membranes, they become wrapped in a lipid bilayer taken from it, with glycoproteins coded for by the virus embedded in it. Others are **non-enveloped**, and their capsid is their outer surface.
+
+<Figure name="a2-3-diversity" caption="Four viruses compared (not drawn to the same scale). Lambda is a non-enveloped DNA virus of bacteria; the coronavirus, HIV and influenza virus are enveloped RNA viruses of animals." />
+
+| Virus | Genetic material | Envelope? | Shape and size | Host |
+|---|---|---|---|---|
+| Bacteriophage lambda | double-stranded DNA, one linear molecule (about 48 500 base pairs) | no | icosahedral head (about 60 nm) with a 150 nm tail | *E. coli* |
+| Coronaviruses, e.g. SARS-CoV-2 | single-stranded RNA, one molecule of about 30 000 bases | yes, from internal membranes of the host cell | roughly spherical, about 80–120 nm, with spike glycoproteins | mammals and birds; SARS-CoV-2 infects human airway cells |
+| HIV | single-stranded RNA, two identical copies of about 9700 bases | yes, from the plasma membrane | spherical, about 100–120 nm, cone-shaped capsid | human helper T cells |
+| Influenza A virus | single-stranded RNA in eight segments | yes, from the plasma membrane | usually roughly spherical, about 80–120 nm | birds and mammals |
+| Tobacco mosaic virus | single-stranded RNA | no | helical rod, about 300 × 18 nm | tobacco and other plants |
+| Rotavirus | double-stranded RNA in 11 segments | no | icosahedral, about 70–80 nm | gut cells of humans and other animals |
+
+So between them, viruses use all four combinations of DNA or RNA, single- or double-stranded. Sizes range from under 20 nm to giant viruses such as mimivirus, which are larger than some bacteria.
+
+<Callout type="exam" title="Drawing bacteriophage lambda">
+
+A labelled drawing should include:
+
+- a **capsid (head)** drawn as a hexagon, the outline of an icosahedron, labelled as protein;
+- **linear double-stranded DNA** coiled inside the head;
+- a long, thin **tail** (a hollow protein tube) joined at one corner of the head;
+- a single thin **tail fibre** at the tip, which binds to the host cell.
+
+Do not add an envelope, a contractile sheath or the six leg-like fibres of phage T4. Compare with the **Exam diagram** view of the 3D model.
+
+</Callout>
+
+</Section>
+
+<Section id="lytic" title="The lytic cycle of bacteriophage lambda" level="AHL" covers="A2.3.3">
+
+A virus has no ribosomes, makes no ATP and has no supply of nucleotides or amino acids, so it **relies on a host cell** for energy, nutrition, protein synthesis and almost every other life function. In the **lytic cycle** the virus uses the host's machinery to make many copies of itself and then destroys the cell.
+
+### Stages in lambda
+
+1. **Attachment.** The tail fibre binds to a specific receptor protein, **LamB**, in the outer membrane of *E. coli*. Binding is specific, so lambda infects only bacteria that carry this receptor.
+2. **Injection.** The linear DNA is injected through the tail into the cytoplasm; the empty capsid stays outside. The two ends of the DNA are short complementary single-stranded sections, so they pair up by **complementary base pairing** and the DNA becomes a circle.
+3. **Replication and synthesis.** Viral genes are transcribed by the host's RNA polymerase and the mRNA is translated by host ribosomes (<TopicLink code="D1.2" />), using host ATP, nucleotides and amino acids. The viral DNA is replicated many times, and large amounts of head and tail proteins are made.
+4. **Assembly.** Capsid proteins self-assemble into heads, each head is filled with one copy of the DNA, and tails are attached.
+5. **Lysis.** Viral enzymes made late in the cycle break down the cell wall from inside. The cell bursts and dies, releasing around 100 new phages, which can each infect another cell.
+
+The whole cycle takes about an hour in good conditions, so numbers of phages can rise extremely fast.
+
+<Anim topic="a2-3" id="cycles" />
+
+<Callout type="exam">
+
+When asked what a virus "relies on" its host for, be specific: **ATP** (energy), **nucleotides and amino acids** (raw materials), **ribosomes, tRNA and enzymes such as RNA polymerase** (to make proteins and copy genes).
+
+</Callout>
+
+</Section>
+
+<Section id="lysogenic" title="The lysogenic cycle" level="AHL" covers="A2.3.4">
+
+After injection, lambda's DNA does not always enter the lytic cycle. It can instead follow the **lysogenic cycle**, shown in the last three steps of the animation. Phages that can do this are called **temperate** phages. Lysogeny is more likely, for example, when many phages infect the same cell or when the host is short of nutrients.
+
+### Stages
+
+1. **Attachment and injection** happen exactly as in the lytic cycle, and the DNA circularizes.
+2. **Integration.** A viral enzyme, **integrase**, inserts the circular viral DNA into the host chromosome at a particular site. The integrated viral DNA is now called a **prophage**, and the bacterium is a **lysogen**.
+3. **Repression.** A viral repressor protein binds to the prophage and switches off the genes needed for the lytic cycle, so no viral proteins for new phages are made and the host is not harmed.
+4. **Replication with the host.** Every time the bacterium replicates its chromosome before **binary fission**, the prophage is replicated with it, so both daughter cells inherit it. A whole population of lysogens can grow from one infected cell.
+5. **Induction.** Stress such as **DNA damage by UV light** or certain chemicals inactivates the repressor. The prophage is cut out of the chromosome and enters the lytic cycle, so the cell is eventually lysed.
+
+| | Lytic cycle | Lysogenic cycle |
+|---|---|---|
+| Viral DNA | stays separate and is copied many times | integrated into the host chromosome as a prophage |
+| New phages made? | yes, about 100 per cell | no, until induction |
+| Effect on host cell | killed by lysis within about an hour | survives and divides normally |
+| How the viral DNA spreads | new phages infect other cells | passed to daughter cells at each division |
+
+<Callout type="exam">
+
+Say **"prophage"** for the integrated DNA and state that it is **replicated with the host chromosome** at each division. Calling it "dormant" without saying it is copied loses marks.
+
+</Callout>
+
+</Section>
+
+<Section id="origins" title="Evidence for several origins of viruses" level="AHL" covers="A2.3.5">
+
+Living organisms share many features, such as ribosomes, a plasma membrane and core metabolic pathways, because they inherited them from a common ancestor. Viruses are different: no single gene is found in all viruses, and their genomes and ways of replicating vary widely. This suggests that viruses are **not one natural group (clade)** but arose **several times**, from different sources.
+
+### Why viruses share some features anyway
+
+All viruses live as **extreme obligate parasites**. Any genetic element that is transferred between host cells faces the same problems: it must be small enough to enter a cell, protected in transit, and able to use the host's machinery. A protein capsid, small size and the loss of metabolism are good solutions to these problems, so the features viruses share may be the result of **convergent evolution** rather than common ancestry. Compare the streamlined body shapes of sharks and dolphins, which evolved separately in response to the same demands of fast swimming.
+
+### The genetic code
+
+Viruses use the **same genetic code** as living organisms. This is essential, because viral proteins are made by the host's ribosomes and tRNA. It is taken as evidence that viruses evolved after the genetic code was established in cells, probably from cellular genetic material, rather than before cells existed.
+
+### Hypotheses for the origin of viruses
+
+<Figure name="a2-3-origins" caption="Three hypotheses for the origin of viruses. They are not mutually exclusive: different groups of viruses may have arisen in different ways." />
+
+- The **escape** hypothesis fits the similarity between some viruses and mobile genetic elements such as plasmids and transposons.
+- The **reduction** hypothesis fits the giant viruses, whose large genomes include genes once thought to be found only in cells. It also mirrors what is seen in some parasitic bacteria, which have lost many genes.
+- The **virus-first** hypothesis conflicts with the fact that all known viruses depend on cells.
+
+<Callout type="note" title="Scope">
+
+You need to explain why virus diversity suggests several origins, the idea of convergent evolution in obligate parasites, and the significance of the shared genetic code. You do not need to learn particular groups of viruses beyond the named examples.
+
+</Callout>
+
+</Section>
+
+<Section id="rapid-evolution" title="Rapid evolution in viruses" level="AHL" covers="A2.3.6">
+
+Some viruses, especially RNA viruses and retroviruses, evolve far faster than any cellular organism. The reasons are:
+
+- **High mutation rates.** Most RNA viruses copy their genomes with RNA-dependent RNA polymerases, and retroviruses with **reverse transcriptase**. These enzymes do not **proofread**, so copying errors are not corrected. DNA viruses that use proofreading polymerases mutate far more slowly. (Coronaviruses are an exception among RNA viruses: they have a proofreading enzyme, so they mutate more slowly than influenza or HIV.)
+- **Short generation times.** A replication cycle takes hours rather than years, and only about an hour for lambda.
+- **Huge numbers of offspring.** One infected person can produce billions of new virus particles a day, so even rare mutations appear constantly.
+- **Mixing of genomes**, by recombination or by reassortment of genome segments.
+- **Strong selection** by the host's immune system and by antiviral drugs, which favours any variant they no longer act on.
+
+<Sim topic="a2-3" id="evolution" />
+
+### Influenza viruses
+
+Influenza viruses have eight separate RNA segments and an error-prone polymerase.
+
+- **Antigenic drift**: point mutations gradually change the surface glycoproteins **haemagglutinin (HA)** and **neuraminidase (NA)**, so antibodies made after earlier infections or vaccination bind less well. The vaccine therefore has to be **updated every year** to match the strains expected to circulate.
+- **Antigenic shift**: when two different strains (for example a human and a bird strain) infect the same cell, their segments can be mixed into new combinations (**reassortment**). The result may be a subtype to which almost nobody is immune, as in the 1957 and 1968 pandemics.
+
+Resistance to antiviral drugs also spreads: most influenza A viruses are now resistant to the older drug amantadine.
+
+### HIV
+
+HIV's **reverse transcriptase** makes many errors, and recombination between the two RNA copies adds more variation. Within one infected person, the virus soon becomes a population of genetically different variants. As a result:
+
+- the immune system cannot clear the infection, because new variants keep escaping the antibodies and T cells made against earlier ones;
+- **resistance** to any single drug evolves quickly, so patients take a **combination of antiretroviral drugs** acting on different targets. A variant resistant to all of them at once is very unlikely to arise;
+- no effective vaccine has yet been developed, and infection is managed lifelong rather than cured.
+
+Viruses are also attacked by the body's defences described in <TopicLink code="C3.2" />.
+
+<Callout type="exam">
+
+Link the mechanism to the consequence: no proofreading → high mutation rate → many variants → **natural selection** by antibodies or drugs → vaccines need updating (influenza) and combination therapy is needed (HIV).
+
+</Callout>
+
+</Section>
