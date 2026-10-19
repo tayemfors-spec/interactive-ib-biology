@@ -1,0 +1,73 @@
+cards:
+  - id: c1
+    level: SL
+    front: What is ATP, and what are its three parts?
+    back: Adenosine triphosphate, a nucleotide. It is made of the base adenine, the pentose sugar ribose and a chain of three phosphate groups.
+  - id: c2
+    level: SL
+    front: Give four properties that make ATP suitable as the energy currency of cells.
+    back: Soluble, so it moves easily through the cytoplasm; stable at cell pH; cannot diffuse through membranes, so it stays where it is needed; releases a useful amount of energy when one phosphate is removed; easily regenerated from ADP.
+  - id: c3
+    level: SL
+    front: Name three types of cell process that use energy from ATP.
+    back: Active transport across membranes; synthesis of macromolecules (anabolism), such as proteins and DNA; movement of the whole cell or of parts of it, such as chromosomes.
+  - id: c4
+    level: SL
+    front: ATP ⇌ ADP + Pi — which direction releases energy?
+    back: Hydrolysis of ATP to ADP + Pi releases energy (water is used). Making ATP from ADP + Pi is a condensation (phosphorylation) that requires energy, from respiration.
+  - id: c5
+    level: SL
+    front: How is cell respiration different from gas exchange?
+    back: Cell respiration is the release of energy from organic compounds by reactions inside cells, to make ATP. Gas exchange is the diffusion of O₂ and CO₂ across an exchange surface.
+  - id: c6
+    level: SL
+    front: Word equations for aerobic and anaerobic respiration in humans
+    back: Aerobic — glucose + oxygen → carbon dioxide + water. Anaerobic — glucose → lactate. Both release energy used to make ATP.
+  - id: c7
+    level: SL
+    front: Compare aerobic and anaerobic respiration in humans (four differences).
+    back: Oxygen used / not used; mitochondria needed / cytoplasm only; large / small (2) ATP yield per glucose; CO₂ and water / lactate as waste; carbohydrates or lipids / glucose only.
+  - id: c8
+    level: SL
+    front: Why does a respirometer contain KOH or soda lime?
+    back: To absorb CO₂ released by the organisms, so any decrease in gas volume — shown by the drop moving — is due only to the oxygen used.
+  - id: c9
+    level: SL
+    front: How do you calculate a rate of oxygen uptake from a respirometer reading?
+    back: Distance moved = start − end reading; volume = πr² × distance (r = capillary radius); rate = volume ÷ time (and ÷ mass of organisms if comparing samples). Give units such as mm³ min⁻¹.
+  - id: c10
+    level: AHL
+    front: Why is removing hydrogen from a substrate an oxidation?
+    back: A hydrogen atom contains an electron, so dehydrogenation removes electrons — and loss of electrons is oxidation. The hydrogen is accepted by NAD, which is reduced (a redox reaction).
+  - id: c11
+    level: AHL
+    front: Four stages of glycolysis and its net yield
+    back: Phosphorylation (2 ATP used), lysis (6C → two 3C), oxidation (2 NAD reduced), ATP formation (4 ATP made). Net per glucose — 2 ATP, 2 reduced NAD, 2 pyruvate. In the cytoplasm; no O₂ needed.
+  - id: c12
+    level: AHL
+    front: Why do humans convert pyruvate to lactate when oxygen is short?
+    back: To regenerate NAD. Pyruvate accepts hydrogen from reduced NAD, so NAD is available again and glycolysis can continue producing a net 2 ATP per glucose.
+  - id: c13
+    level: AHL
+    front: Anaerobic respiration in yeast and its uses
+    back: Pyruvate is decarboxylated to ethanal (releasing CO₂), then reduced to ethanol by reduced NAD, regenerating NAD. Baking uses the CO₂ to make dough rise; brewing uses the ethanol (beer, wine).
+  - id: c14
+    level: AHL
+    front: What happens in the link reaction?
+    back: In the matrix, pyruvate (3C) is decarboxylated (CO₂ removed) and oxidized (NAD reduced). The acetyl group (2C) left is attached to coenzyme A, forming acetyl CoA.
+  - id: c15
+    level: AHL
+    front: Summarize one turn of the Krebs cycle.
+    back: Acetyl (2C) + oxaloacetate (4C) → citrate (6C). Two decarboxylations (2 CO₂) and four oxidations (3 reduced NAD, 1 reduced FAD), plus 1 ATP, regenerate oxaloacetate. Two turns per glucose.
+  - id: c16
+    level: AHL
+    front: How is the proton gradient made and used in mitochondria?
+    back: Electrons from reduced NAD flow along carriers in the inner membrane, and the energy pumps protons from the matrix into the intermembrane space. Protons diffuse back through ATP synthase, which uses the energy to phosphorylate ADP (chemiosmosis).
+  - id: c17
+    level: AHL
+    front: What is the role of oxygen in aerobic respiration?
+    back: Terminal electron acceptor — it accepts electrons from the end of the chain and protons from the matrix, forming water. This keeps electrons flowing; without it the chain, link reaction and Krebs cycle stop.
+  - id: c18
+    level: AHL
+    front: Lipids vs carbohydrates as respiratory substrates
+    back: Lipids release about twice the energy per gram (less oxygen, more oxidizable C and H). Fatty acids enter as acetyl CoA, so only aerobically; carbohydrates go through glycolysis, so aerobically or anaerobically.

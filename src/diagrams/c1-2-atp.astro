@@ -1,0 +1,95 @@
+---
+/** Exam-style diagram of ATP (C1.2.1) and the ATP ⇌ ADP + Pi cycle (C1.2.3). */
+type P = [number, number];
+const poly = (cx: number, cy: number, r: number, angles: number[]): P[] =>
+  angles.map((a) => [cx + r * Math.cos((a * Math.PI) / 180), cy + r * Math.sin((a * Math.PI) / 180)]);
+const pts = (p: P[]) => p.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
+const ribose = poly(285, 112, 38, [-90, -18, 54, 126, 198]); // O, C1′, C2′, C3′, C4′
+const imid = poly(380, 88, 28, [180, 108, 36, -36, -108]);
+const hex = poly(431.2, 88, 33, [30, 90, 150, 210, 270, 330]);
+const phos = [60, 120, 180];
+const PY = 74;
+---
+<svg viewBox="0 0 640 490" role="img" aria-labelledby="atp-t atp-d" xmlns="http://www.w3.org/2000/svg" class="atpd">
+  <title id="atp-t">Structure of ATP and the ATP–ADP cycle</title>
+  <desc id="atp-d">ATP is drawn as three phosphate groups in a chain, linked through a CH₂ group to carbon 5′ of ribose, a five-membered sugar ring containing an oxygen atom. Carbon 1′ of ribose is bonded to adenine, a base made of a five-membered ring fused to a six-membered ring. Adenine plus ribose is adenosine. Below, a cycle shows ATP being hydrolysed to ADP and phosphate, using water and releasing energy for cell processes, and ADP and phosphate being joined again by condensation, releasing water and requiring energy from cell respiration.</desc>
+
+  <!-- phosphate chain -->
+  <line class="bond" x1={phos[0]} y1={PY} x2={phos[2]} y2={PY} />
+  <line class="bond" x1={phos[2]} y1={PY} x2="222" y2={PY} />
+  <line class="bond" x1="230" y1={PY + 6} x2={ribose[4]![0]} y2={ribose[4]![1]} />
+  <text class="t" x="214" y={PY - 10}>CH₂</text>
+  {phos.map((x) => (<g><circle class="p" cx={x} cy={PY} r="21" /><text class="pt" x={x} y={PY + 6} text-anchor="middle">P</text></g>))}
+  <text class="n" x="60" y="40" text-anchor="middle">γ (terminal)</text>
+  <text class="n" x="120" y="40" text-anchor="middle">β</text>
+  <text class="n" x="180" y="40" text-anchor="middle">α</text>
+
+  <!-- ribose -->
+  <polygon class="sugar" points={pts(ribose)} />
+  <text class="t" x={ribose[0]![0]} y={ribose[0]![1] + 20} text-anchor="middle">O</text>
+  <line class="bond" x1={ribose[2]![0]} y1={ribose[2]![1]} x2={ribose[2]![0] + 6} y2={ribose[2]![1] + 22} />
+  <text class="t" x={ribose[2]![0] - 6} y={ribose[2]![1] + 40}>OH</text>
+  <line class="bond" x1={ribose[3]![0]} y1={ribose[3]![1]} x2={ribose[3]![0] - 6} y2={ribose[3]![1] + 22} />
+  <text class="t" x={ribose[3]![0] - 24} y={ribose[3]![1] + 40}>OH</text>
+
+  <!-- adenine -->
+  <line class="bond" x1={ribose[1]![0]} y1={ribose[1]![1]} x2={imid[0]![0]} y2={imid[0]![1]} />
+  <polygon class="base" points={pts(imid)} />
+  <polygon class="base" points={pts(hex)} />
+  <line class="bond" x1={hex[4]![0]} y1={hex[4]![1]} x2={hex[4]![0]} y2={hex[4]![1] - 18} />
+  <text class="t" x={hex[4]![0]} y={hex[4]![1] - 22} text-anchor="middle">NH₂</text>
+
+  <!-- labels -->
+  <path class="brace" d="M38 108 v8 h164 v-8" />
+  <text class="lbl" x="120" y="138" text-anchor="middle">three phosphate groups</text>
+  <text class="lbl" x="232" y="212" text-anchor="end">ribose</text>
+  <text class="sub" x="232" y="229" text-anchor="end">(pentose sugar)</text>
+  <text class="lbl" x="430" y="150" text-anchor="middle">adenine</text>
+  <text class="sub" x="430" y="167" text-anchor="middle">(nitrogenous base)</text>
+  <path class="brace" d="M248 234 v8 h226 v-8" />
+  <text class="sub" x="361" y="260" text-anchor="middle">adenine + ribose = adenosine</text>
+  <text class="lbl" x="565" y="80" text-anchor="middle">ATP</text>
+  <text class="sub" x="565" y="98" text-anchor="middle">adenosine</text>
+  <text class="sub" x="565" y="114" text-anchor="middle">triphosphate:</text>
+  <text class="sub" x="565" y="130" text-anchor="middle">a nucleotide</text>
+
+  <!-- cycle -->
+  <line class="rule" x1="20" y1="276" x2="620" y2="276" />
+  <g class="mol">
+    <rect x="40" y="346" width="120" height="40" rx="20" />
+    <text x="100" y="372" text-anchor="middle">ATP</text>
+    <rect x="440" y="346" width="160" height="40" rx="20" />
+    <text x="520" y="372" text-anchor="middle">ADP + Pi</text>
+  </g>
+  <path class="arrow" d="M150 342 C 230 264, 380 264, 446 340" marker-end="url(#atp-arr)" />
+  <path class="arrow" d="M446 392 C 380 444, 230 444, 150 390" marker-end="url(#atp-arr)" />
+  <text class="lbl" x="300" y="316" text-anchor="middle">hydrolysis (+ H₂O)</text>
+  <text class="go" x="300" y="336" text-anchor="middle">energy released for active transport,</text>
+  <text class="go" x="300" y="352" text-anchor="middle">synthesis and movement</text>
+  <text class="go" x="300" y="460" text-anchor="middle">energy required, from cell respiration</text>
+  <text class="lbl" x="300" y="478" text-anchor="middle">condensation / phosphorylation (− H₂O)</text>
+  <defs>
+    <marker id="atp-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" class="head" />
+    </marker>
+  </defs>
+</svg>
+<style>
+  .atpd { font-family: var(--font-sans); }
+  .bond { stroke: var(--text); stroke-width: 2.4; }
+  .p { fill: var(--bio-head); stroke: var(--text); stroke-width: 1.6; }
+  .pt { font-size: 17px; font-weight: 800; fill: #000; }
+  .sugar { fill: color-mix(in srgb, var(--border-strong) 35%, var(--surface)); stroke: var(--text); stroke-width: 2.2; }
+  .base { fill: color-mix(in srgb, var(--bio-protein) 25%, var(--surface)); stroke: var(--text); stroke-width: 2.2; }
+  .t { font-size: 15px; fill: var(--text); }
+  .n { font-size: 13px; font-weight: 700; fill: var(--text-muted); }
+  .lbl { font-size: 16px; font-weight: 750; fill: var(--text); }
+  .sub { font-size: 14px; fill: var(--text-muted); }
+  .brace { fill: none; stroke: var(--text-muted); stroke-width: 1.5; }
+  .rule { stroke: var(--border); stroke-dasharray: 4 4; }
+  .mol rect { fill: color-mix(in srgb, var(--bio-head) 30%, var(--surface)); stroke: var(--bio-head); stroke-width: 2; }
+  .mol text { font-size: 18px; font-weight: 800; fill: var(--text); }
+  .arrow { fill: none; stroke: var(--text); stroke-width: 2.2; }
+  .head { fill: var(--text); }
+  .go { font-size: 14px; fill: var(--text); font-style: italic; }
+</style>

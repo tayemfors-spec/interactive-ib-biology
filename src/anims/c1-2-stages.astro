@@ -1,0 +1,231 @@
+---
+/**
+ * Aerobic respiration of one glucose (C1.2.8, .11–.16), step by step, with a running ledger.
+ * Drawn in the step-1 start state; c1-2-stages.ts animates it. Gold beads are carbon atoms.
+ */
+const bead = (x0: number, y: number, n: number, gap = 21) => Array.from({ length: n }, (_, i) => [x0 + i * gap, y] as const);
+// Krebs cycle geometry (clockwise angle from the top)
+const K = { cx: 200, cy: 238, r: 92 };
+const kp = (deg: number, r = K.r) => [K.cx + r * Math.sin((deg * Math.PI) / 180), K.cy - r * Math.cos((deg * Math.PI) / 180)] as const;
+const krebsOut = [
+  { el: 'k-co2a', deg: 40, label: 'CO₂', cls: 'co2' },
+  { el: 'k-nad1', deg: 72, label: 'reduced NAD', cls: 'nadh' },
+  { el: 'k-co2b', deg: 108, label: 'CO₂', cls: 'co2' },
+  { el: 'k-nad2', deg: 140, label: 'reduced NAD', cls: 'nadh' },
+  { el: 'k-atp', deg: 205, label: 'ATP', cls: 'atp' },
+  { el: 'k-fad', deg: 255, label: 'reduced FAD', cls: 'fadh' },
+  { el: 'k-nad3', deg: 312, label: 'reduced NAD', cls: 'nadh' },
+];
+const carriers = [80, 150, 220];
+---
+<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" class="stg">
+  <!-- where it happens -->
+  <g class="chips">
+    <g data-el="chip-cyto" class="chip on"><rect x="10" y="8" width="128" height="28" rx="14" /><text x="74" y="27" text-anchor="middle">Cytoplasm</text></g>
+    <g data-el="chip-matrix" class="chip"><rect x="146" y="8" width="178" height="28" rx="14" /><text x="235" y="27" text-anchor="middle">Mitochondrial matrix</text></g>
+    <g data-el="chip-mem" class="chip"><rect x="332" y="8" width="232" height="28" rx="14" /><text x="448" y="27" text-anchor="middle">Inner mitochondrial membrane</text></g>
+  </g>
+
+  <!-- ledger -->
+  <g class="ledger">
+    <rect x="436" y="50" width="196" height="196" rx="10" />
+    <text class="lh" x="448" y="74">Running total</text>
+    <text class="ls" x="448" y="92">per glucose</text>
+    <text x="448" y="124">ATP (net)</text><text data-el="v-atp" class="lv" x="620" y="124" text-anchor="end">0</text>
+    <text x="448" y="156">reduced NAD</text><text data-el="v-nadh" class="lv" x="620" y="156" text-anchor="end">0</text>
+    <text x="448" y="188">reduced FAD</text><text data-el="v-fadh" class="lv" x="620" y="188" text-anchor="end">0</text>
+    <text x="448" y="220">CO₂ released</text><text data-el="v-co2" class="lv" x="620" y="220" text-anchor="end">0</text>
+    <rect x="436" y="256" width="196" height="96" rx="10" class="delta" />
+    <text class="ls" x="448" y="278">This stage</text>
+    <text data-el="d1" class="dl" x="448" y="302">uses 2 ATP</text>
+    <text data-el="d2" class="dl" x="448" y="324"></text>
+    <text data-el="d3" class="dl" x="448" y="344"></text>
+    <text data-el="foot" class="ls" x="436" y="374"></text>
+    <text data-el="foot2" class="ls" x="436" y="392"></text>
+  </g>
+
+  <text data-el="title" class="title" x="16" y="70">Glycolysis 1 · Phosphorylation</text>
+
+  <!-- 1 phosphorylation -->
+  <g data-el="s0">
+    <text data-el="s0-glc" class="lbl" x="210" y="176" text-anchor="middle">glucose (6C)</text>
+    <text data-el="s0-hbp" class="lbl" x="210" y="240" text-anchor="middle" style="opacity:0">hexose bisphosphate (6C)</text>
+    {bead(157.5, 200, 6).map(([x, y]) => <circle class="c" cx={x} cy={y} r="9" />)}
+    <g data-el="s0-p1" style="opacity:0"><circle class="p" cx="128" cy="200" r="10" /><text class="pt" x="128" y="205" text-anchor="middle">P</text></g>
+    <g data-el="s0-p2" style="opacity:0"><circle class="p" cx="292" cy="200" r="10" /><text class="pt" x="292" y="205" text-anchor="middle">P</text></g>
+    <g data-el="s0-atp1" transform="translate(80 320)"><rect class="atp" x="-26" y="-13" width="52" height="26" rx="13" /><text class="tk" text-anchor="middle" y="5">ATP</text></g>
+    <g data-el="s0-atp2" transform="translate(340 320)"><rect class="atp" x="-26" y="-13" width="52" height="26" rx="13" /><text class="tk" text-anchor="middle" y="5">ATP</text></g>
+    <g data-el="s0-adp1" style="opacity:0"><rect class="adp" x="-26" y="-13" width="52" height="26" rx="13" /><text class="tk" text-anchor="middle" y="5">ADP</text></g>
+    <g data-el="s0-adp2" style="opacity:0"><rect class="adp" x="-26" y="-13" width="52" height="26" rx="13" /><text class="tk" text-anchor="middle" y="5">ADP</text></g>
+  </g>
+
+  <!-- 2 lysis -->
+  <g data-el="s1" style="opacity:0">
+    <g data-el="s1-left">
+      <circle class="p" cx="128" cy="200" r="10" /><text class="pt" x="128" y="205" text-anchor="middle">P</text>
+      {bead(157.5, 200, 3).map(([x, y]) => <circle class="c" cx={x} cy={y} r="9" />)}
+    </g>
+    <g data-el="s1-right">
+      {bead(220.5, 200, 3).map(([x, y]) => <circle class="c" cx={x} cy={y} r="9" />)}
+      <circle class="p" cx="292" cy="200" r="10" /><text class="pt" x="292" y="205" text-anchor="middle">P</text>
+    </g>
+    <text data-el="s1-l1" class="lbl" x="250" y="155">triose phosphate (3C)</text>
+    <text data-el="s1-l2" class="lbl" x="250" y="265">triose phosphate (3C)</text>
+  </g>
+
+  <!-- 3 oxidation -->
+  <g data-el="s2" style="opacity:0">
+    {[150, 260].map((y, i) => (
+      <g>
+        {i === 0 && <><circle class="p" cx="110" cy={y} r="10" /><text class="pt" x="110" y={y + 5} text-anchor="middle">P</text></>}
+        {bead(139.5, y, 3).map(([x, yy]) => <circle class="c" cx={x} cy={yy} r="9" />)}
+        {i === 1 && <><circle class="p" cx="211.5" cy={y} r="10" /><text class="pt" x="211.5" y={y + 5} text-anchor="middle">P</text></>}
+        <g data-el={`s2-h${i}`} transform={`translate(175 ${y - 26})`}><circle class="h" r="11" /><text class="ht" text-anchor="middle" y="4">2H</text></g>
+        <g data-el={`s2-nad${i}`} transform={`translate(335 ${y})`}>
+          <rect class="nad" x="-52" y="-14" width="104" height="28" rx="14" data-el={`s2-nadbox${i}`} />
+          <text class="tk dark" text-anchor="middle" y="5" data-el={`s2-nadt${i}`}>NAD</text>
+        </g>
+      </g>
+    ))}
+    <text class="lbl" x="140" y="315">each triose phosphate is oxidized:</text>
+    <text class="lbl" x="140" y="335">2 hydrogen atoms removed</text>
+  </g>
+
+  <!-- 4 ATP formation -->
+  <g data-el="s3" style="opacity:0">
+    {[150, 260].map((y, i) => (
+      <g>
+        <g data-el={`s3-p${i}`}><circle class="p" cx={i === 0 ? 110 : 211.5} cy={y} r="10" /><text class="pt" x={i === 0 ? 110 : 211.5} y={y + 5} text-anchor="middle">P</text></g>
+        {bead(139.5, y, 3).map(([x, yy]) => <circle class="c" cx={x} cy={yy} r="9" />)}
+        <text data-el={`s3-name${i}`} class="lbl" x="160" y={y + 32} text-anchor="middle">triose phosphate</text>
+        {[0, 1].map((k) => (
+          <g transform={`translate(${310 + k * 66} ${y})`}>
+            <rect data-el={`s3-box${i}${k}`} class="adp" x="-28" y="-14" width="56" height="28" rx="14" />
+            <text data-el={`s3-t${i}${k}`} class="tk" text-anchor="middle" y="5">ADP</text>
+          </g>
+        ))}
+      </g>
+    ))}
+    <path class="arrow" d="M236 150 H276" /><path class="arrow" d="M236 260 H276" />
+  </g>
+
+  <!-- 5 link reaction -->
+  <g data-el="s4" style="opacity:0">
+    <circle data-el="s4-b1" class="c" cx="100" cy="200" r="9" />
+    <circle data-el="s4-b2" class="c" cx="121" cy="200" r="9" />
+    <g data-el="s4-co2" transform="translate(142 200)"><circle class="c" r="9" /><text data-el="s4-co2t" class="lbl" x="14" y="-12" style="opacity:0">CO₂</text></g>
+    <text data-el="s4-name" class="lbl" x="120" y="176" text-anchor="middle">pyruvate (3C)</text>
+    <g data-el="s4-coa" transform="translate(330 300)"><rect class="coa" x="-26" y="-14" width="52" height="28" rx="6" /><text class="tk" text-anchor="middle" y="5">CoA</text></g>
+    <text data-el="s4-acetyl" class="lbl" x="150" y="335" text-anchor="middle" style="opacity:0">acetyl CoA (2C + CoA)</text>
+    <g data-el="s4-nad" transform="translate(320 160)">
+      <rect class="nad" x="-52" y="-14" width="104" height="28" rx="14" data-el="s4-nadbox" />
+      <text class="tk dark" text-anchor="middle" y="5" data-el="s4-nadt">NAD</text>
+    </g>
+    <text class="note" x="16" y="398">Happens twice per glucose — once for each pyruvate.</text>
+  </g>
+
+  <!-- 6 Krebs cycle -->
+  <g data-el="s5" style="opacity:0">
+    <circle class="cycle" cx={K.cx} cy={K.cy} r={K.r} />
+    <path class="arrowhead" d={`M${kp(178)[0] + 6} ${kp(178)[1] - 7} l-8 7 l8 7`} />
+    <text class="lbl" x={K.cx} y={K.cy + 4} text-anchor="middle">Krebs cycle</text>
+    <text class="sm" x={K.cx - 50} y={K.cy - 46} text-anchor="middle">oxaloacetate</text>
+    <text class="sm" x={K.cx - 50} y={K.cy - 30} text-anchor="middle">(4C)</text>
+    <text class="sm" x={K.cx + 52} y={K.cy - 46} text-anchor="middle">citrate</text>
+    <text class="sm" x={K.cx + 52} y={K.cy - 30} text-anchor="middle">(6C)</text>
+    <g data-el="s5-acetyl" transform="translate(200 98)">
+      <circle class="c" cx="-11" cy="0" r="9" /><circle class="c" cx="10" cy="0" r="9" />
+      <g data-el="s5-coa"><rect class="coa" x="22" y="-13" width="46" height="26" rx="6" /><text class="tk" x="45" text-anchor="middle" y="5">CoA</text></g>
+      <text data-el="s5-acl" class="sm" x="-24" y="4" text-anchor="end">acetyl CoA</text>
+    </g>
+    <g data-el="s5-marker" transform={`translate(${kp(0)[0]} ${kp(0)[1]})`}><circle class="mk" r="15" /><text data-el="s5-mt" class="mkt" text-anchor="middle" y="5">4C</text></g>
+    {krebsOut.map((o) => {
+      const [x, y] = kp(o.deg, 136);
+      const w = o.label.length > 5 ? 104 : 52;
+      return <g data-el={o.el} transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`} style="opacity:0"><rect class={o.cls} x={-w / 2} y="-13" width={w} height="26" rx="13" /><text class={`tk${o.cls === 'nadh' || o.cls === 'co2' ? ' dark' : ''}`} text-anchor="middle" y="5">{o.label}</text></g>;
+    })}
+    <text class="note" x="16" y="398">Per turn (shown). Two turns per glucose — one per acetyl group.</text>
+  </g>
+
+  <!-- 7 electron transport chain and chemiosmosis -->
+  <g data-el="s6" style="opacity:0">
+    <text class="sm" x="20" y="98">intermembrane space — high H⁺ concentration</text>
+    <rect class="mem" x="14" y="196" width="400" height="48" />
+    <text class="sm" x="20" y="392">matrix — low H⁺ concentration</text>
+    {[[40, 130], [100, 160], [190, 120], [250, 165], [300, 125], [370, 150], [60, 175]].map(([x, y]) => <g transform={`translate(${x} ${y})`}><circle class="hp" r="9" /><text class="hpt" text-anchor="middle" y="4">H⁺</text></g>)}
+    {carriers.map((x) => <rect class="carrier" x={x - 22} y="184" width="44" height="72" rx="16" />)}
+    <path class="eflow" d="M80 228 H220 Q238 260 240 308" />
+    <text class="et" x="150" y="214" text-anchor="middle">e⁻ →</text>
+    <text class="sm" x="150" y="276" text-anchor="middle">electron carriers</text>
+    <rect class="synth" x="326" y="188" width="44" height="64" rx="10" />
+    <line data-el="s6-rotor" class="rotor" x1="348" y1="196" x2="348" y2="244" />
+    <line class="stalk" x1="348" y1="252" x2="348" y2="282" />
+    <circle class="synth" cx="348" cy="306" r="26" />
+    <text class="sm" x="390" y="188" text-anchor="end">ATP synthase</text>
+    {[0, 1, 2].map((i) => <g data-el={`s6-pump${i}`} transform={`translate(${carriers[i]} 300)`}><circle class="hp" r="9" /><text class="hpt" text-anchor="middle" y="4">H⁺</text></g>)}
+    {[0, 1, 2].map((i) => <g data-el={`s6-back${i}`} transform="translate(348 110)"><circle class="hp" r="9" /><text class="hpt" text-anchor="middle" y="4">H⁺</text></g>)}
+    <g data-el="s6-nadh" transform="translate(64 340)">
+      <rect class="nad" x="-52" y="-14" width="104" height="28" rx="14" data-el="s6-nadbox" />
+      <text class="tk dark" text-anchor="middle" y="5" data-el="s6-nadt">reduced NAD</text>
+    </g>
+    <g data-el="s6-e1" transform="translate(80 262)"><circle class="e" r="7" /><text class="et" x="9" y="-6">e⁻</text></g>
+    <g data-el="s6-e2" transform="translate(80 262)"><circle class="e" r="7" /></g>
+    <g data-el="s6-o2" transform="translate(240 340)"><rect class="o2" x="-30" y="-14" width="60" height="28" rx="14" /><text data-el="s6-o2t" class="tk dark" text-anchor="middle" y="5">½O₂</text></g>
+    <g data-el="s6-atp" transform="translate(348 306)" style="opacity:0"><rect class="atp" x="-26" y="-13" width="52" height="26" rx="13" /><text class="tk" text-anchor="middle" y="5">ATP</text></g>
+    <text data-el="s6-adp" class="sm" x="384" y="344" text-anchor="middle">ADP + Pi</text>
+  </g>
+
+  <defs>
+    <marker id="stg-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker>
+  </defs>
+</svg>
+<style>
+  .stg { font-family: var(--font-sans); }
+  .chip rect { fill: var(--surface-2); stroke: var(--border); }
+  .chip text { font-size: 14px; font-weight: 700; fill: var(--text-muted); }
+  .chip.on rect { fill: var(--accent-soft); stroke: var(--accent-strong); stroke-width: 2; }
+  .chip.on text { fill: var(--text); }
+  .ledger rect { fill: var(--surface); stroke: var(--border-strong); }
+  .ledger rect.delta { fill: var(--surface-2); }
+  .ledger text { font-size: 15px; fill: var(--text); }
+  .ledger .lh { font-weight: 800; }
+  .ledger .ls { font-size: 13px; fill: var(--text-muted); }
+  .ledger .lv { font-weight: 800; font-size: 17px; font-variant-numeric: tabular-nums; }
+  .ledger .dl { font-size: 14px; font-weight: 650; }
+  .title { font-size: 17px; font-weight: 800; fill: var(--text); }
+  .lbl { font-size: 14px; font-weight: 650; fill: var(--text); }
+  .sm { font-size: 13px; fill: var(--text-muted); }
+  .note { font-size: 13px; font-style: italic; fill: var(--text-muted); }
+  .c { fill: var(--bio-glucose); stroke: color-mix(in srgb, var(--bio-glucose) 55%, black); stroke-width: 1.2; }
+  .p { fill: var(--bio-head); stroke: color-mix(in srgb, var(--bio-head) 55%, black); stroke-width: 1.2; }
+  .pt { font-size: 12px; font-weight: 800; fill: #000; }
+  .h { fill: var(--surface); stroke: var(--text); stroke-width: 1.5; }
+  .ht { font-size: 11px; font-weight: 800; fill: var(--text); }
+  .tk { font-size: 13px; font-weight: 800; fill: #fff; }
+  .tk.dark { fill: #000; }
+  .atp { fill: color-mix(in srgb, var(--bio-head) 85%, black); }
+  .adp { fill: var(--text-muted); }
+  .nad { fill: color-mix(in srgb, var(--text-muted) 30%, var(--surface)); stroke: var(--text-muted); transition: fill 0.2s; }
+  .nad.red, .nadh { fill: color-mix(in srgb, var(--bio-carb) 55%, white); stroke: var(--bio-carb); }
+  .fadh { fill: color-mix(in srgb, var(--bio-chol) 85%, black); }
+  .co2 { fill: color-mix(in srgb, var(--text-muted) 25%, var(--surface)); stroke: var(--text-muted); }
+  .coa { fill: color-mix(in srgb, var(--text) 80%, transparent); }
+  .cycle { fill: none; stroke: color-mix(in srgb, var(--bio-glucose) 70%, var(--text)); stroke-width: 3; stroke-dasharray: 8 5; }
+  .arrowhead { fill: none; stroke: color-mix(in srgb, var(--bio-glucose) 70%, var(--text)); stroke-width: 3; }
+  .mk { fill: var(--bio-glucose); stroke: color-mix(in srgb, var(--bio-glucose) 50%, black); stroke-width: 1.5; }
+  .mkt { font-size: 12px; font-weight: 800; fill: #000; }
+  .arrow { stroke: var(--text-muted); stroke-width: 2; marker-end: url(#stg-arr); }
+  .ah { fill: var(--text-muted); }
+  .mem { fill: color-mix(in srgb, var(--bio-chol) 22%, var(--surface)); stroke: var(--bio-chol); stroke-width: 2; }
+  .carrier { fill: var(--bio-protein); }
+  .synth { fill: var(--bio-protein-2); }
+  .rotor { stroke: #fff; stroke-width: 4; stroke-linecap: round; }
+  .stalk { stroke: var(--bio-protein-2); stroke-width: 8; }
+  .hp { fill: var(--bio-na); }
+  .hpt { font-size: 9.5px; font-weight: 800; fill: #fff; }
+  .e { fill: var(--bio-water); stroke: #fff; stroke-width: 1.5; }
+  .eflow { fill: none; stroke: var(--bio-water); stroke-width: 2.5; stroke-dasharray: 5 4; marker-end: url(#stg-arr); }
+  .et { font-size: 13px; font-weight: 800; fill: var(--bio-water); }
+  .o2 { fill: var(--bio-k); }
+  .water .o2 { fill: color-mix(in srgb, var(--bio-water) 45%, white); }
+</style>

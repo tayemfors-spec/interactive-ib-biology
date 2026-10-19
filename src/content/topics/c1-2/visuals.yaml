@@ -1,0 +1,232 @@
+# Visuals for C1.2. Label/step text here is what readers see in the 3D viewer and the text descriptions,
+# so it is written to exam standard. Label ids must match anchors in the scene modules (src/scenes).
+visuals:
+  - id: respiration
+    kind: viewer3d
+    title: ATP and the mitochondrion in 3D
+    alt: A ball-and-stick model of ATP being hydrolysed and re-formed, and a cut-away mitochondrion showing where each stage of respiration happens.
+    description: >-
+      The first model is a molecule of ATP built from atoms. Adenine, a base made of a five-membered ring fused to a
+      six-membered ring, is bonded to the ribose sugar ring. From carbon 5′ of the ribose runs a chain of three
+      phosphate groups linked through oxygen atoms. In the hydrolysis step a water molecule splits off the third
+      (terminal) phosphate, leaving ADP and inorganic phosphate (Pi), and energy is released. In the condensation
+      step energy from respiration is used to join Pi back onto ADP, re-forming ATP and releasing water. The second
+      model (AHL) is a mitochondrion cut lengthways, with an outer membrane, an inner membrane folded into cristae, an
+      intermembrane space and a matrix. One crista is enlarged to show electron carriers and ATP synthase. Six steps
+      show glycolysis in the cytoplasm, the link reaction and the Krebs cycle in the matrix, the electron transport
+      chain pumping protons into the intermembrane space, chemiosmosis through a rotating ATP synthase, and oxygen
+      accepting electrons and protons to form water.
+    scenes:
+      - id: atp
+        module: c1-2-atp
+        title: ATP and ADP
+        labels:
+          - id: adenine
+            name: Adenine (base)
+            text: A nitrogenous base made of a six-membered ring fused to a five-membered ring. It is bonded to carbon 1′ of ribose; adenine plus ribose is called adenosine.
+          - id: ribose
+            name: Ribose (pentose sugar)
+            text: A five-carbon sugar whose ring contains four carbon atoms and one oxygen. Base, sugar and phosphate make ATP a nucleotide, like the monomers of RNA.
+          - id: phosphates
+            name: Three phosphate groups
+            text: A chain of three phosphate groups attached to carbon 5′ of ribose, linked to each other through oxygen atoms. Their negative charges make ATP soluble in water.
+            steps: [structure, phosphorylation]
+          - id: terminal
+            name: Terminal (third) phosphate
+            text: Only this phosphate is removed when ATP is used. Hydrolysis of the bond linking it to the rest of the molecule releases a useful amount of energy.
+            steps: [structure]
+          - id: adp
+            name: ADP (adenosine diphosphate)
+            text: What remains when the terminal phosphate has been removed. It is recycled — respiration turns it back into ATP many times a day.
+            steps: [hydrolysis]
+          - id: pi
+            name: Inorganic phosphate (Pi)
+            text: The phosphate released by hydrolysis. One of its oxygen atoms came from the water molecule that was split. In condensation it is joined back onto ADP.
+            steps: [hydrolysis, phosphorylation]
+          - id: water
+            name: Water
+            text: Hydrolysis uses one water molecule to split off the phosphate; condensation (making ATP) releases one water molecule.
+            steps: [hydrolysis, phosphorylation]
+          - id: energy
+            name: Energy
+            text: Hydrolysis of ATP releases energy that the cell uses for work; making ATP from ADP and Pi needs an input of energy, which comes from cell respiration.
+            steps: [hydrolysis, phosphorylation]
+        steps:
+          - id: structure
+            title: Structure of ATP
+            caption: ATP (adenosine triphosphate) is a nucleotide — adenine, the five-carbon sugar ribose and a chain of three phosphate groups. It is small and soluble, so it moves easily through the cytoplasm, but it cannot cross membranes.
+          - id: hydrolysis
+            title: Hydrolysis releases energy
+            caption: A water molecule is used to split off the terminal phosphate. ATP becomes ADP (adenosine diphosphate) and inorganic phosphate (Pi), and energy is released — enough for many tasks such as active transport, synthesis and movement, with little wasted.
+          - id: phosphorylation
+            title: Making ATP needs energy
+            caption: Energy released by cell respiration is used to join Pi back onto ADP. This condensation (phosphorylation) reaction re-forms ATP and releases a molecule of water. ATP and ADP are converted back and forth continuously.
+      - id: mitochondrion
+        module: c1-2-mitochondrion
+        title: Stages in a mitochondrion
+        level: AHL
+        labels:
+          - id: outer
+            name: Outer mitochondrial membrane
+            text: The outer of the two membranes. Pyruvate and fatty acids cross both membranes through transport proteins to reach the matrix.
+          - id: inner
+            name: Inner mitochondrial membrane
+            text: Contains the electron transport chain and ATP synthase. It is almost impermeable to protons except through ATP synthase, so a proton gradient can build up across it.
+          - id: crista
+            name: Crista (fold of inner membrane)
+            text: Cristae are folds of the inner membrane. They give a large surface area for electron carriers and ATP synthase. This one is drawn far larger than life.
+          - id: ims
+            name: Intermembrane space
+            text: The narrow space between the two membranes, continuous with the inside of each crista. Protons are pumped into it, so its proton concentration becomes high.
+          - id: matrix
+            name: Matrix
+            text: The fluid inside the inner membrane. It contains the enzymes of the link reaction and the Krebs cycle, and its own DNA and 70S ribosomes.
+          - id: cytoplasm
+            name: Cytoplasm (outside)
+            text: Glycolysis happens here, outside the mitochondrion, and needs no oxygen.
+            steps: [glycolysis, link]
+          - id: pyruvate
+            name: Pyruvate (3C)
+            text: Glycolysis converts each glucose (6C) into two pyruvate (3C). If oxygen is available, pyruvate is taken into the mitochondrial matrix.
+            steps: [glycolysis]
+          - id: acetyl-coa
+            name: Acetyl CoA
+            text: A two-carbon acetyl group attached to coenzyme A. Coenzyme A carries the acetyl group into the Krebs cycle and is then released to be reused.
+            steps: [link, krebs]
+          - id: krebs
+            name: Krebs cycle
+            text: Acetyl (2C) joins oxaloacetate (4C) to form citrate (6C). Two decarboxylations and four oxidations regenerate oxaloacetate. Two turns happen for each glucose.
+            steps: [krebs]
+          - id: nadh
+            name: Reduced NAD
+            text: NAD that has accepted hydrogen removed from a substrate (an oxidation). It carries the hydrogen and its electrons, with their energy, to the electron transport chain.
+            steps: [glycolysis, link, krebs, etc]
+          - id: fadh
+            name: Reduced FAD
+            text: In one of the four Krebs cycle oxidations the hydrogen is accepted by FAD instead of NAD. Reduced FAD also passes electrons to the electron transport chain.
+            steps: [krebs]
+          - id: co2
+            name: Carbon dioxide
+            text: Released by decarboxylation — once per pyruvate in the link reaction and twice per turn of the Krebs cycle, six per glucose in total. It diffuses out as a waste product.
+            steps: [link, krebs]
+          - id: atp
+            name: ATP
+            text: A little ATP is made directly in glycolysis and the Krebs cycle; most is made by ATP synthase using the proton gradient (chemiosmosis).
+            steps: [glycolysis, krebs, chemiosmosis]
+          - id: etc
+            name: Electron transport chain
+            text: A series of electron carriers (proteins) in the inner membrane. Electrons pass from carrier to carrier, releasing energy that is used to pump protons.
+            steps: [etc, oxygen]
+          - id: protons
+            name: Protons (H⁺)
+            text: Pumped from the matrix into the intermembrane space by the electron carriers. Their high concentration there is a store of potential energy.
+            steps: [etc, chemiosmosis]
+          - id: atp-synthase
+            name: ATP synthase
+            text: Protons diffuse back into the matrix through it, making part of it rotate. The rotation causes conformational changes in the head, which phosphorylates ADP to ATP.
+            steps: [chemiosmosis]
+          - id: oxygen
+            name: Oxygen (O₂)
+            text: The final (terminal) electron acceptor. It accepts electrons from the last carrier and protons from the matrix.
+            steps: [oxygen]
+          - id: water
+            name: Water
+            text: Metabolic water formed when oxygen accepts electrons and protons. Removing protons from the matrix also helps keep the proton gradient steep.
+            steps: [oxygen]
+        steps:
+          - id: glycolysis
+            title: Glycolysis (cytoplasm)
+            caption: In the cytoplasm, glucose (6C) is phosphorylated using 2 ATP and split into two 3C molecules. These are oxidized, reducing 2 NAD, and 4 ATP are made, giving two pyruvate (3C) and a net gain of 2 ATP. No oxygen is needed.
+          - id: link
+            title: Link reaction (matrix)
+            caption: Each pyruvate is taken into the matrix. It is decarboxylated (CO₂ removed) and oxidized (hydrogen removed, reducing NAD), leaving a 2C acetyl group that joins coenzyme A to form acetyl CoA. This happens twice per glucose.
+          - id: krebs
+            title: Krebs cycle (matrix)
+            caption: The acetyl group (2C) is transferred to oxaloacetate (4C), forming citrate (6C), and CoA is released. Each turn releases 2 CO₂ (two decarboxylations), reduces 3 NAD and 1 FAD (four oxidations) and makes 1 ATP. Oxaloacetate is regenerated; the second acetyl CoA waits for a second turn.
+          - id: etc
+            title: Electron transport chain (inner membrane)
+            caption: Reduced NAD passes a pair of electrons to the first carrier in the chain and becomes NAD again. As the electrons pass from carrier to carrier, energy is released and used to pump protons from the matrix into the intermembrane space (here, inside the crista), building a proton gradient.
+          - id: chemiosmosis
+            title: Chemiosmosis (ATP synthase)
+            caption: Protons diffuse back down their concentration gradient into the matrix through ATP synthase, their main route across the inner membrane. Their flow turns the rotor and central stalk, and the resulting shape changes in the head join ADP and Pi to make ATP.
+          - id: oxygen
+            title: Oxygen accepts electrons
+            caption: At the end of the chain, oxygen accepts the electrons and combines with protons from the matrix to form water (O₂ + 4e⁻ + 4H⁺ → 2H₂O). Without oxygen the chain would stop, reduced NAD could not be reoxidized and the link reaction and Krebs cycle would stop too.
+
+  - id: respirometer
+    kind: sim
+    module: c1-2-respirometer
+    title: Measuring the rate of respiration with a respirometer
+    alt: A respirometer with germinating seeds over KOH; a coloured drop moves along a capillary scale as oxygen is used. Sliders change temperature, mass and time.
+    description: >-
+      A sealed boiling tube in a water bath contains germinating seeds resting on wire gauze above potassium
+      hydroxide solution, which absorbs carbon dioxide. A capillary tube with a millimetre scale leads from the bung,
+      and a drop of coloured fluid in it starts at the 90 mm mark. As the seeds take in oxygen the gas volume falls
+      and the drop moves towards the tube. Sliders set the water-bath temperature, the mass of seeds and the time
+      since the start; the scale reading, a graph of distance moved against time and a worked calculation update.
+      The rate is found from distance moved, converted to a volume using πr²d, divided by time and by mass. The rate
+      roughly doubles for each 10 °C rise up to the mid-30s °C and falls above about 40 °C. Controls with boiled
+      seeds or glass beads show no movement, and without potassium hydroxide the drop hardly moves.
+
+  - id: stages
+    kind: anim
+    module: c1-2-stages
+    level: AHL
+    title: Aerobic respiration of one glucose, stage by stage
+    alt: Step-by-step diagram from glycolysis to chemiosmosis, with a running total of ATP, reduced NAD, reduced FAD and CO₂ per glucose.
+    description: >-
+      A step-through diagram of aerobic respiration of one glucose molecule, with gold beads showing carbon atoms. A
+      bar at the top shows where each stage happens: cytoplasm, mitochondrial matrix or inner mitochondrial membrane.
+      A ledger on the right keeps a running total, per glucose, of net ATP, reduced NAD, reduced FAD and carbon
+      dioxide. By the end of the Krebs cycle the totals are 4 ATP, 10 reduced NAD, 2 reduced FAD and 6 CO₂. The
+      electron transport chain and chemiosmosis then regenerate NAD and FAD and make most of the ATP, about 30–32
+      in total; the exact number is uncertain and varies between cells.
+    steps:
+      - id: phosphorylation
+        title: Phosphorylation
+        caption: Two ATP are used to add two phosphate groups to glucose, forming hexose bisphosphate. This makes the sugar less stable and ready to split. Each step of glycolysis is catalysed by a different enzyme.
+      - id: lysis
+        title: Lysis
+        caption: Hexose bisphosphate (6C) is split into two triose phosphates (3C), each with one phosphate group.
+      - id: oxidation
+        title: Oxidation
+        caption: Two hydrogen atoms are removed from each triose phosphate (dehydrogenation). This is an oxidation, so NAD, which accepts the hydrogen, is reduced — 2 reduced NAD per glucose.
+      - id: atp-formation
+        title: ATP formation
+        caption: Energy released by the oxidation is used to make 4 ATP from ADP and phosphate (2 per triose phosphate), and pyruvate (3C) is formed. With 2 ATP used at the start, glycolysis gives a net gain of 2 ATP per glucose.
+      - id: link
+        title: Link reaction
+        caption: In the matrix, pyruvate is decarboxylated — one carbon leaves as CO₂ — and oxidized, reducing NAD. The remaining acetyl group (2C) is attached to coenzyme A, forming acetyl CoA. Per glucose this happens twice — 2 CO₂ and 2 reduced NAD.
+      - id: krebs
+        title: Krebs cycle
+        caption: Acetyl (2C) is transferred from CoA to oxaloacetate (4C), forming citrate (6C). Two decarboxylations release 2 CO₂, four oxidations reduce 3 NAD and 1 FAD, and 1 ATP is made, regenerating oxaloacetate. Two turns per glucose double these numbers.
+      - id: etc
+        title: Electron transport and chemiosmosis
+        caption: Reduced NAD and reduced FAD give electrons to the chain and are regenerated as NAD and FAD. Energy from the electrons pumps protons into the intermembrane space; protons flow back through ATP synthase, making most of the ATP. Oxygen accepts the electrons with protons, forming water. Total yield is about 30–32 ATP per glucose (an estimate).
+
+  - id: anaerobic
+    kind: anim
+    module: c1-2-anaerobic
+    level: AHL
+    title: Anaerobic respiration in humans and yeast
+    alt: Glycolysis, then pyruvate reduced to lactate in humans or converted to ethanol and CO₂ in yeast, regenerating NAD; uses in baking and brewing.
+    description: >-
+      The top band shows glycolysis, which is the same in humans and yeast: glucose (6C) is converted to two pyruvate
+      (3C), two NAD are reduced and there is a net gain of 2 ATP. A meter shows that NAD would soon run out. In human
+      cells, such as muscle during a sprint, pyruvate accepts hydrogen from reduced NAD and becomes lactate (3C),
+      regenerating NAD. In yeast, pyruvate is decarboxylated to ethanal (2C) and carbon dioxide, and ethanal accepts
+      hydrogen from reduced NAD, becoming ethanol (2C) and regenerating NAD. Both give a net 2 ATP per glucose. The
+      last step shows uses of yeast: carbon dioxide makes bread dough rise, and ethanol accumulates in beer and wine.
+    steps:
+      - id: glycolysis
+        title: Glycolysis needs NAD
+        caption: Glycolysis turns glucose into two pyruvate, giving a net 2 ATP, but it also reduces 2 NAD. Without oxygen, reduced NAD cannot be reoxidized by the electron transport chain, so the cell's small supply of NAD would run out and glycolysis would stop.
+      - id: lactate
+        title: Humans — lactate
+        caption: In human cells (for example in muscles during a sprint), pyruvate is reduced to lactate (3C) by accepting hydrogen from reduced NAD. NAD is regenerated, so glycolysis can continue, with a net yield of 2 ATP per glucose. No CO₂ is produced.
+      - id: ethanol
+        title: Yeast — ethanol and CO₂
+        caption: In yeast, pyruvate is decarboxylated to ethanal (2C), releasing CO₂. Ethanal is then reduced to ethanol (2C) by reduced NAD, regenerating NAD. The pathway is the same as in humans except for this final stage, so the products differ.
+      - id: uses
+        title: Baking and brewing
+        caption: In baking, yeast in bread dough respires anaerobically; CO₂ bubbles make the dough rise and the ethanol evaporates during baking. In brewing, yeast ferments sugars, such as those from malted barley (beer) or grape juice (wine), producing ethanol; the CO₂ escapes or is kept to make the drink fizzy.

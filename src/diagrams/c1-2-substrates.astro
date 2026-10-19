@@ -1,0 +1,71 @@
+---
+/** Carbohydrates and lipids as respiratory substrates (C1.2.17). */
+---
+<svg viewBox="0 0 640 420" role="img" aria-labelledby="sb-t sb-d" xmlns="http://www.w3.org/2000/svg" class="sb">
+  <title id="sb-t">How carbohydrates and lipids enter cell respiration</title>
+  <desc id="sb-d">On the left, glucose from carbohydrate goes through glycolysis in the cytoplasm to pyruvate. Without oxygen pyruvate becomes lactate in humans or ethanol and carbon dioxide in yeast. With oxygen, pyruvate enters the mitochondrion and the link reaction turns it into acetyl coenzyme A. On the right, a triglyceride is split into glycerol and three fatty acids. Glycerol can be converted into an intermediate of glycolysis. The fatty acids enter the mitochondrion and are cut into two-carbon acetyl groups attached to coenzyme A, so they can only be used aerobically. Acetyl CoA from both routes enters the Krebs cycle. A comparison box notes that lipids release about twice as much energy per gram because they contain less oxygen and more hydrogen and carbon that can be oxidized.</desc>
+  <text class="col" x="120" y="28" text-anchor="middle">Carbohydrate</text>
+  <text class="col" x="470" y="28" text-anchor="middle">Lipid (triglyceride)</text>
+  <text class="where" x="626" y="104" text-anchor="end">CYTOPLASM</text>
+  <rect class="mito" x="14" y="232" width="612" height="176" rx="26" />
+  <text class="where" x="28" y="256">MITOCHONDRION (matrix) — needs O₂</text>
+
+  <g class="box"><rect x="60" y="40" width="120" height="34" rx="17" /><text x="120" y="63" text-anchor="middle">glucose</text></g>
+  <path class="arrow" d="M120 76 V118" marker-end="url(#sb-arr)" />
+  <text class="step" x="112" y="102" text-anchor="end">glycolysis</text>
+  <g class="box"><rect x="60" y="122" width="120" height="34" rx="17" /><text x="120" y="145" text-anchor="middle">pyruvate (3C)</text></g>
+  <path class="arrow dash" d="M60 140 H22 V200" />
+  <path class="arrow dash" d="M22 196 V204" marker-end="url(#sb-arr)" />
+  <text class="small" x="30" y="190">no O₂:</text>
+  <text class="small" x="30" y="222">lactate, or ethanol + CO₂</text>
+  <path class="arrow" d="M120 158 V280" marker-end="url(#sb-arr)" />
+  <text class="step" x="128" y="276">link reaction (− CO₂)</text>
+
+  <g class="box lip"><rect x="380" y="40" width="180" height="34" rx="17" /><text x="470" y="63" text-anchor="middle">triglyceride</text></g>
+  <path class="arrow" d="M430 76 L 336 88" marker-end="url(#sb-arr)" />
+  <path class="arrow" d="M500 76 L 520 118" marker-end="url(#sb-arr)" />
+  <g class="box lip"><rect x="250" y="88" width="110" height="34" rx="17" /><text x="305" y="111" text-anchor="middle">glycerol</text></g>
+  <g class="box lip"><rect x="440" y="122" width="170" height="34" rx="17" /><text x="525" y="145" text-anchor="middle">3 fatty acids</text></g>
+  <path class="arrow" d="M250 105 L 126 100" marker-end="url(#sb-arr)" />
+  <text class="small" x="140" y="90">into glycolysis</text>
+  <path class="arrow" d="M525 158 V284" marker-end="url(#sb-arr)" />
+  <text class="step" x="533" y="200">enter</text>
+  <text class="step" x="533" y="218">mitochondrion;</text>
+  <text class="small" x="533" y="270">cut into 2C</text>
+
+  <g class="box acetyl"><rect x="60" y="284" width="520" height="36" rx="18" /><text x="320" y="308" text-anchor="middle">acetyl groups (2C) carried by coenzyme A (acetyl CoA)</text></g>
+  <path class="arrow" d="M320 322 V352" marker-end="url(#sb-arr)" />
+  <g class="box"><rect x="200" y="356" width="240" height="34" rx="17" /><text x="320" y="379" text-anchor="middle">Krebs cycle → ETC</text></g>
+  <text class="small" x="452" y="372">fatty acids:</text>
+  <text class="small" x="452" y="390">aerobic only</text>
+  <text class="small" x="30" y="372">carbohydrate:</text>
+  <text class="small" x="30" y="390">aerobic or anaerobic</text>
+
+  <g class="cmp">
+    <rect x="236" y="168" width="200" height="54" rx="8" />
+    <text x="336" y="188" text-anchor="middle">per gram, lipid releases</text>
+    <text x="336" y="208" text-anchor="middle">about 2× the energy</text>
+  </g>
+  <defs>
+    <marker id="sb-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" class="head" />
+    </marker>
+  </defs>
+</svg>
+<style>
+  .sb { font-family: var(--font-sans); }
+  .col { font-size: 17px; font-weight: 800; fill: var(--text); }
+  .where { font-size: 13px; font-weight: 800; letter-spacing: 0.04em; fill: var(--text-muted); }
+  .mito { fill: color-mix(in srgb, var(--bio-chol) 9%, var(--surface)); stroke: var(--bio-chol); stroke-width: 2.5; }
+  .box rect { fill: color-mix(in srgb, var(--bio-glucose) 22%, var(--surface)); stroke: var(--bio-glucose); stroke-width: 2; }
+  .box.lip rect { fill: color-mix(in srgb, var(--bio-tail) 30%, var(--surface)); stroke: var(--bio-head); }
+  .box.acetyl rect { fill: color-mix(in srgb, var(--bio-protein) 15%, var(--surface)); stroke: var(--bio-protein); }
+  .box text { font-size: 15px; font-weight: 700; fill: var(--text); }
+  .arrow { fill: none; stroke: var(--text); stroke-width: 2.2; }
+  .dash { stroke-dasharray: 5 4; stroke: var(--text-muted); }
+  .head { fill: var(--text); }
+  .step { font-size: 14px; font-weight: 700; fill: var(--text); }
+  .small { font-size: 13.5px; fill: var(--text-muted); }
+  .cmp rect { fill: var(--surface-2); stroke: var(--border-strong); }
+  .cmp text { font-size: 14px; font-weight: 700; fill: var(--text); }
+</style>

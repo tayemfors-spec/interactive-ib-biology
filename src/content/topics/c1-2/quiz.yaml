@@ -1,0 +1,205 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: C1.2.1
+    stem: >-
+      Which property of ATP helps to keep it inside the cell where it is made?
+    options:
+      - id: a
+        text: It is soluble in water.
+        why: Solubility lets ATP move quickly through the cytoplasm, but it does not stop it leaving the cell.
+      - id: b
+        text: It cannot diffuse through the phospholipid bilayer of membranes.
+        why: Correct. ATP is charged, so it cannot pass through the hydrophobic core of membranes, and its movement can be controlled by transport proteins.
+      - id: c
+        text: It releases a large amount of energy when it is hydrolysed.
+        why: The amount of energy released affects how useful ATP is for cell tasks, not where it stays. It also releases a moderate, not a very large, amount.
+      - id: d
+        text: It is a polymer of many nucleotides.
+        why: ATP is a single nucleotide (adenine, ribose and three phosphates), not a polymer.
+    answer: b
+
+  - id: q2
+    level: SL
+    understanding: C1.2.4
+    stem: >-
+      Which statement correctly distinguishes cell respiration from gas exchange?
+    options:
+      - id: a
+        text: Gas exchange happens in all cells, but cell respiration happens only in the lungs.
+        why: This reverses them. Cell respiration happens in every living cell; gas exchange happens across exchange surfaces such as alveoli.
+      - id: b
+        text: Cell respiration takes in oxygen by diffusion; gas exchange uses oxygen to make ATP.
+        why: The two descriptions are swapped. Diffusion of oxygen across a surface is gas exchange; using it in reactions that make ATP is respiration.
+      - id: c
+        text: Cell respiration and gas exchange are two names for breathing.
+        why: Breathing is ventilation, which moves air over the gas exchange surface. Neither process is breathing.
+      - id: d
+        text: Cell respiration is a series of reactions in cells that release energy to make ATP; gas exchange is the diffusion of O₂ and CO₂ across a surface.
+        why: Correct. Gas exchange supplies the oxygen used in aerobic respiration and removes the CO₂ it produces, but they are different processes.
+    answer: d
+
+  - id: q3
+    level: SL
+    understanding: C1.2.5
+    stem: >-
+      During a 100 m sprint, some leg muscle cells respire anaerobically. Which describes anaerobic respiration in these cells?
+    options:
+      - id: a
+        text: It produces lactate in the cytoplasm and gives a small yield of ATP.
+        why: Correct. Anaerobic respiration in humans happens in the cytoplasm only, needs no mitochondria and gives only 2 ATP per glucose, with lactate as the waste product.
+      - id: b
+        text: It produces lactate and carbon dioxide in the mitochondria.
+        why: No CO₂ is produced by anaerobic respiration in humans, and it does not need mitochondria.
+      - id: c
+        text: It produces ethanol and carbon dioxide and gives a small yield of ATP.
+        why: Ethanol and CO₂ are the products in yeast, not in human muscle.
+      - id: d
+        text: It can use fatty acids as well as glucose and gives a large yield of ATP.
+        why: Anaerobic respiration can only use carbohydrate (glucose), and its yield is small. Fatty acids can only be respired aerobically.
+    answer: a
+
+  - id: q4
+    level: SL
+    understanding: C1.2.6
+    stem: >-
+      In a respirometer containing germinating seeds and KOH, the drop of coloured fluid moved 24 mm along a capillary
+      tube in 6 minutes. The internal radius of the capillary is 0.5 mm. What was the rate of oxygen uptake?
+      (Volume = πr²d; take π as 3.14.)
+    options:
+      - id: a
+        text: 4.0 mm³ min⁻¹
+        why: This is the distance divided by time (mm min⁻¹). The distance must first be converted to a volume using πr²d.
+      - id: b
+        text: 18.8 mm³ min⁻¹
+        why: 18.8 mm³ is the volume of oxygen used, but it has not been divided by the 6 minutes to give a rate.
+      - id: c
+        text: 3.1 mm³ min⁻¹
+        why: Correct. Volume = 3.14 × 0.5² × 24 = 18.8 mm³, and 18.8 ÷ 6 = 3.1 mm³ min⁻¹.
+      - id: d
+        text: 12.6 mm³ min⁻¹
+        why: This uses the diameter (1 mm) instead of the radius (0.5 mm) in πr²d, which gives a volume four times too large.
+    answer: c
+
+  - id: q5
+    level: AHL
+    understanding: C1.2.8
+    stem: >-
+      Which gives the net yield of glycolysis from one molecule of glucose?
+    options:
+      - id: a
+        text: 4 ATP, 2 reduced NAD and 2 pyruvate
+        why: Four ATP are made, but two are used in the phosphorylation stage, so the net gain is only 2 ATP.
+      - id: b
+        text: 2 ATP, 2 reduced NAD and 2 pyruvate
+        why: Correct. 4 ATP are formed and 2 used, giving a net 2 ATP; two triose phosphates are oxidized, reducing 2 NAD; glucose (6C) gives two pyruvate (3C).
+      - id: c
+        text: 2 ATP, 2 reduced NAD and 2 CO₂
+        why: No carbon dioxide is released in glycolysis. CO₂ is first released in the link reaction (or by yeast in anaerobic respiration).
+      - id: d
+        text: 2 ATP, 0 reduced NAD and 2 lactate
+        why: Lactate is formed after glycolysis, only in anaerobic conditions, and it is made by using the reduced NAD from glycolysis.
+    answer: b
+
+  - id: q6
+    level: AHL
+    understanding: C1.2.10
+    stem: >-
+      In what way does anaerobic respiration in yeast differ from anaerobic respiration in human muscle?
+    options:
+      - id: a
+        text: In yeast, pyruvate is decarboxylated before it is reduced, so CO₂ is released and ethanol is formed.
+        why: Correct. The pathways are the same apart from this final stage. Both regenerate NAD, but yeast produces ethanol and CO₂ while humans produce lactate.
+      - id: b
+        text: Only yeast regenerates NAD, so only yeast can continue glycolysis without oxygen.
+        why: Both regenerate NAD. In humans, pyruvate is reduced to lactate using reduced NAD, which is what allows glycolysis to continue.
+      - id: c
+        text: Yeast makes more ATP per glucose because ethanol formation produces ATP.
+        why: Both give a net yield of 2 ATP per glucose, all from glycolysis. Neither final step makes ATP.
+      - id: d
+        text: Yeast uses the Krebs cycle anaerobically, but human muscle uses glycolysis.
+        why: Both use only glycolysis when there is no oxygen. The Krebs cycle cannot continue without oxygen because NAD is not regenerated.
+    answer: a
+
+  - id: q7
+    level: AHL
+    understanding: C1.2.12
+    stem: >-
+      In one turn of the Krebs cycle, an acetyl group combines with oxaloacetate and oxaloacetate is later regenerated.
+      How many carbon atoms does citrate contain, and how many molecules of CO₂ are released per turn?
+    options:
+      - id: a
+        text: Citrate 4C; 1 CO₂
+        why: Oxaloacetate is the 4C compound. Adding the 2C acetyl group makes a 6C compound.
+      - id: b
+        text: Citrate 6C; 1 CO₂
+        why: Citrate is 6C, but to regenerate 4C oxaloacetate two carbons must be removed, so there are two decarboxylations.
+      - id: c
+        text: Citrate 6C; 2 CO₂
+        why: Correct. 2C + 4C = 6C citrate, and two decarboxylations release 2 CO₂, regenerating 4C oxaloacetate.
+      - id: d
+        text: Citrate 5C; 3 CO₂
+        why: Three CO₂ per pyruvate is the total for the link reaction plus one turn of the cycle, not for the cycle alone; citrate has 6 carbons.
+    answer: c
+
+  - id: q8
+    level: AHL
+    understanding: C1.2.15
+    stem: >-
+      The compound DNP makes the inner mitochondrial membrane permeable to protons. Cells treated with DNP keep
+      transporting electrons and using oxygen, but produce much less ATP. What is the best explanation?
+    options:
+      - id: a
+        text: DNP blocks the electron carriers, so no protons are pumped.
+        why: The cells keep transporting electrons and using oxygen, so the carriers are still working and still pumping protons.
+      - id: b
+        text: DNP destroys ATP synthase, so protons cannot cross the membrane.
+        why: The membrane has become more permeable to protons, not less. Protons cross easily, just not through ATP synthase.
+      - id: c
+        text: Oxygen can no longer accept electrons, so reduced NAD accumulates.
+        why: The question states that oxygen is still being used, so the terminal step is still working.
+      - id: d
+        text: Protons leak back into the matrix without passing through ATP synthase, so the proton gradient is lost and little ADP is phosphorylated.
+        why: Correct. Chemiosmosis depends on protons returning through ATP synthase. If they leak back, the energy of the gradient is released as heat instead of being used to make ATP.
+    answer: d
+
+  - id: q9
+    level: AHL
+    understanding: C1.2.16
+    stem: >-
+      Cyanide stops the last carrier of the electron transport chain from passing electrons to oxygen. Which is a
+      direct consequence in a cell exposed to cyanide?
+    options:
+      - id: a
+        text: The proton gradient becomes steeper, so more ATP is made by ATP synthase.
+        why: With electron flow stopped, carriers stop pumping protons, so the gradient cannot be maintained and ATP synthesis by chemiosmosis falls.
+      - id: b
+        text: Reduced NAD is no longer reoxidized, so the link reaction and Krebs cycle stop for lack of NAD.
+        why: Correct. Electrons cannot leave the chain, so reduced NAD cannot hand over its electrons. NAD runs out, so the dehydrogenation reactions of the link reaction and Krebs cycle stop.
+      - id: c
+        text: Glycolysis stops immediately because it needs oxygen.
+        why: Glycolysis does not use oxygen. It can continue if NAD is regenerated by converting pyruvate to lactate.
+      - id: d
+        text: More water is produced, because protons accumulate in the matrix.
+        why: Water is formed when oxygen accepts electrons and protons. If electrons cannot reach oxygen, less water is formed, not more.
+    answer: b
+
+  - id: q10
+    level: AHL
+    understanding: C1.2.17
+    stem: >-
+      Why does one gram of lipid release more energy in respiration than one gram of carbohydrate?
+    options:
+      - id: a
+        text: Lipids can be respired anaerobically as well as aerobically.
+        why: The opposite is true. Fatty acids enter as acetyl CoA, so they can only be respired aerobically.
+      - id: b
+        text: Lipids are broken down by glycolysis, which releases more energy.
+        why: Fatty acids do not go through glycolysis. They enter respiration as acetyl groups carried by coenzyme A.
+      - id: c
+        text: Lipids contain more oxygen, which is used as the terminal electron acceptor.
+        why: Lipids contain less oxygen than carbohydrates, not more. The oxygen used by the electron transport chain comes from the air.
+      - id: d
+        text: Lipids contain relatively less oxygen and more hydrogen and carbon that can be oxidized.
+        why: Correct. Being less oxidized to start with, lipids yield more hydrogen per gram for the electron transport chain, so about twice as much energy is released.
+    answer: d

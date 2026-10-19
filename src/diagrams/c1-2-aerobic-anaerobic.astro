@@ -1,0 +1,50 @@
+---
+/** Where aerobic and anaerobic respiration happen in a human cell (C1.2.5). */
+---
+<svg viewBox="0 0 640 330" role="img" aria-labelledby="aa-t aa-d" xmlns="http://www.w3.org/2000/svg" class="aa">
+  <title id="aa-t">Anaerobic and aerobic respiration in a human cell</title>
+  <desc id="aa-d">A human cell with glucose entering the cytoplasm. In the cytoplasm glucose is broken down to pyruvate, giving a small yield of ATP. Without oxygen, pyruvate is converted to lactate in the cytoplasm, so anaerobic respiration needs no mitochondria. With oxygen, pyruvate enters a mitochondrion, where it is broken down to carbon dioxide and water, giving a large yield of ATP.</desc>
+  <rect class="cell" x="14" y="14" width="612" height="302" rx="40" />
+  <text class="where" x="40" y="46">Cytoplasm</text>
+  <ellipse class="mito" cx="470" cy="210" rx="130" ry="70" />
+  <path class="crista" d="M400 152 q9 11 0 24 M440 143 q9 11 0 24 M500 143 q9 11 0 24 M540 152 q9 11 0 24 M380 260 q9 -9 0 -20 M420 274 q9 -11 0 -24 M520 275 q9 -11 0 -24 M560 262 q9 -9 0 -20" />
+  <text class="where" x="420" y="128">Mitochondrion</text>
+
+  <g class="mol"><rect x="40" y="70" width="110" height="36" rx="18" /><text x="95" y="94" text-anchor="middle">glucose</text></g>
+  <path class="arrow" d="M95 108 V150" marker-end="url(#aa-arr)" />
+  <text class="note" x="108" y="134">small yield of ATP</text>
+  <g class="mol"><rect x="40" y="154" width="110" height="36" rx="18" /><text x="95" y="178" text-anchor="middle">pyruvate</text></g>
+
+  <path class="arrow" d="M95 192 V250" marker-end="url(#aa-arr)" />
+  <text class="cond" x="108" y="222">no O₂ needed</text>
+  <g class="mol out"><rect x="40" y="254" width="110" height="36" rx="18" /><text x="95" y="278" text-anchor="middle">lactate</text></g>
+  <text class="tag" x="162" y="276">anaerobic: cytoplasm only</text>
+
+  <path class="arrow" d="M152 172 C 250 172, 330 190, 386 204" marker-end="url(#aa-arr)" />
+  <text class="cond" x="210" y="160">O₂ available</text>
+  <text class="note" x="420" y="196">pyruvate broken down</text>
+  <text class="note" x="420" y="214">completely using O₂</text>
+  <g class="mol out"><rect x="404" y="228" width="140" height="36" rx="18" /><text x="474" y="252" text-anchor="middle">CO₂ + water</text></g>
+  <text class="tag big" x="306" y="304">aerobic: cytoplasm + mitochondria — large yield of ATP</text>
+  <defs>
+    <marker id="aa-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" class="head" />
+    </marker>
+  </defs>
+</svg>
+<style>
+  .aa { font-family: var(--font-sans); }
+  .cell { fill: color-mix(in srgb, var(--bio-water) 7%, var(--surface)); stroke: var(--bio-head); stroke-width: 3; }
+  .mito { fill: color-mix(in srgb, var(--bio-chol) 14%, var(--surface)); stroke: var(--bio-chol); stroke-width: 3; }
+  .crista { fill: none; stroke: color-mix(in srgb, var(--bio-chol) 55%, transparent); stroke-width: 2; }
+  .where { font-size: 16px; font-weight: 800; fill: var(--text-muted); }
+  .mol rect { fill: color-mix(in srgb, var(--bio-glucose) 25%, var(--surface)); stroke: var(--bio-glucose); stroke-width: 2; }
+  .mol.out rect { fill: color-mix(in srgb, var(--bio-carb) 18%, var(--surface)); stroke: var(--bio-carb); }
+  .mol text { font-size: 16px; font-weight: 750; fill: var(--text); }
+  .arrow { fill: none; stroke: var(--text); stroke-width: 2.2; }
+  .head { fill: var(--text); }
+  .note { font-size: 14px; fill: var(--text); }
+  .cond { font-size: 14px; font-weight: 750; fill: var(--accent-strong); }
+  .tag { font-size: 14px; font-style: italic; fill: var(--text-muted); }
+  .tag.big { font-weight: 700; text-anchor: middle; fill: var(--text); }
+</style>
