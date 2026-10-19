@@ -1,0 +1,56 @@
+---
+/** D2.2.4 epigenesis: identical DNA, different patterns of gene expression in differentiated cells. */
+const types = [
+  { y: 52, name: 'Muscle cell', on: [true, false, true, false, true] },
+  { y: 128, name: 'Neuron', on: [true, true, false, false, false] },
+  { y: 204, name: 'Skin cell', on: [true, false, false, true, false] },
+];
+const geneX = (i: number) => 432 + i * 40;
+---
+<svg viewBox="0 0 660 290" role="img" aria-labelledby="d22e-t d22e-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="d22e-t">Epigenesis: the same genes, different patterns of expression</title>
+  <desc id="d22e-d">A zygote divides by mitosis to form an embryo of unspecialized cells, which differentiate into muscle cells, neurons and skin cells. Each differentiated cell has the same five genes with identical base sequences, but a different pattern of genes switched on (transcribed) and switched off (silenced by epigenetic tags such as methylation).</desc>
+  <defs><marker id="d22e-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" class="head" /></marker></defs>
+  <circle class="cell" cx="54" cy="140" r="32" /><circle class="nuc" cx="54" cy="140" r="11" />
+  <text class="lbl" x="54" y="196" text-anchor="middle">zygote</text>
+  <path class="arrow" d="M92 140 L132 140" marker-end="url(#d22e-a)" />
+  <text class="small" x="112" y="128" text-anchor="middle">mitosis</text>
+  {[[166, 122], [196, 122], [166, 152], [196, 152], [181, 108], [181, 166]].map(([x, y]) => <circle class="cell sm" cx={x} cy={y} r="14" />)}
+  <text class="lbl" x="181" y="206" text-anchor="middle">embryo cells</text>
+  <text class="small" x="181" y="222" text-anchor="middle">(unspecialized)</text>
+  {types.map((t) => (
+    <g>
+      <path class="arrow" d={`M216 140 L296 ${t.y + 22}`} marker-end="url(#d22e-a)" />
+      <text class="lbl b" x="304" y={t.y + 27}>{t.name}</text>
+      <path class="dna" d={`M412 ${t.y + 22} L628 ${t.y + 22}`} />
+      {t.on.map((on, i) => (
+        <g>
+          <rect class={on ? 'g on' : 'g off'} x={geneX(i)} y={t.y + 12} width="30" height="20" rx="3" />
+          <text class="gl" x={geneX(i) + 15} y={t.y + 27} text-anchor="middle">{i + 1}</text>
+          {!on && <text class="me" x={geneX(i) + 15} y={t.y + 7} text-anchor="middle">CH₃</text>}
+          {on && <path class="m" d={`M${geneX(i) + 6} ${t.y + 48} q5 -4 9 0 t9 0`} />}
+        </g>
+      ))}
+    </g>
+  ))}
+  <text class="small" x="530" y="40" text-anchor="middle">genes 1–5 (same sequence in every cell)</text>
+  <rect class="g on" x="250" y="262" width="22" height="14" rx="3" /><text class="small" x="278" y="274">gene transcribed (mRNA made)</text>
+  <rect class="g off" x="484" y="262" width="22" height="14" rx="3" /><text class="small" x="512" y="274">gene silenced by tags</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .cell { fill: color-mix(in srgb, var(--accent-soft) 70%, var(--surface)); stroke: var(--accent); stroke-width: 2; }
+  .nuc { fill: color-mix(in srgb, var(--bio-protein-2) 40%, var(--surface)); }
+  .lbl { font-size: 13px; fill: var(--text); }
+  .b { font-weight: 800; }
+  .small { font-size: 12px; fill: var(--text-muted); }
+  .arrow { stroke: var(--text); stroke-width: 1.8; fill: none; }
+  .head { fill: var(--text); }
+  .dna { stroke: var(--bio-head); stroke-width: 4; }
+  .g { stroke-width: 1.5; }
+  .g.on { fill: color-mix(in srgb, var(--bio-carb) 45%, var(--surface)); stroke: var(--bio-carb); }
+  .g.off { fill: var(--surface-3); stroke: var(--border-strong); }
+  .gl { font-size: 12px; font-weight: 800; fill: var(--text); }
+  .me { font-size: 12px; font-weight: 800; fill: var(--bad); }
+  .m { stroke: var(--bio-k); stroke-width: 2.5; fill: none; }
+</style>

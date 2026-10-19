@@ -1,0 +1,71 @@
+---
+/**
+ * D2.2.7 epigenetic inheritance through mitosis: CpG methylation is symmetrical, replication gives
+ * hemimethylated DNA, and a maintenance methylase copies the methyl tags onto each new strand.
+ */
+const top = ['T', 'C', 'G', 'A', 'C', 'G', 'T'];
+const comp: Record<string, string> = { A: 'T', T: 'A', C: 'G', G: 'C' };
+const bot = top.map((b) => comp[b]!);
+const topMe = [1, 4]; // C of each 5′-CG-3′ on the top strand
+const botMe = [2, 5]; // C of each CpG on the bottom strand (paired with the G)
+const S = 19;
+interface Mol { x: number; y: number; topOld: boolean; botOld: boolean; topTag: boolean; botTag: boolean }
+const mols: Mol[] = [
+  { x: 20, y: 120, topOld: true, botOld: true, topTag: true, botTag: true },
+  { x: 236, y: 60, topOld: true, botOld: false, topTag: true, botTag: false },
+  { x: 236, y: 190, topOld: false, botOld: true, topTag: false, botTag: true },
+  { x: 452, y: 60, topOld: true, botOld: false, topTag: true, botTag: true },
+  { x: 452, y: 190, topOld: false, botOld: true, topTag: true, botTag: true },
+];
+const newTag = (m: Mol, strand: 'top' | 'bot') => m.x > 400 && (strand === 'top' ? !m.topOld : !m.botOld);
+---
+<svg viewBox="0 0 660 320" role="img" aria-labelledby="d22i-t d22i-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="d22i-t">Methyl tags are copied when DNA replicates</title>
+  <desc id="d22i-d">Left: a DNA molecule with methyl groups on the cytosine of each CG site on both strands. Middle: after semi-conservative replication, each new DNA molecule has one old strand that keeps its methyl tags and one new strand with none. Right: an enzyme adds methyl groups to the new strand opposite each methylated site, so both daughter molecules, and so both daughter cells, keep the same methylation pattern.</desc>
+  <defs><marker id="d22i-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" class="head" /></marker></defs>
+  <text class="h" x="88" y="24" text-anchor="middle">1. Methylated DNA</text>
+  <text class="h" x="304" y="24" text-anchor="middle">2. After replication</text>
+  <text class="h" x="520" y="24" text-anchor="middle">3. Tags copied to new strands</text>
+  {mols.map((m) => (
+    <g transform={`translate(${m.x} ${m.y})`}>
+      <path class={m.topOld ? 'st old' : 'st new'} d={`M0 0 L${S * 7} 0`} />
+      <path class={m.botOld ? 'st old' : 'st new'} d={`M0 40 L${S * 7} 40`} />
+      <text class="end" x="-2" y="-6" text-anchor="end">5′</text>
+      <text class="end" x="-2" y="54" text-anchor="end">3′</text>
+      {top.map((b, i) => (
+        <g>
+          <path class="bp" d={`M${i * S + 9} 4 L${i * S + 9} 36`} />
+          <text class="base" x={i * S + 9} y="17" text-anchor="middle">{b}</text>
+          <text class="base" x={i * S + 9} y="33" text-anchor="middle">{bot[i]}</text>
+        </g>
+      ))}
+      {m.topTag && topMe.map((i) => <text class={newTag(m, 'top') ? 'me added' : 'me'} x={i * S + 9} y="-8" text-anchor="middle">CH₃</text>)}
+      {m.botTag && botMe.map((i) => <text class={newTag(m, 'bot') ? 'me added' : 'me'} x={i * S + 9} y="58" text-anchor="middle">CH₃</text>)}
+    </g>
+  ))}
+  <path class="arrow" d="M166 140 L226 100" marker-end="url(#d22i-a)" />
+  <path class="arrow" d="M166 160 L226 200" marker-end="url(#d22i-a)" />
+  <text class="small" x="190" y="154" text-anchor="middle">replication</text>
+  <path class="arrow" d="M382 80 L442 80" marker-end="url(#d22i-a)" />
+  <path class="arrow" d="M382 210 L442 210" marker-end="url(#d22i-a)" />
+  <text class="small" x="412" y="148" text-anchor="middle">enzyme</text>
+  <text class="small" x="412" y="164" text-anchor="middle">adds CH₃</text>
+  <path class="st old" d="M60 288 L96 288" /><text class="small" x="102" y="292">old (parental) strand</text>
+  <path class="st new" d="M260 288 L296 288" /><text class="small" x="302" y="292">new strand</text>
+  <text class="me added" x="470" y="292" text-anchor="middle">CH₃</text><text class="small" x="490" y="292">tag added after replication</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .h { font-size: 13px; font-weight: 800; fill: var(--text); }
+  .st { stroke-width: 5; }
+  .old { stroke: var(--bio-head); }
+  .new { stroke: var(--bio-water); stroke-dasharray: 8 4; }
+  .bp { stroke: var(--border-strong); stroke-width: 1.5; }
+  .base { font-size: 12px; font-weight: 800; fill: var(--text); font-family: var(--font-mono); }
+  .end { font-size: 12px; fill: var(--text-muted); }
+  .me { font-size: 12px; font-weight: 800; fill: var(--bad); }
+  .me.added { fill: var(--good); text-decoration: underline; }
+  .arrow { stroke: var(--text); stroke-width: 1.8; fill: none; }
+  .head { fill: var(--text); }
+  .small { font-size: 12px; fill: var(--text-muted); }
+</style>

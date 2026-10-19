@@ -1,0 +1,175 @@
+facts:
+  - id: f1
+    claim: Gene expression usually proceeds by transcription, translation and the action of the protein product (often an enzyme); some genes are expressed as untranslated RNA (tRNA, rRNA).
+    where: [ "index.mdx#expression", "flashcards.yaml:c1", "diagrams/d2-2-flow" ]
+    confidence: high
+    basis: IB guide D2.2.1; Alberts, Molecular Biology of the Cell
+    status: checked
+  - id: f2
+    claim: RNA polymerase II cannot initiate transcription alone; general transcription factors bind the promoter (e.g. TATA box) and position the polymerase upstream of the gene.
+    where: [ "index.mdx#transcription", "index.mdx (mistakes)", "visuals.yaml:regulation", "quiz.yaml:q2", "flashcards.yaml:c2" ]
+    confidence: high
+    basis: Alberts ch. 6–7; IB guide D2.2.2
+    status: checked
+  - id: f3
+    claim: Enhancers can lie thousands of base pairs upstream or downstream of a gene; activators bound there contact the promoter complex by DNA looping and raise the transcription rate. Repressors can bind silencers or block activators.
+    where: [ "index.mdx#transcription", "visuals.yaml:regulation", "quiz.yaml:q2", "flashcards.yaml:c3 c4" ]
+    confidence: high
+    basis: Alberts ch. 7 (gene regulatory proteins, enhancers, silencers)
+    status: checked
+  - id: f4
+    claim: In human cells mRNA may persist from minutes to days before degradation by nucleases.
+    where: [ "index.mdx#mrna", "visuals.yaml:regulation degradation step", "flashcards.yaml:c5", "quiz.yaml:q3" ]
+    confidence: high
+    basis: IB guide D2.2.3 wording; Sharova et al. 2009 and Tani et al. 2012 report median mammalian mRNA half-lives of several hours with a range from minutes to >24 h
+    status: checked
+  - id: f5
+    claim: Poly-A tail shortening (deadenylation) in the cytoplasm precedes and promotes mRNA decay; rates differ greatly between mRNAs.
+    where: [ "index.mdx#mrna", "visuals.yaml:regulation translation and degradation steps" ]
+    confidence: high
+    basis: Alberts ch. 7 (mRNA degradation); Garneau, Wilusz & Wilusz 2007 (Nat Rev Mol Cell Biol)
+    status: checked
+  - id: f6
+    claim: β-globin mRNA is very stable, so reticulocytes continue haemoglobin synthesis after enucleation; mRNAs of some signalling/cell-division proteins (e.g. c-fos) last only minutes.
+    where: [ "index.mdx#mrna" ]
+    confidence: high
+    basis: Standard examples (globin mRNA half-life >24 h in erythroid cells; c-fos mRNA ~10–15 min)
+    status: checked
+  - id: f7
+    claim: MicroRNAs bind complementary sequences in target mRNAs and repress translation or promote degradation.
+    where: [ "index.mdx#mrna" ]
+    confidence: high
+    basis: Alberts; Bartel 2009 (Cell). Extension beyond the IB guide.
+    status: checked
+  - id: f8
+    claim: Epigenesis is the development of patterns of differentiation; epigenetic changes do not alter base sequence, so phenotype but not genotype changes; tags are reversible.
+    where: [ "index.mdx#epigenesis", "index.mdx (mustKnow, mistakes)", "quiz.yaml:q6", "flashcards.yaml:c6", "diagrams/d2-2-epigenesis" ]
+    confidence: high
+    basis: IB guide D2.2.4
+    status: checked
+  - id: f9
+    claim: Definitions of genome, transcriptome (all RNA, especially mRNA, being made) and proteome; transcriptome varies between cells and over time; protein amounts not simply proportional to mRNA amounts.
+    where: [ "index.mdx#omes", "quiz.yaml:q4", "flashcards.yaml:c7 c8", "diagrams/d2-2-omes" ]
+    confidence: high
+    basis: IB guide D2.2.5; Schwanhäusser et al. 2011 (Nature) on mRNA–protein correlation
+    status: checked
+  - id: f10
+    claim: The human genome has about 20 000 protein-coding genes.
+    where: [ "index.mdx#omes" ]
+    confidence: high
+    basis: GENCODE/Ensembl counts ~19 000–20 000
+    status: checked
+  - id: f11
+    claim: Insulin is expressed in pancreatic β cells, β-globin in developing red blood cells, albumin in hepatocytes; ATP synthase genes are expressed in essentially all cells.
+    where: [ "diagrams/d2-2-omes", "quiz.yaml:q4" ]
+    confidence: high
+    basis: Standard physiology
+    status: checked
+  - id: f12
+    claim: In mammals DNA methylation is mainly on cytosine at CpG sites (5-methylcytosine); promoter methylation represses transcription, partly by blocking transcription-factor binding (the methyl group lies in the major groove) and partly via methyl-CpG-binding proteins.
+    where: [ "index.mdx#tags", "quiz.yaml:q5", "flashcards.yaml:c9", "visuals.yaml:chromatin" ]
+    confidence: high
+    basis: Alberts; Bird 2002 (Genes Dev); IB guide D2.2.6
+    status: checked
+  - id: f13
+    claim: Histone methylation can activate or repress depending on residue; H3K4me3 marks active promoters; H3K9me3 is associated with heterochromatin and repression.
+    where: [ "index.mdx#tags", "index.mdx (mistakes)", "flashcards.yaml:c10", "visuals.yaml:chromatin", "sims/d2-2-chromatin" ]
+    confidence: high
+    basis: Kouzarides 2007 (Cell); Alberts ch. 4
+    status: checked
+  - id: f14
+    claim: Histone acetylation generally loosens chromatin and is associated with active transcription (shown in the sim, not required by the guide).
+    where: [ "index.mdx#tags", "visuals.yaml:chromatin" ]
+    confidence: high
+    basis: Alberts; Kouzarides 2007
+    status: checked
+  - id: f15
+    claim: The chromatin sim is qualitative; the numbers in the model show direction of effect only.
+    where: [ "sims/models/d2-2-chromatin.ts", "sims/d2-2-chromatin" ]
+    confidence: high
+    basis: Design decision; stated on screen
+    status: checked
+  - id: f16
+    claim: CpG methylation is symmetrical; after replication hemimethylated DNA is recognized by maintenance methyltransferase (DNMT1) which methylates the new strand, so patterns pass to daughter cells; histone marks are largely re-established.
+    where: [ "index.mdx#inheritance", "quiz.yaml:q7", "flashcards.yaml:c11", "diagrams/d2-2-inheritance" ]
+    confidence: high
+    basis: Alberts; Holliday & Pugh 1975; Bird 2002
+    status: checked
+  - id: f17
+    claim: Some epigenetic tags survive meiosis and gamete formation (transgenerational epigenetic inheritance).
+    where: [ "index.mdx#inheritance", "flashcards.yaml:c12" ]
+    confidence: medium
+    basis: IB guide D2.2.7. Well established in plants and for imprinted loci in mammals; true multi-generation transmission in mammals is debated (Heard & Martienssen 2014, Cell).
+    status: open
+  - id: f18
+    claim: Air pollution exposure (PM2.5, NOx, ozone, PAHs) is associated with lower global DNA methylation (e.g. LINE-1, Alu) in blood, gene-specific methylation changes (some hypermethylated promoters), altered expression of inflammatory/immune genes, and higher rates of asthma, inflammation and cardiovascular disease.
+    where: [ "index.mdx#environment", "quiz.yaml:q1", "flashcards.yaml:c13", "diagrams/d2-2-pollution" ]
+    confidence: medium
+    basis: Baccarelli et al. 2009 (Am J Respir Crit Care Med); Nadeau et al. 2010 (FOXP3 hypermethylation with PAH exposure); review by Rider & Carlsten 2019 (Clin Epigenetics). Associations, not proven causation; directions vary between genes.
+    status: open
+  - id: f19
+    claim: Agouti viable yellow mice — maternal methyl-donor supplementation increased Avy methylation and shifted offspring coat colour and reduced obesity.
+    where: [ "index.mdx#environment" ]
+    confidence: high
+    basis: Waterland & Jirtle 2003 (Mol Cell Biol)
+    status: checked
+  - id: f20
+    claim: Individuals periconceptionally exposed to the Dutch Hunger Winter (1944–45) had lower IGF2 methylation about six decades later.
+    where: [ "index.mdx#environment" ]
+    confidence: high
+    basis: Heijmans et al. 2008 (PNAS)
+    status: checked
+  - id: f21
+    claim: In mammals most epigenetic tags are erased in primordial germ cells and again in the early embryo; imprints set in the germ line (sex-specific) escape the post-fertilization erasure.
+    where: [ "index.mdx#gametes", "index.mdx (mistakes)", "flashcards.yaml:c14" ]
+    confidence: high
+    basis: Reik, Dean & Walter 2001 (Science); Alberts ch. 7. Allott quotes ~99% removed; that figure not used on the page.
+    status: checked
+  - id: f22
+    claim: Ligers (lion father × tiger mother) grow larger than both parent species; tigons (tiger father × lion mother) are about parental size or smaller. Usual explanation is genomic imprinting of growth genes and parental conflict (stronger imprints in lions).
+    where: [ "index.mdx#gametes", "quiz.yaml:q8", "flashcards.yaml:c14", "diagrams/d2-2-hybrids" ]
+    confidence: medium
+    basis: IB guide D2.2.9; Haig's conflict hypothesis; Allott study guide. The lion vs tiger imprint-strength explanation is a hypothesis, not directly demonstrated at the gene level in big cats; tigon size reports vary.
+    status: open
+  - id: f23
+    claim: Lions and tigers both have 2n = 38 chromosomes.
+    where: [ "quiz.yaml:q8" ]
+    confidence: high
+    basis: Felid karyotypes (most Felidae 2n = 38; Panthera 2n = 38)
+    status: checked
+  - id: f24
+    claim: Mitochondrial DNA is inherited from the mother, so ligers and tigons differ in mtDNA but have the same nuclear genes.
+    where: [ "index.mdx#gametes" ]
+    confidence: high
+    basis: Standard genetics
+    status: checked
+  - id: f25
+    claim: A heterozygote can show the recessive phenotype if the dominant allele is silenced by imprinting.
+    where: [ "index.mdx#gametes" ]
+    confidence: medium
+    basis: Allott study guide; principle follows from monoallelic expression of imprinted genes
+    status: open
+  - id: f26
+    claim: Fraga et al. 2005 (PNAS) studied 40 MZ twin pairs aged 3–74; older pairs and pairs who had spent less of their lives together showed greater differences in DNA methylation and histone acetylation and in gene expression; lifestyle differences such as diet, smoking and activity were noted.
+    where: [ "index.mdx#twins", "quiz.yaml:q9", "flashcards.yaml:c15", "diagrams/d2-2-twins" ]
+    confidence: medium
+    basis: Fraga et al. 2005 PNAS 102:10604. Twins figure is a schematic trend, not their data.
+    status: open
+  - id: f27
+    claim: lac operon — lacI repressor binds the operator (adjacent to/overlapping the promoter) without lactose; allolactose binds the repressor causing release; lacZ (β-galactosidase), lacY (permease), lacA (transacetylase) transcribed as one polycistronic mRNA; glucose lowers expression (catabolite repression).
+    where: [ "index.mdx#external", "index.mdx (mistakes)", "quiz.yaml:q10", "flashcards.yaml:c16", "visuals.yaml:environment", "sims/models/d2-2-lac.ts" ]
+    confidence: high
+    basis: Jacob & Monod 1961; Alberts ch. 7. Allott says the repressor binds the promoter; the page uses the more precise "operator, next to the promoter".
+    status: checked
+  - id: f28
+    claim: Testosterone from Leydig cells acts on Sertoli cells; it diffuses in, binds the cytoplasmic androgen receptor, the complex enters the nucleus and binds androgen response elements, activating some genes and repressing others.
+    where: [ "index.mdx#external", "flashcards.yaml:c17", "diagrams/d2-2-testosterone" ]
+    confidence: high
+    basis: Standard endocrinology (Smith & Walker 2014, Semin Cell Dev Biol); IB guide D2.2.11
+    status: checked
+  - id: f29
+    claim: Methylated cytosine still pairs with guanine.
+    where: [ "index.mdx#tags", "quiz.yaml:q5" ]
+    confidence: high
+    basis: Standard
+    status: checked

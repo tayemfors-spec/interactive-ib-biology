@@ -1,0 +1,56 @@
+---
+/** D2.2.11 a hormone that changes gene expression: testosterone acting on a Sertoli cell in the testis. */
+const steroid = (x: number, y: number) => {
+  const h = (cx: number, cy: number, r = 7) =>
+    Array.from({ length: 6 }, (_, j) => { const a = (Math.PI / 3) * j + Math.PI / 6; return `${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`; }).join(' ');
+  return [h(x, y), h(x + 12, y - 7), h(x + 24, y), h(x + 36, y - 6, 6)];
+};
+---
+<svg viewBox="0 0 660 330" role="img" aria-labelledby="d22s-t d22s-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="d22s-t">Testosterone changes gene expression in a target cell</title>
+  <desc id="d22s-d">Testosterone, a steroid hormone, diffuses through the plasma membrane of a Sertoli cell in the testis. In the cytoplasm it binds an androgen receptor protein. The hormone–receptor complex moves into the nucleus through a nuclear pore and binds to specific base sequences in DNA called androgen response elements. Acting as a transcription factor, it increases transcription of some target genes and decreases transcription of others.</desc>
+  <defs><marker id="d22s-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" class="head" /></marker></defs>
+  <text class="small" x="20" y="24">Blood / tissue fluid (from Leydig cells)</text>
+  {steroid(36, 58).map((p) => <polygon class="ster" points={p} />)}
+  <text class="lbl b" x="90" y="60">testosterone</text>
+  <path class="mem" d="M10 100 L650 100" />
+  <text class="small" x="640" y="92" text-anchor="end">plasma membrane</text>
+  <text class="small" x="640" y="122" text-anchor="end">cytoplasm of Sertoli cell</text>
+  <path class="arrow" d="M54 66 L54 132" marker-end="url(#d22s-a)" />
+  <text class="lbl" x="64" y="122">1. diffuses through (lipid-soluble)</text>
+  {steroid(36, 156).map((p) => <polygon class="ster" points={p} />)}
+  <path class="rec" d="M28 176 q0 22 22 22 h30 q22 0 22 -22 v-6 h-74 Z" />
+  <text class="lbl" x="118" y="182">2. binds androgen receptor</text>
+  <path class="arrow" d="M110 196 C 170 226, 200 236, 250 238" marker-end="url(#d22s-a)" />
+  <text class="lbl" x="120" y="262">3. complex enters</text>
+  <text class="lbl" x="120" y="278">the nucleus</text>
+  <path class="env" d="M262 208 Q262 196 274 196 L638 196 Q650 196 650 208 L650 312 Q650 324 638 324 L274 324 Q262 324 262 312 Z" />
+  <text class="small" x="640" y="214" text-anchor="end">nucleus</text>
+  <path class="dna" d="M282 286 L636 286" />
+  <rect class="are" x="310" y="276" width="70" height="20" rx="4" /><text class="small" x="345" y="314" text-anchor="middle">androgen response element</text>
+  <rect class="prom" x="384" y="276" width="50" height="20" rx="4" /><text class="small" x="409" y="270" text-anchor="middle">promoter</text>
+  <rect class="gene" x="438" y="276" width="190" height="20" rx="4" /><text class="lbl" x="533" y="291" text-anchor="middle">target gene</text>
+  {steroid(326, 236).map((p) => <polygon class="ster" points={p} />)}
+  <path class="rec" d="M318 256 q0 20 20 20 h14 q20 0 20 -20 v-4 h-54 Z" />
+  <path class="mrna" d="M470 250 q10 -6 20 0 t20 0 t20 0 t20 0" />
+  <path class="mrna" d="M470 234 q10 -6 20 0 t20 0 t20 0 t20 0" />
+  <text class="lbl" x="560" y="246">4. transcription</text>
+  <text class="lbl" x="560" y="262">changes</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .small { font-size: 12px; fill: var(--text-muted); }
+  .lbl { font-size: 12px; fill: var(--text); }
+  .b { font-weight: 800; }
+  .ster { fill: var(--bio-chol); stroke: color-mix(in srgb, var(--bio-chol) 60%, black); }
+  .mem { stroke: var(--bio-head); stroke-width: 6; stroke-dasharray: 3 3; }
+  .rec { fill: var(--bio-protein); }
+  .env { fill: color-mix(in srgb, var(--bio-protein-2) 10%, var(--surface)); stroke: var(--bio-protein-2); stroke-width: 3; stroke-dasharray: 14 4; }
+  .dna { stroke: var(--bio-head); stroke-width: 4; }
+  .are { fill: color-mix(in srgb, var(--bio-protein) 25%, var(--surface)); stroke: var(--bio-protein); }
+  .prom { fill: color-mix(in srgb, var(--bio-glucose) 30%, var(--surface)); stroke: var(--bio-glucose); }
+  .gene { fill: color-mix(in srgb, var(--bio-carb) 22%, var(--surface)); stroke: var(--bio-carb); }
+  .mrna { stroke: var(--bio-k); stroke-width: 3; fill: none; }
+  .arrow { stroke: var(--text); stroke-width: 1.6; fill: none; }
+  .head { fill: var(--text); }
+</style>

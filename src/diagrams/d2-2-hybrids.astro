@@ -1,0 +1,69 @@
+---
+/**
+ * D2.2.9 most but not all epigenetic tags are removed from gametes: genomic imprinting and the
+ * size difference between ligers and tigons (the usual parental-conflict explanation).
+ */
+const crosses = [
+  {
+    x: 10, name: 'Liger', father: 'Lion ♂', mother: 'Tiger ♀',
+    up: 3, down: 1, result: 'Very large', sub: 'bigger than both parents',
+    fNote: 'strong growth-promoting', mNote: 'weak growth-limiting', big: true,
+  },
+  {
+    x: 340, name: 'Tigon', father: 'Tiger ♂', mother: 'Lion ♀',
+    up: 1, down: 3, result: 'Not enlarged', sub: 'parent-sized or smaller',
+    fNote: 'weak growth-promoting', mNote: 'strong growth-limiting', big: false,
+  },
+];
+---
+<svg viewBox="0 0 660 360" role="img" aria-labelledby="d22h-t d22h-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="d22h-t">Imprinted tags and the different sizes of ligers and tigons</title>
+  <desc id="d22h-d">Two crosses. Liger: a male lion and a female tiger. The lion father passes on strongly imprinted growth-promoting genes and the tiger mother only weak growth-limiting imprints, so the liger grows very large. Tigon: a male tiger and a female lion. The tiger father passes weak growth-promoting imprints and the lioness strong growth-limiting imprints, so the tigon is not enlarged. The tags survive because not all epigenetic tags are removed in the sperm and egg.</desc>
+  <defs>
+    <marker id="d22h-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" class="head" /></marker>
+    <marker id="d22h-mu" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10 Z" class="hu" /></marker>
+    <marker id="d22h-md" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10 Z" class="hd" /></marker>
+  </defs>
+  {crosses.map((c) => (
+    <g transform={`translate(${c.x} 0)`}>
+      <rect class="panel" x="0" y="6" width="310" height="300" rx="12" />
+      <text class="name" x="155" y="32" text-anchor="middle">{c.name}</text>
+      <rect class="par f" x="16" y="46" width="130" height="34" rx="8" /><text class="pt" x="81" y="68" text-anchor="middle">father: {c.father}</text>
+      <rect class="par m" x="164" y="46" width="130" height="34" rx="8" /><text class="pt" x="229" y="68" text-anchor="middle">mother: {c.mother}</text>
+      <text class="small" x="81" y="102" text-anchor="middle">sperm carries</text>
+      <text class="small" x="229" y="102" text-anchor="middle">egg carries</text>
+      <text class="small b" x="81" y="118" text-anchor="middle">{c.fNote}</text>
+      <text class="small b" x="229" y="118" text-anchor="middle">{c.mNote}</text>
+      <text class="small b" x="81" y="134" text-anchor="middle">imprints</text>
+      <text class="small b" x="229" y="134" text-anchor="middle">imprints</text>
+      {Array.from({ length: c.up }, (_, k) => <path class="up" d={`M${66 + k * 15} 172 L${66 + k * 15} 146`} marker-end="url(#d22h-mu)" />)}
+      {Array.from({ length: c.down }, (_, k) => <path class="down" d={`M${214 + k * 15} 146 L${214 + k * 15} 172`} marker-end="url(#d22h-md)" />)}
+      <path class="arrow" d="M81 182 L140 214" marker-end="url(#d22h-a)" />
+      <path class="arrow" d="M229 182 L170 214" marker-end="url(#d22h-a)" />
+      <ellipse class={c.big ? 'cub big' : 'cub'} cx="155" cy={c.big ? 248 : 244} rx={c.big ? 64 : 42} ry={c.big ? 30 : 20} />
+      <text class="pt" x="155" y="252" text-anchor="middle">{c.name.toLowerCase()} cub</text>
+      <text class="res" x="155" y="290" text-anchor="middle">{c.result}: {c.sub}</text>
+    </g>
+  ))}
+  <path class="up" d="M24 344 L24 324" marker-end="url(#d22h-mu)" /><text class="small" x="34" y="340">growth-promoting effect (paternal imprints)</text>
+  <path class="down" d="M354 324 L354 344" marker-end="url(#d22h-md)" /><text class="small" x="364" y="340">growth-limiting effect (maternal imprints)</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .panel { fill: var(--surface); stroke: var(--border); }
+  .name { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .par { stroke-width: 2; }
+  .par.f { fill: color-mix(in srgb, var(--bio-protein) 16%, var(--surface)); stroke: var(--bio-protein); }
+  .par.m { fill: color-mix(in srgb, var(--bio-k) 14%, var(--surface)); stroke: var(--bio-k); }
+  .pt { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .small { font-size: 12px; fill: var(--text-muted); }
+  .small.b { fill: var(--text); }
+  .up { stroke: var(--good); stroke-width: 4; }
+  .down { stroke: var(--bad); stroke-width: 4; }
+  .arrow { stroke: var(--text); stroke-width: 1.8; fill: none; }
+  .head { fill: var(--text); }
+  .hu { fill: var(--good); }
+  .hd { fill: var(--bad); }
+  .cub { fill: color-mix(in srgb, var(--bio-glucose) 35%, var(--surface)); stroke: var(--bio-glucose); stroke-width: 2; }
+  .res { font-size: 13px; font-weight: 800; fill: var(--text); }
+</style>

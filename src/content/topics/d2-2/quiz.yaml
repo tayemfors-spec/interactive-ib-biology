@@ -1,0 +1,206 @@
+questions:
+  - id: q1
+    level: AHL
+    understanding: D2.2.8
+    stem: >-
+      Blood samples from people living near busy roads showed lower overall DNA methylation than samples from
+      people living in areas with clean air. Which statement best explains how this could affect them?
+    options:
+      - id: a
+        text: The pollutants caused mutations that changed the base sequence of genes in their blood cells.
+        why: The study measured methylation, not base sequence. Loss of methyl tags is an epigenetic change, and it does not alter the sequence of bases.
+      - id: b
+        text: The pattern of gene expression in their cells may change, although the base sequence of their DNA is unchanged.
+        why: Correct. Removing methyl tags changes which genes can be transcribed, for example genes involved in inflammation, without changing the genotype.
+      - id: c
+        text: Their cells can no longer replicate DNA, because methyl groups are needed for DNA polymerase to work.
+        why: Methyl tags are not needed for DNA replication. They affect whether genes are transcribed.
+      - id: d
+        text: All their genes will be switched off, because fewer methyl groups always means less transcription.
+        why: This reverses the usual effect. Methylation of promoters represses transcription, so losing methyl tags tends to allow genes to be transcribed, not switch them off.
+    answer: b
+
+  - id: q2
+    level: AHL
+    understanding: D2.2.2
+    stem: >-
+      In cultured liver cells, deleting a short DNA sequence located 6000 base pairs upstream of a gene reduced
+      its rate of transcription by 95%, but the gene was still transcribed at a low rate. What is the deleted
+      sequence most likely to be?
+    options:
+      - id: a
+        text: The promoter of the gene
+        why: The promoter is just upstream of the gene, and without it RNA polymerase could not start transcription at all, so transcription would stop rather than fall to a low rate.
+      - id: b
+        text: A gene coding for RNA polymerase
+        why: Deleting one copy of a gene for RNA polymerase would affect transcription of many genes, and the sequence here acts on one nearby gene.
+      - id: c
+        text: A silencer that binds a repressor
+        why: Removing a silencer would remove repression, so transcription would increase rather than decrease.
+      - id: d
+        text: An enhancer that binds an activator
+        why: Correct. Enhancers can be thousands of base pairs from the gene. Without it, activators cannot raise the rate, but transcription factors at the promoter still allow a low rate.
+    answer: d
+
+  - id: q3
+    level: AHL
+    understanding: D2.2.3
+    stem: >-
+      Two genes, X and Y, are transcribed at the same rate. The mRNA of X lasts about 20 minutes in the cytoplasm
+      before it is broken down; the mRNA of Y lasts about 10 hours. Transcription of both genes then stops.
+      Which prediction is correct?
+    options:
+      - id: a
+        text: Protein Y will go on being made for much longer than protein X.
+        why: Correct. Each mRNA is translated repeatedly until nucleases break it down, so the long-lived Y mRNA keeps producing protein for hours after transcription stops.
+      - id: b
+        text: Production of both proteins stops immediately, because translation needs ongoing transcription.
+        why: mRNA already in the cytoplasm is translated until it is degraded, so protein production does not stop the moment transcription stops.
+      - id: c
+        text: Protein X will be made for longer, because its mRNA is translated more quickly.
+        why: The data are about mRNA lifetime, not translation speed. The mRNA that lasts longer supports translation for longer.
+      - id: d
+        text: Both proteins will be present in equal amounts, because their genes are transcribed at the same rate.
+        why: Protein amount depends on mRNA lifetime as well as the rate of transcription. Y mRNA accumulates to a higher level and is translated for longer.
+    answer: a
+
+  - id: q4
+    level: AHL
+    understanding: D2.2.5
+    stem: Which statement about a pancreatic β cell and a liver cell from the same person is correct?
+    options:
+      - id: a
+        text: They have different genomes, because the β cell needs the insulin gene and the liver cell does not.
+        why: Both cells have the same genome, including the insulin gene. Only the β cell transcribes it.
+      - id: b
+        text: They have the same transcriptome, because they contain the same genes.
+        why: Having the same genes does not mean transcribing the same genes. No cell expresses all of its genes, so their transcriptomes differ.
+      - id: c
+        text: They have the same genome but different transcriptomes and proteomes.
+        why: Correct. The genome is the same in both, but each transcribes a different set of genes, so different mRNAs and proteins are present.
+      - id: d
+        text: Their proteomes are identical, but different proteins are active in each cell.
+        why: The proteome is the set of proteins a cell produces. The β cell makes insulin and the liver cell makes albumin, so their proteomes differ.
+    answer: c
+
+  - id: q5
+    level: AHL
+    understanding: D2.2.6
+    stem: Many cytosines in the promoter of a gene become methylated. What is the most likely effect?
+    options:
+      - id: a
+        text: The cytosines are converted to thymine, so the gene now codes for a different polypeptide.
+        why: Methylated cytosine still pairs with guanine and the base sequence is unchanged. The promoter is also not part of the coding sequence.
+      - id: b
+        text: Transcription factors cannot bind the promoter, so the gene is not transcribed.
+        why: Correct. Methyl groups on promoter cytosines prevent some transcription factors binding, so RNA polymerase does not transcribe the gene downstream.
+      - id: c
+        text: Transcription increases, because methyl groups help RNA polymerase bind the promoter.
+        why: This reverses the effect. Methylation of cytosine in a promoter represses transcription.
+      - id: d
+        text: Translation of the gene's mRNA stops, but transcription continues normally.
+        why: Promoter methylation acts on transcription, the first stage of gene expression, not on translation of mRNA already made.
+    answer: b
+
+  - id: q6
+    level: AHL
+    understanding: D2.2.4
+    stem: Which statement correctly describes the epigenetic changes that occur as cells differentiate during development?
+    options:
+      - id: a
+        text: They delete the genes that a cell type does not need.
+        why: Differentiated cells keep their full set of genes; unneeded genes are silenced, not deleted.
+      - id: b
+        text: They change the base sequence of genes so that each cell type makes different proteins.
+        why: Epigenetic changes do not alter base sequences. That would be a mutation.
+      - id: c
+        text: They cannot be reversed once a cell has differentiated.
+        why: "Epigenetic tags are reversible: they can be added and removed, for example in response to the environment or during gamete formation."
+      - id: d
+        text: They change which genes are expressed, altering phenotype but not genotype.
+        why: Correct. Tags such as methyl groups switch genes on or off without changing the base sequence, so the genotype is unchanged.
+    answer: d
+
+  - id: q7
+    level: AHL
+    understanding: D2.2.7
+    stem: >-
+      A skin stem cell divides by mitosis and both daughter cells go on transcribing the same genes as the
+      parent cell. Which explanation is correct?
+    options:
+      - id: a
+        text: After DNA replication, methyl tags on each old strand are used as a guide to methylate the new strand, so the pattern of tags is passed on.
+        why: Correct. CG sites are methylated on both strands, so each half-methylated daughter molecule can have the tags on its new strand restored, keeping the expression pattern.
+      - id: b
+        text: Mitosis produces genetically different cells, and each happens to have skin genes.
+        why: Mitosis produces genetically identical cells. The question is why they express the same genes, which depends on inherited tags.
+      - id: c
+        text: The genes not needed in skin are lost from the chromosomes during mitosis.
+        why: Genes are not lost during mitosis. Unneeded genes are kept but silenced by epigenetic tags.
+      - id: d
+        text: All epigenetic tags are removed during mitosis and then added again at random.
+        why: If tags were removed and re-added at random, the daughter cells would not keep the parent's pattern of expression.
+    answer: a
+
+  - id: q8
+    level: AHL
+    understanding: D2.2.9
+    stem: >-
+      A liger (lion father, tiger mother) grows much larger than a tigon (tiger father, lion mother). Which is
+      the best explanation?
+    options:
+      - id: a
+        text: Ligers inherit more lion genes than tigons do.
+        why: Both hybrids receive one set of nuclear chromosomes from each parent species, so they have the same genes.
+      - id: b
+        text: Ligers have a mutation in a growth gene that tigons lack.
+        why: There is no difference in base sequence to explain this. The difference depends on the direction of the cross, which points to tags inherited from each parent.
+      - id: c
+        text: Some epigenetic tags on growth genes are not removed in sperm and eggs, and they differ according to which species is the father.
+        why: Correct. Imprinted growth genes from a lion father strongly promote growth, while a tiger mother provides only weak growth-limiting imprints, so ligers overgrow.
+      - id: d
+        text: Ligers receive more chromosomes than tigons, because the lion parent contributes more.
+        why: Lions and tigers both have 38 chromosomes (2n = 38), so every liger and tigon receives 19 from each parent. Chromosome number cannot explain the difference.
+    answer: c
+
+  - id: q9
+    level: AHL
+    understanding: D2.2.10
+    stem: >-
+      Researchers compared DNA methylation in pairs of monozygotic twins. Pairs aged 50 differed much more than
+      pairs aged 3, and differences were largest in twins who had lived apart. Which conclusion is best supported?
+    options:
+      - id: a
+        text: Monozygotic twins become less genetically identical as they age, because their genomes diverge.
+        why: Apart from rare mutations, monozygotic twins keep the same base sequence. The study measured methylation, an epigenetic tag, not base sequence.
+      - id: b
+        text: Differences in environment during life change epigenetic tags, so gene expression diverges even though the genome is the same.
+        why: Correct. With the genome controlled, larger differences in older twins and twins who lived apart point to environmental effects on tags (with some chance changes).
+      - id: c
+        text: Dizygotic twins would show no differences in methylation, because they share half their genes.
+        why: Dizygotic twins differ genetically and would be expected to show at least as much difference; the study was on monozygotic twins.
+      - id: d
+        text: Methylation patterns are fixed at birth and inherited unchanged from the parents.
+        why: The results show patterns changing with age and environment, which contradicts this.
+    answer: b
+
+  - id: q10
+    level: AHL
+    understanding: D2.2.11
+    stem: >-
+      E. coli growing in a medium with no glucose is transferred to a medium containing lactose. Within minutes,
+      the cells start making β-galactosidase. What causes this?
+    options:
+      - id: a
+        text: Lactose binds the promoter and acts as a transcription factor.
+        why: Lactose does not bind DNA. It acts by binding the repressor protein.
+      - id: b
+        text: Lactose activates the repressor, which then binds the operator and starts transcription.
+        why: The repressor bound to the operator blocks transcription. Lactose inactivates the repressor rather than activating it.
+      - id: c
+        text: Lactose causes the lacZ gene to be copied many times, so there is more DNA to transcribe.
+        why: Gene number does not change. The existing genes are switched on when the repressor is removed.
+      - id: d
+        text: Lactose, as allolactose, binds the repressor so it leaves the operator and RNA polymerase can transcribe the lac genes.
+        why: Correct. With the operator free, RNA polymerase transcribes lacZ, lacY and lacA, and β-galactosidase is made.
+    answer: d

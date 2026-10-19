@@ -1,0 +1,83 @@
+---
+/**
+ * D2.2.2 and D2.2.3: transcription controlled by proteins binding specific DNA sequences
+ * (promoter, enhancer, silencer; general transcription factors, activators, repressors), then
+ * translation controlled by how long the mRNA survives before nucleases break it down.
+ */
+const ribos = [200, 290, 380];
+---
+<svg viewBox="0 0 560 360" xmlns="http://www.w3.org/2000/svg" class="reg">
+  <text class="side" x="10" y="20">Nucleus</text>
+  <text class="rate" x="550" y="20" text-anchor="end" data-el="rate">Transcription: none</text>
+  <!-- DNA -->
+  <text class="end" x="10" y="155">5′</text>
+  <text class="end" x="540" y="155">3′</text>
+  <path class="dna" d="M26 150 L534 150" />
+  <rect class="enh" x="44" y="140" width="64" height="20" rx="4" />
+  <text class="lbl" x="76" y="180" text-anchor="middle">enhancer</text>
+  <rect class="sil" x="178" y="140" width="54" height="20" rx="4" />
+  <text class="lbl" x="205" y="180" text-anchor="middle">silencer</text>
+  <rect class="prom" x="236" y="140" width="62" height="20" rx="4" />
+  <text class="lbl" x="267" y="180" text-anchor="middle">promoter</text>
+  <rect class="gene" x="302" y="140" width="226" height="20" rx="4" />
+  <text class="lbl" x="415" y="180" text-anchor="middle">gene (transcribed 5′ → 3′)</text>
+  <path class="arc" data-el="arc" d="M90 128 C 120 70, 220 70, 252 112" style="opacity:0" />
+  <text class="note" data-el="arc-lbl" x="150" y="66" text-anchor="middle" style="opacity:0">DNA bends: activator contacts the complex</text>
+  <!-- proteins -->
+  <g data-el="gtf" class="prot" transform="translate(230 64)"><rect class="gtf-s" x="-22" y="-12" width="44" height="24" rx="8" /><text text-anchor="middle" dy="0.36em">TFs</text></g>
+  <g data-el="pol" class="prot" transform="translate(420 70)"><ellipse class="pol-s" rx="34" ry="18" /><text text-anchor="middle" dy="0.36em">RNA pol</text></g>
+  <g data-el="act" class="prot" transform="translate(76 64)" style="opacity:0"><path class="act-s" d="M-33 12 L-33 -6 Q-33 -14 -25 -14 L25 -14 Q33 -14 33 -6 L33 12 Z" /><text text-anchor="middle" dy="0.1em">activator</text></g>
+  <g data-el="rep" class="prot" transform="translate(205 64)" style="opacity:0"><path class="rep-s" d="M-34 12 L-34 -6 Q-34 -14 -26 -14 L26 -14 Q34 -14 34 -6 L34 12 Z" /><text text-anchor="middle" dy="0.1em">repressor</text></g>
+  {[0, 1, 2].map((k) => <path class="mrna" data-el={`tx${k}`} d={`M380 ${116 - k * 16} q10 -6 20 0 t20 0 t20 0 t20 0 t20 0`} style="opacity:0" />)}
+  <!-- nuclear envelope -->
+  <path class="env" d="M0 204 L560 204" />
+  <text class="side" x="10" y="226">Cytoplasm</text>
+  <text class="count" x="550" y="226" text-anchor="end" data-el="count">Polypeptides made: 0</text>
+  <text class="note" data-el="wait" x="280" y="290" text-anchor="middle">mRNA made in the nucleus moves out to the cytoplasm (steps 5 and 6)</text>
+  <!-- cytoplasmic mRNA -->
+  <g data-el="cyto" style="opacity:0">
+    <circle class="cap" cx="112" cy="290" r="8" />
+    <text class="lbl" x="112" y="318" text-anchor="middle">5′ cap</text>
+    <path class="mrna" data-el="mrna-body" d="M120 290 q10 -6 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" />
+    <path class="cut" data-el="cuts" d="M184 280 L192 300 M268 280 L276 300 M356 280 L364 300" style="opacity:0" />
+    <text class="polya" x="444" y="295" data-el="polya">AAAAAAAAA</text>
+    <text class="lbl" x="440" y="318" data-el="polya-lbl">poly-A tail</text>
+    {ribos.map((x, i) => (
+      <g data-el={`ribo${i}`}>
+        <ellipse class="ribo" cx={x} cy="278" rx="22" ry="14" />
+        <path class="chain" data-el={`chain${i}`} d={`M${x} 264 q-6 -8 0 -14 q6 -6 0 -14`} />
+      </g>
+    ))}
+    <g data-el="nuc" style="opacity:0" transform="translate(520 290)"><path class="nucl" d="M0 0 L14 -9 A16 16 0 1 0 14 9 Z" /><text class="lbl" x="-2" y="-24" text-anchor="middle">nuclease</text></g>
+    <text class="note" data-el="half" x="280" y="348" text-anchor="middle" style="opacity:0">mRNA lifetime in human cells: from minutes to days</text>
+  </g>
+</svg>
+<style>
+  .reg { font-family: var(--font-sans); }
+  .side { font-size: 13px; font-weight: 700; fill: var(--text-muted); }
+  .rate, .count { font-size: 13px; font-weight: 800; fill: var(--accent-strong); }
+  .end { font-size: 12px; font-weight: 700; fill: var(--text-muted); }
+  .dna { stroke: var(--bio-head); stroke-width: 5; fill: none; }
+  .enh { fill: color-mix(in srgb, var(--bio-carb) 30%, var(--surface)); stroke: var(--bio-carb); stroke-width: 1.5; }
+  .sil { fill: color-mix(in srgb, var(--bad) 18%, var(--surface)); stroke: var(--bad); stroke-width: 1.5; }
+  .prom { fill: color-mix(in srgb, var(--bio-glucose) 30%, var(--surface)); stroke: var(--bio-glucose); stroke-width: 1.5; }
+  .gene { fill: color-mix(in srgb, var(--bio-protein) 18%, var(--surface)); stroke: var(--bio-protein); stroke-width: 1.5; }
+  .lbl { font-size: 12px; fill: var(--text); }
+  .note { font-size: 12px; font-style: italic; fill: var(--text-muted); }
+  .arc { fill: none; stroke: var(--bio-carb); stroke-width: 2; stroke-dasharray: 5 4; }
+  .prot text { font-size: 12px; font-weight: 800; fill: var(--surface); }
+  .gtf-s { fill: var(--bio-glucose); }
+  .gtf-s + text { fill: #000; }
+  .pol-s { fill: var(--bio-protein-2); }
+  .act-s { fill: var(--bio-carb); }
+  .act-s + text { fill: #000; }
+  .rep-s { fill: var(--bad); }
+  .mrna { stroke: var(--bio-k); stroke-width: 3; fill: none; }
+  .env { stroke: var(--border-strong); stroke-width: 3; stroke-dasharray: 10 5; }
+  .cap { fill: var(--bio-k); }
+  .polya { font-size: 13px; font-weight: 800; letter-spacing: 0.5px; fill: var(--bio-k); font-family: var(--font-mono); }
+  .ribo { fill: color-mix(in srgb, var(--bio-protein) 55%, var(--surface)); stroke: var(--bio-protein); stroke-width: 1.5; }
+  .chain { fill: none; stroke: var(--bio-carb); stroke-width: 3; stroke-linecap: round; }
+  .cut { stroke: var(--surface-2); stroke-width: 6; }
+  .nucl { fill: var(--text-muted); }
+</style>
