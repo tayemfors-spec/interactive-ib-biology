@@ -1,0 +1,59 @@
+---
+/** Three required mutualisms (C4.1.12): what each partner gives the other. */
+const rows = [
+  {
+    a: ['Legume plant', '(Fabaceae, e.g.', 'pea, clover)'],
+    b: ['Rhizobium', 'bacteria in', 'root nodules'],
+    ab: ['sugars and other carbon', 'compounds; a low-O₂ home'],
+    ba: ['ammonium (NH₄⁺) made', 'by fixing N₂ from the air'],
+  },
+  {
+    a: ['Orchid', '(Orchidaceae)', ''],
+    b: ['Mycorrhizal', 'fungus: hyphae', 'in root cells'],
+    ab: ['sugars from photosynthesis', '(in adult green orchids)'],
+    ba: ['water and mineral ions;', 'sugars for seedlings'],
+  },
+  {
+    a: ['Hard coral', 'polyp', ''],
+    b: ['Zooxanthellae', '(photosynthetic', 'algae in its cells)'],
+    ab: ['CO₂, nitrogen and phosphate', 'from its wastes; shelter in light'],
+    ba: ['sugars, amino acids and', 'O₂ from photosynthesis'],
+  },
+];
+const H = 128;
+---
+<svg viewBox="0 0 560 410" role="img" aria-labelledby="c41m-t c41m-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="c41m-t">Three mutualisms and what each partner gains</title>
+  <desc id="c41m-d">Row 1: a legume plant gives Rhizobium bacteria in its root nodules sugars and a low-oxygen environment; the bacteria fix nitrogen gas and give the plant ammonium. Row 2: a mycorrhizal fungus gives an orchid water and mineral ions, and gives seedlings sugars; adult green orchids give the fungus sugars from photosynthesis. Row 3: a hard coral gives its zooxanthellae carbon dioxide, nitrogen and phosphate compounds and a sheltered, well-lit home; the zooxanthellae give the coral sugars, amino acids and oxygen from photosynthesis.</desc>
+  <defs>
+    <marker id="c41m-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="head" /></marker>
+  </defs>
+  {rows.map((r, i) => {
+    const y = 8 + i * (H + 8);
+    return (
+      <g>
+        <rect class="box host" x="4" y={y + 14} width="132" height={H - 28} rx="10" />
+        {r.a.map((t, k) => <text class={k === 0 ? 'name' : 'sub'} x="70" y={y + 44 + k * 19} text-anchor="middle">{t}</text>)}
+        <rect class="box partner" x="424" y={y + 14} width="132" height={H - 28} rx="10" />
+        {r.b.map((t, k) => <text class={k === 0 ? 'name' : 'sub'} x="490" y={y + 44 + k * 19} text-anchor="middle">{t}</text>)}
+        <path class="arrow to" d={`M142 ${y + 50} L418 ${y + 50}`} marker-end="url(#c41m-arr)" />
+        {r.ab.map((t, k) => <text class="gift" x="280" y={y + 22 + k * 16} text-anchor="middle">{t}</text>)}
+        <path class="arrow back" d={`M418 ${y + 80} L142 ${y + 80}`} marker-end="url(#c41m-arr)" />
+        {r.ba.map((t, k) => <text class="gift" x="280" y={y + 100 + k * 16} text-anchor="middle">{t}</text>)}
+      </g>
+    );
+  })}
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .box { stroke-width: 1.8; }
+  .host { fill: color-mix(in srgb, var(--bio-carb) 16%, var(--surface)); stroke: var(--bio-carb); }
+  .partner { fill: color-mix(in srgb, var(--bio-protein) 14%, var(--surface)); stroke: var(--bio-protein); }
+  .name { font-size: 15px; font-weight: 750; fill: var(--text); }
+  .sub { font-size: 13px; fill: var(--text-muted); }
+  .gift { font-size: 13.5px; fill: var(--text); }
+  .arrow { stroke-width: 2.4; fill: none; }
+  .to { stroke: var(--bio-carb); }
+  .back { stroke: var(--bio-protein); stroke-dasharray: 8 5; }
+  .head { fill: var(--text-muted); }
+</style>

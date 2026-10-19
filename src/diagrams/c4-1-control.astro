@@ -1,0 +1,52 @@
+---
+/** Bottom-up and top-down control of populations in a community (C4.1.17), each with an example food chain. */
+const bottomUp = [['Fish', 'secondary consumers'], ['Zooplankton', 'primary consumers'], ['Phytoplankton', 'producers'], ['Nitrate and phosphate', 'mineral nutrients']];
+const topDown = [['Sea otters', 'predators'], ['Sea urchins', 'herbivores'], ['Kelp', 'producers']];
+const BW = 200, BH = 46, GAP = 30;
+const y = (i: number) => 50 + i * (BH + GAP);
+---
+<svg viewBox="0 0 560 380" role="img" aria-labelledby="c41b-t c41b-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="c41b-t">Bottom-up and top-down control in two example communities</title>
+  <desc id="c41b-d">Left, bottom-up control in a lake: the supply of nitrate and phosphate limits phytoplankton, which limits zooplankton, which limits fish; arrows point upwards. Right, top-down control in a kelp forest: sea otters limit sea urchins by eating them, so the urchins cannot overgraze the kelp; arrows point downwards.</desc>
+  <defs>
+    <marker id="c41b-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="head" /></marker>
+  </defs>
+  <text class="h" x="130" y="26" text-anchor="middle">Bottom-up (a lake)</text>
+  <text class="h" x="430" y="26" text-anchor="middle">Top-down (a kelp forest)</text>
+  {bottomUp.map((b, i) => (
+    <g>
+      <rect class="box bu" x={130 - BW / 2} y={y(i)} width={BW} height={BH} rx="9" />
+      <text class="n" x="130" y={y(i) + 20} text-anchor="middle">{b[0]}</text>
+      <text class="s" x="130" y={y(i) + 37} text-anchor="middle">{b[1]}</text>
+      {i < bottomUp.length - 1 && <path class="arr up" d={`M130 ${y(i + 1) - 2} L130 ${y(i) + BH + 4}`} marker-end="url(#c41b-arr)" />}
+      {i < bottomUp.length - 1 && <text class="lim" x="140" y={y(i) + BH + 20}>limits</text>}
+    </g>
+  ))}
+  {topDown.map((b, i) => (
+    <g>
+      <rect class="box td" x={430 - BW / 2} y={y(i)} width={BW} height={BH} rx="9" />
+      <text class="n" x="430" y={y(i) + 20} text-anchor="middle">{b[0]}</text>
+      <text class="s" x="430" y={y(i) + 37} text-anchor="middle">{b[1]}</text>
+      {i < topDown.length - 1 && <path class="arr down" d={`M430 ${y(i) + BH + 2} L430 ${y(i + 1) - 4}`} marker-end="url(#c41b-arr)" />}
+      {i < topDown.length - 1 && <text class="lim" x="440" y={y(i) + BH + 20}>{i === 0 ? 'eat, so limit' : 'graze, so limit'}</text>}
+    </g>
+  ))}
+  <text class="note" x="430" y={y(3) + 16} text-anchor="middle">Remove the otters: urchins multiply</text>
+  <text class="note" x="430" y={y(3) + 34} text-anchor="middle">and graze the kelp forest away.</text>
+  <text class="note" x="130" y={y(4) + 4} text-anchor="middle">Add phosphate: every level can grow.</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .h { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .box { stroke-width: 1.6; }
+  .bu { fill: color-mix(in srgb, var(--bio-carb) 12%, var(--surface)); stroke: var(--bio-carb); }
+  .td { fill: color-mix(in srgb, var(--bio-protein) 12%, var(--surface)); stroke: var(--bio-protein); }
+  .n { font-size: 15px; font-weight: 750; fill: var(--text); }
+  .s { font-size: 12.5px; fill: var(--text-muted); }
+  .arr { stroke-width: 2.6; fill: none; }
+  .up { stroke: var(--bio-carb); }
+  .down { stroke: var(--bio-protein); stroke-dasharray: 8 5; }
+  .lim { font-size: 13px; font-style: italic; fill: var(--text-muted); }
+  .note { font-size: 13px; fill: var(--text); }
+  .head { fill: var(--text-muted); }
+</style>

@@ -1,0 +1,69 @@
+cards:
+  - id: c1
+    level: SL
+    front: What is a population, and what separates one population of a species from another?
+    back: A group of organisms of the same species living in the same area that normally interbreed. Populations of one species are distinguished by reproductive isolation, often a geographical barrier.
+  - id: c2
+    level: SL
+    front: Why are population sizes estimated by random sampling, and what is sampling error?
+    back: Counting every individual is usually impractical (large areas, hidden or moving organisms). A random sample gives every individual an equal chance of selection, avoiding bias. Sampling error is the difference between the estimate and the true population size.
+  - id: c3
+    level: SL
+    front: Quadrat sampling — formula for the population estimate
+    back: Estimate = mean number per quadrat × total area of the site ÷ area of one quadrat. Quadrats are placed at random coordinates and suit sessile organisms.
+  - id: c4
+    level: SL
+    front: What does the standard deviation of quadrat counts tell you?
+    back: The spread of the counts. A small SD means similar counts in every quadrat (evenly spread, reliable estimate); a large SD, relative to the mean, means the organisms are clumped and the estimate is less reliable.
+  - id: c5
+    level: SL
+    front: Lincoln index — formula and meaning of each symbol
+    back: Population = M × N ÷ R. M = number caught and marked in the first sample; N = total caught in the second sample; R = number of marked individuals in the second sample.
+  - id: c6
+    level: SL
+    front: Four assumptions of capture–mark–release–recapture
+    back: No births, deaths or migration between samples; marks are not lost; marking does not affect survival or behaviour; marked individuals mix randomly back into the population (equal chance of recapture).
+  - id: c7
+    level: SL
+    front: Define carrying capacity and give limiting resources for plants and animals.
+    back: The maximum population size an environment can support. Plants — light, water, mineral ions such as nitrate and phosphate. Animals — food, water, territories or nest sites, dissolved oxygen in water.
+  - id: c8
+    level: SL
+    front: Name three density-dependent factors and one density-independent factor.
+    back: Density-dependent — competition for resources, predation, spread of pathogens and pests (all stronger in crowded populations). Density-independent — e.g. flood, fire, hard frost.
+  - id: c9
+    level: SL
+    front: Explain the three phases of sigmoid growth.
+    back: Exponential — plentiful resources, births far exceed deaths. Transitional — density-dependent factors lower the birth rate and raise the death rate, so growth slows. Plateau — births equal deaths at the carrying capacity.
+  - id: c10
+    level: SL
+    front: How do you test whether a population grew exponentially?
+    back: Plot population size on a logarithmic vertical axis against time on a linear axis. Exponential growth gives a straight line.
+  - id: c11
+    level: SL
+    front: Give two examples each of intraspecific competition and cooperation.
+    back: Competition — plants of one species competing for light; robins defending feeding territories; red deer stags fighting for females. Cooperation — honeybee workers sharing tasks; meerkat sentinels; emperor penguins huddling; wolves hunting in packs.
+  - id: c12
+    level: SL
+    front: Six types of interspecific relationship, each with an example
+    back: Herbivory (hares browsing willow), predation (lynx eating hares), interspecific competition (lions and hyenas for prey), mutualism (Rhizobium in legumes), parasitism (ticks on deer), pathogenicity (chytrid fungus in frogs).
+  - id: c13
+    level: SL
+    front: "Mutualism: what do orchids and their mycorrhizal fungi gain?"
+    back: The fungus supplies water and mineral ions (and sugars to seedlings, which have almost no food reserves). Adult green orchids supply the fungus with sugars made in photosynthesis.
+  - id: c14
+    level: SL
+    front: "Mutualism: what do hard corals and zooxanthellae gain?"
+    back: The zooxanthellae (photosynthetic algae inside coral cells) give the coral sugars, amino acids and oxygen. The coral gives them CO₂, nitrogen and phosphorus compounds and a sheltered, well-lit home.
+  - id: c15
+    level: SL
+    front: Chi-squared test for association — steps and critical value
+    back: H₀ — species distributed independently. Expected = row total × column total ÷ grand total. χ² = Σ(O − E)² ÷ E. df = 1, critical value 3.84 at p = 0.05. If χ² > 3.84, reject H₀ — the species are associated.
+  - id: c16
+    level: SL
+    front: Top-down versus bottom-up control
+    back: Top-down — limited by the trophic level above (e.g. sea otters limit sea urchins, protecting kelp). Bottom-up — limited by resources or the level below (e.g. phosphate limits phytoplankton in a lake). Both occur; one usually dominates.
+  - id: c17
+    level: SL
+    front: Allelopathy and antibiotic secretion — what do they share? Give an example of each.
+    back: Both release chemicals into the environment that deter competitors. Allelopathy — black walnut releases juglone, inhibiting nearby plants. Antibiotics — Streptomyces griseus secretes streptomycin, inhibiting other soil bacteria.

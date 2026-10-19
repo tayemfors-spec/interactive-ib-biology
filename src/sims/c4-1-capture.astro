@@ -1,0 +1,147 @@
+---
+import { DEFAULT_CAPTURE as d, MH, MW, meadowSvg, surveyText, trialsSvg } from './c4-1-capture-view';
+---
+<div class="sim-capture" data-sim-capture>
+  <div class="formula">
+    <span class="f-main">Population estimate = <span class="frac"><span>M × N</span><span>R</span></span></span>
+    <ul class="f-key">
+      <li><strong>M</strong> = number caught and marked in the first sample</li>
+      <li><strong>N</strong> = total number caught in the second sample</li>
+      <li><strong>R</strong> = number of marked individuals in the second sample</li>
+    </ul>
+  </div>
+  <div class="layout">
+    <div>
+      <svg class="meadow-svg" viewBox={`0 0 ${MW} ${MH}`} role="img" aria-labelledby="c41c-t c41c-d">
+        <title id="c41c-t">The animals in the habitat at the time of the second sample</title>
+        <desc id="c41c-d">Grey dots are unmarked animals, red dots are marked animals, and a thick dark ring shows an animal caught in the second sample. Hollow red rings are animals whose marks have worn off.</desc>
+        <g data-meadow set:html={meadowSvg(null, d.trueN)} />
+      </svg>
+      <ul class="key" aria-hidden="true">
+        <li><span class="k k-u"></span>unmarked</li>
+        <li><span class="k k-m"></span>marked</li>
+        <li><span class="k k-r"></span>caught in 2nd sample</li>
+        <li><span class="k k-l"></span>mark worn off</li>
+      </ul>
+    </div>
+    <div class="controls">
+      <label class="slider">True population (unknown in a real survey): <output data-out="trueN">{d.trueN}</output>
+        <input type="range" min="100" max="600" step="20" value={d.trueN} data-param="trueN" />
+      </label>
+      <label class="slider">Size of first sample, M: <output data-out="first">{d.first}</output>
+        <input type="range" min="10" max="120" step="5" value={d.first} data-param="first" />
+      </label>
+      <label class="slider">Size of second sample, N: <output data-out="second">{d.second}</output>
+        <input type="range" min="10" max="120" step="5" value={d.second} data-param="second" />
+      </label>
+      <fieldset class="legend">
+        <legend>Break an assumption</legend>
+        <label><input type="checkbox" data-flag="loss" /> 40% of marks wear off</label>
+        <label><input type="checkbox" data-flag="death" /> Marks make 40% of marked animals easy prey</label>
+        <label><input type="checkbox" data-flag="mix" /> Marked animals do not mix (stay near the trap)</label>
+        <label><input type="checkbox" data-flag="imm" /> Unmarked animals migrate in</label>
+      </fieldset>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" data-run>Run a survey</button>
+        <button type="button" class="btn" data-run20>Run 20 surveys</button>
+        <button type="button" class="btn" data-clear>Clear results</button>
+      </div>
+    </div>
+  </div>
+  <p class="readout" aria-live="polite" data-readout>{surveyText(null, d)}</p>
+  <svg class="trials" viewBox="0 0 640 170" role="img" aria-labelledby="c41ct-t">
+    <title id="c41ct-t">Dot plot of the estimates from repeated surveys, with the true population size marked</title>
+    <g data-trials set:html={trialsSvg([], d.trueN)} />
+  </svg>
+  <p class="trial-sum" data-trialsum>No repeated surveys yet. A triangle under the axis will mark the mean estimate.</p>
+  <p class="model-note">Simulated animals. Each survey uses new random samples, so estimates vary even when every assumption holds; the mean of many surveys is close to the true size. Changing a slider or an assumption clears the results.</p>
+</div>
+
+<script>
+  import { meadowSvg, surveyText, toParams, trialStats, trialsSvg, type CaptureUi } from './c4-1-capture-view';
+  import { runCmr, type CmrResult } from './models/c4-1-capture';
+  import { mulberry32 } from './models/c4-1-rng';
+
+  document.querySelectorAll<HTMLElement>('[data-sim-capture]').forEach((root) => {
+    const num = (k: string) => Number(root.querySelector<HTMLInputElement>(`[data-param="${k}"]`)!.value);
+    const flag = (k: string) => root.querySelector<HTMLInputElement>(`[data-flag="${k}"]`)!.checked;
+    const meadow = root.querySelector<SVGGElement>('[data-meadow]')!;
+    const trialsG = root.querySelector<SVGGElement>('[data-trials]')!;
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    const sum = root.querySelector<HTMLElement>('[data-trialsum]')!;
+    let seed = 1;
+    let last: CmrResult | null = null;
+    let est: number[] = [];
+    const ui = (): CaptureUi => ({ trueN: num('trueN'), first: num('first'), second: num('second'), loss: flag('loss'), death: flag('death'), mix: flag('mix'), imm: flag('imm') });
+
+    const draw = () => {
+      const u = ui();
+      for (const k of ['trueN', 'first', 'second']) root.querySelector(`[data-out="${k}"]`)!.textContent = String(num(k));
+      meadow.innerHTML = meadowSvg(last, u.trueN);
+      trialsG.innerHTML = trialsSvg(est, u.trueN);
+      readout.textContent = surveyText(last, u);
+      const st = trialStats(est);
+      sum.textContent = st.n
+        ? `${st.n} surveys: mean estimate ${Math.round(st.mean)} (true size ${u.trueN})${st.noEstimate ? `; ${st.noEstimate} gave no estimate because R = 0` : ''}.`
+        : 'No repeated surveys yet. A triangle under the axis will mark the mean estimate.';
+    };
+    const one = () => {
+      last = runCmr(toParams(ui()), mulberry32(seed++ * 7919));
+      est.push(last.estimate);
+    };
+    const clear = () => { last = null; est = []; draw(); };
+    root.querySelectorAll('[data-param]').forEach((el) => el.addEventListener('input', clear));
+    root.querySelectorAll('[data-flag]').forEach((el) => el.addEventListener('change', clear));
+    root.querySelector('[data-run]')!.addEventListener('click', () => { one(); draw(); });
+    root.querySelector('[data-run20]')!.addEventListener('click', () => { for (let i = 0; i < 20; i++) one(); draw(); });
+    root.querySelector('[data-clear]')!.addEventListener('click', clear);
+  });
+</script>
+
+<style>
+  .sim-capture { container-type: inline-size; }
+  .formula { display: grid; gap: var(--space-2); padding: var(--space-3); margin-bottom: var(--space-4); background: var(--surface-2); border-left: 4px solid var(--accent); border-radius: var(--radius-m); font-size: var(--step--1); }
+  @container (min-width: 40rem) { .formula { grid-template-columns: auto 1fr; align-items: center; gap: var(--space-5); } }
+  .f-main { font-size: var(--step-1); font-weight: 700; display: inline-flex; align-items: center; gap: 0.4em; }
+  .frac { display: inline-grid; text-align: center; }
+  .frac span:first-child { border-bottom: 2px solid currentColor; padding: 0 0.3em; }
+  .f-key { margin: 0; padding-left: 1.1rem; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 46rem) { .layout { grid-template-columns: minmax(0, 1.4fr) minmax(15rem, 1fr); align-items: start; } }
+  .meadow-svg { width: 100%; height: auto; display: block; }
+  .meadow-svg :global(.meadow) { fill: color-mix(in srgb, var(--bio-carb) 12%, var(--surface)); stroke: var(--border-strong); }
+  .meadow-svg :global(.a) { fill: var(--text-muted); opacity: 0.75; }
+  .meadow-svg :global(.a.m) { fill: var(--bio-k); opacity: 1; }
+  .meadow-svg :global(.a.lost) { fill: var(--surface); stroke: var(--bio-k); stroke-width: 1.8; opacity: 1; }
+  .meadow-svg :global(.a.r) { stroke: var(--text); stroke-width: 2.8; opacity: 1; }
+  .key { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); list-style: none; padding: 0; margin: var(--space-2) 0 0; font-size: 0.8rem; color: var(--text-muted); }
+  .key li { display: flex; align-items: center; gap: 0.35rem; }
+  .k { display: inline-block; width: 0.8rem; height: 0.8rem; border-radius: 50%; }
+  .k-u { background: var(--text-muted); }
+  .k-m { background: var(--bio-k); }
+  .k-r { background: var(--text-muted); box-shadow: 0 0 0 2.5px var(--text); }
+  .k-l { background: var(--surface); border: 2px solid var(--bio-k); }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); align-content: start; }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .legend { border: 0; padding: 0; margin: 0; display: grid; gap: var(--space-1); }
+  .legend legend { font-weight: 700; color: var(--text-muted); margin-bottom: var(--space-1); }
+  .legend label { display: flex; align-items: center; gap: var(--space-2); min-height: 1.75rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .trials { width: 100%; height: auto; margin-top: var(--space-3); font-family: var(--font-sans); }
+  .trials :global(.axisline), .trials :global(.tick) { stroke: var(--text-muted); stroke-width: 1.4; }
+  .trials :global(.tk) { font-size: 14px; fill: var(--text-muted); }
+  .trials :global(.axis) { font-size: 15px; font-weight: 650; fill: var(--text); }
+  .trials :global(.trueline) { stroke: var(--text); stroke-width: 1.6; stroke-dasharray: 6 5; }
+  .trials :global(.true-t) { font-size: 14px; font-weight: 700; fill: var(--text); }
+  .trials :global(.tr) { fill: var(--bio-protein); }
+  .trials :global(.meanmk) { fill: var(--bio-head); }
+  .trials :global(.empty-t) { font-size: 15px; fill: var(--text-muted); font-style: italic; }
+  @container (max-width: 30rem) {
+    .trials :global(.tk), .trials :global(.true-t) { font-size: 19px; }
+    .trials :global(.axis), .trials :global(.empty-t) { font-size: 19px; }
+  }
+  .trial-sum { margin: var(--space-1) 0 0; font-size: var(--step--1); font-weight: 600; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>
