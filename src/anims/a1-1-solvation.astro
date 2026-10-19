@@ -1,0 +1,132 @@
+---
+/** Water as a solvent (A1.1.5). Drawn in the step-1 start state; animated by a1-1-solvation.ts. */
+import { C6_PT, D1, D2, GC, R_CL, R_NA, crystal, gStarts, gWaters, hLocal, hydroxyls, oilBonds, oilWater, plasma, ringPt, sap, waters } from './a1-1-solvation';
+
+const f = (n: number) => n.toFixed(1);
+const [hA, hB] = hLocal;
+const shorten = ([x1, y1, x2, y2]: number[], a: number, b: number) => {
+  const d = Math.hypot(x2! - x1!, y2! - y1!);
+  const ux = (x2! - x1!) / d, uy = (y2! - y1!) / d;
+  return [x1! + ux * a, y1! + uy * a, x2! - ux * b, y2! - uy * b].map(f);
+};
+const ring = Array.from({ length: 6 }, (_, k) => ringPt(k));
+const ringPath = `M${ring.map(([x, y]) => `${f(x)} ${f(y)}`).join(' L')} Z`;
+const pillW = (s: string) => 14 + s.length * 7.4;
+---
+<svg viewBox="0 0 520 340" xmlns="http://www.w3.org/2000/svg" class="solv">
+  <!-- key (all panels with water) -->
+  <g class="key" data-el="key" transform="translate(386 16)">
+    <rect x="0" y="0" width="128" height="44" rx="6" />
+    <circle class="o" cx="14" cy="14" r="6.5" /><text x="26" y="14" dy="0.35em">O (δ−)</text>
+    <circle class="h" cx="14" cy="31" r="3.6" /><text x="26" y="31" dy="0.35em">H (δ+)</text>
+  </g>
+
+  <!-- A · sodium chloride dissolving (steps 1–3) -->
+  <g data-el="pA">
+    {crystal.map((c) => (
+      <g data-el="ion" transform={`translate(${c.x} ${c.y})`}>
+        <circle class={c.na ? 'na' : 'cl'} r={c.na ? R_NA : R_CL} />
+        <text class="ion-t" dy="0.35em" text-anchor="middle">{c.na ? 'Na⁺' : 'Cl⁻'}</text>
+      </g>
+    ))}
+    {waters.map((w) => (
+      <g data-el="w" transform={`translate(${f(w.start[0])} ${f(w.start[1])}) rotate(${f(w.startRot)})`}>
+        <circle class="o" r="6.5" /><circle class="h" cx={f(hA[0])} cy={f(hA[1])} r="3.6" /><circle class="h" cx={f(hB[0])} cy={f(hB[1])} r="3.6" />
+      </g>
+    ))}
+    <g data-el="shellnotes" style="opacity:0">
+      <text class="note" x="128" y="72">δ− oxygens face Na⁺</text>
+      <text class="note" x="300" y="318" text-anchor="end">δ+ hydrogens face Cl⁻</text>
+    </g>
+    <text class="note" x="196" y="250" text-anchor="middle">NaCl crystal</text>
+  </g>
+
+  <!-- B · glucose -->
+  <g data-el="pB" style="display:none">
+    <path class="ring" d={ringPath} />
+    {hydroxyls.slice(0, 4).map((g, i) => <line class="cov" x1={f(ring[i + 1]![0])} y1={f(ring[i + 1]![1])} x2={f(g.o[0])} y2={f(g.o[1])} />)}
+    <path class="cov" d={`M${f(ring[5]![0])} ${f(ring[5]![1])} L${f(C6_PT[0])} ${f(C6_PT[1])} L${f(hydroxyls[4]!.o[0])} ${f(hydroxyls[4]!.o[1])}`} />
+    {hydroxyls.map((g) => (
+      <>
+        <line class="cov" x1={f(g.o[0])} y1={f(g.o[1])} x2={f(g.o[0] + 9 * Math.cos((g.hAng * Math.PI) / 180))} y2={f(g.o[1] + 9 * Math.sin((g.hAng * Math.PI) / 180))} />
+        <circle class="o" cx={f(g.o[0])} cy={f(g.o[1])} r="6.5" />
+        <circle class="h" cx={f(g.o[0] + 9 * Math.cos((g.hAng * Math.PI) / 180))} cy={f(g.o[1] + 9 * Math.sin((g.hAng * Math.PI) / 180))} r="3.6" />
+      </>
+    ))}
+    <circle class="o" cx={f(ring[0]![0])} cy={f(ring[0]![1])} r="6.5" />
+    <text class="label" x={GC[0]} y={GC[1]} dy="0.35em" text-anchor="middle">glucose</text>
+    <g class="hb">{gWaters.map((w) => { const [x1, y1, x2, y2] = shorten(w.bond, 4.5, 7.5); return <line data-el="gb" x1={x1} y1={y1} x2={x2} y2={y2} style="opacity:0" />; })}</g>
+    {gWaters.map((w, i) => (
+      <g data-el="gw" transform={`translate(${f(gStarts[i]![0])} ${f(gStarts[i]![1])}) rotate(${f(w.rot)})`}>
+        <circle class="o" r="6.5" /><circle class="h" cx={f(hA[0])} cy={f(hA[1])} r="3.6" /><circle class="h" cx={f(hB[0])} cy={f(hB[1])} r="3.6" />
+      </g>
+    ))}
+    <text class="note" x="260" y="326" text-anchor="middle">Dashed lines: hydrogen bonds between glucose and water</text>
+  </g>
+
+  <!-- C · oil droplets -->
+  <g data-el="pC" style="display:none">
+    <g class="hb">{oilBonds.map((b) => { const [x1, y1, x2, y2] = b.map(f); return <line x1={x1} y1={y1} x2={x2} y2={y2} />; })}</g>
+    {oilWater.map((w) => (
+      <g transform={`translate(${f(w.p[0])} ${f(w.p[1])}) rotate(${f(w.rot)})`}>
+        <circle class="o" r="6.5" /><circle class="h" cx={f(hA[0])} cy={f(hA[1])} r="3.6" /><circle class="h" cx={f(hB[0])} cy={f(hB[1])} r="3.6" />
+      </g>
+    ))}
+    <circle class="oil" data-el="dm" cx="255" cy={D1.y} r="0" />
+    <circle class="oil" data-el="d1" cx={D1.x} cy={D1.y} r={D1.r} />
+    <circle class="oil" data-el="d2" cx={D2.x} cy={D2.y} r={D2.r} />
+    <text class="label" x="255" y={D1.y} dy="0.35em" text-anchor="middle">oil</text>
+    <text class="note" x="260" y="330" text-anchor="middle">Water molecules bond to each other, not to the non-polar oil</text>
+  </g>
+
+  <!-- D · transport in solution -->
+  <g data-el="pD" style="display:none">
+    <rect class="band plasma" x="0" y="64" width="520" height="90" />
+    <text class="side" x="10" y="56">Blood plasma: solutes carried in solution</text>
+    {plasma.map((p) => (
+      <g data-el="pl" transform={`translate(${p.x} 108)`}>
+        {p.k === 'lipo'
+          ? <><circle class="lipo" r="17" /><circle class="fat" r="10" /><text class="item-t" y="30" text-anchor="middle">{p.label}</text></>
+          : <><rect class={`pill ${p.k}`} x={-pillW(p.label) / 2} y="-12" width={pillW(p.label)} height="24" rx="12" /><text class="item-t" dy="0.35em" text-anchor="middle">{p.label}</text></>}
+      </g>
+    ))}
+    <rect class="band sap" x="0" y="218" width="520" height="90" />
+    <text class="side" x="10" y="210">Xylem sap: mineral ions carried to the leaves</text>
+    {sap.map((p) => (
+      <g data-el="sp" transform={`translate(${p.x} 262)`}>
+        <rect class={`pill ${p.k}`} x={-pillW(p.label) / 2} y="-12" width={pillW(p.label)} height="24" rx="12" />
+        <text class="item-t" dy="0.35em" text-anchor="middle">{p.label}</text>
+      </g>
+    ))}
+    <text class="note" x="260" y="330" text-anchor="middle">Fats and cholesterol travel inside lipoproteins, not dissolved</text>
+  </g>
+</svg>
+<style>
+  .solv { font-family: var(--font-sans); }
+  .side { font-size: 14px; font-weight: 700; fill: var(--text-muted); }
+  .note { font-size: 13px; fill: var(--text); }
+  .label { font-size: 14px; font-weight: 700; fill: var(--text); }
+  .key rect { fill: var(--surface); stroke: var(--border-strong); }
+  .key text { font-size: 12px; font-weight: 600; fill: var(--text); }
+  .o { fill: var(--bio-k); }
+  .h { fill: var(--surface); stroke: var(--text-muted); stroke-width: 1.4; }
+  .na { fill: color-mix(in srgb, var(--bio-na) 35%, var(--surface)); stroke: var(--bio-na); stroke-width: 2; }
+  .cl { fill: color-mix(in srgb, var(--bio-carb) 35%, var(--surface)); stroke: var(--bio-carb); stroke-width: 2; }
+  .ion-t { font-size: 12px; font-weight: 800; fill: var(--text); }
+  .ring { fill: color-mix(in srgb, var(--bio-glucose) 22%, var(--surface)); stroke: var(--text); stroke-width: 2.2; stroke-linejoin: round; }
+  .cov { stroke: var(--text); stroke-width: 2.2; fill: none; }
+  .hb line { stroke: var(--text); stroke-width: 1.6; stroke-dasharray: 3 3; }
+  .oil { fill: color-mix(in srgb, var(--bio-tail) 70%, var(--surface)); stroke: color-mix(in srgb, var(--bio-tail) 60%, var(--text)); stroke-width: 1.5; }
+  .band.plasma { fill: color-mix(in srgb, var(--bio-k) 10%, var(--surface)); stroke: var(--bio-k); stroke-width: 1.5; }
+  .band.sap { fill: color-mix(in srgb, var(--bio-carb) 10%, var(--surface)); stroke: var(--bio-carb); stroke-width: 1.5; }
+  .pill { stroke-width: 1.5; fill: var(--surface); stroke: var(--border-strong); }
+  .pill.glc { fill: color-mix(in srgb, var(--bio-glucose) 30%, var(--surface)); stroke: var(--bio-glucose); }
+  .pill.aa { fill: color-mix(in srgb, var(--bio-protein) 25%, var(--surface)); stroke: var(--bio-protein); }
+  .pill.na, .pill.mg { fill: color-mix(in srgb, var(--bio-na) 25%, var(--surface)); stroke: var(--bio-na); }
+  .pill.cl, .pill.no3 { fill: color-mix(in srgb, var(--bio-carb) 25%, var(--surface)); stroke: var(--bio-carb); }
+  .pill.k { fill: color-mix(in srgb, var(--bio-k) 22%, var(--surface)); stroke: var(--bio-k); }
+  .pill.urea { fill: color-mix(in srgb, var(--bio-protein-2) 22%, var(--surface)); stroke: var(--bio-protein-2); }
+  .lipo { fill: color-mix(in srgb, var(--bio-head) 40%, var(--surface)); stroke: var(--bio-head); stroke-width: 2; }
+  .fat { fill: var(--bio-tail); }
+  .item-t { font-size: 12px; font-weight: 700; fill: var(--text); }
+</style>

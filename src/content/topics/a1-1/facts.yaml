@@ -1,0 +1,229 @@
+facts:
+  - id: f1
+    claim: The first cells are thought to have originated in water more than 3.5 billion years ago; candidate settings include deep-sea hydrothermal vents and shallow pools.
+    where: [ "index.mdx#medium", "flashcards.yaml:c1" ]
+    confidence: medium
+    basis: Earliest widely accepted fossil evidence (stromatolites, microfossils) ≈3.5 Ga; origin settings are hypotheses (Campbell Biology, ch. 25); IB guide A1.1.1
+    status: checked
+  - id: f2
+    claim: Water makes up about 70% of the mass of a typical cell and about 60% of an adult human body.
+    where: [ "index.mdx#medium", "flashcards.yaml:c1" ]
+    confidence: high
+    basis: Alberts, Molecular Biology of the Cell (cell ≈70% water by mass); standard physiology (≈60% total body water in adult men, somewhat less in women)
+    status: checked
+  - id: f3
+    claim: Oxygen is more electronegative than hydrogen (Pauling 3.44 vs 2.20), so O–H bonds are polar, with δ− on O and δ+ on H.
+    where: [ "index.mdx#polarity", "index.mdx (mustKnow, mistakes)", "quiz.yaml:q1", "flashcards.yaml:c2", "visuals.yaml:water molecule" ]
+    confidence: high
+    basis: Standard chemistry; IB guide A1.1.2
+    status: checked
+  - id: f4
+    claim: The H–O–H bond angle is about 104.5° and the O–H bond length about 0.96 Å; the bent shape means the bond dipoles do not cancel.
+    where: [ "index.mdx#polarity", "flashcards.yaml:c3", "quiz.yaml:q1", "visuals.yaml:water molecule angle", "src/scenes/a1-1-molecule.ts", "src/diagrams/a1-1-molecule.astro", "tests/unit/a1-1.test.ts" ]
+    confidence: high
+    basis: Gas-phase structure of H₂O (104.5°, 95.8 pm); Atkins Physical Chemistry
+    status: checked
+  - id: f5
+    claim: Oxygen in water has two lone pairs, pointing away from the hydrogens in a roughly tetrahedral arrangement.
+    where: [ "index.mdx#polarity", "flashcards.yaml:c5", "visuals.yaml:water molecule lone-pairs", "src/scenes/a1-1-molecule.ts" ]
+    confidence: high
+    basis: VSEPR model; standard chemistry. The lobes in the 3D model are schematic.
+    status: checked
+  - id: f6
+    claim: A hydrogen bond is an intermolecular attraction between a δ+ H (bonded to O) and a δ− O of another molecule, roughly one-twentieth the strength of an O–H covalent bond.
+    where: [ "index.mdx#polarity (table)", "index.mdx (mustKnow)", "visuals.yaml:water liquid covalent" ]
+    confidence: medium
+    basis: Water H-bond energy ≈ 20 kJ mol⁻¹ vs O–H bond enthalpy ≈ 460 kJ mol⁻¹ (Campbell; Atkins). Estimates of H-bond strength range ~15–25 kJ mol⁻¹, so the ratio is approximate.
+    status: open
+  - id: f7
+    claim: Each water molecule can form up to four hydrogen bonds (two donated via its H atoms, two accepted at its lone pairs); in liquid water most molecules have three or four at any instant.
+    where: [ "index.mdx#polarity", "flashcards.yaml:c5", "visuals.yaml:water liquid four-bonds" ]
+    confidence: medium
+    basis: Average ≈3.4–3.6 H-bonds per molecule in liquid water at 25 °C from simulation and spectroscopy; the exact value depends on the bond definition.
+    status: open
+  - id: f8
+    claim: Hydrogen bonds in liquid water last only around a picosecond (10⁻¹² s) before breaking and re-forming.
+    where: [ "index.mdx#polarity", "visuals.yaml:water liquid network" ]
+    confidence: medium
+    basis: Ultrafast IR spectroscopy (H-bond rearrangement on ~1–2 ps timescales; Fecko et al. 2003, Science). Lifetimes of individual bonds depend on definition (~1–10 ps).
+    status: open
+  - id: f9
+    claim: In ice (ice Ih) every molecule is hydrogen-bonded to four neighbours tetrahedrally (O···O ≈ 2.76 Å) in hexagonal rings, with one H on each O···O link (ice rules).
+    where: [ "index.mdx#polarity", "visuals.yaml:water ice", "src/scenes/a1-1-ice.ts", "tests/unit/a1-1.test.ts" ]
+    confidence: high
+    basis: Crystal structure of ice Ih (a = 4.52 Å, c = 7.36 Å; Bernal–Fowler ice rules); Petrenko & Whitworth, Physics of Ice
+    status: checked
+  - id: f10
+    claim: Ice is about 9% less dense than liquid water (≈0.917 vs ≈1.000 g cm⁻³), so it floats and insulates the water below.
+    where: [ "index.mdx#polarity", "index.mdx#habitats", "visuals.yaml:water ice density" ]
+    confidence: high
+    basis: CRC Handbook (ice at 0 °C 0.9167 g cm⁻³; water 0.9998 at 0 °C, 1.0000 at 4 °C)
+    status: checked
+  - id: f11
+    claim: Water is pulled up xylem under tension created by evaporation from leaf cell walls (transpiration); cohesion keeps the column continuous; the plant does not spend ATP lifting it; this works in trees over 100 m tall.
+    where: [ "index.mdx#cohesion-adhesion", "index.mdx (mistakes)", "quiz.yaml:q3", "flashcards.yaml:c7", "visuals.yaml:cohesion-adhesion xylem" ]
+    confidence: high
+    basis: Cohesion–tension theory (Dixon & Joly); tallest living tree, coast redwood ≈116 m; Taiz & Zeiger, Plant Physiology; IB guide A1.1.3
+    status: checked
+  - id: f12
+    claim: Surface tension lets pond skaters (Gerris) stand on water and mosquito larvae hang from the surface film.
+    where: [ "index.mdx#cohesion-adhesion", "flashcards.yaml:c8", "visuals.yaml:cohesion-adhesion surface-tension" ]
+    confidence: high
+    basis: Standard natural history; Hu, Chan & Bush 2003 (Nature) on water-strider locomotion. The page avoids claiming the insect is denser than water.
+    status: checked
+  - id: f13
+    claim: Water adheres to polar or charged materials such as cellulose (many –OH groups), glass and soil particles (clay, humus); with cohesion this causes capillary action in soil and in plant cell walls.
+    where: [ "index.mdx#cohesion-adhesion", "index.mdx (mustKnow)", "flashcards.yaml:c6", "flashcards.yaml:c9", "visuals.yaml:cohesion-adhesion adhesion/capillary" ]
+    confidence: high
+    basis: Standard; IB guide A1.1.4
+    status: checked
+  - id: f14
+    claim: Capillary rise is inversely proportional to tube radius (Jurin's law); in glass tubes of 2.0, 1.0 and 0.5 mm diameter water rises about 15, 30 and 59 mm; capillarity alone can lift water only a short distance (well under a metre in xylem-sized tubes).
+    where: [ "index.mdx#cohesion-adhesion", "index.mdx (mistakes)", "quiz.yaml:q3", "quiz.yaml:q4", "src/anims/a1-1-cohesion-adhesion.ts" ]
+    confidence: high
+    basis: h = 2γcosθ/(ρgr) with γ = 0.0728 N m⁻¹, θ ≈ 0 → h ≈ 14.8 mm for r = 1 mm; for a 20 µm radius vessel h ≈ 0.74 m
+    status: checked
+  - id: f15
+    claim: Ions dissolve in hydration shells, with water's δ− O towards cations (Na⁺) and a δ+ H towards anions (Cl⁻); polar molecules such as glucose, amino acids and urea dissolve by hydrogen bonding.
+    where: [ "index.mdx#solvent", "index.mdx (mustKnow)", "quiz.yaml:q5", "quiz.yaml:q6", "flashcards.yaml:c10", "visuals.yaml:solvation" ]
+    confidence: high
+    basis: Standard chemistry of hydration; IB guide A1.1.5
+    status: checked
+  - id: f16
+    claim: Glucose (in its ring form) has five –OH groups and a ring oxygen that can hydrogen-bond with water.
+    where: [ "visuals.yaml:solvation glucose", "src/anims/a1-1-solvation.ts" ]
+    confidence: high
+    basis: Structure of α/β-D-glucopyranose
+    status: checked
+  - id: f17
+    claim: Hydrophobic substances are not repelled by water; water molecules are more strongly attracted to each other, so non-polar molecules are excluded and aggregate.
+    where: [ "index.mdx#solvent", "index.mdx (mistakes)", "flashcards.yaml:c11", "visuals.yaml:solvation lipid" ]
+    confidence: high
+    basis: Hydrophobic effect (Alberts; Campbell)
+    status: checked
+  - id: f18
+    claim: Blood plasma carries glucose, amino acids, ions, urea, hormones and CO₂ (mostly as hydrogencarbonate); fats and cholesterol travel in lipoproteins; O₂ is only slightly soluble and is carried mainly by haemoglobin.
+    where: [ "index.mdx#solvent", "visuals.yaml:solvation transport" ]
+    confidence: high
+    basis: Standard physiology (≈70% of CO₂ as HCO₃⁻; ≈98% of O₂ bound to haemoglobin)
+    status: checked
+  - id: f19
+    claim: Xylem sap carries water and mineral ions (e.g. K⁺, NO₃⁻, Mg²⁺); phloem sap carries sucrose and amino acids.
+    where: [ "index.mdx#solvent", "visuals.yaml:solvation transport" ]
+    confidence: high
+    basis: Taiz & Zeiger, Plant Physiology
+    status: checked
+  - id: f20
+    claim: Most enzymes catalyse reactions in aqueous solution (cytoplasm, mitochondrial matrix, chloroplast stroma); water is a reactant in hydrolysis and a product of condensation.
+    where: [ "index.mdx#solvent" ]
+    confidence: high
+    basis: Standard; IB guide A1.1.5
+    status: checked
+  - id: f21
+    claim: Properties at 20 °C, 1 atm — water density 998 kg m⁻³, seawater ≈1025, air 1.204; viscosity water 1.00 mPa s, air 0.0181 mPa s; thermal conductivity water 0.598, air 0.0257 W m⁻¹ K⁻¹; specific heat capacity water 4.18, air 1.005 J g⁻¹ K⁻¹.
+    where: [ "src/sims/models/a1-1-properties.ts", "visuals.yaml:properties", "index.mdx#habitats (table)", "index.mdx (mustKnow)", "quiz.yaml:q7" ]
+    confidence: high
+    basis: CRC Handbook of Chemistry and Physics; Engineering ToolBox tables for dry air at 20 °C
+    status: checked
+  - id: f22
+    claim: Derived ratios water ÷ air — density ≈830×, viscosity ≈55×, thermal conductivity ≈23×, specific heat ≈4× per gram and ≈3,450× per unit volume.
+    where: [ "index.mdx#habitats", "index.mdx (mustKnow)", "flashcards.yaml:c13", "flashcards.yaml:c14", "visuals.yaml:properties", "tests/unit/a1-1.test.ts" ]
+    confidence: high
+    basis: Computed from f21 in the model file and unit-tested
+    status: checked
+  - id: f23
+    claim: Ringed seal (Pusa hispida) — Arctic seas; spends most time in water; hauls out on sea ice to rest, moult and give birth; keeps breathing holes open with its fore-flipper claws; pups born in snow lairs; thick blubber; body density close to seawater.
+    where: [ "index.mdx#habitats", "src/sims/a1-1-properties.astro", "quiz.yaml:q7", "flashcards.yaml:c13", "flashcards.yaml:c14" ]
+    confidence: medium
+    basis: Standard natural history (NOAA Fisheries species profile; Kelly et al. 2010 status review). "Body density close to seawater" is a general statement about marine mammals and varies with blubber and lung volume.
+    status: open
+  - id: f24
+    claim: Black-throated loon (Gavia arctica) — breeds on northern lakes, dives for fish propelled by feet set far back, needs a long take-off run, has dense waterproof plumage, less pneumatized bones than most birds, presses air from its plumage to dive, and winters on ice-free coastal seas.
+    where: [ "index.mdx#habitats", "src/sims/a1-1-properties.astro", "flashcards.yaml:c13", "flashcards.yaml:c14" ]
+    confidence: medium
+    basis: Standard ornithology of Gaviidae (BirdLife International; Birds of the World account). The bone claim is usually made for loons as a family; a teacher may wish to confirm it for G. arctica specifically.
+    status: open
+  - id: f25
+    claim: Arctic surface seawater stays near its freezing point of about −1.8 °C (salinity ≈35) while winter air above the ice can be far colder.
+    where: [ "index.mdx#habitats", "src/sims/a1-1-properties.astro", "quiz.yaml:q7" ]
+    confidence: high
+    basis: Freezing point of seawater (UNESCO equation of state)
+    status: checked
+  - id: f26
+    claim: Methane (CH₄, 16.04 g mol⁻¹) melts at −182.5 °C and boils at −161.5 °C; latent heat of vaporization ≈510 J g⁻¹; water 18.02 g mol⁻¹, 0 °C and 100 °C, 2,257 J g⁻¹ at 100 °C.
+    where: [ "src/sims/models/a1-1-properties.ts", "visuals.yaml:properties", "tests/unit/a1-1.test.ts" ]
+    confidence: high
+    basis: CRC Handbook; NIST Chemistry WebBook (methane ΔvapH ≈8.19 kJ mol⁻¹)
+    status: checked
+  - id: f27
+    claim: Specific heat capacity of liquid methane near its boiling point is about 3.5 J g⁻¹ K⁻¹ (gaseous methane at 25 °C ≈2.2).
+    where: [ "src/sims/models/a1-1-properties.ts", "src/sims/a1-1-properties.astro (data table)" ]
+    confidence: medium
+    basis: NIST WebBook fluid data (saturated liquid at 111.7 K, cp ≈ 3.4–3.5 J g⁻¹ K⁻¹). Older textbooks quote 2.2, which is the gas value.
+    status: open
+  - id: f28
+    claim: Earth holds about 1.4 billion km³ of water and is about 4.5 billion years old.
+    where: [ "index.mdx#origin" ]
+    confidence: high
+    basis: USGS water inventory (≈1.386 × 10⁹ km³); radiometric age of Earth ≈4.54 Ga
+    status: checked
+  - id: f29
+    claim: Rocky planets formed inside the snow line (≈2.7 AU in the early Solar System), where it was too hot for water ice; water-rich (carbonaceous) asteroids from the outer belt are the leading hypothesis for delivering Earth's water.
+    where: [ "index.mdx#origin", "index.mdx (mustKnow)", "flashcards.yaml:c15", "src/diagrams/a1-1-origin.astro" ]
+    confidence: medium
+    basis: Morbidelli et al. 2000; Alexander et al. 2012 (Science). The snow-line position moved over time; 2.7 AU is a conventional value. Some recent work (e.g. Piani et al. 2020) suggests Earth's building blocks held more water than assumed; IB limits the hypothesis to asteroids.
+    status: open
+  - id: f30
+    claim: D/H ratios (× 10⁻⁴) — Earth's oceans 1.56; carbonaceous chondrites ≈1.4–1.8; most Oort-cloud comets ≈2.9–3.3; comet 67P ≈5.3 (Rosetta). A few comets (e.g. 103P/Hartley 2) have Earth-like values.
+    where: [ "index.mdx#origin", "quiz.yaml:q8", "flashcards.yaml:c15", "src/diagrams/a1-1-origin.astro" ]
+    confidence: medium
+    basis: VSMOW 155.76 ppm; Alexander et al. 2012; Altwegg et al. 2015 (Science, 67P 5.3 ± 0.7); Hartogh et al. 2011 (Hartley 2). The chondrite range is simplified (CM ≈1.4, CI ≈1.7–1.8).
+    status: open
+  - id: f31
+    claim: Earth keeps its water because its gravity holds its atmosphere and the cold upper troposphere makes water vapour condense before it can be split by UV high in the atmosphere; Venus appears to have lost most of its water this way (its D/H ratio is ≈100–150× Earth's).
+    where: [ "index.mdx#origin", "quiz.yaml:q9", "flashcards.yaml:c16" ]
+    confidence: medium
+    basis: Standard planetary science (tropopause cold trap; Donahue et al. 1982 on Venus D/H). IB guide limits reasons to gravity and temperature.
+    status: checked
+  - id: f32
+    claim: The role of Earth's magnetic field in retaining water is debated (Venus lacks a global field yet keeps a thick atmosphere).
+    where: [ "index.mdx#origin (scope note)" ]
+    confidence: medium
+    basis: Gunell et al. 2018 and related literature on atmospheric escape
+    status: checked
+  - id: f33
+    claim: Venus 0.72 AU, mean surface temperature ≈464 °C; Earth 1.00 AU, ≈15 °C; Mars 1.52 AU, ≈−63 °C; 1 AU ≈150 million km.
+    where: [ "index.mdx#search", "src/diagrams/a1-1-goldilocks.astro", "src/diagrams/a1-1-origin.astro" ]
+    confidence: high
+    basis: NASA planetary fact sheets
+    status: checked
+  - id: f34
+    claim: The Sun's habitable (Goldilocks) zone is roughly 0.95–1.67 AU; boundaries depend on the climate model, and Mars lies near the outer edge.
+    where: [ "index.mdx#search", "src/diagrams/a1-1-goldilocks.astro" ]
+    confidence: medium
+    basis: Kopparapu et al. 2013 (conservative limits ≈0.99–1.70 AU); Kasting et al. 1993 (0.95–1.37 AU). Teachers may prefer to present Mars as just outside the zone, as many textbooks do.
+    status: open
+  - id: f35
+    claim: Mars once had liquid water at its surface (river valleys, lake beds such as Jezero crater) and today its water is mainly ice; Europa and Enceladus are thought to have subsurface liquid oceans kept liquid by tidal heating; telescopes have detected water vapour in some exoplanet atmospheres.
+    where: [ "index.mdx#search", "flashcards.yaml:c18" ]
+    confidence: high
+    basis: NASA Mars Exploration and Cassini/Galileo results; JWST exoplanet spectra (e.g. WASP-96b, 2022)
+    status: checked
+  - id: f36
+    claim: The Goldilocks zone lies closer to cool, dim stars and further from hot, bright ones.
+    where: [ "index.mdx#search" ]
+    confidence: high
+    basis: Habitable-zone distance scales with the square root of stellar luminosity
+    status: checked
+  - id: f37
+    claim: The liquid-water 3D model is a schematic, relaxed random packing at about liquid density with up to four H-bonds per molecule; its exact positions are illustrative, not a molecular-dynamics snapshot.
+    where: [ "src/scenes/a1-1-liquid.ts", "visuals.yaml:water liquid" ]
+    confidence: high
+    basis: Design note
+    status: checked
+  - id: f38
+    claim: The 2025 guide's A1.1.6 compares water with air (not methane); the water–methane comparison in the simulation is an extension illustrating the effect of hydrogen bonding.
+    where: [ "src/sims/a1-1-properties.astro", "index.mdx#habitats" ]
+    confidence: high
+    basis: IB Biology guide (first assessment 2025), A1.1.6
+    status: checked

@@ -1,0 +1,73 @@
+cards:
+  - id: c1
+    level: SL
+    front: Why is water described as the medium of life?
+    back: The first cells originated in water, and most processes of life still happen in aqueous solution — in the cytoplasm, in blood plasma and in xylem and phloem sap. A typical cell is about 70% water.
+  - id: c2
+    level: SL
+    front: What makes the covalent bonds in water polar?
+    back: Electrons are shared unequally. Oxygen attracts the shared electrons more strongly than hydrogen (it is more electronegative), so oxygen becomes δ− and each hydrogen δ+.
+  - id: c3
+    level: SL
+    front: Why don't the partial charges on a water molecule cancel out?
+    back: The molecule is bent (H–O–H angle ≈ 104.5°), so both δ+ hydrogens are on one side and the δ− oxygen on the other.
+  - id: c4
+    level: SL
+    front: Define a hydrogen bond (in water).
+    back: A weak intermolecular attraction between the δ+ hydrogen of one water molecule and the δ− oxygen of another. Drawn as a dashed line.
+  - id: c5
+    level: SL
+    front: How many hydrogen bonds can one water molecule form, and how?
+    back: Up to four — two through its own two hydrogen atoms and two through the two lone pairs of electrons on its oxygen. In ice every molecule has all four.
+  - id: c6
+    level: SL
+    front: Cohesion vs adhesion
+    back: Cohesion is water molecules sticking to each other (hydrogen bonds between water molecules). Adhesion is water sticking to other polar or charged materials, such as cellulose or glass.
+  - id: c7
+    level: SL
+    front: How does cohesion allow transport in xylem?
+    back: Evaporation from leaves (transpiration) pulls water up the xylem, putting it under tension. Cohesion keeps the column of water molecules continuous, so it is pulled up from the roots without breaking.
+  - id: c8
+    level: SL
+    front: What is surface tension, and how do organisms use it?
+    back: Surface water molecules are held by hydrogen bonds to those beside and below them, so the surface resists stretching and breaking. Pond skaters stand on it; mosquito larvae hang from it.
+  - id: c9
+    level: SL
+    front: What is capillary action and where does it matter?
+    back: Water drawn through narrow spaces by adhesion to the walls plus cohesion. It moves water through pores in soil and through the cellulose of plant cell walls.
+  - id: c10
+    level: SL
+    front: How do ions dissolve in water?
+    back: Water molecules surround each ion in a hydration shell — δ− oxygen towards positive ions (e.g. Na⁺), δ+ hydrogen towards negative ions (e.g. Cl⁻) — separating the ions and keeping them in solution.
+  - id: c11
+    level: SL
+    front: Why are non-polar substances such as fats insoluble in water?
+    back: They are not repelled; water molecules are simply more strongly attracted to each other than to non-polar molecules, so the non-polar molecules are excluded and clump together (hydrophobic).
+  - id: c12
+    level: SL
+    front: Give three examples of molecules whose function depends on being hydrophobic.
+    back: Phospholipid tails forming the barrier in membranes; waxy cuticle on leaves (reduces water loss); triglyceride fat stores (insoluble, so no osmotic effect). Oils on skin also reduce water loss.
+  - id: c13
+    level: SL
+    front: Water vs air — buoyancy and viscosity, with consequences
+    back: Water is ≈830× denser (more buoyancy) and ≈55× more viscous. The ringed seal is supported by seawater but meets more resistance, so it is streamlined. The loon in flight gets almost no support and must flap to generate lift.
+  - id: c14
+    level: SL
+    front: Water vs air — thermal conductivity and specific heat capacity, with consequences
+    back: Water conducts heat ≈23× better, so the ringed seal needs thick blubber. Water's specific heat capacity (4.18 J g⁻¹ °C⁻¹) is high, so aquatic habitats change temperature slowly; air temperatures swing more, and loons migrate from frozen lakes to coastal seas.
+  - id: c15
+    level: AHL
+    front: What is the leading hypothesis for the origin of Earth's water, and what evidence supports it?
+    back: Delivery by water-rich asteroids colliding with the young Earth. The D/H (deuterium-to-hydrogen) ratio of water in carbonaceous asteroids closely matches Earth's oceans; most comets measured have higher ratios.
+  - id: c16
+    level: AHL
+    front: Why has Earth retained its water?
+    back: Its gravity is strong enough to hold its atmosphere, including water vapour, and temperatures are low enough for water vapour to condense into liquid oceans rather than escape.
+  - id: c17
+    level: AHL
+    front: What is the Goldilocks zone?
+    back: The range of distances from a star within which a planet with a suitable atmosphere could have liquid water on its surface — not so hot that water boils away, not so cold that it all freezes.
+  - id: c18
+    level: AHL
+    front: Why does the search for extraterrestrial life focus on water?
+    back: All known life needs liquid water as its solvent and medium for metabolism, so places with liquid water — planets in the Goldilocks zone, Mars in the past, icy moons such as Europa and Enceladus — are the most likely to support life.

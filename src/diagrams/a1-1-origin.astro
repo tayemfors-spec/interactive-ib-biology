@@ -1,0 +1,95 @@
+---
+/**
+ * A1.1.7 (AHL): the asteroid hypothesis for the origin of Earth's water.
+ * Top: distances from the Sun in astronomical units (1 AU = Earth–Sun distance ≈ 150 million km), the
+ * "snow line" (≈2.7 AU) beyond which water condensed as ice when the planets formed, and water-rich
+ * asteroids from the outer asteroid belt delivering water to the young Earth.
+ * Bottom: deuterium-to-hydrogen (D/H) ratios of water (× 10⁻⁴). Earth's oceans ≈ 1.56; carbonaceous
+ * chondrites (meteorites from asteroids) ≈ 1.4–1.8, a close match; most comets measured ≈ 3 or more.
+ */
+const ax = (au: number) => 40 + au * 128; // 0 … 3.6 AU across the top panel
+const dh = (v: number) => 186 + v * 52; // 0 … 6 × 10⁻⁴ across the bottom panel
+const rows = [
+  { label: "Earth's oceans", a: 1.56, b: 1.56, cls: 'earth', note: '1.56' },
+  { label: 'Carbonaceous asteroids', a: 1.4, b: 1.8, cls: 'ast', note: '≈1.4–1.8' },
+  { label: 'Most comets (Oort cloud)', a: 2.9, b: 3.3, cls: 'com', note: '≈2.9–3.3' },
+  { label: 'Comet 67P (Rosetta)', a: 5.3, b: 5.3, cls: 'com', note: '≈5.3' },
+];
+const belt = Array.from({ length: 46 }, (_, i) => {
+  const r = 2.15 + ((i * 37) % 46) / 46 * 1.15;
+  const y = 74 + Math.sin(i * 2.3) * 26;
+  return [ax(r), y] as const;
+});
+---
+<svg viewBox="0 0 520 400" role="img" aria-labelledby="or-t or-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="or-t">Where did Earth's water come from?</title>
+  <desc id="or-d">Top: the Sun, Venus, Earth and Mars, the asteroid belt and the snow line at about 2.7 astronomical units from the Sun. Inside the snow line it was too hot for water ice when the planets formed. An arrow shows water-rich asteroids from the outer belt colliding with the young Earth. Bottom: a bar chart of deuterium to hydrogen ratios. Earth's oceans, 1.56 × 10⁻⁴, closely match carbonaceous asteroids, about 1.4 to 1.8 × 10⁻⁴; most comets measured have about 3 × 10⁻⁴ or more, and comet 67P about 5.3 × 10⁻⁴.</desc>
+
+  <!-- top panel: the early Solar System -->
+  <circle class="sun" cx="0" cy="74" r="34" />
+  <text class="lbl" x="6" y="128">Sun</text>
+  <rect class="hot" x="34" y="34" width={ax(2.7) - 34} height="80" rx="6" />
+  <text class="zone" x={ax(1.35)} y="111" text-anchor="middle">too hot for ice when the planets formed</text>
+  <line class="snow" x1={ax(2.7)} x2={ax(2.7)} y1="22" y2="134" />
+  <text class="zone" x={ax(2.7) + 6} y="148">snow line ≈ 2.7 AU</text>
+  <g class="belt">{belt.map(([x, y]) => <circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="2.6" />)}</g>
+  <text class="lbl" x={ax(2.75)} y="124" text-anchor="middle">asteroid belt</text>
+  {[['Venus', 0.72, 5], ['Earth', 1.0, 6.5], ['Mars', 1.52, 4]].map(([n, au, r]) => (
+    <>
+      <circle class:list={['planet', { earth: n === 'Earth' }]} cx={ax(au as number)} cy="74" r={r} />
+      <text class="lbl" x={ax(au as number)} y={n === 'Venus' ? 60 : 98} text-anchor="middle">{n}</text>
+    </>
+  ))}
+  <path class="arrow" d={`M${ax(3.05)} 56 C${ax(2.6)} 4, ${ax(1.4)} 18, ${ax(1.0) + 12} 66`} marker-end="url(#or-head)" />
+  <text class="note" x={ax(2.05)} y="14" text-anchor="middle">water-rich asteroids hit the young Earth</text>
+  <defs><marker id="or-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" class="head" /></marker></defs>
+  <g class="axis">
+    <line x1={ax(0.3)} x2={ax(3.6)} y1="168" y2="168" />
+    {[0.5, 1, 1.5, 2, 2.5, 3, 3.5].map((v) => <><line x1={ax(v)} x2={ax(v)} y1="168" y2="173" /><text x={ax(v)} y="187" text-anchor="middle">{v}</text></>)}
+    <text x={ax(1.95)} y="204" text-anchor="middle">distance from the Sun (AU; 1 AU ≈ 150 million km)</text>
+  </g>
+
+  <!-- bottom panel: D/H ratio -->
+  <text class="title" x="10" y="238">Deuterium : hydrogen ratio of the water (× 10⁻⁴)</text>
+  <line class="ref" x1={dh(1.56)} x2={dh(1.56)} y1="246" y2="360" />
+  {rows.map((r, i) => {
+    const y = 256 + i * 26;
+    return (
+      <>
+        <text class="rl" x="178" y={y + 13} text-anchor="end">{r.label}</text>
+        {r.a === r.b
+          ? <circle class={`dot ${r.cls}`} cx={dh(r.a)} cy={y + 9} r="7" />
+          : <rect class={`bar ${r.cls}`} x={dh(r.a)} y={y + 2} width={dh(r.b) - dh(r.a)} height="14" rx="7" />}
+        <text class="val" x={dh(r.b) + 12} y={y + 13}>{r.note}</text>
+      </>
+    );
+  })}
+  <g class="axis">
+    <line x1={dh(0)} x2={dh(6)} y1="364" y2="364" />
+    {[0, 1, 2, 3, 4, 5, 6].map((v) => <><line x1={dh(v)} x2={dh(v)} y1="364" y2="369" /><text x={dh(v)} y="383" text-anchor="middle">{v}</text></>)}
+  </g>
+  <text class="zone" x={dh(1.56) + 4} y="396">dashed line: Earth's oceans</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .sun { fill: var(--bio-glucose); }
+  .hot { fill: color-mix(in srgb, var(--bio-head) 14%, transparent); }
+  .snow { stroke: var(--bio-water); stroke-width: 2; stroke-dasharray: 6 4; }
+  .belt circle { fill: var(--text-muted); }
+  .planet { fill: var(--text-muted); }
+  .planet.earth { fill: var(--bio-water); }
+  .lbl { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .zone { font-size: 13px; font-style: italic; fill: var(--text-muted); }
+  .note { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .arrow { fill: none; stroke: var(--text); stroke-width: 2; }
+  .head { fill: var(--text); }
+  .axis line { stroke: var(--text-muted); stroke-width: 1.3; }
+  .axis text { font-size: 12px; fill: var(--text-muted); }
+  .title { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .rl { font-size: 13px; fill: var(--text); }
+  .val { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .ref { stroke: var(--bio-water); stroke-width: 1.6; stroke-dasharray: 4 4; }
+  .dot.earth { fill: var(--bio-water); }
+  .bar.ast { fill: var(--bio-carb); }
+  .bar.com, .dot.com { fill: var(--bio-protein-2); }
+</style>

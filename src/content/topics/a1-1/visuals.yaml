@@ -1,0 +1,166 @@
+# Visuals for A1.1. Label/step text here is what readers see in the 3D viewer and the text descriptions,
+# so it is written to exam standard. Label ids must match anchors in the scene modules (src/scenes).
+visuals:
+  - id: water
+    kind: viewer3d
+    title: Water molecules and hydrogen bonds in 3D
+    alt: 3D models of one water molecule, a droplet of liquid water and a piece of ice, showing partial charges and hydrogen bonds.
+    description: >-
+      Three ball-and-stick models; oxygen atoms are red and hydrogen atoms grey. The first shows a single
+      water molecule: one oxygen atom joined to two hydrogen atoms by polar covalent bonds, with an angle of
+      about 104.5° between the bonds. A faint red cloud around the oxygen marks its partial negative charge (δ−),
+      blue clouds around the hydrogens mark their partial positive charges (δ+), and two lobes on the far side
+      of the oxygen are its lone pairs of electrons. The second model is a small droplet of liquid water: dashed
+      amber lines are hydrogen bonds, each running from a δ+ hydrogen of one molecule to the δ− oxygen of a
+      neighbouring molecule. One highlighted molecule is hydrogen-bonded to four others, the maximum. With motion
+      turned on, bonds keep breaking and re-forming. The third model is ice: every molecule is hydrogen-bonded to
+      four neighbours in a regular tetrahedral arrangement, forming hexagonal rings around open channels, so
+      ice is less dense than liquid water and floats.
+    scenes:
+      - id: molecule
+        module: a1-1-molecule
+        title: One water molecule
+        labels:
+          - id: oxygen
+            name: Oxygen atom
+            text: Oxygen has a larger nuclear charge than hydrogen and attracts shared electrons more strongly (it is more electronegative), so electrons in each bond spend more time near the oxygen.
+          - id: hydrogen
+            name: Hydrogen atoms
+            text: Each hydrogen atom shares one pair of electrons with the oxygen. Because those electrons are pulled towards the oxygen, the hydrogen nucleus is left partly exposed.
+          - id: covalent
+            name: Polar covalent bond
+            text: A covalent bond is a shared pair of electrons. Here the sharing is unequal, so the bond is polar. These bonds are strong and hold the atoms together within one molecule (intramolecular).
+          - id: delta-minus
+            name: δ− (partial negative charge)
+            text: The oxygen end of the molecule carries a slight negative charge because the shared electrons are pulled towards it. It is a partial charge, not a full charge like that of an ion.
+          - id: delta-plus
+            name: δ+ (partial positive charge)
+            text: Each hydrogen carries a slight positive charge. Together with the δ− on oxygen, this makes water a polar molecule, with a positive side and a negative side.
+          - id: lone-pairs
+            name: Lone pairs of electrons
+            text: Two pairs of oxygen's electrons are not shared with hydrogen. They point away from the hydrogens and add to the negative charge on that side, where hydrogens of other molecules can bond.
+          - id: angle
+            name: Bond angle ≈ 104.5°
+            text: The molecule is bent, not straight. Because of this shape the δ+ charges are both on one side and the δ− on the other, so they do not cancel out and the whole molecule is polar.
+      - id: liquid
+        module: a1-1-liquid
+        title: Liquid water
+        labels:
+          - id: molecule
+            name: A water molecule
+            text: Each molecule is H₂O. In the liquid the molecules are close together but keep moving, sliding past and turning against each other, so water flows.
+          - id: covalent
+            name: Covalent O–H bond (within a molecule)
+            text: The two bonds inside each molecule are covalent. They are much stronger than hydrogen bonds — roughly twenty times stronger — and do not break when water is heated, melts or boils.
+          - id: hbond
+            name: Hydrogen bond (between molecules)
+            text: A weak attraction between the δ+ hydrogen of one molecule and the δ− oxygen of another, drawn as a dashed line. Hydrogen bonds are intermolecular; they are not bonds inside a molecule.
+          - id: delta-attraction
+            name: δ+ hydrogen attracted to δ− oxygen
+            text: Opposite partial charges attract. The hydrogen of one molecule lines up with a lone pair on the oxygen of its neighbour, so the O–H···O atoms lie in a roughly straight line.
+          - id: four-bonds
+            name: Up to four hydrogen bonds
+            text: A molecule can donate two hydrogen bonds (one from each hydrogen) and accept two (one at each lone pair), so it can bond to four neighbours. In the liquid most molecules have three or four at any instant.
+          - id: network
+            name: A constantly changing network
+            text: Each hydrogen bond lasts only around a picosecond (10⁻¹² s) before breaking, and new ones form at once. Turn on motion to see bonds break and re-form as molecules move.
+      - id: ice
+        module: a1-1-ice
+        title: Ice
+        labels:
+          - id: four-bonds
+            name: Four hydrogen bonds per molecule
+            text: In ice every molecule is hydrogen-bonded to exactly four neighbours, arranged tetrahedrally. Two of the bonds use its own hydrogens and two use its lone pairs.
+          - id: hex-ring
+            name: Hexagonal ring
+            text: The molecules form rings of six, which is why snowflakes and ice crystals are hexagonal. The rings are slightly puckered, not flat.
+          - id: open-space
+            name: Open space in the lattice
+            text: The regular hydrogen-bond lattice holds the molecules further apart than in liquid water, leaving open channels through the rings.
+          - id: density
+            name: Less dense than liquid water
+            text: Ice is about 9% less dense than liquid water (0.92 compared with 1.00 g cm⁻³), so it floats. A floating layer of ice insulates the water beneath, which stays liquid for aquatic organisms.
+          - id: hbond
+            name: Hydrogen bond
+            text: Each link between two molecules has exactly one hydrogen on it, covalently bonded to one oxygen and hydrogen-bonded (dashed) to the other.
+          - id: covalent
+            name: Covalent O–H bond
+            text: The covalent bonds inside each molecule are unchanged when water freezes. Only the arrangement of hydrogen bonds between molecules changes.
+
+  - id: cohesion-adhesion
+    kind: anim
+    module: a1-1-cohesion-adhesion
+    title: Cohesion and adhesion
+    alt: Step-through animation of cohesion between water molecules, surface tension, water pulled up xylem, adhesion and capillary action.
+    description: >-
+      Five panels. First, water molecules joined by hydrogen bonds: molecules inside the liquid are pulled
+      equally in all directions, but those at the surface are pulled sideways and inwards only. Second, a pond
+      skater standing on the surface film, which bends but does not break. Third, a xylem vessel running from
+      root to leaf: water evaporates from the leaf and the column of water molecules, held together by cohesion,
+      is pulled upwards under tension. Fourth, water molecules forming hydrogen bonds with the polar surface of a
+      glass or cellulose wall (adhesion), which curves the water surface into a meniscus. Fifth, capillary action:
+      water rises higher in narrower tubes, and water is drawn through the narrow spaces between soil particles.
+    steps:
+      - id: cohesion
+        title: Cohesion
+        caption: Hydrogen bonds attract water molecules to one another — this is cohesion. A molecule inside the liquid is pulled equally in every direction, but at the surface there are no water molecules above, so surface molecules are pulled sideways and inwards.
+      - id: surface-tension
+        title: Surface tension as a habitat
+        caption: "The hydrogen-bonded surface layer resists being stretched or broken (surface tension). A pond skater (Gerris) stands on the surface without sinking in: its weight is spread over long, water-repellent legs, and the surface film bends but does not break."
+      - id: xylem
+        title: Water pulled up xylem under tension
+        caption: Water evaporates from the cell walls inside leaves (transpiration). This pulls on the water in the xylem, putting it under tension. Cohesion holds the column of molecules together, so the whole column is drawn upwards from the roots without breaking.
+      - id: adhesion
+        title: Adhesion to polar surfaces
+        caption: Water forms hydrogen bonds with polar or charged surfaces, such as glass or the cellulose in plant cell walls — this is adhesion. Water molecules cling to the wall and creep up it, curving the surface into a meniscus.
+      - id: capillary
+        title: Capillary action
+        caption: In a narrow space, adhesion to the walls pulls water upwards and cohesion pulls more water along behind, so water rises higher in narrower tubes. This capillary action draws water through narrow pores in soil and through cellulose in cell walls.
+
+  - id: solvation
+    kind: anim
+    module: a1-1-solvation
+    title: How substances dissolve in water
+    alt: Step-through animation of sodium chloride, glucose and a lipid droplet in water, ending with transport in blood plasma and xylem sap.
+    description: >-
+      Six panels. A crystal of sodium chloride sits in water. Water molecules surround ions at the edge of the
+      crystal: their δ− oxygens face each positive sodium ion and their δ+ hydrogens face each negative chloride
+      ion. Each ion is pulled into solution inside its own shell of water molecules (a hydration shell). Next,
+      a glucose molecule forms hydrogen bonds with water through its polar hydroxyl (–OH) groups, so it dissolves.
+      Then two droplets of oil (a non-polar lipid) stay separate from the water and merge with each other, because
+      water molecules hydrogen-bond with each other rather than with the lipid. The last panel shows dissolved
+      substances carried in blood plasma and in xylem sap.
+    steps:
+      - id: crystal
+        title: An ionic crystal in water
+        caption: Sodium chloride is made of positive sodium ions (Na⁺) and negative chloride ions (Cl⁻) held in a lattice by ionic bonds. Polar water molecules move randomly around the crystal.
+      - id: ions-leave
+        title: Water pulls ions away
+        caption: Water molecules turn to face the ions at the edge of the crystal. Their δ− oxygen atoms are attracted to Na⁺ and their δ+ hydrogen atoms to Cl⁻. These attractions pull the ions out of the lattice.
+      - id: shells
+        title: Hydration shells
+        caption: Each dissolved ion is surrounded by a shell of water molecules, oxygen inwards around Na⁺ and hydrogen inwards around Cl⁻. The shells keep the ions apart, so they stay in solution. Substances that dissolve like this are hydrophilic.
+      - id: glucose
+        title: Polar molecules dissolve too
+        caption: Glucose has five polar –OH groups (and an oxygen in its ring). They form hydrogen bonds with water molecules, so glucose dissolves readily. Amino acids, urea and many other polar molecules dissolve in the same way.
+      - id: lipid
+        title: Non-polar molecules do not dissolve
+        caption: Oil (triglyceride) molecules are non-polar. Water is not repelled by them, but water molecules are much more strongly attracted to each other, so the lipid is excluded and its droplets merge. Such hydrophobic substances are insoluble in water.
+      - id: transport
+        title: Transport in solution
+        caption: Blood plasma carries dissolved glucose, amino acids, ions and urea around the body, and xylem sap carries mineral ions up from the roots. Hydrophobic fats and cholesterol cannot dissolve, so blood carries them inside lipoprotein particles.
+
+  - id: properties
+    kind: sim
+    module: a1-1-properties
+    title: Water versus air (and why water is so unusual)
+    alt: Compare the buoyancy, viscosity, thermal conductivity and specific heat capacity of water and air, and the melting and boiling points of water and methane.
+    description: >-
+      Part 1 compares water with air at 20 °C. Water is about 830 times denser than air, so it gives far more
+      buoyancy; a slider sets an animal's body density to show how much of its weight the water or the air
+      supports. Water is about 55 times more viscous, conducts heat about 23 times better, and its heat capacity
+      per volume is about 3,500 times that of air; sliders show the heat lost through a still layer of water or air
+      and the heat released when a litre of each cools. Each property is linked to the ringed seal, which lives in
+      Arctic seawater, and the black-throated loon, which flies, swims and dives. Part 2 compares water with methane,
+      a molecule of similar size without hydrogen bonds: a temperature slider shows that methane melts at −182.5 °C
+      and boils at −161.5 °C, while water is liquid from 0 °C to 100 °C.

@@ -1,0 +1,206 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: A1.1.2
+    stem: >-
+      Which statement best explains why a water molecule is polar?
+    options:
+      - id: a
+        text: Oxygen has more electrons than hydrogen, so the molecule carries an overall negative charge.
+        why: A water molecule has no overall charge; it has equal numbers of protons and electrons. Polarity is about how the charge is distributed, not a net charge.
+      - id: b
+        text: Oxygen attracts the shared electrons more strongly than hydrogen, and the bent shape keeps the δ− and δ+ ends on opposite sides.
+        why: Correct. Unequal sharing makes each O–H bond polar, and because the molecule is bent (≈104.5°) the partial charges do not cancel.
+      - id: c
+        text: Hydrogen bonds inside the molecule pull the electrons towards the hydrogen atoms.
+        why: Hydrogen bonds are between molecules, not inside them, and the electrons are pulled towards oxygen, not hydrogen.
+      - id: d
+        text: The molecule is straight, so the two hydrogen atoms are as far apart as possible.
+        why: Water is bent, not straight. If it were linear, like carbon dioxide, the bond polarities would cancel and the molecule would be non-polar.
+    answer: b
+
+  - id: q2
+    level: SL
+    understanding: A1.1.2
+    stem: >-
+      A student draws two water molecules. Which feature shows a hydrogen bond correctly?
+    options:
+      - id: a
+        text: A solid line between the oxygen and a hydrogen atom of the same molecule
+        why: That is a covalent bond within one molecule. Covalent bonds are drawn as solid lines.
+      - id: b
+        text: A dashed line between the hydrogen atoms of the two molecules
+        why: Both hydrogens are δ+, so they repel rather than attract. A hydrogen bond joins a δ+ hydrogen to a δ− oxygen.
+      - id: c
+        text: A dashed line between the two oxygen atoms
+        why: Both oxygens are δ−. The hydrogen bond runs from a δ+ hydrogen to the δ− oxygen (O–H···O), so the line should end at the hydrogen, not the other oxygen.
+      - id: d
+        text: A dashed line from a δ+ hydrogen of one molecule to the δ− oxygen of the other molecule
+        why: Correct. A hydrogen bond is an intermolecular attraction between opposite partial charges, drawn as a dashed line.
+    answer: d
+
+  - id: q3
+    level: SL
+    understanding: A1.1.3
+    stem: >-
+      In a tall tree, water is pulled up the xylem by tension generated in the leaves. Why does the column of
+      water usually not break?
+    options:
+      - id: a
+        text: Hydrogen bonds between water molecules make them cohere, so the whole column is pulled up together.
+        why: Correct. Cohesion due to hydrogen bonding lets a continuous column of water be pulled up under tension.
+      - id: b
+        text: Covalent bonds join each water molecule to the next one in the column.
+        why: Covalent bonds hold atoms together within a molecule. Water molecules are attracted to each other by much weaker hydrogen bonds.
+      - id: c
+        text: Root cells use ATP to pump the water column upwards.
+        why: Root pressure does exist but is small. The main mechanism is the pull of transpiration; the xylem moves water without the plant spending ATP to lift it.
+      - id: d
+        text: Capillary action is strong enough to hold the column up by itself.
+        why: Capillary action can lift water only a short distance, far less than the height of a tall tree.
+    answer: a
+
+  - id: q4
+    level: SL
+    understanding: A1.1.4
+    stem: >-
+      Glass tubes of different internal diameters were stood in a dish of water. The heights the water rose to
+      were: 2.0 mm diameter, 15 mm; 1.0 mm, 30 mm; 0.5 mm, 59 mm. Which conclusion is best supported?
+    options:
+      - id: a
+        text: Water rises higher in wider tubes, because there is more glass for it to adhere to.
+        why: "The data show the opposite pattern: the narrowest tube had the highest rise."
+      - id: b
+        text: The height of rise is unrelated to tube diameter.
+        why: Halving the diameter roughly doubled the height each time, so there is a clear relationship.
+      - id: c
+        text: Water rises higher in narrower tubes, because there is more wall for water to adhere to relative to the volume of water lifted.
+        why: Correct. Halving the diameter about doubles the rise (height is inversely proportional to diameter). Adhesion acts around the wall, while the weight lifted depends on the cross-sectional area, which shrinks faster as the tube narrows.
+      - id: d
+        text: Water rises in the tubes because it is less dense than glass.
+        why: Density is not the cause. Water rises because it adheres to polar glass and the molecules cohere, pulling more water up behind.
+    answer: c
+
+  - id: q5
+    level: SL
+    understanding: A1.1.5
+    stem: >-
+      Which of these substances is least soluble in water?
+    options:
+      - id: a
+        text: Sodium chloride
+        why: Na⁺ and Cl⁻ ions are attracted to the partial charges of water molecules and become surrounded by hydration shells, so NaCl dissolves readily.
+      - id: b
+        text: A triglyceride (fat)
+        why: "Correct. Triglycerides are non-polar and hydrophobic: water molecules bond more strongly to each other than to the fat, so it is insoluble."
+      - id: c
+        text: Glucose
+        why: Glucose has many polar –OH groups that hydrogen-bond with water, so it is very soluble.
+      - id: d
+        text: Urea
+        why: Urea is a small polar molecule that hydrogen-bonds with water; it is carried in solution in blood and urine.
+    answer: b
+
+  - id: q6
+    level: SL
+    understanding: A1.1.5
+    stem: >-
+      When sodium chloride dissolves, how are the water molecules arranged around the ions?
+    options:
+      - id: a
+        text: Oxygen atoms face the Na⁺ ions; hydrogen atoms face the Cl⁻ ions.
+        why: Correct. The δ− oxygen is attracted to the positive sodium ion and the δ+ hydrogens to the negative chloride ion, forming hydration shells.
+      - id: b
+        text: Hydrogen atoms face the Na⁺ ions; oxygen atoms face the Cl⁻ ions.
+        why: This reverses the charges. Like charges repel, so δ+ hydrogen would be repelled by Na⁺.
+      - id: c
+        text: Water molecules form covalent bonds with the ions.
+        why: The ions are held by attractions between charges, not by shared electrons. The water molecules remain intact.
+      - id: d
+        text: The water molecules point randomly, because the ions have no effect on them.
+        why: The charged ions strongly attract the partial charges of water, so the molecules around each ion are oriented.
+    answer: a
+
+  - id: q7
+    level: SL
+    understanding: A1.1.6
+    stem: >-
+      At 20 °C the thermal conductivity of water is about 0.60 W m⁻¹ K⁻¹ and that of air about 0.026 W m⁻¹ K⁻¹.
+      What does this suggest about the ringed seal, which spends most of its time in Arctic seawater?
+    options:
+      - id: a
+        text: It loses heat more slowly in water than in air, so it needs less insulation than a land mammal.
+        why: The data show water conducts heat about 23 times better than air, so heat is lost faster in water, not more slowly.
+      - id: b
+        text: Water's high specific heat capacity keeps the seal's body warm.
+        why: High specific heat capacity keeps the water's temperature stable, but Arctic seawater is still near −1.8 °C and draws heat from the body.
+      - id: c
+        text: The seal is buoyant, so it does not lose heat.
+        why: Buoyancy is about support by the water and has nothing to do with heat loss.
+      - id: d
+        text: Water draws heat away about 23 times faster than air, so a thick layer of blubber helps reduce heat loss.
+        why: Correct. 0.60 ÷ 0.026 ≈ 23. Blubber (fat) is a poor conductor of heat and insulates the seal.
+    answer: d
+
+  - id: q8
+    level: AHL
+    understanding: A1.1.7
+    stem: >-
+      The deuterium-to-hydrogen (D/H) ratio of Earth's ocean water is about 1.6 × 10⁻⁴. Water in carbonaceous
+      meteorites from asteroids has a ratio of about 1.4–1.8 × 10⁻⁴, and most comets measured have about
+      3 × 10⁻⁴ or more. What do these data suggest?
+    options:
+      - id: a
+        text: Most of Earth's water came from comets.
+        why: Most comets measured have about twice Earth's D/H ratio or more, so they are a poor match for Earth's oceans.
+      - id: b
+        text: Earth's water formed on Earth from hydrogen and oxygen, with no outside source.
+        why: The data compare Earth's water with possible outside sources and do not test this; early Earth formed from relatively dry material, too hot for ice.
+      - id: c
+        text: Asteroids are a likely main source of Earth's water.
+        why: Correct. The close match in D/H ratio supports the hypothesis that water-rich asteroids delivered most of Earth's water.
+      - id: d
+        text: The D/H ratio of water increases as it is delivered to a planet.
+        why: There is no evidence for this in the data. The ratio is used as a fingerprint because it differs between sources in the Solar System.
+    answer: c
+
+  - id: q9
+    level: AHL
+    understanding: A1.1.7
+    stem: >-
+      Which pair of factors best explains why water has been retained on Earth for billions of years?
+    options:
+      - id: a
+        text: Earth's large oceans and its many living organisms
+        why: These depend on water being retained; they do not explain why it was retained in the first place.
+      - id: b
+        text: Gravity strong enough to hold water vapour, and temperatures low enough for water to condense
+        why: Correct. Earth is massive enough to keep its atmosphere, and at its distance from the Sun water vapour condenses to form liquid oceans instead of being lost to space.
+      - id: c
+        text: Earth's rotation and the tides caused by the Moon
+        why: Rotation and tides move water around Earth but do not stop it escaping into space.
+      - id: d
+        text: Volcanoes constantly producing new water to replace what is lost
+        why: Volcanoes release water vapour that was already inside Earth; this does not explain why water stays on the planet.
+    answer: b
+
+  - id: q10
+    level: AHL
+    understanding: A1.1.8
+    stem: >-
+      Astronomers searching for life on exoplanets give priority to planets in their star's Goldilocks zone.
+      What is the main reason?
+    options:
+      - id: a
+        text: At that distance from the star, surface temperatures could allow liquid water, which life as we know it needs.
+        why: Correct. The Goldilocks zone is defined by temperatures at which water can be liquid, and liquid water is the medium for the processes of life.
+      - id: b
+        text: Planets in the zone are always the same size as Earth.
+        why: Planets of many sizes occur in habitable zones; the zone is defined by distance and temperature, not size.
+      - id: c
+        text: Planets in the zone are certain to have life.
+        why: Being in the zone means liquid water could exist, not that it does, and water alone does not prove life is present.
+      - id: d
+        text: Only planets in the zone have an atmosphere.
+        why: Planets outside the zone can have atmospheres too, such as Venus. The zone is about temperatures that allow liquid water.
+    answer: a
