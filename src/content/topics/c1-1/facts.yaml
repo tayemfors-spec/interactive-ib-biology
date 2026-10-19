@@ -1,0 +1,145 @@
+facts:
+  - id: f1
+    claim: Enzymes are biological catalysts (globular proteins) that are not used up; without them most metabolic reactions at body temperature would be far too slow to sustain life.
+    where: ["index.mdx#catalysts", "flashcards.yaml:c1", "index.mdx (mustKnow)"]
+    confidence: high
+    basis: Standard biochemistry (Berg, Biochemistry; Alberts); IB guide C1.1.1
+    status: checked
+  - id: f2
+    claim: Metabolism is a network of interdependent reactions; enzyme specificity means many different enzymes are needed and metabolism is controlled through enzymes (amount and activity).
+    where: ["index.mdx#catalysts", "flashcards.yaml:c2"]
+    confidence: high
+    basis: IB guide C1.1.2; Alberts
+    status: checked
+  - id: f3
+    claim: Anabolic examples are protein synthesis, glycogen formation and photosynthesis; catabolic examples are hydrolysis in digestion and oxidation of substrates in respiration. Condensation releases water; hydrolysis uses water.
+    where: ["index.mdx#anabolism", "diagrams/c1-1-metabolism", "quiz.yaml:q1", "flashcards.yaml:c3"]
+    confidence: high
+    basis: IB guide C1.1.3; standard biochemistry
+    status: checked
+  - id: f4
+    claim: The active site consists of only a few amino acids, held in position by interactions throughout the folded protein (hydrogen bonds, ionic bonds, hydrophobic interactions, disulfide bonds).
+    where: ["index.mdx#active-site", "visuals.yaml:enzyme residues", "flashcards.yaml:c4"]
+    confidence: high
+    basis: IB guide C1.1.4; Berg, Biochemistry ch. 8
+    status: checked
+  - id: f5
+    claim: In induced fit both the enzyme and the substrate change shape on binding; the substrate's bonds are strained; the enzyme returns to its original shape after products are released. Lock-and-key is the older rigid model.
+    where: ["index.mdx#active-site", "visuals.yaml:enzyme steps", "diagrams/c1-1-active-site", "quiz.yaml:q2", "flashcards.yaml:c5"]
+    confidence: high
+    basis: Koshland (1958) induced-fit hypothesis; IB guide C1.1.5
+    status: checked
+  - id: f6
+    claim: The 3D model shows hinge closure of two domains around the substrate, a schematic of the kind seen in hexokinase.
+    where: ["scenes/c1-1-active-site.ts", "visuals.yaml:enzyme"]
+    confidence: high
+    basis: Hexokinase domain closure on glucose binding (Bennett & Steitz 1978); model is schematic and does not represent a specific enzyme–substrate pair
+    status: checked
+  - id: f7
+    claim: Large substrates may be immobilized (e.g. DNA for DNA-copying/repair enzymes; starch grains in seeds) and enzymes may be immobilized in membranes (e.g. disaccharidases in the microvillus plasma membrane of the small intestine; ATP synthase in the inner mitochondrial membrane).
+    where: ["index.mdx#collisions", "flashcards.yaml:c6"]
+    confidence: high
+    basis: IB guide C1.1.6; standard physiology (brush-border enzymes such as sucrase-isomaltase and maltase-glucoamylase)
+    status: open
+  - id: f8
+    claim: Denaturation alters the 3D structure (breaking hydrogen, ionic and other non-covalent bonds) but not the peptide bonds; heat denaturation is usually irreversible.
+    where: ["index.mdx#collisions", "index.mdx (mistakes)", "visuals.yaml:enzyme denatured", "quiz.yaml:q3", "flashcards.yaml:c7"]
+    confidence: high
+    basis: Standard protein chemistry; IB guide C1.1.7
+    status: checked
+  - id: f9
+    claim: Below the optimum, rate roughly doubles per 10 °C rise (Q10 ≈ 2); human enzymes have optima of about 37–40 °C; above the optimum the rate falls steeply because of denaturation.
+    where: ["index.mdx#factors", "sims/models/c1-1-rate.ts", "quiz.yaml:q4", "flashcards.yaml:c8"]
+    confidence: high
+    basis: Standard enzyme kinetics; Q10 of 2–3 typical for enzyme reactions
+    status: checked
+  - id: f10
+    claim: Optimum pH values — pepsin about 2 (range 1.5–2), salivary amylase about 7 (6.7–7.0), trypsin about 8.
+    where: ["index.mdx#factors", "sims/models/c1-1-rate.ts", "flashcards.yaml:c10", "quiz.yaml:q3"]
+    confidence: high
+    basis: Standard physiology textbooks (e.g. Guyton & Hall; Berg)
+    status: checked
+  - id: f11
+    claim: Pepsin is irreversibly inactivated at pH 8 (used as the premise of quiz q3).
+    where: ["quiz.yaml:q3"]
+    confidence: high
+    basis: Pepsin is irreversibly denatured above about pH 7–8 (well established; e.g. Piper & Fenton 1965)
+    status: open
+  - id: f12
+    claim: Rate rises with substrate concentration then levels off when all active sites are occupied (saturation); doubling enzyme concentration doubles the maximum rate.
+    where: ["index.mdx#factors", "sims/models/c1-1-rate.ts", "flashcards.yaml:c9", "index.mdx (mistakes)"]
+    confidence: high
+    basis: Michaelis–Menten kinetics
+    status: checked
+  - id: f13
+    claim: The apparent optimum temperature depends on incubation time because denaturation is time-dependent.
+    where: ["index.mdx#factors"]
+    confidence: high
+    basis: Standard enzyme kinetics (thermal inactivation is time-dependent)
+    status: checked
+  - id: f14
+    claim: Catalase reaction is 2 H₂O₂ → 2 H₂O + O₂; final volume of O₂ depends on the amount of H₂O₂, not the amount of enzyme; initial rate = gradient of tangent at t = 0; amylase rate can be expressed as 1/time.
+    where: ["index.mdx#measuring", "sims/c1-1-measuring.astro", "quiz.yaml:q5", "flashcards.yaml:c11"]
+    confidence: high
+    basis: Standard chemistry; IB practical methods
+    status: checked
+  - id: f15
+    claim: Enzymes lower activation energy but do not change the energies of substrate and products or the overall energy change; breaking bonds requires energy and forming bonds releases it.
+    where: ["index.mdx#activation-energy", "diagrams/c1-1-activation-energy", "quiz.yaml:q6", "flashcards.yaml:c12"]
+    confidence: high
+    basis: IB guide C1.1.10; physical chemistry
+    status: checked
+  - id: f16
+    claim: Glycolysis occurs in the cytoplasm and the Krebs cycle in the mitochondrial matrix (intracellular); digestive enzymes are secreted by exocytosis and act in the gut lumen (extracellular).
+    where: ["index.mdx#location", "flashcards.yaml:c13"]
+    confidence: high
+    basis: IB guide C1.1.11; standard cell biology
+    status: checked
+  - id: f17
+    claim: Metabolic heat is inevitable because energy transfers are not 100% efficient; mammals and birds use it to maintain constant body temperature; bumblebees warm flight muscles by shivering and tuna keep swimming muscles warmer than the water.
+    where: ["index.mdx#location", "flashcards.yaml:c14"]
+    confidence: high
+    basis: IB guide C1.1.12; Heinrich (bumblebee thermoregulation); Carey & Teal (regional endothermy in tuna)
+    status: open
+  - id: f18
+    claim: Glycolysis converts glucose (6C) to 2 pyruvate (3C) in ten steps; in the Krebs cycle acetyl (2C) + oxaloacetate (4C) → citrate (6C), 2 CO₂ released, oxaloacetate regenerated; in the Calvin cycle CO₂ + RuBP (5C) → 2 glycerate 3-phosphate (3C) → triose phosphate, some leaves, the rest regenerates RuBP.
+    where: ["index.mdx#pathways", "diagrams/c1-1-pathways", "quiz.yaml:q10", "flashcards.yaml:c18"]
+    confidence: high
+    basis: Standard biochemistry (Berg); IB guide C1.1.13, C1.2, C1.3
+    status: checked
+  - id: f19
+    claim: Allosteric inhibitors bind reversibly to a specific allosteric site, change conformation and prevent catalysis; IB treats this as non-competitive inhibition, which lowers the maximum rate and is not overcome by substrate.
+    where: ["index.mdx#inhibition", "sims/models/c1-1-inhibition.ts", "quiz.yaml:q7", "flashcards.yaml:c15"]
+    confidence: high
+    basis: IB guide C1.1.14. Note that in biochemistry allosteric inhibitors can also alter Km (mixed inhibition); the pure non-competitive model is the IB simplification.
+    status: open
+  - id: f20
+    claim: Statins are competitive inhibitors of HMG-CoA reductase, which catalyses the rate-limiting step of cholesterol synthesis in the liver (HMG-CoA → mevalonate); statins lower LDL cholesterol and reduce coronary heart disease risk.
+    where: ["index.mdx#inhibition", "index.mdx (mustKnow)", "flashcards.yaml:c15"]
+    confidence: high
+    basis: Istvan & Deisenhofer (2001) Science 292:1160; standard pharmacology
+    status: checked
+  - id: f21
+    claim: Isoleucine is made from threonine in five enzyme-catalysed steps in bacteria and plants; the first enzyme, threonine deaminase (threonine dehydratase), is allosterically inhibited by isoleucine (end-product inhibition).
+    where: ["index.mdx#feedback", "anims/c1-1-feedback", "visuals.yaml:feedback", "quiz.yaml:q8", "flashcards.yaml:c16"]
+    confidence: high
+    basis: Umbarger (1956) Science 123:848; E. coli ilv pathway (ilvA, ilvBN, ilvC, ilvD, ilvE)
+    status: checked
+  - id: f22
+    claim: Penicillin (from Penicillium) acylates an active-site serine of transpeptidases (penicillin-binding proteins) covalently and irreversibly, preventing peptidoglycan cross-linking; growing cells lyse.
+    where: ["index.mdx#mechanism", "anims/c1-1-penicillin", "visuals.yaml:penicillin", "quiz.yaml:q9", "flashcards.yaml:c17"]
+    confidence: high
+    basis: Tipper & Strominger (1965); standard microbiology
+    status: checked
+  - id: f23
+    claim: Resistance via altered transpeptidases — mutations change amino acids near the active site so penicillin binds poorly while cross-linking continues; in MRSA an additional low-affinity transpeptidase (PBP2a, mecA) is used. β-lactamase is a separate mechanism.
+    where: ["index.mdx#mechanism", "visuals.yaml:penicillin resistance", "flashcards.yaml:c17"]
+    confidence: high
+    basis: Standard microbiology (e.g. altered PBP2x in Streptococcus pneumoniae; PBP2a in MRSA)
+    status: open
+  - id: f24
+    claim: Sim models are qualitative — temperature (Q10 = 2 × sigmoid denaturation, Tm 44 °C giving an optimum ≈ 40 °C; thermophile Tm 78 °C giving ≈ 74 °C), Gaussian pH curves, Michaelis–Menten saturation, standard competitive/non-competitive equations, and exponential approach to a fixed O₂ volume.
+    where: ["sims/models/c1-1-rate.ts", "sims/models/c1-1-inhibition.ts", "sims/models/c1-1-measuring.ts", "tests/unit/c1-1.test.ts"]
+    confidence: high
+    basis: Model design; labelled "qualitative model" on screen
+    status: checked

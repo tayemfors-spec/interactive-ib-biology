@@ -1,0 +1,124 @@
+---
+/**
+ * Exam-style drawings for C1.1.5 and C1.1.7: induced fit in three stages (substrate meets a roughly
+ * complementary active site; both change shape in the enzyme–substrate complex; products leave and
+ * the enzyme returns to its original shape), the older lock-and-key model for comparison, and a
+ * denatured enzyme whose active site no longer fits the substrate. Five small SVGs so each stays
+ * legible at phone width.
+ */
+// enzyme outline (local coordinates, centre 0,0); the notch runs from the left lip (−22,−46) to the right lip (22,−46)
+const body = (notch: string) =>
+  `M-22 -46 ${notch} C40 -58 70 -44 70 -6 C70 34 40 56 0 56 C-40 56 -70 34 -70 -6 C-70 -44 -40 -58 -22 -46 Z`;
+const notch = {
+  open: 'C-20 -22 -12 -10 0 -10 C12 -10 20 -22 22 -46', // roughly complementary, wider and rounder than the substrate
+  fitted: 'L-16 -46 L-16 -26 L0 -12 L16 -26 L16 -46 L22 -46', // moulded around the substrate
+  key: 'L-16 -46 L-16 -28 L0 -14 L16 -28 L16 -46 L22 -46', // rigid, exactly complementary (lock-and-key)
+};
+// substrate: flat top, pointed base (centred on its own origin)
+const sub = 'M-16 -18 L16 -18 L16 4 L0 18 L-16 4 Z';
+const subStrained = 'M-15 -18 L15 -18 L15 6 L0 20 L-15 6 Z';
+const denatured =
+  'M-30 -40 C-14 -30 8 -60 30 -42 C52 -60 76 -30 64 -2 C78 30 34 64 4 50 C-26 66 -72 40 -62 4 C-80 -26 -52 -56 -30 -40 Z';
+---
+<div class="exam-diagram">
+  <div class="panels">
+    <svg viewBox="0 0 220 236" role="img" aria-labelledby="as-t1 as-d1" xmlns="http://www.w3.org/2000/svg">
+      <title id="as-t1">Stage 1: the substrate collides with the active site</title>
+      <desc id="as-d1">A globular enzyme with a groove-shaped active site on its surface. A substrate molecule, whose shape is roughly but not exactly complementary to the active site, approaches it.</desc>
+      <text class="head" x="10" y="22">1 · Substrate collides</text>
+      <g transform="translate(112 150)">
+        <path class="enz" d={body(notch.open)} />
+        <path class="sub" d={sub} transform="translate(0 -92)" />
+        <path class="mv" d="M0 -68 L0 -56" marker-end="url(#as-arr)" />
+      </g>
+      <path class="lead" d="M80 57 L94 57" /><text class="lbl" x="8" y="62">substrate</text>
+      <path class="lead" d="M170 92 L124 124" /><text class="lbl" x="166" y="74">active</text><text class="lbl" x="166" y="90">site</text>
+      <text class="lbl" x="112" y="160" text-anchor="middle">enzyme</text>
+      <defs>
+        <marker id="as-arr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker>
+      </defs>
+    </svg>
+
+    <svg viewBox="0 0 220 236" role="img" aria-labelledby="as-t2 as-d2" xmlns="http://www.w3.org/2000/svg">
+      <title id="as-t2">Stage 2: induced fit forms the enzyme–substrate complex</title>
+      <desc id="as-d2">The substrate is bound in the active site. The active site has changed shape to fit closely around the substrate, and the substrate is also slightly distorted, which strains the bond that will be broken.</desc>
+      <text class="head" x="10" y="22">2 · Induced fit</text>
+      <g transform="translate(112 150)">
+        <path class="enz" d={body(notch.fitted)} />
+        <path class="sub" d={subStrained} transform="translate(0 -36)" />
+        <path class="strain" d="M-14 -36 L14 -36" />
+      </g>
+      <text class="note" x="10" y="42">both change shape</text>
+      <text class="note" x="112" y="224" text-anchor="middle">enzyme–substrate complex</text>
+      <path class="lead" d="M160 84 L127 112" /><text class="lbl" x="146" y="64">strained</text><text class="lbl" x="146" y="80">bond</text>
+    </svg>
+
+    <svg viewBox="0 0 220 236" role="img" aria-labelledby="as-t3 as-d3" xmlns="http://www.w3.org/2000/svg">
+      <title id="as-t3">Stage 3: products are released</title>
+      <desc id="as-d3">The substrate has been converted into two products, which leave the active site. The enzyme returns to its original shape, unchanged, and can catalyse the reaction again.</desc>
+      <text class="head" x="10" y="22">3 · Products released</text>
+      <g transform="translate(112 150)">
+        <path class="enz" d={body(notch.open)} />
+        <path class="prod" d="M-16 -18 L0 -18 L0 18 L-16 4 Z" transform="translate(-34 -96) rotate(-18)" />
+        <path class="prod" d="M0 -18 L16 -18 L16 4 L0 18 Z" transform="translate(34 -96) rotate(18)" />
+        <path class="mv" d="M-18 -64 L-32 -74" marker-end="url(#as-arr3)" />
+        <path class="mv" d="M18 -64 L32 -74" marker-end="url(#as-arr3)" />
+      </g>
+      <text class="lbl" x="8" y="94">products</text>
+      <text class="note" x="112" y="228" text-anchor="middle">enzyme unchanged, can be reused</text>
+      <defs>
+        <marker id="as-arr3" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker>
+      </defs>
+    </svg>
+
+    <svg viewBox="0 0 220 236" role="img" aria-labelledby="as-t4 as-d4" xmlns="http://www.w3.org/2000/svg">
+      <title id="as-t4">For comparison: the lock-and-key model</title>
+      <desc id="as-d4">An older model in which the active site is rigid and exactly complementary to the substrate, like a lock and its key, so neither changes shape when they bind.</desc>
+      <text class="head" x="10" y="22">Lock-and-key (older model)</text>
+      <g transform="translate(112 150)">
+        <path class="enz rigid" d={body(notch.key)} />
+        <path class="sub" d={sub} transform="translate(0 -92)" />
+        <path class="mv" d="M0 -68 L0 -56" marker-end="url(#as-arr4)" />
+      </g>
+      <text class="note" x="112" y="218" text-anchor="middle">rigid, exactly complementary;</text>
+      <text class="note" x="112" y="232" text-anchor="middle">neither shape changes</text>
+      <defs>
+        <marker id="as-arr4" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker>
+      </defs>
+    </svg>
+
+    <svg viewBox="0 0 220 236" role="img" aria-labelledby="as-t5 as-d5" xmlns="http://www.w3.org/2000/svg">
+      <title id="as-t5">A denatured enzyme</title>
+      <desc id="as-d5">After heating or exposure to an extreme pH, the bonds holding the enzyme's three-dimensional shape have broken. The active site has lost its shape, so the substrate no longer fits and the reaction is not catalysed.</desc>
+      <text class="head" x="10" y="22">Denatured enzyme</text>
+      <g transform="translate(112 150)">
+        <path class="enz den" d={denatured} />
+        <path class="sub" d={sub} transform="translate(0 -96)" />
+        <path class="cross" d="M-12 -66 L12 -50 M12 -66 L-12 -50" />
+      </g>
+      <text class="note" x="112" y="218" text-anchor="middle">active site changed shape;</text>
+      <text class="note" x="112" y="232" text-anchor="middle">substrate cannot bind</text>
+    </svg>
+  </div>
+  <p class="must">Induced fit: the active site is only roughly complementary until the substrate binds; then the shapes of both the enzyme and the substrate change. Lock-and-key, shown for comparison, assumes a rigid active site.</p>
+</div>
+
+<style>
+  .exam-diagram { font-family: var(--font-sans); }
+  .panels { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); }
+  .panels svg { display: block; width: 100%; max-width: 22rem; height: auto; margin-inline: auto; background: var(--surface); border-radius: var(--radius-m); }
+  .head { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .lbl { font-size: 15px; font-weight: 650; fill: var(--text); }
+  .note { font-size: 13px; fill: var(--text-muted); font-style: italic; }
+  .enz { fill: color-mix(in srgb, var(--bio-protein) 30%, var(--surface)); stroke: var(--bio-protein); stroke-width: 2.5; stroke-linejoin: round; }
+  .enz.rigid { stroke-width: 3.5; }
+  .enz.den { stroke-dasharray: 6 4; }
+  .sub { fill: color-mix(in srgb, var(--bio-glucose) 45%, var(--surface)); stroke: var(--text); stroke-width: 2; stroke-linejoin: round; }
+  .prod { fill: color-mix(in srgb, var(--bio-carb) 40%, var(--surface)); stroke: var(--text); stroke-width: 2; stroke-linejoin: round; }
+  .strain { stroke: var(--bad); stroke-width: 2.5; stroke-dasharray: 3 3; }
+  .cross { stroke: var(--bad); stroke-width: 4; stroke-linecap: round; }
+  .lead { stroke: var(--text); stroke-width: 1.3; fill: none; }
+  .mv { stroke: var(--text-muted); stroke-width: 2; fill: none; }
+  .ah { fill: var(--text-muted); }
+  .must { font-size: var(--step--1); margin: var(--space-2) 0 0; padding-bottom: 3.4rem; color: var(--text); }
+</style>

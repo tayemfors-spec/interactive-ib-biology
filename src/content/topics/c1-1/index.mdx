@@ -1,0 +1,435 @@
+---
+code: C1.1
+description: "IB Biology C1.1 enzymes revision: induced fit in 3D, temperature, pH and substrate graphs, measuring rates, inhibition and feedback, then self-test."
+updated: 2026-10-19
+related: [B1.2, C1.2, C1.3, D3.3]
+mustKnow:
+  - term: Enzyme
+    definition: "A <strong>biological catalyst</strong>: a globular protein that speeds up a specific chemical reaction in a living organism without being used up or permanently changed."
+    level: SL
+  - term: Metabolism
+    definition: "The complex network of interdependent and interacting chemical reactions in a living organism, almost every one catalysed by its own specific enzyme."
+    level: SL
+  - term: Anabolism and catabolism
+    definition: "<strong>Anabolism</strong>: reactions that build larger molecules from smaller ones, such as condensation of monomers into macromolecules. <strong>Catabolism</strong>: reactions that break larger molecules into smaller ones, such as hydrolysis in digestion and oxidation in respiration."
+    level: SL
+  - term: Active site
+    definition: "The small region of an enzyme, formed by a few amino acids, where the substrate binds and the reaction is catalysed. Its shape and chemical properties are complementary to the substrate, which makes the enzyme specific."
+    level: SL
+  - term: Induced fit
+    definition: "The model of enzyme–substrate binding in which the active site and the substrate both change shape as they bind, so that they fit together closely and the bonds in the substrate are strained."
+    level: SL
+  - term: Denaturation
+    definition: "A change to the three-dimensional structure of a protein, caused for example by high temperature or extreme pH, that alters the active site so the substrate no longer binds. It is usually permanent."
+    level: SL
+  - term: Activation energy
+    definition: "The energy needed to break bonds in the substrate so that a reaction can start. Enzymes lower the activation energy; they do not change the energy of the substrate or the products."
+    level: SL
+  - term: Competitive inhibition
+    definition: "Inhibition by a molecule that resembles the substrate and binds reversibly to the active site, blocking it. Raising the substrate concentration reduces its effect. Example: statins inhibiting HMG-CoA reductase."
+    level: AHL
+  - term: Non-competitive (allosteric) inhibition
+    definition: "Inhibition by a molecule that binds reversibly to an <strong>allosteric site</strong> away from the active site, changing the enzyme's conformation so the active site no longer catalyses the reaction. Raising substrate concentration does not overcome it."
+    level: AHL
+  - term: End-product (feedback) inhibition
+    definition: "Control of a metabolic pathway in which the final product inhibits the enzyme catalysing the first step, by binding to its allosteric site. Example: isoleucine inhibits threonine deaminase."
+    level: AHL
+  - term: Mechanism-based inhibition
+    definition: "Irreversible inhibition in which an inhibitor binds to the active site and forms a covalent bond there, chemically changing it so the enzyme is permanently inactive. Example: penicillin and bacterial transpeptidases."
+    level: AHL
+mistakes:
+  - wrong: "At high temperatures the enzyme is killed."
+    right: "Enzymes are molecules, not living things. Above the optimum the enzyme is <strong>denatured</strong>: bonds holding its 3D shape break and the active site changes shape."
+    level: SL
+  - wrong: "Above the optimum, the rate falls because molecules move more slowly."
+    right: "Molecules keep moving faster as temperature rises. The rate falls because the enzyme is denatured, so fewer active sites can bind the substrate."
+    level: SL
+  - wrong: "The active site is the same shape as the substrate."
+    right: "The active site is <strong>complementary</strong> to the substrate in shape and chemical properties, so the two fit together like a hand in a glove."
+    level: SL
+  - wrong: "The rate levels off at high substrate concentrations because the substrate runs out."
+    right: "It levels off because all the active sites are occupied at any moment (the enzyme is saturated), so the enzyme concentration now limits the rate. Adding more enzyme would raise it."
+    level: SL
+  - wrong: "Enzymes are used up in the reactions they catalyse."
+    right: "An enzyme is unchanged at the end of the reaction, so each molecule can catalyse the same reaction again many times."
+    level: SL
+  - wrong: "Enzymes supply the energy a reaction needs, or make it release more energy."
+    right: "Enzymes lower the <strong>activation energy</strong>. The energy of the substrate and products, and so the overall energy released or absorbed, are the same with or without the enzyme."
+    level: SL
+  - wrong: "Low temperatures denature enzymes."
+    right: "At low temperatures molecules move slowly, so collisions with active sites are rare and the rate is low, but the enzyme is not denatured: activity returns when it is warmed."
+    level: SL
+  - wrong: "Denaturation breaks the peptide bonds of the enzyme."
+    right: "Denaturation breaks the weaker bonds that hold the 3D (tertiary) structure, such as hydrogen and ionic bonds. The sequence of amino acids is unchanged, but the active site loses its shape."
+    level: SL
+  - wrong: "Adding more substrate overcomes any kind of reversible inhibition."
+    right: "Only <strong>competitive</strong> inhibition is reduced by more substrate. A non-competitive inhibitor binds the allosteric site, which substrate cannot reach, so the maximum rate stays lower."
+    level: AHL
+  - wrong: "In end-product inhibition, the end product inhibits the last enzyme of the pathway."
+    right: "The end product inhibits the enzyme of the <strong>first</strong> step (for isoleucine, threonine deaminase), so the whole pathway stops and intermediates do not build up."
+    level: AHL
+---
+
+<Section id="catalysts" title="Enzymes as catalysts in metabolism" level="SL" covers="C1.1.1 C1.1.2">
+
+A **catalyst** is a substance that speeds up a chemical reaction without being used up or permanently changed by it. **Enzymes** are biological catalysts: proteins made by cells that catalyse the reactions of life.
+
+### Why cells need fast reactions
+
+Most reactions in a cell would happen far too slowly at body temperature to keep the cell alive. Sugars, fats and proteins are quite stable molecules. Without enzymes, the breakdown of glucose to release energy, or the joining of amino acids to make proteins, would take years. Enzymes make these reactions happen in fractions of a second, so that:
+
+- energy can be released from food as fast as cells need it, for example in contracting muscle;
+- molecules can be built quickly enough for growth, repair and reproduction;
+- reactions can happen at the moderate temperatures of living organisms, rather than needing heat that would damage cells.
+
+### Metabolism is a network
+
+**Metabolism** is the whole set of chemical reactions in an organism. These reactions are **interdependent**: the product of one reaction is the substrate of the next, many products feed into several pathways, and the same molecule can be made by one pathway and used by others. The result is a complex web of interacting reactions rather than a list of separate ones.
+
+### Many enzymes are needed
+
+Enzymes are **specific**: each one usually catalyses only one reaction, or a group of very similar reactions, because only its own substrate fits the active site. A cell therefore needs thousands of different enzymes, each coded for by a gene, one for almost every reaction in the network.
+
+Specificity also gives the cell **control**. A reaction runs only if its enzyme is present and active, so cells regulate metabolism by:
+
+- making more or less of a particular enzyme (by switching genes on or off);
+- activating or inhibiting enzymes that are already present (see the AHL sections on inhibition below).
+
+<Callout type="exam">
+
+"Enzymes speed up reactions" earns little on its own. Explain the **benefit**: without catalysis, reactions at body temperature would be far too slow to sustain life, and enzymes let cells control which reactions happen and when.
+
+</Callout>
+
+</Section>
+
+<Section id="anabolism" title="Anabolic and catabolic reactions" level="SL" covers="C1.1.3">
+
+Metabolic reactions fall into two groups.
+
+### Anabolism: building up
+
+**Anabolic** reactions build larger, more complex molecules from smaller ones. Many join **monomers** into **macromolecules** by **condensation** reactions, in which a water molecule is released as each new bond forms. They need an input of energy, usually from ATP.
+
+- **Protein synthesis**: amino acids are linked by peptide bonds on ribosomes to form polypeptides.
+- **Glycogen formation**: glucose molecules are linked by glycosidic bonds in liver and muscle cells to store energy.
+- **Photosynthesis**: carbon dioxide is used to build sugars, using energy from light; glucose is then linked by condensation into starch.
+
+### Catabolism: breaking down
+
+**Catabolic** reactions break larger molecules into smaller ones and often release energy.
+
+- **Digestion**: macromolecules in food are broken into monomers by **hydrolysis** reactions, in which a water molecule is used to break each bond. Starch is hydrolysed to maltose and then glucose, proteins to amino acids, and triglycerides to fatty acids and glycerol.
+- **Cell respiration**: substrates such as glucose are **oxidized** to carbon dioxide and water, releasing energy that is used to make ATP.
+
+<Figure name="c1-1-metabolism" caption="Anabolism joins monomers by condensation (water released); catabolism splits macromolecules by hydrolysis (water used) or oxidizes substrates in respiration. Both are catalysed by enzymes." />
+
+| | Anabolism | Catabolism |
+|---|---|---|
+| Size of molecules | Small → large | Large → small |
+| Typical reaction | Condensation (water released) | Hydrolysis (water used); oxidation |
+| Energy | Usually needs energy (ATP) | Often releases energy |
+| Examples | Protein synthesis, glycogen formation, photosynthesis | Digestion, cell respiration |
+
+<Callout type="tip">
+
+Link the words: **cond**ensation **con**structs (anabolism); **hydro**lysis uses water to split (catabolism).
+
+</Callout>
+
+</Section>
+
+<Section id="active-site" title="Globular enzymes, active sites and induced fit" level="SL" covers="C1.1.4 C1.1.5">
+
+<Viewer3D topic="c1-1" id="enzyme" />
+
+Enzymes are **globular proteins**: each polypeptide is folded into a compact, roughly spherical three-dimensional shape (see <TopicLink code="B1.2" />). On the surface is a pocket or cleft called the **active site**, where the substrate binds and the reaction takes place.
+
+### A few amino acids, held by the whole protein
+
+The active site is made of only a **few amino acids**, often from parts of the polypeptide that are far apart in the sequence but brought together by folding. Their R-groups give the active site its shape and its chemical properties: charge, polarity, and groups that can donate or accept protons or form temporary bonds with the substrate.
+
+The rest of the enzyme matters too. **Interactions between amino acids throughout the protein** (hydrogen bonds, ionic bonds, hydrophobic interactions and disulfide bonds) hold the active-site amino acids in exactly the right positions. Change the overall fold and the active site changes as well, which is why denaturation stops catalysis.
+
+### Induced fit
+
+The **induced-fit model** describes how the substrate binds:
+
+1. Before binding, the active site is close to, but not exactly, complementary to the substrate.
+2. As the substrate binds, the **enzyme changes shape**: the active site closes round the substrate so that the two fit tightly.
+3. The **substrate also changes shape**. It is held in a strained position, which weakens the bonds that are to be broken (or brings reacting groups together).
+4. This **enzyme–substrate complex** is converted to an enzyme–product complex. The products fit less well and are released, and the enzyme returns to its original shape.
+
+An older idea, the **lock-and-key model**, pictured the active site as rigid and exactly complementary to the substrate. It explains specificity, but not the shape changes that are now known to happen when substrates bind. Use the **Exam diagram** view above to compare the two.
+
+<Callout type="exam" title="Drawing or describing induced fit">
+
+Your answer or diagram should include:
+
+- the **active site** labelled, roughly complementary to the substrate before binding;
+- **both** the active site and the substrate changing shape on binding;
+- the **enzyme–substrate complex**;
+- **products released** and the enzyme **unchanged**, free to bind another substrate.
+
+</Callout>
+
+</Section>
+
+<Section id="collisions" title="Collisions, specificity and denaturation" level="SL" covers="C1.1.6 C1.1.7">
+
+### Movement and collisions
+
+An enzyme can only catalyse a reaction when a substrate molecule is in its active site, and they come together only by **collision**. Molecules in solution are in constant **random motion**, so substrate molecules and enzymes collide by chance. A collision leads to binding only if the substrate arrives at the active site in a suitable **orientation** and with enough energy. Anything that increases the frequency of these successful collisions, such as more substrate or a higher temperature, increases the rate.
+
+Movement does not always need both partners to move:
+
+- **Large substrate molecules** may be fixed in place, so the enzyme moves to them. For example, enzymes that copy or repair DNA move along the DNA molecule, and enzymes in seeds digest starch grains that stay where they are.
+- **Enzymes can be immobilized** in membranes while their substrates move to them. Enzymes in the plasma membrane of microvilli in the small intestine digest disaccharides that reach them, and ATP synthase is fixed in the inner membrane of the mitochondrion.
+
+### Specificity
+
+Each enzyme catalyses one reaction (or a few very similar ones) because its active site is **complementary** to its substrate in **shape** and **chemical properties**. Other molecules either do not fit or lack the right charges and groups to bind, so they are not catalysed.
+
+### Denaturation
+
+**Denaturation** is a change in the 3D structure of a protein. The bonds that maintain the folded shape are much weaker than the peptide bonds of the chain, so they are disrupted by:
+
+- **High temperature**: the enzyme vibrates so strongly that hydrogen bonds and other interactions break.
+- **Extreme pH**: extra H⁺ or OH⁻ ions change the charges on R-groups, breaking ionic and hydrogen bonds.
+
+When the fold changes, the active site changes shape, so the substrate **no longer binds** and catalysis stops. Heat denaturation is usually **permanent**: cooling the enzyme does not restore the original shape. The amino acid sequence (primary structure) is not affected.
+
+<Callout type="exam">
+
+Structure, specificity and denaturation are one chain of reasoning: **fold → active site shape and chemistry → specific binding**. Denaturation breaks the first link, so the rest fails. Use this sequence in "explain" answers.
+
+</Callout>
+
+</Section>
+
+<Section id="factors" title="Temperature, pH and substrate concentration" level="SL" covers="C1.1.8">
+
+<Sim topic="c1-1" id="rate" />
+
+### Temperature
+
+- **Rising towards the optimum**: molecules move faster, so collisions between substrate and active site are **more frequent** and more of them have enough energy to react. The rate increases, roughly doubling for each 10 °C rise.
+- **The optimum**: the temperature at which the rate is highest. For many human enzymes it is about 37–40 °C; enzymes of organisms from hot springs have much higher optima.
+- **Above the optimum**: the enzyme starts to **denature**. More and more active sites lose their shape, so the rate falls **steeply**, reaching zero when all the enzyme is denatured. The curve is therefore not symmetrical.
+
+### pH
+
+Each enzyme has an **optimum pH**, and the rate falls on either side of it, giving a roughly bell-shaped curve. A small change from the optimum alters the charges on R-groups in the active site, so the substrate binds less well; a larger change **denatures** the enzyme. Optima match where each enzyme works:
+
+| Enzyme | Where it works | Optimum pH |
+|---|---|---|
+| Pepsin | Stomach (acidic, with HCl) | about 2 |
+| Salivary amylase | Mouth | about 7 |
+| Trypsin | Small intestine (slightly alkaline) | about 8 |
+
+### Substrate concentration
+
+At low substrate concentrations, many active sites are empty at any moment. Adding substrate increases the frequency of collisions with active sites, so the rate rises steeply and almost in proportion. As the concentration rises further, a larger fraction of active sites are occupied, so the rate increases less and less. Eventually **all active sites are in use** (the enzyme is **saturated**) and the rate **levels off** at a maximum. More substrate has no effect; only more enzyme raises the maximum.
+
+<Callout type="exam" title="Reading enzyme graphs">
+
+Describe, then explain. For a temperature graph: state the trend below the optimum, the optimum value read from the graph, and the trend above it; then explain each part with **collision frequency** and **denaturation**. For a substrate graph, use the word **saturated** or "all active sites occupied".
+
+</Callout>
+
+### Sketch graphs are models
+
+The smooth curves in textbooks and in this simulation are **generalized sketch graphs**. They are **models**: simplified pictures of a relationship, without real data points or units. Like any model they can be tested against **experimental data**. Real results show scatter between repeats, and the optimum found for temperature depends on how long the enzyme is kept warm (denaturation takes time), so real curves often differ in detail from the sketch. If data repeatedly disagree with a sketch graph, the model has to be revised.
+
+</Section>
+
+<Section id="measuring" title="Measuring rates of enzyme-catalysed reactions" level="SL" covers="C1.1.9">
+
+The **rate of reaction** is the amount of substrate used, or product made, per unit time:
+
+**rate = change in amount of substrate or product ÷ time taken**
+
+Typical units are cm³ s⁻¹ (gas volume), g min⁻¹ (mass) or mmol dm⁻³ s⁻¹ (concentration).
+
+### Methods
+
+- **Catalase**: hydrogen peroxide is broken down into water and oxygen (2 H₂O₂ → 2 H₂O + O₂). Oxygen is collected in a gas syringe or upturned measuring cylinder and its volume read at intervals.
+- **Amylase**: samples of a starch–amylase mixture are tested with iodine at intervals. The time taken for starch to disappear (iodine no longer turns blue-black) is recorded, and **rate = 1 ÷ time** (units s⁻¹).
+- **Colour change** measured with a colorimeter, or mass lost as gas escapes.
+
+### Initial rate from a graph
+
+When product is plotted against time, the curve is steepest at the start and then levels off as the substrate is used up. The **initial rate** is the gradient of a **tangent** drawn to the curve at time zero: pick two points on the tangent and divide the change in *y* by the change in *x*. The rate at any later time is the gradient of the tangent at that time.
+
+<Sim topic="c1-1" id="measuring" />
+
+### Reliable data
+
+- Change one **independent variable** (such as enzyme concentration or temperature) and keep the others **controlled**: volume and concentration of substrate, temperature, pH, time.
+- Do at least **three repeats** for each value, then calculate a **mean**. Look for anomalous results and judge spread (for example with the range or standard deviation).
+- With **secondary data**, you may be given a table or graph: calculate rates from the change over a given time, or from a tangent, and always give units.
+
+<Callout type="exam">
+
+When calculating a rate, show the working (Δ*y* ÷ Δ*x* from your tangent), give **units**, and say which time interval you used. "Rate = 1/time" has units of s⁻¹ (or min⁻¹).
+
+</Callout>
+
+</Section>
+
+<Section id="activation-energy" title="Enzymes lower activation energy" level="SL" covers="C1.1.10">
+
+In a chemical reaction, bonds in the substrate are broken and new bonds are made to form the products.
+
+- **Breaking bonds requires energy.** Before any reaction can happen, the substrate must gain enough energy to reach an unstable **transition state** in which its bonds are weakened. This energy is the **activation energy**.
+- **Making bonds releases energy.** As the products form, energy is given out.
+
+In an **exothermic** reaction, such as the hydrolysis or oxidation reactions of catabolism, more energy is released when product bonds form than is taken in to break substrate bonds, so the products have less energy than the substrate and there is an overall **energy yield**.
+
+<Figure name="c1-1-activation-energy" caption="Energy profile of an exothermic reaction. The enzyme gives a lower peak (smaller activation energy), but the substrate and product levels — and so the overall energy released — are unchanged." />
+
+### How enzymes help
+
+Binding in the active site lowers the activation energy, for example by straining the bonds to be broken (induced fit) or holding reacting groups close together in the right orientation. Because less energy is needed, a much larger share of collisions leads to a reaction at body temperature. The enzyme **does not change** the energy of the substrate or products, so it does not change how much energy the reaction releases.
+
+<Callout type="exam" title="Interpreting energy diagrams">
+
+On an energy diagram, the activation energy is measured from the **substrate level** up to the **peak**, not from the bottom of the graph. The overall energy change is the difference between the substrate and product levels, and it is the same with or without the enzyme.
+
+</Callout>
+
+</Section>
+
+<Section id="location" title="Where reactions happen, and heat from metabolism" level="AHL" covers="C1.1.11 C1.1.12">
+
+### Intracellular and extracellular reactions
+
+Most enzymes work **inside cells** (intracellular), but some are secreted to work **outside** (extracellular).
+
+| | Intracellular | Extracellular |
+|---|---|---|
+| Where | Cytoplasm or inside organelles | Outside the cell that made the enzyme |
+| Examples | **Glycolysis** in the cytoplasm; the **Krebs cycle** in the mitochondrial matrix | **Chemical digestion** in the gut lumen: amylase, pepsin, trypsin, lipase |
+| How the enzyme gets there | Made and kept in the cell (or imported into the organelle) | Made on rough ER, then secreted by exocytosis |
+
+Extracellular digestion is needed because food macromolecules are too large to be absorbed; they must be hydrolysed into monomers first. Saprotrophic fungi and bacteria do the same, secreting enzymes onto their food.
+
+### Heat is generated by metabolism
+
+Energy transfers in metabolism are never 100% efficient. When glucose is oxidized in respiration, only part of the energy released is captured in ATP, and when ATP is used for muscle contraction or active transport, more energy is lost. The rest is converted to **heat**. Heat production is therefore an **inevitable** result of metabolism.
+
+**Mammals and birds** use this heat to keep their body temperature high and constant (**endotherms**). They have high metabolic rates and insulation (fur, feathers, fat) to retain the heat. Some other animals also depend on metabolic heat: for example, bumblebees warm their flight muscles by shivering before take-off, and some large fish such as tuna keep their swimming muscles warmer than the surrounding water.
+
+<Callout type="note">
+
+Heat generated by metabolism links to the effect of temperature on enzymes: keeping the body close to the optimum keeps reaction rates high and stable (see <TopicLink code="D3.3" />).
+
+</Callout>
+
+</Section>
+
+<Section id="pathways" title="Linear and cyclical pathways" level="AHL" covers="C1.1.13">
+
+Metabolic reactions are organized into **pathways**: sequences of reactions, each catalysed by a different enzyme, in which the product of one reaction is the substrate for the next.
+
+- In a **linear pathway** a starting compound is converted through a series of intermediates into an end product that is different from the start. **Glycolysis** is linear: glucose (6C) is converted in ten enzyme-catalysed steps into two molecules of pyruvate (3C).
+- In a **cyclical pathway** the compound that accepts the incoming substrate is **regenerated** at the end of each turn, so the cycle can run again.
+  - **Krebs cycle**: an acetyl group (2C) joins oxaloacetate (4C) to form citrate (6C). In later reactions two carbon dioxide molecules are removed and oxaloacetate is regenerated.
+  - **Calvin cycle**: carbon dioxide joins ribulose bisphosphate (RuBP, 5C) to form two molecules of glycerate 3-phosphate (3C), which are converted to triose phosphate. Some triose phosphate is used to make glucose and other compounds; the rest regenerates RuBP.
+
+<Figure name="c1-1-pathways" level="AHL" caption="Glycolysis is linear: glucose ends up as pyruvate. The Krebs and Calvin cycles are cyclical: oxaloacetate and RuBP are regenerated with each turn." />
+
+In a cycle only small amounts of each intermediate are needed, because they are constantly regenerated. Details of these pathways are in <TopicLink code="C1.2" /> and <TopicLink code="C1.3" />.
+
+</Section>
+
+<Section id="inhibition" title="Allosteric and competitive inhibition" level="AHL" covers="C1.1.14 C1.1.15">
+
+An **inhibitor** is a substance that binds to an enzyme and reduces its activity. Many inhibitors bind **reversibly**: they attach and detach repeatedly.
+
+### Non-competitive (allosteric) inhibition
+
+Many enzymes have an **allosteric site**, a binding site separate from the active site. Only specific substances fit it, because, like the active site, its shape and chemistry are complementary to them.
+
+- When the inhibitor binds the allosteric site, it causes interactions within the enzyme that change its **conformation**.
+- The change alters the active site enough to **prevent catalysis** (the substrate may still bind, but is not converted).
+- Binding is **reversible**: when the inhibitor detaches, the enzyme returns to its active shape.
+
+Inhibitor and substrate bind to different sites, so they do not compete. Raising the substrate concentration cannot displace the inhibitor, so a fixed share of enzyme molecules stays inactive and the **maximum rate is lowered**. IB treats inhibition at an allosteric site as **non-competitive** inhibition.
+
+### Competitive inhibition
+
+A **competitive inhibitor** has a shape and chemistry similar to the substrate, so it can bind **reversibly to the active site** itself. While it is bound, the substrate cannot bind. Whenever an active site becomes vacant, random collisions decide whether a substrate or an inhibitor molecule binds next, so the effect depends on their relative concentrations. At high substrate concentrations a substrate molecule is far more likely to win, so the rate approaches the **same maximum** as without the inhibitor.
+
+**Statins** are an example. They are competitive inhibitors of **HMG-CoA reductase**, the enzyme that catalyses the key controlling step in cholesterol synthesis in the liver. Part of each statin molecule resembles the substrate, HMG-CoA, so it occupies the active site. Less cholesterol is made, the blood concentration of LDL cholesterol falls, and the risk of atherosclerosis and coronary heart disease is reduced.
+
+<Sim topic="c1-1" id="inhibition" />
+
+| | Competitive | Non-competitive (allosteric) |
+|---|---|---|
+| Where the inhibitor binds | Active site | Allosteric site |
+| Resembles the substrate? | Yes | No |
+| Effect of raising [substrate] | Inhibition reduced; same maximum rate reached | Inhibition not overcome; maximum rate lower |
+| Example | Statins on HMG-CoA reductase | Isoleucine on threonine deaminase |
+
+<Callout type="exam">
+
+To identify the type of inhibition from a graph, look at **high substrate concentrations**: if the inhibited curve approaches the uninhibited maximum, the inhibition is competitive; if it levels off at a lower maximum, it is non-competitive.
+
+</Callout>
+
+</Section>
+
+<Section id="feedback" title="End-product inhibition" level="AHL" covers="C1.1.16">
+
+Cells must make each product at the rate it is needed: too little and processes stop, too much and resources are wasted. Many pathways are controlled by **end-product (feedback) inhibition**: the **final product** of a pathway inhibits the enzyme that catalyses the **first** step.
+
+### The isoleucine pathway
+
+In bacteria and plants the amino acid **isoleucine** is made from another amino acid, **threonine**, in a pathway of five enzyme-catalysed steps. The first enzyme is **threonine deaminase**.
+
+- Isoleucine binds to an **allosteric site** on threonine deaminase. This is non-competitive inhibition: it changes the enzyme's conformation so threonine is no longer converted.
+- When isoleucine **accumulates**, more threonine deaminase molecules are inhibited, so the whole pathway slows or stops.
+- Because the **first** step is inhibited, **intermediates do not build up** and threonine is not wasted.
+- When isoleucine is used up, for example in protein synthesis, its concentration falls. Isoleucine detaches (binding is reversible), the enzyme becomes active again and the pathway restarts.
+
+<Anim topic="c1-1" id="feedback" />
+
+This is an example of **negative feedback**: a change in the level of the end product triggers a response that reverses the change, so the concentration of isoleucine is kept fairly stable.
+
+<Callout type="exam">
+
+Name the pathway, the inhibited enzyme and the inhibitor: "**isoleucine** inhibits **threonine deaminase**, the enzyme of the first step in the pathway from threonine". Say that it binds the **allosteric** site and that binding is **reversible**.
+
+</Callout>
+
+</Section>
+
+<Section id="mechanism" title="Mechanism-based inhibition: penicillin" level="AHL" covers="C1.1.17">
+
+Some inhibitors bind to the active site **irreversibly**. In **mechanism-based inhibition**, the inhibitor enters the active site and begins to react as a substrate would, but the reaction forms a **covalent bond** between the inhibitor and an amino acid of the active site. This chemical change to the active site is permanent, so each enzyme molecule is inactivated for good.
+
+### Penicillin
+
+**Penicillin** is an antibiotic first obtained from the fungus *Penicillium*. It inhibits **transpeptidases**, bacterial enzymes that make the **cross-links** between the peptide chains of neighbouring peptidoglycan strands in the bacterial cell wall.
+
+1. Penicillin resembles the part of the peptide chain that transpeptidase normally binds, so it enters the active site.
+2. It reacts with a **serine** in the active site and becomes **covalently bonded** to it. The enzyme is permanently inactivated.
+3. A growing bacterium can no longer cross-link new peptidoglycan, so its **cell wall is weakened**.
+4. Water enters the cell by osmosis, and with a weak wall the cell **bursts** and dies.
+
+Human cells have no cell walls or transpeptidases, which is why penicillin can kill bacteria without harming us.
+
+<Anim topic="c1-1" id="penicillin" />
+
+### Resistance
+
+Some bacteria have **altered transpeptidases**. **Mutations** in the genes for these enzymes change amino acids in or near the active site, so penicillin binds poorly or not at all, but the enzyme can still make cross-links. In MRSA, for example, an extra transpeptidase with low affinity for penicillin-type antibiotics keeps building the wall when the normal enzymes are blocked. Other bacteria resist penicillin in different ways, such as making an enzyme (β-lactamase) that breaks it down, but the change to transpeptidases is the one you need for this understanding.
+
+<Callout type="exam">
+
+Use the words **irreversible**, **covalent bond** and **active site** for mechanism-based inhibition, and link penicillin to **transpeptidase**, **cross-links** and **cell wall** in that order. For resistance, say the **active site of the transpeptidase has changed** so penicillin no longer binds.
+
+</Callout>
+
+</Section>

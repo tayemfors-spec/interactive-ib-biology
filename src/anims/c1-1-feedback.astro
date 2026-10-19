@@ -1,0 +1,82 @@
+---
+/**
+ * End-product inhibition of the isoleucine pathway (C1.1.16). Drawn in the step-1 start state
+ * (isoleucine scarce, pathway running); animated by c1-1-feedback.ts.
+ * Threonine → isoleucine takes five enzyme-catalysed steps (four intermediates). Isoleucine binds
+ * an allosteric site on the first enzyme, threonine deaminase, and inhibits it.
+ */
+const mets = ['Threonine', 'Intermediate 1', 'Intermediate 2', 'Intermediate 3', 'Intermediate 4', 'Isoleucine'];
+const Y0 = 50, DY = 64;
+const enzymes = ['threonine deaminase', 'enzyme 2', 'enzyme 3', 'enzyme 4', 'enzyme 5'];
+---
+<svg viewBox="0 0 520 420" xmlns="http://www.w3.org/2000/svg" class="fb">
+  <text class="head" x="70" y="22">Pathway in the cell</text>
+  {mets.map((m, i) => (
+    <g>
+      <rect class={i === 0 ? 'met start' : i === 5 ? 'met end' : 'met'} x="60" y={Y0 + i * DY - 17} width="140" height="34" rx="8" />
+      <text class="mtxt" x="130" y={Y0 + i * DY} dy="0.35em" text-anchor="middle">{m}</text>
+    </g>
+  ))}
+  {enzymes.map((e, i) => (
+    <g>
+      <path class="step" data-el={`arrow${i}`} d={`M130 ${Y0 + i * DY + 18} L130 ${Y0 + (i + 1) * DY - 22}`} marker-end="url(#fb-arr)" />
+      <text class={i === 0 ? 'etxt e1' : 'etxt'} x="140" y={Y0 + i * DY + DY / 2 + 1} dy="0.35em">{e}</text>
+    </g>
+  ))}
+  <path data-el="stop" class="stop" style="opacity:0" d="M120 76 L140 96 M140 76 L120 96" />
+  <path data-el="feedback" class="feedback" style="opacity:0.25" d="M60 370 C22 370 22 82 112 82" marker-end="url(#fb-arr-red)" />
+  <text data-el="fbtext" class="fbtxt" style="opacity:0.25" x="12" y="230" transform="rotate(-90 12 230)" text-anchor="middle">isoleucine inhibits enzyme 1</text>
+
+  <text class="head" x="290" y="22">Enzyme 1: threonine deaminase</text>
+  <g transform="translate(378 138)">
+    <path data-el="eActive" class="enz" d="M-46 -40 L-30 -20 L-12 -24 L-6 -48 C30 -64 70 -30 62 0 L44 6 L44 22 L58 26 C52 52 20 66 -10 60 C-52 56 -76 20 -66 -10 C-60 -30 -54 -40 -46 -40 Z" />
+    <path data-el="eInhib" class="enz" style="opacity:0" d="M-46 -40 L-34 -34 L-20 -40 L-6 -48 C30 -64 70 -30 62 0 L50 8 L50 20 L58 26 C52 52 20 66 -10 60 C-52 56 -76 20 -66 -10 C-60 -30 -54 -40 -46 -40 Z" />
+    <g data-el="thr" transform="translate(-24 -33)"><path class="thr" d="M-17 -12 L17 -12 L12 8 L-12 8 Z" /><text class="mol" y="-2" text-anchor="middle" dy="0.35em">Thr</text></g>
+    <text class="site" x="-80" y="-58">active site</text>
+    <text class="site" x="72" y="-30">allosteric</text>
+    <text class="site" x="72" y="-15">site</text>
+  </g>
+
+  <text class="head" x="290" y="248">Isoleucine in the cell</text>
+  <rect class="gauge" x="290" y="258" width="210" height="22" rx="6" />
+  <rect data-el="level" class="level" x="290" y="258" width="40" height="22" rx="6" />
+  <text class="small" x="290" y="298">low</text>
+  <text class="small" x="500" y="298" text-anchor="end">high</text>
+  <g data-el="ile" transform="translate(320 335)"><circle class="ile" r="15" /><text class="mol w" text-anchor="middle" dy="0.35em">Ile</text></g>
+  <text class="small" x="290" y="378">used in protein synthesis</text>
+  <path class="use" d="M460 374 L505 374" marker-end="url(#fb-arr)" />
+  <text data-el="status" class="status" x="290" y="410">Pathway running</text>
+  <defs>
+    <marker id="fb-arr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker>
+    <marker id="fb-arr-red" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ahr" /></marker>
+  </defs>
+</svg>
+<style>
+  .fb { font-family: var(--font-sans); }
+  .head { font-size: 13.5px; font-weight: 800; fill: var(--text); }
+  .met { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.5; }
+  .met.start { fill: color-mix(in srgb, var(--bio-glucose) 30%, var(--surface)); stroke: var(--bio-glucose); }
+  .met.end { fill: color-mix(in srgb, var(--bio-k) 25%, var(--surface)); stroke: var(--bio-k); }
+  .mtxt { font-size: 14px; font-weight: 650; fill: var(--text); }
+  .etxt { font-size: 12.5px; fill: var(--text-muted); font-style: italic; }
+  .etxt.e1 { font-weight: 700; fill: var(--text); font-style: normal; }
+  .step { stroke: var(--accent); stroke-width: 3; stroke-dasharray: 6 4; fill: none; }
+  .step.off { stroke: var(--text-muted); opacity: 0.4; stroke-dasharray: none; }
+  .stop { stroke: var(--bad); stroke-width: 4; stroke-linecap: round; }
+  .feedback { fill: none; stroke: var(--bad); stroke-width: 2.5; stroke-dasharray: 7 4; }
+  .fbtxt { font-size: 12.5px; font-weight: 700; fill: var(--bad); }
+  .enz { fill: color-mix(in srgb, var(--bio-protein) 35%, var(--surface)); stroke: var(--bio-protein); stroke-width: 2; }
+  .thr { fill: color-mix(in srgb, var(--bio-glucose) 55%, var(--surface)); stroke: var(--text); stroke-width: 1.5; }
+  .mol { font-size: 12px; font-weight: 800; fill: var(--text); }
+  .mol.w { fill: #fff; }
+  .ile { fill: var(--bio-k); stroke: var(--text); stroke-width: 1.2; }
+  .site { font-size: 12.5px; fill: var(--text-muted); }
+  .gauge { fill: var(--surface); stroke: var(--border-strong); }
+  .level { fill: color-mix(in srgb, var(--bio-k) 60%, var(--surface)); }
+  .small { font-size: 12.5px; fill: var(--text-muted); }
+  .use { stroke: var(--text-muted); stroke-width: 2; }
+  .status { font-size: 14px; font-weight: 800; fill: var(--accent-strong); }
+  .status.off { fill: var(--bad); }
+  .ah { fill: var(--text-muted); }
+  .ahr { fill: var(--bad); }
+</style>
