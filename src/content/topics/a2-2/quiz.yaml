@@ -1,0 +1,202 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: A2.2.2
+    stem: >-
+      In an electron micrograph a mitochondrion is 45 mm long. The magnification of the micrograph is ×15,000.
+      What is the actual length of the mitochondrion?
+    options:
+      - id: a
+        text: 3 µm
+        why: Correct. 45 mm = 45,000 µm, and actual size = image size ÷ magnification = 45,000 µm ÷ 15,000 = 3 µm, a sensible length for a mitochondrion.
+      - id: b
+        text: 0.3 µm
+        why: This comes from an error in converting units. 45 mm is 45,000 µm, not 4,500 µm.
+      - id: c
+        text: 675 µm
+        why: This multiplies the measured length by the magnification and loses the units. To find the actual size you divide the image size by the magnification.
+      - id: d
+        text: 3 mm
+        why: The arithmetic 45 ÷ 15,000 has been done in mm, giving 0.003 mm, which is 3 µm, not 3 mm. A 3 mm mitochondrion would be visible to the naked eye.
+    answer: a
+
+  - id: q2
+    level: SL
+    understanding: A2.2.3
+    stem: >-
+      Two ribosomes are 30 nm apart. However far a light-microscope image of them is enlarged, they cannot be seen
+      as two separate objects. Which explains this?
+    options:
+      - id: a
+        text: Light microscopes cannot magnify by more than ×400.
+        why: Light microscopes can magnify up to about ×1,500, and in any case extra magnification would not help. The limit here is resolution, not magnification.
+      - id: b
+        text: Points closer together than about 200 nm cannot be resolved with light.
+        why: Correct. The resolution of a light microscope is about 0.2 µm (200 nm), set by the wavelength of light. Objects 30 nm apart blur into one, however much the image is magnified.
+      - id: c
+        text: Ribosomes are transparent unless they are stained.
+        why: Staining adds contrast, but it does not improve resolution. Even stained ribosomes 30 nm apart could not be told apart with light.
+      - id: d
+        text: The light used to view them destroys the ribosomes.
+        why: Visible light does not destroy ribosomes. The problem is that its wavelength is too long to resolve such close objects; electrons, with a much shorter wavelength, can.
+    answer: b
+
+  - id: q3
+    level: SL
+    understanding: A2.2.3
+    stem: >-
+      A researcher wants to find out where one particular protein is located inside cells, using a light microscope.
+      Which technique should be used?
+    options:
+      - id: a
+        text: Freeze fracture
+        why: Freeze fracture produces replicas of surfaces inside frozen cells, especially the inner faces of membranes, which are viewed with an electron microscope. It does not identify one specific protein.
+      - id: b
+        text: Cryogenic electron microscopy
+        why: Cryo-EM is used to work out the 3D structure of purified molecules such as proteins, with an electron microscope. It does not show where a protein is located in whole cells under a light microscope.
+      - id: c
+        text: Immunofluorescence
+        why: Correct. Antibodies that bind only the chosen protein are tagged with a fluorescent dye, so the protein glows wherever it is in the cell when viewed with a fluorescence light microscope.
+      - id: d
+        text: Staining with methylene blue
+        why: Methylene blue binds DNA and stains nuclei generally. It is not specific to one protein.
+    answer: c
+
+  - id: q4
+    level: SL
+    understanding: A2.2.5
+    stem: Which pair of structures is found in a cell of Staphylococcus, a Gram-positive bacterium?
+    options:
+      - id: a
+        text: 70S ribosomes and naked DNA in a loop
+        why: Correct. Like other prokaryotes, Staphylococcus has 70S ribosomes and one circular chromosome that is not bound to histones, in the nucleoid region.
+      - id: b
+        text: 80S ribosomes and a nucleoid
+        why: The nucleoid is right, but prokaryotes have the smaller 70S ribosomes. 80S ribosomes are found in eukaryotic cytoplasm.
+      - id: c
+        text: Mitochondria and a plasma membrane
+        why: Prokaryotes have a plasma membrane, but no membrane-bound organelles such as mitochondria. Their respiration enzymes are in the cytoplasm and plasma membrane.
+      - id: d
+        text: A cell wall of cellulose and a plasma membrane
+        why: Bacterial cell walls are made of peptidoglycan, not cellulose. Cellulose walls are found in plant cells.
+    answer: a
+
+  - id: q5
+    level: SL
+    understanding: A2.2.10
+    stem: >-
+      In an electron micrograph, an organelle about 3 µm long has two membranes. The inner membrane is folded
+      into many projections reaching into a darkly stained fluid. What is the organelle?
+    options:
+      - id: a
+        text: Chloroplast
+        why: Chloroplasts also have two membranes, but inside they contain stacks of thylakoids (grana), not infoldings of the inner membrane.
+      - id: b
+        text: Nucleus
+        why: The nucleus has a double membrane, but it is perforated by pores and contains grainy chromatin and a nucleolus, not folds of the inner membrane.
+      - id: c
+        text: Golgi apparatus
+        why: The Golgi apparatus is a stack of curved sacs, each bounded by a single membrane, with vesicles at its edges.
+      - id: d
+        text: Mitochondrion
+        why: Correct. A mitochondrion has a double membrane whose inner membrane is folded into cristae, projecting into the matrix, which often stains darker than the cytoplasm.
+    answer: d
+
+  - id: q6
+    level: SL
+    understanding: A2.2.8
+    stem: >-
+      A eukaryotic cell has a cell wall and a large permanent vacuole. It has no plastids, and it stores carbohydrate
+      as glycogen. What type of cell is it most likely to be?
+    options:
+      - id: a
+        text: An animal cell
+        why: Animal cells store glycogen, but they have no cell wall and only small, temporary vacuoles.
+      - id: b
+        text: A plant root cell
+        why: Root cells lack chloroplasts, but they still have other plastids (amyloplasts) and store starch, not glycogen.
+      - id: c
+        text: A bacterium
+        why: The cell is described as eukaryotic, and bacteria have no membrane-bound vacuole.
+      - id: d
+        text: A fungal cell
+        why: Correct. Fungal cells have a cell wall (of chitin) and often large vacuoles, but no plastids, and like animals they store glycogen.
+    answer: d
+
+  - id: q7
+    level: SL
+    understanding: A2.2.9
+    stem: Which of these cells contains many nuclei?
+    options:
+      - id: a
+        text: A mammalian red blood cell
+        why: Mammalian red blood cells lose their nucleus as they mature, so they have none.
+      - id: b
+        text: A skeletal muscle fibre
+        why: Correct. A muscle fibre forms when many embryonic cells fuse, so it has many nuclei in one continuous cytoplasm.
+      - id: c
+        text: A mature phloem sieve tube element
+        why: The nucleus breaks down as a sieve tube element matures, so it has none; it depends on its companion cell.
+      - id: d
+        text: A phloem companion cell
+        why: A companion cell is a typical cell with one nucleus, which supports the sieve tube element next to it.
+    answer: b
+
+  - id: q8
+    level: AHL
+    understanding: A2.2.12
+    stem: Which observation provides evidence for the endosymbiotic origin of chloroplasts?
+    options:
+      - id: a
+        text: Chloroplasts contain 80S ribosomes like those in the cytoplasm.
+        why: Chloroplasts contain 70S ribosomes, like bacteria. If they had 80S ribosomes this would not support the theory.
+      - id: b
+        text: Chloroplasts are bounded by a single membrane.
+        why: Chloroplasts have a double membrane, which is part of the evidence, because a bacterium taken in by endocytosis ends up inside a second, vesicle membrane.
+      - id: c
+        text: A cell can make new chloroplasts from its endoplasmic reticulum.
+        why: This is false. New chloroplasts form only when existing ones divide, which is itself evidence that they were once independent organisms.
+      - id: d
+        text: Chloroplasts have naked, circular DNA and divide by binary fission.
+        why: Correct. Both features are characteristic of bacteria, and specifically of the cyanobacteria from which chloroplasts are thought to have evolved.
+    answer: d
+
+  - id: q9
+    level: AHL
+    understanding: A2.2.13
+    stem: >-
+      A liver cell and a neuron from the same person look very different and carry out different functions. What is
+      the main reason for this?
+    options:
+      - id: a
+        text: Each cell type has lost the genes it does not need.
+        why: Differentiated cells keep the full genome; the unused genes are not lost, just not expressed.
+      - id: b
+        text: Different genes are expressed in each type of cell.
+        why: Correct. Both cells contain the same genes, but different sets are switched on, triggered by signals during development, so they make different proteins.
+      - id: c
+        text: The two cells contain different numbers of chromosomes.
+        why: Body cells of the same person have the same number of chromosomes (46 in humans).
+      - id: d
+        text: Mutations in the developing cells changed their genes.
+        why: Random mutations do not explain the regular, predictable development of cell types; differentiation depends on controlled gene expression.
+    answer: b
+
+  - id: q10
+    level: AHL
+    understanding: A2.2.14
+    stem: Which statement about the evolution of multicellularity is correct?
+    options:
+      - id: a
+        text: It evolved once, in the common ancestor of animals, plants and fungi.
+        why: Multicellularity evolved independently in animals, in plants, several times in fungi and several times in algae. It did not arise just once.
+      - id: b
+        text: All fungi and all algae are multicellular.
+        why: Many fungi (such as yeasts) and many algae (such as Chlamydomonas) are unicellular. All plants and all animals, however, are multicellular.
+      - id: c
+        text: It has evolved repeatedly, and it allows larger body size and cell specialization.
+        why: Correct. Multicellularity arose independently in several lineages, and its advantages include a larger body and the differentiation of cells for different functions.
+      - id: d
+        text: It evolved so that organisms would no longer need to divide their cells.
+        why: Multicellular organisms grow by cell division (mitosis); multicellularity depends on dividing cells that stay together.
+    answer: c

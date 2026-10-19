@@ -1,0 +1,97 @@
+---
+/**
+ * Atypical eukaryotic cells compared by number of nuclei (A2.2.9). Four small drawings, each with an HTML
+ * caption so the text stays readable at phone width.
+ */
+const stripes = Array.from({ length: 40 }, (_, i) => 22 + i * 8);
+const muscleNuclei = [40, 92, 150, 205, 262, 318].map((x, i) => ({ x, y: i % 2 ? 112 : 66 }));
+const hyphaNuclei = [[44, 92], [86, 100], [128, 88], [170, 98], [214, 90], [252, 100], [296, 92], [244, 60], [262, 30]];
+const sievePores = [56, 66, 76, 86, 96, 106, 116];
+---
+<div class="atyp">
+  <div class="panel">
+    <svg viewBox="0 0 360 170" role="img" aria-labelledby="at-rbc">
+      <title id="at-rbc">Red blood cell in face view and cut through, with no nucleus</title>
+      <circle class="rbc" cx="80" cy="85" r="58" />
+      <circle class="rbc-c" cx="80" cy="85" r="26" />
+      <path class="rbc" d="M200 60 C200 40 240 40 258 54 C268 62 282 62 292 54 C310 40 346 42 346 62 L346 108 C346 128 310 130 292 116 C282 108 268 108 258 116 C240 130 200 128 200 108 Z" />
+      <text class="t" x="80" y="160" text-anchor="middle">face view</text>
+      <text class="t" x="273" y="160" text-anchor="middle">cut through</text>
+      <text class="t" x="273" y="30" text-anchor="middle">biconcave disc</text>
+    </svg>
+    <p class="cap"><strong>Red blood cell</strong> (mammals) <span class="count">0 nuclei</span></p>
+    <p class="note">The nucleus (and the mitochondria) are lost as the cell matures, leaving more room for haemoglobin. Without DNA it cannot make new proteins, so it lives only about 120 days.</p>
+  </div>
+
+  <div class="panel">
+    <svg viewBox="0 0 360 170" role="img" aria-labelledby="at-st">
+      <title id="at-st">Phloem sieve tube element with sieve plates and no nucleus, beside a companion cell with a nucleus</title>
+      <rect class="sieve" x="40" y="38" width="250" height="80" />
+      <path class="plate" d="M40 38 V118 M290 38 V118" />
+      {sievePores.map((y) => <><rect class="pore" x="36" y={y - 1} width="8" height="5" /><rect class="pore" x="286" y={y - 1} width="8" height="5" /></>)}
+      <path class="flow" d="M80 78 H250" />
+      <rect class="comp" x="90" y="122" width="170" height="34" rx="6" />
+      <ellipse class="nuc" cx="175" cy="139" rx="20" ry="11" />
+      <circle class="mito" cx="118" cy="135" r="4" /><circle class="mito" cx="140" cy="146" r="4" /><circle class="mito" cx="214" cy="133" r="4" /><circle class="mito" cx="236" cy="146" r="4" />
+      <path class="pd" d="M120 118 v6 M160 118 v6 M200 118 v6 M240 118 v6" />
+      <text class="t" x="165" y="28" text-anchor="middle">sieve plates at each end</text>
+      <text class="t" x="165" y="96" text-anchor="middle">sap flows</text>
+    </svg>
+    <p class="cap"><strong>Phloem sieve tube element</strong> <span class="count">0 nuclei</span></p>
+    <p class="note">At maturity it has no nucleus and very few organelles, so sap flows freely from element to element through the sieve plates. A companion cell with a nucleus supplies its proteins through plasmodesmata.</p>
+  </div>
+
+  <div class="panel">
+    <svg viewBox="0 0 360 170" role="img" aria-labelledby="at-mus">
+      <title id="at-mus">Part of a skeletal muscle fibre with striations and many nuclei</title>
+      <rect class="fibre" x="14" y="52" width="332" height="74" rx="30" />
+      <g class="stripes">{stripes.map((x) => <path d={`M${x} 56 V122`} />)}</g>
+      {muscleNuclei.map((n) => <ellipse class="nuc" cx={n.x} cy={n.y} rx="16" ry="6" />)}
+      <text class="t" x="180" y="30" text-anchor="middle">one fibre, one plasma membrane</text>
+      <text class="t" x="180" y="152" text-anchor="middle">nuclei lie just under the membrane</text>
+    </svg>
+    <p class="cap"><strong>Skeletal muscle fibre</strong> <span class="count">many nuclei</span></p>
+    <p class="note">Formed when many embryonic muscle cells fuse, so one fibre can be centimetres long and contain hundreds of nuclei in a continuous cytoplasm.</p>
+  </div>
+
+  <div class="panel">
+    <svg viewBox="0 0 360 170" role="img" aria-labelledby="at-hy">
+      <title id="at-hy">Aseptate fungal hypha with no cross-walls and many nuclei</title>
+      <path class="hypha" d="M10 78 H340 V112 H10 Z" />
+      <path class="hypha" d="M226 80 C236 54 248 30 252 12 L276 14 C270 36 258 62 252 80 Z" />
+      <path class="hypha-in" d="M10 80 H226 C236 54 248 30 252 14 L276 14 C270 36 258 62 252 80 H340 M10 110 H340" />
+      {hyphaNuclei.map(([x, y]) => <ellipse class="nuc" cx={x} cy={y} rx="7" ry="5" />)}
+      <ellipse class="vac" cx="64" cy="95" rx="14" ry="7" /><ellipse class="vac" cx="190" cy="95" rx="12" ry="7" />
+      <text class="t" x="110" y="140" text-anchor="middle">no septa (cross-walls)</text>
+      <text class="t" x="300" y="56" text-anchor="middle">branch</text>
+    </svg>
+    <p class="cap"><strong>Aseptate fungal hypha</strong> <span class="count">many nuclei</span></p>
+    <p class="note">The hypha is not divided into cells, so many nuclei share one continuous cytoplasm inside a single wall, as in <em>Rhizopus</em>. Septate hyphae are divided by septa with pores.</p>
+  </div>
+</div>
+
+<style>
+  .atyp { display: grid; gap: var(--space-4); }
+  @media (min-width: 46rem) { .atyp { grid-template-columns: 1fr 1fr; } }
+  .panel { display: grid; gap: var(--space-1); align-content: start; }
+  .panel svg { font-family: var(--font-sans); }
+  .cap { margin: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .count { font-size: 0.78rem; font-weight: 800; padding: 0.05rem 0.5rem; border-radius: 999px; background: var(--accent-soft); color: var(--accent-strong); }
+  .note { margin: 0; font-size: var(--step--1); color: var(--text-muted); }
+  .t { font-size: 13px; fill: var(--text-muted); }
+  .rbc { fill: color-mix(in srgb, var(--bio-k) 50%, var(--surface)); stroke: var(--bio-k); stroke-width: 2; }
+  .rbc-c { fill: color-mix(in srgb, var(--bio-k) 28%, var(--surface)); }
+  .sieve { fill: var(--surface); stroke: var(--text); stroke-width: 3; }
+  .plate { stroke: var(--text); stroke-width: 6; }
+  .pore { fill: var(--surface); }
+  .flow { stroke: var(--bio-glucose); stroke-width: 3; stroke-dasharray: 8 6; marker-end: none; }
+  .comp { fill: color-mix(in srgb, var(--bio-protein) 12%, var(--surface)); stroke: var(--text); stroke-width: 2; }
+  .nuc { fill: color-mix(in srgb, var(--bio-na) 60%, var(--surface)); stroke: var(--bio-na); stroke-width: 1.5; }
+  .mito { fill: color-mix(in srgb, var(--bio-chol) 50%, var(--surface)); }
+  .pd { stroke: var(--bio-head); stroke-width: 2; }
+  .fibre { fill: color-mix(in srgb, var(--bio-chol) 18%, var(--surface)); stroke: var(--bio-head); stroke-width: 2.4; }
+  .stripes path { stroke: color-mix(in srgb, var(--bio-chol) 45%, var(--surface)); stroke-width: 3.5; }
+  .hypha { fill: color-mix(in srgb, var(--bio-tail) 30%, var(--surface)); stroke: none; }
+  .hypha-in { fill: none; stroke: var(--text); stroke-width: 2.2; }
+  .vac { fill: color-mix(in srgb, var(--bio-water) 18%, var(--surface)); stroke: var(--bio-water); stroke-width: 1.2; }
+</style>

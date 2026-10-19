@@ -1,0 +1,235 @@
+facts:
+  - id: f1
+    claim: All organisms consist of one or more cells; the cell is the smallest unit of life. A new organism can be predicted (deductively) to consist of cells.
+    where: ["index.mdx#cell-theory", "flashcards.yaml:c1", "index.mdx (mustKnow)"]
+    confidence: high
+    basis: IB guide A2.2.1 (including NOS on deductive reasoning); standard biology texts (Campbell)
+    status: checked
+  - id: f2
+    claim: Hooke described cork "cells" (Micrographia, 1665); Schleiden and Schwann generalised cells to all plant and animal tissues.
+    where: ["index.mdx#cell-theory"]
+    confidence: high
+    basis: History of biology (Campbell; Micrographia 1665; Schleiden 1838, Schwann 1839)
+    status: checked
+  - id: f3
+    claim: Methylene blue binds DNA (nucleic acids) and stains nuclei; iodine stains starch blue-black and is used to make plant cell nuclei visible (e.g. onion epidermis).
+    where: ["index.mdx#microscopy-skills", "quiz.yaml:q3"]
+    confidence: high
+    basis: Standard school practical protocols; methylene blue is a basic dye that binds acidic nucleic acids
+    status: checked
+  - id: f4
+    claim: Use coarse focus at low power, then fine focus; only fine focus at high power. Total magnification = eyepiece × objective (e.g. ×10 × ×40 = ×400).
+    where: ["index.mdx#microscopy-skills"]
+    confidence: high
+    basis: Standard light-microscope technique
+    status: checked
+  - id: f5
+    claim: An eyepiece graticule is calibrated against a stage micrometer (typically 1 mm divided into 100 divisions of 0.01 mm) separately for each objective. Worked example 40 units = 100 µm gives 2.5 µm per unit.
+    where: ["index.mdx#microscopy-skills", "flashcards.yaml:c3"]
+    confidence: high
+    basis: Standard practical method; arithmetic checked
+    status: checked
+  - id: f6
+    claim: Magnification = image size ÷ actual size; 1 mm = 1,000 µm; 1 µm = 1,000 nm; scale bar length = length represented × magnification (10 µm at ×2,000 = 20 mm; 5 µm at ×4,000 = 20 mm).
+    where: ["index.mdx#microscopy-skills", "flashcards.yaml:c2", "flashcards.yaml:c4", "visuals.yaml:magnification", "src/sims/models/a2-2-magnification.ts", "tests/unit/a2-2.test.ts"]
+    confidence: high
+    basis: Definition; arithmetic checked by unit tests
+    status: checked
+  - id: f7
+    claim: Quiz q1 — 45 mm at ×15,000 is 3 µm.
+    where: ["quiz.yaml:q1"]
+    confidence: high
+    basis: 45,000 µm ÷ 15,000 = 3 µm
+    status: checked
+  - id: f8
+    claim: Light microscope resolution is about 200 nm (0.2 µm), useful magnification up to about ×1,500; electron microscopes resolve about 1 nm or better for biological specimens (instrument limit ≈ 0.1 nm) and magnify ×500,000 or more.
+    where: ["index.mdx#microscopy-advances", "index.mdx (mustKnow, mistakes)", "quiz.yaml:q2", "flashcards.yaml:c5"]
+    confidence: high
+    basis: Abbe limit (~λ/2 for visible light); Alberts, Molecular Biology of the Cell (EM of biological specimens ~1–2 nm in practice)
+    status: checked
+  - id: f9
+    claim: Freeze fracture — rapid freezing, fracture along weak planes often through the middle of the bilayer, metal (platinum) shadowing at an angle plus carbon to form a replica, viewed by TEM; it revealed transmembrane proteins and supported the fluid mosaic model.
+    where: ["index.mdx#microscopy-advances", "flashcards.yaml:c6", "quiz.yaml:q3"]
+    confidence: high
+    basis: Alberts; Branton (1966) on membrane fracture faces
+    status: checked
+  - id: f10
+    claim: Cryo-EM — samples vitrified by plunging into liquid ethane; thousands of particle images combined computationally into 3D structures at near-atomic resolution; molecules unstained in near-native states and different conformations; SARS-CoV-2 spike structure solved by cryo-EM in early 2020 (Wrapp et al., Science, Feb 2020).
+    where: ["index.mdx#microscopy-advances", "flashcards.yaml:c6"]
+    confidence: high
+    basis: Nobel Prize in Chemistry 2017 (Dubochet, Frank, Henderson); Wrapp et al. 2020
+    status: checked
+  - id: f11
+    claim: Fluorescent stains absorb one wavelength and emit a longer one (DAPI binds DNA and fluoresces blue); immunofluorescence uses fluorescently tagged antibodies that bind a specific protein.
+    where: ["index.mdx#microscopy-advances", "flashcards.yaml:c7", "quiz.yaml:q3"]
+    confidence: high
+    basis: Stokes shift; standard cell biology techniques
+    status: checked
+  - id: f12
+    claim: All typical cells have DNA, a mainly watery cytoplasm and a lipid plasma membrane (plus ribosomes), with the stated reasons.
+    where: ["index.mdx#prokaryotes", "flashcards.yaml:c8"]
+    confidence: high
+    basis: IB guide A2.2.4; Campbell
+    status: checked
+  - id: f13
+    claim: Gram-positive bacteria have a thick peptidoglycan wall and no outer membrane; Gram-negative have a thin wall plus an outer membrane; mycoplasmas lack a wall.
+    where: ["index.mdx#prokaryotes", "visuals.yaml:cells/prokaryote wall", "flashcards.yaml:c9"]
+    confidence: high
+    basis: Standard microbiology (Brock, Biology of Microorganisms); IB guide A2.2.5
+    status: checked
+  - id: f14
+    claim: Bacillus is rod-shaped; Staphylococcus is spherical and grows in grape-like clusters; Bacillus species are typically flagellated (B. subtilis has several, peritrichous); Staphylococcus has no flagella.
+    where: ["index.mdx#prokaryotes", "visuals.yaml:cells/prokaryote flagellum"]
+    confidence: high
+    basis: Brock; standard descriptions of B. subtilis and S. aureus
+    status: checked
+  - id: f15
+    claim: Prokaryotic ribosomes are 70S (50S + 30S); eukaryotic cytoplasmic ribosomes are 80S (60S + 40S); S = svedberg, a sedimentation coefficient.
+    where: ["index.mdx (mustKnow, mistakes)", "index.mdx#eukaryotes", "visuals.yaml:cells", "quiz.yaml:q4", "flashcards.yaml:c9"]
+    confidence: high
+    basis: Alberts; standard
+    status: checked
+  - id: f16
+    claim: Mitochondrial ribosomes are bacterial-type but vary in size between groups (about 55S in mammals); IB calls them 70S.
+    where: ["index.mdx#endosymbiosis"]
+    confidence: medium
+    basis: Mammalian mitoribosome 55S (Greber & Ban 2016, Annu Rev Biochem); IB guide A2.2.12 says 70S
+    status: open
+  - id: f17
+    claim: Typical sizes — bacteria 1–5 µm (Bacillus ≈ 3 µm long, ≈ 1 µm wide; Staphylococcus ≈ 1 µm); eukaryotic cells 10–100 µm; nucleus ≈ 5–10 µm; mitochondria ≈ 1–4 µm long (0.5–1 µm wide); chloroplasts ≈ 5 µm (2–10 µm); 80S ribosome ≈ 25–30 nm; red blood cell ≈ 7.5 µm; cheek cell ≈ 60 µm; lysosome ≈ 0.1–1 µm; Paramecium ≈ 200 µm.
+    where: ["index.mdx#eukaryotes", "index.mdx#microscopy-skills", "src/sims/models/a2-2-magnification.ts (SPECIMENS)", "src/scenes/*.ts (scale comments)"]
+    confidence: medium
+    basis: Alberts; Campbell; typical textbook values — real values vary between species and cell types
+    status: open
+  - id: f18
+    claim: Eukaryotic nucleus — double membrane (envelope) with pores; outer membrane continuous with rough ER; chromosomes of linear DNA with histones; nucleolus assembles ribosome subunits, which leave via pores.
+    where: ["index.mdx#eukaryotes", "visuals.yaml:cells/animal nucleus, nucleolus, pore", "src/diagrams/a2-2-animal-em.astro"]
+    confidence: high
+    basis: Alberts; IB guide A2.2.6
+    status: checked
+  - id: f19
+    claim: Organelles by number of membranes — none (ribosomes, cytoskeleton, centrioles); one (ER, Golgi, vesicles, lysosomes, vacuoles); two (nucleus, mitochondria, chloroplasts).
+    where: ["index.mdx#eukaryotes", "flashcards.yaml:c10"]
+    confidence: high
+    basis: Standard cell biology
+    status: checked
+  - id: f20
+    claim: Microtubules are hollow tubes of tubulin; microfilaments are thinner actin filaments; centrioles are nine triplets of microtubules, a pair at right angles in the centrosome.
+    where: ["index.mdx#eukaryotes", "visuals.yaml:cells/animal centrioles, cytoskeleton"]
+    confidence: high
+    basis: Alberts
+    status: checked
+  - id: f21
+    claim: Smooth ER makes lipids (phospholipids, steroids), stores Ca²⁺ in some cells and detoxifies; Golgi modifies (e.g. glycosylates) and packages proteins; lysosomes contain hydrolytic enzymes.
+    where: ["visuals.yaml:cells/animal", "src/diagrams/a2-2-animal-em.astro"]
+    confidence: high
+    basis: Alberts
+    status: checked
+  - id: f22
+    claim: In plant cells, the Golgi makes non-cellulose wall polysaccharides (hemicelluloses, pectins); cellulose is synthesized at the plasma membrane by cellulose synthase complexes.
+    where: ["visuals.yaml:cells/plant golgi", "src/diagrams/a2-2-plant-em.astro"]
+    confidence: high
+    basis: Taiz & Zeiger, Plant Physiology
+    status: checked
+  - id: f23
+    claim: Paramecium — cilia for movement and feeding, food vacuoles, contractile vacuoles (osmoregulation), avoidance reaction, binary fission and conjugation. Chlamydomonas — two flagella, one cup-shaped chloroplast, eyespot (phototaxis towards moderate light), contractile vacuoles, asexual and sexual reproduction.
+    where: ["index.mdx#unicellular", "flashcards.yaml:c11"]
+    confidence: high
+    basis: Standard protist biology (Campbell; Harris, The Chlamydomonas Sourcebook)
+    status: checked
+  - id: f24
+    claim: Ammonia (as well as CO₂) diffuses out of Paramecium as a nitrogenous waste.
+    where: ["index.mdx#unicellular"]
+    confidence: medium
+    basis: Freshwater protists are generally ammonotelic
+    status: open
+  - id: f25
+    claim: Cell walls — animals none, fungi mainly chitin (with glucans), plants mainly cellulose, bacteria peptidoglycan. Storage carbohydrate — animals and fungi glycogen, plants starch.
+    where: ["index.mdx#cell-types", "index.mdx (mistakes)", "quiz.yaml:q4", "quiz.yaml:q6", "flashcards.yaml:c12", "visuals.yaml:cells"]
+    confidence: high
+    basis: Campbell; IB guide A2.2.8
+    status: checked
+  - id: f26
+    claim: Centrioles are present in animal cells and absent from most fungi and from flowering plants and conifers; motile sperm of mosses and ferns (also cycads, Ginkgo) have basal bodies and flagella; chytrid fungi have flagellated zoospores.
+    where: ["index.mdx#cell-types", "flashcards.yaml:c13", "visuals.yaml:cells/plant no-centrioles"]
+    confidence: high
+    basis: Campbell; Raven Biology of Plants; fungal phylogeny (chytrids retain flagella)
+    status: checked
+  - id: f27
+    claim: Plastids (chloroplasts, amyloplasts, chromoplasts) occur only in plants and algae; not all plant cells have chloroplasts (e.g. root cells), but nearly all have mitochondria.
+    where: ["index.mdx#cell-types", "index.mdx (mustKnow, mistakes)", "quiz.yaml:q6"]
+    confidence: high
+    basis: Taiz & Zeiger; Campbell
+    status: checked
+  - id: f28
+    claim: Mammalian red blood cells lose their nucleus (and mitochondria) during maturation and live about 120 days.
+    where: ["index.mdx#atypical", "src/diagrams/a2-2-atypical.astro", "quiz.yaml:q7", "flashcards.yaml:c14"]
+    confidence: high
+    basis: Standard physiology (Guyton & Hall)
+    status: checked
+  - id: f29
+    claim: Mature sieve tube elements lack a nucleus and most organelles and are supported by companion cells connected by plasmodesmata; sieve plates at the end walls.
+    where: ["index.mdx#atypical", "src/diagrams/a2-2-atypical.astro", "quiz.yaml:q7"]
+    confidence: high
+    basis: Taiz & Zeiger
+    status: checked
+  - id: f30
+    claim: Skeletal muscle fibres form by fusion of myoblasts, are multinucleate (hundreds of nuclei) and can be several centimetres long.
+    where: ["index.mdx#atypical", "src/diagrams/a2-2-atypical.astro", "quiz.yaml:q7"]
+    confidence: medium
+    basis: Standard histology; fibre length varies widely (mm to over 10 cm in long human muscles) — teacher may wish to confirm the wording
+    status: open
+  - id: f31
+    claim: Aseptate (coenocytic) hyphae lack septa and contain many nuclei, e.g. Rhizopus; septate fungi such as Penicillium have septa with central pores through which cytoplasm and nuclei can pass.
+    where: ["index.mdx#atypical", "visuals.yaml:cells/fungal", "src/diagrams/a2-2-atypical.astro"]
+    confidence: high
+    basis: Standard mycology (Webster & Weber, Introduction to Fungi)
+    status: checked
+  - id: f32
+    claim: Hyphae grow at their tips, where Golgi-derived vesicles accumulate (Spitzenkörper); vacuolation of older regions pushes cytoplasm forward.
+    where: ["visuals.yaml:cells/fungal tip, vesicles, vacuole"]
+    confidence: high
+    basis: Webster & Weber; Steinberg (2007) on hyphal tip growth
+    status: checked
+  - id: f33
+    claim: Appearance of structures in electron micrographs (table in index.mdx#micrographs) and drawing conventions (single line for single membranes, double for double membranes, thicker double line for walls, no shading, annotations with functions).
+    where: ["index.mdx#micrographs", "flashcards.yaml:c15", "src/diagrams/a2-2-animal-em.astro", "src/diagrams/a2-2-plant-em.astro", "src/diagrams/a2-2-prokaryote.astro"]
+    confidence: high
+    basis: IB guide A2.2.10–11; standard EM interpretation (Alberts)
+    status: checked
+  - id: f34
+    claim: Endosymbiosis — all eukaryotes descend from a nucleated, sexually reproducing unicellular ancestor; mitochondria came from an aerobic (alpha-proteo)bacterium, and later, in the ancestor of algae and plants, chloroplasts from a cyanobacterium; most endosymbiont genes moved to the nucleus.
+    where: ["index.mdx#endosymbiosis", "visuals.yaml:endosymbiosis", "index.mdx (mustKnow, mistakes)"]
+    confidence: medium
+    basis: IB guide A2.2.12; Archibald, One Plus One Equals One. Whether the nucleus came before the mitochondrion is still debated (archaeal-host models); the IB sequence is followed here
+    status: open
+  - id: f35
+    claim: Evidence — double membranes, naked circular DNA, 70S ribosomes, replication by binary fission only, bacterial size, gene sequences closest to particular bacteria, sensitivity to some antibiotics that act on bacterial ribosomes.
+    where: ["index.mdx#endosymbiosis", "visuals.yaml:endosymbiosis/evidence", "quiz.yaml:q8", "flashcards.yaml:c16"]
+    confidence: high
+    basis: IB guide A2.2.12; Campbell; Alberts
+    status: checked
+  - id: f36
+    claim: The anim shows the outer organelle membrane deriving from the host vesicle membrane (the IB/textbook account). Some protein evidence suggests the mitochondrial outer membrane derives from the bacterial outer membrane instead; no quiz question depends on this.
+    where: ["visuals.yaml:endosymbiosis/engulf", "index.mdx#endosymbiosis"]
+    confidence: medium
+    basis: Textbook account vs outer-membrane β-barrel protein evidence (e.g. Sam50/BamA homology)
+    status: open
+  - id: f37
+    claim: Differentiation results from differential gene expression; housekeeping genes vs tissue-specific genes (haemoglobin in developing red blood cells, insulin in β cells); triggers include signals from neighbouring cells, morphogen gradients, hormones, royal jelly in honeybee larvae, light for chloroplast development.
+    where: ["index.mdx#differentiation", "quiz.yaml:q9", "flashcards.yaml:c17", "index.mdx (mustKnow, mistakes)"]
+    confidence: high
+    basis: IB guide A2.2.13; Campbell; Kucharski et al. 2008 (royal jelly, DNA methylation)
+    status: checked
+  - id: f38
+    claim: Multicellularity evolved independently many times (animals once, land plants once, several times in fungi and in brown, red and green algae; estimates of 25 or more origins); all plants and animals are multicellular; yeasts and Chlamydomonas are unicellular; advantages include larger size, cell specialization and longer life.
+    where: ["index.mdx#multicellularity", "quiz.yaml:q10", "flashcards.yaml:c18"]
+    confidence: medium
+    basis: IB guide A2.2.14; Grosberg & Strathmann 2007 (Annu Rev Ecol Evol Syst) — exact count depends on definitions
+    status: open
+  - id: f39
+    claim: 3D scenes are schematic in proportion (stated scale in each scene file) but topologically correct — double vs single membranes, ribosomes on the cytoplasmic face of rough ER, nucleoid not membrane-bound, plasmodesmata lined by plasma membrane, septal pore continuous with the membrane.
+    where: ["visuals.yaml:cells", "src/scenes/a2-2-*.ts"]
+    confidence: high
+    basis: Checked against Alberts and the IB guide; screenshots inspected
+    status: checked
