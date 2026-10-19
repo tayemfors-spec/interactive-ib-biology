@@ -1,0 +1,186 @@
+# Visuals for B1.1. Label and step text here is what readers see in the 3D viewer and the text descriptions,
+# so it is written to exam standard. Label ids must match anchors in the scene modules (src/scenes).
+visuals:
+  - id: molecules
+    kind: viewer3d
+    title: Carbohydrates and lipids in 3D
+    alt: Ball-and-stick models of alpha- and beta-glucose, schematic starch, glycogen and cellulose, and models of lipids including a steroid.
+    description: >-
+      Three models. The first shows alpha-glucose (left) and beta-glucose (right) as ball-and-stick models:
+      carbon atoms dark, oxygen red and hydrogen light grey. Each has a ring of five carbon atoms and one oxygen
+      atom, drawn flat as in exam diagrams, with a faint plate marking the plane of the ring. Carbon 6 (a CH₂OH
+      group) is above the ring on carbon 5. The only difference between the two forms is on carbon 1: in
+      alpha-glucose the –OH is below the ring, in beta-glucose it is above. The second model shows polysaccharides,
+      each glucose drawn as a hexagonal tile with a red bead for the ring oxygen and a dark stub for carbon 6:
+      amylose, an unbranched chain of alpha-glucose coiled into a helix; amylopectin, chains of alpha-glucose
+      joined by 1,4 bonds with occasional 1,6 branches (blue links); glycogen, the same but much more highly
+      branched and compact; and cellulose, straight parallel chains of beta-glucose in which every other glucose
+      is turned over, held together side by side by hydrogen bonds (dashed blue). The third model shows a
+      triglyceride (glycerol joined by three ester bonds to three fatty acids), a phospholipid (glycerol, two
+      fatty acids and a phosphate group), three fatty acids with 18 carbons (saturated and straight;
+      trans-unsaturated and still straight; cis-unsaturated with a bend at the double bond), and the steroid
+      hormone oestradiol with its four fused rings.
+    scenes:
+      - id: glucose
+        module: b1-1-glucose
+        title: α- and β-glucose
+        labels:
+          - id: alpha
+            name: α-glucose
+            text: Alpha-glucose, C₆H₁₂O₆, in its ring form. It is the monomer of starch and glycogen. Its –OH on carbon 1 is below the plane of the ring.
+          - id: beta
+            name: β-glucose
+            text: Beta-glucose has exactly the same atoms and the same groups on carbons 2 to 6. Only carbon 1 differs, with its –OH above the ring. It is the monomer of cellulose.
+          - id: c1-alpha
+            name: Carbon 1 in α-glucose (–OH below)
+            text: In alpha-glucose the –OH on carbon 1 points below the ring, on the opposite side to the CH₂OH group. Carbon 1 is the carbon that forms glycosidic bonds with other sugars.
+          - id: c1-beta
+            name: Carbon 1 in β-glucose (–OH above)
+            text: In beta-glucose the –OH on carbon 1 points above the ring, on the same side as the CH₂OH group. This small difference makes cellulose chains straight instead of helical.
+          - id: c2
+            name: Carbon 2
+            text: Carbons are numbered from carbon 1, clockwise round the ring as drawn. Carbon 2 carries an –OH below the ring and an H above it, in both alpha- and beta-glucose.
+          - id: c3
+            name: Carbon 3
+            text: Carbon 3 carries an –OH above the ring and an H below it.
+          - id: c4
+            name: Carbon 4
+            text: Carbon 4 carries an –OH below the ring. In maltose, starch, glycogen and cellulose, this –OH takes part in the 1,4 glycosidic bond to carbon 1 of the next glucose.
+          - id: c5
+            name: Carbon 5
+            text: The last carbon in the ring, next to the ring oxygen. It carries carbon 6 above the ring and an H below it. Numbering is the same in both forms.
+          - id: c6
+            name: Carbon 6 (CH₂OH)
+            text: Carbon 6 is outside the ring, in a CH₂OH group above carbon 5. It is used in 1,6 glycosidic bonds, which form the branch points of amylopectin and glycogen.
+          - id: ring-o
+            name: Ring oxygen
+            text: One oxygen atom is part of the ring, between carbon 1 and carbon 5. A hexose ring has five carbons and this oxygen; the sixth carbon is outside the ring.
+          - id: hydroxyl
+            name: Hydroxyl (–OH) groups
+            text: Glucose has five –OH groups. They are polar and form hydrogen bonds with water, which is why glucose is so soluble and can be carried dissolved in blood plasma.
+      - id: polysaccharides
+        module: b1-1-polysaccharides
+        title: Starch, glycogen and cellulose
+        labels:
+          - id: amylose
+            name: Amylose (starch)
+            text: An unbranched chain of alpha-glucose joined by 1,4 glycosidic bonds. The angle of the alpha bonds makes the chain coil into a compact helix, about six glucose units per turn.
+          - id: amylopectin
+            name: Amylopectin (starch)
+            text: Chains of alpha-glucose joined by 1,4 bonds, with 1,6 bonds making branches (roughly one every 20–30 glucose units). Branching makes the molecule compact and gives it many chain ends.
+          - id: glycogen
+            name: Glycogen
+            text: The energy store of animals and fungi. Like amylopectin, but more highly branched (about every 8–12 glucose units), so it is even more compact and has even more chain ends.
+          - id: cellulose
+            name: Cellulose
+            text: Unbranched chains of beta-glucose joined by 1,4 glycosidic bonds. Each chain is straight, so chains can lie parallel and close together, forming the main material of plant cell walls.
+          - id: alpha-residue
+            name: α-glucose units
+            text: In starch and glycogen every glucose unit is alpha-glucose, and all the units in a chain face the same way (here the ring oxygen bead and CH₂OH stub are on the same side of each tile).
+          - id: beta-residue
+            name: β-glucose units
+            text: In beta-glucose the –OH groups on carbons 1 and 4 are on opposite sides of the ring, so each unit must be turned over relative to its neighbour to link up. The ring O and CH₂OH alternate sides.
+          - id: link-14
+            name: 1,4 glycosidic bond
+            text: A covalent C–O–C link between carbon 1 of one glucose and carbon 4 of the next, made by a condensation reaction that releases a water molecule. It is broken by hydrolysis.
+          - id: link-16
+            name: 1,6 glycosidic bond (branch point)
+            text: Carbon 1 of the first glucose in a branch joins carbon 6 of a glucose in another chain. These bonds create the branches of amylopectin and glycogen; amylose and cellulose have none.
+          - id: ends
+            name: Chain ends
+            text: Glucose is added to, or removed from, the chain ends that have a free carbon 4 (each molecule has only one end with a free carbon 1). Many branches mean many ends, so a store can be built or mobilized quickly.
+          - id: hbonds
+            name: Hydrogen bonds between chains
+            text: –OH groups on one cellulose chain form hydrogen bonds with oxygen atoms on the neighbouring chain. Each is weak, but millions of them cross-link the chains into a strong bundle.
+          - id: microfibril
+            name: Microfibril
+            text: Many straight cellulose chains lie parallel in layers and are hydrogen-bonded into a bundle called a microfibril, a few nanometres wide. Microfibrils have very high tensile strength.
+      - id: lipids
+        module: b1-1-lipids
+        title: Lipids
+        labels:
+          - id: triglyceride
+            name: Triglyceride
+            text: A fat or oil molecule, made of one glycerol and three fatty acids joined by three ester bonds. It is almost entirely hydrocarbon, so it is hydrophobic and insoluble in water.
+          - id: glycerol
+            name: Glycerol
+            text: A three-carbon molecule with an –OH group on each carbon. In a triglyceride all three –OH groups have formed ester bonds; in a phospholipid two have joined fatty acids and one a phosphate.
+          - id: ester
+            name: Ester bond
+            text: The C–O–C(=O) link between glycerol and a fatty acid. Each one is made by a condensation reaction between an –OH of glycerol and the –COOH of a fatty acid, releasing one water molecule.
+          - id: tails
+            name: Hydrocarbon chains (hydrophobic)
+            text: Long chains of carbon and hydrogen atoms. C–H bonds are almost non-polar, so these chains do not form hydrogen bonds with water. They release a lot of energy when oxidized in respiration.
+          - id: phospholipid
+            name: Phospholipid
+            text: Glycerol joined to two fatty acids and one phosphate group. It is amphipathic, with a hydrophilic phosphate head and two hydrophobic tails, so in water it forms bilayers.
+          - id: phosphate
+            name: Phosphate group (hydrophilic)
+            text: Phosphorus (orange) bonded to four oxygen atoms, attached to the third carbon of glycerol. It is charged, so it attracts water. In most membrane phospholipids another polar group is attached to it.
+          - id: carboxyl
+            name: Carboxyl group (–COOH)
+            text: The acid group on carbon 1 of every fatty acid. It reacts with an –OH of glycerol in a condensation reaction to form an ester bond.
+          - id: saturated
+            name: Saturated fatty acid
+            text: Stearic acid, 18 carbons. All carbon–carbon bonds are single, so every carbon holds as many H atoms as possible. The chain is straight, so molecules pack tightly and melt at a high temperature (69 °C).
+          - id: trans
+            name: Trans fatty acid
+            text: One C=C double bond with its two H atoms on opposite sides. The chain stays almost straight, so it packs nearly as well as a saturated chain. Trans fats are uncommon in nature.
+          - id: cis
+            name: Cis fatty acid (kinked)
+            text: Oleic acid, monounsaturated. At the C=C double bond both H atoms are on the same side, which bends the chain. Bent chains cannot pack closely, so oleic acid melts at only about 13 °C.
+          - id: kink-membrane
+            name: Kinked phospholipid tail
+            text: Phospholipids often have one cis-unsaturated tail. The bend stops the tails packing tightly, which keeps membranes fluid.
+          - id: steroid
+            name: Steroid ring system
+            text: Oestradiol, a steroid hormone. All steroids share four fused rings of carbon atoms, three with six carbons and one with five. The molecule is almost all hydrocarbon, so it is non-polar.
+          - id: steroid-oh
+            name: Hydroxyl groups of oestradiol
+            text: Oestradiol has only two –OH groups, one at each end. They are too few to make the molecule water-soluble, so it can dissolve in and diffuse through the hydrophobic core of a membrane.
+
+  - id: condensation
+    kind: anim
+    module: b1-1-condensation
+    title: Condensation and hydrolysis
+    alt: Two alpha-glucose molecules condense to form maltose and water, maltose is hydrolysed, then glycerol and three fatty acids form a triglyceride.
+    description: >-
+      Part 1 shows two alpha-glucose molecules drawn as hexagonal rings, with only the reacting groups shown.
+      In condensation, the –OH on carbon 1 of the left glucose and the H from the –OH on carbon 4 of the right
+      glucose are removed and form a water molecule; the remaining oxygen links the two rings, making a 1,4
+      glycosidic bond, and the product is the disaccharide maltose. In hydrolysis a water molecule is used: it
+      splits into –OH, which goes to carbon 1, and –H, which goes to the oxygen on carbon 4, giving two glucose
+      molecules again. Part 2 shows glycerol and three fatty acids. In three condensation reactions the –OH of
+      each fatty acid's carboxyl group and an H from one of glycerol's –OH groups form water, and the fatty acid
+      joins the glycerol by an ester bond. The products are one triglyceride and three water molecules.
+    steps:
+      - id: monomers
+        title: Two α-glucose molecules
+        caption: Two alpha-glucose monomers. The groups that will react are circled - the –OH on carbon 1 of the left molecule and the –OH on carbon 4 of the right molecule.
+      - id: condense
+        title: Condensation forms maltose
+        caption: The –OH from carbon 1 and the H from the other –OH join to form water, which is released. The remaining O now links carbon 1 to carbon 4 - a 1,4 glycosidic bond. The disaccharide is maltose. Adding more glucose the same way builds starch or glycogen.
+      - id: hydrolyse
+        title: Hydrolysis splits maltose
+        caption: Hydrolysis is the reverse. A water molecule is used up - it splits into –OH, which bonds to carbon 1, and –H, which bonds to the O left on carbon 4. Two glucose monomers are released. Digestion of starch works like this.
+      - id: lipid-reactants
+        title: Glycerol and three fatty acids
+        caption: Glycerol has three –OH groups. Each fatty acid has a carboxyl group (–COOH) at one end of its hydrocarbon chain.
+      - id: triglyceride
+        title: Three condensations make a triglyceride
+        caption: Each fatty acid's –OH and an H from one of glycerol's –OH groups form water. The fatty acid joins the glycerol by an ester bond. Three condensation reactions make one triglyceride and release three water molecules.
+
+  - id: energy-store
+    kind: sim
+    module: b1-1-energy-store
+    title: Fat versus glycogen as an energy store
+    alt: Bars compare the mass of fat and of glycogen needed to store an amount of energy, and a model shows fat reducing heat loss.
+    description: >-
+      Part 1 has a slider for the amount of energy to store, from 1,000 to 20,000 kJ, and one for the mass of water
+      stored with each gram of glycogen (0 to 4 g, default 3 g). Horizontal bars show the mass needed as
+      triglyceride, which releases about 37 kJ per gram, as dry glycogen, about 17 kJ per gram, and as glycogen
+      together with its water. For 10,000 kJ about 270 g of fat is needed, but about 590 g of glycogen, which is
+      stored with about 1.8 kg of water, 2.35 kg in all. Part 2 is a qualitative model of heat loss from the body
+      core at 37 °C through a layer of fat to the surroundings. Sliders set the thickness of the fat layer (0 to
+      8 cm) and the temperature of the surroundings, and buttons choose air or water. A thicker fat layer
+      reduces heat loss, and the effect matters most in cold water, which removes heat far faster than air.

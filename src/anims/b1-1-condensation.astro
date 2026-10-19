@@ -1,0 +1,101 @@
+---
+/**
+ * Condensation and hydrolysis (B1.1.2, B1.1.3, B1.1.9). Drawn in the step-1 start state; animated by
+ * b1-1-condensation.ts.
+ * Panel 1 (steps 1–3): two α-glucose → maltose + H₂O (1,4 glycosidic bond: C1 of the left glucose – O – C4 of
+ * the right glucose; the –OH on C1 and the H of the –OH on C4 form the water). Hydrolysis reverses it: the water's
+ * –OH goes back to C1 and its –H to the O on C4. Only the reacting groups and CH₂OH are drawn on each ring.
+ * Panel 2 (steps 4–5): glycerol + 3 fatty acids → triglyceride + 3 H₂O (three ester bonds). In each condensation the
+ * –OH comes from the fatty acid's carboxyl group and the –H from a hydroxyl group of glycerol.
+ */
+type P = [number, number];
+const R = 40;
+const ring = (cx: number, cy: number) => {
+  const v: P[] = [[cx + R, cy], [cx + R / 2, cy - 34.6], [cx - R / 2, cy - 34.6], [cx - R, cy], [cx - R / 2, cy + 34.6], [cx + R / 2, cy + 34.6]];
+  return v.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
+};
+const A: P = [120, 140];
+const B: P = [310, 140];
+const rows = [92, 162, 232];
+const zig = (y: number) => {
+  let d = `M214 ${y}`;
+  for (let i = 1; i <= 16; i++) d += ` L${214 + i * 16} ${y + (i % 2 ? -7 : 0)}`;
+  return d;
+};
+---
+<svg viewBox="0 0 520 330" xmlns="http://www.w3.org/2000/svg" class="cond">
+  <g data-el="sugar">
+    {[A, B].map(([cx, cy]) => (
+      <g>
+        <polygon class="ring" points={ring(cx, cy)} />
+        <text class="ro" x={cx + R / 2} y={cy - 34.6} dy="0.36em" text-anchor="middle">O</text>
+        <line class="bond" x1={cx - R / 2} y1={cy - 34.6} x2={cx - R / 2} y2={cy - 60} />
+        <text class="t" x={cx - R / 2 - 4} y={cy - 66}>CH₂OH</text>
+        <text class="num" x={cx + R + 8} y={cy - 6}>1</text>
+        <text class="num" x={cx - R - 15} y={cy - 6}>4</text>
+      </g>
+    ))}
+    <text class="cap" data-el="sName" x="215" y="40" text-anchor="middle">two α-glucose molecules (monomers)</text>
+    <ellipse class="hi" data-el="hiA" cx="160" cy="184" rx="22" ry="15" style="opacity:0" />
+    <ellipse class="hi" data-el="hiB" cx="264" cy="184" rx="22" ry="15" style="opacity:0" />
+    <line class="bond" data-el="aStub" x1="160" y1="140" x2="160" y2="172" />
+    <line class="bond" data-el="bStub" x1="270" y1="140" x2="270" y2="172" />
+    <g data-el="aOH" transform="translate(160 188)"><text class="t g" text-anchor="middle" dy="0.36em">OH</text></g>
+    <g data-el="bO" transform="translate(270 188)"><text class="t g" text-anchor="middle" dy="0.36em">O</text></g>
+    <g data-el="bH" transform="translate(257 188)"><text class="t g" text-anchor="middle" dy="0.36em">H</text></g>
+    <g data-el="w" transform="translate(420 268)" style="opacity:0"><rect class="wbox" x="-26" y="-14" width="52" height="28" rx="14" /><text class="t g" text-anchor="middle" dy="0.36em">H₂O</text></g>
+    <text class="cap small" data-el="bondLab" x="215" y="222" text-anchor="middle" style="opacity:0">1,4 glycosidic bond</text>
+    <text class="cap small" data-el="wLab" x="420" y="300" text-anchor="middle" style="opacity:0">water released</text>
+  </g>
+
+  <g data-el="lipid" style="opacity:0">
+    <text class="cap" data-el="lName" x="170" y="40" text-anchor="middle">glycerol + three fatty acids</text>
+    <line class="bond" x1="64" y1="100" x2="64" y2="152" />
+    <line class="bond" x1="64" y1="170" x2="64" y2="222" />
+    {rows.map((y, k) => (
+      <g>
+        <text class="t" x="76" y={y} dy="0.36em" text-anchor="end">{k === 1 ? 'HC' : 'H₂C'}</text>
+        <line class="bond" x1="80" y1={y} x2="96" y2={y} />
+        <text class="t g" x="104" y={y} dy="0.36em" text-anchor="middle">O</text>
+        <line class="bond" data-el={`gb${k}`} x1="112" y1={y} x2="118" y2={y} />
+        <g data-el={`gH${k}`} transform={`translate(124 ${y})`}><text class="t g" text-anchor="middle" dy="0.36em">H</text></g>
+        <line class="bond est" data-el={`est${k}`} x1="112" y1={y} x2="130" y2={y} style="opacity:0" />
+        <g data-el={`fOH${k}`} transform={`translate(176 ${y})`}><text class="t g" text-anchor="middle" dy="0.36em">HO</text></g>
+        <g data-el={`fa${k}`} transform="translate(0 0)">
+          <line class="bond" x1="188" y1={y} x2="194" y2={y} />
+          <text class="t" x="200" y={y} dy="0.36em" text-anchor="middle">C</text>
+          <line class="bond" x1="197" y1={y - 9} x2="197" y2={y - 24} />
+          <line class="bond" x1="203" y1={y - 9} x2="203" y2={y - 24} />
+          <text class="t" x="200" y={y - 32} text-anchor="middle">O</text>
+          <path class="chain" d={zig(y)} />
+          <line class="bond" x1="206" y1={y} x2="214" y2={y} />
+        </g>
+        <g data-el={`lw${k}`} transform={`translate(${360 + k * 60} 300)`} style="opacity:0"><rect class="wbox" x="-26" y="-14" width="52" height="28" rx="14" /><text class="t g" text-anchor="middle" dy="0.36em">H₂O</text></g>
+      </g>
+    ))}
+    <text class="cap small" data-el="esterLab" x="128" y="268" text-anchor="middle" style="opacity:0">3 ester bonds</text>
+    <text class="cap small" x="350" y="122" text-anchor="middle">hydrocarbon chains</text>
+  </g>
+
+  <g class="counter">
+    <rect x="352" y="56" width="160" height="28" rx="8" />
+    <text data-el="count" x="362" y="75">Water released: 0</text>
+  </g>
+</svg>
+<style>
+  .cond { font-family: var(--font-sans); }
+  .ring { fill: color-mix(in srgb, var(--bio-glucose) 22%, var(--surface)); stroke: var(--text); stroke-width: 2.2; }
+  .ro { font-size: 15px; font-weight: 800; fill: var(--bio-k); paint-order: stroke; stroke: var(--surface-2); stroke-width: 6px; }
+  .bond { stroke: var(--text); stroke-width: 2.2; stroke-linecap: round; }
+  .est { stroke: var(--bio-k); stroke-width: 3; }
+  .chain { fill: none; stroke: var(--bio-tail); stroke-width: 3.2; stroke-linejoin: round; }
+  .t { font-size: 15px; fill: var(--text); }
+  .g { font-weight: 800; }
+  .num { font-size: 13px; font-weight: 800; fill: var(--text-muted); }
+  .cap { font-size: 15px; font-weight: 700; fill: var(--text); }
+  .cap.small { font-size: 13.5px; font-weight: 600; fill: var(--text-muted); }
+  .hi { fill: none; stroke: var(--bio-k); stroke-width: 2.2; stroke-dasharray: 4 3; }
+  .wbox { fill: color-mix(in srgb, var(--bio-water) 25%, var(--surface)); stroke: var(--bio-water); stroke-width: 1.6; }
+  .counter rect { fill: var(--surface); stroke: var(--border-strong); }
+  .counter text { font-size: 13px; font-weight: 700; fill: var(--text); }
+</style>

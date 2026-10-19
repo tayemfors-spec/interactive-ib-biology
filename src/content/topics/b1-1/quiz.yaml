@@ -1,0 +1,210 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: B1.1.1
+    stem: >-
+      A cellulose microfibril in a plant cell wall is about 3 nm wide. What is this width in micrometres (μm)?
+    options:
+      - id: a
+        text: 3,000 μm
+        why: This multiplies by 1,000 instead of dividing. A micrometre is larger than a nanometre, so the number must get smaller.
+      - id: b
+        text: 0.3 μm
+        why: This divides by 10, not by 1,000. There are 1,000 nm in 1 μm.
+      - id: c
+        text: 0.003 μm
+        why: Correct. 1 μm = 1,000 nm, so 3 nm ÷ 1,000 = 0.003 μm.
+      - id: d
+        text: 0.000003 μm
+        why: This divides by a million, the factor between nanometres and millimetres, not between nanometres and micrometres.
+    answer: c
+
+  - id: q2
+    level: SL
+    understanding: B1.1.2
+    stem: >-
+      An unbranched amylose molecule contains 500 α-glucose units. How many water molecules were released when
+      it was built from free glucose by condensation?
+    options:
+      - id: a
+        text: "500"
+        why: Water is released for each bond formed, not for each monomer. The first glucose added to the chain does not form a bond on its own.
+      - id: b
+        text: "499"
+        why: Correct. A chain of 500 units has 499 glycosidic bonds, and each condensation reaction that forms a bond releases one water molecule.
+      - id: c
+        text: "250"
+        why: This assumes one water per pair of glucose molecules, as in making maltose, but every further glucose added also releases a water molecule.
+      - id: d
+        text: "998"
+        why: Each glycosidic bond releases one water molecule, not two. The –OH and –H removed form a single H₂O.
+    answer: b
+
+  - id: q3
+    level: SL
+    understanding: B1.1.3
+    stem: >-
+      Which statement correctly describes the role of water in the hydrolysis of maltose into two glucose
+      molecules?
+    options:
+      - id: a
+        text: Water is released as the glycosidic bond breaks.
+        why: This describes condensation in reverse. In hydrolysis water is a reactant, not a product.
+      - id: b
+        text: Water forms hydrogen bonds that hold the two glucose molecules apart.
+        why: Hydrogen bonds do not break covalent bonds. The glycosidic bond is broken by a chemical reaction in which water is consumed.
+      - id: c
+        text: Water is split into hydrogen gas and oxygen gas, which provide energy to break the bond.
+        why: Water is not split into H₂ and O₂ in hydrolysis. It is split into –H and –OH groups, which become part of the products.
+      - id: d
+        text: A water molecule is used up; its –H joins one glucose and its –OH joins the other.
+        why: Correct. The covalent bond is broken by adding the parts of a water molecule, so each monomer regains the group it lost in condensation.
+    answer: d
+
+  - id: q4
+    level: SL
+    understanding: B1.1.4
+    stem: >-
+      A molecular diagram shows a sugar with a five-membered ring made of four carbon atoms and one oxygen atom.
+      Two of the ring carbons each carry a CH₂OH group, and the other two ring carbons each carry an –OH and an –H.
+      How should this monosaccharide be classified?
+    options:
+      - id: a
+        text: A pentose, because its ring has five atoms
+        why: The ring includes an oxygen atom, and carbons outside the ring also count. Classification depends on the total number of carbon atoms.
+      - id: b
+        text: A pentose, because its ring has four carbon atoms plus one in a side group
+        why: There are two CH₂OH side groups, each with one carbon, so there are six carbons in all, not five.
+      - id: c
+        text: A hexose, because it has six carbon atoms in total
+        why: Correct. Four ring carbons plus two CH₂OH carbons make six. This is fructose, a hexose with a five-membered ring.
+      - id: d
+        text: Not a monosaccharide, because its ring contains an oxygen atom
+        why: Pentose and hexose rings always contain one oxygen atom. That is a feature of monosaccharides in ring form.
+    answer: c
+
+  - id: q5
+    level: SL
+    understanding: B1.1.4
+    stem: >-
+      In what way does a molecule of β-glucose differ from a molecule of α-glucose?
+    options:
+      - id: a
+        text: The –OH group on carbon 1 is on the opposite side of the ring.
+        why: Correct. In α-glucose the carbon-1 –OH is below the ring; in β-glucose it is above, on the same side as the CH₂OH. Everything else is identical.
+      - id: b
+        text: The CH₂OH group is on carbon 4 instead of carbon 5.
+        why: In both forms carbon 6 (the CH₂OH group) is attached to carbon 5, above the ring.
+      - id: c
+        text: The ring oxygen is between carbons 1 and 2 instead of between carbons 1 and 5.
+        why: The ring oxygen is between carbons 1 and 5 in both α- and β-glucose.
+      - id: d
+        text: It has one fewer oxygen atom.
+        why: Both are C₆H₁₂O₆. Losing an oxygen describes the difference between ribose and deoxyribose, not between α- and β-glucose.
+    answer: a
+
+  - id: q6
+    level: SL
+    understanding: B1.1.5
+    stem: >-
+      Glycogen in liver and muscle cells is more highly branched than amylopectin in plants. What is the main
+      advantage of this extra branching for an animal?
+    options:
+      - id: a
+        text: It makes glycogen soluble, so it can be transported in the blood.
+        why: Glycogen molecules are very large and only sparingly soluble; glucose, not glycogen, is carried in the blood.
+      - id: b
+        text: It allows hydrogen bonds between chains, forming strong fibres.
+        why: Hydrogen-bonded bundles of straight chains describe cellulose microfibrils, a structural polysaccharide, not an energy store.
+      - id: c
+        text: The branches are made of β-glucose, which releases more energy.
+        why: Glycogen contains only α-glucose; branches are formed by 1,6 glycosidic bonds between α-glucose units.
+      - id: d
+        text: There are more chain ends, so glucose can be added or removed more quickly.
+        why: Correct. Enzymes add or remove glucose at the ends of chains, so more branches give more ends and faster mobilization, for example during exercise.
+    answer: d
+
+  - id: q7
+    level: SL
+    understanding: B1.1.6
+    stem: >-
+      Why can cellulose molecules form strong microfibrils whereas amylose molecules cannot?
+    options:
+      - id: a
+        text: Cellulose has 1,6 glycosidic bonds that cross-link neighbouring chains.
+        why: Cellulose has only 1,4 bonds and no branches. The cross-links between its chains are hydrogen bonds, not glycosidic bonds.
+      - id: b
+        text: Alternate β-glucose units are inverted, giving straight chains that lie parallel and form many hydrogen bonds with each other.
+        why: Correct. The alternating orientation of β-glucose makes each chain straight, so chains pack side by side and are cross-linked by hydrogen bonds into microfibrils.
+      - id: c
+        text: Cellulose chains coil into helices that interlock with each other.
+        why: It is amylose, made of α-glucose, that coils into a helix. Cellulose chains are straight.
+      - id: d
+        text: Cellulose monomers are joined by ester bonds, which are stronger than glycosidic bonds.
+        why: Glucose units in cellulose are joined by glycosidic bonds. Ester bonds join fatty acids to glycerol.
+    answer: b
+
+  - id: q8
+    level: SL
+    understanding: B1.1.7
+    stem: >-
+      A person has blood group A. Which statement describes the carbohydrate chains on the glycoproteins of their
+      red blood cells?
+    options:
+      - id: a
+        text: The H antigen has an extra sugar added to it, forming the A antigen, which other people's antibodies can recognize.
+        why: Correct. The A allele codes for an enzyme that adds one extra sugar to the H antigen. People without the A antigen have anti-A antibodies that bind to these cells.
+      - id: b
+        text: The chains are on the inner (cytoplasmic) surface of the membrane.
+        why: Carbohydrate chains of glycoproteins project from the outer surface of the plasma membrane, where other cells and antibodies can bind to them.
+      - id: c
+        text: There are no carbohydrate chains; the A antigen is a protein without sugars.
+        why: The ABO antigens are carbohydrate structures. The difference between A, B and O lies in the sugars at the end of the chains.
+      - id: d
+        text: The chains carry both the A and the B antigen.
+        why: Red blood cells carry both antigens only in people with blood group AB.
+    answer: a
+
+  - id: q9
+    level: SL
+    understanding: B1.1.10
+    stem: >-
+      The melting points of three fatty acids, each with 18 carbon atoms, are stearic acid (no C=C bonds) 69 °C,
+      oleic acid (one cis C=C bond) 13 °C and linoleic acid (two cis C=C bonds) −5 °C. Which conclusion is best
+      supported by these data?
+    options:
+      - id: a
+        text: Longer fatty acid chains have lower melting points.
+        why: All three fatty acids have 18 carbons, so these data cannot show any effect of chain length.
+      - id: b
+        text: Saturated fatty acids are liquid at a room temperature of 20 °C.
+        why: Stearic acid, the saturated one, melts at 69 °C, so it is solid at 20 °C.
+      - id: c
+        text: The more cis double bonds a fatty acid has, the lower its melting point.
+        why: Correct. Melting point falls from 69 °C to 13 °C to −5 °C as the number of cis C=C bonds rises from 0 to 1 to 2.
+      - id: d
+        text: Cis double bonds make the chains pack more tightly together.
+        why: The data show the opposite trend. Cis double bonds bend the chain, so chains pack less tightly and melt at lower temperatures.
+    answer: c
+
+  - id: q10
+    level: SL
+    understanding: B1.1.11
+    stem: >-
+      A migrating bird needs to store 2,000 kJ of energy. Fat releases 37 kJ g⁻¹ and glycogen 17 kJ g⁻¹, and each
+      gram of glycogen is stored with about 3 g of water. About how many times heavier would a glycogen store
+      (including its water) be than a fat store?
+    options:
+      - id: a
+        text: About 2 times
+        why: This compares only the energy per gram (37 ÷ 17 ≈ 2.2) and forgets the water stored with glycogen.
+      - id: b
+        text: About 9 times
+        why: Correct. Fat needed = 2,000 ÷ 37 ≈ 54 g. Glycogen = 2,000 ÷ 17 ≈ 118 g, plus 3 × 118 ≈ 353 g of water, about 470 g in all. 470 ÷ 54 ≈ 8.7.
+      - id: c
+        text: About 4 times
+        why: This multiplies the glycogen mass by 4 but compares it with the dry glycogen, not with the fat store.
+      - id: d
+        text: About half as heavy
+        why: This inverts the comparison. Fat stores more energy per gram and holds no water, so the fat store is the lighter one.
+    answer: b

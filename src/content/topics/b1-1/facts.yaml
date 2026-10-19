@@ -1,0 +1,181 @@
+facts:
+  - id: f1
+    claim: A covalent bond is a shared pair of electrons; carbon has four outer-shell electrons and forms up to four covalent bonds (single, or single plus double), with C, H, O, N, P and S; four single bonds are arranged tetrahedrally.
+    where: [ "index.mdx#carbon", "index.mdx (mustKnow)", "flashcards.yaml:c1" ]
+    confidence: high
+    basis: Standard chemistry (Campbell Biology ch. 2 and 4); IB guide B1.1.1
+    status: checked
+  - id: f2
+    claim: SI prefixes kilo = 10³, centi = 10⁻², milli = 10⁻³, micro = 10⁻⁶, nano = 10⁻⁹; 1 μm = 1,000 nm; SI units and prefixes are set by international agreement (CGPM / BIPM).
+    where: [ "index.mdx#carbon", "quiz.yaml:q1", "flashcards.yaml:c2" ]
+    confidence: high
+    basis: BIPM SI Brochure (9th edition, 2019)
+    status: checked
+  - id: f3
+    claim: Example sizes used with SI prefixes — blood glucose about 5 mmol dm⁻³ (normal fasting range about 4–6); a white adipocyte can be about 100 μm across (range roughly 20–200 μm); a glucose molecule is about 1 nm across; seal blubber can be several cm thick.
+    where: [ "index.mdx#carbon" ]
+    confidence: medium
+    basis: Standard physiology references; adipocyte sizes from histology texts; glucose dimensions from crystal structures (pyranose ring ≈ 0.5 nm, whole molecule ≈ 0.7–0.9 nm)
+    status: open
+  - id: f4
+    claim: A cellulose microfibril is a few nanometres wide (about 3 nm in primary cell walls), used as 3 nm in quiz q1.
+    where: [ "quiz.yaml:q1", "index.mdx#polysaccharides", "visuals.yaml:molecules microfibril" ]
+    confidence: medium
+    basis: Cosgrove (2014) Curr Opin Plant Biol 22:122–131; microfibril diameter estimates 3–5 nm depending on source
+    status: checked
+  - id: f5
+    claim: Condensation releases one water molecule per bond formed (–OH from one molecule, –H from the other); polysaccharides, polypeptides and nucleic acids are built by condensation; a chain of n monomers releases n − 1 water molecules; in cells condensation is enzyme-catalysed and needs energy.
+    where: [ "index.mdx#condensation-hydrolysis", "quiz.yaml:q2", "flashcards.yaml:c3", "visuals.yaml:condensation" ]
+    confidence: high
+    basis: Standard biochemistry (Berg, Biochemistry; Alberts); IB guide B1.1.2
+    status: checked
+  - id: f6
+    claim: In hydrolysis a water molecule is used up; its –H and –OH are incorporated into the products. Amylase hydrolyses starch to maltose, maltase maltose to glucose, proteases polypeptides to amino acids, lipase triglycerides to fatty acids and glycerol (pancreatic lipase in fact mainly gives fatty acids and 2-monoglycerides).
+    where: [ "index.mdx#condensation-hydrolysis", "quiz.yaml:q3", "flashcards.yaml:c4", "visuals.yaml:condensation hydrolyse" ]
+    confidence: high
+    basis: Standard biochemistry; IB guide B1.1.3
+    status: checked
+  - id: f7
+    claim: In maltose formation the –OH on C1 of one α-glucose and the H of the –OH on C4 of the other form water; the O of the C4 hydroxyl becomes the glycosidic O; hydrolysis returns –OH to C1 and –H to the O on C4.
+    where: [ "index.mdx#condensation-hydrolysis", "visuals.yaml:condensation", "anims/b1-1-condensation" ]
+    confidence: high
+    basis: Standard carbohydrate chemistry (the anomeric C1 is the electrophile; glycosidases cleave the C1–O bond)
+    status: checked
+  - id: f8
+    claim: Pentoses have formula C₅H₁₀O₅ and hexoses C₆H₁₂O₆ (ratio C:H:O 1:2:1; deoxyribose C₅H₁₀O₄ is an exception); in solution they are mostly in ring forms containing one ring oxygen. Fructose is a hexose that forms a five-membered (furanose) ring with two CH₂OH groups (C1 and C6) outside the ring.
+    where: [ "index.mdx#monosaccharides", "diagrams/b1-1-monosaccharides.astro", "quiz.yaml:q4", "flashcards.yaml:c5", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: Standard carbohydrate chemistry (Berg, Biochemistry ch. 11)
+    status: checked
+  - id: f9
+    claim: Haworth substituents of D-glucopyranose (ring O back right, C1 right) — C1 α OH down / β OH up; C2 OH down; C3 OH up; C4 OH down; C5 CH₂OH up. β-D-ribofuranose — C1 OH up, C2 and C3 OH down, C4 CH₂OH up. β-D-fructofuranose — C2 OH up and CH₂OH (C1) down, C3 OH up, C4 OH down, C5 CH₂OH up.
+    where: [ "scenes/b1-1-glucose.ts", "diagrams/b1-1-glucose.astro", "diagrams/b1-1-monosaccharides.astro", "visuals.yaml:molecules glucose", "index.mdx#monosaccharides", "quiz.yaml:q5", "flashcards.yaml:c6" ]
+    confidence: high
+    basis: Fischer-to-Haworth conversion for D-sugars (right in Fischer → down in Haworth); Berg, Biochemistry fig. 11.4–11.6
+    status: checked
+  - id: f10
+    claim: The pyranose ring is drawn flat (Haworth convention); the real ring is puckered in a chair conformation.
+    where: [ "scenes/b1-1-glucose.ts", "visuals.yaml:molecules description" ]
+    confidence: high
+    basis: Standard carbohydrate stereochemistry
+    status: checked
+  - id: f11
+    claim: Glucose is soluble because its –OH groups hydrogen-bond with water; it is carried dissolved in blood plasma; in plants sugar is translocated mainly as sucrose (glucose + fructose); complete oxidation of glucose releases about 2,800–2,870 kJ mol⁻¹ (about 16 kJ g⁻¹).
+    where: [ "index.mdx#monosaccharides", "flashcards.yaml:c7", "visuals.yaml:molecules hydroxyl" ]
+    confidence: high
+    basis: Standard biochemistry (ΔG°′ ≈ −2,870 kJ mol⁻¹, ΔH combustion ≈ −2,803 kJ mol⁻¹; Berg)
+    status: checked
+  - id: f12
+    claim: Starch is about 20–30% amylose and 70–80% amylopectin; amylose is an unbranched α-1,4 chain forming a helix of about 6 glucose units per turn (left-handed, as in V-amylose); amylopectin branches by α-1,6 bonds about every 24–30 residues (often quoted 20–30); glycogen about every 8–12 residues.
+    where: [ "index.mdx#polysaccharides", "visuals.yaml:molecules amylose", "visuals.yaml:molecules amylopectin", "visuals.yaml:molecules glycogen", "scenes/b1-1-polysaccharides.ts", "flashcards.yaml:c8" ]
+    confidence: medium
+    basis: Berg, Biochemistry ch. 11 and 21 (glycogen branch every ~12 residues); Pérez & Bertoft (2010) Starch 62:389–420 for amylopectin
+    status: open
+  - id: f13
+    claim: Starch and glycogen are good stores because they are compact (coiling, branching), relatively insoluble due to large size (so no osmotic effect) and glucose is easily added/removed at chain ends; branching gives many non-reducing ends for rapid mobilization. Glycogen is stored mainly in liver and muscle; fungi (and many bacteria) also store glycogen.
+    where: [ "index.mdx#polysaccharides", "quiz.yaml:q6", "flashcards.yaml:c9", "visuals.yaml:molecules ends", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: IB guide B1.1.5; Berg, Biochemistry ch. 21
+    status: checked
+  - id: f14
+    claim: Cellulose is β-1,4-linked glucose; each residue is rotated 180° relative to its neighbours, giving straight chains; parallel chains are hydrogen-bonded into microfibrils of high tensile strength; most animals lack enzymes to hydrolyse β-1,4 bonds and herbivores rely on gut microorganisms.
+    where: [ "index.mdx#polysaccharides", "quiz.yaml:q7", "flashcards.yaml:c10", "visuals.yaml:molecules cellulose", "scenes/b1-1-polysaccharides.ts" ]
+    confidence: high
+    basis: IB guide B1.1.6; Alberts; Campbell Biology ch. 5
+    status: checked
+  - id: f15
+    claim: Each branched polysaccharide molecule has only one reducing end (free C1); all other chain ends are non-reducing (free C4) and are where glucose is added or removed.
+    where: [ "visuals.yaml:molecules ends" ]
+    confidence: high
+    basis: Berg, Biochemistry ch. 21
+    status: checked
+  - id: f16
+    claim: ABO antigens are carbohydrate chains on red-cell glycoproteins and glycolipids. H antigen = Fucα1-2Galβ-…; the A-allele glycosyltransferase adds GalNAc (α1-3) and the B-allele enzyme adds Gal (α1-3) to that galactose; the O allele encodes a non-functional enzyme. Almost everyone makes H antigen (exception — the rare Bombay phenotype). People have antibodies against the A/B antigens they lack; mismatched transfusion causes agglutination.
+    where: [ "index.mdx#glycoproteins", "diagrams/b1-1-abo.astro", "quiz.yaml:q8", "flashcards.yaml:c11" ]
+    confidence: high
+    basis: Yamamoto et al. (1990) Nature 345:229–233; Dean, Blood Groups and Red Cell Antigens (NCBI Bookshelf, 2005)
+    status: checked
+  - id: f17
+    claim: Lipids dissolve in non-polar solvents (e.g. hexane, chloroform) but only sparingly in water; they include fats, oils, waxes, phospholipids and steroids; leaf cuticles contain waxes.
+    where: [ "index.mdx#lipids", "flashcards.yaml:c12", "index.mdx (mustKnow)" ]
+    confidence: high
+    basis: IB guide B1.1.8; Campbell Biology ch. 5
+    status: checked
+  - id: f18
+    claim: A triglyceride is glycerol + 3 fatty acids joined by 3 ester bonds, releasing 3 H₂O; in esterification the OH lost comes from the carboxyl group and the H from the alcohol; a phospholipid is glycerol + 2 fatty acids + phosphate (usually with a further polar group such as choline); triglycerides are not polymers.
+    where: [ "index.mdx#lipids", "visuals.yaml:molecules lipids", "visuals.yaml:condensation", "flashcards.yaml:c13", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: IB guide B1.1.9; standard organic chemistry (isotope labelling of Fischer esterification)
+    status: checked
+  - id: f19
+    claim: Melting points — stearic acid (18:0) 69 °C; elaidic acid (18:1 trans-9) about 45 °C; oleic acid (18:1 cis-9) about 13 °C (13–16 °C by crystal form); linoleic acid (18:2 cis-9,12) about −5 °C (values from −5 to −12 °C reported).
+    where: [ "index.mdx#fatty-acids", "quiz.yaml:q9", "flashcards.yaml:c15", "visuals.yaml:molecules saturated", "visuals.yaml:molecules cis" ]
+    confidence: high
+    basis: CRC Handbook of Chemistry and Physics; also given in the B2.1 page (stearic 69, oleic 13)
+    status: checked
+  - id: f20
+    claim: Cis double bonds bend the chain (drawn as a 60° change of direction in the planar zigzag); trans double bonds leave it nearly straight; most natural unsaturated fatty acids are cis; trans fatty acids in food came mostly from partial hydrogenation (small amounts occur naturally in ruminant fat).
+    where: [ "index.mdx#fatty-acids", "scenes/b1-1-lipids.ts", "visuals.yaml:molecules trans", "flashcards.yaml:c15" ]
+    confidence: high
+    basis: Standard lipid chemistry (Berg ch. 12; Gurr et al., Lipid Biochemistry)
+    status: checked
+  - id: f21
+    claim: Plants store energy mainly as oils rich in unsaturated fatty acids (e.g. sunflower seeds, olives); endotherms store fats richer in saturated fatty acids, which are soft or liquid at body temperature (about 37 °C in most mammals, about 40 °C in birds).
+    where: [ "index.mdx#fatty-acids", "flashcards.yaml:c16" ]
+    confidence: medium
+    basis: IB guide B1.1.10; human adipose triglyceride is liquid at 37 °C (Gurr et al.); bird body temperature 40–42 °C
+    status: checked
+  - id: f22
+    claim: Energy released on oxidation — triglyceride ≈ 37 kJ g⁻¹ (9 kcal g⁻¹; gross ≈ 39), carbohydrate/glycogen ≈ 17 kJ g⁻¹ (4 kcal g⁻¹).
+    where: [ "index.mdx#adipose", "index.mdx#carbon", "sims/models/b1-1-energy.ts", "visuals.yaml:energy-store", "quiz.yaml:q10", "flashcards.yaml:c17", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: Atwater factors (FAO 2003, Food energy — methods of analysis and conversion factors)
+    status: checked
+  - id: f23
+    claim: Glycogen is stored with roughly 3 g of water per gram (published estimates about 2.7–4 g); fat droplets in adipocytes contain almost no water.
+    where: [ "index.mdx#adipose", "sims/models/b1-1-energy.ts", "visuals.yaml:energy-store", "quiz.yaml:q10", "flashcards.yaml:c17", "index.mdx (mistakes)" ]
+    confidence: medium
+    basis: Olsson & Saltin (1970) Acta Physiol Scand 80:11–18 (≈ 2.7 g); Fernández-Elías et al. (2015) Eur J Appl Physiol 115:1919–1926 (≈ 3 g); Berg uses ≈ 2 g
+    status: open
+  - id: f24
+    claim: Glucose can be respired anaerobically but fatty acids only aerobically; glycogen is mobilized faster than fat, so it serves as a short-term store.
+    where: [ "index.mdx#adipose" ]
+    confidence: high
+    basis: Berg, Biochemistry ch. 22 (β-oxidation needs NAD⁺/FAD regenerated by the electron transport chain)
+    status: checked
+  - id: f25
+    claim: Thermal conductivity of adipose tissue ≈ 0.2 W m⁻¹ K⁻¹, about half that of muscle (≈ 0.5) and a third of water (≈ 0.6); water conducts heat about 25 times better than air. The sim's insulation part is a qualitative series-resistance model (R_tissue 0.03 m² K W⁻¹; h = 10 air, 200 water).
+    where: [ "sims/models/b1-1-energy.ts", "visuals.yaml:energy-store", "index.mdx#adipose" ]
+    confidence: medium
+    basis: Duck (1990) Physical Properties of Tissue; standard physics tables (water 0.6, air 0.025 W m⁻¹ K⁻¹); h values illustrative
+    status: open
+  - id: f26
+    claim: Blubber insulates whales and seals in polar seas; camels store much of their fat in the hump rather than as an all-over subcutaneous layer, helping heat loss in hot deserts.
+    where: [ "index.mdx#adipose", "flashcards.yaml:c17" ]
+    confidence: medium
+    basis: Schmidt-Nielsen, Animal Physiology; Desert Animals (1964)
+    status: checked
+  - id: f27
+    claim: Phospholipids are amphipathic and spontaneously form bilayers in water (heads out, tails in); triglycerides are not amphipathic and form droplets.
+    where: [ "index.mdx#bilayers", "flashcards.yaml:c14", "visuals.yaml:molecules phospholipid" ]
+    confidence: high
+    basis: IB guide B1.1.12; Alberts ch. 10
+    status: checked
+  - id: f28
+    claim: Steroids have four fused rings (three six-membered, one five-membered); oestradiol C₁₈H₂₄O₂ has an aromatic A ring, 3-OH, 17β-OH, 13β-methyl and no C19 methyl; testosterone C₁₉H₂₈O₂ has a 3-keto group, a C4=C5 double bond, methyls on C10 and C13 and 17β-OH. In oestradiol 8β-H, 9α-H, 14α-H and 17α-H.
+    where: [ "index.mdx#steroids", "diagrams/b1-1-steroids.astro", "scenes/b1-1-lipids.ts", "visuals.yaml:molecules steroid", "flashcards.yaml:c18" ]
+    confidence: high
+    basis: IUPAC steroid nomenclature (1989); PubChem CID 5757 (oestradiol), 6013 (testosterone)
+    status: checked
+  - id: f29
+    claim: Steroid hormones are non-polar, diffuse through the bilayer and bind intracellular (cytoplasmic or nuclear) receptors that regulate gene expression; testosterone is made mainly in the testes, oestradiol mainly in the ovaries; peptide hormones such as insulin bind surface receptors.
+    where: [ "index.mdx#steroids", "index.mdx (mistakes)", "visuals.yaml:molecules steroid-oh", "flashcards.yaml:c18" ]
+    confidence: high
+    basis: IB guide B1.1.13; Alberts ch. 15
+    status: checked
+  - id: f30
+    claim: The sim's storage example — 10,000 kJ needs about 270 g of fat, or about 590 g of glycogen plus about 1.8 kg of water (2.35 kg in all, 8.7 times the fat).
+    where: [ "visuals.yaml:energy-store", "sims/b1-1-energy-store.astro", "tests/unit/b1-1.test.ts" ]
+    confidence: high
+    basis: Arithmetic from f22 and f23 (tested in tests/unit/b1-1.test.ts)
+    status: checked

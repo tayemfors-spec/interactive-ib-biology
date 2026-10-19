@@ -1,0 +1,94 @@
+---
+/**
+ * Skeletal formulas of testosterone and oestradiol (B1.1.13): the four fused rings of the steroid nucleus,
+ * three six-membered (A, B, C) and one five-membered (D). Corners are carbon atoms; H atoms on carbon are not drawn.
+ * Testosterone: C3=O (ketone), C4=C5 double bond, methyl groups on C10 and C13, –OH on C17.
+ * Oestradiol: aromatic ring A (three C=C), –OH on C3, methyl on C13 only, –OH on C17.
+ */
+type P = [number, number];
+const L = 32;
+const flat: Record<string, P> = {
+  C1: [0, 1], C2: [-0.866, 0.5], C3: [-0.866, -0.5], C4: [0, -1], C5: [0.866, -0.5], C10: [0.866, 0.5],
+  C6: [1.732, -1], C7: [2.598, -0.5], C8: [2.598, 0.5], C9: [1.732, 1],
+  C11: [1.732, 2], C12: [2.598, 2.5], C13: [3.464, 2], C14: [3.464, 1],
+  C15: [4.415, 0.691], C16: [5.003, 1.5], C17: [4.415, 2.309],
+};
+const bonds: [string, string][] = [
+  ['C1', 'C2'], ['C2', 'C3'], ['C3', 'C4'], ['C4', 'C5'], ['C5', 'C10'], ['C10', 'C1'],
+  ['C5', 'C6'], ['C6', 'C7'], ['C7', 'C8'], ['C8', 'C9'], ['C9', 'C10'],
+  ['C9', 'C11'], ['C11', 'C12'], ['C12', 'C13'], ['C13', 'C14'], ['C14', 'C8'],
+  ['C14', 'C15'], ['C15', 'C16'], ['C16', 'C17'], ['C17', 'C13'],
+];
+const rings: { id: string; atoms: string[]; c: P }[] = [
+  { id: 'A', atoms: ['C1', 'C2', 'C3', 'C4', 'C5', 'C10'], c: [0, 0] },
+  { id: 'B', atoms: ['C5', 'C6', 'C7', 'C8', 'C9', 'C10'], c: [1.732, 0] },
+  { id: 'C', atoms: ['C8', 'C9', 'C11', 'C12', 'C13', 'C14'], c: [2.598, 1.5] },
+  { id: 'D', atoms: ['C13', 'C14', 'C15', 'C16', 'C17'], c: [4.152, 1.5] },
+];
+const f = (n: number) => n.toFixed(1);
+const mk = (ox: number, oy: number) => {
+  const xy = (k: string): P => [ox + flat[k]![0] * L, oy - flat[k]![1] * L];
+  const at = (p: P): P => [ox + p[0] * L, oy - p[1] * L];
+  /** A second line inside ring `c` for a double bond a=b. */
+  const inner = (a: string, b: string, c: P) => {
+    const A = xy(a), B = xy(b), C = at(c);
+    const k = 0.22;
+    const s = 0.16;
+    const p1: P = [A[0] + (C[0] - A[0]) * k, A[1] + (C[1] - A[1]) * k];
+    const p2: P = [B[0] + (C[0] - B[0]) * k, B[1] + (C[1] - B[1]) * k];
+    return { x1: f(p1[0] + (p2[0] - p1[0]) * s), y1: f(p1[1] + (p2[1] - p1[1]) * s), x2: f(p2[0] - (p2[0] - p1[0]) * s), y2: f(p2[1] - (p2[1] - p1[1]) * s) };
+  };
+  const ringPath = (atoms: string[]) => atoms.map((a, i) => `${i ? 'L' : 'M'}${f(xy(a)[0])} ${f(xy(a)[1])}`).join(' ') + 'Z';
+  return { xy, at, inner, ringPath };
+};
+const T = mk(78, 150);
+const E = mk(380, 150);
+const line = (a: P, b: P) => ({ x1: f(a[0]), y1: f(a[1]), x2: f(b[0]), y2: f(b[1]) });
+const off = (p: P, dx: number, dy: number): P => [p[0] + dx, p[1] + dy];
+---
+<svg viewBox="0 0 600 236" role="img" aria-labelledby="st-t st-d" xmlns="http://www.w3.org/2000/svg" class="st">
+  <title id="st-t">Testosterone and oestradiol: two steroids</title>
+  <desc id="st-d">Skeletal formulas of two steroid hormones. Both have the same core of four fused rings of carbon atoms: three six-membered rings, labelled A, B and C, and one five-membered ring, D. Testosterone has a double-bonded oxygen on ring A, a carbon–carbon double bond in ring A, methyl groups where rings A and B meet and where rings C and D meet, and an OH group on ring D. Oestradiol has an aromatic ring A with three double bonds and an OH group, one methyl group where rings C and D meet, and an OH group on ring D.</desc>
+  {[T, E].map((m, i) => (
+    <g>
+      {rings.map((r) => <path class={`ring r${r.id}`} d={m.ringPath(r.atoms)} />)}
+      {bonds.map(([a, b]) => <line class="bond" {...line(m.xy(a), m.xy(b))} />)}
+      {rings.map((r) => <text class="rl" x={f(m.at(r.c)[0])} y={f(m.at(r.c)[1])} dy="0.36em" text-anchor="middle">{r.id}</text>)}
+      {/* methyl on C13 (both) */}
+      <line class="bond" {...line(m.xy('C13'), off(m.xy('C13'), 0, -26))} />
+      <text class="t" x={f(m.xy('C13')[0])} y={f(m.xy('C13')[1] - 31)} text-anchor="middle">CH₃</text>
+      {/* –OH on C17 (both) */}
+      <line class="bond" {...line(m.xy('C17'), off(m.xy('C17'), 16, -22))} />
+      <text class="t oh" x={f(m.xy('C17')[0] + 14)} y={f(m.xy('C17')[1] - 27)}>OH</text>
+      {i === 0 ? (
+        <>
+          <line class="bond" {...line(m.xy('C10'), off(m.xy('C10'), 0, -26))} />
+          <text class="t" x={f(m.xy('C10')[0])} y={f(m.xy('C10')[1] - 31)} text-anchor="middle">CH₃</text>
+          <line class="bond" {...m.inner('C4', 'C5', [0, 0])} />
+          {/* C3=O points down and to the left, away from ring A */}
+          <line class="bond" {...line(off(m.xy('C3'), -1.4, -2.4), off(m.xy('C3'), -22.2, 9.6))} />
+          <line class="bond" {...line(off(m.xy('C3'), 1.4, 2.4), off(m.xy('C3'), -19.4, 14.4))} />
+          <text class="t oh" x={f(m.xy('C3')[0] - 28)} y={f(m.xy('C3')[1] + 24)} text-anchor="middle">O</text>
+        </>
+      ) : (
+        <>
+          <line class="bond" {...m.inner('C1', 'C2', [0, 0])} />
+          <line class="bond" {...m.inner('C3', 'C4', [0, 0])} />
+          <line class="bond" {...m.inner('C5', 'C10', [0, 0])} />
+          <line class="bond" {...line(m.xy('C3'), off(m.xy('C3'), -24, 13))} />
+          <text class="t oh" x={f(m.xy('C3')[0] - 28)} y={f(m.xy('C3')[1] + 23)} text-anchor="end">HO</text>
+        </>
+      )}
+      <text class="name" x={f(m.at([2.1, 0])[0])} y="224" text-anchor="middle">{i === 0 ? 'Testosterone' : 'Oestradiol'}</text>
+    </g>
+  ))}
+</svg>
+<style>
+  .st { font-family: var(--font-sans); }
+  .bond { stroke: var(--text); stroke-width: 2.3; stroke-linecap: round; }
+  .ring { fill: color-mix(in srgb, var(--bio-chol) 14%, transparent); stroke: none; }
+  .rl { font-size: 14px; font-weight: 800; fill: var(--text-muted); }
+  .t { font-size: 15px; fill: var(--text); }
+  .t.oh { fill: var(--bio-k); font-weight: 700; }
+  .name { font-size: 17px; font-weight: 750; fill: var(--text); }
+</style>

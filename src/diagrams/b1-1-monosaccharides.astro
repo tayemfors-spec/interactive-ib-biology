@@ -1,0 +1,115 @@
+---
+/**
+ * Recognising pentoses and hexoses in ring form (B1.1.4). Flat (Haworth-style) rings: "up" = above the ring.
+ *   β-D-ribose (pentose, five-membered ring): C1 OH up · C2 OH down · C3 OH down · C4 CH₂OH (C5) up.
+ *   α-D-glucose (hexose, six-membered ring): C1 OH down · C2 OH down · C3 OH up · C4 OH down · C5 CH₂OH (C6) up.
+ *   β-D-fructose (hexose, five-membered ring): C2 OH up, CH₂OH (C1) down · C3 OH up · C4 OH down · C5 CH₂OH (C6) up.
+ * The point: count the carbon atoms (inside and outside the ring), not the corners of the ring.
+ */
+type P = [number, number];
+const f = (n: number) => n.toFixed(1);
+const ang = (cx: number, cy: number, r: number, a: number): P => [cx + r * Math.cos((a * Math.PI) / 180), cy + r * Math.sin((a * Math.PI) / 180)];
+const cy = 124;
+/** dx: horizontal lean of the stub (side carbons lean outwards so groups clear the ring). */
+interface Sub { at: string; up: boolean; text: string; inner?: boolean; num?: string; dx?: number }
+interface Sugar { cx: number; ring: Record<string, P>; order: string[]; subs: Sub[]; nums: Record<string, P>; name: string; kind: string; formula: string }
+
+// pentagon: O at the top, then clockwise C(right), C(bottom right), C(bottom left), C(left)
+const pent = (cx: number, names: string[]) => {
+  const r = 52;
+  const out: Record<string, P> = {};
+  [-90, -18, 54, 126, 198].forEach((a, i) => (out[names[i]!] = ang(cx, cy, r, a)));
+  return out;
+};
+const hex = (cx: number) => {
+  const r = 52;
+  const out: Record<string, P> = {};
+  ([['C1', 0], ['O', -60], ['C5', -120], ['C4', 180], ['C3', 120], ['C2', 60]] as const).forEach(([k, a]) => (out[k] = ang(cx, cy, r, a)));
+  return out;
+};
+const sugars: Sugar[] = [
+  {
+    cx: 108, ring: pent(108, ['O', 'C1', 'C2', 'C3', 'C4']), order: ['O', 'C1', 'C2', 'C3', 'C4'],
+    subs: [
+      { at: 'C1', up: true, text: 'OH', dx: 8 }, { at: 'C1', up: false, text: 'H', dx: 16 },
+      { at: 'C2', up: true, text: 'H', inner: true }, { at: 'C2', up: false, text: 'OH' },
+      { at: 'C3', up: true, text: 'H', inner: true }, { at: 'C3', up: false, text: 'OH' },
+      { at: 'C4', up: true, text: 'CH₂OH', num: '5', dx: -12 }, { at: 'C4', up: false, text: 'H', dx: -16 },
+    ],
+    nums: { C1: [14, 14], C2: [12, 2], C3: [-12, 2], C4: [-14, 14] },
+    name: 'Ribose', kind: 'pentose · 5 C', formula: 'C₅H₁₀O₅',
+  },
+  {
+    cx: 320, ring: hex(320), order: ['C1', 'O', 'C5', 'C4', 'C3', 'C2'],
+    subs: [
+      { at: 'C1', up: true, text: 'H' }, { at: 'C1', up: false, text: 'OH' },
+      { at: 'C2', up: true, text: 'H', inner: true }, { at: 'C2', up: false, text: 'OH' },
+      { at: 'C3', up: true, text: 'OH', inner: true }, { at: 'C3', up: false, text: 'H' },
+      { at: 'C4', up: true, text: 'H' }, { at: 'C4', up: false, text: 'OH', dx: -2 },
+      { at: 'C5', up: true, text: 'CH₂OH', num: '6' }, { at: 'C5', up: false, text: 'H', inner: true },
+    ],
+    nums: { C1: [12, 14], C2: [12, 2], C3: [-12, 2], C4: [-12, 14], C5: [-13, -2] },
+    name: 'Glucose (α)', kind: 'hexose · 6 C', formula: 'C₆H₁₂O₆',
+  },
+  {
+    cx: 520, ring: pent(520, ['O', 'C2', 'C3', 'C4', 'C5']), order: ['O', 'C2', 'C3', 'C4', 'C5'],
+    subs: [
+      { at: 'C2', up: true, text: 'OH', dx: 8 }, { at: 'C2', up: false, text: 'CH₂OH', num: '1', dx: 28 },
+      { at: 'C3', up: true, text: 'OH', inner: true }, { at: 'C3', up: false, text: 'H' },
+      { at: 'C4', up: true, text: 'H', inner: true }, { at: 'C4', up: false, text: 'OH' },
+      { at: 'C5', up: true, text: 'CH₂OH', num: '6', dx: -12 }, { at: 'C5', up: false, text: 'H', dx: -16 },
+    ],
+    nums: { C2: [14, 14], C3: [12, 2], C4: [-12, 2], C5: [-14, 14] },
+    name: 'Fructose (β)', kind: 'hexose · 6 C', formula: 'C₆H₁₂O₆',
+  },
+];
+const trim = (a: P, b: P, s0: number, s1: number) => {
+  const d = Math.hypot(b[0] - a[0], b[1] - a[1]);
+  const ux = (b[0] - a[0]) / d, uy = (b[1] - a[1]) / d;
+  return { x1: f(a[0] + ux * s0), y1: f(a[1] + uy * s0), x2: f(b[0] - ux * s1), y2: f(b[1] - uy * s1) };
+};
+---
+<svg viewBox="0 0 640 292" role="img" aria-labelledby="ms-t ms-d" xmlns="http://www.w3.org/2000/svg" class="ms">
+  <title id="ms-t">Ring forms of a pentose and two hexoses</title>
+  <desc id="ms-d">Three monosaccharides in ring form. Ribose is a pentose: a five-membered ring of four carbons and one oxygen, with the fifth carbon in a CH2OH group outside the ring. Alpha-glucose is a hexose: a six-membered ring of five carbons and one oxygen, with the sixth carbon in a CH2OH group outside the ring. Fructose is also a hexose, but its ring is five-membered: four carbons and one oxygen in the ring, and two CH2OH groups outside it, carbons 1 and 6. Counting all the carbon atoms, not the ring corners, tells a pentose from a hexose.</desc>
+  {sugars.map((s) => (
+    <g>
+      {s.order.map((a, i) => { const b = s.order[(i + 1) % s.order.length]!; return <line class="bond" {...trim(s.ring[a]!, s.ring[b]!, 9, 9)} />; })}
+      {s.subs.map((u) => {
+        const a = s.ring[u.at]!;
+        const len = u.inner ? 16 : Math.abs(u.dx ?? 0) > 14 ? 20 : 26;
+        const dx = u.dx ?? 0;
+        const b: P = [a[0] + dx, a[1] + (u.up ? -len : len)];
+        const ty = u.up ? b[1] - 4 : b[1] + 14;
+        const ch2 = u.text === 'CH₂OH';
+        // CH₂OH: written away from the ring (to the left on left-hand carbons, to the right otherwise)
+        const leftward = ch2 && dx < 0;
+        const below = ch2 && !u.up;
+        const anchor = below ? 'middle' : ch2 ? (leftward ? 'end' : 'start') : 'middle';
+        const tx = below ? b[0] : ch2 ? b[0] + (leftward ? 8 : -6) : b[0] + (u.text === 'OH' ? (dx < 0 ? -4 : 4) : 0);
+        return (
+          <>
+            <line class="bond" {...trim(a, b, 9, 0)} />
+            <text class={u.text === 'OH' ? 't oh' : 't'} x={f(tx)} y={f(ty)} text-anchor={anchor}>{ch2 && <tspan class="num">{u.num} </tspan>}{u.text}</text>
+          </>
+        );
+      })}
+      {Object.entries(s.ring).map(([k, [x, y]]) => <text class={k === 'O' ? 'atom ro' : 'atom'} x={f(x)} y={f(y)} dy="0.36em" text-anchor="middle">{k === 'O' ? 'O' : 'C'}</text>)}
+      {Object.entries(s.nums).map(([k, [dx, dy]]) => <text class="num" x={f(s.ring[k]![0] + dx)} y={f(s.ring[k]![1] + dy)} text-anchor="middle">{k.slice(1)}</text>)}
+      <text class="name" x={s.cx} y="246" text-anchor="middle">{s.name}</text>
+      <text class="kind" x={s.cx} y="266" text-anchor="middle">{s.kind}</text>
+      <text class="kind" x={s.cx} y="285" text-anchor="middle">{s.formula}</text>
+    </g>
+  ))}
+</svg>
+<style>
+  .ms { font-family: var(--font-sans); }
+  .bond { stroke: var(--text); stroke-width: 2.2; stroke-linecap: round; }
+  .atom { font-size: 16px; font-weight: 750; fill: var(--text); }
+  .atom.ro { fill: var(--bio-k); font-weight: 800; }
+  .t { font-size: 13px; fill: var(--text); }
+  .t.oh { font-weight: 700; }
+  .num { font-size: 11px; font-weight: 800; fill: var(--text-muted); }
+  .name { font-size: 16px; font-weight: 750; fill: var(--text); }
+  .kind { font-size: 13.5px; fill: var(--text-muted); }
+</style>
