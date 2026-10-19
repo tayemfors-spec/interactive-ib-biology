@@ -214,18 +214,22 @@ export async function mountViewer(fig: HTMLElement, scenes: SceneDef[]): Promise
     for (const it of items) {
       const cw = it.l.el.offsetWidth;
       const ch = it.l.el.offsetHeight;
-      const narrow = it.l.el.offsetWidth === it.l.el.offsetHeight; // numbered marker, centred on the point
-      const left = () => (narrow ? it.x - cw / 2 : it.x - 7);
+      const narrow = cw === ch; // numbered marker (phones), centred on the point
+      // A chip normally extends to the right of its point; near the right edge it flips to the left,
+      // so its dot still sits on the structure.
+      const flip = !narrow && it.x + cw - 7 > w - 2;
+      it.l.el.classList.toggle('flip', flip);
+      const left = () => (narrow ? it.x - cw / 2 : flip ? it.x - cw + 7 : it.x - 7);
       const top = () => it.y - ch / 2;
       for (let guard = 0; guard < 12; guard++) {
         const clash = placed.find((r) => left() < r.x + r.w + 2 && left() + cw + 2 > r.x && top() < r.y + r.h + 2 && top() + ch + 2 > r.y);
         if (!clash) break;
         it.y = clash.y + clash.h + 3 + ch / 2;
       }
-      // keep the whole chip inside the stage (the anchor dot may then sit slightly off the point)
-      const minX = narrow ? cw / 2 + 2 : 9;
-      const maxX = narrow ? w - cw / 2 - 2 : w - cw + 5;
-      it.x = Math.max(minX, Math.min(maxX, it.x));
+      // keep the chip inside the stage
+      if (narrow) it.x = Math.max(cw / 2 + 2, Math.min(w - cw / 2 - 2, it.x));
+      else if (!flip) it.x = Math.max(9, it.x);
+      else it.x = Math.max(cw - 5, it.x);
       it.y = Math.max(ch / 2 + 2, Math.min(h - ch / 2 - 2, it.y));
       placed.push({ x: left(), y: top(), w: cw, h: ch });
       it.l.el.style.transform = `translate(${it.x.toFixed(1)}px, ${it.y.toFixed(1)}px)`;

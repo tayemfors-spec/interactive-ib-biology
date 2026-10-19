@@ -202,6 +202,8 @@ const hasSteps = visual.scenes.some((s) => s.steps.length > 0);
     border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 2px var(--surface);
   }
   .labels :global(.label3d[data-level='AHL'])::before { background: var(--ahl); }
+  .labels :global(.label3d.flip) { translate: calc(-100% + 0.45rem) -50%; padding: 0.2rem 1rem 0.2rem 0.55rem; }
+  .labels :global(.label3d.flip)::before { left: auto; right: 0.25rem; }
   .labels :global(.label3d .n) { display: none; font-weight: 800; }
   /* Narrow stages (phones): show numbered markers only; tapping one shows its name in the info panel. */
   .viz.viewer3d { container-type: inline-size; }
