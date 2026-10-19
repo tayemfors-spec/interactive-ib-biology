@@ -14,7 +14,8 @@ const PHI = Math.atan(SPACING / 2 / H); // ≈ 22.4°
 const DETACHED = 0.75; // reach of a detached head as a fraction of the attached reach
 const TROPO_MOVED = -20; // tropomyosin shifts into the groove, uncovering the sites
 const SR: XY[] = [[40, 44], [66, 50], [92, 42], [118, 50], [144, 44], [170, 50]];
-const FREE: XY[] = [[150, 200], [56, 262], [236, 206], [408, 238], [486, 238], [196, 264]];
+// free positions kept clear of the myosin heads and stalks; the sixth ion stays free in the sarcoplasm
+const FREE: XY[] = [[150, 200], [56, 262], [236, 206], [418, 196], [504, 198], [262, 96]];
 // troponin each Ca²⁺ binds to (x at zero actin offset); the sixth ion stays free
 const TN_X = [196, 103, 289, 382, 475];
 const ATP_START: XY = [230, 330];

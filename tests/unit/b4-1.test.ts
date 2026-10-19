@@ -22,8 +22,9 @@ describe('B4.1 biome graph', () => {
     expect(classify(10, 10)).toBe('cold-desert');
   });
   it('the same rainfall supports forest when cool but not when hot (evaporation)', () => {
-    expect(classify(10, 60)).toBe('temperate-forest');
-    expect(classify(25, 60)).toBe('savanna');
+    expect(classify(10, 100)).toBe('temperate-forest');
+    expect(classify(25, 100)).toBe('savanna');
+    expect(classify(10, 60)).toBe('grassland');
     expect(desertLimit(25)).toBeGreaterThan(desertLimit(0));
     expect(forestLimit(19)).toBeGreaterThan(forestLimit(6));
   });

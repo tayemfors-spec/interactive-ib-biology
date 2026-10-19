@@ -49,6 +49,17 @@ export function charge(aa: AminoAcid, pH: number): number {
   return 1 / (1 + 10 ** (pH - aa.pKa)); // –NH₂ + H⁺ ⇌ –NH₃⁺
 }
 
+/**
+ * Short charge marker for a button: '+' or '−' when at least 95% of these R groups carry the charge,
+ * '(+)' or '(−)' when only some do (5–95%), '' when almost none do. Uses the same bands as chargeText.
+ */
+export function chargeSign(aa: AminoAcid, pH: number): string {
+  if (aa.pKa === undefined) return '';
+  const pct = Math.round(Math.abs(charge(aa, pH)) * 100);
+  const s = aa.cls === 'acidic' ? '−' : '+';
+  return pct >= 95 ? s : pct <= 5 ? '' : `(${s})`;
+}
+
 export function chargeText(aa: AminoAcid, pH: number): string {
   const q = charge(aa, pH);
   if (aa.pKa === undefined) return 'uncharged';

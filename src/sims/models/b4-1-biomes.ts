@@ -38,7 +38,7 @@ export const envelope = (t: number) => interp(ENVELOPE, t);
 /** Below this rainfall the land is desert; more is needed when it is warmer. */
 export const desertLimit = (t: number) => 15 + 0.5 * (t + 5);
 /** In the temperate band, forest needs at least this much rain; more when it is warmer. */
-export const forestLimit = (t: number) => 40 + 3 * (t - 5);
+export const forestLimit = (t: number) => 60 + 4 * (t - 5);
 
 export type Result = BiomeId | 'rare';
 

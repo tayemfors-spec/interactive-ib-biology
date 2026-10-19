@@ -1,11 +1,10 @@
 ---
-import { aminoAcids, charge, chargeText, classInfo, interactions, whereFound, type AAClass } from './models/b1-2-r-groups';
+import { aminoAcids, chargeSign, chargeText, classInfo, interactions, whereFound, type AAClass } from './models/b1-2-r-groups';
 
 const classes: AAClass[] = ['non-polar', 'polar', 'acidic', 'basic'];
 const pH0 = 7;
 const first = aminoAcids.find((a) => a.code === 'Leu')!;
 const w0 = whereFound(first);
-const sign = (q: number) => (q > 0.05 ? '+' : q < -0.05 ? '−' : '');
 // marker slots in the two diagrams
 const core = [[100, 88], [86, 108], [114, 110], [96, 124], [78, 90], [120, 90]];
 const surf = Array.from({ length: 9 }, (_, i) => { const a = (i / 9) * Math.PI * 2 + 0.3; return [100 + 72 * Math.cos(a), 104 + 72 * Math.sin(a)]; });
@@ -23,7 +22,7 @@ const waterSide = [[305, 36], [335, 44], [318, 58], [305, 156], [335, 166], [320
         <div class="btns">
           {aminoAcids.filter((a) => a.cls === c).map((a) => (
             <button type="button" class="btn aa" role="radio" aria-checked={a === first ? 'true' : 'false'} tabindex={a === first ? 0 : -1} data-aa={a.code}>
-              <span class="code">{a.code}</span> <span class="nm">{a.name}</span>{a.pKa !== undefined && <span class="q" data-q aria-hidden="true">{sign(charge(a, pH0))}</span>}
+              <span class="code">{a.code}</span> <span class="nm">{a.name}</span>{a.pKa !== undefined && <span class="q" data-q aria-hidden="true">{chargeSign(a, pH0)}</span>}
             </button>
           ))}
         </div>
@@ -63,7 +62,7 @@ const waterSide = [[305, 36], [335, 44], [318, 58], [305, 156], [335, 166], [320
 </div>
 
 <script>
-  import { aminoAcids, charge, chargeText, classInfo, interactions, whereFound } from './models/b1-2-r-groups';
+  import { aminoAcids, chargeSign, chargeText, classInfo, interactions, whereFound } from './models/b1-2-r-groups';
 
   const NS = 'http://www.w3.org/2000/svg';
   document.querySelectorAll<HTMLElement>('[data-rg]').forEach((root) => {
@@ -80,7 +79,7 @@ const waterSide = [[305, 36], [335, 44], [318, 58], [305, 156], [335, 166], [320
       buttons.forEach((b) => {
         const a = aminoAcids.find((x) => x.code === b.dataset.aa)!;
         const q = b.querySelector('[data-q]');
-        if (q) { const c = charge(a, pH); q.textContent = c > 0.05 ? '+' : c < -0.05 ? '−' : ''; }
+        if (q) q.textContent = chargeSign(a, pH);
       });
       const a = current;
       const w = whereFound(a);

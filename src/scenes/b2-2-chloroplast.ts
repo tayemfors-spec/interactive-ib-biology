@@ -197,6 +197,13 @@ const scene: SceneModule = {
     const atpP = nearest(atpItems.map((a) => a.at.clone().addScaledVector(a.dir, 0.22)), new THREE.Vector3(-0.3, 0.6, -0.3));
     const riboP = nearest(riboPts, new THREE.Vector3(1.8, -1.0, -1.0));
     const lam = lamFaces[3]!;
+    // the DNA label sits on the strand of the loop lying free in the stroma between the middle grana (the other
+    // loop is tucked beside the left granum): its vertex nearest the viewer
+    const loopMesh = dna.children[1] as THREE.Mesh;
+    const lp = loopMesh.geometry.getAttribute('position');
+    const dnaP = new THREE.Vector3(-Infinity, 0, -Infinity);
+    for (let i = 0; i < lp.count; i++) if (lp.getZ(i) > dnaP.z) dnaP.set(lp.getX(i), lp.getY(i), lp.getZ(i));
+    dnaP.add(loopMesh.position);
     const anchors = {
       outer: { object: anchorAt(root, -1.0, RY * Math.sqrt(1 - (1 / RX) ** 2), 0.06, 'outer'), highlight: [outer, rimOuter] },
       inner: { object: anchorAt(root, 1.5, -IY * Math.sqrt(1 - (1.5 / IX) ** 2), 0.06, 'inner'), highlight: [inner, rimInner] },
@@ -209,7 +216,7 @@ const scene: SceneModule = {
       'atp-synthase': { object: anchorAt(root, atpP.x, atpP.y, atpP.z, 'atp-synthase'), highlight: [atp.group] },
       starch: { object: anchorAt(root, -2.8, -1.25, -0.5, 'starch'), highlight: [starch] },
       ribosomes: { object: anchorAt(root, riboP.x, riboP.y, riboP.z, 'ribosomes'), highlight: [ribosomes] },
-      dna: { object: anchorAt(root, -5.0, -0.1, -0.6, 'dna'), highlight: [dna] },
+      dna: { object: anchorAt(root, dnaP.x, dnaP.y, dnaP.z + 0.03, 'dna'), highlight: [dna] },
     };
     return { anchors, dispose() { root.removeFromParent(); } };
   },

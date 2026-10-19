@@ -78,7 +78,7 @@ facts:
     basis: Janeway's Immunobiology
     status: checked
   - id: f14
-    claim: "For a cube of side L, SA = 6L², V = L³ and SA:V = 6/L; doubling L multiplies SA by 4 and V by 8. SA = V at L = 6."
+    claim: "For a cube of side L, SA = 6L², V = L³ and SA:V = 6/L; doubling L multiplies SA by 4 and V by 8. SA:V falls below 1 µm⁻¹ when L exceeds 6 µm; SA and V have different units, so the point where their curves cross has no biological meaning."
     where: [ "index.mdx#sav", "index.mdx (mustKnow, mistakes)", "flashcards.yaml:c10", "quiz.yaml:q6", "visuals.yaml:sav", "tests/unit/b2-3.test.ts" ]
     confidence: high
     basis: Geometry; verified by unit tests

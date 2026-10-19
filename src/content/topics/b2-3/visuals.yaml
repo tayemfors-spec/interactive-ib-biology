@@ -12,7 +12,8 @@ visuals:
       size: the ratio falls steeply at first and then more slowly as the cube gets bigger. Two other shapes with the
       same volume can be chosen: a sphere, which has the lowest SA:V of any shape, and a flattened cell eight times
       wider than it is thick, which has a higher SA:V. A second graph shows the surface area and volume of the cube:
-      volume rises faster and overtakes surface area at L = 6 µm, where SA:V = 1. A button divides the cell into eight
+      volume rises faster than surface area. SA:V falls below 1 µm⁻¹ when L exceeds 6 µm. The two curves can be plotted
+      together, but area and volume have different units, so their crossing has no biological meaning. A button divides the cell into eight
       smaller cells of the same shape: the total volume is unchanged, but the total surface area and the SA:V ratio
       both double, which is why cells divide when they become large. A data table gives values for cubes of side 1 to
       10 µm.
@@ -46,4 +47,4 @@ visuals:
         caption: Expressing different genes, the cells develop along different pathways and become specialized, here as nerve, muscle and epithelial cells. One cell does not differentiate and stays a stem cell. No genes have been lost, only switched off.
       - id: stem
         title: Properties of stem cells
-        caption: A stem cell divides again and again (self-renewal). Often one daughter cell stays a stem cell while the other differentiates into a specialized cell. Stem cells can therefore both keep a supply of themselves and produce new specialized cells.
+        caption: A stem cell divides again and again (self-renewal). Often one daughter cell stays a stem cell while the other differentiates into a specialized cell, such as a muscle cell, or into other cell types. Stem cells can therefore both keep a supply of themselves and produce new specialized cells.

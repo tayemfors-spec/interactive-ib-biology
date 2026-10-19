@@ -108,7 +108,7 @@ facts:
     basis: Kleypas et al. (1999); Spalding et al. (2001) World Atlas of Coral Reefs
     status: checked
   - id: f19
-    claim: "Biome graph boundaries used in the sim are approximate, simplified from Whittaker (1975) as redrawn by Ricklefs: tundra below −5 °C; taiga −5 to 5 °C; desert below D(T) = 15 + 0.5(T + 5) cm; temperate forest above F(T) = 40 + 3(T − 5) cm between 5 and 20 °C; tropical forest above 150 cm at ≥ 20 °C; upper envelope from 50 cm at −15 °C to 450 cm at 30 °C."
+    claim: "Biome graph boundaries used in the sim are approximate, simplified from Whittaker (1975) as redrawn by Ricklefs: tundra below −5 °C; taiga −5 to 5 °C; desert below D(T) = 15 + 0.5(T + 5) cm; temperate forest above F(T) = 60 + 4(T − 5) cm (so about 80 cm at 10 °C) between 5 and 20 °C; tropical forest above 150 cm at ≥ 20 °C; upper envelope from 50 cm at −15 °C to 450 cm at 30 °C."
     where: [ "src/sims/models/b4-1-biomes.ts", "visuals.yaml:biomes", "index.mdx#biome-distribution", "quiz.yaml:q8" ]
     confidence: medium
     basis: Whittaker (1975) Communities and Ecosystems; Ricklefs (2008) The Economy of Nature; plotbiomes R package polygons (compared, not copied). Boundaries are teaching simplifications.

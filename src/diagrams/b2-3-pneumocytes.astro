@@ -41,7 +41,8 @@ const rbcs: [number, number][] = [[116, 252], [208, 262], [430, 250]];
   <ellipse class="nuc" cx="400" cy="180" rx="24" ry="13" />
   {lamellar.map(([x, y]) => <g class="lam"><circle cx={x} cy={y} r="9" /><path d={`M${x - 6} ${y - 2} A7 7 0 0 1 ${x + 6} ${y - 2} M${x - 5} ${y + 3} A6 6 0 0 0 ${x + 5} ${y + 3}`} /></g>)}
   <path class="lam-open" d="M404 126 C404 136 418 136 418 126" />
-  <path class="surf" d="M408 118 C404 108 414 104 410 94 M414 118 C420 110 412 104 420 96" />
+  <!-- surfactant leaves the fused lamellar body and spreads sideways within the fluid film (y ≈ 120–124), not into the air -->
+  <path class="surf" d="M409 126 C407 123 403 122 394 122 M415 126 C417 123 421 122 430 122" />
 
   <!-- gas exchange across a type I cell -->
   <path class="gas" d="M262 116 V268" /><text class="t b" x="250" y="110" text-anchor="middle">O₂</text>
@@ -54,7 +55,7 @@ const rbcs: [number, number][] = [[116, 252], [208, 262], [430, 250]];
   <path class="lead" d="M150 116 L196 186" /><text class="t" x="70" y="104">fluid film with surfactant</text>
   <path class="lead" d="M318 40 L346 132" /><text class="t b" x="318" y="34" text-anchor="end">type II pneumocyte</text>
   <path class="lead" d="M468 52 L425 146" /><text class="t" x="512" y="30" text-anchor="end">lamellar bodies</text><text class="t" x="512" y="46" text-anchor="end">store surfactant</text>
-  <path class="lead" d="M444 114 L420 106" /><text class="t" x="446" y="118">surfactant</text><text class="t" x="446" y="134">released by</text><text class="t" x="446" y="150">exocytosis</text>
+  <path class="lead" d="M444 114 L428 121" /><text class="t" x="446" y="118">surfactant</text><text class="t" x="446" y="134">released by</text><text class="t" x="446" y="150">exocytosis</text>
   <text class="t" x="12" y="290">capillary (blood plasma)</text>
   <path class="lead" d="M252 278 L232 266" /><text class="t" x="256" y="290">red blood cell</text>
   <path class="lead" d="M250 330 L250 306" /><text class="t" x="250" y="346" text-anchor="middle">capillary endothelium</text>

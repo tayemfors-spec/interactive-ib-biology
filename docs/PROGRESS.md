@@ -8,9 +8,9 @@ Updated by Claude during the build. If a session is interrupted, resume from **N
 |---|---|
 | 0 Setup, 1 Syllabus, 2 Framework + B2.1 | Done (committed) |
 | 3 Theme A (9 topics) | Done: merged, examiner-reviewed, fixed, all gates green (commit `afe7580`) |
-| 4 Theme B (9 remaining topics) | Merged into main; all gates green except one flaky test, since hardened. Examiner review running (3 reviewers); fixes and the Stage 4 commit come next |
-| 5 Theme C (9 topics) | Builders running in worktrees; C1.1, C1.2, C1.3 and C2.1 finished and committed on their branches (not yet merged) |
-| 6 Theme D (12 topics) | Not started |
+| 4 Theme B (9 remaining topics) | Done: merged, reviewed, fixed, all gates green |
+| 5 Theme C (9 topics) | All 9 built on branches; merge and review next |
+| 6 Theme D | Wave 1 (D1.1–D2.3) building; wave 2 (D3.1–D4.3) to launch |
 | 7 Polish / final integration | Not started |
 | 8–9 Deploy / Search Console | Needs the user (GitHub account, sign-in). Not started; no deployment without the user |
 

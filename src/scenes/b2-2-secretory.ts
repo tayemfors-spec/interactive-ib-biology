@@ -49,7 +49,9 @@ const chainSlot = (rib: THREE.Vector3, s: number, dx = 0.15, down = 0.32) =>
 const freeSlot = (s: number) => FREE.clone().add(new THREE.Vector3(0.15 + s * 0.15, -0.12 - s * 0.035, (s % 2 ? 0.03 : -0.03)));
 
 const scene: SceneModule = {
-  camera: { position: [0.6, 3.0, 14.6], target: [-0.1, 0.3, -0.3], fov: 38, minDistance: 5, maxDistance: 36 },
+  // framed tightly (model ≈ ±4.9 wide about the target) so that after the runtime steps back for a square
+  // phone stage the Golgi's cis and trans faces are still large enough to read
+  camera: { position: [0.5, 2.5, 11.9], target: [-0.1, 0.3, -0.3], fov: 38, minDistance: 5, maxDistance: 36 },
 
   build(ctx) {
     const root = new THREE.Group();

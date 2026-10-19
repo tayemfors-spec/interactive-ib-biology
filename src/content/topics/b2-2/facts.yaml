@@ -15,9 +15,10 @@ facts:
     basis: Standard practical biology texts (e.g. Campbell; A-level/IB practical guidance)
     status: checked
   - id: f3
-    claim: Typical differential centrifugation values — about 1,000 × g 10 min (nuclei), 20,000 × g 20 min
-      (mitochondria, chloroplasts), 80,000 × g 60 min (microsomes — ER and plasma membrane fragments),
-      150,000 × g 3 h (ribosomes).
+    claim: Typical differential centrifugation values — about 600–1,000 × g 10 min (nuclei), 1,000–4,000 × g
+      10 min (chloroplasts, plant tissue; they pellet before mitochondria), 10,000–20,000 × g 20 min
+      (mitochondria), 80,000 × g 60 min (microsomes — ER and plasma membrane fragments), 150,000 × g 3 h
+      (ribosomes).
     where: [ "index.mdx#organelles", "quiz.yaml:q2", "flashcards.yaml:c4", "index.mdx (mistakes)" ]
     confidence: medium
     basis: Campbell Biology (cell fractionation figure); values vary between protocols, so presented as typical
@@ -145,12 +146,13 @@ facts:
     status: open
   - id: f19
     claim: Free and bound ribosomes are identical 80S (60S + 40S) ribosomes; a signal sequence directs a
-      ribosome to the RER; free ribosomes make proteins retained in the cytosol; bound ribosomes make proteins
-      for secretion, lysosomes and membranes.
+      ribosome to the RER; free ribosomes make cytosolic proteins and proteins imported post-translationally
+      into the nucleus, mitochondria, chloroplasts and peroxisomes; bound ribosomes make proteins for
+      secretion, the plasma membrane, lysosomes and the ER and Golgi (endomembrane system).
     where: [ "index.mdx#ribosomes-rer", "quiz.yaml:q8", "flashcards.yaml:c14", "visuals.yaml:organelles secretory", "visuals.yaml:secretion step 1", "index.mdx (mistakes)" ]
     confidence: high
-    basis: Alberts (signal hypothesis, Blobel); IB guide B2.2.7. Simplified — free ribosomes also make proteins
-      imported into the nucleus, mitochondria and chloroplasts; not stated
+    basis: Alberts (signal hypothesis, Blobel; post-translational import into mitochondria, chloroplasts,
+      peroxisomes and the nucleus); IB guide B2.2.7
     status: checked
   - id: f20
     claim: Pancreatic cells secreting digestive enzymes and plasma cells secreting antibodies have extensive
@@ -162,8 +164,8 @@ facts:
   - id: f21
     claim: The Golgi apparatus is a stack of usually about four to eight separate cisternae in animal cells, with
       a convex cis face towards the ER and a concave trans face towards the plasma membrane; enzymes in the
-      cisternae modify proteins (glycosylation, cleavage); proinsulin is cleaved to insulin as it leaves the
-      Golgi in secretory vesicles.
+      cisternae modify proteins (glycosylation, cleavage); proinsulin is cleaved to insulin mainly in immature
+      secretory vesicles after they leave the trans-Golgi.
     where: [ "index.mdx#golgi", "flashcards.yaml:c15", "visuals.yaml:organelles secretory cis/trans/golgi", "anims/b2-2-secretion" ]
     confidence: medium
     basis: Alberts (Golgi; proinsulin processing in immature secretory granules); cisterna numbers vary widely

@@ -169,7 +169,7 @@ const scene: SceneModule = {
       // the carboxyl group of amino acid 2 stays free in the dipeptide (the amine group of amino acid 1 does too)
       anc.carboxyl.position.copy(P.O2!).add(v3(0, 0.35, 0.2));
       anc['r-group'].position.copy(P.R1!).add(v3(0, 0.7, 0));
-      anc.hydrogen.position.copy(P.HA1!).add(v3(0, 0.28, 0));
+      anc.hydrogen.position.copy(P.HA1!); // exactly on the α-carbon's H atom (not nudged towards the R group)
       anc['peptide-bond'].position.copy(form > 0.99 ? P.C1!.clone().lerp(P.N2!, 0.5).add(v3(0, -0.1, 0.2)) : OFFSTAGE);
       anc.water.position.copy(inWater ? wPos.clone().add(v3(0.4, -0.4, 0.3)) : OFFSTAGE);
     };

@@ -81,7 +81,7 @@ export function equilibrium(p: CompParams): { a: number; b: number } | null {
 }
 
 export const outcomeText: Record<Outcome, string> = {
-  coexist: 'Both species coexist, each at a lower population than it reaches alone: competition restricts both to part of their fundamental niche.',
+  coexist: 'Both species coexist, each at a lower population than alone — as when competing species divide resources so their realized niches differ.',
   a: 'Species A excludes species B: B declines towards zero (competitive exclusion).',
   b: 'Species B excludes species A: A declines towards zero (competitive exclusion).',
   depends: 'Competition between the species is stronger than within each species, so whichever species gets ahead first excludes the other.',

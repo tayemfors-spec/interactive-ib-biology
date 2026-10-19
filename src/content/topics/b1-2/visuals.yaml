@@ -69,7 +69,7 @@ visuals:
             text: The number and sequence of amino acids in the chain. It is coded by a gene and does not change as the chain folds — and it determines how the chain folds.
           - id: peptide-bond
             name: Peptide bond
-            text: Each amino acid is joined to the next by a peptide bond between C and N. Together they make the repeating –N–C–C– backbone, with an N–H and a C=O group in every amino acid.
+            text: Each amino acid is joined to the next by a peptide bond between C and N. Together they make the repeating –N–C–C– backbone, with a C=O group in every amino acid and an N–H in every one except proline.
           - id: r-group
             name: R groups (beads)
             text: One bead per amino acid, coloured by type of R group — hydrophobic yellow, polar green, acidic red, basic purple, cysteine amber. Their positions in the sequence decide how the chain folds.
@@ -176,7 +176,8 @@ visuals:
       graphs show the percentage of native molecules against temperature and against pH, with a data table. The
       human enzyme denatures above about 50 °C and outside roughly pH 4–10; pepsin is stable at pH 2 but denatures
       at neutral pH; Taq polymerase stays folded close to 100 °C. Returning to normal conditions does not restore
-      a denatured sample, because the denaturation is permanent. Peptide bonds are never broken.
+      a denatured sample, because the sim treats denaturation as permanent, as it almost always is after heating.
+      Peptide bonds are never broken.
 
   - id: r-groups
     kind: sim

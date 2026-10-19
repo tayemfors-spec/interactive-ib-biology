@@ -158,7 +158,7 @@ const scene: SceneModule = {
     const u = X.clone();
     const w = new THREE.Vector3(0, Math.sin(tilt), Math.cos(tilt)); // β face
     const v = new THREE.Vector3().crossVectors(w, u);
-    const SO = new THREE.Vector3(-19, -10.5, 0);
+    const SO = new THREE.Vector3(-20.5, -13.5, 0); // below and left of the kinked sn-2 tail, so the two never overlap
     const L = 1.45;
     const flat: Record<string, [number, number]> = {
       C1: [0, 1], C2: [-0.866, 0.5], C3: [-0.866, -0.5], C4: [0, -1], C5: [0.866, -0.5], C10: [0.866, 0.5],

@@ -60,7 +60,7 @@ facts:
     basis: Standard carbohydrate stereochemistry
     status: checked
   - id: f11
-    claim: Glucose is soluble because its –OH groups hydrogen-bond with water; it is carried dissolved in blood plasma; in plants sugar is translocated mainly as sucrose (glucose + fructose); complete oxidation of glucose releases about 2,800–2,870 kJ mol⁻¹ (about 16 kJ g⁻¹).
+    claim: Glucose is soluble because its –OH groups hydrogen-bond with water; it is carried dissolved in blood plasma; in plants sugar is translocated mainly as sucrose (glucose + fructose); complete oxidation of glucose releases about 2,800–2,870 kJ mol⁻¹ (about 16 kJ g⁻¹); this is slightly below the rounded ≈ 17 kJ g⁻¹ used for carbohydrate/glycogen in f22 (a dietary Atwater factor, and glucose residues in polymers have lost water, so they release a little more per gram).
     where: [ "index.mdx#monosaccharides", "flashcards.yaml:c7", "visuals.yaml:molecules hydroxyl" ]
     confidence: high
     basis: Standard biochemistry (ΔG°′ ≈ −2,870 kJ mol⁻¹, ΔH combustion ≈ −2,803 kJ mol⁻¹; Berg)

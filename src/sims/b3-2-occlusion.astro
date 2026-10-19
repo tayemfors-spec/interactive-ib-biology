@@ -37,9 +37,9 @@ const n0 = 0.3;
     </div>
   </div>
   <p class="readout" aria-live="polite" data-readout>
-    Lumen area left: {Math.round(areaLeft(n0) * 100)}%. At rest the artery supplies {supply(n0, 'rest').toFixed(1)} of a demand of {DEMAND.rest}: the heart muscle gets enough oxygen.
+    Lumen area left (assuming even narrowing): {Math.round(areaLeft(n0) * 100)}%. At rest the artery supplies {supply(n0, 'rest').toFixed(1)} of a demand of {DEMAND.rest}: the heart muscle gets enough oxygen.
   </p>
-  <p class="model-note">Qualitative model in arbitrary units (resting demand = 1). Real narrowings vary, and symptoms depend on which artery is affected and on other vessels that may supply the same muscle.</p>
+  <p class="model-note">Qualitative model in arbitrary units (resting demand = 1). The plaque is drawn on one side, as it often is, but the area left is calculated as if the lumen narrowed evenly all round. Real narrowings vary, and symptoms depend on which artery is affected and on other vessels that may supply the same muscle.</p>
 </div>
 
 <script>
@@ -82,7 +82,7 @@ const n0 = 0.3;
       clearTimeout(timer);
       timer = window.setTimeout(() => {
         const area = Math.round(areaLeft(n) * 100);
-        const head = clot ? 'A blood clot has formed on the plaque and blocked the artery completely.' : `Lumen area left: ${area}%.`;
+        const head = clot ? 'A blood clot has formed on the plaque and blocked the artery completely.' : `Lumen area left (assuming even narrowing): ${area}%.`;
         const msg = {
           normal: `${act === 'rest' ? 'At rest' : 'During exercise'} the artery can still supply all the oxygen the heart muscle needs (supply ${s.toFixed(1)}, demand ${d}).`,
           angina: `The narrowed artery cannot increase flow enough for exercise (maximum supply ${maxSupply(n).toFixed(1)}, demand ${d}). Heart muscle beyond the plaque is short of oxygen, causing chest pain (angina) and breathlessness; it eases with rest.`,

@@ -37,10 +37,10 @@ const markers: { n: number; x: number; y: number; to: [number, number] }[] = [
   { n: 7, x: 110, y: 300, to: [178, 246] },
   { n: 8, x: 300, y: 386, to: [320, 346] },
   { n: 9, x: 440, y: 386, to: [500, 346] },
-  { n: 10, x: 600, y: 386, to: [527, 352] },
+  { n: 10, x: 600, y: 386, to: [stomaX, 342] }, // the pore centre, between the guard cells
 ];
 const key = [
-  'Waxy cuticle: reduces water loss; gases cannot pass through it',
+  'Waxy cuticle: reduces water loss; almost impermeable to gases',
   'Upper epidermis: transparent cells that secrete the cuticle',
   'Palisade mesophyll: tightly packed cells, main site of photosynthesis',
   'Spongy mesophyll: loose cells with a large, moist surface for gas exchange',
@@ -81,14 +81,15 @@ const key = [
   {lower.map((x) => <rect class="epi" x={x} y="330" width="38.4" height="24" />)}
   <rect class="epi" x={stomaX - 60} y="330" width="34" height="24" />
   <rect class="epi" x={stomaX + 26} y="330" width="34" height="24" />
-  <ellipse class="guard" cx={stomaX - 13} cy="342" rx="12" ry="15" />
-  <ellipse class="guard" cx={stomaX + 13} cy="342" rx="12" ry="15" />
-  {[-1, 1].map((sg) => <><ellipse class="chl" cx={stomaX + sg * 15} cy="336" rx="3" ry="2.4" /><ellipse class="chl" cx={stomaX + sg * 14} cy="349" rx="3" ry="2.4" /></>)}
+  <!-- guard cells at stomaX ∓ 16 (rx 12) leave an 8 px open pore between them -->
+  <ellipse class="guard" cx={stomaX - 16} cy="342" rx="12" ry="15" />
+  <ellipse class="guard" cx={stomaX + 16} cy="342" rx="12" ry="15" />
+  {[-1, 1].map((sg) => <><ellipse class="chl" cx={stomaX + sg * 18} cy="336" rx="3" ry="2.4" /><ellipse class="chl" cx={stomaX + sg * 17} cy="349" rx="3" ry="2.4" /></>)}
   <rect class="cuticle" x={X0} y="354" width={stomaX - 26 - X0} height="5" rx="2" />
   <rect class="cuticle" x={stomaX + 26} y="354" width={X1 - stomaX - 26} height="5" rx="2" />
   <!-- gases -->
-  <path class="gas co2" d={`M${stomaX - 6} 422 V346 Q${stomaX - 10} 296 ${stomaX - 70} 268`} />
-  <path class="gas o2" d={`M${stomaX + 40} 262 Q${stomaX + 6} 290 ${stomaX + 4} 340 V418`} />
+  <path class="gas co2" d={`M${stomaX - 2} 422 V346 Q${stomaX - 6} 296 ${stomaX - 70} 268`} />
+  <path class="gas o2" d={`M${stomaX + 40} 262 Q${stomaX + 6} 290 ${stomaX + 2} 340 V418`} />
   <text class="g-t" x={stomaX - 14} y="434" text-anchor="end">CO₂ in</text>
   <text class="g-t" x={stomaX + 14} y="434">O₂ and water vapour out</text>
 

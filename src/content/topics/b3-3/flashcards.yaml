@@ -30,7 +30,7 @@ cards:
   - id: c8
     level: AHL
     front: What are the roles of titin?
-    back: It anchors each myosin filament to the Z-lines and keeps it centred; it prevents the sarcomere being overstretched; and it stores elastic potential energy when stretched, which helps the sarcomere recoil and adds to the force of the next contraction.
+    back: It anchors each myosin filament to the Z-lines and keeps it centred; it prevents the sarcomere being overstretched; and it stores elastic potential energy when stretched, which is released as elastic recoil, helping the sarcomere return to its resting length.
   - id: c9
     level: AHL
     front: Why do skeletal muscles work in antagonistic pairs?

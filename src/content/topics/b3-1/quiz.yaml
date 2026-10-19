@@ -64,19 +64,19 @@ questions:
     level: SL
     understanding: B3.1.6
     stem: >-
-      On a spirometer trace, a student's normal breaths go up and down between 2.4 dm³ and 2.9 dm³. When the
-      student breathes in as deeply as possible the trace reaches 5.8 dm³, and after breathing out as fully as
-      possible it falls to 1.2 dm³. What is the student's vital capacity?
+      A trace shows the volume of air in a student's lungs. During normal breaths it goes up and down between
+      2.4 dm³ and 2.9 dm³. When the student breathes in as deeply as possible it reaches 5.8 dm³, and after
+      breathing out as fully as possible it falls to 1.4 dm³. What is the student's vital capacity?
     options:
       - id: a
         text: 0.5 dm³
         why: This is the tidal volume, the difference between the top and bottom of a normal breath (2.9 − 2.4).
       - id: b
-        text: 4.6 dm³
-        why: Correct. Vital capacity is from the highest to the lowest point of the deep breath, 5.8 − 1.2 = 4.6 dm³, which equals IRV (2.9) + TV (0.5) + ERV (1.2).
+        text: 4.4 dm³
+        why: Correct. Vital capacity is from the highest to the lowest point of the deep breath, 5.8 − 1.4 = 4.4 dm³, which equals IRV (5.8 − 2.9 = 2.9) + TV (0.5) + ERV (2.4 − 1.4 = 1.0).
       - id: c
         text: 5.8 dm³
-        why: This is the total lung capacity, read from zero. It includes the residual volume (1.2 dm³), which cannot be breathed out.
+        why: This is the total lung capacity, the volume of air in the lungs after the deepest breath in. It includes the residual volume (1.4 dm³), which cannot be breathed out.
       - id: d
         text: 2.9 dm³
         why: This is the inspiratory reserve volume (5.8 − 2.9), only one part of the vital capacity.
@@ -177,7 +177,7 @@ questions:
         why: The rise is not constant. Saturation rises by 15 percentage points from 1 to 2 kPa and by 22 from 2 to 3 kPa, but by only 7 in total from 8 to 13 kPa, so the relationship is not linear.
       - id: b
         text: Haemoglobin has its highest affinity for oxygen at very low pO₂, below 2 kPa.
-        why: Saturation rises least between 0 and 2 kPa, because binding the first O₂ is hardest. Affinity increases once some O₂ has bound.
+        why: The data show the opposite. Below 2 kPa saturation rises only slowly (3 % at 1 kPa, 18 % at 2 kPa) because binding the first O₂ is hardest. Affinity increases once some O₂ has bound, giving the steep rise between 2 and 5 kPa. At high pO₂ the curve flattens because haemoglobin is nearly saturated, not because affinity has fallen.
       - id: c
         text: Saturation changes most steeply between about 2 and 5 kPa, so a small fall in pO₂ in respiring tissues releases a large proportion of the oxygen.
         why: Correct. This steep middle section of the sigmoid curve is caused by cooperative binding and matches the pO₂ found in respiring tissues.

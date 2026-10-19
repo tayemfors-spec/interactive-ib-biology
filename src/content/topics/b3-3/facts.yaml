@@ -72,10 +72,10 @@ facts:
     basis: Labeit & Kolmerer 1995; human titin canonical sequence ≈ 34,350 aa (UniProt Q8WZ42)
     status: checked
   - id: f13
-    claim: Titin keeps myosin centred, prevents overstretching, stores elastic energy when stretched and its recoil helps the sarcomere return to resting length and adds to the force of the next contraction.
+    claim: Titin keeps myosin centred, prevents overstretching, stores elastic energy when stretched and its elastic recoil helps the sarcomere return to its resting length.
     where: ["index.mdx#relaxation", "visuals.yaml:muscle/sarcomere relax", "flashcards.yaml:c8", "quiz.yaml:q3"]
     confidence: medium
-    basis: IB guide B3.3.3 and B3.3.8; Linke & Granzier reviews on titin passive tension. The contribution of titin recoil to active force is still researched; the page follows the guide.
+    basis: IB guide B3.3.3 and B3.3.8; Linke & Granzier reviews on titin passive tension. Any contribution of titin recoil to active force is still debated, so the page does not claim it.
     status: open
   - id: f14
     claim: Biceps flexes and triceps extends the elbow; the biceps inserts on the radius just below the elbow and the triceps on the olecranon of the ulna.

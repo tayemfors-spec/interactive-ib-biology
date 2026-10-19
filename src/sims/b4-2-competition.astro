@@ -89,7 +89,7 @@ const fmt = (k: string, v: number) => (k === 'alpha' ? v.toFixed(2) : k === 'r' 
       <tbody data-tbody>{rows.map((r) => <tr><th scope="row">{r.t}</th><td>{r.a.toFixed(1)}</td><td>{r.b.toFixed(1)}</td><td>{r.aa.toFixed(1)}</td><td>{r.bb.toFixed(1)}</td></tr>)}</tbody>
     </table>
   </details>
-  <p class="model-note">Mathematical model (Lotka–Volterra competition equations), not real data. α is how strongly one individual of the other species slows your growth compared with one of your own: α &lt; 1 when the niches only partly overlap, α ≈ 1 or more when they are almost the same. The equations are beyond the IB syllabus; the outcomes they show are not.</p>
+  <p class="model-note">Mathematical model (Lotka–Volterra competition equations), not real data. α is how strongly one individual of the other species slows your growth compared with one of your own. α &lt; 1: the niches only partly overlap; α = 1: an identical niche; α &gt; 1: the other species is the stronger competitor. The equations are beyond the IB syllabus; the outcomes they show are not.</p>
 </div>
 
 <script>

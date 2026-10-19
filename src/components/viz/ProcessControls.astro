@@ -33,6 +33,8 @@ import Icon from '../Icon.astro';
     border: 1px solid var(--border-strong); background: var(--surface); color: var(--text-muted); min-height: 1.9rem;
   }
   .process-steps :global(button[aria-current='step']) { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .process-steps :global(.step-ahl) { font-size: 0.66rem; font-weight: 800; color: var(--ahl); }
+  .process-steps :global(button[aria-current='step'] .step-ahl) { color: inherit; }
   .caption { margin-top: var(--space-3); padding: var(--space-3) var(--space-4); border-radius: var(--radius-m); background: var(--surface-2); min-height: 4.5rem; }
   .caption :global(.cap-title) { display: block; font-weight: 750; margin-bottom: 0.15rem; }
   .caption :global(p) { margin: 0; }

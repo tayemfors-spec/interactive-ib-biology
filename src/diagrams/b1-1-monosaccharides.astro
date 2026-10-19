@@ -10,8 +10,11 @@ type P = [number, number];
 const f = (n: number) => n.toFixed(1);
 const ang = (cx: number, cy: number, r: number, a: number): P => [cx + r * Math.cos((a * Math.PI) / 180), cy + r * Math.sin((a * Math.PI) / 180)];
 const cy = 124;
-/** dx: horizontal lean of the stub (side carbons lean outwards so groups clear the ring). */
-interface Sub { at: string; up: boolean; text: string; inner?: boolean; num?: string; dx?: number }
+/**
+ * dx: horizontal lean of the stub (side carbons lean outwards so groups clear the ring).
+ * len: stub length override. lead: start the label at this x offset from the stub end (left-aligned) instead of centring it.
+ */
+interface Sub { at: string; up: boolean; text: string; inner?: boolean; num?: string; dx?: number; len?: number; lead?: number }
 interface Sugar { cx: number; ring: Record<string, P>; order: string[]; subs: Sub[]; nums: Record<string, P>; name: string; kind: string; formula: string }
 
 // pentagon: O at the top, then clockwise C(right), C(bottom right), C(bottom left), C(left)
@@ -54,8 +57,9 @@ const sugars: Sugar[] = [
   {
     cx: 520, ring: pent(520, ['O', 'C2', 'C3', 'C4', 'C5']), order: ['O', 'C2', 'C3', 'C4', 'C5'],
     subs: [
-      { at: 'C2', up: true, text: 'OH', dx: 8 }, { at: 'C2', up: false, text: 'CH₂OH', num: '1', dx: 28 },
-      { at: 'C3', up: true, text: 'OH', inner: true }, { at: 'C3', up: false, text: 'H' },
+      // C1 (CH₂OH) hangs straight below C2, its label reading rightwards; C3's OH leans into the ring so the two stay apart
+      { at: 'C2', up: true, text: 'OH', dx: 8 }, { at: 'C2', up: false, text: 'CH₂OH', num: '1', len: 30, lead: -4 },
+      { at: 'C3', up: true, text: 'OH', inner: true, dx: -6 }, { at: 'C3', up: false, text: 'H' },
       { at: 'C4', up: true, text: 'H', inner: true }, { at: 'C4', up: false, text: 'OH' },
       { at: 'C5', up: true, text: 'CH₂OH', num: '6', dx: -12 }, { at: 'C5', up: false, text: 'H', dx: -16 },
     ],
@@ -77,7 +81,7 @@ const trim = (a: P, b: P, s0: number, s1: number) => {
       {s.order.map((a, i) => { const b = s.order[(i + 1) % s.order.length]!; return <line class="bond" {...trim(s.ring[a]!, s.ring[b]!, 9, 9)} />; })}
       {s.subs.map((u) => {
         const a = s.ring[u.at]!;
-        const len = u.inner ? 16 : Math.abs(u.dx ?? 0) > 14 ? 20 : 26;
+        const len = u.len ?? (u.inner ? 16 : Math.abs(u.dx ?? 0) > 14 ? 20 : 26);
         const dx = u.dx ?? 0;
         const b: P = [a[0] + dx, a[1] + (u.up ? -len : len)];
         const ty = u.up ? b[1] - 4 : b[1] + 14;
@@ -85,8 +89,8 @@ const trim = (a: P, b: P, s0: number, s1: number) => {
         // CH₂OH: written away from the ring (to the left on left-hand carbons, to the right otherwise)
         const leftward = ch2 && dx < 0;
         const below = ch2 && !u.up;
-        const anchor = below ? 'middle' : ch2 ? (leftward ? 'end' : 'start') : 'middle';
-        const tx = below ? b[0] : ch2 ? b[0] + (leftward ? 8 : -6) : b[0] + (u.text === 'OH' ? (dx < 0 ? -4 : 4) : 0);
+        const anchor = u.lead !== undefined ? 'start' : below ? 'middle' : ch2 ? (leftward ? 'end' : 'start') : 'middle';
+        const tx = u.lead !== undefined ? b[0] + u.lead : below ? b[0] : ch2 ? b[0] + (leftward ? 8 : -6) : b[0] + (u.text === 'OH' ? (dx < 0 ? -4 : 4) : 0);
         return (
           <>
             <line class="bond" {...trim(a, b, 9, 0)} />

@@ -162,7 +162,7 @@ facts:
     basis: MacArthur 1958 (Ecology 39:599)
     status: checked
   - id: f28
-    claim: Lotka–Volterra competition outcomes - coexistence when KA > αAB·KB and KB > αBA·KA; exclusion of B when KA > αAB·KB and KB < αBA·KA (and vice versa); founder-dependent outcome when both fail. The preset parameter values are illustrative, not Gause's measurements.
+    claim: Lotka–Volterra competition outcomes - coexistence when KA > αAB·KB and KB > αBA·KA (equivalently αAB < KA/KB and αBA < KB/KA, so α < 1 alone does not guarantee coexistence when carrying capacities are very unequal); exclusion of B when KA > αAB·KB and KB < αBA·KA (and vice versa); founder-dependent outcome when both fail. The preset parameter values are illustrative, not Gause's measurements.
     where: ["sims/b4-2-competition", "sims/models/b4-2-competition", "tests/unit/b4-2.test.ts", "index.mdx#exclusion"]
     confidence: high
     basis: Standard ecology texts (Begon, Townsend & Harper; Gotelli, A Primer of Ecology)

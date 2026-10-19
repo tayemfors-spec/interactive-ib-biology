@@ -144,6 +144,82 @@ Generated from each topic's `facts.yaml` (status `open`). Everything else in tho
 - f30: IUCN categories and distinctiveness of EDGE explorer species: Attenborough's long-beaked echidna CR, monotreme (five living species); aye-aye EN, sole living species of Daubentoniidae; Chinese giant salamander CR, family Cryptobranchidae; platypus NT, sole living species of Ornithorhynchidae; tuatara LC (2019), sole living rhynchocephalian, lineage split from squamates over 200 Ma; mountain chicken frog CR, genus Leptodactylus with dozens of species; house sparrow LC. ED is shown only qualitatively; no scores are invented.
 - f31: The main threats listed for EDGE explorer species (echidna — hunting and forest loss; baiji — by-catch, dams, pollution, boat traffic; aye-aye — forest loss and killing; salamander — over-collection and genetic mixing from farm releases; tuatara — protected on predator-free islands).
 
+### Theme B: claims for a teacher to confirm
+
+Generated from each topic's `facts.yaml` (status `open`).
+
+**B1.1 Carbohydrates and lipids**: 30 claims recorded, 4 open
+
+- f3: Example sizes used with SI prefixes — blood glucose about 5 mmol dm⁻³ (normal fasting range about 4–6); a white adipocyte can be about 100 μm across (range roughly 20–200 μm); a glucose molecule is about 1 nm across; seal blubber can be several cm thick.
+- f12: Starch is about 20–30% amylose and 70–80% amylopectin; amylose is an unbranched α-1,4 chain forming a helix of about 6 glucose units per turn (left-handed, as in V-amylose); amylopectin branches by α-1,6 bonds about every 24–30 residues (often quoted 20–30); glycogen about every 8–12 residues.
+- f23: Glycogen is stored with roughly 3 g of water per gram (published estimates about 2.7–4 g); fat droplets in adipocytes contain almost no water.
+- f25: Thermal conductivity of adipose tissue ≈ 0.2 W m⁻¹ K⁻¹, about half that of muscle (≈ 0.5) and a third of water (≈ 0.6); water conducts heat about 25 times better than air. The sim's insulation part is a qualitative series-resistance model (R_tissue 0.03 m² K W⁻¹; h = 10 air, 200 water).
+
+**B1.2 Proteins**: 31 claims recorded, 5 open
+
+- f12: Pepsin works at about pH 1.5–2 and is irreversibly denatured at neutral to alkaline pH. In the model it is half-denatured at about pH 6.4.
+- f15: Model temperatures and pH thresholds in the denaturation simulation (human enzyme half-denatured at 55 °C and outside pH ~4.2–9.8; Taq at ~99 °C) are illustrative.
+- f16: R-group classes at pH 7 (Campbell scheme): non-polar Gly, Ala, Val, Leu, Ile, Met, Phe, Trp, Pro; polar Ser, Thr, Cys, Tyr, Asn, Gln; acidic Asp, Glu; basic Lys, Arg, His. Some texts class Gly, Cys, Tyr, His or Trp differently.
+- f27: IB treats insulin and collagen as non-conjugated proteins with quaternary structure. Collagen carries a little carbohydrate (glucose–galactose on some hydroxylysines), which some biochemistry texts would count as a glycoprotein; the page says it has no prosthetic group.
+- f31: The haemoglobin, insulin and collagen models are schematic cartoons at a common scale; positions are illustrative, though chain counts, chain lengths, disulfide pairings, haem count and helix handedness are correct.
+
+**B2.2 Organelles and compartmentalization**: 25 claims recorded, 5 open
+
+- f3: Typical differential centrifugation values — about 600–1,000 × g 10 min (nuclei), 1,000–4,000 × g 10 min (chloroplasts, plant tissue; they pellet before mitochondria), 10,000–20,000 × g 20 min (mitochondria), 80,000 × g 60 min (microsomes — ER and plasma membrane fragments), 150,000 × g 3 h (ribosomes).
+- f4: The ultracentrifuge was developed in the 1920s (Svedberg) and cell fractionation methods from the 1930s onwards; fractionation showed isolated mitochondria carry out aerobic respiration and led to the discovery of lysosomes in the 1950s through latent enzyme activity that rose when membranes were damaged.
+- f18: The nuclear envelope breaks into vesicles at the end of prophase in mitosis and meiosis, releasing the chromosomes, and is rebuilt from the vesicles around the daughter nuclei in telophase; in many animal cells the membrane is actually absorbed into the ER network.
+- f21: The Golgi apparatus is a stack of usually about four to eight separate cisternae in animal cells, with a convex cis face towards the ER and a concave trans face towards the plasma membrane; enzymes in the cisternae modify proteins (glycosylation, cleavage); proinsulin is cleaved to insulin mainly in immature secretory vesicles after they leave the trans-Golgi.
+- f25: Proportions in the 3D scenes and diagrams are schematic — membrane gaps, pores, ribosomes and proteins are drawn far larger than real; nucleus typically 5–10 µm across.
+
+**B2.3 Cell specialization**: 26 claims recorded, 6 open
+
+- f10: About two million red blood cells are produced every second in an adult.
+- f12: Human cell sizes used: red blood cell ~7–8 µm diameter, ~2 µm thick (≈1 µm at centre); white blood cells ~7–20 µm (small lymphocytes smallest, monocytes largest); sperm head ~3 µm wide and ~5 µm long, whole cell ~50–60 µm; secondary oocyte ~110 µm (without zona); motor neuron cell body ~20–100 µm, axon up to ~1 m; skeletal muscle fibre 10–100 µm diameter, mm to >10 cm long.
+- f17: Erythrocyte volume ≈ 90 µm³ (90 fL) and surface area ≈ 135–140 µm², giving SA:V ≈ 1.5 µm⁻¹; a sphere of 90 µm³ has SA ≈ 97 µm² (SA:V ≈ 1.1 µm⁻¹).
+- f19: Type I pneumocytes are extremely thin squamous cells covering ~95% of the alveolar surface; the air–blood barrier is about 0.5 µm thick (harmonic mean ~0.6 µm in humans, as thin as ~0.2 µm in places).
+- f21: Cardiac muscle cells are branched, joined by intercalated discs containing gap junctions and desmosomes, usually have one central nucleus (a minority have two), and are about 100 µm long (≈50–150 µm) and 10–25 µm wide.
+- f22: Skeletal muscle fibres are unbranched, multinucleate (peripheral nuclei) cells formed by fusion of myoblasts, 10–100 µm in diameter and from millimetres to over 10 cm long.
+
+**B3.1 Gas exchange**: 30 claims recorded, 5 open
+
+- f5: An adult human lung pair contains roughly 300–500 million alveoli (mean ≈ 480 million in Ochs et al. 2004), each ≈ 0.2–0.3 mm across, with a total alveolar surface area of about 50–100 m² (often quoted as ≈ 70 m²).
+- f15: In the exercise model, tidal volume rises to ≈ 2.5 dm³ and rate to ≈ 40 breaths per minute (minute ventilation ≈ 100 dm³ min⁻¹); ≈ 70 % of the extra TV comes from the IRV and ≈ 30 % from the ERV, VC unchanged.
+- f22: Illustrative stomatal densities in the sim — lower epidermis 150 mm⁻², upper 40 mm⁻²; high-power field diameter ≈ 0.3–0.6 mm; stoma (guard-cell pair) ≈ 40 µm long; patch-to-patch variation ±20 %.
+- f26: Bohr shift model — pH from Henderson–Hasselbalch with HCO₃⁻ fixed at 24 mmol dm⁻³ and CO₂ solubility 0.23 mmol dm⁻³ kPa⁻¹; log₁₀P50 rises by 0.48 per unit fall in pH (CO₂ Bohr coefficient). Fixed bicarbonate exaggerates pH change slightly compared with buffered blood; qualitative direction is correct.
+- f28: The Bohr shift moves the curve to the RIGHT. (The study guide page 120 text says "to the left" — a typo; its own graph shows the higher-CO₂ curve to the right.)
+
+**B3.2 Transport**: 36 claims recorded, 4 open
+
+- f14: Occlusion model thresholds are qualitative — angina on exertion with narrowings above about 66% of diameter, ischaemia at rest above about 92%; clinically, exertional angina usually appears with about 70% diameter stenosis and resting flow falls only with very severe stenosis.
+- f20: Capillary blood pressure is roughly 35 mmHg at the arteriole end and 15 mmHg at the venule end; plasma proteins retained in the blood oppose filtration osmotically.
+- f21: Revised Starling principle — in many tissues little fluid is reabsorbed at the venule end in the steady state and most filtered fluid returns as lymph.
+- f32: A resting blood pressure persistently at or above about 140/90 mmHg is usually classed as hypertension.
+
+**B3.3 Muscle and motility**: 31 claims recorded, 7 open
+
+- f2: Muscle fibres are typically 10–100 µm in diameter and can be several centimetres long; myofibrils are about 1–2 µm in diameter.
+- f9: Each power stroke moves the thin filament a few nanometres (about 5–10 nm).
+- f13: Titin keeps myosin centred, prevents overstretching, stores elastic energy when stretched and its elastic recoil helps the sarcomere return to its resting length.
+- f16: Muscles for fine control (eye, fingers) have small motor units (around 10 fibres); large leg muscles have units of 1,000 or more fibres.
+- f20: Typical active hip ranges — flexion ≈ 120°, extension ≈ 30°, abduction ≈ 45°, adduction ≈ 30°, medial and lateral rotation ≈ 45° each; elbow flexion ≈ 0–145°.
+- f27: Male emperor moths (Saturnia pavonia) locate females by flying upwind along the female's sex pheromone plume.
+- f30: The blowhole is the nostril (single in toothed whales, paired in baleen whales) on top of the head, closed by a muscular plug during dives; the airway is separated from the mouth and oesophagus; cartilage-reinforced airways allow rapid breaths that replace most of the lung air.
+
+**B4.1 Adaptation to environment**: 26 claims recorded, 5 open
+
+- f14: Approximate reef conditions: depth mostly < ~50 m with fastest growth in the top 20–30 m; clear, low-sediment water; temperature ~23–29 °C (reef development rare where water falls below ~18 °C); salinity ~32–42 ppt; pH ~8.0–8.3.
+- f15: Sim thresholds: temperature stress 18–23 and 29–32 °C, fail < 18 or > 32 °C; salinity stress 28–32 and 42–45 ppt; pH stress 7.8–8.0, fail < 7.8; light ok ≥ 20%, stress 10–20%, fail < 10% of surface; attenuation coefficient 0.045 m⁻¹ in the clearest water (≈10% light at 50 m).
+- f19: Biome graph boundaries used in the sim are approximate, simplified from Whittaker (1975) as redrawn by Ricklefs: tundra below −5 °C; taiga −5 to 5 °C; desert below D(T) = 15 + 0.5(T + 5) cm; temperate forest above F(T) = 60 + 4(T − 5) cm (so about 80 cm at 10 °C) between 5 and 20 °C; tropical forest above 150 cm at ≥ 20 °C; upper envelope from 50 cm at −15 °C to 450 cm at 30 °C.
+- f20: Approximate climate normals used for example places: Manaus 27 °C / 230 cm; Phoenix 24 °C / 20 cm; Kano 26 °C / 70 cm; Washington DC 14 °C / 105 cm; Denver 10 °C / 38 cm; Fairbanks −2 °C / 28 cm; Utqiaġvik −11 °C / 12 cm.
+- f25: Yellow meranti (Shorea faguetiana) is a dipterocarp of Borneo and the Malay Peninsula; the individual "Menara" in Danum Valley, Sabah, measured 100.8 m in 2019, the tallest known tropical tree. It is an evergreen emergent with buttresses and winged fruits; dipterocarps show mast fruiting every few years.
+
+**B4.2 Ecological niches**: 28 claims recorded, 4 open
+
+- f10: Mixotrophs are common in oceanic plankton (dinoflagellates, ciliates and others); Mesodinium rubrum retains functional chloroplasts from ingested cryptophyte algae and must keep feeding, an obligate mixotroph.
+- f14: Paranthropus robustus - South Africa (e.g. Swartkrans), roughly 2 to 1 million years ago; very large flat molars, molarized premolars, very thick enamel, small incisors and canines, sagittal crest in many (especially male) skulls, flaring zygomatic arches, deep mandible; inferred herbivorous diet of tough or hard plant foods, with microwear and isotope evidence suggesting some dietary variety.
+- f15: Homo floresiensis - Liang Bua, Flores, Indonesia; skeletal remains about 100 000–60 000 years old; adults about 1.1 m tall with a brain of about 400 cm³; small molars similar to small modern humans, primitive premolars, no sagittal crest, no chin; found with stone tools and animal bones including juvenile Stegodon, some cut-marked.
+- f22: Tropical rainforest floor receives only about 1–2 % of full sunlight.
+
 ## Examiner review log
 
 ### B2.1 (example page), 19 Oct 2026
@@ -172,3 +248,22 @@ Three independent reviewers, each acting as a strict IB examiner, covered three 
 | A4.2 Conservation of biodiversity | **1** | 0 | 5 | **Haast's eagle lived only on the South Island**, so it was not a predator of the North Island giant moa |
 
 All findings were fixed, every gate was re-run (build, 168 unit tests, 234 browser tests, links, Lighthouse 99–100) and the changed visuals were re-checked from fresh screenshots.
+
+### Theme B (B1.1–B4.2, except B2.1), 20 Oct 2026
+Three independent examiner reviewers covered three topics each. The curves and maths were checked by hand: the O₂ dissociation model, cardiac valve timings against the pressure crossings, spirometer volumes, SA:V maths, transect r values, sarcomere band geometry, and the Lotka–Volterra invasion criteria. All 90 MCQ keys were confirmed correct.
+
+| Topic | Critical | Major | Minor | Key fixes |
+|---|---|---|---|---|
+| B1.1 Carbohydrates and lipids | 0 | 2 | 5 | 3D polysaccharide labels re-anchored onto their structures (amylopectin label had been on cellulose) |
+| B1.2 Proteins | 0 | 1 | 4 | Histidine shown as partly charged "(+)" at pH 7, not fully "+" |
+| B2.2 Organelles and compartmentalization | 0 | 2 | 3 | Bound vs free ribosome products corrected; centrifugation order (chloroplasts pellet before mitochondria) |
+| B2.3 Cell specialization | 0 | 0 | 3 | No meaning given to SA and V curves crossing (different units); surfactant drawn in the fluid lining |
+| B3.1 Gas exchange | 0 | 2 | 2 | Quiz explanation on the dissociation curve; leaf stoma drawn open, with the label in the pore |
+| B3.2 Transport | 0 | 2 | 2 | Capillary pore and endothelium leader lines; occlusion readout states its assumption |
+| B3.3 Muscle and motility | 0 | 0 | 4 | Titin recoil timing; Ca²⁺ colour distinct from tropomyosin |
+| B4.1 Adaptation to environment | 0 | 0 | 2 | Forest/precipitation threshold in the biome model raised to match Whittaker |
+| B4.2 Ecological niches | 0 | 1 | 5 | Coexistence condition stated correctly (depends on K ratio, not just α < 1) |
+
+Study-guide errors noticed by the builders (the site uses the correct version): the Bohr shift is to the right, not the left (S13); the ventricles contract from the apex, not the base; root pressure is usually much smaller than transpiration pull.
+
+All findings were fixed; every gate was re-run (323 unit tests, 387 browser tests, links, and Lighthouse 99–100 on all 25 pages); the changed 3D scenes were re-checked from fresh screenshots.

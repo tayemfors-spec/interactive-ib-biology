@@ -42,8 +42,9 @@ const villi = Array.from({ length: 12 }, (_, i) => 236 + i * 14);
     <text class="s" x="476" y="54" text-anchor="middle">Fe³⁺ out</text>
     <g data-el="energy" style="opacity:0"><path class="bolt" d="M262 140 L252 166 L266 166 L256 192 L282 158 L268 158 L278 140 Z" /></g>
     {[1, 2].map((n) => <g data-el={`k${n}`} class="mol" transform="translate(70 270)"><circle class="co2" r="11" /><text dy="0.35em" text-anchor="middle">CO₂</text></g>)}
-    <g data-el="org" style="opacity:0" transform="translate(440 190)"><path class="sug" d="M-16 0 L-8 -14 L8 -14 L16 0 L8 14 L-8 14 Z" /><text dy="0.35em" text-anchor="middle" class="st">C₆</text></g>
-    <text data-el="orgLab" class="s" x="440" y="228" text-anchor="middle" style="opacity:0">organic compounds</text>
+    <!-- the organic product is made inside the cell -->
+    <g data-el="org" style="opacity:0" transform="translate(318 150)"><path class="sug" d="M-16 0 L-8 -14 L8 -14 L16 0 L8 14 L-8 14 Z" /><text dy="0.35em" text-anchor="middle" class="st">C₆</text></g>
+    <g data-el="orgLab" style="opacity:0"><path class="lead" d="M372 154 L338 150" /><text class="s" x="376" y="152">organic compounds</text><text class="s" x="376" y="168">made in the cell</text></g>
     <text class="foot" x="16" y="310">Energy released by oxidizing inorganic chemicals (e.g. Fe²⁺ → Fe³⁺)</text>
     <text class="foot" x="16" y="328">is used to fix CO₂ into carbon compounds.</text>
   </g>
@@ -187,6 +188,7 @@ const villi = Array.from({ length: 12 }, (_, i) => 236 + i * 14);
   .src { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.4; }
   .arr { stroke: var(--text); stroke-width: 2.5; fill: none; marker-end: url(#nut-ar); }
   .ah { fill: var(--text); }
+  .lead { stroke: var(--text); stroke-width: 1.2; fill: none; }
   .h2o { fill: color-mix(in srgb, var(--bio-water) 30%, var(--surface)); stroke: var(--bio-water); stroke-width: 1.2; }
   .flow { stroke: var(--text-muted); stroke-width: 2; fill: none; marker-end: url(#nut-ar); stroke-dasharray: 4 3; }
   .atp { fill: var(--bio-head); }

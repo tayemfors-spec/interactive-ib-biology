@@ -66,7 +66,7 @@ questions:
     understanding: B1.1.4
     stem: >-
       A molecular diagram shows a sugar with a five-membered ring made of four carbon atoms and one oxygen atom.
-      Two of the ring carbons each carry a CH₂OH group, and the other two ring carbons each carry an –OH and an –H.
+      Two of the ring carbons each carry a CH₂OH group (one of these two also carries an –OH), and the other two ring carbons each carry an –OH and an –H.
       How should this monosaccharide be classified?
     options:
       - id: a
@@ -203,7 +203,7 @@ questions:
         why: Correct. Fat needed = 2,000 ÷ 37 ≈ 54 g. Glycogen = 2,000 ÷ 17 ≈ 118 g, plus 3 × 118 ≈ 353 g of water, about 470 g in all. 470 ÷ 54 ≈ 8.7.
       - id: c
         text: About 4 times
-        why: This multiplies the glycogen mass by 4 but compares it with the dry glycogen, not with the fat store.
+        why: This compares glycogen-plus-water with dry glycogen (4×), not with the fat store.
       - id: d
         text: About half as heavy
         why: This inverts the comparison. Fat stores more energy per gram and holds no water, so the fat store is the lighter one.

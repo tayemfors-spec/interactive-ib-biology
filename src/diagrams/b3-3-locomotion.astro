@@ -16,12 +16,12 @@ const ribs = [-50, -30, -10, 10, 30, 50];
   <desc id="loc-desc">Four sketches. Foraging: bottlenose dolphins swim after a shoal of fish. Escaping danger: a scallop claps its two shell valves together, squirting out water, and swims away from a predatory starfish. Searching for a mate: a male emperor moth flies upwind in a zigzag along the trail of scent released by a female. Migration: Arctic terns fly from breeding grounds in the Arctic to the Antarctic and back every year.</desc>
   <path class="grid" d="M320 8 V372 M8 190 H632" />
 
-  <!-- foraging -->
+  <!-- foraging (dolphin path is drawn facing left; mirrored so the dolphins face the fish) -->
   <text class="h" x="16" y="28">Foraging for food</text>
   <text class="s" x="16" y="46">bottlenose dolphins chase shoals of fish</text>
-  <g transform="translate(20 50) scale(0.33)"><path class="dol" d={dolphin} /><path class="dol" d="M300 142 C318 122 334 104 360 94 C352 114 352 132 368 148 Z" /></g>
-  <g transform="translate(20 104) scale(0.33)"><path class="dol" d={dolphin} /></g>
-  {fish.map(([x, y]) => <path class="fish" d={`M${x} ${y} l10 -5 v10 z M${x + 10} ${y} l6 -4 v8 z`} />)}
+  <g transform="translate(20 50) scale(0.33) translate(598 0) scale(-1 1)"><path class="dol" d={dolphin} /><path class="dol" d="M300 142 C318 122 334 104 360 94 C352 114 352 132 368 148 Z" /></g>
+  <g transform="translate(20 104) scale(0.33) translate(598 0) scale(-1 1)"><path class="dol" d={dolphin} /></g>
+  {fish.map(([x, y]) => <path class="fish" d={`M${x + 16} ${y} l-10 -5 v10 z M${x + 6} ${y} l-6 -4 v8 z`} />)}
   <path class="arrow" d="M196 160 H286 M278 154 L288 160 L278 166" />
 
   <!-- escaping danger -->

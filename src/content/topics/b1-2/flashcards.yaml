@@ -62,7 +62,7 @@ cards:
   - id: c16
     level: AHL
     front: How do the shapes of insulin and collagen suit their functions?
-    back: Insulin is small and globular with a hydrophilic surface, so it dissolves in plasma, and its precise shape binds its receptor. Collagen is fibrous — a triple helix cross-linked into fibres — giving tensile strength in skin, tendons and bone.
+    back: Insulin is small and globular (insulin's two chains come from one precursor) with a hydrophilic surface, so it dissolves in plasma, and its precise shape binds its receptor. Collagen is fibrous — a triple helix cross-linked into fibres — giving tensile strength in skin, tendons and bone.
   - id: c17
     level: AHL
     front: What does cryogenic electron microscopy (cryo-EM) do?

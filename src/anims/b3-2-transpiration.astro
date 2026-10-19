@@ -60,7 +60,8 @@ const cortex: [number, number][] = [[170, 484], [206, 494], [172, 522], [208, 53
   <rect class="frame" x="6" y="446" width="548" height="188" rx="10" />
   <text class="h" x="16" y="466">Root</text>
   <g class="soil">{soil.map(([x, y, r]) => <circle cx={x} cy={y} r={r} />)}</g>
-  <text class="sm halo" x="16" y="486">soil particles and water</text>
+  <text class="sm halo" x="16" y="482">soil particles</text>
+  <text class="sm halo" x="16" y="496">and water</text>
   <g class="cell">
     <path d="M128 516 L54 518 Q42 524 54 530 L128 532 L128 470 L152 470 L152 630 L128 630 Z" />
     {[[128, 470, 24, 44], [128, 540, 24, 44], [128, 586, 24, 44]].map(([x, y, w, h]) => <rect x={x} y={y} width={w} height={h} rx="5" />)}

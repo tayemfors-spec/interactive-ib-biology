@@ -62,7 +62,7 @@ visuals:
           - id: bound
             name: Ribosomes on the ER
             level: AHL
-            text: Ribosomes attached to the cytoplasmic face of the rough ER and the outer nuclear membrane. They make proteins that pass into the ER lumen, for secretion or for membranes and lysosomes.
+            text: Ribosomes attached to the cytoplasmic face of the rough ER and the outer nuclear membrane. They make proteins that pass into the ER, for secretion, the plasma membrane, lysosomes, and the ER and Golgi.
           - id: mrna
             name: mRNA being translated
             text: Mature mRNA, already modified inside the nucleus, leaves through a pore and is translated by several ribosomes at once in the cytoplasm. Unmodified pre-mRNA never reaches the ribosomes.
@@ -183,11 +183,11 @@ visuals:
           - id: lumen
             name: ER lumen
             level: AHL
-            text: The space inside the rough ER. Proteins for secretion, for membranes and for lysosomes are folded here, kept separate from the cytosol.
+            text: The space inside the rough ER. Proteins for secretion, for the plasma membrane and for lysosomes are folded here, kept separate from the cytosol.
           - id: free
             name: Free ribosome
             level: AHL
-            text: An 80S ribosome that is not attached to a membrane. Its protein (purple) is released into the cytosol and kept in the cell, for example an enzyme of glycolysis.
+            text: An 80S ribosome that is not attached to a membrane. Its protein (purple) is released into the cytosol, for example an enzyme of glycolysis. Free ribosomes also make proteins later imported into mitochondria, chloroplasts, the nucleus and peroxisomes.
           - id: transport
             name: Transport vesicle
             level: AHL

@@ -38,6 +38,12 @@ export function wireProcess(
       const b = document.createElement('button');
       b.type = 'button';
       b.textContent = `${i + 1}. ${s.title}`;
+      if (s.level === 'AHL' && !/\bAHL\b/.test(s.title)) {
+        const tag = document.createElement('span');
+        tag.className = 'step-ahl';
+        tag.textContent = ' AHL';
+        b.append(tag);
+      }
       b.addEventListener('click', () => { tl.pause(); tl.seek(i, tl.reduced ? 1 : 0); });
       li.append(b);
       return li;
@@ -59,7 +65,7 @@ export function wireProcess(
       caption.innerHTML = '';
       const t = document.createElement('span');
       t.className = 'cap-title';
-      t.textContent = `Step ${tl.index + 1} of ${steps.length}: ${s.title}`;
+      t.textContent = `Step ${tl.index + 1} of ${steps.length}: ${s.title}${s.level === 'AHL' && !/\bAHL\b/.test(s.title) ? ' (AHL)' : ''}`;
       const p = document.createElement('p');
       p.textContent = s.caption;
       caption.append(t, p);

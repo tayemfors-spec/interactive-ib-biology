@@ -19,11 +19,12 @@ describe('B2.3 surface area-to-volume model', () => {
     expect(b.ratio / a.ratio).toBeCloseTo(0.5);
   });
 
-  it('SA:V falls steadily as the cell gets bigger, and SA = V when L = 6', () => {
+  it('SA:V falls steadily as the cell gets bigger, and drops below 1 µm⁻¹ once L exceeds 6 µm', () => {
     const rows = cubeTable([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
     for (let i = 1; i < rows.length; i++) expect(rows[i]!.ratio).toBeLessThan(rows[i - 1]!.ratio);
-    expect(cube(6).sa).toBe(cube(6).v);
     expect(cube(6).ratio).toBeCloseTo(1);
+    expect(cube(5.5).ratio).toBeGreaterThan(1);
+    expect(cube(6.5).ratio).toBeLessThan(1);
   });
 
   it('at equal volume a sphere has the smallest SA:V and flattening raises it', () => {

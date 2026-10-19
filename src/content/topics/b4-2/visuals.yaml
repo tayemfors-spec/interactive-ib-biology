@@ -32,7 +32,7 @@ visuals:
         caption: Undigested material, which never entered the body's cells, is egested from the end of the gut as faeces. This is not excretion, which removes waste products of metabolism.
       - id: mixo
         title: Mixotroph - Euglena
-        caption: The protist Euglena has chloroplasts and photosynthesizes in light, but in the dark it takes in organic compounds and lives heterotrophically. Because it can grow by either mode alone, it is a facultative mixotroph. Obligate mixotrophs, common in oceanic plankton, need both modes to grow.
+        caption: The protist Euglena has chloroplasts and photosynthesizes in light, but in the dark it takes in organic compounds and lives heterotrophically. Because it can grow by either mode alone, it is a facultative mixotroph. Many oceanic plankton are also mixotrophs; some are facultative, and some are obligate mixotrophs that need both modes to grow.
       - id: sapro
         title: Saprotrophs
         caption: Fungi and many bacteria feed on dead organic matter. They secrete digestive enzymes into it, digest it outside their cells and absorb the small soluble products. These decomposers release carbon dioxide and mineral nutrients back into the ecosystem.
@@ -78,7 +78,8 @@ visuals:
       each species grown alone. Each species has sliders for its growth rate, its carrying capacity when alone, its
       starting number and a competition coefficient for the effect of the other species on it. Example settings
       reproduce the outcomes of Gause's Paramecium experiments - P. aurelia excluding P. caudatum, and P. caudatum
-      coexisting with P. bursaria. When interspecific competition is weaker than intraspecific competition both
-      species coexist at lower numbers than alone; when one species competes strongly with the other, the weaker
-      competitor declines towards zero whatever its growth rate. The model is the Lotka-Volterra competition model
+      coexisting with P. bursaria. When each species limits its own growth more than it limits the other's, both
+      species coexist at lower numbers than alone. With very unequal carrying capacities, even weak competition can
+      exclude one species, and when one species competes strongly with the other, the weaker competitor declines
+      towards zero whatever its growth rate. The model is the Lotka-Volterra competition model
       and the units are arbitrary.

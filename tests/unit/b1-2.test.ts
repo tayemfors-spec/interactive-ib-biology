@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { describe, expect, it } from 'vitest';
 import { bonds, chainPoints, CYS, expose, freshSample, heatStable, nativeFraction, proteins, summary, WEAK } from '../../src/sims/models/b1-2-denaturation';
-import { aminoAcids, charge, interactions, whereFound } from '../../src/sims/models/b1-2-r-groups';
+import { aminoAcids, charge, chargeSign, chargeText, interactions, whereFound } from '../../src/sims/models/b1-2-r-groups';
 import { cbDir, finish, helixAxis, HELIX, levelsModel, regularBackbone, STRAND, torsion } from '../../src/scenes/b1-2-kit';
 
 const P = Object.fromEntries(proteins.map((p) => [p.id, p]));
@@ -78,6 +78,21 @@ describe('B1.2 R-group explorer data', () => {
     expect(his).toBeGreaterThan(0.05);
     expect(his).toBeLessThan(0.2);
     for (const a of aminoAcids.filter((x) => x.cls === 'non-polar' || x.cls === 'polar')) expect(charge(a, 7)).toBe(0);
+  });
+  it('the button sign matches the charge text: full sign only when nearly all R groups are charged, bracketed when partial', () => {
+    expect(chargeSign(aa('Lys'), 7)).toBe('+');
+    expect(chargeSign(aa('Asp'), 7)).toBe('−');
+    expect(chargeSign(aa('His'), 7)).toBe('(+)'); // only about 9% protonated at pH 7
+    expect(chargeText(aa('His'), 7)).toMatch(/^partly positive/);
+    expect(chargeSign(aa('His'), 4)).toBe('+');
+    expect(chargeSign(aa('Lys'), 13)).toBe('');
+    expect(chargeSign(aa('Leu'), 7)).toBe('');
+    for (const a of aminoAcids) for (const pH of [1, 4, 6, 7, 9, 13]) {
+      const s = chargeSign(a, pH), txt = chargeText(a, pH);
+      if (s.startsWith('(')) expect(txt).toMatch(/^partly/);
+      else if (s) expect(txt).toMatch(/^(positive|negative)/);
+      else expect(txt).toMatch(/^uncharged/);
+    }
   });
   it('only cysteine forms disulfide bonds; charged R groups form ionic bonds; non-polar ones hydrophobic interactions', () => {
     for (const a of aminoAcids) {

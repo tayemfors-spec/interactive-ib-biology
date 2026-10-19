@@ -330,7 +330,8 @@ const scene: SceneModule = {
       ra: { object: anchorAt(root, -3.1, 2.3, -0.6, 'ra'), highlight: [raFloor, raWall] },
       la: { object: anchorAt(root, 3.0, 2.4, -0.6, 'la'), highlight: [laFloor] },
       rv: { object: anchorAt(root, -2.55, -2.0, -0.6, 'rv'), highlight: [rvFloor] },
-      lv: { object: anchorAt(root, 4.15, -2.6, 0.02, 'lv'), highlight: [lvWall, lvFloor] },
+      // on the thick LV wall's cut face, lower down (cavity edge x ≈ 2.8, outer edge x ≈ 4.1 at y = -4.4), so it no longer crowds the coronary label
+      lv: { object: anchorAt(root, 3.45, -4.4, 0.02, 'lv'), highlight: [lvWall, lvFloor] },
       septum: { object: anchorAt(root, -0.25, -3.3, 0.02, 'septum'), highlight: [septum] },
       tricuspid: { object: anchorAt(root, -2.3, 0.15, -0.2, 'tricuspid'), highlight: [tricuspid] },
       bicuspid: { object: anchorAt(root, 2.2, 0.35, -0.2, 'bicuspid'), highlight: [bicuspid] },

@@ -265,24 +265,40 @@ const scene: SceneModule = {
     for (const m of [tilesA, tilesTip, tilesB, ringO, c6, stubs, l14, o14, l16, o16, hb]) { m.instanceMatrix.needsUpdate = true; m.computeBoundingSphere(); }
 
     // ---------- anchors ----------
+    // Every anchor sits on a tile or link of its own structure (never in the empty space beside it), so the
+    // chip or phone marker points at the right molecule.
+    const alpha = residues.filter((r) => !r.beta);
+    const nearest = <T,>(list: T[], pos: (x: T) => THREE.Vector3, want: THREE.Vector3) =>
+      list.slice().sort((a, b) => pos(a).distanceToSquared(want) - pos(b).distanceToSquared(want))[0]!;
+    const resNear = (want: THREE.Vector3, panel: THREE.Vector3, within: number) => nearest(alpha.filter((r) => r.p.distanceTo(panel) < within), (r) => r.p, want).p;
+    const inPanel = (v: THREE.Vector3, panel: THREE.Vector3) => Math.abs(v.x - panel.x) < 7.5 && Math.abs(v.y - panel.y) < 5.5;
     const glTip = residues.filter((r) => r.tip && !r.beta && r.p.distanceTo(GL) < 8).sort((a, b) => a.p.x - b.p.x)[0]!;
-    // anchors for the right-hand panels sit on their left sides, so the label chips stay on the stage
-    const link16 = links16.filter((l) => l.c6.distanceTo(AP) < 9).sort((a, b) => a.c6.x - b.c6.x)[0] ?? links16[0]!;
-    const link14 = links14.filter(([a]) => a.distanceTo(AP) < 9 && Math.abs(a.y - (AP.y - 3.4)) < 0.4).sort((a, b) => a[0].x - b[0].x)[1] ?? links14[0]!;
+    const link16 = links16.filter((l) => inPanel(l.c6, AP)).sort((a, b) => a.c6.x - b.c6.x)[0] ?? links16[0]!;
+    // a 1,4 link in the middle of amylopectin's main chain (the bottom row of its panel), clear of the 1,6 branch points
+    const mainY = AP.y - 3.4;
+    const link14 = nearest(
+      links14.filter(([a, b]) => inPanel(a, AP) && Math.abs(a.y - mainY) < 0.2 && Math.abs(b.y - mainY) < 0.2 && a.z === 0 && b.z === 0),
+      ([a, b]) => a.clone().lerp(b, 0.5),
+      AP.clone().add(new THREE.Vector3(0, -3.4, 0)),
+    );
     const hbLeft = hbonds.filter(([a]) => a.z > -0.5).sort((a, b) => a[0].x - b[0].x || a[0].y - b[0].y)[1] ?? hbonds[0]!;
+    const front = (c: number, i: number) => cel[c]![i]!.p; // front-layer cellulose tile (chains 0…3, bottom to top)
     const at = (name: string, p: THREE.Vector3, dz = 0.3) => anchorAt(root, p.x, p.y, p.z + dz, name);
+    // amylose: the front-facing tile nearest the left end of the helix
+    const amyFront = residues.slice(0, nAmy).filter((r) => r.p.z > 1).sort((a, b) => a.p.x - b.p.x)[0]!.p;
     const anchors = {
-      amylose: { object: at('amylose', AMY.clone().add(new THREE.Vector3(-4.5, 2.2, 1.2))), highlight: [tilesA] },
-      amylopectin: { object: at('amylopectin', AP.clone().add(new THREE.Vector3(-6.2, -4.4, 0))), highlight: [tilesA, tilesTip] },
-      glycogen: { object: at('glycogen', GL.clone().add(new THREE.Vector3(-1, 4.6, 0))), highlight: [tilesA, tilesTip] },
-      cellulose: { object: at('cellulose', CE.clone().add(new THREE.Vector3(-6.2, 4.3, 0))), highlight: [tilesB] },
-      'alpha-residue': { object: at('alpha-residue', AP.clone().add(new THREE.Vector3(2.4, -3.4, 0))), highlight: [tilesA, tilesTip] },
-      'beta-residue': { object: at('beta-residue', cel[0]![1]!.p), highlight: [tilesB] },
+      amylose: { object: at('amylose', amyFront), highlight: [tilesA] },
+      amylopectin: { object: at('amylopectin', resNear(AP.clone().add(new THREE.Vector3(-2, 0, 0)), AP, 8)), highlight: [tilesA, tilesTip] },
+      glycogen: { object: at('glycogen', resNear(GL.clone().add(new THREE.Vector3(-1, 3.5, 3)), GL, 8)), highlight: [tilesA, tilesTip] },
+      cellulose: { object: at('cellulose', front(chains - 1, 0)), highlight: [tilesB] },
+      'alpha-residue': { object: at('alpha-residue', resNear(AP.clone().add(new THREE.Vector3(3.6, -3.4, 0)), AP, 8)), highlight: [tilesA, tilesTip] },
+      'beta-residue': { object: at('beta-residue', front(0, 2)), highlight: [tilesB] },
       'link-14': { object: at('link-14', link14[0].clone().lerp(link14[1], 0.5)), highlight: [l14, o14] },
       'link-16': { object: at('link-16', link16.o6), highlight: [l16, o16] },
       ends: { object: at('ends', glTip.p), highlight: [tilesTip] },
       hbonds: { object: at('hbonds', hbLeft[0].clone().lerp(hbLeft[1], 0.5)), highlight: [hb] },
-      microfibril: { object: at('microfibril', cel[chains]![0]!.p.clone().add(new THREE.Vector3(-0.6, -0.9, 0)), 0), highlight: [tilesB, hb] },
+      // the middle of the bundle: a front tile in the centre of the stack, with the second layer showing behind it
+      microfibril: { object: at('microfibril', front(2, Math.floor(perChain / 2))), highlight: [tilesB, hb] },
     };
     void apReducing;
     return { anchors, dispose() { root.removeFromParent(); } };
