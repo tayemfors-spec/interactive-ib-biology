@@ -1,0 +1,163 @@
+facts:
+  - id: f1
+    claim: All living organisms use DNA as their genetic material; some viruses (e.g. coronaviruses including SARS-CoV-2, influenza, HIV) use RNA, and viruses are not considered living.
+    where: [ "index.mdx#genetic-material", "flashcards.yaml:c1", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: Standard virology (Alberts; Campbell); IB guide A1.2.1
+    status: checked
+  - id: f2
+    claim: T2 bacteriophage has a DNA genome inside a protein coat.
+    where: [ "index.mdx#genetic-material", "index.mdx#hershey-chase", "visuals.yaml:hershey-chase" ]
+    confidence: high
+    basis: Hershey & Chase (1952) J Gen Physiol 36:39–56
+    status: checked
+  - id: f3
+    claim: In a nucleotide the base is attached to C1′ and the phosphate to C5′ of the pentose; the next nucleotide's phosphate links to C3′; carbons 1′–4′ plus the ring oxygen form the five-membered ring, C5′ projects from C4′.
+    where: [ "index.mdx#nucleotides", "quiz.yaml:q1", "flashcards.yaml:c2", "diagrams/a1-2-double-helix.astro", "visuals.yaml:dna deoxyribose" ]
+    confidence: high
+    basis: Standard nucleic acid chemistry (Alberts; Berg, Biochemistry)
+    status: checked
+  - id: f4
+    claim: The sugar–phosphate backbone is a continuous chain of covalent bonds (phosphodiester linkages C3′–O–P–O–C5′).
+    where: [ "index.mdx#nucleotides", "index.mdx#directionality", "visuals.yaml:dna backbone" ]
+    confidence: high
+    basis: Standard biochemistry; IB guide A1.2.3
+    status: checked
+  - id: f5
+    claim: DNA bases are A, T, G, C; RNA bases are A, U, G, C. Purines (A, G) have two rings; pyrimidines (C, T, U) have one.
+    where: [ "index.mdx#nucleotides", "index.mdx#purine-pyrimidine", "flashcards.yaml:c4", "flashcards.yaml:c13", "visuals.yaml:dna bases" ]
+    confidence: high
+    basis: Standard biochemistry
+    status: checked
+  - id: f6
+    claim: Nucleotides are joined by condensation (water removed); in cells the incoming nucleotide is a nucleoside triphosphate and pyrophosphate is released, supplying energy.
+    where: [ "index.mdx#rna", "flashcards.yaml:c5", "index.mdx (mustKnow)" ]
+    confidence: high
+    basis: Alberts; IB guide A1.2.5 frames it as condensation. The note on triphosphates is added for accuracy.
+    status: checked
+  - id: f7
+    claim: A–T pairs have two hydrogen bonds and G–C pairs three (not required to be memorized at SL).
+    where: [ "index.mdx#double-helix", "visuals.yaml:dna hbonds", "sims/a1-2-pairing", "scenes/a1-2-double-helix.ts" ]
+    confidence: high
+    basis: Watson–Crick base pairing (Alberts); IB guide A1.2.6 note
+    status: checked
+  - id: f8
+    claim: B-DNA is a right-handed double helix with about 10 (10.4–10.5 in solution) base pairs per turn, a rise of about 0.34 nm per base pair and a diameter of about 2 nm, with major and minor grooves. The model uses exactly 10 bp per turn.
+    where: [ "visuals.yaml:dna", "scenes/a1-2-double-helix.ts", "index.mdx#information" ]
+    confidence: high
+    basis: Watson & Crick 1953; Alberts; Wang 1979 (10.5 bp/turn in solution)
+    status: checked
+  - id: f9
+    claim: The minor groove lies on the side of the base pair where the two glycosidic bonds (sugars) are attached; the model separates paired sugars by 140° around the axis.
+    where: [ "visuals.yaml:dna minor-groove", "scenes/a1-2-double-helix.ts" ]
+    confidence: medium
+    basis: Structural chemistry of B-DNA (Saenger, Principles of Nucleic Acid Structure); 140° is a schematic choice
+    status: open
+  - id: f10
+    claim: Sequence-specific DNA-binding proteins such as transcription factors mostly read the base sequence in the major groove.
+    where: [ "visuals.yaml:dna major-groove" ]
+    confidence: high
+    basis: Alberts (DNA-binding motifs)
+    status: checked
+  - id: f11
+    claim: The 2′-OH of ribose makes RNA less chemically stable than DNA (susceptible to hydrolysis).
+    where: [ "index.mdx#dna-vs-rna", "visuals.yaml:dna rna two-oh" ]
+    confidence: high
+    basis: Berg, Biochemistry (alkaline hydrolysis of RNA via 2′-OH)
+    status: checked
+  - id: f12
+    claim: rRNA catalyses peptide bond formation in the ribosome; tRNA carries amino acids; mRNA carries a copy of a gene's sequence.
+    where: [ "index.mdx#dna-vs-rna" ]
+    confidence: high
+    basis: Alberts; Nissen et al. 2000 (ribosome is a ribozyme)
+    status: checked
+  - id: f13
+    claim: Number of possible sequences is 4ⁿ; 4¹⁰ = 1 048 576; 4⁶ = 4096; 4¹⁰⁰ ≈ 1.6 × 10⁶⁰.
+    where: [ "index.mdx#information", "quiz.yaml:q5", "tests/unit/a1-2.test.ts" ]
+    confidence: high
+    basis: Arithmetic (checked in unit test)
+    status: checked
+  - id: f14
+    claim: The human (haploid) genome is about 3 billion base pairs; a diploid human cell contains about 2 m of DNA; the longest human chromosome DNA is several centimetres long.
+    where: [ "index.mdx#information", "index.mdx#nucleosomes" ]
+    confidence: high
+    basis: ~3.1 × 10⁹ bp haploid; 6.2 × 10⁹ bp × 0.34 nm ≈ 2.1 m; chromosome 1 ≈ 249 Mbp ≈ 8.5 cm
+    status: checked
+  - id: f15
+    claim: DNA data storage experiments have reached about 200 million gigabytes (≈ 215 petabytes) per gram.
+    where: [ "index.mdx#information" ]
+    confidence: medium
+    basis: Erlich & Zielinski (2017) Science 355:950 (DNA Fountain, 215 PB/g)
+    status: open
+  - id: f16
+    claim: The genetic code is nearly universal, with minor variations (e.g. in mitochondria); it has 64 codons for 20 amino acids plus stop signals.
+    where: [ "index.mdx#information", "quiz.yaml:q6", "flashcards.yaml:c11" ]
+    confidence: high
+    basis: Alberts; Knight et al. 2001 (variant codes)
+    status: checked
+  - id: f17
+    claim: Nucleotides are added only to the 3′-OH end; DNA and RNA are synthesized 5′→3′; RNA polymerase reads the template 3′→5′; ribosomes translate mRNA 5′→3′; one replicated strand is made discontinuously.
+    where: [ "index.mdx#directionality", "quiz.yaml:q7", "flashcards.yaml:c12", "visuals.yaml:dna rna three-prime" ]
+    confidence: high
+    basis: Alberts; IB guide A1.2.11
+    status: checked
+  - id: f18
+    claim: Purine–pyrimidine pairing makes all base pairs the same length, so the helix has a uniform structure whatever the sequence.
+    where: [ "index.mdx#purine-pyrimidine", "quiz.yaml:q8", "diagrams/a1-2-double-helix.astro" ]
+    confidence: high
+    basis: IB guide A1.2.12; Watson & Crick 1953
+    status: checked
+  - id: f19
+    claim: Nucleosome core — histone octamer (2 × H2A, H2B, H3, H4) with ~147 bp of DNA in ~1.65 turns of a left-handed superhelix (radius ~4.2 nm, pitch ~2.4 nm); H1 binds linker DNA at entry/exit (chromatosome ~166 bp, ~2 turns); linker length varies.
+    where: [ "index.mdx#nucleosomes", "flashcards.yaml:c14", "visuals.yaml:dna nucleosome", "scenes/a1-2-nucleosome.ts" ]
+    confidence: high
+    basis: Luger et al. (1997) Nature 389:251; Davey et al. (2002) J Mol Biol 319:1097; Alberts
+    status: checked
+  - id: f20
+    claim: Histones are rich in lysine and arginine; their positive charges attract DNA phosphates; contacts are with the backbone (minor groove facing the octamer about every 10 bp), so binding is largely sequence-independent; histone tails pass between the DNA gyres and are modified (e.g. acetylation).
+    where: [ "index.mdx#nucleosomes", "flashcards.yaml:c15", "visuals.yaml:dna nucleosome contact/tail" ]
+    confidence: high
+    basis: Luger et al. 1997; Alberts
+    status: checked
+  - id: f21
+    claim: PDB entry 1KX5 is a nucleosome core particle structure (1.9 Å) suitable for visualization.
+    where: [ "index.mdx#nucleosomes" ]
+    confidence: medium
+    basis: Davey et al. (2002) J Mol Biol 319:1097 — teacher to confirm the PDB ID before publication
+    status: open
+  - id: f22
+    claim: Hershey–Chase (1952) used ³⁵S to label protein (cysteine, methionine) and ³²P to label DNA; after infection, blending and centrifugation, most ³⁵S (about 80%) was in the supernatant and most ³²P (roughly 70%) stayed with the cells in the pellet; ³²P but almost no ³⁵S (<1%) appeared in progeny phage.
+    where: [ "index.mdx#hershey-chase", "visuals.yaml:hershey-chase", "anims/a1-2-hershey-chase.ts", "quiz.yaml:q9", "flashcards.yaml:c16", "index.mdx (mistakes)" ]
+    confidence: medium
+    basis: Hershey & Chase (1952). ~80% ³⁵S removed by blending is widely quoted; the fraction of ³²P remaining cell-bound is quoted variously (65–80%). The animation shows rounded values 80/20 and 30/70.
+    status: open
+  - id: f23
+    claim: Radioisotopes became widely available to biologists as research tools from the 1940s (e.g. reactor-produced isotopes after 1946).
+    where: [ "index.mdx#hershey-chase" ]
+    confidence: medium
+    basis: History of science (US Atomic Energy Commission isotope distribution from 1946); IB guide A1.2.14 NOS
+    status: open
+  - id: f24
+    claim: Chargaff base compositions (mol %) — human A 29.3 G 20.7 C 20.0 T 30.0; chicken 28.0/22.0/21.6/28.4; octopus 33.2/17.6/17.6/31.6; sea urchin 32.8/17.7/17.3/32.1; wheat 27.3/22.7/22.8/27.1; maize 26.8/22.8/23.2/27.2; yeast 31.3/18.7/17.1/32.9; E. coli 24.7/26.0/25.7/23.6; φX174 (single-stranded) 24.0/23.3/21.5/31.2.
+    where: [ "sims/models/a1-2-chargaff.ts", "visuals.yaml:chargaff", "tests/unit/a1-2.test.ts" ]
+    confidence: high
+    basis: Compilation in Bansal M. (2003) Current Science 85(11):1556–1563 ("representative sample of Chargaff's data"), reproduced in Wikipedia "Chargaff's rules". Original primary sources for each row not individually checked.
+    status: open
+  - id: f25
+    claim: The tetranucleotide hypothesis (Levene) proposed a repeating unit of the four nucleotides, predicting 25% of each base; Chargaff (from the late 1940s, rules published ~1950–52) found A = T, G = C, unequal amounts varying between species but constant across tissues of one species.
+    where: [ "index.mdx#chargaff", "quiz.yaml:q10", "flashcards.yaml:c17", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: Chargaff (1950) Experientia 6:201; history of molecular biology (Judson, The Eighth Day of Creation)
+    status: checked
+  - id: f26
+    claim: φX174 has single-stranded DNA, so its base composition does not show A = T.
+    where: [ "index.mdx#chargaff", "visuals.yaml:chargaff" ]
+    confidence: high
+    basis: Sinsheimer (1959) J Mol Biol 1:43
+    status: checked
+  - id: f27
+    claim: Base-composition example in quiz q3 — 120 bp with 30% A contains 48 G.
+    where: [ "quiz.yaml:q3" ]
+    confidence: high
+    basis: Arithmetic (240 bases × 20%)
+    status: checked

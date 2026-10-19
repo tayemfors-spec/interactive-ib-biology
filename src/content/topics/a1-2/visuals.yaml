@@ -1,0 +1,196 @@
+# Visuals for A1.2. Label and step text here is what readers see in the 3D viewer and the text descriptions,
+# so it is written to exam standard. Label ids must match anchors in the scene modules (src/scenes).
+visuals:
+  - id: dna
+    kind: viewer3d
+    title: DNA and RNA in 3D
+    alt: A right-handed DNA double helix with antiparallel strands, colour-coded base pairs and hydrogen bonds, plus RNA and nucleosome models.
+    description: >-
+      A section of DNA 20 base pairs long (two full turns), lying on its side. Two strands of nucleotides wind
+      round each other in a right-handed double helix with about 10 base pairs per turn. On the outside of each
+      strand is a sugar–phosphate backbone of alternating phosphate groups (dark spheres) and deoxyribose sugars
+      (grey pentagons) joined by covalent bonds. The bases point inwards and pair across the middle: adenine (blue)
+      with thymine (orange), and guanine (green) with cytosine (purple). Purines (A and G) are drawn as a
+      pentagon fused to a hexagon and pyrimidines (T and C) as a single hexagon, so every pair is one purine
+      plus one pyrimidine and every rung is the same length. Dashed sticks show the hydrogen bonds: two in each
+      A–T pair and three in each G–C pair. The strands are antiparallel: the upper-front strand runs 5′ (left)
+      to 3′ (right) and its partner runs 5′ (right) to 3′ (left); each 3′ end finishes with a free –OH group
+      (red). Twisting creates a wide major groove and a narrow minor groove. A second model shows a single
+      strand of RNA, with ribose (an extra red –OH on carbon 2′) and uracil (amber) in place of thymine.
+      A third model (higher level) shows three nucleosomes: DNA wound about 1.65 times round a core of eight
+      histone proteins, linker DNA between the beads, and an H1 histone where the DNA enters and leaves.
+    scenes:
+      - id: double-helix
+        module: a1-2-double-helix
+        title: DNA double helix
+        labels:
+          - id: five-1
+            name: 5′ end (strand 1)
+            text: This strand starts at the left with a phosphate group attached to carbon 5′ of the first deoxyribose. Reading along it from here, the strand runs 5′ → 3′ from left to right.
+          - id: three-1
+            name: 3′ end (strand 1)
+            text: The strand finishes at the right with a free –OH group (red) on carbon 3′ of the last deoxyribose. New nucleotides can only be added at a 3′ end.
+          - id: five-2
+            name: 5′ end (strand 2)
+            text: The partner strand starts with its 5′ phosphate at the right, so it runs 5′ → 3′ from right to left. The two strands run in opposite directions — they are antiparallel.
+          - id: three-2
+            name: 3′ end (strand 2)
+            text: The partner strand's 3′ end, with its free –OH, is at the left — the same end of the molecule as the 5′ end of strand 1. Each end of a DNA molecule has one 5′ end and one 3′ end.
+          - id: backbone
+            name: Sugar–phosphate backbone
+            text: Alternating phosphate groups (dark spheres) and deoxyribose sugars joined by covalent bonds form a continuous chain on the outside of each strand. It is strong, so the base sequence is held stably.
+          - id: deoxyribose
+            name: Deoxyribose
+            text: The pentose (five-carbon) sugar of DNA. Its carbon 1′ is bonded to a base, carbon 3′ to the phosphate of the next nucleotide and carbon 5′ to its own phosphate. It has –H, not –OH, on carbon 2′.
+          - id: adenine
+            name: Adenine (A, a purine)
+            text: A double-ring base (purine), shown blue. Adenine forms hydrogen bonds with thymine on the other strand — two of them.
+          - id: thymine
+            name: Thymine (T, a pyrimidine)
+            text: A single-ring base (pyrimidine), shown orange. Thymine pairs with adenine. It is found only in DNA; RNA has uracil instead.
+          - id: guanine
+            name: Guanine (G, a purine)
+            text: A double-ring base (purine), shown green. Guanine pairs with cytosine on the other strand, forming three hydrogen bonds.
+          - id: cytosine
+            name: Cytosine (C, a pyrimidine)
+            text: A single-ring base (pyrimidine), shown purple. Cytosine pairs with guanine. Cytosine is found in both DNA and RNA.
+          - id: hbonds
+            name: Hydrogen bonds
+            text: Dashed sticks between the bases. There are two in each A–T pair and three in each G–C pair. Each one is weak, so the strands can be separated, but thousands together hold the two strands firmly.
+          - id: major-groove
+            name: Major groove
+            text: The wider of the two spiral grooves, where the edges of the base pairs are most exposed. Many proteins that bind specific base sequences, such as transcription factors, read the sequence here.
+          - id: minor-groove
+            name: Minor groove
+            text: The narrower groove. It is narrow because the two sugars of each base pair are attached on the same side of the pair, so the backbones are closer together on that side.
+      - id: rna
+        module: a1-2-rna
+        title: RNA strand
+        labels:
+          - id: five-prime
+            name: 5′ end
+            text: The strand starts with a phosphate on carbon 5′ of the first ribose. RNA, like each DNA strand, has a 5′ end and a 3′ end, and is made in the 5′ → 3′ direction.
+          - id: three-prime
+            name: 3′ end
+            text: The last ribose has a free –OH on carbon 3′. During transcription, each new nucleotide is joined here by a condensation reaction.
+          - id: single
+            name: One strand only
+            text: RNA is usually a single strand. Its bases are not paired with a second strand, although they can pair with complementary bases elsewhere (for example codon with anticodon).
+          - id: ribose
+            name: Ribose
+            text: The pentose sugar of RNA. Like deoxyribose it has five carbons and a ring containing oxygen, but it carries an –OH group on carbon 2′.
+          - id: two-oh
+            name: 2′ –OH group
+            text: The extra hydroxyl (red) on carbon 2′ is the difference between ribose and deoxyribose ("de-oxy" = one oxygen fewer). It makes RNA less chemically stable than DNA.
+          - id: phosphate
+            name: Phosphate and backbone
+            text: As in DNA, phosphate groups link the 3′ carbon of one ribose to the 5′ carbon of the next by covalent bonds, forming a sugar–phosphate backbone with the bases projecting from it.
+          - id: uracil
+            name: Uracil (U)
+            text: A single-ring pyrimidine found in RNA in place of thymine. Uracil pairs with adenine.
+          - id: adenine
+            name: Adenine (A)
+            text: The same purine as in DNA. In RNA, adenine pairs with uracil (or with thymine when RNA pairs with DNA during transcription).
+          - id: guanine
+            name: Guanine (G)
+            text: A purine found in both DNA and RNA. It pairs with cytosine.
+          - id: cytosine
+            name: Cytosine (C)
+            text: A pyrimidine found in both DNA and RNA. It pairs with guanine.
+      - id: nucleosome
+        module: a1-2-nucleosome
+        title: Nucleosomes (AHL)
+        labels:
+          - id: nucleosome
+            name: Nucleosome
+            level: AHL
+            text: One "bead" of chromatin — a histone octamer with DNA wound round it, plus an H1 histone. Nucleosomes package the long DNA molecule of a eukaryotic chromosome so it fits in the nucleus.
+          - id: octamer
+            name: Histone octamer
+            level: AHL
+            text: A disc-shaped core of eight histone proteins — two each of H2A, H2B, H3 and H4 (shown in four colours, two layers of four).
+          - id: histone
+            name: One histone protein
+            level: AHL
+            text: Histones are small proteins rich in the positively charged amino acids lysine and arginine. This one is H3; its partner copy is in the other layer of the octamer.
+          - id: wrapped
+            name: DNA wound round the core
+            level: AHL
+            text: About 147 base pairs of the double helix are wrapped round the octamer in about 1.65 turns of a left-handed coil. The DNA stays a double helix as it bends round the core.
+          - id: contact
+            name: Protein–DNA attraction
+            level: AHL
+            text: Positively charged lysine and arginine side chains on the histone surface attract the negatively charged phosphate groups of the DNA backbone, holding the DNA on the core without bonding to particular bases.
+          - id: tail
+            name: Histone tails
+            level: AHL
+            text: Flexible N-terminal tails of the histones (here H3 and H4) project out between the turns of DNA. Chemical changes to these tails help control how tightly DNA is packed (see D2.2).
+          - id: h1
+            name: H1 histone
+            level: AHL
+            text: A ninth histone that binds on the outside of the nucleosome where the DNA enters and leaves, attached to the linker DNA. It holds the DNA in place on the core.
+          - id: linker
+            name: Linker DNA
+            level: AHL
+            text: A stretch of DNA between one nucleosome and the next. Its length varies. Under the electron microscope, nucleosomes and linker DNA look like beads on a string.
+
+  - id: pairing
+    kind: sim
+    module: a1-2-pairing
+    title: Complementary base-pairing builder
+    alt: Type a template DNA strand to see its complementary DNA and RNA strands, the hydrogen bonds and the G + C content.
+    description: >-
+      A text box for a template DNA strand written 5′ to 3′, with buttons that add A, T, G or C, delete the last
+      base, clear the strand, or load an A–T-rich, a G–C-rich or a random example. Below it the strand is shown as a
+      ladder: under each base is its complementary DNA base (A with T, G with C), forming a strand that reads 3′ to 5′
+      from left to right, and dashes show two hydrogen bonds for each A–T pair and three for each G–C pair. A third row
+      shows the complementary RNA, in which uracil replaces thymine. Counters give the number of base pairs, A–T and
+      G–C pairs, total hydrogen bonds and the percentage of G + C. Typing U or another letter gives a warning.
+
+  - id: hershey-chase
+    kind: anim
+    module: a1-2-hershey-chase
+    level: AHL
+    title: The Hershey–Chase experiment
+    alt: Step-by-step diagram comparing T2 phage with radioactive protein coats (³⁵S) and with radioactive DNA (³²P) infecting E. coli.
+    description: >-
+      Two versions of the experiment side by side. On the left, T2 bacteriophages have protein coats labelled with
+      radioactive sulfur-35; on the right, phages have DNA labelled with radioactive phosphorus-32. In six steps the
+      phages attach to E. coli and inject their DNA, a blender shakes the empty protein coats off the bacteria, a
+      centrifuge separates the heavier bacteria into a pellet from the lighter phage coats in the liquid supernatant,
+      and the radioactivity in each fraction is measured. Most ³⁵S stays in the supernatant with the coats, while
+      most ³²P ends up in the pellet with the bacteria, showing that DNA, not protein, entered the cells.
+    steps:
+      - id: label
+        title: Label the phage
+        caption: T2 phage consist only of a protein coat and DNA. One batch is grown with ³⁵S, which goes into protein (in the amino acids cysteine and methionine) but not DNA. Another is grown with ³²P, which goes into DNA (in its phosphates) but almost none into protein.
+      - id: infect
+        title: Infect E. coli
+        caption: Each batch is mixed with E. coli. The phages attach to the bacteria and inject their genetic material, while the empty protein coats stay on the outside of the cells.
+      - id: blend
+        title: Blend
+        caption: After a few minutes, the mixture is agitated in a blender. This shears the phage coats off the surface of the bacteria without breaking the cells open.
+      - id: centrifuge
+        title: Centrifuge
+        caption: Spinning in a centrifuge separates the mixture. The bacteria, which are larger and heavier, form a pellet at the bottom; the much lighter phage coats stay in the liquid supernatant.
+      - id: measure
+        title: Measure radioactivity
+        caption: With ³⁵S-labelled phage, most radioactivity (about 80%) is in the supernatant with the coats. With ³²P-labelled phage, most (roughly 70%) is in the pellet with the bacteria. The small amounts in the "wrong" fraction come from coats still stuck to cells and DNA in unattached phage.
+      - id: conclude
+        title: Conclusion
+        caption: DNA, not protein, entered the bacteria, and the bacteria went on to make new phages. So DNA is the genetic material of T2. In further work, ³²P (but almost no ³⁵S) was passed on to the next generation of phage.
+
+  - id: chargaff
+    kind: sim
+    module: a1-2-chargaff
+    level: AHL
+    title: Chargaff's data explorer
+    alt: Bar charts of the percentage of each base in the DNA of nine organisms, compared with the 25% predicted by the tetranucleotide hypothesis.
+    description: >-
+      Buttons choose a source of DNA: human, chicken, octopus, sea urchin, wheat, maize, yeast, the bacterium E. coli,
+      or the virus φX174. A bar chart shows the percentage of adenine, thymine, guanine and cytosine, with a dashed line
+      at 25%, the amount of each base predicted by the tetranucleotide hypothesis. For every double-stranded DNA, the
+      amount of A is close to the amount of T and the amount of G is close to the amount of C, so the ratios A ÷ T and
+      G ÷ C are about 1 and purines equal pyrimidines. But the four bases are not equal, and the proportion of G + C
+      varies between species, from about 35% in octopus and sea urchin to about 52% in E. coli, as a second chart
+      shows. The single-stranded DNA of φX174 does not show A = T. A data table lists all the values.

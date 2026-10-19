@@ -1,0 +1,101 @@
+---
+/**
+ * Hershey–Chase experiment (A1.2.14), drawn in its step-1 state; animated by a1-2-hershey-chase.ts.
+ * Left column: T2 phage with ³⁵S-labelled protein coats. Right column: T2 with ³²P-labelled DNA.
+ * Radioactive parts have a red dashed outline (and are named in the legend), so colour is not the only cue.
+ */
+const cols = [
+  { p: 's', x: 0, title: '³⁵S labels the protein coat', hotCoat: true },
+  { p: 'p', x: 264, title: '³²P labels the DNA', hotCoat: false },
+];
+const phX = [88, 168];
+const hex = (r: number) => Array.from({ length: 6 }, (_, k) => {
+  const a = (Math.PI / 3) * k - Math.PI / 2;
+  return `${(r * Math.cos(a)).toFixed(1)},${(r * Math.sin(a)).toFixed(1)}`;
+}).join(' ');
+const squiggle = 'M-9 -6 C-3 -14, 3 2, 8 -6 S2 10, -6 6 S-2 -2, 6 2';
+const injected = 'M-22 0 C-14 -12, -6 12, 2 0 S16 -10, 22 2';
+---
+<svg viewBox="0 0 520 396" xmlns="http://www.w3.org/2000/svg" class="hc">
+  <g class="legend">
+    <rect class="lg-hot" x="150" y="4" width="22" height="14" rx="3" />
+    <text x="178" y="15">= radioactive label</text>
+    <rect class="coat" x="300" y="4" width="22" height="14" rx="3" />
+    <text x="328" y="15">protein</text>
+    <path class="dna" d="M384 11 c4 -8 8 8 12 0 s8 -8 12 0" />
+    <text x="414" y="15">DNA</text>
+  </g>
+  {cols.map((c) => (
+    <g transform={`translate(${c.x} 0)`}>
+      <text class="title" x="128" y="42" text-anchor="middle">{c.title}</text>
+      <!-- cells view -->
+      <g data-el={`${c.p}-cells`}>
+        <rect class="cell" x="28" y="150" width="200" height="84" rx="40" />
+        <text class="small it" x="128" y="226" text-anchor="middle">E. coli</text>
+        <g data-el={`${c.p}-blend`} style="opacity:0">
+          <path class="blend" d="M14 120 q-12 70 4 136 M242 120 q12 70 -4 136 M60 268 q68 18 136 0" />
+          <text class="small" x="128" y="290" text-anchor="middle">blender shakes coats off</text>
+        </g>
+        {phX.map((x, i) => (
+          <>
+            <path data-el={`${c.p}-i${i + 1}`} class={`dna inj ${c.hotCoat ? '' : 'hot'}`} d={injected} transform={`translate(${x} 192)`} style="opacity:0" />
+            <g data-el={`${c.p}-ph${i + 1}`} transform={`translate(${x} 66)`}>
+              <polygon class={`coat ${c.hotCoat ? 'hot' : ''}`} points={hex(19)} />
+              <rect class={`coat ${c.hotCoat ? 'hot' : ''}`} x="-4" y="18" width="8" height="26" rx="2" />
+              <path class={`fibre ${c.hotCoat ? 'hot-line' : ''}`} d="M-4 42 L-15 53 M4 42 L15 53 M-3 36 L-17 46 M3 36 L17 46" />
+            </g>
+            <path data-el={`${c.p}-d${i + 1}`} class={`dna ${c.hotCoat ? '' : 'hot'}`} d={squiggle} transform={`translate(${x} 66)`} />
+          </>
+        ))}
+      </g>
+      <!-- centrifuge tube view -->
+      <g data-el={`${c.p}-tube`} style="opacity:0">
+        <path class="tube" d="M86 64 V236 Q86 276 128 276 Q170 276 170 236 V64" />
+        <path class="liquid" d="M89 96 V236 Q89 272 128 272 Q167 272 167 236 V96 Z" />
+        {[[112, 132], [146, 160], [118, 196]].map(([x, y]) => (
+          <polygon class={`coat ghost ${c.hotCoat ? 'hot' : ''}`} points={hex(9)} transform={`translate(${x} ${y})`} />
+        ))}
+        <ellipse class={`pellet ${c.hotCoat ? '' : 'hot'}`} cx="128" cy="262" rx="30" ry="9" />
+        <text class="small" x="176" y="120">supernatant:</text>
+        <text class="small" x="176" y="136">phage coats</text>
+        <text class="small" x="176" y="250">pellet:</text>
+        <text class="small" x="176" y="266">bacteria</text>
+      </g>
+      <g data-el={`${c.p}-pct`} style="opacity:0">
+        <rect class="meter" x="28" y="288" width="200" height="50" rx="6" />
+        <text class="reading" data-el={`${c.p}-sup`} x="128" y="308" text-anchor="middle">supernatant 0%</text>
+        <text class="reading" data-el={`${c.p}-pel`} x="128" y="328" text-anchor="middle">pellet 0%</text>
+      </g>
+    </g>
+  ))}
+  <line class="divider" x1="260" x2="260" y1="30" y2="340" />
+  <g data-el="concl" style="opacity:0">
+    <rect class="banner" x="20" y="350" width="480" height="38" rx="8" />
+    <text class="concl" x="260" y="374" text-anchor="middle">DNA, not protein, entered the bacteria: DNA is the genetic material</text>
+  </g>
+</svg>
+<style>
+  .hc { font-family: var(--font-sans); }
+  .title { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .small { font-size: 13px; fill: var(--text-muted); }
+  .it { font-style: italic; }
+  .legend text { font-size: 13px; fill: var(--text); }
+  .lg-hot { fill: none; stroke: var(--bio-k); stroke-width: 3; stroke-dasharray: 4 2; }
+  .cell { fill: color-mix(in srgb, var(--bio-carb) 22%, var(--surface)); stroke: var(--bio-carb); stroke-width: 2.5; }
+  .coat { fill: color-mix(in srgb, var(--bio-protein) 35%, var(--surface)); stroke: var(--bio-protein); stroke-width: 2; }
+  .fibre { stroke: var(--bio-protein); stroke-width: 2; fill: none; }
+  .hot { stroke: var(--bio-k); stroke-width: 3.5; stroke-dasharray: 5 2.5; }
+  .hot-line { stroke: var(--bio-k); }
+  .dna { fill: none; stroke: var(--bio-head); stroke-width: 3; stroke-linecap: round; }
+  .dna.hot { stroke: var(--bio-k); stroke-width: 4; stroke-dasharray: none; }
+  .blend { fill: none; stroke: var(--text-muted); stroke-width: 2.5; stroke-dasharray: 8 6; }
+  .tube { fill: none; stroke: var(--text); stroke-width: 3; }
+  .liquid { fill: color-mix(in srgb, var(--bio-water) 16%, var(--surface)); }
+  .pellet { fill: color-mix(in srgb, var(--bio-carb) 55%, var(--surface)); stroke: var(--bio-carb); stroke-width: 2; }
+  .pellet.hot { stroke: var(--bio-k); stroke-width: 3.5; }
+  .meter { fill: var(--surface-2); stroke: var(--border-strong); }
+  .reading { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .divider { stroke: var(--border); stroke-width: 1.5; }
+  .banner { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+  .concl { font-size: 14px; font-weight: 800; fill: var(--text); }
+</style>

@@ -1,0 +1,176 @@
+---
+import { MAX_LENGTH, as5to3, clean, complement, rnaComplement, stats, H_BONDS } from './models/a1-2-pairing';
+
+const start = 'ATGGCATTCGAC';
+const seq = clean(start).seq;
+const comp = complement(seq);
+const rna = rnaComplement(seq);
+const s = stats(seq);
+---
+<div class="pairing" data-pairing>
+  <div class="controls">
+    <label class="field">
+      <span class="field-name">Template DNA strand, written 5′→3′ (A, T, G, C; up to {MAX_LENGTH} bases)</span>
+      <input type="text" value={start} data-input autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="60" />
+    </label>
+    <div class="row-btns">
+      <div class="keys" role="group" aria-label="Add a base to the 3′ end">
+        {['A', 'T', 'G', 'C'].map((b) => <button type="button" class={`btn key k${b}`} data-add={b}>+ {b}</button>)}
+        <button type="button" class="btn" data-del>Delete last</button>
+        <button type="button" class="btn" data-clear>Clear</button>
+      </div>
+      <div class="keys" role="group" aria-label="Example strands">
+        <button type="button" class="btn" data-example="ATTATAATTTAT">A–T rich</button>
+        <button type="button" class="btn" data-example="GCGGCCGCGGCC">G–C rich</button>
+        <button type="button" class="btn" data-random>Random</button>
+      </div>
+    </div>
+    <p class="warn" data-warn hidden></p>
+  </div>
+
+  <div class="ladder" data-ladder aria-hidden="true">
+    <div class="col names">
+      <span class="cell name">Template DNA <b>5′</b></span>
+      <span class="cell gap"></span>
+      <span class="cell name">Complementary DNA <b>3′</b></span>
+      <span class="cell name rna">Complementary RNA <b>3′</b></span>
+    </div>
+    {seq.map((b, i) => (
+      <div class="col">
+        <span class={`cell b b${b}`}>{b}</span>
+        <span class="cell gap" data-n={H_BONDS[b]}>{Array.from({ length: H_BONDS[b] }, () => <i></i>)}</span>
+        <span class={`cell b b${comp[i]}`}>{comp[i]}</span>
+        <span class={`cell b rna b${rna[i]}`}>{rna[i]}</span>
+      </div>
+    ))}
+    <div class="col ends">
+      <span class="cell end">3′</span>
+      <span class="cell gap"></span>
+      <span class="cell end">5′</span>
+      <span class="cell end rna">5′</span>
+    </div>
+  </div>
+
+  <div class="text-strands">
+    <p><span>Template:</span> <code data-t-template>5′-{seq.join('')}-3′</code></p>
+    <p><span>Complementary DNA:</span> <code data-t-comp>3′-{comp.join('')}-5′</code> <span class="muted">(read 5′→3′: <code data-t-comp53>{as5to3(comp)}</code>)</span></p>
+    <p><span>Complementary RNA:</span> <code data-t-rna>3′-{rna.join('')}-5′</code></p>
+  </div>
+
+  <dl class="stats">
+    <div><dt>Base pairs</dt><dd data-s="length">{s.length}</dd></div>
+    <div><dt>A–T pairs</dt><dd data-s="at">{s.at}</dd></div>
+    <div><dt>G–C pairs</dt><dd data-s="gc">{s.gc}</dd></div>
+    <div><dt>Hydrogen bonds</dt><dd data-s="hBonds">{s.hBonds}</dd></div>
+    <div><dt>G + C content</dt><dd data-s="gcPercent">{s.gcPercent.toFixed(0)}%</dd></div>
+  </dl>
+  <p class="readout" aria-live="polite" data-readout>
+    {s.length} base pairs: {s.at} A–T pairs × 2 + {s.gc} G–C pairs × 3 = {s.hBonds} hydrogen bonds.
+  </p>
+  <p class="model-note">Each A–T pair is held by two hydrogen bonds and each G–C pair by three. Hydrogen bonds are weak individually, so the strands can be separated for replication and transcription, but many together hold the double helix firmly. Strands with more G–C pairs need more energy (a higher temperature) to separate.</p>
+</div>
+
+<script>
+  import { MAX_LENGTH, as5to3, clean, complement, rnaComplement, stats, H_BONDS, randomStrand, type DnaBase } from './models/a1-2-pairing';
+
+  document.querySelectorAll<HTMLElement>('[data-pairing]').forEach((root) => {
+    const input = root.querySelector<HTMLInputElement>('[data-input]')!;
+    const ladder = root.querySelector<HTMLElement>('[data-ladder]')!;
+    const warn = root.querySelector<HTMLElement>('[data-warn]')!;
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    const set = (sel: string, text: string) => (root.querySelector(sel)!.textContent = text);
+    let seed = 7;
+    let timer = 0;
+
+    const cell = (cls: string, text: string) => `<span class="cell ${cls}">${text}</span>`;
+    const update = () => {
+      const c = clean(input.value);
+      const seq = c.seq;
+      const comp = complement(seq);
+      const rna = rnaComplement(seq);
+      const s = stats(seq);
+      const names = ladder.querySelector('.names')!.outerHTML;
+      const ends = ladder.querySelector('.ends')!.outerHTML;
+      const cols = seq.map((b: DnaBase, i) =>
+        `<div class="col">${cell(`b b${b}`, b)}<span class="cell gap" data-n="${H_BONDS[b]}">${'<i></i>'.repeat(H_BONDS[b])}</span>${cell(`b b${comp[i]}`, comp[i]!)}${cell(`b rna b${rna[i]}`, rna[i]!)}</div>`,
+      ).join('');
+      ladder.innerHTML = names + cols + ends;
+      set('[data-t-template]', `5′-${seq.join('')}-3′`);
+      set('[data-t-comp]', `3′-${comp.join('')}-5′`);
+      set('[data-t-comp53]', as5to3(comp));
+      set('[data-t-rna]', `3′-${rna.join('')}-5′`);
+      set('[data-s="length"]', String(s.length));
+      set('[data-s="at"]', String(s.at));
+      set('[data-s="gc"]', String(s.gc));
+      set('[data-s="hBonds"]', String(s.hBonds));
+      set('[data-s="gcPercent"]', `${s.gcPercent.toFixed(0)}%`);
+      const notes: string[] = [];
+      if (c.ignored.includes('U')) notes.push('U (uracil) is found in RNA, not DNA: DNA has thymine (T) instead, so U was left out.');
+      const others = c.ignored.filter((x) => x !== 'U');
+      if (others.length) notes.push(`${others.join(', ')} ${others.length > 1 ? 'are' : 'is'} not a DNA base and was left out. Use A, T, G and C.`);
+      if (c.truncated) notes.push(`Only the first ${MAX_LENGTH} bases are shown.`);
+      warn.hidden = notes.length === 0;
+      warn.textContent = notes.join(' ');
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        readout.textContent = seq.length
+          ? `${s.length} base pairs: ${s.at} A–T pairs × 2 + ${s.gc} G–C pairs × 3 = ${s.hBonds} hydrogen bonds. G + C content ${s.gcPercent.toFixed(0)}%. Complementary DNA strand, 5′ to 3′: ${as5to3(comp)}.`
+          : 'Type a template strand, or use the buttons to add bases.';
+      }, 350);
+    };
+    const setValue = (v: string) => { input.value = v; update(); };
+    input.addEventListener('input', update);
+    root.querySelectorAll<HTMLButtonElement>('[data-add]').forEach((b) => b.addEventListener('click', () => {
+      const cur = clean(input.value).seq.join('');
+      if (cur.length < MAX_LENGTH) setValue(cur + b.dataset.add);
+      else { setValue(cur); warn.hidden = false; warn.textContent = `The strand is already ${MAX_LENGTH} bases long.`; }
+    }));
+    root.querySelector('[data-del]')!.addEventListener('click', () => setValue(clean(input.value).seq.slice(0, -1).join('')));
+    root.querySelector('[data-clear]')!.addEventListener('click', () => { setValue(''); input.focus(); });
+    root.querySelectorAll<HTMLButtonElement>('[data-example]').forEach((b) => b.addEventListener('click', () => setValue(b.dataset.example!)));
+    root.querySelector('[data-random]')!.addEventListener('click', () => { seed = (seed * 31 + 11) % 100000; setValue(randomStrand(12, seed).join('')); });
+  });
+</script>
+
+<style>
+  .pairing { container-type: inline-size; display: grid; gap: var(--space-3); }
+  .controls { display: grid; gap: var(--space-2); }
+  .field { display: grid; gap: var(--space-1); font-weight: 650; font-size: var(--step--1); }
+  .field input { font: 700 1.05rem/1.4 var(--font-mono, ui-monospace, monospace); letter-spacing: 0.12em; padding: 0.45rem 0.6rem; border: 1.5px solid var(--border-strong); border-radius: var(--radius-m); background: var(--surface); color: var(--text); min-height: 2.6rem; text-transform: uppercase; }
+  .field input:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px; }
+  .row-btns { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); }
+  .keys { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .key { font-weight: 800; min-width: 3rem; }
+  .warn { margin: 0; padding: var(--space-2) var(--space-3); border-radius: var(--radius-m); background: var(--surface-2); border-left: 4px solid var(--bad); font-size: var(--step--1); }
+  .ladder { display: flex; flex-wrap: wrap; row-gap: var(--space-3); padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-family: var(--font-mono, ui-monospace, monospace); }
+  .ladder :global(.col) { display: grid; grid-template-rows: 1.9rem 1.1rem 1.9rem 1.9rem; gap: 2px; width: 1.75rem; justify-items: center; }
+  .ladder :global(.col.names) { width: auto; justify-items: end; padding-right: 0.4rem; font-family: var(--font-sans); }
+  .ladder :global(.col.ends) { width: 1.6rem; }
+  .ladder :global(.cell) { display: grid; place-items: center; width: 100%; font-weight: 800; }
+  .ladder :global(.name) { font-size: 0.78rem; font-weight: 650; color: var(--text-muted); white-space: nowrap; justify-items: end; display: flex; gap: 0.3rem; align-items: center; justify-content: flex-end; }
+  .ladder :global(.name b), .ladder :global(.end) { color: var(--text); font-weight: 800; font-size: 0.85rem; }
+  .ladder :global(.b) { border-radius: 4px; border: 1.5px solid; width: 1.55rem; color: var(--text); }
+  .ladder :global(.b.rna) { border-style: dashed; margin-top: 0.15rem; }
+  .ladder :global(.bA) { background: color-mix(in srgb, var(--bio-protein) 24%, var(--surface)); border-color: var(--bio-protein); }
+  .ladder :global(.bT) { background: color-mix(in srgb, var(--bio-head) 24%, var(--surface)); border-color: var(--bio-head); }
+  .ladder :global(.bG) { background: color-mix(in srgb, var(--bio-carb) 24%, var(--surface)); border-color: var(--bio-carb); }
+  .ladder :global(.bC) { background: color-mix(in srgb, var(--bio-protein-2) 24%, var(--surface)); border-color: var(--bio-protein-2); }
+  .ladder :global(.bU) { background: color-mix(in srgb, var(--bio-glucose) 24%, var(--surface)); border-color: var(--bio-glucose); }
+  .ladder :global(.gap) { display: flex; justify-content: center; gap: 3px; }
+  .ladder :global(.gap i) { display: block; width: 2px; height: 100%; background: repeating-linear-gradient(to bottom, var(--text) 0 3px, transparent 3px 5px); }
+  .kA { border-color: var(--bio-protein); }
+  .kT { border-color: var(--bio-head); }
+  .kG { border-color: var(--bio-carb); }
+  .kC { border-color: var(--bio-protein-2); }
+  .text-strands { font-size: var(--step--1); display: grid; gap: 0.15rem; }
+  .text-strands p { margin: 0; overflow-wrap: anywhere; }
+  .text-strands span:first-child { font-weight: 700; }
+  .text-strands code { font-weight: 700; letter-spacing: 0.06em; }
+  .muted { color: var(--text-muted); }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr)); gap: var(--space-2); margin: 0; }
+  .stats div { background: var(--surface-2); border-radius: var(--radius-m); padding: var(--space-2) var(--space-3); }
+  .stats dt { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .stats dd { margin: 0; font-size: var(--step-1); font-weight: 800; color: var(--accent-strong); }
+  .readout { margin: 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: 0; }
+</style>
