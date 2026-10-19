@@ -16,5 +16,7 @@ export default defineConfig({
   projects: [
     { name: 'desktop-chrome', use: { ...devices['Desktop Chrome'], channel: 'chrome', launchOptions: { args: chromeArgs } } },
     { name: 'mobile-chrome', use: { ...devices['Pixel 7'], channel: 'chrome', launchOptions: { args: chromeArgs } } },
+    // Safari engine (iPhone emulation): catches WebKit-only layout and WebGL issues.
+    { name: 'mobile-safari', use: { ...devices['iPhone 15'] } },
   ],
 });
