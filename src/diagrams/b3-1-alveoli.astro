@@ -1,0 +1,150 @@
+---
+/**
+ * Exam-style diagram of an alveolus and its capillary (B3.1.4), with a magnified view of the
+ * air–blood barrier. Numbered markers keep it legible at phone width; the key gives the names.
+ */
+const cx = 200, cy = 236, r = 124; // alveolus
+const pt = (a: number, rad = r) => [cx + rad * Math.cos((a * Math.PI) / 180), cy + rad * Math.sin((a * Math.PI) / 180)] as const;
+// wall of the alveolus: open at the top (−90°) where the alveolar duct joins
+const arc = (a0: number, a1: number, rad: number) => {
+  const [x0, y0] = pt(a0, rad), [x1, y1] = pt(a1, rad);
+  const large = Math.abs(a1 - a0) > 180 ? 1 : 0;
+  return `M${x0.toFixed(1)} ${y0.toFixed(1)} A${rad} ${rad} 0 ${large} 1 ${x1.toFixed(1)} ${y1.toFixed(1)}`;
+};
+const wall = arc(-74, 254, r);
+const film = arc(-72, 252, r - 9);
+// capillary hugging the right side, from the bottom (arteriole end) to the top (venule end)
+const capR = r + 17;
+const cap = arc(-62, 108, capR);
+const rbcs = [96, 70, 44, 18, -8, -34];
+const [t2x, t2y] = pt(150, r - 14);
+const zoom = pt(8, r + 8);
+const markers: { n: number; x: number; y: number; to: [number, number] }[] = [
+  { n: 1, x: 120, y: 40, to: [cx - 18, 84] },
+  { n: 2, x: 150, y: 196, to: [180, 218] },
+  { n: 3, x: 40, y: 150, to: pt(214, r).map(Number) as [number, number] },
+  { n: 4, x: 36, y: 336, to: [t2x - 12, t2y + 8] },
+  { n: 5, x: 112, y: 120, to: pt(232, r - 9).map(Number) as [number, number] },
+  { n: 6, x: 668, y: 60, to: [628, 140] },
+  { n: 7, x: 755, y: 300, to: [738, 260] },
+  { n: 8, x: 300, y: 418, to: pt(108, capR + 4).map(Number) as [number, number] },
+  { n: 9, x: 382, y: 92, to: pt(-62, capR + 6).map(Number) as [number, number] },
+  { n: 10, x: 560, y: 56, to: [596, 82] },
+];
+const key = [
+  'Alveolar duct: air arrives from a bronchiole',
+  'Air in the alveolus: high O₂, low CO₂ (kept so by ventilation)',
+  'Wall of type I pneumocytes: one layer of extremely thin cells',
+  'Type II pneumocyte: secretes surfactant',
+  'Film of moisture containing surfactant lines the alveolus',
+  'Capillary wall: endothelium, one thin cell thick',
+  'Red blood cell: haemoglobin binds the O₂',
+  'Blood from the pulmonary artery: low O₂, high CO₂',
+  'Blood to the pulmonary vein: high O₂, low CO₂',
+  'Diffusion distance ≈ 0.5 µm (two thin cells)',
+];
+---
+<div class="exam-diagram">
+  <svg viewBox="0 0 800 440" role="img" aria-labelledby="alv-title alv-desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="alv-title">An alveolus and its capillary</title>
+    <desc id="alv-desc">An alveolus is a thin-walled air sac opening from an alveolar duct. Its wall is made of thin type I pneumocytes, with a type II pneumocyte that secretes surfactant into the film of moisture lining it. A capillary is pressed against the outside of the wall, carrying red blood cells from the pulmonary artery to the pulmonary vein. Oxygen diffuses from the air into the blood and carbon dioxide from the blood into the air. A magnified view shows the air–blood barrier: moisture film, type I pneumocyte and capillary endothelium, about half a micrometre thick in total.</desc>
+
+    <defs>
+      <marker id="alv-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="mk" d="M0 0 L10 5 L0 10 Z" /></marker>
+      <marker id="alv-o2" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path class="mk-o2" d="M0 0 L10 5 L0 10 Z" /></marker>
+      <marker id="alv-co2" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path class="mk-co2" d="M0 0 L10 5 L0 10 Z" /></marker>
+    </defs>
+    <!-- alveolar duct -->
+    <path class="duct" d={`M${cx - 30} 22 V${cy - r + 4} M${cx + 30} 22 V${cy - r + 4}`} />
+    <path class="arrow air" d={`M${cx} 30 V92`} /><path class="head air" d={`M${cx - 7} 84 l7 10 l7 -10`} />
+
+    <!-- capillary (behind the wall) -->
+    <path class="cap" d={cap} />
+    <path class="cap-edge" d={arc(-62, 108, capR + 11)} /><path class="cap-edge" d={arc(-62, 108, capR - 11)} />
+    {rbcs.map((a) => { const [x, y] = pt(a, capR); return <ellipse class="rbc" cx={x} cy={y} rx="9" ry="6" transform={`rotate(${a + 90} ${x} ${y})`} />; })}
+    {(() => { const [x, y] = pt(112, capR); return <path class="flow" d={`M${x - 20} ${y + 16} L${x} ${y}`} />; })()}
+    {(() => { const [x, y] = pt(-66, capR); return <path class="flow" d={`M${x} ${y} L${x - 10} ${y - 22}`} />; })()}
+
+    <!-- alveolus wall, moisture film, type II cell -->
+    <path class="wall" d={wall} />
+    <path class="film" d={film} />
+    <ellipse class="t2" cx={t2x} cy={t2y} rx="22" ry="15" transform={`rotate(${150 + 90} ${t2x} ${t2y})`} />
+    {[[-6, -4], [5, 3], [-2, 6], [7, -5]].map(([dx, dy]) => <circle class="gran" cx={t2x + dx!} cy={t2y + dy!} r="3" />)}
+
+    <!-- gas movement -->
+    <path class="arrow o2" d={`M${cx + 40} ${cy - 30} L${cx + r + 10} ${cy - 50}`} /><text class="gas" x={cx + 52} y={cy - 46}>O₂</text>
+    <path class="arrow co2" d={`M${cx + r + 10} ${cy + 40} L${cx + 40} ${cy + 26}`} /><text class="gas" x={cx + 50} y={cy + 52}>CO₂</text>
+
+    <!-- zoom to the magnified barrier -->
+    <rect class="zoom" x={zoom[0] - 14} y={zoom[1] - 14} width="28" height="28" />
+    <path class="zoom-l" d={`M${zoom[0] + 14} ${zoom[1] - 14} L460 96 M${zoom[0] + 14} ${zoom[1] + 14} L460 330`} />
+
+    <!-- magnified barrier: air | film | type I cell | endothelium | plasma | RBC -->
+    <g class="mag">
+      <rect class="m-air" x="460" y="96" width="120" height="234" />
+      <rect class="m-film" x="580" y="96" width="10" height="234" />
+      <rect class="m-t1" x="590" y="96" width="22" height="234" />
+      <rect class="m-bm" x="612" y="96" width="4" height="234" />
+      <rect class="m-endo" x="616" y="96" width="22" height="234" />
+      <rect class="m-plasma" x="638" y="96" width="140" height="234" />
+      <rect class="rbc" x="690" y="150" width="64" height="130" rx="30" />
+      <text class="m-t" x="520" y="122" text-anchor="middle">alveolar air</text>
+      <text class="m-t" x="708" y="122" text-anchor="middle">blood plasma</text>
+      <path class="arrow o2" d="M486 186 L700 186" /><text class="gas" x="492" y="176">O₂</text>
+      <path class="arrow co2" d="M700 240 L486 240" /><text class="gas" x="492" y="266">CO₂</text>
+      <path class="dist" d="M590 90 V82 H638 V90" />
+      <text class="m-t" x="520" y="350" text-anchor="middle">magnified (not to scale)</text>
+    </g>
+
+    <g class="markers">
+      {markers.map((m) => (
+        <g>
+          <path class="lead" d={`M${m.x} ${m.y} L${m.to[0]} ${m.to[1]}`} />
+          <circle cx={m.x} cy={m.y} r="13" />
+          <text x={m.x} y={m.y} dy="0.36em" text-anchor="middle">{m.n}</text>
+        </g>
+      ))}
+    </g>
+  </svg>
+  <ol class="key">
+    {key.map((k) => <li>{k}</li>)}
+  </ol>
+</div>
+
+<style>
+  .exam-diagram svg { font-family: var(--font-sans); }
+  .duct { stroke: var(--bio-head); stroke-width: 8; fill: none; stroke-linecap: round; }
+  .wall { fill: color-mix(in srgb, var(--surface) 70%, transparent); stroke: var(--bio-tail); stroke-width: 9; stroke-linecap: round; }
+  .film { fill: none; stroke: var(--bio-carb); stroke-width: 3; stroke-dasharray: 6 3; }
+  .t2 { fill: var(--bio-protein-2); stroke: color-mix(in srgb, var(--bio-protein-2) 60%, black); }
+  .gran { fill: var(--bio-glucose); }
+  .cap { fill: none; stroke: color-mix(in srgb, var(--bio-chol) 22%, transparent); stroke-width: 22; }
+  .cap-edge { fill: none; stroke: var(--bio-chol); stroke-width: 2.4; }
+  .rbc { fill: var(--bio-k); stroke: color-mix(in srgb, var(--bio-k) 60%, black); stroke-width: 1; }
+  .flow { stroke: var(--text); stroke-width: 2.4; fill: none; marker-end: url(#alv-arrow); }
+  .arrow { stroke-width: 3.4; fill: none; stroke-linecap: round; }
+  .arrow.air { stroke: var(--bio-water); }
+  .head.air { stroke: var(--bio-water); stroke-width: 3.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .arrow.o2 { stroke: var(--bio-water); stroke-dasharray: 10 4; marker-end: url(#alv-o2); }
+  .arrow.co2 { stroke: var(--text-muted); stroke-dasharray: 3 4; marker-end: url(#alv-co2); }
+  .mk { fill: var(--text); }
+  .mk-o2 { fill: var(--bio-water); }
+  .mk-co2 { fill: var(--text-muted); }
+  .gas { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .zoom { fill: none; stroke: var(--text); stroke-width: 1.6; }
+  .zoom-l { stroke: var(--text-muted); stroke-width: 1.2; stroke-dasharray: 4 4; }
+  .m-air { fill: var(--surface); stroke: var(--border-strong); }
+  .m-film { fill: color-mix(in srgb, var(--bio-carb) 45%, transparent); }
+  .m-t1 { fill: var(--bio-tail); }
+  .m-bm { fill: var(--text-muted); }
+  .m-endo { fill: color-mix(in srgb, var(--bio-chol) 70%, transparent); }
+  .m-plasma { fill: color-mix(in srgb, var(--bio-glucose) 18%, var(--surface)); stroke: var(--border-strong); }
+  .m-t { font-size: 14px; font-style: italic; fill: var(--text-muted); }
+  .dist { stroke: var(--text); stroke-width: 1.8; fill: none; }
+  .markers circle { fill: var(--surface); stroke: var(--text); stroke-width: 1.8; }
+  .markers text { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .lead { stroke: var(--text); stroke-width: 1.4; }
+  .key { columns: 2 17rem; column-gap: var(--space-5); margin: var(--space-3) 0 0; padding: 0; list-style: none; counter-reset: k; font-size: var(--step--1); }
+  .key li { break-inside: avoid; margin: 0 0 0.3rem; display: grid; grid-template-columns: 1.7rem 1fr; counter-increment: k; }
+  .key li::before { content: counter(k); font-weight: 800; display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; border: 1.5px solid var(--text); border-radius: 50%; font-size: 0.75rem; margin-top: 0.1rem; }
+</style>

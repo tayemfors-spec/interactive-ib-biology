@@ -1,0 +1,175 @@
+---
+import { SPIRO_FRAME, spiroChart } from './b3-1-spiro-draw';
+import { QUANTITY_NAMES, QUANTITY_UNITS, lungVolumes, makePerson } from './models/b3-1-spirometer';
+
+const v = lungVolumes(0);
+const cursor = 20;
+const chart = spiroChart(v, { annotate: true, cursor });
+// fixed seed so the server-rendered practice question is stable; the browser makes new ones
+let s = 19;
+const seeded = () => { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; };
+const p0 = makePerson(seeded, 'vc');
+const rows = (x: typeof v) => [
+  ['Tidal volume (TV)', `${x.tv.toFixed(1)} dm³`],
+  ['Inspiratory reserve volume (IRV)', `${x.irv.toFixed(1)} dm³`],
+  ['Expiratory reserve volume (ERV)', `${x.erv.toFixed(1)} dm³`],
+  ['Vital capacity (VC = IRV + TV + ERV)', `${x.vc.toFixed(1)} dm³`],
+  ['Residual volume (RV)', `${x.rv.toFixed(1)} dm³`],
+  ['Ventilation rate', `${x.rate} breaths per minute`],
+  ['Minute ventilation (rate × TV)', `${x.minuteVentilation.toFixed(1)} dm³ per minute`],
+];
+---
+<div class="sim-spiro" data-sim-spiro>
+  <fieldset class="modes">
+    <legend>Mode:</legend>
+    <label class="pill"><input type="radio" name="spiro-mode" value="explore" checked data-mode /> Explore lung volumes</label>
+    <label class="pill"><input type="radio" name="spiro-mode" value="practice" data-mode /> Practice: read the trace</label>
+  </fieldset>
+  <div class="layout">
+    <svg class="chart" viewBox={`0 0 ${SPIRO_FRAME.w} ${SPIRO_FRAME.h}`} role="img" aria-labelledby="spiro-t spiro-d">
+      <title id="spiro-t">Spirometer trace: volume of air in the lungs against time</title>
+      <desc id="spiro-d">Tidal breaths go up and down between two levels. Then there is one maximal breath in, up to total lung capacity, and one maximal breath out, down to the residual volume, before tidal breathing starts again.</desc>
+      <g data-chart set:html={chart} />
+    </svg>
+    <div class="controls">
+      <div data-panel="explore">
+        <label class="slider">Exercise intensity: <output data-out="effort">rest</output>
+          <input type="range" min="0" max="100" step="5" value="0" data-param="effort" />
+        </label>
+        <dl class="vols" data-vols>
+          {rows(v).map(([k, val]) => <div><dt>{k}</dt><dd>{val}</dd></div>)}
+        </dl>
+      </div>
+      <div data-panel="practice" hidden>
+        <p class="q" data-q>This trace is from a different person. What is their {QUANTITY_NAMES[p0.ask]}?</p>
+        <div class="row">
+          <label class="ans">Your answer
+            <input type="text" inputmode="decimal" autocomplete="off" data-ans />
+          </label>
+          <span class="unit" data-unit>{QUANTITY_UNITS[p0.ask]}</span>
+        </div>
+        <div class="row">
+          <button class="btn btn-primary" type="button" data-check>Check</button>
+          <button class="btn" type="button" data-new>New trace</button>
+        </div>
+        <p class="feedback" aria-live="polite" data-feedback></p>
+      </div>
+      <label class="slider">Read the trace at time: <output data-out="cursor">{cursor.toFixed(1)} s</output>
+        <input type="range" min="0" max="40" step="0.1" value={cursor} data-param="cursor" />
+      </label>
+    </div>
+  </div>
+  <p class="readout" aria-live="polite" data-readout>At rest: tidal volume {v.tv.toFixed(1)} dm³ at {v.rate} breaths per minute, so {v.minuteVentilation.toFixed(1)} dm³ of air is breathed in per minute. Vital capacity is {v.vc.toFixed(1)} dm³.</p>
+  <p class="model-note">Model trace with typical values for a healthy young adult; real values depend on sex, height, age and fitness. A spirometer measures air breathed in and out, so the residual volume is shown only to complete the picture. 1 dm³ = 1 litre.</p>
+  <script type="application/json" data-p0 set:html={JSON.stringify(p0)} />
+</div>
+
+<script>
+  import { spiroChart } from './b3-1-spiro-draw';
+  import { QUANTITY_NAMES, QUANTITY_UNITS, checkReading, lungVolumes, makePerson, type PracticePerson, type Volumes } from './models/b3-1-spirometer';
+
+  document.querySelectorAll<HTMLElement>('[data-sim-spiro]').forEach((root) => {
+    const $ = <T extends Element>(sel: string) => root.querySelector<T>(sel)!;
+    const param = (k: string) => Number($<HTMLInputElement>(`[data-param="${k}"]`).value);
+    const chart = $<SVGGElement>('[data-chart]');
+    const readout = $<HTMLElement>('[data-readout]');
+    let mode: 'explore' | 'practice' = 'explore';
+    let person = JSON.parse($('[data-p0]').textContent!) as PracticePerson;
+    let timer = 0;
+    const say = (text: string) => { clearTimeout(timer); timer = window.setTimeout(() => (readout.textContent = text), 350); };
+
+    const volumes = (): Volumes => (mode === 'explore' ? lungVolumes(param('effort') / 100) : person.v);
+    const draw = () => {
+      const v = volumes();
+      chart.innerHTML = spiroChart(v, { annotate: mode === 'explore', cursor: param('cursor') });
+      $('[data-out="cursor"]').textContent = `${param('cursor').toFixed(1)} s`;
+    };
+    const explore = () => {
+      const e = param('effort');
+      const v = lungVolumes(e / 100);
+      $('[data-out="effort"]').textContent = e === 0 ? 'rest' : `${e}%`;
+      const rows: [string, string][] = [
+        ['Tidal volume (TV)', `${v.tv.toFixed(1)} dm³`],
+        ['Inspiratory reserve volume (IRV)', `${v.irv.toFixed(1)} dm³`],
+        ['Expiratory reserve volume (ERV)', `${v.erv.toFixed(1)} dm³`],
+        ['Vital capacity (VC = IRV + TV + ERV)', `${v.vc.toFixed(1)} dm³`],
+        ['Residual volume (RV)', `${v.rv.toFixed(1)} dm³`],
+        ['Ventilation rate', `${v.rate} breaths per minute`],
+        ['Minute ventilation (rate × TV)', `${v.minuteVentilation.toFixed(1)} dm³ per minute`],
+      ];
+      $('[data-vols]').innerHTML = rows.map(([k, val]) => `<div><dt>${k}</dt><dd>${val}</dd></div>`).join('');
+      draw();
+      say(e === 0
+        ? `At rest: tidal volume ${v.tv.toFixed(1)} dm³ at ${v.rate} breaths per minute, so ${v.minuteVentilation.toFixed(1)} dm³ of air is breathed in per minute. Vital capacity is ${v.vc.toFixed(1)} dm³.`
+        : `Exercise at ${e}%: tidal volume has risen to ${v.tv.toFixed(1)} dm³ and the rate to ${v.rate} breaths per minute, so minute ventilation is ${v.minuteVentilation.toFixed(1)} dm³ per minute. The extra tidal volume comes out of the inspiratory reserve (now ${v.irv.toFixed(1)} dm³) and the expiratory reserve (now ${v.erv.toFixed(1)} dm³); vital capacity stays ${v.vc.toFixed(1)} dm³.`);
+    };
+    const ask = () => {
+      $('[data-q]').textContent = `This trace is from a different person. What is their ${QUANTITY_NAMES[person.ask]}?`;
+      $('[data-unit]').textContent = QUANTITY_UNITS[person.ask];
+      $<HTMLInputElement>('[data-ans]').value = '';
+      $('[data-feedback]').textContent = '';
+      draw();
+    };
+
+    root.querySelectorAll<HTMLInputElement>('[data-mode]').forEach((r) => r.addEventListener('change', () => {
+      mode = r.value as typeof mode;
+      root.querySelectorAll<HTMLElement>('[data-panel]').forEach((p) => (p.hidden = p.dataset.panel !== mode));
+      if (mode === 'explore') explore(); else ask();
+    }));
+    $('[data-param="effort"]').addEventListener('input', explore);
+    $('[data-param="cursor"]').addEventListener('input', () => {
+      draw();
+      const v = volumes();
+      // the readout is the same number the chart shows at the cursor
+      const y = chart.querySelector('.cursor text')?.textContent ?? '';
+      say(`Reading the trace: ${y.replace(':', ' gives')}.${mode === 'explore' ? ` (Resting level ${v.frc.toFixed(1)} dm³, top of a tidal breath ${(v.frc + v.tv).toFixed(1)} dm³.)` : ''}`);
+    });
+    $('[data-check]').addEventListener('click', () => {
+      const raw = $<HTMLInputElement>('[data-ans]').value.replace(',', '.').trim();
+      const r = checkReading(person, Number(raw));
+      $('[data-feedback]').textContent = raw === ''
+        ? 'Type a value read from the trace first.'
+        : `${r.ok ? 'Correct.' : `Not quite — the answer is ${person.ask === 'rate' ? r.correct : r.correct.toFixed(1)} ${QUANTITY_UNITS[person.ask]}.`} ${r.working}`;
+    });
+    $('[data-new]').addEventListener('click', () => { person = makePerson(Math.random); ask(); });
+  });
+</script>
+
+<style>
+  .sim-spiro { container-type: inline-size; }
+  .modes { border: 0; margin: 0 0 var(--space-3); padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .modes legend { float: left; font-weight: 700; margin-right: var(--space-2); }
+  .pill { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 2rem; padding: 0.2rem 0.7rem; border: 1px solid var(--border-strong); border-radius: 999px; font-size: var(--step--1); font-weight: 600; cursor: pointer; }
+  .pill:has(input:checked) { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-strong); }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 46rem) { .layout { grid-template-columns: minmax(0, 1.6fr) minmax(15rem, 1fr); align-items: start; } }
+  .chart { width: 100%; height: auto; font-family: var(--font-sans); }
+  .chart :global(.g-minor line) { stroke: var(--border); stroke-width: 0.5; opacity: 0.6; }
+  .chart :global(.g-major line) { stroke: var(--border-strong); stroke-width: 0.9; opacity: 0.7; }
+  .chart :global(.ticks text) { font-size: 15px; fill: var(--text-muted); }
+  .chart :global(.axis) { font-size: 16px; font-weight: 650; fill: var(--text); }
+  .chart :global(.trace) { fill: none; stroke: var(--bio-water); stroke-width: 3; stroke-linejoin: round; }
+  .chart :global(.rv) { fill: color-mix(in srgb, var(--bio-chol) 16%, transparent); }
+  .chart :global(.rv-t) { font-size: 13px; fill: var(--text); font-style: italic; }
+  .chart :global(.level) { stroke: var(--text-muted); stroke-width: 1.2; stroke-dasharray: 5 4; }
+  .chart :global(.br path) { stroke: var(--text); stroke-width: 2; fill: none; }
+  .chart :global(.br text) { font-size: 15px; font-weight: 800; fill: var(--text); paint-order: stroke; stroke: var(--surface); stroke-width: 4px; }
+  .chart :global(.cursor line) { stroke: var(--bio-head); stroke-width: 1.4; stroke-dasharray: 3 3; }
+  .chart :global(.cursor circle) { fill: var(--bio-head); stroke: var(--surface); stroke-width: 2; }
+  .chart :global(.cursor text) { font-size: 14px; font-weight: 750; fill: var(--text); paint-order: stroke; stroke: var(--surface); stroke-width: 4px; }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); align-content: start; }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .vols { margin: var(--space-3) 0 0; display: grid; gap: 0.15rem; }
+  .vols :global(div) { display: flex; justify-content: space-between; gap: var(--space-3); border-bottom: 1px solid var(--border); padding: 0.15rem 0; }
+  .vols :global(dt) { color: var(--text-muted); }
+  .vols :global(dd) { margin: 0; font-weight: 750; font-variant-numeric: tabular-nums; text-align: right; }
+  .q { margin: 0 0 var(--space-2); font-weight: 650; }
+  .row { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: end; margin-bottom: var(--space-2); }
+  .ans { display: grid; gap: 0.2rem; font-weight: 600; }
+  .ans input { font: inherit; width: 8rem; padding: 0.35rem 0.5rem; border: 1px solid var(--border-strong); border-radius: var(--radius-s); background: var(--surface); color: var(--text); }
+  .unit { padding-bottom: 0.45rem; color: var(--text-muted); }
+  .feedback { margin: 0; min-height: 1.5em; }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

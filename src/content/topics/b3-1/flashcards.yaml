@@ -1,0 +1,73 @@
+cards:
+  - id: c1
+    level: SL
+    front: Why do large organisms need a specialized gas-exchange surface?
+    back: As size increases, the surface area-to-volume ratio falls and the distance from the centre to the outside increases, so the outer surface cannot supply enough O₂ (or remove CO₂) by diffusion alone.
+  - id: c2
+    level: SL
+    front: Four properties of a gas-exchange surface
+    back: Permeable to the gases, thin (short diffusion distance), moist (gases dissolve first), and a large surface area relative to the organism's volume.
+  - id: c3
+    level: SL
+    front: Three ways animals keep concentration gradients steep at exchange surfaces
+    back: Dense networks of capillaries, continuous blood flow (carrying away blood that has exchanged gases), and ventilation with air (lungs) or water (gills).
+  - id: c4
+    level: SL
+    front: How are fish gills ventilated, and why does the direction of blood flow matter?
+    back: Water is pumped in through the mouth, over the gill filaments and out through the gill openings (one-way flow). Blood flows the opposite way (countercurrent), so blood always meets water with more O₂ and a gradient is kept along the whole lamella.
+  - id: c5
+    level: SL
+    front: Four adaptations of the mammalian lung for gas exchange
+    back: A branched network of bronchioles; a very large surface area (hundreds of millions of alveoli); extensive capillary beds around the alveoli; surfactant that stops the alveoli collapsing. Also a very short diffusion distance (≈ 0.5 µm).
+  - id: c6
+    level: SL
+    front: Type I vs type II pneumocytes
+    back: Type I — extremely thin, flattened cells forming most of the alveolar wall, giving a short diffusion distance. Type II — rounded cells that secrete surfactant into the moisture film lining the alveolus.
+  - id: c7
+    level: SL
+    front: Describe inspiration.
+    back: External intercostals contract → ribs move up and out; diaphragm contracts → flattens and moves down. Thorax volume increases, so pressure falls below atmospheric and air flows in until the pressures are equal.
+  - id: c8
+    level: SL
+    front: How is expiration different at rest and during exercise?
+    back: At rest it is passive — muscles relax and the lungs recoil elastically. In forced expiration the internal intercostals pull the ribs down and in and the abdominal muscles push the diaphragm up.
+  - id: c9
+    level: SL
+    front: Define tidal volume, IRV, ERV and vital capacity.
+    back: TV — air in or out in one normal breath (≈ 0.5 dm³). IRV — extra air forced in after a normal breath in. ERV — extra air forced out after a normal breath out. VC — the most air that can be breathed out after a maximal breath in = IRV + TV + ERV.
+  - id: c10
+    level: SL
+    front: Why can a spirometer not measure total lung capacity?
+    back: The residual volume (≈ 1.2 dm³) always stays in the lungs and airways, even after the fullest possible breath out, so it is never breathed into the spirometer.
+  - id: c11
+    level: SL
+    front: How do the spongy mesophyll and air spaces help gas exchange in a leaf?
+    back: Air spaces connect with the stomata so CO₂ and O₂ diffuse quickly through the leaf. Loosely packed spongy mesophyll cells give a large area of moist cell walls where CO₂ dissolves and diffuses into the cells.
+  - id: c12
+    level: SL
+    front: Why is transpiration described as a consequence of gas exchange?
+    back: Stomata must open to let CO₂ in for photosynthesis, and the mesophyll cell walls must be moist. Water evaporates from them and water vapour diffuses out through the open stomata, so water loss cannot be avoided.
+  - id: c13
+    level: SL
+    front: Four factors that increase the rate of transpiration
+    back: Higher temperature, lower humidity, higher wind speed and higher light intensity (which opens stomata). Shortage of water decreases it by closing stomata.
+  - id: c14
+    level: SL
+    front: How do you calculate stomatal density, and why repeat the counts?
+    back: Density = mean number of stomata ÷ area of the field of view (π r², r = half the diameter), in mm⁻². Counts vary between fields, so the mean of several random fields is more reliable than one count.
+  - id: c15
+    level: AHL
+    front: What is cooperative binding in haemoglobin?
+    back: Binding of O₂ to one haem group causes a conformational change that increases the affinity of the other haem groups for O₂ (and release of O₂ lowers it). This gives the sigmoid dissociation curve.
+  - id: c16
+    level: AHL
+    front: How does carbon dioxide bind to haemoglobin, and with what effect?
+    back: Allosterically — to the globin polypeptides, not the haem — forming carbaminohaemoglobin. This lowers the affinity of haemoglobin for O₂, so more O₂ is released where CO₂ is high.
+  - id: c17
+    level: AHL
+    front: Why does foetal haemoglobin have a curve to the left of adult haemoglobin?
+    back: It has a higher affinity for O₂, so at any pO₂ it is more saturated. This lets it take O₂ from maternal haemoglobin in the placenta.
+  - id: c18
+    level: AHL
+    front: What is the Bohr shift and why is it useful?
+    back: Higher CO₂ (lower pH) reduces haemoglobin's affinity for O₂ and shifts the curve to the right, so more O₂ is released in actively respiring tissues, which produce the most CO₂.
