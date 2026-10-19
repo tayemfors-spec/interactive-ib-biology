@@ -1,0 +1,73 @@
+cards:
+  - id: c1
+    level: SL
+    front: State cell theory and one prediction you can deduce from it.
+    back: All living organisms are made of one or more cells, and the cell is the smallest unit of life. Deduction — a newly discovered organism will consist of one or more cells.
+  - id: c2
+    level: SL
+    front: Give the magnification equation and its two rearrangements.
+    back: Magnification = image size ÷ actual size; actual size = image size ÷ magnification; image size = actual size × magnification. Convert both lengths to the same unit first (1 mm = 1,000 µm, 1 µm = 1,000 nm).
+  - id: c3
+    level: SL
+    front: How is an eyepiece graticule calibrated?
+    back: Line it up with a stage micrometer (a slide ruled in known divisions, e.g. 0.01 mm) and count how many eyepiece units match a known length. This must be repeated for each objective lens.
+  - id: c4
+    level: SL
+    front: How long should a scale bar for 5 µm be on a drawing at ×4,000?
+    back: Length = length represented × magnification = 5 µm × 4,000 = 20,000 µm = 20 mm.
+  - id: c5
+    level: SL
+    front: Magnification vs resolution
+    back: Magnification is how many times larger the image is than the object. Resolution is the smallest distance between two points that can still be distinguished — about 200 nm for light and about 1 nm or better for electron microscopes.
+  - id: c6
+    level: SL
+    front: Freeze fracture and cryo-EM — what does each show?
+    back: Freeze fracture splits rapidly frozen cells along weak planes, often through the middle of membranes, and a metal replica of the surface is viewed by electron microscopy. Cryo-EM images molecules frozen in vitreous ice and combines thousands of images into a 3D structure at near-atomic resolution.
+  - id: c7
+    level: SL
+    front: What is immunofluorescence?
+    back: Light microscopy using antibodies, tagged with a fluorescent dye, that bind one specific protein (antigen), so that protein glows wherever it is in the cell. Different colours can show several proteins at once.
+  - id: c8
+    level: SL
+    front: Which three structures do all typical cells have, and why?
+    back: DNA as genetic material (instructions for proteins); cytoplasm that is mainly water (solvent for metabolic reactions); a lipid plasma membrane (barrier that controls exchange, so the inside can differ from the outside).
+  - id: c9
+    level: SL
+    front: List the structures of a Gram-positive bacterium such as Bacillus.
+    back: Cell wall (thick peptidoglycan, no outer membrane), plasma membrane, cytoplasm, naked DNA in a loop in the nucleoid, 70S ribosomes. Plasmids, pili, flagella and a capsule are found in some but not all.
+  - id: c10
+    level: SL
+    front: Classify eukaryotic structures by number of membranes.
+    back: None — 80S ribosomes, cytoskeleton, centrioles. One — rough and smooth ER, Golgi apparatus, vesicles, lysosomes, vacuoles. Two — nucleus, mitochondria, chloroplasts.
+  - id: c11
+    level: SL
+    front: Name the eight functions of life a unicellular organism must carry out.
+    back: Homeostasis, metabolism, nutrition, movement, excretion, growth, response to stimuli and reproduction. For example, Paramecium uses contractile vacuoles (homeostasis), food vacuoles (nutrition) and cilia (movement).
+  - id: c12
+    level: SL
+    front: Animal, fungal and plant cells — cell walls, vacuoles and plastids
+    back: Wall — none / chitin / cellulose. Vacuoles — small and temporary / often large / one large permanent sap vacuole. Plastids — none / none / chloroplasts and amyloplasts. Animals and fungi store glycogen; plants store starch.
+  - id: c13
+    level: SL
+    front: Which cells have centrioles, cilia or flagella?
+    back: Animal cells have centrioles; some have cilia, and sperm have a flagellum. Most fungi and flowering plants have none; exceptions are the swimming sperm of mosses and ferns and the spores of chytrid fungi.
+  - id: c14
+    level: SL
+    front: Give two anucleate and two multinucleate cells.
+    back: Anucleate — mammalian red blood cells and mature phloem sieve tube elements. Multinucleate — skeletal muscle fibres and aseptate fungal hyphae.
+  - id: c15
+    level: SL
+    front: How should membranes and walls be drawn from an electron micrograph?
+    back: Plasma membrane and other single membranes as one sharp line; double membranes (nucleus, mitochondria, chloroplasts) as two lines, with the nuclear envelope doubled back at pores; a cell wall as a thicker double line. No shading; annotate with functions.
+  - id: c16
+    level: AHL
+    front: Give four pieces of evidence that mitochondria and chloroplasts evolved by endosymbiosis.
+    back: They have double membranes, their own naked circular DNA, 70S ribosomes like bacteria, and they replicate only by binary fission. They are also the size of bacteria.
+  - id: c17
+    level: AHL
+    front: What is the basis of cell differentiation?
+    back: Different patterns of gene expression. Cells share the same genome, but signals from their surroundings (neighbouring cells, hormones, external conditions) switch different genes on or off.
+  - id: c18
+    level: AHL
+    front: How many times did multicellularity evolve, and what are its advantages?
+    back: Many times, independently — in animals, plants, several groups of fungi and several groups of algae. It allows a larger body size and specialization of cells for different functions.

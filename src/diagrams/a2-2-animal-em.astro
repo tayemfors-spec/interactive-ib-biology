@@ -1,0 +1,210 @@
+---
+/**
+ * Exam-style drawing of an animal cell's ultrastructure, as drawn from a transmission electron micrograph
+ * (A2.2.10, A2.2.11): a secretory epithelial cell with microvilli. Conventions: the plasma membrane is one
+ * unbroken line; single-membrane organelles (ER, Golgi, vesicles, lysosome) are outlined once; double-membrane
+ * organelles (nucleus, mitochondria) are outlined twice; the nuclear envelope doubles back at each pore.
+ */
+import { rng } from '../viewer3d/kit';
+
+const rand = rng(13);
+const X0 = 90, X1 = 710, Y0 = 110, Y1 = 500, C = 26;
+
+// plasma membrane with microvilli along the top (apical) surface: one unbroken line
+const fingers: number[] = [];
+for (let x = 124; x + 14 <= 680; x += 22) fingers.push(x);
+let outline = `M${X0} ${Y0 + C} A${C} ${C} 0 0 1 ${X0 + C} ${Y0}`;
+for (const x of fingers) outline += ` L${x} ${Y0} L${x} ${Y0 - 47} A7 7 0 0 1 ${x + 14} ${Y0 - 47} L${x + 14} ${Y0}`;
+outline += ` L${X1 - C} ${Y0} A${C} ${C} 0 0 1 ${X1} ${Y0 + C} L${X1} ${Y1 - C} A${C} ${C} 0 0 1 ${X1 - C} ${Y1} L${X0 + C} ${Y1} A${C} ${C} 0 0 1 ${X0} ${Y1 - C} Z`;
+const actin = fingers.map((x) => `M${x + 7} ${Y0 + 12} L${x + 7} ${Y0 - 46}`).join(' ');
+
+// nucleus with a double membrane and pores
+const N = { cx: 255, cy: 350, rx: 105, ry: 85 };
+const ell = (e: { cx: number; cy: number; rx: number; ry: number }) => `M${e.cx - e.rx} ${e.cy} A${e.rx} ${e.ry} 0 1 0 ${e.cx + e.rx} ${e.cy} A${e.rx} ${e.ry} 0 1 0 ${e.cx - e.rx} ${e.cy} Z`;
+const poreAngles = [20, 75, 140, 200, 255, 320];
+const pores = poreAngles.map((deg) => {
+  const a = (deg * Math.PI) / 180;
+  const x = N.cx + N.rx * Math.cos(a), y = N.cy + N.ry * Math.sin(a);
+  // tangent direction of the ellipse at this point
+  const t = Math.atan2(N.ry * Math.cos(a), -N.rx * Math.sin(a)) * (180 / Math.PI);
+  return { x, y, t };
+});
+const hetero = [[-80, -30, 16, 9], [-50, -66, 18, 8], [30, -70, 15, 7], [82, -20, 10, 15], [70, 45, 14, 10], [-10, 74, 20, 7], [-78, 40, 10, 14]].map(([dx, dy, rx, ry]) => ({ cx: N.cx + dx!, cy: N.cy + dy!, rx, ry }));
+const nucleolus = { cx: 275, cy: 340, r: 22 };
+
+// Golgi: stack of curved cisternae, concave towards the apical surface, with vesicles at the rims
+const G = { x: 470, y: 205 };
+const golgi = [0, 1, 2, 3].map((i) => {
+  const w = 74 - i * 7, sag = 16, y = G.y + i * 12;
+  return `M${G.x - w} ${y - sag} Q${G.x} ${y + sag} ${G.x + w} ${y - sag}`;
+});
+const golgiVes = [[G.x - 84, G.y - 22], [G.x + 85, G.y - 20], [G.x - 78, G.y - 2], [G.x + 80, G.y + 2], [G.x - 92, G.y + 12], [G.x + 6, G.y - 22]] as const;
+// secretory vesicles between the Golgi and the apical membrane
+const secretory = [[380, 150], [430, 132], [560, 150], [612, 176], [505, 142]] as const;
+
+// rough ER: parallel cisternae studded with ribosomes
+const rerY = [362, 386, 410, 434];
+const rer = rerY.map((y, i) => `M${418 + i * 4} ${y} Q${510} ${y - 9} ${604 - i * 3} ${y + 2}`);
+const rerRibo: [number, number][] = [];
+rerY.forEach((y, i) => {
+  for (let x = 424 + i * 4; x < 600 - i * 3; x += 9) {
+    const u = (x - 418) / 186;
+    const yc = y + (1 - u) * 0 + u * 2 - 9 * 2 * u * (1 - u);
+    rerRibo.push([x, yc - 7], [x + 4, yc + 7]);
+  }
+});
+
+// smooth ER: branching tubules (no ribosomes)
+const ser = ['M622 392 C640 380 660 400 684 388', 'M640 386 C646 410 632 430 650 452', 'M650 452 C664 446 676 462 690 456', 'M632 430 C616 440 610 458 618 474'];
+
+// mitochondria: double membrane with cristae
+const mitos = [
+  { cx: 300, cy: 186, rx: 46, ry: 20, rot: 12 },
+  { cx: 626, cy: 268, rx: 46, ry: 21, rot: -25 },
+  { cx: 378, cy: 468, rx: 44, ry: 17, rot: 4 },
+];
+const cristae = (m: (typeof mitos)[number]) =>
+  Array.from({ length: 6 }, (_, i) => {
+    const x = m.cx - m.rx * 0.7 + (i * m.rx * 1.4) / 5;
+    const dx = (x - m.cx) / (m.rx - 5);
+    const h = (m.ry - 5) * Math.sqrt(Math.max(0, 1 - dx * dx));
+    return i % 2 ? `M${x.toFixed(1)} ${(m.cy + h).toFixed(1)} v${(-h * 1.3).toFixed(1)}` : `M${x.toFixed(1)} ${(m.cy - h).toFixed(1)} v${(h * 1.3).toFixed(1)}`;
+  }).join(' ');
+const lysosome = { cx: 166, cy: 206, r: 16 };
+
+// free ribosomes scattered in the cytoplasm, avoiding organelles
+const inEll = (x: number, y: number, e: { cx: number; cy: number; rx: number; ry: number }, pad: number) => ((x - e.cx) / (e.rx + pad)) ** 2 + ((y - e.cy) / (e.ry + pad)) ** 2 < 1;
+const ribo: [number, number][] = [];
+for (let i = 0; ribo.length < 110 && i < 6000; i++) {
+  const x = X0 + 10 + rand() * (X1 - X0 - 20), y = Y0 + 10 + rand() * (Y1 - Y0 - 20);
+  if (inEll(x, y, N, 12)) continue;
+  if (mitos.some((m) => inEll(x, y, { ...m, rx: m.rx, ry: m.rx }, 6))) continue;
+  if (x > 380 && x < 570 && y > 165 && y < 250) continue; // Golgi
+  if (x > 408 && x < 612 && y > 345 && y < 448) continue; // RER
+  if (x > 604 && x < 700 && y > 372 && y < 484) continue; // SER
+  if (secretory.some(([a, b]) => Math.hypot(x - a, y - b) < 18)) continue;
+  if (Math.hypot(x - lysosome.cx, y - lysosome.cy) < lysosome.r + 8) continue;
+  if (ribo.some(([a, b]) => Math.hypot(a - x, b - y) < 14)) continue;
+  ribo.push([x, y]);
+}
+const riboTarget = ribo.reduce((b, p) => (Math.hypot(p[0] - 520, p[1] - 478) < Math.hypot(b[0] - 520, b[1] - 478) ? p : b), ribo[0]!);
+const pore3 = pores[2]!;
+
+const markers: { n: number; x: number; y: number; to: [number, number] }[] = [
+  { n: 1, x: 56, y: 56, to: [126, 72] },
+  { n: 2, x: 40, y: 262, to: [X0, 262] },
+  { n: 3, x: 762, y: 120, to: [623, 172] },
+  { n: 4, x: 762, y: 205, to: [G.x + 66, G.y + 4] },
+  { n: 5, x: 762, y: 350, to: [601, 372] },
+  { n: 6, x: 762, y: 278, to: [664, 248] },
+  { n: 7, x: 40, y: 400, to: [N.cx - N.rx * Math.sqrt(1 - (50 / N.ry) ** 2), 400] },
+  { n: 8, x: 40, y: 470, to: [pore3.x - 4, pore3.y + 4] },
+  { n: 9, x: 40, y: 330, to: [hetero[0]!.cx - 4, hetero[0]!.cy] },
+  { n: 10, x: 280, y: 540, to: [nucleolus.cx, nucleolus.cy + nucleolus.r - 2] },
+  { n: 11, x: 762, y: 430, to: [688, 400] },
+  { n: 12, x: 40, y: 190, to: [lysosome.cx - lysosome.r, lysosome.cy] },
+  { n: 13, x: 540, y: 540, to: riboTarget },
+];
+const key = [
+  'Microvilli: finger-like folds of the plasma membrane that increase the surface area for absorption',
+  'Plasma membrane: controls what enters and leaves the cell',
+  'Secretory vesicle: carries proteins from the Golgi to the plasma membrane for exocytosis',
+  'Golgi apparatus: modifies, sorts and packages proteins into vesicles',
+  'Rough ER: its ribosomes make proteins for secretion or for membranes',
+  'Mitochondrion: aerobic respiration produces ATP; cristae increase the inner membrane area',
+  'Nucleus: double membrane (nuclear envelope) separates the chromosomes from the cytoplasm',
+  'Nuclear pore: lets mRNA and ribosome subunits out of the nucleus',
+  'Chromatin: chromosomes (DNA with histones); dark patches are condensed heterochromatin',
+  'Nucleolus: makes ribosome subunits',
+  'Smooth ER: tubules where lipids such as phospholipids and steroids are made',
+  'Lysosome: contains digestive enzymes',
+  'Free ribosomes (80S): make proteins that stay in the cytoplasm',
+];
+---
+<div class="exam-diagram">
+  <svg viewBox="0 0 800 560" role="img" aria-labelledby="aem-title aem-desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="aem-title">Drawing of an animal cell from an electron micrograph</title>
+    <desc id="aem-desc">A secretory epithelial cell. Its plasma membrane is one unbroken line that forms many finger-like microvilli along the top surface. A large nucleus at the lower left has a double membrane with pores, dark patches of chromatin and a nucleolus. To the right are stacked cisternae of rough ER dotted with ribosomes and, nearer the top, the curved stack of the Golgi apparatus with vesicles; secretory vesicles lie between the Golgi and the microvilli. Mitochondria with double membranes and cristae, branching smooth ER tubules, a lysosome and free ribosomes are scattered in the cytoplasm.</desc>
+    <path class="cell" d={outline} />
+    <path class="actin" d={actin} />
+
+    <!-- nucleus -->
+    <path class="nucleoplasm" d={ell(N)} />
+    {hetero.map((h) => <ellipse class="hetero" cx={h.cx} cy={h.cy} rx={h.rx} ry={h.ry} />)}
+    <circle class="nucleolus" cx={nucleolus.cx} cy={nucleolus.cy} r={nucleolus.r} />
+    <path class="dbl-out" d={ell(N)} />
+    <path class="dbl-in nuc-lumen" d={ell(N)} />
+    {pores.map((p) => (
+      <g transform={`translate(${p.x.toFixed(1)} ${p.y.toFixed(1)}) rotate(${p.t.toFixed(1)})`}>
+        <rect class="pore-gap" x="-6" y="-5.5" width="12" height="11" />
+        <path class="pore-edge" d="M-6 -4.6 v9.2 M6 -4.6 v9.2" />
+      </g>
+    ))}
+
+    <!-- rough ER -->
+    {rer.map((d) => <><path class="dbl-out" d={d} /><path class="dbl-in" d={d} /></>)}
+    <g class="ribo">{rerRibo.map(([x, y]) => <circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="2.4" />)}</g>
+
+    <!-- Golgi apparatus and vesicles -->
+    {golgi.map((d) => <><path class="dbl-out golgi" d={d} /><path class="dbl-in" d={d} /></>)}
+    {golgiVes.map(([x, y]) => <circle class="vesicle" cx={x} cy={y} r="6.5" />)}
+    {secretory.map(([x, y]) => <circle class="secretory" cx={x} cy={y} r="11" />)}
+
+    <!-- smooth ER -->
+    {ser.map((d) => <><path class="dbl-out" d={d} /><path class="dbl-in" d={d} /></>)}
+
+    <!-- mitochondria -->
+    {mitos.map((m) => (
+      <g transform={`rotate(${m.rot} ${m.cx} ${m.cy})`}>
+        <ellipse class="mito-out" cx={m.cx} cy={m.cy} rx={m.rx} ry={m.ry} />
+        <ellipse class="mito-in" cx={m.cx} cy={m.cy} rx={m.rx - 5} ry={m.ry - 5} />
+        <path class="cristae" d={cristae(m)} />
+      </g>
+    ))}
+
+    <!-- lysosome and free ribosomes -->
+    <circle class="lysosome" cx={lysosome.cx} cy={lysosome.cy} r={lysosome.r} />
+    <g class="ribo">{ribo.map(([x, y]) => <circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="2.4" />)}</g>
+
+    <g class="markers">
+      {markers.map((m) => (
+        <g>
+          <path class="lead" d={`M${m.x} ${m.y} L${m.to[0].toFixed(1)} ${m.to[1].toFixed(1)}`} />
+          <circle cx={m.x} cy={m.y} r="13" />
+          <text x={m.x} y={m.y} dy="0.36em" text-anchor="middle">{m.n}</text>
+        </g>
+      ))}
+    </g>
+  </svg>
+  <ol class="key">
+    {key.map((k) => <li>{k}</li>)}
+  </ol>
+</div>
+
+<style>
+  .exam-diagram svg { font-family: var(--font-sans); }
+  .cell { fill: var(--surface); stroke: var(--bio-head); stroke-width: 2.6; stroke-linejoin: round; }
+  .actin { stroke: color-mix(in srgb, var(--bio-protein-2) 55%, transparent); stroke-width: 1.4; fill: none; }
+  .nucleoplasm { fill: color-mix(in srgb, var(--bio-na) 9%, var(--surface)); }
+  .hetero { fill: color-mix(in srgb, var(--bio-na) 55%, var(--surface)); }
+  .nucleolus { fill: color-mix(in srgb, var(--text) 75%, var(--surface)); }
+  .dbl-out { fill: none; stroke: var(--text); stroke-width: 7.5; stroke-linecap: round; }
+  .dbl-out.golgi { stroke: color-mix(in srgb, var(--bio-glucose) 80%, var(--text)); }
+  .dbl-in { fill: none; stroke: var(--surface); stroke-width: 3.6; stroke-linecap: round; }
+  .nuc-lumen { stroke: var(--surface); }
+  .pore-gap { fill: color-mix(in srgb, var(--bio-na) 9%, var(--surface)); }
+  .pore-edge { stroke: var(--text); stroke-width: 1.8; }
+  .ribo circle { fill: var(--text); }
+  .vesicle { fill: var(--surface); stroke: color-mix(in srgb, var(--bio-glucose) 80%, var(--text)); stroke-width: 1.8; }
+  .secretory { fill: color-mix(in srgb, var(--bio-glucose) 45%, var(--surface)); stroke: var(--text); stroke-width: 1.8; }
+  .mito-out { fill: color-mix(in srgb, var(--bio-chol) 22%, var(--surface)); stroke: var(--text); stroke-width: 1.8; }
+  .mito-in { fill: color-mix(in srgb, var(--bio-chol) 34%, var(--surface)); stroke: var(--text); stroke-width: 1.6; }
+  .cristae { stroke: var(--text); stroke-width: 1.6; fill: none; stroke-linecap: round; }
+  .lysosome { fill: color-mix(in srgb, var(--bio-k) 45%, var(--surface)); stroke: var(--text); stroke-width: 1.8; }
+  .markers circle { fill: var(--surface); stroke: var(--text); stroke-width: 1.8; }
+  .markers text { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .lead { stroke: var(--text); stroke-width: 1.3; }
+  .key { columns: 2 17rem; column-gap: var(--space-5); margin: var(--space-3) 0 0; padding: 0; list-style: none; counter-reset: k; font-size: var(--step--1); }
+  .key li { break-inside: avoid; margin: 0 0 0.3rem; display: grid; grid-template-columns: 1.7rem 1fr; counter-increment: k; }
+  .key li::before { content: counter(k); font-weight: 800; display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; border: 1.5px solid var(--text); border-radius: 50%; font-size: 0.75rem; margin-top: 0.1rem; }
+</style>

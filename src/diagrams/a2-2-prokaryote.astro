@@ -1,0 +1,135 @@
+---
+/**
+ * Exam-style drawing of a rod-shaped Gram-positive bacterium (A2.2.5, A2.2.11), as it would be drawn from
+ * an electron micrograph. Numbered markers keep it legible at phone width; the key below names each
+ * structure and annotates its function. The cell is ≈ 3 µm long, so the scale bar is 1 µm ≈ 150 px.
+ */
+import { rng } from '../viewer3d/kit';
+
+const X0 = 150, X1 = 610, Y0 = 130, Y1 = 290; // outer edge of the wall
+const r = (Y1 - Y0) / 2;
+const cx = (X0 + X1) / 2, cy = (Y0 + Y1) / 2;
+const rr = (inset: number) => ({ x: X0 + inset, y: Y0 + inset, w: X1 - X0 - 2 * inset, h: Y1 - Y0 - 2 * inset, rx: r - inset });
+const wallOut = rr(0), wallIn = rr(13), mem = rr(18);
+
+// nucleoid: paler region with one tangled but closed loop of DNA
+const nuc = { cx: 385, cy: 210, rx: 128, ry: 40 };
+const rand = rng(4);
+const loopPts = Array.from({ length: 22 }, (_, i) => {
+  const a = (i / 22) * Math.PI * 2;
+  const k = 0.45 + rand() * 0.5;
+  return [nuc.cx + Math.cos(a) * nuc.rx * k * 0.92 + (rand() - 0.5) * 30, nuc.cy + Math.sin(a * 2) * nuc.ry * 0.5 + (rand() - 0.5) * nuc.ry * 0.9] as const;
+});
+// closed smooth path through the points (Catmull–Rom converted to cubic Béziers)
+const smooth = (pts: readonly (readonly [number, number])[]) => {
+  const n = pts.length;
+  let d = `M${pts[0]![0].toFixed(1)} ${pts[0]![1].toFixed(1)}`;
+  for (let i = 0; i < n; i++) {
+    const p0 = pts[(i - 1 + n) % n]!, p1 = pts[i]!, p2 = pts[(i + 1) % n]!, p3 = pts[(i + 2) % n]!;
+    const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+    const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+    d += ` C${c1[0]!.toFixed(1)} ${c1[1]!.toFixed(1)} ${c2[0]!.toFixed(1)} ${c2[1]!.toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`;
+  }
+  return `${d} Z`;
+};
+const dna = smooth(loopPts);
+
+// 70S ribosomes: dots in the cytoplasm, sparse in the nucleoid and kept off the plasmids
+const plasmids = [{ x: 232, y: 176, r: 13 }, { x: 545, y: 246, r: 11 }];
+const inside = (x: number, y: number) => {
+  const dx = Math.max(0, Math.abs(x - cx) - (mem.w / 2 - mem.rx));
+  return Math.hypot(dx, y - cy) < mem.rx - 6;
+};
+const dots: [number, number][] = [];
+for (let i = 0; dots.length < 120 && i < 4000; i++) {
+  const x = X0 + rand() * (X1 - X0), y = Y0 + rand() * (Y1 - Y0);
+  if (!inside(x, y)) continue;
+  if (((x - nuc.cx) / (nuc.rx + 6)) ** 2 + ((y - nuc.cy) / (nuc.ry + 6)) ** 2 < 1) continue;
+  if (plasmids.some((p) => Math.hypot(x - p.x, y - p.y) < p.r + 7)) continue;
+  if (dots.some(([a, b]) => Math.hypot(a - x, b - y) < 11)) continue;
+  dots.push([x, y]);
+}
+
+// pili: short radial lines from the wall along the top and bottom edges
+const pili: string[] = [];
+for (let x = X0 + r + 10; x < X1 - r - 4; x += 27) {
+  pili.push(`M${x} ${Y0} l${(rand() - 0.5) * 8} -${16 + rand() * 6}`);
+  pili.push(`M${x + 13} ${Y1} l${(rand() - 0.5) * 8} ${16 + rand() * 6}`);
+}
+// flagellum from the right-hand pole
+const flY = (x: number) => { const u = (x - X1) / 165; return cy + Math.sin(u * Math.PI * 4) * 16 * Math.min(1, u * 5); };
+const fl = Array.from({ length: 41 }, (_, i) => `${i ? 'L' : 'M'}${(X1 + i * 165 / 40).toFixed(1)} ${flY(X1 + i * 165 / 40).toFixed(1)}`).join(' ');
+
+const markers: { n: number; x: number; y: number; to: [number, number] }[] = [
+  { n: 1, x: 120, y: 92, to: [X0 + 40, Y0 + 22] },
+  { n: 2, x: 104, y: 210, to: [mem.x, 210] },
+  { n: 3, x: 274, y: 344, to: [285, 262] },
+  { n: 4, x: 410, y: 86, to: [412, 200] },
+  { n: 5, x: 506, y: 344, to: [dots.find(([x, y]) => x > 470 && y > 240)?.[0] ?? 500, dots.find(([x, y]) => x > 470 && y > 240)?.[1] ?? 262] },
+  { n: 6, x: 214, y: 86, to: [plasmids[0]!.x, plasmids[0]!.y - plasmids[0]!.r] },
+  { n: 7, x: 330, y: 74, to: [X0 + r + 10 + 27 * 5, Y0 - 12] },
+  { n: 8, x: 700, y: 150, to: [700, flY(700) - 3] },
+];
+const key = [
+  'Cell wall (peptidoglycan): rigid, stops the cell bursting by osmosis',
+  'Plasma membrane: controls what enters and leaves the cell',
+  'Cytoplasm: water and enzymes; site of most metabolic reactions',
+  'Nucleoid: naked DNA in a loop (one circular chromosome)',
+  '70S ribosomes: sites of protein synthesis',
+  'Plasmid: small extra loop of DNA (not in all bacteria)',
+  'Pili: attach the cell to surfaces or other cells (not in all)',
+  'Flagellum: rotates to move the cell (not in all)',
+];
+---
+<div class="exam-diagram">
+  <svg viewBox="0 0 800 400" role="img" aria-labelledby="pk-title pk-desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="pk-title">Exam-style drawing of a rod-shaped prokaryotic cell</title>
+    <desc id="pk-desc">A rod-shaped bacterium with rounded ends. A thick cell wall, drawn as a double line, surrounds a plasma membrane drawn as a single line. The cytoplasm is dotted with 70S ribosomes. A paler central nucleoid contains one tangled, closed loop of naked DNA, and there are two small plasmid loops. Short pili project from the wall and a long wavy flagellum extends from one end. A scale bar shows 1 micrometre.</desc>
+    <rect class="wall" x={wallOut.x} y={wallOut.y} width={wallOut.w} height={wallOut.h} rx={wallOut.rx} />
+    <rect class="cyto" x={wallIn.x} y={wallIn.y} width={wallIn.w} height={wallIn.h} rx={wallIn.rx} />
+    <rect class="mem" x={mem.x} y={mem.y} width={mem.w} height={mem.h} rx={mem.rx} />
+    <ellipse class="nucleoid" cx={nuc.cx} cy={nuc.cy} rx={nuc.rx} ry={nuc.ry} />
+    <path class="dna" d={dna} />
+    {plasmids.map((p) => <circle class="plasmid" cx={p.x} cy={p.y} r={p.r} />)}
+    <g class="ribo">{dots.map(([x, y]) => <circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="2.6" />)}</g>
+    <path class="pili" d={pili.join(' ')} />
+    <path class="flag" d={fl} />
+    <g class="scale">
+      <path d="M150 362 h150 M150 356 v12 M300 356 v12" />
+      <text x="225" y="390" text-anchor="middle">1 µm</text>
+    </g>
+    <g class="markers">
+      {markers.map((m) => (
+        <g>
+          <path class="lead" d={`M${m.x} ${m.y} L${m.to[0]} ${m.to[1]}`} />
+          <circle cx={m.x} cy={m.y} r="13" />
+          <text x={m.x} y={m.y} dy="0.36em" text-anchor="middle">{m.n}</text>
+        </g>
+      ))}
+    </g>
+  </svg>
+  <ol class="key">
+    {key.map((k) => <li>{k}</li>)}
+  </ol>
+</div>
+
+<style>
+  .exam-diagram svg { font-family: var(--font-sans); }
+  .wall { fill: color-mix(in srgb, var(--bio-tail) 55%, var(--surface)); stroke: var(--text); stroke-width: 2; }
+  .cyto { fill: var(--surface); stroke: var(--text); stroke-width: 1.6; }
+  .mem { fill: none; stroke: var(--bio-head); stroke-width: 2.6; }
+  .nucleoid { fill: color-mix(in srgb, var(--bio-na) 10%, var(--surface)); stroke: none; }
+  .dna { fill: none; stroke: var(--bio-na); stroke-width: 2.4; stroke-linejoin: round; }
+  .plasmid { fill: none; stroke: var(--bio-na); stroke-width: 2.2; }
+  .ribo circle { fill: var(--text); }
+  .pili { stroke: var(--bio-protein); stroke-width: 1.8; stroke-linecap: round; fill: none; }
+  .flag { stroke: var(--bio-protein-2); stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .scale path { stroke: var(--text); stroke-width: 2.4; fill: none; }
+  .scale text { font-size: 16px; font-weight: 700; fill: var(--text); }
+  .markers circle { fill: var(--surface); stroke: var(--text); stroke-width: 1.8; }
+  .markers text { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .lead { stroke: var(--text); stroke-width: 1.4; }
+  .key { columns: 2 17rem; column-gap: var(--space-5); margin: var(--space-3) 0 0; padding: 0 0 2.75rem; list-style: none; counter-reset: k; font-size: var(--step--1); }
+  .key li { break-inside: avoid; margin: 0 0 0.3rem; display: grid; grid-template-columns: 1.7rem 1fr; counter-increment: k; }
+  .key li::before { content: counter(k); font-weight: 800; display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; border: 1.5px solid var(--text); border-radius: 50%; font-size: 0.75rem; margin-top: 0.1rem; }
+</style>

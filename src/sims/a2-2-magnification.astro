@@ -1,0 +1,266 @@
+---
+import { UNITS, makeQuestion, readScaleBarWorking, scaleBarWorking, solve } from './models/a2-2-magnification';
+
+const d = { image: 36, imageUnit: 'mm', actual: 3, actualUnit: 'µm', mag: 12000 } as const;
+const first = solve('magnification', { image: { value: d.image, unit: d.imageUnit }, actual: { value: d.actual, unit: d.actualUnit } });
+const sbDraw = scaleBarWorking(10, 2000);
+const sbRead = readScaleBarWorking(25, 5);
+// fixed seed so the server-rendered question is stable; the browser makes new ones
+let s = 7;
+const seeded = () => { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; };
+const q0 = makeQuestion(seeded, 'actual');
+const modes = [
+  { id: 'magnification', label: 'Magnification' },
+  { id: 'actual', label: 'Actual size' },
+  { id: 'image', label: 'Image size' },
+  { id: 'scalebar', label: 'Scale bars' },
+  { id: 'practice', label: 'Practice' },
+];
+const unitSelect = (key: string, sel: string, label: string) => ({ key, sel, label });
+const ruler = Array.from({ length: 11 }, (_, i) => i * 10);
+const bar0 = Math.min(100, sbDraw.result);
+---
+<div class="mag" data-sim-mag>
+  <fieldset class="modes">
+    <legend>Find:</legend>
+    {modes.map((m, i) => (
+      <label class="pill"><input type="radio" name="mag-mode" value={m.id} checked={i === 0} data-mode /> {m.label}</label>
+    ))}
+  </fieldset>
+
+  <!-- ---------- calculator: solve for any one of the three ---------- -->
+  <div class="layout" data-panel="calc">
+    <div class="inputs">
+      <p class="formula" data-formula><strong>magnification = image size ÷ actual size</strong></p>
+      {[unitSelect('image', d.imageUnit, 'Image size (measured on the image)'), unitSelect('actual', d.actualUnit, 'Actual size of the specimen')].map((f) => (
+        <div class="field" data-field={f.key}>
+          <label for={`mag-${f.key}`}>{f.label}</label>
+          <div class="row">
+            <input id={`mag-${f.key}`} type="text" inputmode="decimal" autocomplete="off" value={String(f.key === 'image' ? d.image : d.actual)} data-in={f.key} />
+            <select data-unit={f.key} aria-label={`Unit for ${f.key} size`}>
+              {UNITS.map((u) => <option value={u} selected={u === f.sel}>{u}</option>)}
+            </select>
+          </div>
+        </div>
+      ))}
+      <div class="field" data-field="mag" hidden>
+        <label for="mag-mag">Magnification (×)</label>
+        <div class="row"><span class="times" aria-hidden="true">×</span><input id="mag-mag" type="text" inputmode="decimal" autocomplete="off" value={String(d.mag)} data-in="mag" /></div>
+      </div>
+      <div class="field" data-field="out" hidden>
+        <label for="mag-out">Give the answer in</label>
+        <select id="mag-out" data-out-unit>
+          <option value="auto" selected>best unit</option>
+          {UNITS.map((u) => <option value={u}>{u}</option>)}
+        </select>
+      </div>
+    </div>
+    <div class="result">
+      <svg class="tri" viewBox="0 0 200 132" role="img" aria-labelledby="mag-tri-t" data-tri data-unknown="magnification">
+        <title id="mag-tri-t">Formula triangle: image size equals actual size times magnification</title>
+        <path class="tri-line" d="M100 8 L8 124 L192 124 Z M54 66 H146 M100 66 V124" />
+        <text class="tri-l" data-k="image" x="100" y="52" text-anchor="middle">I</text>
+        <text class="tri-l" data-k="actual" x="62" y="108" text-anchor="middle">A</text>
+        <text class="tri-l" data-k="magnification" x="138" y="108" text-anchor="middle">M</text>
+      </svg>
+      <p class="tri-key">I = image size · A = actual size · M = magnification. Cover the one you want: I = A × M, A = I ÷ M, M = I ÷ A.</p>
+      <p class="answer" aria-live="polite" data-answer>{first.text}</p>
+      <ol class="working" data-working>{first.steps.map((st) => <li>{st}</li>)}</ol>
+    </div>
+  </div>
+
+  <!-- ---------- scale bars ---------- -->
+  <div class="sb" data-panel="scalebar" hidden>
+    <div class="sb-block">
+      <h4>Draw a scale bar</h4>
+      <div class="row2">
+        <label class="field">Magnification (×)<input type="text" inputmode="decimal" autocomplete="off" value="2000" data-sb="mag" /></label>
+        <label class="field">The bar should represent<input type="text" inputmode="decimal" autocomplete="off" value="10" data-sb="len" /></label>
+        <label class="field">Unit<select data-sb="unit">{UNITS.map((u) => <option value={u} selected={u === 'µm'}>{u}</option>)}</select></label>
+      </div>
+      <svg class="ruler" viewBox="0 0 340 74" role="img" aria-labelledby="mag-rul-t" data-ruler>
+        <title id="mag-rul-t">The scale bar drawn against a 100 mm ruler</title>
+        <rect class="rul" x="10" y="40" width="320" height="26" rx="3" />
+        {ruler.map((mm) => <><path class="tick" d={`M${10 + mm * 3.2} 40 v9`} /><text class="tick-t" x={10 + mm * 3.2} y="62" text-anchor="middle">{mm}</text></>)}
+        <rect class="bar" x="10" y="20" width={bar0 * 3.2} height="7" data-bar />
+        <text class="bar-t" x="10" y="13" data-bar-label>10 µm</text>
+      </svg>
+      <p class="answer" aria-live="polite" data-sb-answer>{sbDraw.text}</p>
+      <ol class="working" data-sb-working>{sbDraw.steps.map((st) => <li>{st}</li>)}</ol>
+    </div>
+    <div class="sb-block">
+      <h4>Read a scale bar</h4>
+      <div class="row2">
+        <label class="field">Measured length of the bar (mm)<input type="text" inputmode="decimal" autocomplete="off" value="25" data-rb="mm" /></label>
+        <label class="field">Its label<input type="text" inputmode="decimal" autocomplete="off" value="5" data-rb="len" /></label>
+        <label class="field">Unit<select data-rb="unit">{UNITS.map((u) => <option value={u} selected={u === 'µm'}>{u}</option>)}</select></label>
+      </div>
+      <p class="answer" aria-live="polite" data-rb-answer>{sbRead.text}</p>
+      <ol class="working" data-rb-working>{sbRead.steps.map((st) => <li>{st}</li>)}</ol>
+    </div>
+  </div>
+
+  <!-- ---------- practice ---------- -->
+  <div class="practice" data-panel="practice" hidden>
+    <p class="q" data-q>{q0.text}</p>
+    <div class="row">
+      <label for="mag-ans" class="visually-hidden">Your answer</label>
+      <input id="mag-ans" type="text" inputmode="decimal" autocomplete="off" data-ans placeholder="Your answer" />
+      <span class="ans-unit" data-ans-unit>{q0.unit === '×' ? '(magnification, ×)' : q0.unit}</span>
+      <button class="btn btn-primary" type="button" data-check>Check</button>
+      <button class="btn" type="button" data-new>New question</button>
+    </div>
+    <p class="feedback" aria-live="polite" data-feedback></p>
+    <ol class="working" data-p-working hidden></ol>
+  </div>
+  <p class="model-note">Exam rule: convert both lengths to the same unit before dividing (1 mm = 1,000 µm; 1 µm = 1,000 nm). Magnifications have no units; write them with a × sign.</p>
+  <script type="application/json" data-q0 set:html={JSON.stringify(q0)} />
+</div>
+
+<script>
+  import { fmt, isUnit, makeQuestion, readScaleBarWorking, scaleBarWorking, solve, toUm, checkAnswer, type Mode, type Question, type Unit, type Working } from './models/a2-2-magnification';
+
+  const num = (s: string) => Number(s.replace(/[,\s×x]/gi, ''));
+  const formulas: Record<Mode, string> = {
+    magnification: 'magnification = image size ÷ actual size',
+    actual: 'actual size = image size ÷ magnification',
+    image: 'image size = actual size × magnification',
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-sim-mag]').forEach((root) => {
+    const $ = <T extends Element>(sel: string) => root.querySelector<T>(sel)!;
+    const panels = [...root.querySelectorAll<HTMLElement>('[data-panel]')];
+    const fields = (k: string) => $<HTMLElement>(`[data-field="${k}"]`);
+    const val = (k: string) => num($<HTMLInputElement>(`[data-in="${k}"]`).value);
+    const unit = (k: string) => $<HTMLSelectElement>(`[data-unit="${k}"]`).value as Unit;
+    let mode: string = 'magnification';
+    const timers: Record<string, number> = {};
+    const say = (el: HTMLElement, text: string, key: string) => { clearTimeout(timers[key]); timers[key] = window.setTimeout(() => (el.textContent = text), 300); };
+    const list = (ol: HTMLElement, w: Working) => { ol.replaceChildren(...w.steps.map((st) => { const li = document.createElement('li'); li.textContent = st; return li; })); };
+
+    const calc = () => {
+      if (mode !== 'magnification' && mode !== 'actual' && mode !== 'image') return;
+      const m = mode as Mode;
+      fields('image').hidden = m === 'image';
+      fields('actual').hidden = m === 'actual';
+      fields('mag').hidden = m === 'magnification';
+      fields('out').hidden = m === 'magnification';
+      $('[data-formula]').innerHTML = `<strong>${formulas[m]}</strong>`;
+      $<SVGElement>('[data-tri]').dataset.unknown = m;
+      const out = $<HTMLSelectElement>('[data-out-unit]').value;
+      const w = solve(m, {
+        image: { value: val('image'), unit: unit('image') },
+        actual: { value: val('actual'), unit: unit('actual') },
+        mag: val('mag'),
+        outUnit: isUnit(out) ? out : undefined,
+      });
+      list($('[data-working]'), w);
+      say($('[data-answer]'), w.text, 'calc');
+    };
+
+    const scale = () => {
+      const len = num($<HTMLInputElement>('[data-sb="len"]').value);
+      const u = $<HTMLSelectElement>('[data-sb="unit"]').value as Unit;
+      const M = num($<HTMLInputElement>('[data-sb="mag"]').value);
+      const w = scaleBarWorking(toUm(len, u), M);
+      list($('[data-sb-working]'), w);
+      say($('[data-sb-answer]'), w.ok ? `${w.text}, labelled ${fmt(len)} ${u}.` : w.text, 'sb');
+      const mm = w.ok ? w.result : 0;
+      $<SVGRectElement>('[data-bar]').setAttribute('width', String(Math.min(100, mm) * 3.2));
+      $<SVGTextElement>('[data-bar-label]').textContent = w.ok ? `${fmt(len)} ${u}${mm > 100 ? ' (bar longer than 100 mm: choose a shorter length)' : ''}` : '';
+      const rmm = num($<HTMLInputElement>('[data-rb="mm"]').value);
+      const rl = num($<HTMLInputElement>('[data-rb="len"]').value);
+      const ru = $<HTMLSelectElement>('[data-rb="unit"]').value as Unit;
+      const r = readScaleBarWorking(rmm, toUm(rl, ru));
+      list($('[data-rb-working]'), r);
+      say($('[data-rb-answer]'), r.text, 'rb');
+    };
+
+    // ----- practice -----
+    let q = JSON.parse($('[data-q0]').textContent!) as Question;
+    const ans = $<HTMLInputElement>('[data-ans]');
+    const feedback = $<HTMLElement>('[data-feedback]');
+    const pWork = $<HTMLElement>('[data-p-working]');
+    const showQuestion = () => {
+      $('[data-q]').textContent = q.text;
+      $('[data-ans-unit]').textContent = q.unit === '×' ? '(magnification, ×)' : q.unit;
+      ans.value = '';
+      feedback.textContent = '';
+      feedback.className = 'feedback';
+      pWork.hidden = true;
+    };
+    $('[data-new]').addEventListener('click', () => { q = makeQuestion(Math.random); showQuestion(); ans.focus(); });
+    const check = () => {
+      const given = num(ans.value);
+      const right = checkAnswer(given, q);
+      const unitTxt = q.unit === '×' ? '' : ` ${q.unit}`;
+      const shown = q.unit === '×' ? `×${fmt(q.answer, 3)}` : `${fmt(q.answer)}${unitTxt}`;
+      feedback.className = `feedback ${right ? 'good' : 'bad'}`;
+      feedback.textContent = !ans.value.trim() ? `Enter a number first. The answer is ${shown}.` : right ? `Correct: ${shown}.` : `Not quite. The answer is ${shown}. Check that both lengths were in the same unit.`;
+      pWork.replaceChildren(...q.working.map((st) => { const li = document.createElement('li'); li.textContent = st; return li; }));
+      pWork.hidden = false;
+    };
+    $('[data-check]').addEventListener('click', check);
+    ans.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); check(); } });
+
+    const setMode = (m: string) => {
+      mode = m;
+      const panel = m === 'scalebar' || m === 'practice' ? m : 'calc';
+      panels.forEach((p) => (p.hidden = p.dataset.panel !== panel));
+      if (panel === 'calc') calc();
+      if (panel === 'scalebar') scale();
+    };
+    root.querySelectorAll<HTMLInputElement>('[data-mode]').forEach((r) => r.addEventListener('change', () => r.checked && setMode(r.value)));
+    root.querySelectorAll('[data-in], [data-unit], [data-out-unit]').forEach((el) => { el.addEventListener('input', calc); el.addEventListener('change', calc); });
+    root.querySelectorAll('[data-sb], [data-rb]').forEach((el) => { el.addEventListener('input', scale); el.addEventListener('change', scale); });
+    const checked = root.querySelector<HTMLInputElement>('[data-mode]:checked');
+    if (checked && checked.value !== 'magnification') setMode(checked.value);
+  });
+</script>
+
+<style>
+  .mag { container-type: inline-size; font-size: var(--step--1); }
+  .modes { border: 0; padding: 0; margin: 0 0 var(--space-4); display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .modes legend { float: left; font-weight: 700; margin-right: var(--space-2); color: var(--text-muted); }
+  .pill { position: relative; display: inline-flex; align-items: center; min-height: 2.1rem; padding: 0.25rem 0.8rem; border: 1px solid var(--border-strong); border-radius: 999px; cursor: pointer; font-weight: 650; background: var(--surface); }
+  .pill input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+  .pill:has(input:checked) { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .pill:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 40rem) { .layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); align-items: start; } }
+  .inputs { display: grid; gap: var(--space-3); }
+  .formula { margin: 0; padding: var(--space-2) var(--space-3); background: var(--accent-soft); border-radius: var(--radius-m); }
+  .field { display: grid; gap: var(--space-1); font-weight: 650; }
+  .row { display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap; }
+  input[type='text'], select { font: inherit; font-size: var(--step-0); min-height: 2.4rem; padding: 0.25rem 0.5rem; border: 1px solid var(--border-strong); border-radius: var(--radius-s); background: var(--surface); color: var(--text); }
+  input[type='text'] { width: 9rem; font-variant-numeric: tabular-nums; }
+  .times { font-weight: 800; font-size: var(--step-0); }
+  .result { display: grid; gap: var(--space-2); }
+  .tri { width: 9.5rem; height: auto; justify-self: center; font-family: var(--font-sans); }
+  .tri-line { fill: none; stroke: var(--text-muted); stroke-width: 2; }
+  .tri-l { font-size: 26px; font-weight: 800; fill: var(--text-muted); }
+  .tri[data-unknown='magnification'] [data-k='magnification'], .tri[data-unknown='actual'] [data-k='actual'], .tri[data-unknown='image'] [data-k='image'] { fill: var(--accent-strong); text-decoration: underline; }
+  .tri-key { margin: 0; color: var(--text-muted); text-align: center; }
+  .answer { margin: 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-weight: 800; font-size: var(--step-0); }
+  .working { margin: 0; padding-left: 1.4rem; display: grid; gap: var(--space-1); }
+  .sb { display: grid; gap: var(--space-5); }
+  @container (min-width: 44rem) { .sb { grid-template-columns: 1fr 1fr; } }
+  .sb-block { display: grid; gap: var(--space-2); align-content: start; }
+  .sb h4 { margin: 0; font-size: var(--step-0); }
+  .row2 { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-3); }
+  .row2 input[type='text'] { width: 7.5rem; }
+  .ruler { width: 100%; max-width: 26rem; height: auto; font-family: var(--font-sans); }
+  .rul { fill: var(--surface-2); stroke: var(--border-strong); }
+  .tick { stroke: var(--text-muted); stroke-width: 1.2; }
+  .tick-t { font-size: 10px; fill: var(--text-muted); }
+  .bar { fill: var(--text); }
+  .bar-t { font-size: 12px; font-weight: 700; fill: var(--text); }
+  .practice { display: grid; gap: var(--space-3); }
+  .q { margin: 0; font-size: var(--step-0); font-weight: 600; }
+  .ans-unit { font-weight: 800; min-width: 1.5rem; }
+  .feedback { margin: 0; font-weight: 700; }
+  .feedback.good { color: var(--good); }
+  .feedback.bad { color: var(--bad); }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-3) 0 0; }
+  [hidden] { display: none !important; }
+</style>

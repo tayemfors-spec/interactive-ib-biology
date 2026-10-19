@@ -1,0 +1,222 @@
+# Visuals for A2.2. Label/step text here is what readers see in the 3D viewer and the text descriptions,
+# so it is written to exam standard. Label ids must match anchors in the scene modules (src/scenes).
+visuals:
+  - id: cells
+    kind: viewer3d
+    title: Four kinds of cell in 3D
+    alt: Cut-away 3D models of a bacterium, an animal cell, a plant cell and a fungal hypha, with clickable labels for each structure.
+    description: >-
+      Four cut-away models, each sliced open by a flat plane so you look into the back half of the cell. Organelles
+      that cross the cut are cut too, so you can see their double membranes, cristae and grana; organelles behind the
+      cut are whole. Proportions are schematic: ribosomes in particular are drawn far larger than they really are.
+      The bacterium is a rod-shaped Gram-positive cell like Bacillus, with a thick cell wall, plasma membrane,
+      cytoplasm with 70S ribosomes, a nucleoid containing one loop of naked DNA, plasmids, pili and a flagellum, and
+      an optional capsule. The animal cell has a nucleus with a double membrane, nuclear pores and a nucleolus, rough
+      and smooth endoplasmic reticulum, a Golgi apparatus, vesicles, lysosomes, mitochondria with cristae, a pair of
+      centrioles, microtubules of the cytoskeleton and free 80S ribosomes. The plant cell has a cellulose cell wall
+      with plasmodesmata, a plasma membrane pressed against it, a large permanent vacuole surrounded by the
+      tonoplast, chloroplasts with grana and starch grains, mitochondria, a nucleus pushed to the side, and no
+      centrioles. The fungal hypha has a chitin wall, a septum with a central pore, several nuclei, large vacuoles in
+      its older part, vesicles packed into its growing tip and glycogen granules, with a branching hypha of the
+      mycelium behind it.
+    scenes:
+      - id: prokaryote
+        module: a2-2-prokaryote
+        title: Bacterium
+        labels:
+          - id: wall
+            name: Cell wall (peptidoglycan)
+            text: A thick, rigid layer of peptidoglycan outside the plasma membrane. Gram-positive bacteria such as Bacillus and Staphylococcus have a thick wall and no outer membrane. The wall stops the cell bursting when water enters by osmosis.
+          - id: membrane
+            name: Plasma membrane
+            text: A phospholipid bilayer with proteins, just inside the wall, that controls what enters and leaves the cytoplasm. Prokaryotes have no membranes inside the cell, so the cytoplasm is one undivided compartment.
+          - id: cytoplasm
+            name: Cytoplasm
+            text: Mostly water, with enzymes, ribosomes and other dissolved substances. Most of the cell's chemical reactions (its metabolism) take place here.
+          - id: nucleoid
+            name: Nucleoid (naked DNA in a loop)
+            text: The region of cytoplasm that holds the DNA. There is usually one chromosome, a single circular DNA molecule. It is naked (not bound to histone proteins) and is not enclosed by a nuclear membrane.
+          - id: ribosomes
+            name: 70S ribosomes
+            text: Sites of protein synthesis, free in the cytoplasm. Prokaryotic ribosomes are 70S (a 50S and a 30S subunit), smaller than the 80S ribosomes in eukaryotic cytoplasm. They are drawn far too large here.
+          - id: plasmid
+            name: Plasmid
+            text: A small extra loop of naked DNA, separate from the chromosome. Plasmids carry a few genes, such as for antibiotic resistance, and can be passed from one bacterium to another. Not every bacterium has them.
+          - id: flagellum
+            name: Flagellum
+            text: A long, helical protein filament that is rotated by a motor at its base in the wall and membrane, pushing the cell along. Bacillus species have several; Staphylococcus has none. It has no 9+2 microtubules.
+          - id: pili
+            name: Pili
+            text: Short, thin protein projections from the surface. They help bacteria stick to surfaces and to each other, and some are used to pass DNA between cells. Many, but not all, bacteria have them.
+          - id: capsule
+            name: Capsule (only some bacteria)
+            text: A slimy layer, often of polysaccharide, outside the wall. It protects some bacteria from drying out and from being engulfed by white blood cells. Many bacteria have no capsule; it is not part of the required structure.
+      - id: animal
+        module: a2-2-animal
+        title: Animal cell
+        labels:
+          - id: nucleus
+            name: Nucleus (double membrane)
+            text: Holds the chromosomes, which are DNA molecules wound around histone proteins. The nuclear envelope is two membranes separated by a narrow space; the outer membrane is continuous with the rough ER.
+          - id: membrane
+            name: Plasma membrane
+            text: A phospholipid bilayer with proteins that encloses the cell and controls what enters and leaves. Animal cells have no wall outside it, so they can change shape and take in material by endocytosis.
+          - id: mitochondrion
+            name: Mitochondrion
+            text: The site of aerobic respiration, which produces ATP. It has a double membrane; the inner membrane is folded into cristae, which increase its surface area. The fluid inside is the matrix.
+          - id: rer
+            name: Rough ER (with ribosomes)
+            text: Flattened membrane sacs (cisternae) with 80S ribosomes on their outer surface. Proteins made by these ribosomes pass into the ER, are folded and modified, and are carried in vesicles to the Golgi apparatus.
+          - id: ribosomes
+            name: Free ribosomes (80S)
+            text: Ribosomes in the cytoplasm that are not attached to a membrane. They make proteins for use inside the cell. Eukaryotic cytoplasmic ribosomes are 80S (a 60S and a 40S subunit). They are drawn far too large here.
+          - id: golgi
+            name: Golgi apparatus
+            text: A stack of curved, flattened membrane sacs. It receives proteins from the rough ER, modifies them (for example by adding carbohydrate) and sorts them into vesicles, for secretion or for lysosomes.
+          - id: ser
+            name: Smooth ER
+            text: A network of membrane tubules with no ribosomes. It makes lipids, including phospholipids and steroid hormones; in some cells it also stores calcium ions or breaks down toxins.
+          - id: lysosome
+            name: Lysosome
+            text: A vesicle bounded by a single membrane and filled with digestive (hydrolytic) enzymes. It digests material taken in by endocytosis and breaks down worn-out organelles.
+          - id: vesicles
+            name: Vesicles
+            text: Small sacs of single membrane that carry materials around the cell. Secretory vesicles bud from the Golgi apparatus, move to the plasma membrane and release their contents by exocytosis.
+          - id: nucleolus
+            name: Nucleolus
+            text: A dense region inside the nucleus, with no membrane around it, where ribosome subunits are assembled from rRNA and proteins. The subunits leave the nucleus through nuclear pores.
+          - id: pore
+            name: Nuclear pore
+            text: A channel through the nuclear envelope, where its two membranes join. Pores let mRNA and ribosome subunits out of the nucleus and let proteins such as enzymes in.
+          - id: centrioles
+            name: Centrioles
+            text: Two short cylinders at right angles, each made of nine triplets of microtubules. They are part of the centrosome, which organises microtubules, including the spindle in cell division. Most plant cells have none.
+          - id: cytoskeleton
+            name: Cytoskeleton (microtubules)
+            text: A network of protein fibres. Microtubules (shown spreading from the centrosome) and thinner actin microfilaments support the cell's shape, anchor organelles and move vesicles and chromosomes.
+          - id: cytoplasm
+            name: Cytoplasm
+            text: Everything inside the plasma membrane except the nucleus. Its watery fluid (cytosol) holds enzymes and the organelles, and internal membranes divide it into compartments (compartmentalization).
+      - id: plant
+        module: a2-2-plant
+        title: Plant cell
+        labels:
+          - id: wall
+            name: Cell wall (cellulose)
+            text: A tough layer of cellulose fibres outside the plasma membrane. It is freely permeable, gives the cell its shape, and resists the pressure that builds up when water enters by osmosis, so the cell does not burst.
+          - id: membrane
+            name: Plasma membrane
+            text: Pressed against the inside of the wall by turgor pressure. Unlike the wall, it is partially permeable and controls what enters and leaves the cytoplasm.
+          - id: vacuole
+            name: Large permanent vacuole
+            text: A large sac of cell sap (water with sugars, ions, pigments and wastes) that fills most of the cell. Water drawn into it by osmosis keeps the cell turgid, which supports the plant. Animal cells have only small, temporary vacuoles.
+          - id: tonoplast
+            name: Tonoplast
+            text: The single membrane around the vacuole. Its transport proteins control which substances move into and out of the cell sap.
+          - id: chloroplast
+            name: Chloroplast
+            text: The site of photosynthesis. A double membrane (envelope) surrounds the stroma, which holds enzymes, starch grains, 70S ribosomes and a loop of DNA. Chloroplasts are plastids; animal and fungal cells have no plastids.
+          - id: grana
+            name: Grana (thylakoid stacks)
+            text: Thylakoids are flattened membrane sacs; stacks of them are called grana, and single thylakoids link the stacks. Thylakoid membranes hold chlorophyll and absorb light for photosynthesis.
+          - id: nucleus
+            name: Nucleus
+            text: Has a double membrane with pores, as in all typical eukaryotic cells. Here the large vacuole has pushed it to the side of the cell, into the thin layer of cytoplasm.
+          - id: mitochondrion
+            name: Mitochondrion
+            text: Plant cells have mitochondria as well as chloroplasts. They respire aerobically, day and night, to make the ATP the cell needs.
+          - id: plasmodesmata
+            name: Plasmodesmata
+            text: Narrow channels through the cell wall, lined with plasma membrane, that join the cytoplasm of neighbouring cells, so substances can pass from cell to cell.
+          - id: golgi
+            name: Golgi apparatus
+            text: Modifies and packages proteins, and in plant cells also makes some of the polysaccharides of the wall, which vesicles carry to the plasma membrane. (Cellulose itself is made at the plasma membrane.)
+          - id: starch
+            name: Starch grain
+            text: Plants store glucose made in photosynthesis as starch, in grains inside chloroplasts and in other plastids such as amyloplasts.
+          - id: no-centrioles
+            name: No centrioles
+            text: Cells of flowering plants and conifers have no centrioles. They still build a spindle of microtubules for cell division, but without centrioles to organise it.
+      - id: fungal
+        module: a2-2-fungal
+        title: Fungal hypha
+        labels:
+          - id: wall
+            name: Cell wall (chitin)
+            text: Made mainly of chitin, a tough nitrogen-containing polysaccharide, with other polysaccharides, but no cellulose. Like a plant cell wall it is freely permeable and stops the hypha bursting when water enters by osmosis.
+          - id: membrane
+            name: Plasma membrane
+            text: Lines the wall and controls what enters and leaves. Fungi digest their food outside the hypha; they release enzymes by exocytosis and absorb the small molecules that are produced.
+          - id: septum
+            name: Septum (cross-wall)
+            text: A cross-wall of chitin dividing the hypha into compartments, each with one or more nuclei. Fungi such as Penicillium have septate hyphae; aseptate fungi such as Rhizopus have no septa.
+          - id: pore
+            name: Septal pore
+            text: A hole in the middle of each septum. Cytoplasm, organelles and even nuclei can pass through it from one compartment to the next.
+          - id: nucleus
+            name: Nuclei
+            text: Each nucleus has a double membrane, as in other eukaryotes. A hyphal compartment may hold several nuclei, and aseptate hyphae have many nuclei in one continuous mass of cytoplasm.
+          - id: vacuole
+            name: Vacuoles
+            text: Large, permanent vacuoles fill the older parts of a hypha, as in plant cells. They store substances and, by taking up water, push the cytoplasm forwards towards the growing tip.
+          - id: tip
+            name: Growing tip
+            text: A hypha grows only at its tip. New wall and plasma membrane are added here when vesicles fuse with the membrane.
+          - id: vesicles
+            name: Tip vesicles
+            text: Vesicles from the Golgi apparatus crowd into the tip. They carry enzymes and materials for building the wall, and digestive enzymes that are released by exocytosis.
+          - id: mitochondrion
+            name: Mitochondrion
+            text: Fungal cells have mitochondria with cristae, like other eukaryotes, and most fungi can respire aerobically.
+          - id: glycogen
+            name: Glycogen granules
+            text: Fungi store carbohydrate as glycogen, as animals do, not as starch. They have no chloroplasts, because fungi are heterotrophs and do not photosynthesize.
+          - id: mycelium
+            name: Mycelium (branching hyphae)
+            text: Hyphae branch and grow into a network called a mycelium. A hypha is a long thread with a wall around continuous cytoplasm, not a chain of separate, typical cells.
+
+  - id: magnification
+    kind: sim
+    module: a2-2-magnification
+    title: Magnification and scale bar calculator
+    alt: Calculator that finds magnification, actual size or image size from the other two, converting between mm, µm and nm and showing working.
+    description: >-
+      A calculator built on one equation: magnification equals image size divided by actual size. Choose which of the
+      three quantities to find, type in the other two with their units (millimetres, micrometres or nanometres), and
+      the working is shown step by step: convert both lengths to the same unit, then divide or multiply. A scale bar
+      mode works out how long to draw a scale bar for a given magnification, or the magnification of an image from a
+      scale bar you have measured. A practice mode gives a random exam-style question to answer, then shows the
+      worked solution.
+
+  - id: endosymbiosis
+    kind: anim
+    module: a2-2-endosymbiosis
+    level: AHL
+    title: The origin of mitochondria and chloroplasts by endosymbiosis
+    alt: Steps showing a nucleated cell engulfing an aerobic bacterium that becomes a mitochondrion, then a cyanobacterium that becomes a chloroplast.
+    description: >-
+      A diagram in six steps. An ancestral single-celled eukaryote, which already has a nucleus, takes in an aerobic
+      bacterium by endocytosis. The bacterium is not digested but survives inside a vesicle, so it is surrounded by two
+      membranes. It respires aerobically, supplying ATP, divides by binary fission and is passed to the host's
+      daughter cells, becoming a mitochondrion. Later, in the ancestor of algae and plants, a photosynthetic
+      cyanobacterium is taken in the same way and becomes a chloroplast. The last step summarizes the evidence:
+      double membranes, naked circular DNA, 70S ribosomes, division by binary fission and a size similar to bacteria.
+    steps:
+      - id: ancestor
+        title: A nucleated ancestor
+        caption: The common ancestor of all eukaryotes was a single cell that already had a nucleus, a cytoskeleton and internal membranes, and could reproduce sexually. It probably could not respire aerobically. Nearby is a free-living aerobic bacterium, with its own plasma membrane, naked circular DNA and 70S ribosomes.
+      - id: engulf
+        title: Engulfed by endocytosis
+        caption: The host cell surrounds the bacterium with its plasma membrane and takes it in by endocytosis. The bacterium ends up inside a vesicle, so it is now enclosed by two membranes, its own plasma membrane inside and the vesicle membrane from the host outside.
+      - id: mutualism
+        title: Not digested, but kept
+        caption: Instead of being digested, the bacterium survives and respires aerobically, supplying the host with ATP; the host supplies food molecules and protection. Both benefit (mutualism). The bacterium grows and divides by binary fission inside the host.
+      - id: mitochondrion
+        title: It becomes a mitochondrion
+        caption: When the host divides, each daughter cell receives some of the bacteria. Over many generations most of the bacterium's genes move to the host's nucleus, and it can no longer live independently. It has become a mitochondrion, found in almost all eukaryotes.
+      - id: chloroplast
+        title: A second event makes chloroplasts
+        caption: Later, in one lineage of these eukaryotes, a photosynthetic cyanobacterium is taken in by endocytosis and kept in the same way. It becomes the chloroplast. Its descendants, the algae and plants, have both mitochondria and chloroplasts; animals and fungi have only mitochondria.
+      - id: evidence
+        title: The evidence today
+        caption: Mitochondria and chloroplasts still resemble bacteria. Each has a double membrane, its own naked circular DNA, 70S ribosomes that make some of its proteins, and a size like a bacterium (about 1–10 µm). Neither can be made from scratch; new ones form only by binary fission of existing ones.
