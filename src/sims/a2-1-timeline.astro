@@ -1,0 +1,188 @@
+---
+import { EARTH_AGE, GOE, clock, events, formatAge, latestEvent, lifeEvidence, lifeText, oxygen, oxygenText } from './models/a2-1-timeline';
+
+// Chart geometry: x runs from 4.6 Ga (left) to the present (right).
+const W = 640, L = 30, R = 30, MAXGA = 4.6;
+const x = (ga: number) => L + ((MAXGA - ga) / MAXGA) * (W - L - R);
+const AXIS = 128;
+const laneY = [96, 72, 48];
+const lanes: Record<string, number> = { earth: 0, oceans: 1, luca: 2, 'jack-hills': 0, 'vent-fossils': 1, isua: 2, stromatolites: 0, goe: 1, eukaryotes: 0, cambrian: 1, humans: 0 };
+const ticks = [4.5, 4, 3.5, 3, 2.5, 2, 1.5, 1, 0.5, 0];
+const startGa = EARTH_AGE;
+const ev = latestEvent(startGa)!;
+const fmtRange = (r?: [number, number]) => (r ? `${r[0]}–${r[1]}` : '—');
+---
+<div class="tl" data-tl data-geom={JSON.stringify({ W, L, R, MAXGA })}>
+  <svg class="chart" viewBox={`0 0 ${W} 172`} role="img" aria-labelledby="tl-t tl-d">
+    <title id="tl-t">Timeline of early Earth and early life</title>
+    <desc id="tl-d">A time axis from 4.6 billion years ago to the present. Markers show events; bars show the spread of estimates, dashed where the date is debated. A band shows that there was little or no free oxygen until about 2.4 billion years ago.</desc>
+    <rect class="anoxic" x={x(EARTH_AGE)} y={AXIS - 16} width={x(GOE) - x(EARTH_AGE)} height="16" />
+    <rect class="oxic" x={x(GOE)} y={AXIS - 16} width={x(0) - x(GOE)} height="16" />
+    <text class="band" x={x(EARTH_AGE) + 6} y={AXIS - 4}>little or no free O₂</text>
+    <text class="band" x={x(GOE) + 6} y={AXIS - 4}>free O₂ in atmosphere</text>
+    <line class="axis" x1={L} x2={W - R} y1={AXIS} y2={AXIS} />
+    {ticks.map((t) => (
+      <g>
+        <line class="tick" x1={x(t)} x2={x(t)} y1={AXIS} y2={AXIS + 5} />
+        <text class="ticklbl" x={x(t)} y={AXIS + 19} text-anchor="middle">{t}</text>
+      </g>
+    ))}
+    <text class="axislbl" x={W / 2} y="168" text-anchor="middle">billion years ago (Ga)</text>
+    {events.map((e) => {
+      const y = laneY[lanes[e.id] ?? 0]!;
+      return (
+        <g class:list={['ev', e.id === ev.id && 'is-current']} data-ev={e.id} data-ga={e.ga} data-past={e.ga >= startGa ? 'true' : 'false'}>
+          <line class="stem" x1={x(e.ga)} x2={x(e.ga)} y1={y} y2={AXIS - 16} />
+          {e.range && <line class:list={['range', e.certainty === 'debated' && 'debated']} x1={x(e.range[0])} x2={x(e.range[1])} y1={y} y2={y} />}
+          <circle class:list={['dot', e.certainty === 'debated' && 'debated']} cx={x(e.ga)} cy={y} r={e.id === ev.id ? 9 : 6} data-dot />
+        </g>
+      );
+    })}
+    <g data-cursor transform={`translate(${x(startGa)} 0)`}>
+      <line class="cursor" x1="0" x2="0" y1="22" y2={AXIS} />
+      <path class="cursor-head" d="M-7 14 L7 14 L0 24 Z" />
+    </g>
+  </svg>
+
+  <label class="slider">Time: <output data-out="age">{formatAge(startGa)}</output>
+    <input type="range" min="0" max={Math.round(EARTH_AGE * 1000)} step="10" value="0" data-param="t" aria-valuetext={formatAge(startGa)} />
+  </label>
+  <div class="jump">
+    <button class="btn" type="button" data-jump="-1">Previous event</button>
+    <button class="btn" type="button" data-jump="1">Next event</button>
+  </div>
+
+  <div class="panels">
+    <article class="card" data-card>
+      <p class="when"><span data-card-age>{formatAge(ev.ga)}</span> · <span class="cert" data-card-cert data-certainty={ev.certainty}>{ev.certainty}</span></p>
+      <p class="ev-title" data-card-title>{ev.title}</p>
+      <p data-card-text>{ev.text}</p>
+      <p class="method"><strong>Evidence:</strong> <span data-card-method>{ev.method}</span></p>
+    </article>
+    <dl class="status">
+      <div><dt>24-hour clock of Earth history</dt><dd class="clock" data-clock>{clock(startGa)}</dd></div>
+      <div><dt>Atmosphere</dt><dd data-oxygen>{oxygenText[oxygen(startGa)]}</dd></div>
+      <div><dt>Evidence of life by this time</dt><dd data-life>{lifeText[lifeEvidence(startGa)]}</dd></div>
+    </dl>
+  </div>
+  <p class="visually-hidden" aria-live="polite" data-summary></p>
+
+  <details class="table">
+    <summary>Show data table</summary>
+    <div class="scroll">
+      <table>
+        <thead><tr><th scope="col">Event</th><th scope="col">Best estimate (Ga)</th><th scope="col">Range of estimates (Ga)</th><th scope="col">Evidence</th><th scope="col">Status</th></tr></thead>
+        <tbody>{events.map((e) => <tr><th scope="row">{e.title}</th><td>{e.ga < 0.01 ? '0.0003' : e.ga}</td><td>{fmtRange(e.range)}</td><td>{e.method}</td><td>{e.certainty}</td></tr>)}</tbody>
+      </table>
+    </div>
+  </details>
+  <p class="model-note">Dates are rounded, widely cited estimates drawn to scale. Hollow markers and dashed bars are debated: new evidence could change them. The 24-hour clock puts the formation of the Earth at midnight and the present at the next midnight.</p>
+</div>
+
+<script>
+  import { EARTH_AGE, clock, events, formatAge, latestEvent, lifeEvidence, lifeText, oxygen, oxygenText } from './models/a2-1-timeline';
+
+  document.querySelectorAll<HTMLElement>('[data-tl]').forEach((root) => {
+    const g = JSON.parse(root.dataset.geom!) as { W: number; L: number; R: number; MAXGA: number };
+    const x = (ga: number) => g.L + ((g.MAXGA - ga) / g.MAXGA) * (g.W - g.L - g.R);
+    const input = root.querySelector<HTMLInputElement>('[data-param="t"]')!;
+    const $ = <T extends Element = HTMLElement>(s: string) => root.querySelector<T>(s)!;
+    const marks = [...root.querySelectorAll<SVGGElement>('[data-ev]')];
+    let timer = 0;
+
+    const gaOf = () => Math.max(0, EARTH_AGE - Number(input.value) / 1000);
+    const update = () => {
+      const ga = gaOf();
+      const age = formatAge(ga);
+      input.setAttribute('aria-valuetext', age);
+      $('[data-out="age"]').textContent = age;
+      $<SVGGElement>('[data-cursor]').setAttribute('transform', `translate(${x(ga).toFixed(1)} 0)`);
+      const ev = latestEvent(ga)!;
+      marks.forEach((m) => {
+        m.dataset.past = String(Number(m.dataset.ga) >= ga - 1e-9);
+        const cur = m.dataset.ev === ev.id;
+        m.classList.toggle('is-current', cur);
+        m.querySelector('[data-dot]')!.setAttribute('r', cur ? '9' : '6');
+      });
+      $('[data-card-age]').textContent = formatAge(ev.ga);
+      const cert = $('[data-card-cert]');
+      cert.textContent = ev.certainty;
+      cert.dataset.certainty = ev.certainty;
+      $('[data-card-title]').textContent = ev.title;
+      $('[data-card-text]').textContent = ev.text;
+      $('[data-card-method]').textContent = ev.method;
+      const c = clock(ga);
+      $('[data-clock]').textContent = c;
+      $('[data-oxygen]').textContent = oxygenText[oxygen(ga)];
+      $('[data-life]').textContent = lifeText[lifeEvidence(ga)];
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        $('[data-summary]').textContent = `${age}, ${c} on the 24-hour clock. Latest event: ${ev.title} (${ev.certainty}). ${oxygenText[oxygen(ga)]} ${lifeText[lifeEvidence(ga)]}`;
+      }, 350);
+    };
+
+    input.addEventListener('input', update);
+    root.querySelectorAll<HTMLButtonElement>('[data-jump]').forEach((b) => b.addEventListener('click', () => {
+      const ga = gaOf();
+      const dir = Number(b.dataset.jump);
+      // events are ordered oldest first; "next" moves towards the present
+      const target = dir > 0 ? events.find((e) => e.ga < ga - 1e-6) : [...events].reverse().find((e) => e.ga > ga + 1e-6);
+      if (!target) return;
+      input.value = String(Math.round((EARTH_AGE - target.ga) * 1000));
+      update();
+    }));
+    update();
+  });
+</script>
+
+<style>
+  .tl { container-type: inline-size; display: grid; gap: var(--space-3); }
+  .chart { width: 100%; height: auto; background: var(--surface-2); border-radius: var(--radius-m); font-family: var(--font-sans); }
+  .anoxic { fill: color-mix(in srgb, var(--bio-head) 22%, transparent); }
+  .oxic { fill: color-mix(in srgb, var(--bio-water) 22%, transparent); }
+  .band { font-size: 12px; font-weight: 650; fill: var(--text); }
+  .axis, .tick { stroke: var(--text); stroke-width: 1.5; }
+  .ticklbl { font-size: 13px; fill: var(--text); }
+  .axislbl { font-size: 13px; fill: var(--text-muted); font-weight: 600; }
+  /* on narrow screens the chart scales down a lot, so enlarge its text */
+  @container (max-width: 30rem) {
+    .band { font-size: 17px; }
+    .ticklbl, .axislbl { font-size: 19px; }
+  }
+  .stem { stroke: var(--border-strong); stroke-width: 1.2; }
+  .range { stroke: var(--bio-protein); stroke-width: 5; stroke-linecap: round; opacity: 0.55; }
+  .range.debated { stroke-dasharray: 3 4; stroke-linecap: butt; }
+  .dot { fill: var(--bio-protein); stroke: var(--surface); stroke-width: 2; }
+  .dot.debated { fill: var(--surface); stroke: var(--bio-protein); stroke-width: 2.5; }
+  .ev { transition: opacity 0.2s; }
+  .ev[data-past='false'] { opacity: 0.3; }
+  .ev.is-current .dot { stroke: var(--accent-strong); stroke-width: 3; }
+  .cursor { stroke: var(--accent); stroke-width: 2.5; }
+  .cursor-head { fill: var(--accent); }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; font-size: var(--step--1); }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .jump { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .panels { display: grid; gap: var(--space-3); }
+  @container (min-width: 40rem) { .panels { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: start; } }
+  .card { padding: var(--space-3); border-radius: var(--radius-m); background: var(--surface-2); font-size: var(--step--1); }
+  .card p { margin: 0 0 var(--space-2); }
+  .card p:last-child { margin-bottom: 0; }
+  .when { font-weight: 700; color: var(--text-muted); }
+  .card .ev-title { margin: 0 0 var(--space-2); font-size: var(--step-0); font-weight: 750; color: var(--text); }
+  .cert { font-weight: 800; }
+  .cert[data-certainty='well established'] { color: var(--good); }
+  .cert[data-certainty='widely accepted'] { color: var(--accent-strong); }
+  .cert[data-certainty='debated'] { color: var(--warn); }
+  .method { color: var(--text-muted); }
+  .status { margin: 0; display: grid; gap: var(--space-2); font-size: var(--step--1); }
+  .status div { padding: var(--space-2) var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-m); }
+  dt { font-weight: 700; color: var(--text-muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  dd { margin: 0; font-weight: 600; }
+  .clock { font-variant-numeric: tabular-nums; font-size: var(--step-1); font-weight: 800; color: var(--accent-strong); }
+  .table { font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; margin-top: var(--space-2); min-width: 32rem; }
+  th, td { text-align: left; padding: 0.3rem 0.5rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: 0; }
+</style>

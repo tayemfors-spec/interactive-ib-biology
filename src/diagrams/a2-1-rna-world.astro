@@ -1,0 +1,107 @@
+---
+/** RNA as both information store and catalyst (A2.1.6), and what remains of the RNA world in cells today. */
+const template = ['A', 'U', 'G', 'C', 'C', 'A', 'U', 'G'];
+const pair: Record<string, string> = { A: 'U', U: 'A', G: 'C', C: 'G' };
+const built = 5; // complementary nucleotides already joined to the new strand
+const bx = (i: number) => 44 + i * 32;
+const rungs = [100, 116, 132, 148];
+---
+<svg viewBox="0 0 640 410" role="img" aria-labelledby="rw-t rw-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="rw-t">The RNA world: RNA as genetic material and as a catalyst</title>
+  <desc id="rw-d">Left: an RNA strand acts as a template; free nucleotides pair with its bases by complementary base pairing (A with U, G with C) and are joined to form a new strand, so the information in the base sequence is copied. Right: a single RNA strand folds back on itself, held by base pairs, into a ribozyme with an active site that binds a substrate and catalyses a reaction. Below: in the RNA world RNA was both the genes and the enzymes; in cells today DNA stores the genes and proteins catalyse most reactions, but ribosomal RNA in the ribosome still catalyses peptide bond formation.</desc>
+
+  <!-- Panel 1: information and copying -->
+  <rect class="panel" x="6" y="6" width="306" height="196" rx="10" />
+  <text class="h" x="20" y="32">1 · Stores and copies information</text>
+  <text class="lbl" x="40" y="58">template strand</text>
+  <line class="bb" x1="34" x2={bx(7) + 30} y1="68" y2="68" />
+  {template.map((b, i) => (
+    <g>
+      <rect class:list={['base', b]} x={bx(i)} y="70" width="24" height="26" rx="3" />
+      <text class="bl" x={bx(i) + 12} y="88" text-anchor="middle">{b}</text>
+    </g>
+  ))}
+  {template.map((b, i) => {
+    const c = pair[b]!;
+    const free = i >= built;
+    const dy = free ? 26 : 0;
+    return (
+      <g>
+        <rect class:list={['base', c, free && 'free']} x={bx(i)} y={102 + dy} width="24" height="26" rx="3" />
+        <text class="bl" x={bx(i) + 12} y={120 + dy} text-anchor="middle">{c}</text>
+      </g>
+    );
+  })}
+  <line class="bb" x1="34" x2={bx(built - 1) + 26} y1="130" y2="130" />
+  <text class="lbl" x="40" y="150">new strand</text>
+  <text class="lbl" x={bx(built) - 6} y="176">free nucleotides</text>
+  <text class="note" x="20" y="194">A–U and G–C pairing copies the sequence.</text>
+
+  <!-- Panel 2: catalysis -->
+  <rect class="panel" x="328" y="6" width="306" height="196" rx="10" />
+  <text class="h" x="342" y="32">2 · Catalyses reactions (ribozyme)</text>
+  {rungs.map((y) => <line class="rung" x1="384" x2="406" y1={y} y2={y} />)}
+  {rungs.map((y) => <line class="rung" x1="500" x2="522" y1={y} y2={y} />)}
+  <path class="strand" d="M384 170 V100 C384 58 406 58 406 100 V160 Q406 172 420 172 H486 Q500 172 500 160 V100 C500 58 522 58 522 100 V170" />
+  <path class="pocket" d="M420 122 Q453 94 486 122 Q453 150 420 122 Z" />
+  <rect class="substrate" x="437" y="114" width="32" height="16" rx="8" />
+  <path class="lead" d="M542 104 L524 116" /><text class="lbl" x="546" y="92">base pairs</text><text class="lbl" x="546" y="108">hold the</text><text class="lbl" x="546" y="124">3D shape</text>
+  <path class="lead" d="M453 70 L453 104" /><text class="lbl" x="453" y="64" text-anchor="middle">active site binds a substrate</text>
+  <text class="note" x="342" y="194">Folded RNA acts as an enzyme.</text>
+
+  <!-- Panel 3: then and now -->
+  <rect class="panel" x="6" y="216" width="628" height="188" rx="10" />
+  <rect class="box" x="20" y="240" width="168" height="104" rx="8" />
+  <text class="h" x="32" y="264">RNA world</text>
+  <text class="lbl" x="32" y="288">RNA = the genes</text>
+  <text class="lbl" x="32" y="308">RNA = the enzymes</text>
+  <text class="lbl muted" x="32" y="332">(hypothesis)</text>
+  <path class="arrow" d="M196 292 H236 M228 284 L236 292 L228 300" />
+  <rect class="box" x="244" y="240" width="198" height="104" rx="8" />
+  <text class="h" x="256" y="264">Cells today</text>
+  <text class="lbl" x="256" y="288">DNA: genes (more stable)</text>
+  <text class="lbl" x="256" y="308">proteins: most enzymes</text>
+  <text class="lbl" x="256" y="328">RNA: links DNA to protein</text>
+  <text class="note" x="20" y="372">DNA later took over information storage and proteins took over most catalysis,</text>
+  <text class="note" x="20" y="390">but the ribosome is still a ribozyme.</text>
+
+  <!-- ribosome -->
+  <ellipse class="large" cx="540" cy="282" rx="80" ry="40" />
+  <ellipse class="small" cx="540" cy="338" rx="72" ry="18" />
+  <line class="mrna" x1="452" x2="630" y1="322" y2="322" />
+  <text class="lbl" x="540" y="278" text-anchor="middle">rRNA forms</text>
+  <text class="lbl" x="540" y="296" text-anchor="middle">peptide bonds</text>
+  <path class="peptide" d="M560 244 q10 -8 20 -4 t20 -6" />
+  {[[560, 244], [571, 238], [582, 240], [594, 236], [604, 232]].map(([x, y]) => <circle class="aa" cx={x} cy={y} r="5" />)}
+  <text class="lbl muted" x="462" y="232">ribosome</text>
+  <text class="lbl muted" x="604" y="374" text-anchor="end">mRNA</text>
+  <path class="lead" d="M604 362 L610 326" />
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .panel { fill: var(--surface); stroke: var(--border); }
+  .box { fill: var(--surface-2); stroke: var(--border-strong); }
+  .h { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .lbl { font-size: 14px; fill: var(--text); }
+  .muted { fill: var(--text-muted); }
+  .note { font-size: 13px; fill: var(--text-muted); font-style: italic; }
+  .bb { stroke: var(--text); stroke-width: 3; stroke-linecap: round; }
+  .base { stroke-width: 2; }
+  .base.A { fill: color-mix(in srgb, var(--bio-k) 30%, var(--surface)); stroke: var(--bio-k); }
+  .base.U { fill: color-mix(in srgb, var(--bio-glucose) 30%, var(--surface)); stroke: var(--bio-glucose); }
+  .base.G { fill: color-mix(in srgb, var(--bio-carb) 30%, var(--surface)); stroke: var(--bio-carb); }
+  .base.C { fill: color-mix(in srgb, var(--bio-protein) 30%, var(--surface)); stroke: var(--bio-protein); }
+  .base.free { stroke-dasharray: 4 3; }
+  .bl { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .strand { fill: none; stroke: var(--bio-protein-2); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  .rung { stroke: var(--bio-protein-2); stroke-width: 2.5; opacity: 0.7; }
+  .pocket { fill: color-mix(in srgb, var(--bio-protein-2) 18%, transparent); stroke: var(--bio-protein-2); stroke-width: 1.5; stroke-dasharray: 4 3; }
+  .substrate { fill: var(--bio-glucose); }
+  .lead { stroke: var(--text); stroke-width: 1.2; fill: none; }
+  .arrow { fill: none; stroke: var(--text); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .large { fill: color-mix(in srgb, var(--bio-protein-2) 25%, var(--surface)); stroke: var(--bio-protein-2); stroke-width: 2; }
+  .small { fill: color-mix(in srgb, var(--bio-protein) 25%, var(--surface)); stroke: var(--bio-protein); stroke-width: 2; }
+  .mrna { stroke: var(--bio-k); stroke-width: 3; }
+  .peptide { fill: none; stroke: var(--bio-carb); stroke-width: 2; }
+  .aa { fill: var(--bio-carb); }
+</style>

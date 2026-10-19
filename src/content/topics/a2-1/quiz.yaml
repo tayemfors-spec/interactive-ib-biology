@@ -1,0 +1,210 @@
+questions:
+  - id: q1
+    level: AHL
+    understanding: A2.1.1
+    stem: >-
+      Which statement correctly explains why ultraviolet radiation reaching the surface of pre-biotic Earth
+      was much more intense than it is today?
+    options:
+      - id: a
+        text: The higher concentrations of CO₂ and methane let more ultraviolet light through the atmosphere.
+        why: CO₂ and methane are greenhouse gases that trap infrared radiation; they are not what blocks UV today. The difference is due to ozone.
+      - id: b
+        text: Intense ultraviolet light destroyed the ozone layer that had formed when the Earth cooled.
+        why: This reverses cause and effect. There was no ozone layer to destroy, because ozone is made from oxygen.
+      - id: c
+        text: There was little or no free oxygen, so there was no ozone layer to absorb ultraviolet light.
+        why: Correct. Ozone (O₃) forms from O₂. With almost no free O₂ there was no ozone layer, so UV, including the most damaging wavelengths, reached the surface.
+      - id: d
+        text: The young Sun was brighter than it is today and emitted more ultraviolet radiation.
+        why: The young Sun was actually about 30% dimmer overall. The key factor for UV at the surface was the lack of an ozone layer.
+    answer: c
+
+  - id: q2
+    level: AHL
+    understanding: A2.1.2
+    stem: >-
+      Which observation is the strongest reason for classifying viruses as non-living?
+    options:
+      - id: a
+        text: Viruses can be replicated only inside a host cell, using the host's ribosomes and enzymes.
+        why: Correct. A virus cannot carry out metabolism or reproduce by itself; every life process depends on a host cell, so it is not self-sustaining.
+      - id: b
+        text: Viruses are much smaller than the smallest bacterial cells.
+        why: Size alone does not decide whether something is alive. The question is whether it can sustain itself.
+      - id: c
+        text: Viruses contain nucleic acid surrounded by a protein coat.
+        why: Having genes is a feature viruses share with living things, so it is an argument that they are close to life, not a reason they are non-living.
+      - id: d
+        text: Viruses evolve rapidly because their genetic material mutates often.
+        why: Evolution is a property of living things. This observation, if anything, supports the view that viruses are on the borderline of life.
+    answer: a
+
+  - id: q3
+    level: AHL
+    understanding: A2.1.3
+    stem: >-
+      Hypotheses about how the first cells formed are particularly difficult to test. Which is the best
+      explanation of why?
+    options:
+      - id: a
+        text: The first cells were formed by spontaneous generation, which is known not to happen.
+        why: Pasteur showed that cells do not arise spontaneously under present conditions. That does not rule out a gradual origin from non-living matter under very different conditions long ago.
+      - id: b
+        text: Scientific hypotheses about events in the past can never be tested.
+        why: Many hypotheses about the past are testable — for example by predicting what fossils or DNA sequences should show. Testing is difficult here, not impossible.
+      - id: c
+        text: Laboratory experiments cannot make any of the molecules that are found in cells.
+        why: Many cell molecules, such as amino acids, fatty acids and some nucleotides, have been made from simple substances in the laboratory.
+      - id: d
+        text: The exact conditions on pre-biotic Earth are not known, and protocells did not leave fossils.
+        why: Correct. Without knowing the conditions they cannot be reproduced exactly, and soft, tiny protocells are unlikely to have fossilized in rocks that have mostly been destroyed since.
+    answer: d
+
+  - id: q4
+    level: AHL
+    understanding: A2.1.4
+    stem: >-
+      In the Miller–Urey experiment, a mixture of methane, ammonia, hydrogen and water vapour was exposed to
+      electric sparks for a week, and amino acids were detected. Which conclusion is best supported?
+    options:
+      - id: a
+        text: The first cells on Earth were formed by lightning in a reducing atmosphere.
+        why: Only small monomers formed. No polymers, self-replicating molecules or cells were produced, so the experiment says nothing directly about cells.
+      - id: b
+        text: Amino acids can form from inorganic substances without living organisms, if the conditions are similar to those used.
+        why: Correct. The experiment shows that pre-biotic synthesis is possible under its conditions; how relevant it is depends on whether early Earth really had those conditions.
+      - id: c
+        text: The early atmosphere of the Earth must have contained methane, ammonia and hydrogen.
+        why: The gas mixture was an assumption of the experiment, not something it tested. The early atmosphere is now thought to have been mainly CO₂ and N₂.
+      - id: d
+        text: Proteins could have formed spontaneously in the pre-biotic oceans.
+        why: Amino acids are the monomers of proteins, but the experiment did not show them joining into polypeptides.
+    answer: b
+
+  - id: q5
+    level: AHL
+    understanding: A2.1.4
+    stem: >-
+      A student repeats a Miller–Urey type experiment and detects amino acids. Which additional procedure
+      would best show that the electric sparks, rather than contamination by microorganisms, produced them?
+    options:
+      - id: a
+        text: Repeat the experiment for two weeks instead of one to see whether more amino acids form.
+        why: More product over a longer time does not distinguish between synthesis by sparks and growth of contaminating microorganisms, which could also increase.
+      - id: b
+        text: Use a larger flask so that more of the gas mixture is exposed to the sparks.
+        why: Changing the scale does not provide a comparison. Without a control, the source of the amino acids remains uncertain.
+      - id: c
+        text: Run an identical sterilized apparatus with the same gases but no sparks, and analyse it in the same way.
+        why: Correct. This control keeps every variable the same except the energy source. If no amino acids form without sparks, the sparks must be responsible.
+      - id: d
+        text: Add oxygen to the gas mixture to see whether this increases the yield of amino acids.
+        why: This tests a different question (the effect of oxygen). Oxygen in fact reduces the yield, but it does not rule out contamination.
+    answer: c
+
+  - id: q6
+    level: AHL
+    understanding: A2.1.5
+    stem: >-
+      Fatty acids added to water can assemble into micelles or into vesicles. Why could only a vesicle have
+      acted as the boundary of a protocell?
+    options:
+      - id: a
+        text: Only vesicles are made of molecules with a hydrophilic head and a hydrophobic tail.
+        why: Micelles and vesicles are made of the same amphipathic fatty acid molecules. They differ in how the molecules are arranged.
+      - id: b
+        text: Vesicles need energy from ATP to form, so they can be controlled by the cell.
+        why: Vesicles form spontaneously, with no energy input or enzymes, because this keeps the hydrophobic tails away from water.
+      - id: c
+        text: Micelles are completely permeable, while vesicle membranes are impermeable to all molecules.
+        why: Fatty acid vesicle membranes are partially permeable — small molecules such as nucleotides can cross slowly, while larger molecules are retained.
+      - id: d
+        text: A vesicle is a bilayer enclosing water, so molecules inside are separated from outside; a micelle has no internal water.
+        why: Correct. The water-filled interior of a vesicle is a compartment whose chemistry can become different from the surroundings. A micelle has the tails packed in its centre.
+    answer: d
+
+  - id: q7
+    level: AHL
+    understanding: A2.1.6
+    stem: >-
+      Which observation provides the strongest support for the hypothesis that RNA once acted as both the
+      genetic material and the main catalyst in early cells?
+    options:
+      - id: a
+        text: RNA contains the base uracil instead of thymine.
+        why: This is a difference between RNA and DNA, but it does not show that RNA can store information or catalyse reactions.
+      - id: b
+        text: Ribosomal RNA in the ribosome catalyses the formation of peptide bonds.
+        why: Correct. Here RNA acts as an enzyme (a ribozyme). Combined with RNA's ability to carry a base sequence that can be copied, this shows one molecule could do both jobs.
+      - id: c
+        text: DNA is more stable than RNA because it is double-stranded.
+        why: This explains why DNA later took over information storage, but not why RNA could have been both genes and enzymes.
+      - id: d
+        text: Messenger RNA carries a copy of a gene from the nucleus to the ribosomes.
+        why: This shows RNA carrying information, but not acting as a catalyst, which is the other half of the hypothesis.
+    answer: b
+
+  - id: q8
+    level: AHL
+    understanding: A2.1.7
+    stem: >-
+      Which observation is the strongest evidence that all living organisms share a single last universal
+      common ancestor (LUCA)?
+    options:
+      - id: a
+        text: All organisms are made of cells.
+        why: This is consistent with a common ancestor, but cells could in principle have arisen more than once. A shared arbitrary code is far stronger evidence.
+      - id: b
+        text: All organisms need water for their metabolism.
+        why: Every form of life on Earth needs water, but this reflects the chemistry of life, not shared inheritance.
+      - id: c
+        text: Fossils show that the earliest organisms were all prokaryotes.
+        why: Fossils of early prokaryotes cannot show whether they shared one ancestor, and they show no genes.
+      - id: d
+        text: Almost all organisms use the same genetic code, with the same codons for the same amino acids.
+        why: Correct. The code is largely arbitrary, so the same codon meanings in bacteria, archaea and eukaryotes are best explained by inheritance from one ancestor.
+    answer: d
+
+  - id: q9
+    level: AHL
+    understanding: A2.1.8
+    stem: >-
+      Graphite in 3.7 billion-year-old sedimentary rocks from Greenland has a lower ¹³C/¹²C ratio than
+      carbonate minerals in the same rocks. What is the best interpretation?
+    options:
+      - id: a
+        text: The carbon in the graphite may have been fixed by living organisms, which take up ¹²C slightly faster than ¹³C.
+        why: Correct. Carbon fixation by organisms favours the lighter isotope, so organic carbon is depleted in ¹³C. It is evidence of life, though some non-living processes can also do this.
+      - id: b
+        text: The rocks are younger than their radiometric date because ¹³C has decayed.
+        why: ¹³C is a stable isotope and does not decay. The age of the rocks comes from radiometric dating of other isotopes, such as uranium and lead.
+      - id: c
+        text: The graphite formed when the early atmosphere contained more oxygen than today.
+        why: The atmosphere 3.7 billion years ago had little or no free oxygen, and the isotope ratio says nothing about oxygen.
+      - id: d
+        text: The graphite was formed from fossil cyanobacteria that released oxygen.
+        why: The isotope ratio suggests biological carbon fixation, but it cannot identify which organisms were involved, and there is no fossil evidence here.
+    answer: a
+
+  - id: q10
+    level: AHL
+    understanding: A2.1.9
+    stem: >-
+      A comparison of genomes identified protein families that were probably present in LUCA. They included
+      enzymes for anaerobic metabolism, for using hydrogen gas and fixing CO₂, and an enzyme found only in
+      organisms living at high temperatures. Which environment best fits these data?
+    options:
+      - id: a
+        text: A sunlit shallow pool where photosynthesis released oxygen.
+        why: The enzymes point to anaerobic life using H₂, not oxygenic photosynthesis, which evolved later.
+      - id: b
+        text: Cold, oxygen-rich surface ocean water.
+        why: There was little free oxygen on early Earth, and the data indicate anaerobic metabolism at high temperatures.
+      - id: c
+        text: A hydrothermal vent, with warm water rich in H₂ and dissolved CO₂ and no free oxygen.
+        why: Correct. Alkaline vents provide warmth, H₂, CO₂ and anoxic conditions — exactly what these conserved genes suggest LUCA needed.
+      - id: d
+        text: The upper atmosphere, where lightning provides energy for reactions.
+        why: Organisms do not live in the upper atmosphere, and lightning would not explain genes for H₂ use and CO₂ fixation.
+    answer: c
