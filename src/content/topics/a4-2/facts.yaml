@@ -1,0 +1,187 @@
+facts:
+  - id: f1
+    claim: Biodiversity is the variety of life at ecosystem, species and genetic levels; species diversity includes richness and evenness.
+    where: [ "index.mdx#what-is-biodiversity", "index.mdx (mustKnow, mistakes)", "flashcards.yaml:c1", "flashcards.yaml:c2", "quiz.yaml:q1" ]
+    confidence: high
+    basis: IB guide A4.2.1; Convention on Biological Diversity (1992) definition; standard ecology texts
+    status: checked
+  - id: f2
+    claim: About 2 million species have been described, with roughly 15,000–20,000 new species described each year.
+    where: [ "index.mdx#species-counts", "flashcards.yaml:c3", "index.mdx (mistakes)" ]
+    confidence: medium
+    basis: Catalogue of Life / IUCN summary (about 2.1–2.2 million described species); annual State of Observed Species reports (~18,000 per year)
+    status: open
+  - id: f3
+    claim: A widely cited estimate puts the number of eukaryotic species at about 8.7 million, most not yet described.
+    where: [ "index.mdx#species-counts", "flashcards.yaml:c3" ]
+    confidence: high
+    basis: Mora et al. (2011) PLoS Biology 9 e1001127 — 8.7 ± 1.3 million eukaryotic species, ~86% of land and ~91% of ocean species undescribed
+    status: checked
+  - id: f4
+    claim: Fossil evidence (counts of marine genera and families) suggests that more species are alive today than at any time in the past.
+    where: [ "index.mdx#species-counts", "flashcards.yaml:c3" ]
+    confidence: high
+    basis: IB guide A4.2.2; Sepkoski marine genus compilations; Allott study guide p.187 (checked, not copied)
+    status: checked
+  - id: f5
+    claim: The Tapanuli orangutan was described as a third orangutan species in 2017; the Chinese giant salamander has been proposed to comprise several species.
+    where: [ "index.mdx#species-counts", "src/sims/models/a4-2-edge.ts (salamander)" ]
+    confidence: high
+    basis: Nater et al. (2017) Current Biology 27 3487; Turvey et al. (2019) Ecology and Evolution (Andrias sligoi) and Chai et al. (2022)
+    status: checked
+  - id: f6
+    claim: "Five mass extinctions, with approximate ages and species losses: End-Ordovician ~443 Ma ~86%; Late Devonian ~359 Ma ~75%; End-Permian ~252 Ma ~96%; End-Triassic ~201 Ma ~80%; End-Cretaceous 66 Ma ~76%. A mass extinction is usually defined as loss of ≥ ~75% of species."
+    where: [ "src/sims/models/a4-2-extinction-data.ts", "visuals.yaml:extinction-data", "index.mdx#extinctions" ]
+    confidence: high
+    basis: Barnosky et al. (2011) Nature 471 51–57, Table 1 (Permian 251 → 252 Ma and Cretaceous 65 → 66 Ma updated to current ICS dates). Species losses are estimated from genus-level fossil data and are uncertain.
+    status: checked
+  - id: f7
+    claim: Probable triggers — End-Ordovician glaciation; Late Devonian uncertain (ocean anoxia, climate change, several pulses); End-Permian Siberian Traps volcanism; End-Triassic volcanism (Central Atlantic Magmatic Province) as Pangaea rifted; End-Cretaceous Chicxulub asteroid impact with Deccan Traps volcanism.
+    where: [ "src/sims/models/a4-2-extinction-data.ts", "index.mdx#extinctions" ]
+    confidence: medium
+    basis: Standard palaeontology reviews (e.g. Bond & Grasby 2017, Palaeogeography Palaeoclimatology Palaeoecology); causes remain debated, especially for the Devonian
+    status: open
+  - id: f8
+    claim: About 1.5% of well-studied mammal and bird species are recorded as extinct since 1500, and about 26% of assessed mammals are threatened; even losing all threatened mammals would be below the 75% threshold, but the rate is far faster than in past events.
+    where: [ "src/sims/models/a4-2-extinction-data.ts (today)", "visuals.yaml:extinction-data" ]
+    confidence: medium
+    basis: IUCN Red List (roughly 85 extinct of ~6,500 mammals; ~160 extinct of ~11,000 birds); Barnosky et al. (2011) argument on rates
+    status: open
+  - id: f9
+    claim: North Island giant moa (Dinornis novaezealandiae) was one of nine moa species; flightless; females much larger than males (about 2 m at the back, well over 100 kg); its only significant predator was Haast's eagle.
+    where: [ "index.mdx#extinctions" ]
+    confidence: medium
+    basis: NZ Birds Online (Te Papa) species account; Bunce et al. (2009) PNAS on moa phylogeny; body mass estimates for females vary (~80–250 kg)
+    status: open
+  - id: f10
+    claim: Polynesian settlers (ancestors of Māori) arrived in New Zealand around 1250–1300 CE; moa were hunted (and eggs taken) and all moa species were extinct within about 150–200 years, by about 1400–1450; Haast's eagle died out at about the same time.
+    where: [ "index.mdx#extinctions", "index.mdx (mistakes)", "flashcards.yaml:c5", "quiz.yaml:q3", "visuals.yaml:causes exploit" ]
+    confidence: high
+    basis: Wilmshurst et al. (2011) PNAS 108 1815; Perry et al. (2014) Quaternary Science Reviews; Holdaway et al. (2014) Nature Communications 5 5436
+    status: checked
+  - id: f11
+    claim: Moa reproduced slowly (took several years to mature, laid few eggs) and evolved without mammal predators; dogs and rats introduced by settlers may have taken eggs and chicks.
+    where: [ "index.mdx#extinctions", "quiz.yaml:q3" ]
+    confidence: medium
+    basis: Turvey et al. (2005) Nature 435 940 (delayed maturity from bone growth rings); NZ Birds Online
+    status: open
+  - id: f12
+    claim: Caribbean monk seal (Neomonachus tropicalis) lived in the Caribbean, Gulf of Mexico and nearby Atlantic; killed from the 1490s and heavily in the 18th–19th centuries for blubber oil, meat and skins; over-fishing reduced its food; last confirmed sighting 1952 (Serranilla Bank); declared extinct in 2008.
+    where: [ "index.mdx#extinctions", "flashcards.yaml:c6", "visuals.yaml:causes exploit" ]
+    confidence: high
+    basis: IUCN Red List assessment (Extinct, 2008); NOAA Fisheries five-year review (2008); McClenachan & Cooper (2008) Proc. R. Soc. B; IB guide A4.2.3
+    status: checked
+  - id: f13
+    claim: Passenger pigeon (Ectopistes migratorius) of eastern North America formed flocks of hundreds of millions, was hunted commercially and lost forest habitat, bred colonially, and the last individual (Martha) died at Cincinnati Zoo in 1914.
+    where: [ "index.mdx#extinctions" ]
+    confidence: high
+    basis: Smithsonian Institution archives; Hung et al. (2014) PNAS on passenger pigeon population; illustrative local example only — teachers may substitute their own
+    status: checked
+  - id: f14
+    claim: Dipterocarpaceae has roughly 500–700 species depending on classification; mixed dipterocarp forest is the main lowland rainforest of Borneo, Sumatra and the Malay Peninsula, with emergent trees often over 50 m, very high species richness and mast fruiting every few years.
+    where: [ "index.mdx#ecosystem-loss", "flashcards.yaml:c7" ]
+    confidence: medium
+    basis: Ashton (1982) Flora Malesiana; Whitmore, Tropical Rain Forests of the Far East; species counts differ between sources (Allott gives ~700)
+    status: open
+  - id: f15
+    claim: Mixed dipterocarp forest has been lost mainly to logging (from the 1970s), conversion to oil palm and pulpwood plantations, fire (especially in El Niño droughts) and peat drainage; lowland forest has been lost fastest and undisturbed forest survives mainly on steep uplands.
+    where: [ "index.mdx#ecosystem-loss", "flashcards.yaml:c7", "quiz.yaml:q4", "visuals.yaml:causes land" ]
+    confidence: high
+    basis: Gaveau et al. (2014, 2016); Sodhi et al. (2004) Trends Ecol. Evol. on Southeast Asian biodiversity; IB guide A4.2.4
+    status: checked
+  - id: f16
+    claim: About 30% of the forest present on Borneo in 1973 had been lost by 2010, and much of the remainder had been logged.
+    where: [ "index.mdx#ecosystem-loss" ]
+    confidence: high
+    basis: Gaveau et al. (2014) PLoS ONE 9 e101654 — 168,493 km² (30.2%) of 1973 forest lost by 2010; 266,257 km² logged
+    status: checked
+  - id: f17
+    claim: Dipterocarp seeds are recalcitrant (cannot be dried and frozen), so they cannot be conserved in conventional seed banks.
+    where: [ "index.mdx#approaches", "quiz.yaml:q8" ]
+    confidence: high
+    basis: Seed storage literature (e.g. Kew Seed Information Database; Tompsett 1987 on dipterocarp seed recalcitrance)
+    status: checked
+  - id: f18
+    claim: Less than a few per cent (commonly cited as under 4%) of the original North American tallgrass prairie remains, lost to ploughing, fire suppression and removal of bison.
+    where: [ "index.mdx#ecosystem-loss" ]
+    confidence: medium
+    basis: US National Park Service / Samson & Knopf (1994) BioScience 44 418; illustrative local example only
+    status: open
+  - id: f19
+    claim: "IPBES 2019 Global Assessment: ~1 million animal and plant species threatened with extinction; ~75% of land surface significantly altered; >85% of wetlands present in 1700 lost by 2000; extinction rate at least tens to hundreds of times the average of the past 10 million years; ranked direct drivers: land/sea-use change, direct exploitation, climate change, pollution, invasive alien species."
+    where: [ "index.mdx#evidence", "index.mdx#causes", "flashcards.yaml:c9", "index.mdx (mustKnow)", "quiz.yaml:q7" ]
+    confidence: high
+    basis: IPBES (2019) Global Assessment Report on Biodiversity and Ecosystem Services, Summary for Policymakers
+    status: checked
+  - id: f20
+    claim: "IUCN Red List percentages of assessed species threatened: amphibians ~41%, sharks and rays ~37%, conifers ~34%, mammals ~26%, birds ~12% (2024 summary); reef-building corals ~44% (Global Coral Assessment, November 2024)."
+    where: [ "src/sims/models/a4-2-extinction-data.ts (redList)", "visuals.yaml:extinction-data", "visuals.yaml:causes climate" ]
+    confidence: medium
+    basis: IUCN Red List summary statistics 2024; IUCN press release 12 November 2024 (corals). Figures change with each Red List update; a 2025 update gives sharks and rays ~38%.
+    status: open
+  - id: f21
+    claim: "Living Planet Report 2024: 73% average decline in monitored vertebrate populations 1970–2020 (~35,000 populations, over 5,000 species); Latin America & Caribbean 95%, Africa 76%, Asia–Pacific 60%, North America 39%, Europe & Central Asia 35%; freshwater 85%, terrestrial 69%, marine 56%. The index is an average change in population size, not a proportion of animals or species lost."
+    where: [ "src/sims/models/a4-2-extinction-data.ts (lpi)", "visuals.yaml:extinction-data", "quiz.yaml:q6", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: WWF (2024) Living Planet Report 2024; ZSL Living Planet Index methodology
+    status: checked
+  - id: f22
+    claim: Flying insect biomass in German protected areas fell by over 75% between 1989 and 2016, from standardized Malaise-trap samples collected largely by members of the Krefeld Entomological Society.
+    where: [ "index.mdx#evidence" ]
+    confidence: high
+    basis: Hallmann et al. (2017) PLoS ONE 12 e0185809
+    status: checked
+  - id: f23
+    claim: The world population roughly quadrupled between 1920 and 2020 (from under 2 billion to nearly 8 billion) and passed 8 billion in November 2022.
+    where: [ "index.mdx#causes", "visuals.yaml:causes driver" ]
+    confidence: high
+    basis: UN DESA World Population Prospects 2022; UN Day of Eight Billion (15 November 2022)
+    status: checked
+  - id: f24
+    claim: The chytrid fungus (Batrachochytrium dendrobatidis), spread globally, has caused declines in hundreds of amphibian species and dozens of extinctions; the mountain chicken frog was devastated by it in Dominica and Montserrat.
+    where: [ "index.mdx#causes", "visuals.yaml:causes invasive", "src/sims/models/a4-2-edge.ts" ]
+    confidence: high
+    basis: Scheele et al. (2019) Science 363 1459 (declines in ≥501 species, 90 presumed extinctions); Hudson et al. (2016) on the mountain chicken
+    status: checked
+  - id: f25
+    claim: Grey wolves were reintroduced to Yellowstone National Park in 1995; the last 27 wild California condors were taken into captivity in 1987 and releases began in 1992; the Arabian oryx was extinct in the wild by 1972 and reintroduced from captive herds.
+    where: [ "index.mdx#approaches" ]
+    confidence: high
+    basis: US National Park Service; US Fish and Wildlife Service California Condor Recovery Program; IUCN Red List (Oryx leucoryx, reintroduction from 1982, downlisted to Vulnerable 2011)
+    status: checked
+  - id: f26
+    claim: Seed banks dry seeds and store them at about −20 °C; tissue banks store cells, eggs and sperm in liquid nitrogen at about −196 °C.
+    where: [ "index.mdx#approaches", "flashcards.yaml:c15", "quiz.yaml:q8", "src/diagrams/a4-2-conservation.astro" ]
+    confidence: high
+    basis: Royal Botanic Gardens Kew Millennium Seed Bank protocols (drying to ~15% RH, storage at −20 °C); cryobanking practice (e.g. San Diego Frozen Zoo)
+    status: checked
+  - id: f27
+    claim: Island predator eradication in New Zealand (rats, stoats) protects birds such as the kākāpō.
+    where: [ "index.mdx#approaches", "visuals.yaml:causes invasive" ]
+    confidence: high
+    basis: NZ Department of Conservation Kākāpō Recovery Programme
+    status: checked
+  - id: f28
+    claim: "The EDGE of Existence programme was launched by the Zoological Society of London in 2007. The original EDGE score is ln(1 + ED) + GE × ln 2, with ED in millions of years and GE = 0 (LC), 1 (NT), 2 (VU), 3 (EN), 4 (CR); each Red List step is treated as doubling extinction risk. EDGE species have above-median ED and are threatened. An updated method (EDGE2) was published in 2023."
+    where: [ "index.mdx#edge", "src/sims/models/a4-2-edge.ts", "visuals.yaml:edge", "flashcards.yaml:c17", "quiz.yaml:q10" ]
+    confidence: high
+    basis: Isaac et al. (2007) PLoS ONE 2 e296; Gumbs et al. (2023) PLoS Biology 21 e3001991 (EDGE2)
+    status: checked
+  - id: f29
+    claim: The baiji (Lipotes vexillifer) had the highest EDGE score (6.48) in the 2007 mammal analysis; none were found in a 2006 survey and it is listed as Critically Endangered (possibly extinct).
+    where: [ "src/sims/models/a4-2-edge.ts", "visuals.yaml:edge" ]
+    confidence: high
+    basis: Isaac et al. (2007) PLoS ONE 2 e296; Turvey et al. (2007) Biology Letters 3 537; IUCN Red List
+    status: checked
+  - id: f30
+    claim: "IUCN categories and distinctiveness of EDGE explorer species: Attenborough's long-beaked echidna CR, monotreme (five living species); aye-aye EN, sole living species of Daubentoniidae; Chinese giant salamander CR, family Cryptobranchidae; platypus NT, sole living species of Ornithorhynchidae; tuatara LC (2019), sole living rhynchocephalian, lineage split from squamates over 200 Ma; mountain chicken frog CR, genus Leptodactylus with dozens of species; house sparrow LC. ED is shown only qualitatively; no scores are invented."
+    where: [ "src/sims/models/a4-2-edge.ts", "visuals.yaml:edge" ]
+    confidence: medium
+    basis: IUCN Red List species accounts (current categories); Isaac et al. (2007); EDGE of Existence species pages. Qualitative ED bands are an editorial judgement from phylogenetic position.
+    status: open
+  - id: f31
+    claim: The main threats listed for EDGE explorer species (echidna — hunting and forest loss; baiji — by-catch, dams, pollution, boat traffic; aye-aye — forest loss and killing; salamander — over-collection and genetic mixing from farm releases; tuatara — protected on predator-free islands).
+    where: [ "src/sims/models/a4-2-edge.ts" ]
+    confidence: medium
+    basis: IUCN Red List threat accounts; EDGE of Existence species pages
+    status: open

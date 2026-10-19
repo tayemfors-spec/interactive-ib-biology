@@ -1,0 +1,74 @@
+# Visuals for A4.2. Step captions and descriptions here are what readers see, so they are written to exam standard.
+# Every figure shown in the sims is recorded with its source in facts.yaml.
+visuals:
+  - id: extinction-data
+    kind: sim
+    module: a4-2-extinction-data
+    title: Evidence for a biodiversity crisis
+    alt: Charts of the five past mass extinctions, the share of species threatened today by group, and declines in wildlife populations since 1970.
+    description: >-
+      A chart explorer with three data sets. The first is a timeline of the five mass extinctions, each shown as a
+      bar of the approximate percentage of species lost: End-Ordovician about 443 million years ago (about 86%),
+      Late Devonian about 359 million years ago (about 75%), End-Permian about 252 million years ago (about 96%),
+      End-Triassic about 201 million years ago (about 80%) and End-Cretaceous 66 million years ago (about 76%).
+      A dashed line marks the usual threshold for a mass extinction, the loss of at least 75% of species. A bar for
+      today shows that about 1.5% of mammal and bird species are recorded as extinct since 1500, with a dashed outline
+      for the roughly 26% of mammals that are threatened. Buttons give the probable trigger of each event. The second
+      data set shows the percentage of assessed species threatened on the IUCN Red List (2024): reef-building corals
+      about 44%, amphibians 41%, sharks and rays 37%, conifers 34%, mammals 26% and birds 12%. The third shows the
+      Living Planet Index (2024): an average 73% decline in the size of monitored vertebrate populations from 1970 to
+      2020, with the steepest decline in Latin America and the Caribbean (95%) and in freshwater populations (85%).
+      Each data set has a data table.
+
+  - id: causes
+    kind: anim
+    module: a4-2-causes
+    title: What is driving the biodiversity crisis?
+    alt: Flow diagram from human population growth through five direct causes and their effects to extinction and ecosystem loss.
+    description: >-
+      A flow diagram read from top to bottom. At the top is the underlying cause: growth of the human population
+      together with rising use of resources per person. From it, five direct causes branch off, each with its effect
+      on wildlife: land-use change destroys and fragments habitat; over-exploitation kills individuals faster than they
+      are replaced; invasive alien species, pests and diseases bring predation, competition and disease; pollution
+      poisons habitats or makes water eutrophic; and climate change alters conditions faster than species can adapt.
+      All five feed into the outcome at the bottom: smaller, isolated populations with less genetic diversity, leading
+      to the extinction of species and the loss of whole ecosystems.
+    steps:
+      - id: driver
+        title: The underlying cause
+        caption: The human population roughly quadrupled between 1920 and 2020, from under 2 billion to nearly 8 billion, and passed 8 billion in 2022, and each person on average uses more land, food, water, timber and energy than before. This growth in total demand is the overarching cause behind all five direct causes that follow.
+      - id: land
+        title: Land-use change
+        caption: Forests and grasslands are cleared for crops, livestock, plantations, towns and roads. Habitat is destroyed and the rest is split into fragments too small for many species. This is the biggest single driver on land — for example, the loss of lowland mixed dipterocarp forest in Southeast Asia to logging and oil palm plantations.
+      - id: exploit
+        title: Over-exploitation
+        caption: Hunting, fishing, logging and collecting remove individuals faster than reproduction can replace them. The North Island giant moa was hunted to extinction within about two centuries of people reaching New Zealand, and the Caribbean monk seal was killed for its oil until none were left.
+      - id: invasive
+        title: Invasive species, pests and diseases
+        caption: Global transport carries species to places where they have no natural predators or competitors. Introduced rats, cats and stoats prey on birds that evolved without mammal predators, and the chytrid fungus, spread around the world, has caused steep declines and extinctions of amphibians.
+      - id: pollution
+        title: Pollution
+        caption: Fertilizer run-off causes eutrophication and algal blooms that remove oxygen from water; pesticides kill non-target insects and build up in food chains; plastic waste entangles or is swallowed by marine animals.
+      - id: climate
+        title: Climate change
+        caption: Rising temperatures shift the areas where species can live faster than many can move or adapt. Marine heatwaves cause coral bleaching, which is the main reason that about 44% of reef-building coral species are now threatened.
+      - id: outcome
+        title: The causes act together
+        caption: The causes interact — for example, roads built for logging let hunters in, and fragmented habitats are easier for invasive species to enter. Populations become small and isolated, lose genetic diversity, and are then at high risk of extinction. When enough species are lost, whole ecosystems disappear.
+
+  - id: edge
+    kind: sim
+    module: a4-2-edge
+    title: EDGE of Existence explorer
+    alt: Real species placed on a grid of evolutionary distinctiveness against IUCN category, with an EDGE score calculator.
+    description: >-
+      A grid with evolutionary distinctiveness (low, moderate, high, very high) across and IUCN Red List category
+      (Least Concern to Critically Endangered) up the side. The top-right region, where species are both distinct and
+      threatened, is marked as the EDGE zone. Eight real species are placed on it, with distinctiveness shown
+      qualitatively: Attenborough's long-beaked echidna (Critically Endangered, very high), the baiji or Yangtze river
+      dolphin (Critically Endangered, very high), the aye-aye (Endangered, very high) and the Chinese giant salamander
+      (Critically Endangered, high) are EDGE species. The platypus (Near Threatened) and tuatara (Least Concern) are
+      very distinct but not threatened; the mountain chicken frog (Critically Endangered) is threatened but has many
+      close relatives; the house sparrow (Least Concern) is neither. Choosing a species explains its position. Below,
+      two sliders set an illustrative ED value and Red List category and show the score from the rule
+      EDGE = ln(1 + ED) + GE × ln 2.

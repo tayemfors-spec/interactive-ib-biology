@@ -1,0 +1,192 @@
+---
+import { categories, distinctLevels, edgeScore, isEdge, nameOf, species } from './models/a4-2-edge';
+
+// Qualitative grid: columns = distinctiveness band, rows = IUCN category (LC at the bottom).
+const G = { w: 540, h: 360, left: 92, right: 10, top: 14, bottom: 56 };
+const cw = (G.w - G.left - G.right) / distinctLevels.length;
+const rh = (G.h - G.top - G.bottom) / categories.length;
+const colX = (i: number) => G.left + i * cw;
+const rowY = (ge: number) => G.top + (categories.length - 1 - ge) * rh;
+const short: Record<string, string> = {
+  echidna: 'Echidna', baiji: 'Baiji', ayeaye: 'Aye-aye', salamander: 'Salamander',
+  platypus: 'Platypus', tuatara: 'Tuatara', mountainchicken: 'Mountain chicken', sparrow: 'House sparrow',
+};
+// Position each species within its cell; stack when two share a cell.
+const seen = new Map<string, number>();
+const pts = species.map((s) => {
+  const ge = categories.find((c) => c.code === s.category)!.ge;
+  const col = distinctLevels.indexOf(s.ed);
+  const key = `${col}-${ge}`;
+  const n = seen.get(key) ?? 0; seen.set(key, n + 1);
+  const shared = species.filter((o) => o.ed === s.ed && o.category === s.category).length > 1;
+  return { s, x: colX(col) + (col === 3 ? 22 : 14), y: rowY(ge) + rh / 2 + (shared ? (n === 0 ? -13 : 13) : 0) };
+});
+const first = species[0]!;
+const def = { ed: 20, ge: 3 };
+const tag = (s: typeof first) => (isEdge(s) ? 'EDGE species: distinct and threatened' : 'Not an EDGE priority');
+---
+<div class="edge" data-edge>
+  <div class="formula" aria-label="EDGE combines two measures">
+    <div class="part"><strong><abbr title="Evolutionarily Distinct">ED</abbr></strong> How much unique evolutionary history would be lost: few or no close relatives, on a long, separate branch of the tree of life.</div>
+    <div class="plus" aria-hidden="true">+</div>
+    <div class="part"><strong><abbr title="Globally Endangered">GE</abbr></strong> How likely the species is to become extinct, from its IUCN Red List category (Least Concern → Critically Endangered).</div>
+  </div>
+
+  <div class="layout">
+    <svg class="grid" viewBox={`0 0 ${G.w} ${G.h}`} role="img" aria-labelledby="edge-t edge-d">
+      <title id="edge-t">Species placed by evolutionary distinctiveness and IUCN category</title>
+      <desc id="edge-d">{species.map((s) => `${s.name}: ${s.ed} distinctiveness, ${nameOf(s.category)}${isEdge(s) ? ', an EDGE species' : ''}.`).join(' ')}</desc>
+      <rect class="zone" x={colX(2)} y={rowY(4)} width={cw * 2} height={rh * 3} rx="8" />
+      <text class="zone-t" x={colX(4) - 8} y={rowY(2) + rh * 1 - 6} text-anchor="end">EDGE zone</text>
+      {categories.map((c) => (
+        <>
+          <line class="row" x1={G.left} x2={G.w - G.right} y1={rowY(c.ge) + rh} y2={rowY(c.ge) + rh} />
+          <text class="rlab" x={G.left - 8} y={rowY(c.ge) + rh / 2} dy="0.35em" text-anchor="end">{c.code}<tspan class="ge"> · GE {c.ge}</tspan></text>
+        </>
+      ))}
+      {distinctLevels.map((d, i) => (
+        <>
+          <line class="row" x1={colX(i)} x2={colX(i)} y1={G.top} y2={G.h - G.bottom} />
+          <text class="clab" x={colX(i) + cw / 2} y={G.h - G.bottom + 18} text-anchor="middle">{d}</text>
+        </>
+      ))}
+      <text class="axis" x={G.left + (G.w - G.left - G.right) / 2} y={G.h - 10} text-anchor="middle">Evolutionary distinctiveness →</text>
+      <text class="axis" transform={`translate(14 ${(G.top + G.h - G.bottom) / 2}) rotate(-90)`} text-anchor="middle">Risk of extinction →</text>
+      {pts.map(({ s, x, y }) => (
+        <g class:list={['pt', { on: s.id === first.id, edgey: isEdge(s) }]} data-pt={s.id}>
+          <circle cx={x} cy={y} r="7" />
+          <text x={x + 12} y={y} dy="0.35em">{short[s.id]}</text>
+        </g>
+      ))}
+    </svg>
+
+    <div class="side">
+      <div class="choices" role="group" aria-label="Choose a species">
+        {species.map((s) => <button type="button" class="btn chip" aria-pressed={s.id === first.id ? 'true' : 'false'} data-sp={s.id}>{s.name}</button>)}
+      </div>
+      <div class="card" aria-live="polite" data-card>
+        <p class="c-name"><strong data-c-name>{first.name}</strong> <em data-c-latin>{first.latin}</em></p>
+        <dl>
+          <div><dt>IUCN category</dt><dd data-c-cat>{nameOf(first.category)} ({first.category})</dd></div>
+          <div><dt>Distinctiveness</dt><dd data-c-ed>{first.ed}</dd></div>
+        </dl>
+        <p><strong>Why distinct (or not):</strong> <span data-c-why>{first.why}</span></p>
+        <p><strong>Status:</strong> <span data-c-status>{first.status}</span></p>
+        <p class="verdict" data-c-verdict data-edge-yes={String(isEdge(first))}>{tag(first)}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="calc">
+    <p class="calc-h"><strong>Try the scoring rule</strong> <span class="muted">(illustrative values — real ED values come from published evolutionary trees)</span></p>
+    <div class="calc-grid">
+      <label class="slider">Evolutionary distinctiveness, ED: <output data-out="ed">{def.ed} million years</output>
+        <input type="range" min="0" max="60" step="1" value={def.ed} data-param="ed" />
+      </label>
+      <label class="slider">IUCN category: <output data-out="ge">{categories[def.ge]!.name} (GE = {def.ge})</output>
+        <input type="range" min="0" max="4" step="1" value={def.ge} data-param="ge" />
+      </label>
+    </div>
+    <div class="score" aria-hidden="true">
+      <span class="seg seg-ed" data-seg="ed" style={`width:${(Math.log(1 + def.ed) / 7) * 100}%`}>ED part</span>
+      <span class="seg seg-ge" data-seg="ge" style={`width:${((def.ge * Math.LN2) / 7) * 100}%`}>GE part</span>
+    </div>
+    <p class="readout" aria-live="polite" data-readout>
+      EDGE score = ln(1 + ED) + GE × ln 2 = {Math.log(1 + def.ed).toFixed(2)} + {(def.ge * Math.LN2).toFixed(2)} = <strong>{edgeScore(def.ed, def.ge).toFixed(2)}</strong>.
+    </p>
+    <p class="model-note">Scoring rule from the original EDGE method (Isaac et al., 2007); the programme now uses an updated version (EDGE2) built on the same two ideas. Each step up the Red List adds ln 2, as much as doubling (1 + ED): the method treats each step as doubling the risk of extinction.</p>
+  </div>
+</div>
+
+<script>
+  import { categories, edgeScore, isEdge, nameOf, species } from './models/a4-2-edge';
+
+  document.querySelectorAll<HTMLElement>('[data-edge]').forEach((root) => {
+    const btns = [...root.querySelectorAll<HTMLButtonElement>('[data-sp]')];
+    const set = (k: string, v: string) => (root.querySelector(`[data-c-${k}]`)!.textContent = v);
+    btns.forEach((b) => b.addEventListener('click', () => {
+      const s = species.find((x) => x.id === b.dataset.sp)!;
+      btns.forEach((o) => o.setAttribute('aria-pressed', String(o === b)));
+      root.querySelectorAll<SVGGElement>('[data-pt]').forEach((g) => g.classList.toggle('on', g.dataset.pt === s.id));
+      set('name', s.name); set('latin', s.latin); set('cat', `${nameOf(s.category)} (${s.category})`); set('ed', s.ed);
+      set('why', s.why); set('status', s.status);
+      const v = root.querySelector<HTMLElement>('[data-c-verdict]')!;
+      v.dataset.edgeYes = String(isEdge(s));
+      v.textContent = isEdge(s) ? 'EDGE species: distinct and threatened' : s.category === 'LC' || s.category === 'NT'
+        ? 'Not an EDGE priority: distinct but not threatened'
+        : 'Not an EDGE priority: threatened, but with many close relatives';
+      if (s.ed === 'low' && (s.category === 'LC' || s.category === 'NT')) v.textContent = 'Not an EDGE priority: neither distinct nor threatened';
+    }));
+
+    const get = (k: string) => Number(root.querySelector<HTMLInputElement>(`[data-param="${k}"]`)!.value);
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    let timer = 0;
+    const update = () => {
+      const ed = get('ed'), ge = get('ge');
+      root.querySelector('[data-out="ed"]')!.textContent = `${ed} million years`;
+      root.querySelector('[data-out="ge"]')!.textContent = `${categories[ge]!.name} (GE = ${ge})`;
+      const a = Math.log(1 + ed), g = ge * Math.LN2;
+      root.querySelector<HTMLElement>('[data-seg="ed"]')!.style.width = `${(a / 7) * 100}%`;
+      root.querySelector<HTMLElement>('[data-seg="ge"]')!.style.width = `${(g / 7) * 100}%`;
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        readout.innerHTML = `EDGE score = ln(1 + ED) + GE × ln 2 = ${a.toFixed(2)} + ${g.toFixed(2)} = <strong>${edgeScore(ed, ge).toFixed(2)}</strong>.` +
+          (ge === 0 ? ' A Least Concern species gets nothing from the GE part, however distinct it is.' : '') +
+          (ed === 0 ? ' With no unique evolutionary history (ED = 0) the score comes only from extinction risk.' : '');
+      }, 300);
+    };
+    root.querySelectorAll('[data-param]').forEach((el) => el.addEventListener('input', update));
+  });
+</script>
+
+<style>
+  .edge { container-type: inline-size; }
+  .formula { display: grid; gap: var(--space-2); margin-bottom: var(--space-4); font-size: var(--step--1); }
+  @container (min-width: 36rem) { .formula { grid-template-columns: 1fr auto 1fr; align-items: center; } }
+  .part { padding: var(--space-3); border-radius: var(--radius-m); background: var(--surface-2); border-left: 4px solid var(--accent); }
+  .part strong { display: block; font-size: var(--step-0); }
+  .part abbr { text-decoration: none; }
+  .plus { font-size: 1.6rem; font-weight: 800; text-align: center; color: var(--accent-strong); }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 50rem) { .layout { grid-template-columns: minmax(0, 1.25fr) minmax(16rem, 1fr); align-items: start; } }
+  .grid { width: 100%; height: auto; font-family: var(--font-sans); background: var(--surface-2); border-radius: var(--radius-m); }
+  .zone { fill: color-mix(in srgb, var(--accent) 16%, transparent); stroke: var(--accent); stroke-width: 2; stroke-dasharray: 7 5; }
+  .zone-t { font-size: 14px; font-weight: 800; fill: var(--accent-strong); }
+  .row { stroke: var(--border); stroke-width: 1; }
+  .rlab, .clab { font-size: 14px; fill: var(--text-muted); font-weight: 650; }
+  .axis { font-size: 15px; font-weight: 700; fill: var(--text); }
+  .pt circle { fill: var(--surface); stroke: var(--text-muted); stroke-width: 2.5; }
+  .pt.edgey circle { fill: var(--accent); stroke: var(--accent-strong); }
+  .pt text { font-size: 14px; fill: var(--text); font-weight: 600; }
+  @container (max-width: 34rem) {
+    .rlab, .clab { font-size: 19px; }
+    .axis, .zone-t { font-size: 19px; }
+    .pt text { font-size: 18px; }
+    .rlab .ge { display: none; }
+  }
+  .pt.on circle { stroke: var(--text); stroke-width: 4.5; }
+  .pt.on text { font-weight: 800; }
+  .choices { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); }
+  .chip { min-height: 2.1rem; padding: 0.3rem 0.65rem; }
+  .card { padding: var(--space-3); border-radius: var(--radius-m); background: var(--surface-2); font-size: var(--step--1); }
+  .card p { margin: 0 0 var(--space-2); }
+  .c-name em { color: var(--text-muted); }
+  dl { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); margin: 0 0 var(--space-2); }
+  dt { font-weight: 700; color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  dd { margin: 0; font-weight: 650; }
+  .verdict { font-weight: 800; margin: 0 !important; color: var(--text-muted); }
+  .verdict[data-edge-yes='true'] { color: var(--good); }
+  .calc { margin-top: var(--space-4); padding-top: var(--space-3); border-top: 1px solid var(--border); }
+  .calc-h { margin: 0 0 var(--space-3); font-size: var(--step--1); }
+  .muted { color: var(--text-muted); }
+  .calc-grid { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  @container (min-width: 36rem) { .calc-grid { grid-template-columns: 1fr 1fr; } }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .score { display: flex; height: 1.7rem; margin-top: var(--space-3); background: var(--surface-3); border-radius: var(--radius-s); overflow: hidden; font-size: 0.75rem; font-weight: 700; }
+  .seg { display: flex; align-items: center; padding: 0 0.4rem; white-space: nowrap; overflow: hidden; color: var(--text); }
+  .seg-ed { background: color-mix(in srgb, var(--bio-protein) 45%, var(--surface)); }
+  .seg-ge { background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--bio-chol) 45%, var(--surface)) 0 6px, color-mix(in srgb, var(--bio-chol) 30%, var(--surface)) 6px 12px); }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

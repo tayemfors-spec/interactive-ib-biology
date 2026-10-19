@@ -1,0 +1,73 @@
+cards:
+  - id: c1
+    level: SL
+    front: What are the three levels of biodiversity?
+    back: Ecosystem diversity (variety of habitats and communities), species diversity (richness and evenness of species) and genetic diversity (variety of alleles within each species, within and between populations).
+  - id: c2
+    level: SL
+    front: Species richness vs species evenness
+    back: Richness is the number of different species present. Evenness is how similar the numbers of individuals of each species are; a community dominated by one species has low evenness.
+  - id: c3
+    level: SL
+    front: How many species have been described, and is that all of them?
+    back: About 2 million have been described, but most species have not yet been discovered — one widely cited estimate is about 8.7 million species of eukaryotes. Fossil evidence suggests more species are alive today than at any time in the past.
+  - id: c4
+    level: SL
+    front: What is the difference between a "lumper" and a "splitter"?
+    back: Both classify the same observations. A splitter treats small consistent differences as enough to recognize separate species, so recognizes more species; a lumper groups variable populations into fewer, broader species.
+  - id: c5
+    level: SL
+    front: North Island giant moa — how and when did it become extinct?
+    back: A huge flightless bird of New Zealand, hunted for meat (and its eggs taken) after Polynesian settlers, the ancestors of Māori, arrived around 1250–1300 CE. It bred slowly and had no fear of humans; all moa were extinct within about 150–200 years.
+  - id: c6
+    level: SL
+    front: Caribbean monk seal — cause of extinction?
+    back: Killed in large numbers for the oil in its blubber (also meat and skins), mainly in the 18th and 19th centuries; it bred on accessible beaches and was unafraid of people. Over-fishing reduced its food. Last confirmed sighting 1952; declared extinct in 2008.
+  - id: c7
+    level: SL
+    front: Mixed dipterocarp forest — what is it and why is it being lost?
+    back: Species-rich lowland rainforest of Southeast Asia dominated by many species of dipterocarp trees. Lost to logging for valuable timber, conversion to oil palm and pulpwood plantations, and fires; driven indirectly by global demand, population growth and policy.
+  - id: c8
+    level: SL
+    front: Direct vs indirect causes of ecosystem loss
+    back: Direct causes destroy the ecosystem on the spot (logging, clearance, fire, drainage). Indirect causes create the pressure for destruction (demand for products, population growth, government policy, climate change).
+  - id: c9
+    level: SL
+    front: Name three findings of the 2019 IPBES Global Assessment.
+    back: About 1 million species threatened with extinction; about 75% of the land surface significantly altered by humans; over 85% of wetlands present in 1700 lost by 2000; extinction rates at least tens to hundreds of times the average of the past 10 million years.
+  - id: c10
+    level: SL
+    front: Why must biodiversity surveys be repeated to give evidence of a crisis?
+    back: One survey only shows what is present now. Repeating it in the same places with the same methods shows changes over time in species richness, evenness, population size and range. Surveys across many habitats show whether the change is widespread.
+  - id: c11
+    level: SL
+    front: Citizen science — one benefit and one methodological concern
+    back: Benefit — huge numbers of observers can cover large areas over many years cheaply. Concern — identification skill and effort vary, and records are biased towards accessible places and popular species. Standard methods, record checking and peer review reduce this.
+  - id: c12
+    level: SL
+    front: List the specific causes of the current biodiversity crisis.
+    back: Hunting and other over-exploitation; urbanization; deforestation and land clearance for agriculture (habitat loss); pollution; and pests, diseases and invasive alien species spread by global transport — with human population growth as the overarching cause, and climate change adding to them.
+  - id: c13
+    level: SL
+    front: In situ vs ex situ conservation
+    back: In situ keeps species in their natural habitat (managed nature reserves, rewilding, reclamation), conserving whole ecosystems and interactions. Ex situ keeps them outside it (zoos, botanic gardens, seed and tissue banks), as a back-up and source for reintroduction.
+  - id: c14
+    level: SL
+    front: Give three ways in which a nature reserve may need to be managed.
+    back: Any three of — removing invasive alien species; preventing poaching and controlling hunting; controlling human access; reintroducing locally extinct species; controlling population sizes of some species; managing habitats (e.g. by grazing or controlled burning).
+  - id: c15
+    level: SL
+    front: What is germ plasm, and how is it stored?
+    back: Living material that can be used to grow new organisms. Seeds are dried and kept at about −20 °C in seed banks; animal tissue, eggs and sperm are frozen in tissue banks, often in liquid nitrogen (about −196 °C).
+  - id: c16
+    level: SL
+    front: Why is no single approach to conservation enough?
+    back: Different species and threats need different measures. Ex situ populations are small, lose genetic diversity and cannot hold whole ecosystems, and some seeds cannot be frozen; in situ protection fails if the habitat is gone or a threat such as disease cannot be removed.
+  - id: c17
+    level: SL
+    front: What do E, D, G and E stand for in EDGE, and why target these species?
+    back: Evolutionarily Distinct and Globally Endangered. Such species have few or no close relatives, so their extinction would lose a large amount of unique evolutionary history, and they are at high risk of being lost.
+  - id: c18
+    level: SL
+    front: Why is the choice of species to conserve debated?
+    back: Prioritizing some species over others has ethical, environmental, political, social, cultural and economic implications. Alternatives to EDGE include keystone or flagship species, species important to local people, and cost-effectiveness.

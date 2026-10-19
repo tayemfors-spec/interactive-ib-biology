@@ -1,0 +1,220 @@
+---
+import { MASS_THRESHOLD, indexAfter, lpiRegions, lpiSystems, massExtinctions, redList, today } from './models/a4-2-extinction-data';
+
+// Timeline frame: x is millions of years ago (500 on the left, now on the right), y is % species lost.
+const F = { w: 600, h: 336, left: 64, right: 16, top: 34, bottom: 52, x0: 500, x1: -22 };
+const X = (ma: number) => F.left + ((F.x0 - ma) / (F.x0 - F.x1)) * (F.w - F.left - F.right);
+const Y = (p: number) => F.h - F.bottom - (p / 100) * (F.h - F.top - F.bottom);
+const anchor: Record<string, 'start' | 'middle' | 'end'> = { ordovician: 'start', devonian: 'middle', permian: 'middle', triassic: 'middle', cretaceous: 'middle' };
+const dx: Record<string, number> = { ordovician: -10, devonian: 0, permian: -6, triassic: 8, cretaceous: 0 };
+const BW = 18;
+const first = massExtinctions[2]!; // End-Permian selected by default
+const fmt = (v: number) => `≈${v}%`;
+---
+<div class="xd" data-xdata>
+  <div class="views" role="group" aria-label="Choose a data set">
+    <button type="button" class="btn" aria-pressed="true" data-view-btn="past">Past mass extinctions</button>
+    <button type="button" class="btn" aria-pressed="false" data-view-btn="redlist">Threatened today</button>
+    <button type="button" class="btn" aria-pressed="false" data-view-btn="lpi">Population trends</button>
+  </div>
+
+  <!-- ===== Past mass extinctions ===== -->
+  <section class="panel" data-view="past" aria-label="Past mass extinctions">
+    <svg class="chart" viewBox={`0 0 ${F.w} ${F.h}`} role="img" aria-labelledby="xd-past-t xd-past-d">
+      <title id="xd-past-t">The five mass extinctions: approximate percentage of species lost</title>
+      <desc id="xd-past-d">{massExtinctions.map((e) => `${e.name}, about ${e.ma} million years ago, about ${e.lost}% of species lost.`).join(' ')} Today: about {today.recorded}% of mammal and bird species recorded extinct since 1500; about {today.ifThreatenedLost}% of mammals are threatened.</desc>
+      <g class="grid">{[0, 25, 50, 75, 100].map((p) => <line x1={F.left} x2={F.w - F.right} y1={Y(p)} y2={Y(p)} />)}</g>
+      <g class="ticks">
+        {[0, 25, 50, 75, 100].map((p) => <text x={F.left - 8} y={Y(p)} dy="0.35em" text-anchor="end">{p}</text>)}
+        {[400, 300, 200, 100].map((m) => <text x={X(m)} y={F.h - F.bottom + 18} text-anchor="middle">{m}</text>)}
+        <text x={X(-8)} y={F.h - F.bottom + 18} text-anchor="middle" class="now-t">now</text>
+      </g>
+      <line class="axis-line" x1={F.left} x2={F.w - F.right} y1={Y(0)} y2={Y(0)} />
+      <line class="threshold" x1={F.left} x2={F.w - F.right} y1={Y(MASS_THRESHOLD)} y2={Y(MASS_THRESHOLD)} />
+      {massExtinctions.map((e) => (
+        <g data-event-bar={e.id} class:list={['ev', { on: e.id === first.id }]}>
+          <rect class="bar" x={X(e.ma) - BW / 2} y={Y(e.lost)} width={BW} height={Y(0) - Y(e.lost)} rx="3" />
+          <text class="bar-t" x={X(e.ma) + dx[e.id]!} y={Y(e.lost) - 7} text-anchor={anchor[e.id]}><tspan class="nm">{e.name.replace(/^(End-|Late )/, '')} </tspan>{fmt(e.lost)}</text>
+        </g>
+      ))}
+      <g data-event-bar="today" class="ev today">
+        <rect class="bar-if" x={X(-8) - BW / 2} y={Y(today.ifThreatenedLost)} width={BW} height={Y(0) - Y(today.ifThreatenedLost)} rx="3" />
+        <rect class="bar-now" x={X(-8) - BW / 2} y={Y(today.recorded)} width={BW} height={Math.max(2, Y(0) - Y(today.recorded))} />
+        <text class="bar-t" x={X(-8) + BW / 2} y={Y(today.ifThreatenedLost) - 7} text-anchor="end">Today?</text>
+      </g>
+      <text class="axis" x={(F.left + F.w - F.right) / 2} y={F.h - 6} text-anchor="middle">Millions of years ago</text>
+      <text class="axis" transform={`translate(15 ${(F.top + F.h - F.bottom) / 2}) rotate(-90)`} text-anchor="middle">Species lost (%)</text>
+    </svg>
+    <ul class="legend" role="list">
+      <li><span class="k k-thr"></span> Mass extinction threshold: ≥{MASS_THRESHOLD}% of species lost</li>
+      <li><span class="k k-now"></span> Today: recorded extinctions since 1500</li>
+      <li><span class="k k-if"></span> Today: if all threatened mammals were lost</li>
+    </ul>
+    <div class="events" role="group" aria-label="Show details for an event">
+      {massExtinctions.map((e) => <button type="button" class="btn chip" aria-pressed={e.id === first.id ? 'true' : 'false'} data-event={e.id}>{e.name}</button>)}
+      <button type="button" class="btn chip" aria-pressed="false" data-event="today">Today</button>
+    </div>
+    <div class="detail" aria-live="polite" data-event-detail>
+      <p class="d-head"><strong data-d-name>{first.name}</strong> · about <span data-d-ma>{first.ma}</span> million years ago · <span data-d-lost>{fmt(first.lost)}</span> of species lost</p>
+      <p><strong>Probable trigger:</strong> <span data-d-trigger>{first.trigger}</span></p>
+      <p data-d-note>{first.note}</p>
+    </div>
+    <details class="table">
+      <summary>Show data table</summary>
+      <table>
+        <caption>Approximate species loss in the five mass extinctions (Barnosky et al., 2011)</caption>
+        <thead><tr><th scope="col">Event</th><th scope="col">Million years ago</th><th scope="col">Species lost</th></tr></thead>
+        <tbody>
+          {massExtinctions.map((e) => <tr><th scope="row">{e.name}</th><td>≈{e.ma}</td><td>{fmt(e.lost)}</td></tr>)}
+          <tr><th scope="row">Today (mammals and birds, since 1500)</th><td>0</td><td>≈{today.recorded}% recorded extinct; ≈{today.ifThreatenedLost}% of mammals threatened</td></tr>
+        </tbody>
+      </table>
+    </details>
+  </section>
+
+  <!-- ===== IUCN Red List ===== -->
+  <section class="panel" data-view="redlist" aria-label="Threatened today" hidden>
+    <p class="lead-in">Percentage of <strong>assessed</strong> species in each group that are threatened with extinction (Vulnerable, Endangered or Critically Endangered) on the IUCN Red List.</p>
+    <ul class="hbars" role="list">
+      {redList.map((b) => (
+        <li>
+          <span class="hb-name">{b.name}</span>
+          <span class="hb-track" aria-hidden="true"><span class="hb-fill" style={`width:${b.value}%`}></span></span>
+          <span class="hb-val">{fmt(b.value)}</span>
+          <span class="hb-note">{b.note}</span>
+        </li>
+      ))}
+    </ul>
+    <p class="key">Source: IUCN Red List summary statistics, 2024 (reef corals: Global Coral Assessment, November 2024). Groups are only compared fairly when most of their species have been assessed.</p>
+    <details class="table">
+      <summary>Show data table</summary>
+      <table>
+        <caption>Percentage of assessed species threatened, IUCN Red List 2024</caption>
+        <thead><tr><th scope="col">Group</th><th scope="col">Threatened</th></tr></thead>
+        <tbody>{redList.map((b) => <tr><th scope="row">{b.name}</th><td>{fmt(b.value)}</td></tr>)}</tbody>
+      </table>
+    </details>
+  </section>
+
+  <!-- ===== Living Planet Index ===== -->
+  <section class="panel" data-view="lpi" aria-label="Population trends" hidden>
+    <p class="lead-in">Average decline in the <strong>size of monitored vertebrate populations</strong> between 1970 and 2020 (Living Planet Index).</p>
+    <div class="events" role="group" aria-label="Group the populations by">
+      <button type="button" class="btn chip" aria-pressed="true" data-lpi="regions">By region</button>
+      <button type="button" class="btn chip" aria-pressed="false" data-lpi="systems">By habitat type</button>
+    </div>
+    {[['regions', lpiRegions], ['systems', lpiSystems]].map(([k, list]) => (
+      <ul class="hbars lpi" role="list" data-lpi-list={k as string} hidden={k !== 'regions'}>
+        {(list as typeof lpiRegions).map((b) => (
+          <li>
+            <span class="hb-name">{b.name}</span>
+            <span class="hb-track" aria-hidden="true"><span class="hb-fill" style={`width:${b.value}%`}></span></span>
+            <span class="hb-val">−{b.value}%</span>
+            <span class="hb-note">{b.note}</span>
+          </li>
+        ))}
+      </ul>
+    ))}
+    <p class="key"><strong>Read it carefully:</strong> a 73% average decline does <em>not</em> mean that 73% of animals or species have been lost. It is the average change in size across about 35,000 populations: some fell steeply, others were stable or grew. Source: WWF/ZSL Living Planet Report 2024.</p>
+    <details class="table">
+      <summary>Show data table</summary>
+      <table>
+        <caption>Living Planet Index, 1970–2020 (1970 = 1.00)</caption>
+        <thead><tr><th scope="col">Group</th><th scope="col">Average decline</th><th scope="col">Index in 2020</th></tr></thead>
+        <tbody>{[...lpiRegions, ...lpiSystems].map((b) => <tr><th scope="row">{b.name}</th><td>−{b.value}%</td><td>{indexAfter(b.value).toFixed(2)}</td></tr>)}</tbody>
+      </table>
+    </details>
+  </section>
+
+  <p class="model-note">All figures are approximate, rounded estimates from published, peer-reviewed sources. Past losses are estimated from fossils of marine animals, so they have wide uncertainty.</p>
+</div>
+
+<script>
+  import { massExtinctions, today } from './models/a4-2-extinction-data';
+
+  document.querySelectorAll<HTMLElement>('[data-xdata]').forEach((root) => {
+    const press = (btns: HTMLElement[], on: HTMLElement) => btns.forEach((b) => b.setAttribute('aria-pressed', String(b === on)));
+    const viewBtns = [...root.querySelectorAll<HTMLButtonElement>('[data-view-btn]')];
+    viewBtns.forEach((b) => b.addEventListener('click', () => {
+      press(viewBtns, b);
+      root.querySelectorAll<HTMLElement>('[data-view]').forEach((p) => (p.hidden = p.dataset.view !== b.dataset.viewBtn));
+    }));
+
+    const evBtns = [...root.querySelectorAll<HTMLButtonElement>('[data-event]')];
+    const set = (k: string, v: string) => (root.querySelector(`[data-d-${k}]`)!.textContent = v);
+    evBtns.forEach((b) => b.addEventListener('click', () => {
+      press(evBtns, b);
+      const id = b.dataset.event!;
+      root.querySelectorAll('[data-event-bar]').forEach((g) => g.classList.toggle('on', (g as HTMLElement).dataset.eventBar === id));
+      const e = massExtinctions.find((x) => x.id === id);
+      const head = root.querySelector<HTMLElement>('.d-head')!;
+      if (e) {
+        head.innerHTML = `<strong data-d-name></strong> · about <span data-d-ma></span> million years ago · <span data-d-lost></span> of species lost`;
+        set('name', e.name); set('ma', String(e.ma)); set('lost', `≈${e.lost}%`); set('trigger', e.trigger); set('note', e.note);
+      } else {
+        head.innerHTML = `<strong data-d-name>Today</strong> · since about 1500 CE`;
+        set('trigger', 'Human activities: habitat destruction, over-exploitation, invasive species, pollution and climate change.');
+        set('note', `About ${today.recorded}% of well-studied mammal and bird species are recorded as extinct — far below 75%. But about ${today.ifThreatenedLost}% of mammals are threatened (dashed bar), and losses that took past events hundreds of thousands of years or more are happening within centuries. It is the rate that suggests a sixth mass extinction has begun.`);
+      }
+    }));
+
+    const lpiBtns = [...root.querySelectorAll<HTMLButtonElement>('[data-lpi]')];
+    lpiBtns.forEach((b) => b.addEventListener('click', () => {
+      press(lpiBtns, b);
+      root.querySelectorAll<HTMLElement>('[data-lpi-list]').forEach((l) => (l.hidden = l.dataset.lpiList !== b.dataset.lpi));
+    }));
+  });
+</script>
+
+<style>
+  .xd { container-type: inline-size; }
+  .views, .events { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); }
+  .chip { min-height: 2.1rem; padding: 0.3rem 0.7rem; }
+  .panel[hidden], [hidden] { display: none !important; }
+  .chart { width: 100%; height: auto; font-family: var(--font-sans); display: block; margin-bottom: var(--space-3); }
+  .grid line { stroke: var(--border); stroke-width: 1; }
+  .axis-line { stroke: var(--text-muted); stroke-width: 1.4; }
+  .ticks text { font-size: 14px; fill: var(--text-muted); }
+  .now-t { font-weight: 700; fill: var(--text) !important; }
+  .axis { font-size: 15px; font-weight: 650; fill: var(--text); }
+  .threshold { stroke: var(--bad); stroke-width: 1.5; stroke-dasharray: 6 5; }
+  .legend { list-style: none; padding: 0; margin: 0 0 var(--space-3); display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); font-size: 0.8rem; color: var(--text-muted); }
+  .legend li { margin: 0; display: flex; align-items: center; gap: var(--space-2); }
+  .k { display: inline-block; flex: none; }
+  .k-thr { width: 1.8rem; border-top: 2px dashed var(--bad); }
+  .k-now { width: 0.8rem; height: 0.8rem; background: var(--accent); border-radius: 2px; }
+  .k-if { width: 0.8rem; height: 0.8rem; border: 2px dashed var(--accent); border-radius: 2px; }
+  .bar { fill: color-mix(in srgb, var(--bio-chol) 70%, var(--surface)); stroke: var(--bio-chol); stroke-width: 1.5; }
+  .ev.on .bar { fill: var(--bio-chol); stroke: var(--text); stroke-width: 2.5; }
+  .bar-t { font-size: 13px; font-weight: 700; fill: var(--text); }
+  /* On narrow screens the chart is scaled down, so enlarge its text and drop the event names (the buttons below name them). */
+  @container (max-width: 34rem) {
+    .ticks text, .bar-t { font-size: 21px; }
+    .axis { font-size: 21px; }
+    .bar-t .nm { display: none; }
+  }
+  .bar-if { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 5 4; }
+  .bar-now { fill: var(--accent); }
+  .ev.today.on .bar-if { stroke-width: 3; }
+  .detail { padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); min-height: 7.5rem; }
+  .detail p { margin: 0 0 var(--space-1); }
+  .lead-in { font-size: var(--step--1); margin: 0 0 var(--space-3); }
+  .hbars { list-style: none; padding: 0; margin: 0 0 var(--space-3); display: grid; gap: var(--space-3); }
+  .hbars li { display: grid; grid-template-columns: 1fr auto; grid-template-areas: 'name val' 'track track' 'note note'; gap: 0.15rem var(--space-2); margin: 0; font-size: var(--step--1); }
+  @container (min-width: 40rem) {
+    .hbars li { grid-template-columns: 11rem minmax(0, 1fr) 3.5rem; grid-template-areas: 'name track val' '. note note'; align-items: center; }
+  }
+  .hb-name { grid-area: name; font-weight: 650; }
+  .hb-track { grid-area: track; height: 0.95rem; background: var(--surface-3); border-radius: 999px; overflow: hidden; }
+  .hb-fill { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
+  .lpi .hb-fill { background: var(--bio-chol); }
+  .hb-val { grid-area: val; font-weight: 800; font-variant-numeric: tabular-nums; text-align: right; }
+  .hb-note { grid-area: note; color: var(--text-muted); font-size: 0.8rem; }
+  .key { font-size: var(--step--1); padding: var(--space-3); background: var(--accent-soft); border-radius: var(--radius-m); margin: 0 0 var(--space-2); }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  caption { text-align: left; font-weight: 650; padding-bottom: var(--space-1); }
+  th, td { padding: 0.2rem 0.7rem; border-bottom: 1px solid var(--border); text-align: left; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-3) 0 0; }
+</style>

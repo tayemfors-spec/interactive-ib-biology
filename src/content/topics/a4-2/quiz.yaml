@@ -1,0 +1,206 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: A4.2.1
+    stem: >-
+      Populations of a wild grass growing on different mountains carry different alleles for tolerance of cold.
+      Which level of biodiversity does this variation represent?
+    options:
+      - id: a
+        text: Ecosystem diversity
+        why: Ecosystem diversity is the variety of habitats and communities, not variation within one species.
+      - id: b
+        text: Genetic diversity
+        why: Correct. Different alleles in the gene pool of one species, within and between populations, are genetic diversity.
+      - id: c
+        text: Species richness
+        why: Species richness is the number of different species present. Only one species is described here.
+      - id: d
+        text: Species evenness
+        why: Evenness describes how similar the population sizes of different species are, not allele differences within one species.
+    answer: b
+
+  - id: q2
+    level: SL
+    understanding: A4.2.2
+    stem: >-
+      Two taxonomists study the same museum collection of beetles. One recognizes 12 species and the other
+      recognizes 7. Which statement best explains this?
+    options:
+      - id: a
+        text: One of the taxonomists must have made identification errors.
+        why: Both may have recorded the same features accurately. The difference is in how they interpret the variation, not in errors of observation.
+      - id: b
+        text: Some of the beetles must have evolved into new species after they were collected.
+        why: Preserved specimens cannot evolve. Both taxonomists are classifying the same specimens.
+      - id: c
+        text: The same observations can be classified in different ways; a "splitter" recognizes more species than a "lumper".
+        why: Correct. Classification is pattern recognition, and decisions about how much difference justifies a separate species vary between taxonomists.
+      - id: d
+        text: Species can only be identified by DNA sequencing, so morphological classification is meaningless.
+        why: Morphology is still widely and validly used, and DNA data can also be interpreted by lumpers and splitters in different ways.
+    answer: c
+
+  - id: q3
+    level: SL
+    understanding: A4.2.3
+    stem: >-
+      Which combination of factors best explains why the North Island giant moa was driven to extinction so quickly
+      after people arrived in New Zealand?
+    options:
+      - id: a
+        text: It was hunted by people, reproduced slowly and had evolved with no mammal predators, so it did not avoid humans.
+        why: Correct. Over-hunting of a large, slow-breeding, predator-naive bird removed adults faster than they could be replaced, within about two centuries.
+      - id: b
+        text: Climate change at the end of the last glaciation destroyed its habitat.
+        why: The last glaciation ended thousands of years before moa disappeared. Their extinction followed human arrival around 1250–1300 CE closely.
+      - id: c
+        text: Haast's eagle increased in number and killed most moa.
+        why: Haast's eagle was the moa's natural predator for a very long time without causing extinction; it died out at the same time as the moa it depended on.
+      - id: d
+        text: It was killed by an introduced bird disease carried by European ships.
+        why: Moa were extinct by about 1400–1450, centuries before Europeans reached New Zealand.
+    answer: a
+
+  - id: q4
+    level: SL
+    understanding: A4.2.4
+    stem: >-
+      Which is an indirect, rather than a direct, cause of the loss of mixed dipterocarp forest in Southeast Asia?
+    options:
+      - id: a
+        text: Felling of large dipterocarp trees for timber
+        why: Logging removes the forest on the spot, so it is a direct cause.
+      - id: b
+        text: Burning of logged forest to clear land
+        why: Fire destroys the forest directly.
+      - id: c
+        text: Planting oil palm on cleared forest land
+        why: Conversion to plantations directly replaces the forest ecosystem.
+      - id: d
+        text: Growing global demand for palm oil
+        why: Correct. Demand does not destroy forest itself, but it creates the economic pressure that leads to clearance — an indirect cause.
+    answer: d
+
+  - id: q5
+    level: SL
+    understanding: A4.2.5
+    stem: >-
+      A pond was surveyed twice, ten years apart, using the same method. Survey 1 found five species with 22, 20, 20,
+      19 and 19 individuals. Survey 2 found five species with 90, 4, 3, 2 and 1 individuals. What do these data show?
+    options:
+      - id: a
+        text: Species richness fell, but evenness was unchanged.
+        why: Richness (the number of species) is five in both surveys, so it did not fall.
+      - id: b
+        text: Species richness was unchanged, but evenness fell.
+        why: Correct. There are still five species, but in survey 2 one species makes up 90% of individuals, so the community is much less even.
+      - id: c
+        text: Biodiversity was unchanged, because both richness and the total number of individuals stayed the same.
+        why: Total individuals (100) and richness (5) are unchanged, but evenness is part of species diversity, and it fell sharply.
+      - id: d
+        text: Both richness and evenness increased.
+        why: Richness is unchanged and one species now dominates, so evenness decreased.
+    answer: b
+
+  - id: q6
+    level: SL
+    understanding: A4.2.5
+    stem: >-
+      The Living Planet Index reported an average decline of 73% in monitored vertebrate populations between 1970 and
+      2020. Which conclusion is valid?
+    options:
+      - id: a
+        text: 73% of vertebrate species have become extinct since 1970.
+        why: The index measures changes in population size, not extinctions. Recorded extinctions since 1970 are a tiny fraction of species.
+      - id: b
+        text: Every monitored population is now 27% of its 1970 size.
+        why: It is an average. Some populations declined by more, some by less, and some were stable or increased.
+      - id: c
+        text: On average, the monitored populations are much smaller than in 1970, which is evidence of a biodiversity crisis.
+        why: Correct. A large average decline in population size across tens of thousands of populations is strong evidence of biodiversity loss.
+      - id: d
+        text: There are 73% fewer individual animals on Earth than in 1970.
+        why: The index averages relative changes across monitored populations; it is not a count of all the animals on Earth.
+    answer: c
+
+  - id: q7
+    level: SL
+    understanding: A4.2.6
+    stem: >-
+      Which is described as the overarching (underlying) cause of the current biodiversity crisis?
+    options:
+      - id: a
+        text: Growth of the human population, with rising resource use
+        why: Correct. Population growth and consumption increase the demand that drives habitat loss, over-exploitation, pollution, invasive species and climate change.
+      - id: b
+        text: The spread of invasive alien species
+        why: This is one of the specific direct causes, not the overarching one.
+      - id: c
+        text: Volcanic eruptions releasing greenhouse gases
+        why: Volcanism contributed to past mass extinctions; the current crisis is anthropogenic.
+      - id: d
+        text: Natural background extinction
+        why: Background extinction always happens, but current rates are at least tens to hundreds of times higher than the background rate.
+    answer: a
+
+  - id: q8
+    level: SL
+    understanding: A4.2.7
+    stem: >-
+      Why are seeds stored in a seed bank dried and kept at about −20 °C?
+    options:
+      - id: a
+        text: To kill fungi and insects, after which the seeds are no longer needed alive
+        why: The whole point is to keep the seeds alive (viable) so they can be grown in the future.
+      - id: b
+        text: To make the seeds germinate quickly when they are taken out
+        why: Storage conditions are chosen to keep seeds dormant and viable, not to speed germination.
+      - id: c
+        text: Because seeds of all plant species can survive any freezing temperature
+        why: Many species, including many tropical trees such as dipterocarps, have seeds that are killed by drying and freezing. This is one reason seed banks cannot save every species.
+      - id: d
+        text: To slow metabolism and deterioration so the seeds stay viable for decades
+        why: Correct. Low water content and low temperature slow the chemical reactions that cause seeds to age and die.
+    answer: d
+
+  - id: q9
+    level: SL
+    understanding: A4.2.7
+    stem: >-
+      A critically endangered bird survives only on one island, where introduced rats eat its eggs. Which plan is most
+      likely to secure its long-term future?
+    options:
+      - id: a
+        text: Move all the birds into a single zoo and stop managing the island.
+        why: A small captive population loses genetic diversity and natural behaviour, and without habitat there is nowhere to release birds later.
+      - id: b
+        text: Remove the rats from the island and also keep a captive-breeding population as a back-up.
+        why: Correct. In situ management removes the cause of decline, and an ex situ population insures against disaster — combining approaches.
+      - id: c
+        text: Store the bird's sperm in a tissue bank and take no other action.
+        why: Germ plasm storage is a useful back-up, but on its own it does nothing to stop the wild population declining.
+      - id: d
+        text: Declare the island a nature reserve but take no further action.
+        why: Protection alone does not remove the rats, which are the cause of decline; reserves often need active management.
+    answer: b
+
+  - id: q10
+    level: SL
+    understanding: A4.2.8
+    stem: >-
+      Which species would rank highest as a priority in the EDGE of Existence programme?
+    options:
+      - id: a
+        text: A Least Concern reptile that is the only surviving member of its order
+        why: It is very distinct, but it is not globally endangered, so it scores nothing for extinction risk.
+      - id: b
+        text: A Critically Endangered frog in a genus of over 70 closely related species
+        why: It is endangered, but much of its evolutionary history is shared with close relatives, so its distinctiveness is low.
+      - id: c
+        text: A Critically Endangered mammal that is the only living species in its family
+        why: Correct. It is both evolutionarily distinct and globally endangered, which is what EDGE prioritizes.
+      - id: d
+        text: A Vulnerable songbird with many close relatives
+        why: It is threatened, but less so than a Critically Endangered species, and it has low distinctiveness.
+    answer: c

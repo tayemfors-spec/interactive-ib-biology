@@ -1,0 +1,69 @@
+---
+/** Causes of the current biodiversity crisis, A4.2.6: underlying driver → direct causes → effects → outcome. Animated by a4-2-causes.ts. */
+import { ROW0, ROWH, ROWGAP } from './a4-2-causes';
+const rows = [
+  { cause: ['Land-use change', 'deforestation, farming, cities'], effect: ['Habitat destroyed', 'and fragmented'] },
+  { cause: ['Over-exploitation', 'hunting, fishing, logging'], effect: ['Individuals killed faster', 'than they are replaced'] },
+  { cause: ['Invasive alien species', 'pests and diseases'], effect: ['Predation, competition', 'and disease'] },
+  { cause: ['Pollution', 'fertilizer, pesticides, plastic'], effect: ['Habitats poisoned', 'or eutrophic'] },
+  { cause: ['Climate change', 'greenhouse gas emissions'], effect: ['Conditions change faster', 'than species can adapt'] },
+];
+const lastMid = ROW0 + 4 * (ROWH + ROWGAP) + ROWH / 2;
+const outY = ROW0 + 5 * (ROWH + ROWGAP) + 6;
+---
+<svg viewBox="0 0 520 450" xmlns="http://www.w3.org/2000/svg" class="causes">
+  <defs>
+    <marker id="a42-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" class="head" />
+    </marker>
+  </defs>
+  <g data-el="driver" class="box driver on">
+    <rect x="16" y="8" width="488" height="54" rx="10" />
+    <text class="t1" x="260" y="31" text-anchor="middle">Human population growth</text>
+    <text class="t2" x="260" y="50" text-anchor="middle">and rising use of resources per person (the underlying cause)</text>
+  </g>
+  <path data-el="bus" class="bus" d={`M34 62 L34 ${lastMid}`} />
+  {rows.map((r, i) => {
+    const y = ROW0 + i * (ROWH + ROWGAP);
+    const mid = y + ROWH / 2;
+    return (
+      <g data-el={`row-${i}`} class="row" style="opacity:0.3">
+        <path data-el={`tick-${i}`} class="tick" d={`M34 ${mid} L52 ${mid}`} />
+        <g class="box cause">
+          <rect x="54" y={y} width="208" height={ROWH} rx="8" />
+          <text class="t1" x="66" y={y + 19}>{r.cause[0]}</text>
+          <text class="t2" x="66" y={y + 37}>{r.cause[1]}</text>
+        </g>
+        <path data-el={`arrow-${i}`} class="arrow" d={`M264 ${mid} L290 ${mid}`} marker-end="url(#a42-arrow)" />
+        <g class="box effect">
+          <rect x="294" y={y} width="192" height={ROWH} rx="8" />
+          <text class="t1 e" x="305" y={y + 19}>{r.effect[0]}</text>
+          <text class="t1 e" x="305" y={y + 37}>{r.effect[1]}</text>
+        </g>
+        <path class="tick" d={`M486 ${mid} L500 ${mid}`} />
+      </g>
+    );
+  })}
+  <path data-el="bus2" class="bus" d={`M500 ${ROW0 + ROWH / 2} L500 ${outY - 4}`} marker-end="url(#a42-arrow)" style="opacity:0.3" />
+  <g data-el="outcome" class="box outcome" style="opacity:0.3">
+    <rect x="16" y={outY} width="488" height="60" rx="10" />
+    <text class="t1" x="260" y={outY + 24} text-anchor="middle">Smaller, isolated populations → less genetic diversity</text>
+    <text class="t1" x="260" y={outY + 45} text-anchor="middle">→ species extinction and loss of whole ecosystems</text>
+  </g>
+</svg>
+<style>
+  .causes { font-family: var(--font-sans); }
+  .box rect { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.5; }
+  .driver rect { fill: color-mix(in srgb, var(--bio-head) 18%, var(--surface)); stroke: var(--bio-head); }
+  .cause rect { fill: color-mix(in srgb, var(--bio-chol) 12%, var(--surface)); stroke: var(--bio-chol); }
+  .effect rect { fill: var(--surface); }
+  .outcome rect { fill: color-mix(in srgb, var(--bio-protein) 14%, var(--surface)); stroke: var(--bio-protein); }
+  .row.on .cause rect, .row.on .effect rect, .outcome.on rect, .driver.on rect { stroke-width: 3; }
+  .row.on .effect rect { stroke: var(--text); }
+  .t1 { font-size: 14px; font-weight: 700; fill: var(--text); }
+  .t1.e { font-weight: 600; }
+  .t2 { font-size: 13px; fill: var(--text-muted); }
+  .bus, .tick { fill: none; stroke: var(--text-muted); stroke-width: 2; }
+  .arrow { fill: none; stroke: var(--text); stroke-width: 2.5; }
+  .head { fill: var(--text); }
+</style>
