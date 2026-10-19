@@ -1,0 +1,134 @@
+---
+/**
+ * Exam-style diagram of adrenaline signalling through a G protein-coupled receptor (C2.1.9–10).
+ * Numbered markers keep it legible at phone width; the key gives the names in real text.
+ */
+const W = 640;
+const top = 112; // outer head row
+const bot = 184; // inner head row
+const skip = [[126, 220], [396, 466]];
+const heads = Array.from({ length: 40 }, (_, i) => 12 + i * 16).filter((x) => !skip.some(([a, b]) => x > a! - 6 && x < b! + 6));
+const helices = Array.from({ length: 7 }, (_, k) => 134 + k * 12);
+const hex = (cx: number, cy: number, r: number) =>
+  Array.from({ length: 6 }, (_, j) => { const a = (Math.PI / 3) * j; return `${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`; }).join(' ');
+const cascade = ['protein kinase A', 'phosphorylase kinase', 'glycogen phosphorylase'];
+const markers: { n: number; x: number; y: number; to: [number, number] }[] = [
+  { n: 1, x: 250, y: 50, to: [186, 72] },
+  { n: 2, x: 92, y: 70, to: [140, 104] },
+  { n: 3, x: 60, y: 252, to: [118, 228] },
+  { n: 4, x: 300, y: 282, to: [318, 246] },
+  { n: 5, x: 510, y: 70, to: [458, 110] },
+  { n: 6, x: 610, y: 262, to: [566, 274] },
+  { n: 7, x: 610, y: 362, to: [566, 360] },
+  { n: 8, x: 40, y: 404, to: [64, 432] },
+  { n: 9, x: 600, y: 150, to: [560, 150] },
+];
+const key = [
+  'Adrenaline (epinephrine): the ligand, binding outside the cell',
+  'G protein-coupled receptor: seven transmembrane helices',
+  'β and γ subunits of the G protein, left behind',
+  'α subunit of the G protein with GTP bound (active)',
+  'Adenylyl cyclase: activated by the α subunit',
+  'Cyclic AMP (cAMP), the second messenger, made from ATP',
+  'Kinase cascade: each enzyme activates many of the next (amplification)',
+  'Glycogen broken down; glucose released into the blood',
+  'Plasma membrane (phospholipid bilayer)',
+];
+---
+<div class="exam-diagram">
+  <svg viewBox={`0 0 ${W} 470`} role="img" aria-labelledby="gp-title gp-desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="gp-title">Adrenaline signalling through a G protein-coupled receptor</title>
+    <desc id="gp-desc">Adrenaline binds to a G protein-coupled receptor in the plasma membrane of a liver cell. Inside, the α subunit of the G protein binds GTP, separates from the β and γ subunits and activates adenylyl cyclase, which converts ATP into cyclic AMP. Cyclic AMP activates protein kinase A, which activates phosphorylase kinase, which activates glycogen phosphorylase. Glycogen is broken down and glucose is released.</desc>
+    <text class="side" x="12" y="26">Outside the cell</text>
+    <text class="side" x="12" y="300">Cytoplasm of a liver cell</text>
+
+    <!-- bilayer -->
+    <g class="tail">{heads.map((x) => <><path d={`M${x - 2} ${top + 7} V${top + 32} M${x + 2} ${top + 7} V${top + 32}`} /><path d={`M${x - 2} ${bot - 7} V${bot - 32} M${x + 2} ${bot - 7} V${bot - 32}`} /></>)}</g>
+    <g class="head">{heads.map((x) => <><circle cx={x} cy={top} r="7" /><circle cx={x} cy={bot} r="7" /></>)}</g>
+
+    <!-- receptor: seven helices -->
+    <path class="loop" d={`M${helices[0]} 98 ${helices.slice(1).map((x, k) => `Q${x - 6} ${k % 2 ? 88 : 108} ${x} 98`).join(' ')}`} />
+    <path class="loop" d={`M${helices[0]} 198 ${helices.slice(1).map((x, k) => `Q${x - 6} ${k % 2 ? 210 : 190} ${x} 198`).join(' ')}`} />
+    {helices.map((x) => <rect class="protein" x={x - 5} y="96" width="10" height="104" rx="5" />)}
+    <!-- adrenaline in the binding site -->
+    <g class="lig"><polygon points={hex(172, 76, 10)} /><path d="M182 76 L198 68" /><circle cx="202" cy="66" r="5" /></g>
+
+    <!-- G protein: βγ left at the receptor, α–GTP moved to adenylyl cyclase -->
+    <ellipse class="beta" cx="152" cy="226" rx="22" ry="14" />
+    <ellipse class="gamma" cx="124" cy="216" rx="9" ry="13" />
+    <path class="move" d="M200 232 C240 250, 270 248, 296 236" />
+    <ellipse class="alpha" cx="336" cy="224" rx="30" ry="17" />
+    <text class="in" x="336" y="228" text-anchor="middle">α</text>
+    <rect class="gtp" x="318" y="240" width="40" height="18" rx="9" /><text class="pill" x="338" y="253" text-anchor="middle">GTP</text>
+
+    <!-- adenylyl cyclase -->
+    <rect class="protein" x="404" y="98" width="54" height="104" rx="14" />
+    <ellipse class="protein" cx="436" cy="226" rx="44" ry="22" />
+    <text class="lbl" x="406" y="300">ATP</text>
+    <path class="arrow" d="M446 294 H492" marker-end="url(#gp-ah)" />
+    <text class="lbl strong" x="500" y="300">cAMP</text>
+    <path class="arrow" d="M436 250 C436 266, 424 276, 424 280" marker-end="url(#gp-ah)" />
+
+    <!-- cascade -->
+    {cascade.map((c, i) => (
+      <>
+        <rect class="box" x="300" y={326 + i * 46} width="262" height="32" rx="6" />
+        <text class="lbl" x="431" y={347 + i * 46} text-anchor="middle">{c}</text>
+      </>
+    ))}
+    <path class="arrow" d="M528 306 V322" marker-end="url(#gp-ah)" />
+    <path class="arrow" d="M431 358 V368" marker-end="url(#gp-ah)" />
+    <path class="arrow" d="M431 404 V414" marker-end="url(#gp-ah)" />
+    <path class="arrow" d="M300 436 H232" marker-end="url(#gp-ah)" />
+    <text class="lbl" x="64" y="441">glycogen → glucose</text>
+    <text class="note" x="64" y="462">glucose released into the blood</text>
+
+    <g class="markers">
+      {markers.map((m) => (
+        <g>
+          <path class="lead" d={`M${m.x} ${m.y} L${m.to[0]} ${m.to[1]}`} />
+          <circle cx={m.x} cy={m.y} r="13" />
+          <text x={m.x} y={m.y} dy="0.36em" text-anchor="middle">{m.n}</text>
+        </g>
+      ))}
+    </g>
+    <defs>
+      <marker id="gp-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0 0 L10 5 L0 10 z" class="ah" />
+      </marker>
+    </defs>
+  </svg>
+  <ol class="key">
+    {key.map((k) => <li>{k}</li>)}
+  </ol>
+</div>
+
+<style>
+  .exam-diagram svg { font-family: var(--font-sans); }
+  .side { font-size: 17px; font-weight: 700; fill: var(--text-muted); }
+  .tail path { stroke: var(--bio-tail); stroke-width: 2; fill: none; }
+  .head circle { fill: var(--bio-head); stroke: color-mix(in srgb, var(--bio-head) 60%, black); stroke-width: 1; }
+  .protein { fill: color-mix(in srgb, var(--bio-protein) 85%, transparent); stroke: color-mix(in srgb, var(--bio-protein) 60%, black); stroke-width: 1.3; }
+  .loop { fill: none; stroke: var(--bio-protein); stroke-width: 3; }
+  .lig polygon, .lig circle { fill: var(--bio-k); }
+  .lig path { stroke: var(--bio-k); stroke-width: 3; }
+  .alpha { fill: var(--bio-protein-2); }
+  .beta { fill: var(--bio-chol); }
+  .gamma { fill: var(--bio-carb); }
+  .in { font-size: 16px; font-weight: 800; fill: #fff; }
+  .gtp { fill: var(--bio-head); }
+  .pill { font-size: 12px; font-weight: 800; fill: #000; }
+  .move { fill: none; stroke: var(--text-muted); stroke-width: 1.6; stroke-dasharray: 5 4; }
+  .lbl { font-size: 16px; fill: var(--text); }
+  .lbl.strong { font-weight: 800; }
+  .note { font-size: 13px; font-style: italic; fill: var(--text-muted); }
+  .box { fill: var(--surface); stroke: var(--text-muted); stroke-width: 1.4; }
+  .arrow { stroke: var(--text); stroke-width: 1.8; fill: none; }
+  .ah { fill: var(--text); }
+  .markers circle { fill: var(--surface); stroke: var(--text); stroke-width: 1.8; }
+  .markers text { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .lead { stroke: var(--text); stroke-width: 1.4; }
+  .key { columns: 2 17rem; column-gap: var(--space-5); margin: var(--space-3) 0 0; padding: 0; list-style: none; counter-reset: k; font-size: var(--step--1); }
+  .key li { break-inside: avoid; margin: 0 0 0.3rem; display: grid; grid-template-columns: 1.7rem 1fr; counter-increment: k; }
+  .key li::before { content: counter(k); font-weight: 800; display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; border: 1.5px solid var(--text); border-radius: 50%; font-size: 0.75rem; margin-top: 0.1rem; }
+</style>

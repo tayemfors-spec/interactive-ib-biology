@@ -1,0 +1,157 @@
+facts:
+  - id: f1
+    claim: Ligands bind reversibly by non-covalent interactions to specific receptor binding sites, causing a conformational change; ligands are not chemically changed.
+    where: ["index.mdx#receptors-ligands", "flashcards.yaml:c1", "quiz.yaml:q1"]
+    confidence: high
+    basis: Alberts, Molecular Biology of the Cell (cell signalling chapter); IB guide C2.1.1
+    status: checked
+  - id: f2
+    claim: In Vibrio fischeri, LuxI synthesizes an acyl-homoserine lactone autoinducer that diffuses freely across membranes; LuxR binds it in the cytoplasm and the complex activates transcription of the luxICDABEG operon (luciferase luxAB; substrate enzymes luxCDE; luxI itself, giving positive feedback).
+    where: ["index.mdx#quorum", "index.mdx#feedback", "visuals.yaml:quorum", "flashcards.yaml:c2"]
+    confidence: high
+    basis: Miller & Bassler 2001 Annu Rev Microbiol; Fuqua, Winans & Greenberg 1994
+    status: checked
+  - id: f3
+    claim: V. fischeri light is blue-green; it colonizes the light organ of the Hawaiian bobtail squid Euprymna scolopes, which provides nutrients; the light is used for counter-illumination against moonlight.
+    where: ["index.mdx#quorum", "flashcards.yaml:c3"]
+    confidence: high
+    basis: Nyholm & McFall-Ngai 2004 Nat Rev Microbiol; Ruby 1996
+    status: checked
+  - id: f4
+    claim: Adding cell-free medium from a dense culture (containing autoinducer) induces luminescence in a dilute culture; luxR mutants do not luminesce.
+    where: ["quiz.yaml:q2", "visuals.yaml:quorum (experiments)"]
+    confidence: high
+    basis: Classic autoinduction experiments (Nealson, Platt & Hastings 1970; Engebrecht & Silverman 1984)
+    status: checked
+  - id: f5
+    claim: The quorum-sensing simulation is qualitative (relative densities, Hill-type switch, feedback gain chosen for illustration); no real cell densities are given.
+    where: ["visuals.yaml:quorum", "src/sims/models/c2-1-quorum.ts"]
+    confidence: high
+    basis: Modelling choice, stated on screen
+    status: checked
+  - id: f6
+    claim: Cytokines are small proteins secreted by many cell types (especially immune cells) that mostly act locally (autocrine/paracrine), e.g. interleukins and interferons.
+    where: ["index.mdx#categories", "quiz.yaml:q3", "flashcards.yaml:c4"]
+    confidence: high
+    basis: Janeway's Immunobiology; Alberts
+    status: checked
+  - id: f7
+    claim: Cytoplasmic free Ca²⁺ is kept about 10⁴ times lower than extracellular Ca²⁺ (~100 nM vs ~1–2 mM); Ca²⁺ entry triggers neurotransmitter release and muscle contraction.
+    where: ["index.mdx#categories", "flashcards.yaml:c4"]
+    confidence: high
+    basis: Alberts; Berridge et al. 2003 Nat Rev Mol Cell Biol
+    status: checked
+  - id: f8
+    claim: Noradrenaline acts both as a neurotransmitter and as a hormone (secreted by the adrenal medulla).
+    where: ["index.mdx#categories"]
+    confidence: high
+    basis: Standard physiology (Guyton & Hall)
+    status: checked
+  - id: f9
+    claim: "Hormone chemical groups: amines (adrenaline, thyroxine, melatonin), peptides/proteins (insulin, glucagon, ADH, FSH, LH), steroids (oestradiol, progesterone, testosterone, cortisol). Neurotransmitters: amino acids (glutamate, glycine, GABA), peptides (endorphins), amines (dopamine, noradrenaline, serotonin), acetylcholine (choline ester), nitric oxide (gas)."
+    where: ["index.mdx#diversity", "flashcards.yaml:c5"]
+    confidence: high
+    basis: Guyton & Hall; Purves, Neuroscience
+    status: checked
+  - id: f10
+    claim: The guide lists "nitrous oxide" as a neurotransmitter; the gaseous signalling molecule is nitric oxide (NO). The site uses nitric oxide and flags the discrepancy (REVIEW.md S7).
+    where: ["index.mdx#diversity", "index.mdx (mistakes)"]
+    confidence: high
+    basis: Purves, Neuroscience (NO as an unconventional neurotransmitter); IB guide C2.1.4 wording
+    status: open
+  - id: f11
+    claim: The synaptic gap is about 20–40 nm; neurotransmitter diffusion across it takes well under a millisecond.
+    where: ["index.mdx#local-distant", "visuals: c2-1-distance figure", "flashcards.yaml:c7", "index.mdx (mistakes)"]
+    confidence: high
+    basis: Purves, Neuroscience (cleft ~20–40 nm); Allott study guide gives the same range
+    status: checked
+  - id: f12
+    claim: Hormones reach targets in seconds to about a minute (blood circulation time about 1 minute) and persist for minutes to hours.
+    where: ["index.mdx#local-distant", "flashcards.yaml:c7"]
+    confidence: medium
+    basis: Standard physiology; half-lives vary widely by hormone
+    status: checked
+  - id: f13
+    claim: Transmembrane receptors have hydrophilic surface regions outside and inside the cell and a hydrophobic band in the membrane; intracellular (nuclear receptor superfamily) receptors are soluble with a hydrophilic surface and a hydrophobic ligand-binding pocket.
+    where: ["index.mdx#receptor-types", "visuals: c2-1-receptor-types figure", "quiz.yaml:q4", "flashcards.yaml:c8", "visuals.yaml:receptors intracellular receptor label"]
+    confidence: high
+    basis: Alberts; nuclear receptor ligand-binding domain structures
+    status: checked
+  - id: f14
+    claim: The nicotinic acetylcholine receptor is a ligand-gated cation channel; binding of acetylcholine opens it and Na⁺ diffuses in (with a smaller K⁺ efflux), depolarizing the membrane; acetylcholinesterase ends the signal.
+    where: ["index.mdx#ach", "quiz.yaml:q5", "flashcards.yaml:c10", "index.mdx (mistakes)"]
+    confidence: high
+    basis: Purves, Neuroscience; consistent with B2.1 page
+    status: checked
+  - id: f15
+    claim: GPCRs have seven transmembrane helices; heterotrimeric G proteins (α, β, γ) are inactive with GDP on α; the receptor causes GDP–GTP exchange; α-GTP dissociates from βγ; GTP hydrolysis by α switches it off.
+    where: ["index.mdx#gpcr", "visuals.yaml:receptors gpcr", "src/diagrams/c2-1-gpcr.astro", "quiz.yaml:q6", "flashcards.yaml:c11", "index.mdx (mistakes)"]
+    confidence: high
+    basis: Alberts; Lodish, Molecular Cell Biology
+    status: checked
+  - id: f16
+    claim: Humans have about 800 GPCR genes (about 4% of protein-coding genes); roughly a third of approved drugs target GPCRs.
+    where: ["index.mdx#gpcr", "flashcards.yaml:c11", "index.mdx mustKnow"]
+    confidence: medium
+    basis: Fredriksson et al. 2003; Hauser et al. 2017 Nat Rev Drug Discov (~34% of FDA-approved drugs)
+    status: checked
+  - id: f17
+    claim: "Adrenaline in liver: β-adrenergic GPCR → Gs → adenylyl cyclase (ATP → cAMP + PPi) → PKA (cAMP binds regulatory subunits, releasing catalytic subunits) → phosphorylase kinase → glycogen phosphorylase → glycogen to glucose 1-phosphate → glucose released; phosphodiesterase degrades cAMP."
+    where: ["index.mdx#adrenaline", "visuals.yaml:receptors gpcr steps", "src/diagrams/c2-1-gpcr.astro", "quiz.yaml:q7", "flashcards.yaml:c12"]
+    confidence: high
+    basis: Berg, Biochemistry (glycogen metabolism); Alberts
+    status: checked
+  - id: f18
+    claim: The names adrenaline (Latin ad + renes) and epinephrine (Greek epi + nephros) were coined around 1900 by different groups (Abel, 1897; Takamine, 1901); adrenaline is more common in the UK/Europe, epinephrine in North America.
+    where: ["index.mdx#adrenaline"]
+    confidence: high
+    basis: History of endocrinology; IB guide NOS note C2.1.10
+    status: checked
+  - id: f19
+    claim: The insulin receptor is a pre-formed dimer (two αβ halves linked by disulfide bonds); insulin binding causes trans-autophosphorylation of tyrosines in the β-subunit kinase domains; IRS relay proteins lead (via PI3K/Akt) to GLUT4 vesicle translocation and fusion in muscle and adipose cells.
+    where: ["index.mdx#insulin", "visuals.yaml:receptors tyrosine-kinase", "quiz.yaml:q8", "flashcards.yaml:c14"]
+    confidence: high
+    basis: Alberts; Saltiel & Kahn 2001 Nature
+    status: checked
+  - id: f20
+    claim: GLUT4 is a carrier (transporter) protein moving glucose by facilitated diffusion, not a channel; the Allott study guide calls glucose transporters channel proteins.
+    where: ["index.mdx#insulin", "visuals.yaml:receptors glut4 label"]
+    confidence: high
+    basis: Alberts (GLUT family are uniporters)
+    status: checked
+  - id: f21
+    claim: Unliganded androgen receptors are mainly cytoplasmic and move to the nucleus on hormone binding; oestrogen receptors are mainly nuclear; activated steroid receptors bind DNA as dimers at hormone response elements and promote (or repress) transcription.
+    where: ["index.mdx#steroids", "visuals.yaml:receptors intracellular", "flashcards.yaml:c15"]
+    confidence: high
+    basis: Alberts; Mangelsdorf et al. 1995 Cell (nuclear receptor superfamily)
+    status: checked
+  - id: f22
+    claim: Oestradiol at moderate levels exerts negative feedback on GnRH secretion; sustained high oestradiol late in the follicular phase (about two days) switches to positive feedback, increasing GnRH and pituitary sensitivity, giving the LH surge.
+    where: ["index.mdx#oestradiol-progesterone", "index.mdx#feedback", "visuals.yaml:feedback", "flashcards.yaml:c16"]
+    confidence: high
+    basis: Guyton & Hall; Christensen et al. 2012 (estradiol positive feedback)
+    status: checked
+  - id: f23
+    claim: Much of oestradiol's feedback on GnRH neurons is mediated by kisspeptin neurons expressing ERα, because GnRH neurons themselves lack ERα; the page follows the IB wording (oestradiol acting on GnRH-secreting cells) and notes the simplification.
+    where: ["index.mdx#oestradiol-progesterone"]
+    confidence: medium
+    basis: Herbison 2016 Nat Rev Endocrinol
+    status: open
+  - id: f24
+    claim: Progesterone, via the progesterone receptor in endometrial cells, maintains the secretory endometrium (glands, blood supply) ready for implantation; falling progesterone leads to menstruation. The Allott study guide says progesterone makes endometrium cells divide repeatedly; proliferation is mainly driven by oestradiol, so the site does not say this.
+    where: ["index.mdx#oestradiol-progesterone", "quiz.yaml:q9", "flashcards.yaml:c16"]
+    confidence: high
+    basis: Guyton & Hall; Speroff's Clinical Gynecologic Endocrinology
+    status: open
+  - id: f25
+    claim: Thyroxine negative feedback acts on both the hypothalamus (TRH) and the anterior pituitary (TSH).
+    where: ["index.mdx#feedback", "visuals.yaml:feedback", "quiz.yaml:q10", "flashcards.yaml:c17"]
+    confidence: high
+    basis: Guyton & Hall
+    status: checked
+  - id: f26
+    claim: In the late follicular phase LH (with FSH) stimulates follicles to secrete more oestradiol, closing the positive feedback loop; the LH surge triggers ovulation at about day 14, after which oestradiol falls.
+    where: ["index.mdx#feedback", "visuals.yaml:feedback steps 4–6", "flashcards.yaml:c17"]
+    confidence: medium
+    basis: Guyton & Hall; IB study guide presents the same loop
+    status: open

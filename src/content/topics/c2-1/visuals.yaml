@@ -1,0 +1,349 @@
+# Visuals for C2.1 (AHL only). Label and step text here is what readers see in the 3D viewer and the
+# text descriptions, so it is written to exam standard. Label ids must match anchors in the scene modules.
+visuals:
+  - id: receptors
+    kind: viewer3d
+    level: AHL
+    title: Three ways a cell receives a chemical signal
+    alt: 3D models of a G protein-coupled receptor, the insulin receptor and an intracellular steroid hormone receptor, each with steps.
+    description: >-
+      Three step-through models of a patch of plasma membrane with the outside of the cell at the top.
+      In the first, adrenaline (epinephrine) binds to a G protein-coupled receptor made of seven transmembrane
+      helices. A G protein on the cytoplasmic face swaps GDP for GTP, and its α subunit separates and activates
+      adenylyl cyclase, which converts ATP into cyclic AMP. Cyclic AMP activates protein kinase A, which starts a
+      phosphorylation cascade that amplifies the signal and ends with glycogen being broken down to glucose in a
+      liver cell. In the second, insulin binds to the outside of its receptor, a dimer that spans the membrane.
+      The tyrosine kinase domains inside the cell phosphorylate each other, relay proteins pass the signal on, and
+      vesicles carrying GLUT4 glucose transporters fuse with the plasma membrane so glucose can enter. In the third,
+      a steroid hormone (testosterone) diffuses through the phospholipid bilayer, binds a receptor in the cytoplasm,
+      and the hormone–receptor complex enters the nucleus, binds a specific DNA sequence and promotes transcription.
+    scenes:
+      - id: gpcr
+        module: c2-1-gpcr
+        title: G protein-coupled receptor (adrenaline)
+        level: AHL
+        labels:
+          - id: adrenaline
+            name: Adrenaline (epinephrine)
+            level: AHL
+            text: The ligand. An amine hormone from the adrenal glands. It is hydrophilic, so it cannot cross the membrane and binds to the receptor's binding site on the outside of the cell.
+          - id: receptor
+            name: G protein-coupled receptor
+            level: AHL
+            text: A transmembrane protein that crosses the membrane seven times. Its binding site faces outwards. Binding of the ligand changes the shape of the part facing the cytoplasm, where the G protein attaches.
+          - id: g-protein
+            name: G protein (α, β and γ subunits)
+            level: AHL
+            steps: [resting, binding]
+            text: A protein of three subunits on the cytoplasmic face of the membrane, held next to the receptor. While GDP is bound to the α subunit, the G protein is inactive.
+          - id: gdp
+            name: GDP (inactive state)
+            level: AHL
+            steps: [resting, binding]
+            text: Guanosine diphosphate (two phosphate groups) bound to the α subunit keeps the G protein inactive.
+          - id: alpha
+            name: α subunit (carrying GTP)
+            level: AHL
+            steps: [g-activation, camp, kinase, glycogen, switch-off]
+            text: With GTP bound, the α subunit separates from β and γ and moves in the membrane to adenylyl cyclase, which it activates. It slowly hydrolyses its GTP to GDP, which switches it off.
+          - id: beta-gamma
+            name: β and γ subunits
+            level: AHL
+            steps: [g-activation]
+            text: The β and γ subunits stay together as a pair when the activated α subunit leaves them. They rejoin α once its GTP has been hydrolysed to GDP.
+          - id: gtp
+            name: GTP replaces GDP
+            level: AHL
+            steps: [g-activation]
+            text: The receptor's change in shape makes the α subunit release GDP and bind guanosine triphosphate (three phosphate groups) instead. Binding GTP activates the G protein.
+          - id: adenylyl-cyclase
+            name: Adenylyl cyclase
+            level: AHL
+            text: An enzyme in the plasma membrane whose catalytic part is in the cytoplasm. Once activated by the α subunit, it converts ATP into cyclic AMP.
+          - id: atp
+            name: ATP (substrate)
+            level: AHL
+            steps: [camp]
+            text: Adenylyl cyclase splits two phosphates off ATP and links the remaining phosphate to the sugar in a ring, making cyclic AMP (cAMP).
+          - id: camp
+            name: Cyclic AMP (second messenger)
+            level: AHL
+            steps: [camp, kinase]
+            text: A small, water-soluble molecule made inside the cell in large numbers. It carries the signal from the membrane to enzymes in the cytoplasm, so it is called the second messenger.
+          - id: pka
+            name: Protein kinase A
+            level: AHL
+            steps: [kinase]
+            text: Cyclic AMP binds to the regulatory subunits (grey) of this enzyme, releasing the catalytic subunits, which are active protein kinases. They phosphorylate other enzymes, using ATP.
+          - id: cascade
+            name: Kinase cascade (amplification)
+            level: AHL
+            steps: [kinase, glycogen]
+            text: Phosphorylase kinase (light blue) is activated by phosphorylation and in turn phosphorylates glycogen phosphorylase (blue). Each active enzyme activates many of the next, so the signal is amplified.
+          - id: glycogen
+            name: Glycogen
+            level: AHL
+            steps: [glycogen]
+            text: A branched polysaccharide stored in liver cells. Active glycogen phosphorylase removes glucose units one at a time from the ends of its branches.
+          - id: glucose
+            name: Glucose released
+            level: AHL
+            steps: [glycogen, switch-off]
+            text: Glucose units are released as glucose phosphate and converted to glucose, which leaves the liver cell into the blood, raising the blood glucose concentration.
+          - id: outside
+            name: Outside the cell
+            level: AHL
+            text: The extracellular fluid, here tissue fluid in the liver. Adrenaline arrives in the blood from the adrenal glands.
+          - id: cytoplasm
+            name: Cytoplasm of a liver cell
+            level: AHL
+            text: The inside of the target cell, where the G protein, cyclic AMP and the enzymes of the cascade act.
+        steps:
+          - id: resting
+            title: Resting state
+            level: AHL
+            caption: The receptor's binding site is empty. Under the membrane, the G protein (α, β and γ subunits) is attached to the receptor, and GDP bound to its α subunit keeps it inactive.
+          - id: binding
+            title: Adrenaline binds the receptor
+            level: AHL
+            caption: Adrenaline (the ligand) binds to the specific binding site on the outside of the receptor. This causes a conformational change (change in shape) that passes through the receptor to its cytoplasmic side. The ligand itself does not enter the cell.
+          - id: g-activation
+            title: The G protein is activated
+            level: AHL
+            caption: The changed receptor makes the α subunit release GDP and bind GTP. With GTP bound, the G protein is active. The α subunit separates from the β and γ subunits and moves along the inner face of the membrane to adenylyl cyclase.
+          - id: camp
+            title: Adenylyl cyclase makes cyclic AMP
+            level: AHL
+            caption: The α subunit activates adenylyl cyclase, which converts ATP into cyclic AMP (cAMP). One enzyme makes many cAMP molecules, which spread through the cytoplasm. cAMP is the second messenger; adrenaline was the first.
+          - id: kinase
+            title: A kinase cascade amplifies the signal
+            level: AHL
+            caption: cAMP binds to protein kinase A, releasing its active catalytic subunits. These phosphorylate and activate phosphorylase kinase, which phosphorylates and activates glycogen phosphorylase. Each enzyme activates many of the next (amplification).
+          - id: glycogen
+            title: Glycogen is broken down
+            level: AHL
+            caption: Active glycogen phosphorylase removes glucose units from glycogen. They are converted to glucose, which is released from the liver cell into the blood. This happens within seconds of adrenaline arriving.
+          - id: switch-off
+            title: Switching the signal off
+            level: AHL
+            caption: Adrenaline leaves the receptor when its concentration falls (binding is reversible). The α subunit hydrolyses its GTP to GDP and rejoins β and γ; cAMP is broken down by the enzyme phosphodiesterase, and the kinases become inactive again.
+
+      - id: tyrosine-kinase
+        module: c2-1-tyrosine-kinase
+        title: Tyrosine kinase receptor (insulin)
+        level: AHL
+        labels:
+          - id: insulin
+            name: Insulin
+            level: AHL
+            text: The ligand. A small protein hormone secreted by β cells of the pancreas when blood glucose is high. It is hydrophilic, so it binds to the outside of its receptor and does not enter the cell.
+          - id: receptor
+            name: Insulin receptor
+            level: AHL
+            text: A transmembrane protein made of two linked halves (a dimer). The insulin-binding site is on the outside; each half crosses the membrane and ends in a tyrosine kinase domain in the cytoplasm.
+          - id: kinase
+            name: Tyrosine kinase domains
+            level: AHL
+            text: The parts of the receptor inside the cell. They are enzymes that transfer a phosphate group from ATP to the amino acid tyrosine in proteins. They become active when insulin binds.
+          - id: phosphotyrosine
+            name: Phosphorylated tyrosines
+            level: AHL
+            steps: [autophosphorylation, relay, vesicles, glucose-uptake]
+            text: Each kinase domain adds phosphate groups to tyrosines on the other half of the receptor (autophosphorylation). The phosphorylated tyrosines are docking sites for relay proteins.
+          - id: atp
+            name: ATP (phosphate donor)
+            level: AHL
+            steps: [autophosphorylation]
+            text: The phosphate groups added to tyrosine come from ATP, which becomes ADP.
+          - id: relay
+            name: Relay proteins
+            level: AHL
+            steps: [relay, vesicles, glucose-uptake]
+            text: Proteins in the cytoplasm that bind the phosphorylated receptor, are phosphorylated themselves and activate a chain of further enzymes (signal transduction).
+          - id: vesicle
+            name: Vesicle containing GLUT4
+            level: AHL
+            steps: [inactive, insulin-binds, autophosphorylation, relay]
+            text: Without insulin, most glucose transporters (GLUT4) are kept in the membranes of vesicles inside muscle and fat cells, where they cannot take up glucose.
+          - id: glut4
+            name: GLUT4 glucose transporter
+            level: AHL
+            steps: [vesicles, glucose-uptake]
+            text: When the vesicles fuse with the plasma membrane (exocytosis), the transporters become part of it. Glucose then enters the cell through them by facilitated diffusion, down its concentration gradient.
+          - id: glucose
+            name: Glucose
+            level: AHL
+            text: Glucose is more concentrated in the blood and tissue fluid than in the cell. It is polar, so it cannot cross the phospholipid bilayer and needs a transport protein.
+          - id: outside
+            name: Outside the cell
+            level: AHL
+            text: Tissue fluid around a muscle or fat (adipose) cell, which receives insulin and glucose from the blood.
+          - id: cytoplasm
+            name: Cytoplasm
+            level: AHL
+            text: The inside of the target cell, where glucose is used in respiration or stored as glycogen or fat.
+        steps:
+          - id: inactive
+            title: No insulin bound
+            level: AHL
+            caption: Blood glucose is high, but this muscle or fat cell takes up little glucose. Its glucose transporters (GLUT4) are stored in the membranes of vesicles inside the cell, and the insulin receptor is inactive.
+          - id: insulin-binds
+            title: Insulin binds the receptor
+            level: AHL
+            caption: Insulin binds to the specific binding site on the outside of the receptor. This causes a conformational change that brings the two tyrosine kinase domains inside the cell close together.
+          - id: autophosphorylation
+            title: Tyrosines are phosphorylated
+            level: AHL
+            caption: Each tyrosine kinase domain transfers phosphate groups from ATP to tyrosines on the other half of the receptor. Phosphorylation of tyrosine inside the cell activates the receptor.
+          - id: relay
+            title: Relay proteins pass the signal on
+            level: AHL
+            caption: Relay proteins bind to the phosphorylated tyrosines and are themselves phosphorylated. This starts a sequence of reactions in the cytoplasm (a signal transduction pathway).
+          - id: vesicles
+            title: GLUT4 vesicles fuse with the membrane
+            level: AHL
+            caption: The pathway ends by moving vesicles containing GLUT4 to the plasma membrane. They fuse with it (exocytosis), so the number of glucose transporters in the plasma membrane rises.
+          - id: glucose-uptake
+            title: Glucose enters the cell
+            level: AHL
+            caption: Glucose diffuses into the cell through the GLUT4 transporters (facilitated diffusion, down its concentration gradient). Uptake by muscle and fat cells lowers the blood glucose concentration.
+
+      - id: intracellular
+        module: c2-1-intracellular
+        title: Intracellular receptor (steroid hormone)
+        level: AHL
+        labels:
+          - id: hormone
+            name: Steroid hormone (testosterone)
+            level: AHL
+            steps: [diffuse, bind]
+            text: A lipid made from cholesterol, with four fused carbon rings. It is hydrophobic, so it dissolves in the phospholipid bilayer and diffuses straight through it into the cell.
+          - id: bilayer
+            name: Plasma membrane
+            level: AHL
+            text: The hydrophobic core of the bilayer blocks hydrophilic signals such as peptide hormones, but lets hydrophobic steroid hormones pass by simple diffusion. No membrane receptor is needed.
+          - id: receptor
+            name: Intracellular receptor
+            level: AHL
+            steps: [diffuse, bind]
+            text: A receptor protein dissolved in the cytoplasm. Its surface is mainly hydrophilic amino acids, but its binding site is a hydrophobic pocket that fits the specific steroid.
+          - id: complex
+            name: Hormone–receptor complex
+            level: AHL
+            steps: [enter-nucleus, dna, transcription]
+            text: Binding of the hormone activates the receptor by changing its shape. The activated complex moves into the nucleus and acts as a transcription factor.
+          - id: nuclear-envelope
+            name: Nuclear envelope
+            level: AHL
+            text: The double membrane around the nucleus, cut away at the front here so the DNA inside can be seen.
+          - id: pore
+            name: Nuclear pore
+            level: AHL
+            text: A channel through both membranes of the nuclear envelope. Hormone–receptor complexes enter the nucleus and mRNA leaves it through nuclear pores.
+          - id: dna
+            name: DNA
+            level: AHL
+            text: Part of a chromosome in the nucleus, containing the gene that this hormone controls.
+          - id: response-element
+            name: Specific DNA sequence
+            level: AHL
+            steps: [dna, transcription]
+            text: A short base sequence near the target gene (a hormone response element). Only genes with this sequence are affected, so the hormone changes the expression of particular genes.
+          - id: rna-polymerase
+            name: RNA polymerase
+            level: AHL
+            steps: [transcription]
+            text: The enzyme that transcribes the gene. The bound hormone–receptor complexes help it bind and start transcription, so the gene is transcribed much more often.
+          - id: mrna
+            name: mRNA
+            level: AHL
+            steps: [transcription]
+            text: Copies of the gene's mRNA leave the nucleus through nuclear pores and are translated by ribosomes in the cytoplasm, so the cell makes more of a specific protein.
+          - id: outside
+            name: Outside the cell
+            level: AHL
+            text: Steroid hormones are carried to target cells in the blood, mostly bound to carrier proteins because they are not very soluble in water.
+          - id: cytoplasm
+            name: Cytoplasm
+            level: AHL
+            text: The inside of the target cell, between the plasma membrane and the nucleus.
+        steps:
+          - id: diffuse
+            title: The hormone crosses the membrane
+            level: AHL
+            caption: Testosterone is a steroid, so it is hydrophobic. It dissolves in the phospholipid bilayer and diffuses through it into the cytoplasm. The signal itself enters the cell; there is no transmembrane receptor.
+          - id: bind
+            title: The hormone binds its receptor
+            level: AHL
+            caption: Inside the cell the hormone binds to the specific binding site of its receptor protein. This activates the receptor by changing its shape.
+          - id: enter-nucleus
+            title: The complex enters the nucleus
+            level: AHL
+            caption: The activated hormone–receptor complex moves through a nuclear pore into the nucleus. (Some steroid receptors, such as the oestrogen receptor, are mostly already in the nucleus.)
+          - id: dna
+            title: The complex binds a specific DNA sequence
+            level: AHL
+            caption: Two hormone–receptor complexes bind together to a specific base sequence (a hormone response element) near the target gene. Genes without this sequence are not affected.
+          - id: transcription
+            title: Transcription of the gene is promoted
+            level: AHL
+            caption: The bound complexes help RNA polymerase bind and transcribe the gene, so more mRNA is made. The mRNA leaves the nucleus and is translated, so the cell makes more of a specific protein. Responses take longer than with membrane receptors but last longer.
+
+  - id: quorum
+    kind: sim
+    module: c2-1-quorum
+    level: AHL
+    title: Quorum sensing in Vibrio fischeri
+    alt: Slider for population density of Vibrio fischeri showing autoinducer concentration and light emitted per cell.
+    description: >-
+      A simulation of quorum sensing in the bioluminescent marine bacterium Vibrio fischeri. A slider sets the
+      population density, from free-living cells in open sea water to the dense population inside the light organ
+      of the Hawaiian bobtail squid. Every cell releases a small amount of a signalling chemical, the autoinducer,
+      which diffuses freely in and out of cells, so its concentration rises in proportion to the density of cells.
+      A graph shows the autoinducer concentration and the light emitted per cell. Below a threshold concentration
+      the cells give out almost no light. Above it, autoinducer bound to its receptor (LuxR) switches on the lux
+      genes, including the genes for luciferase and for more autoinducer synthase, so light output rises steeply
+      to a maximum. Check boxes test two experiments: knocking out the receptor gene, which prevents light at any
+      density, and adding autoinducer to the water, which makes cells glow even at low density. This is a
+      qualitative model.
+
+  - id: feedback
+    kind: anim
+    module: c2-1-feedback
+    level: AHL
+    title: Negative and positive feedback in signalling
+    alt: Diagram of thyroxine negative feedback and the oestradiol–LH positive feedback loop, with a graph of hormone level over time.
+    description: >-
+      Two hormone pathways drawn as the same three-level chain: hypothalamus, anterior pituitary gland and a
+      target gland, with a feedback arrow from the final hormone back to the hypothalamus and pituitary. In the
+      first, the hypothalamus secretes TRH, the pituitary secretes TSH and the thyroid gland secretes thyroxine;
+      a rise in thyroxine inhibits TRH and TSH secretion and a fall removes the inhibition, so the level is kept
+      within narrow limits (negative feedback). In the second, rising oestradiol from developing follicles in
+      the ovary stimulates more GnRH and LH secretion, and LH stimulates more oestradiol, so LH rises steeply
+      to a surge that triggers ovulation (positive feedback). A graph beside the diagram shows hormone level over
+      time for each.
+    steps:
+      - id: negative-loop
+        title: A hormone chain with negative feedback
+        level: AHL
+        caption: "The hypothalamus secretes TRH, which stimulates the anterior pituitary to secrete TSH, which stimulates the thyroid gland to secrete thyroxine. Thyroxine is the product of the pathway, and it feeds back on the first two steps."
+      - id: negative-high
+        title: Thyroxine rises above normal
+        level: AHL
+        caption: High thyroxine inhibits secretion of TRH by the hypothalamus and of TSH by the pituitary. Less TSH means less thyroxine is secreted, so the level falls back. More product leads to less production.
+      - id: negative-low
+        title: Thyroxine falls below normal
+        level: AHL
+        caption: Low thyroxine means less inhibition, so more TRH and TSH are secreted and the thyroid secretes more thyroxine. The level rises back. Negative feedback keeps the level close to a set point.
+      - id: positive-loop
+        title: A hormone chain with positive feedback
+        level: AHL
+        caption: Late in the follicular phase of the menstrual cycle, developing follicles in the ovary secrete more and more oestradiol. High oestradiol stimulates GnRH secretion by the hypothalamus and makes the pituitary more responsive to it, so more LH is secreted.
+      - id: positive-surge
+        title: The LH surge
+        level: AHL
+        caption: LH stimulates the follicles to secrete even more oestradiol, which stimulates still more LH. More product leads to more production, so LH rises very steeply to a peak — the LH surge.
+      - id: positive-end
+        title: Ovulation ends the loop
+        level: AHL
+        caption: The LH surge triggers ovulation on about day 14. The follicle becomes the corpus luteum and oestradiol falls, so the positive feedback loop is broken. Positive feedback drives a rapid change to a peak; it needs an outside event to stop it.

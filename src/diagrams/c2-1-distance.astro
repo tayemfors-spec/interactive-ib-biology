@@ -1,0 +1,70 @@
+---
+/** Localized (neurotransmitter) versus distant (hormone) signalling, C2.1.5. */
+const vesicles = [[70, 70], [110, 58], [150, 72], [92, 100], [134, 98]];
+const nt = [[96, 140], [118, 150], [140, 138], [160, 152], [80, 152]];
+const receptors = [70, 100, 130, 160, 190];
+const blood = [[400, 160], [440, 150], [480, 166], [520, 156], [560, 164], [600, 152]];
+---
+<svg viewBox="0 0 640 330" role="img" aria-labelledby="ds-t ds-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="ds-t">Local and distant chemical signals</title>
+  <desc id="ds-d">Left: at a synapse, a presynaptic neuron releases neurotransmitter from vesicles; it diffuses across a gap of about 20 to 40 nanometres and binds to receptors on one postsynaptic cell, within a fraction of a millisecond. Right: an endocrine gland secretes hormone into the blood, which carries it around the body; only target cells with the right receptors respond, while other cells do not.</desc>
+  <text class="h" x="12" y="24">Neurotransmitter: localized</text>
+  <text class="h" x="336" y="24">Hormone: distant</text>
+  <path class="divider" d="M318 10 V320" />
+
+  <!-- synapse -->
+  <path class="pre" d="M30 40 Q120 30 210 40 L220 120 Q120 132 20 120 Z" />
+  {vesicles.map(([x, y]) => <circle class="ves" cx={x} cy={y} r="13" />)}
+  {vesicles.map(([x, y]) => <><circle class="nt" cx={x! - 4} cy={y! - 3} r="3" /><circle class="nt" cx={x! + 4} cy={y! + 3} r="3" /></>)}
+  {nt.map(([x, y]) => <circle class="nt" cx={x} cy={y} r="3.5" />)}
+  <path class="post" d="M20 168 Q120 160 220 168 L230 250 L10 250 Z" />
+  {receptors.map((x) => <path class="rec" d={`M${x - 8} 162 v8 h16 v-8`} />)}
+  <path class="gap" d="M236 122 V164 M231 122 h10 M231 164 h10" />
+  <text class="t" x="246" y="140">gap</text>
+  <text class="t" x="246" y="156">20–40 nm</text>
+  <text class="t" x="30" y="92">presynaptic</text>
+  <text class="t" x="30" y="108">neuron</text>
+  <text class="t" x="30" y="210">one postsynaptic cell</text>
+  <text class="s" x="12" y="278">• diffuses a very short distance</text>
+  <text class="s" x="12" y="298">• acts in under a millisecond, briefly</text>
+  <text class="s" x="12" y="318">• reaches only the cell across the gap</text>
+
+  <!-- hormone -->
+  <g class="gland">{[[360, 70], [384, 58], [384, 84], [408, 70]].map(([x, y]) => <circle cx={x} cy={y} r="13" />)}</g>
+  <text class="t" x="336" y="112">endocrine gland</text>
+  <path class="arrow" d="M384 98 V138" marker-end="url(#ds-ah)" />
+  <rect class="vessel" x="336" y="140" width="296" height="36" rx="18" />
+  {blood.map(([x, y]) => <circle class="hor" cx={x} cy={y} r="4.5" />)}
+  <text class="t" x="630" y="132" text-anchor="end">carried in the blood</text>
+  <path class="arrow" d="M440 178 V218" marker-end="url(#ds-ah)" />
+  <path class="arrow" d="M580 178 V218" marker-end="url(#ds-ah)" />
+  <rect class="cell" x="404" y="222" width="72" height="44" rx="10" />
+  {[416, 440, 464].map((x) => <path class="rec" d={`M${x - 7} 222 v-7 h14 v7`} />)}
+  <text class="t" x="440" y="282" text-anchor="middle">target cell</text>
+  <text class="t" x="440" y="298" text-anchor="middle">(has receptors)</text>
+  <rect class="cell muted" x="544" y="222" width="72" height="44" rx="10" />
+  <text class="t" x="580" y="282" text-anchor="middle">no receptors:</text>
+  <text class="t" x="580" y="298" text-anchor="middle">no response</text>
+  <text class="s" x="336" y="318">• anywhere in the body · seconds to hours</text>
+  <defs>
+    <marker id="ds-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker>
+  </defs>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .h { font-size: 17px; font-weight: 800; fill: var(--text); }
+  .t { font-size: 14px; fill: var(--text); }
+  .s { font-size: 14px; fill: var(--text-muted); }
+  .divider { stroke: var(--border-strong); stroke-width: 1.2; stroke-dasharray: 4 4; }
+  .pre, .post { fill: color-mix(in srgb, var(--accent-soft) 70%, transparent); stroke: var(--bio-head); stroke-width: 3; }
+  .ves { fill: var(--surface); stroke: var(--bio-head); stroke-width: 2; }
+  .nt, .hor { fill: var(--bio-k); }
+  .rec { fill: none; stroke: var(--bio-protein); stroke-width: 4; }
+  .gap { stroke: var(--text); stroke-width: 1.4; fill: none; }
+  .gland circle { fill: color-mix(in srgb, var(--bio-carb) 45%, var(--surface)); stroke: var(--bio-carb); stroke-width: 2; }
+  .vessel { fill: color-mix(in srgb, var(--bio-k) 14%, var(--surface)); stroke: var(--bio-k); stroke-width: 2; }
+  .cell { fill: color-mix(in srgb, var(--accent-soft) 70%, transparent); stroke: var(--bio-head); stroke-width: 2.5; }
+  .cell.muted { stroke: var(--text-muted); stroke-dasharray: 5 4; }
+  .arrow { stroke: var(--text); stroke-width: 1.6; fill: none; }
+  .ah { fill: var(--text); }
+</style>

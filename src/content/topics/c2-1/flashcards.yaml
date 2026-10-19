@@ -1,0 +1,69 @@
+cards:
+  - id: c1
+    level: AHL
+    front: What is a ligand, and how does it bind to a receptor?
+    back: The signalling chemical. It binds reversibly, by non-covalent interactions, to a specific binding site on the receptor whose shape and chemical properties are complementary to it. Binding changes the receptor's shape.
+  - id: c2
+    level: AHL
+    front: Outline quorum sensing in Vibrio fischeri.
+    back: Every cell releases an autoinducer that diffuses freely. At high population density (e.g. in the bobtail squid's light organ) it passes a threshold, binds the receptor LuxR and switches on the lux genes, including luciferase, so the cells produce light (bioluminescence).
+  - id: c3
+    level: AHL
+    front: Why is it an advantage for V. fischeri to produce light only at high density?
+    back: Light from a few scattered cells would have no effect and would waste energy. At high density in the squid's light organ the combined light is bright enough to be useful (counter-illumination), and the squid supplies nutrients.
+  - id: c4
+    level: AHL
+    front: Hormones, neurotransmitters, cytokines, calcium ions — one distinguishing feature of each.
+    back: Hormones — carried in the blood to distant targets. Neurotransmitters — diffuse across a synapse to one cell. Cytokines — small proteins acting locally, mainly in immunity and growth. Ca²⁺ — an ion signalling inside cells (e.g. triggering neurotransmitter release, muscle contraction).
+  - id: c5
+    level: AHL
+    front: Name the chemical groups of hormones and of neurotransmitters, with an example of each.
+    back: "Hormones — amines (adrenaline), proteins/peptides (insulin), steroids (oestradiol). Neurotransmitters — amino acids (glutamate), peptides (endorphins), amines (dopamine), a gas (nitric oxide), and acetylcholine."
+  - id: c6
+    level: AHL
+    front: Why are so many different chemicals used as signals?
+    back: Each signal must have a distinctive shape so receptors can tell it apart; different properties suit different roles (hydrophilic for fast surface signals, hydrophobic for gene control, a gas for short-range diffusion); and signalling has evolved many times from available molecules.
+  - id: c7
+    level: AHL
+    front: Contrast neurotransmitters and hormones in how far and how fast they act.
+    back: Neurotransmitters diffuse about 20–40 nm across a synaptic gap, act within a millisecond on one cell and are removed quickly. Hormones travel in the blood, take seconds to minutes, act on all cells with receptors and last longer.
+  - id: c8
+    level: AHL
+    front: Transmembrane vs intracellular receptors — amino acids and ligands.
+    back: Transmembrane — hydrophilic amino acids on the parts outside and inside the cell, a hydrophobic band in the membrane; ligand is hydrophilic and stays outside. Intracellular — hydrophilic surface all over; ligand is hydrophobic (steroid) and enters the cell.
+  - id: c9
+    level: AHL
+    front: What is a signal transduction pathway?
+    back: The sequence of responses inside a cell that starts when a ligand binds to its receptor and ends in the cell's response. It often amplifies the signal and can be switched off.
+  - id: c10
+    level: AHL
+    front: How does acetylcholine change the membrane potential of a postsynaptic cell?
+    back: It binds to the acetylcholine receptor, which changes shape and opens an ion channel within it. Positive ions (mainly Na⁺) diffuse in, depolarizing the membrane, which can trigger an action potential or muscle contraction.
+  - id: c11
+    level: AHL
+    front: How does a G protein-coupled receptor pass a signal into the cell?
+    back: The ligand binds outside; the receptor changes shape; the G protein's α subunit releases GDP and binds GTP; the activated α subunit separates from β and γ and activates an effector. Humans have about 800 GPCRs.
+  - id: c12
+    level: AHL
+    front: Outline how adrenaline causes liver cells to release glucose.
+    back: Adrenaline binds a GPCR → G protein activated (GTP) → adenylyl cyclase makes cAMP from ATP → cAMP (second messenger) activates protein kinase A → kinase cascade (amplification) → glycogen phosphorylase breaks down glycogen → glucose released.
+  - id: c13
+    level: AHL
+    front: What is a second messenger? Give the example in adrenaline signalling.
+    back: A small molecule made inside the cell when a signal binds a membrane receptor, which carries the signal on into the cytoplasm. For adrenaline it is cyclic AMP (cAMP), made from ATP by adenylyl cyclase.
+  - id: c14
+    level: AHL
+    front: Outline the action of insulin through its tyrosine kinase receptor.
+    back: Insulin binds outside the cell; the receptor's kinase domains phosphorylate tyrosines inside the cell; relay proteins start a sequence of reactions; vesicles containing GLUT4 move to and fuse with the plasma membrane; glucose enters by facilitated diffusion.
+  - id: c15
+    level: AHL
+    front: How do steroid hormones change gene expression?
+    back: They diffuse through the plasma membrane and bind receptors in the cytoplasm or nucleus. The activated hormone–receptor complex binds specific DNA sequences and promotes transcription of particular genes.
+  - id: c16
+    level: AHL
+    front: Effects of oestradiol and of progesterone on their target cells (guide examples).
+    back: Oestradiol — acts on hypothalamus cells that secrete GnRH; at high levels late in the follicular phase it increases GnRH secretion, causing the LH surge. Progesterone — acts on endometrium cells, changing gene expression so the lining is maintained ready for implantation.
+  - id: c17
+    level: AHL
+    front: Distinguish negative from positive feedback, with an example of each.
+    back: Negative — the product inhibits its own production, reversing changes (thyroxine inhibits TRH and TSH). Positive — the product stimulates its own production, amplifying a change (oestradiol stimulates GnRH and LH, giving the LH surge).
