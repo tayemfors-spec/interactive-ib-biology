@@ -1,0 +1,69 @@
+cards:
+  - id: c1
+    level: SL
+    front: Why is variation important for naming and classifying organisms?
+    back: No two individuals are identical, but variation shows patterns — small differences within a species, more between closely related species, most between distant groups. These nested levels of similarity are what species and higher groups are based on.
+  - id: c2
+    level: SL
+    front: What is the morphological species concept, and who used it?
+    back: A species is a group of organisms sharing a characteristic set of observable traits (form and structure). It was the concept used by Linnaeus in the 18th century.
+  - id: c3
+    level: SL
+    front: Rules for writing a binomial name
+    back: Genus first with a capital letter, species name second in lower case, e.g. Homo sapiens. Printed in italics or underlined when handwritten. Species in the same genus share similar traits.
+  - id: c4
+    level: SL
+    front: Define a species using the biological species concept.
+    back: A group of organisms that can interbreed and produce fertile offspring.
+  - id: c5
+    level: SL
+    front: Give three difficulties with the biological species concept.
+    back: Any three of — some different species produce fertile hybrids; it cannot be tested on fossils or extinct species; isolated populations never meet so cannot be tested; it does not apply to asexually reproducing organisms; fertility can be partial. Other species definitions also exist.
+  - id: c6
+    level: SL
+    front: Why can it be arbitrary whether two populations are one species or two?
+    back: Speciation is usually gradual. Populations that do not interbreed slowly accumulate differences, so there is no single moment when one species becomes two, and partly diverged populations can be classified either way.
+  - id: c7
+    level: SL
+    front: Chromosome numbers of humans and chimpanzees, and why diploid numbers are even
+    back: Humans 46, chimpanzees 48. Diploid cells contain two sets of chromosomes, one from each parent, so chromosomes come in homologous pairs and the number is even.
+  - id: c8
+    level: SL
+    front: Karyotype vs karyogram
+    back: The karyotype is the number and type of chromosomes in a cell or organism. A karyogram is an image of the chromosomes arranged in homologous pairs in order of decreasing length, used to study the karyotype.
+  - id: c9
+    level: SL
+    front: Which three features are used to pair chromosomes in a karyogram?
+    back: Length, centromere position (metacentric, submetacentric or acrocentric) and banding pattern after staining.
+  - id: c10
+    level: SL
+    front: Give three pieces of evidence that human chromosome 2 formed by fusion.
+    back: Its banding matches chimpanzee chromosomes 2A and 2B placed end to end; it has telomere repeat sequences near the middle (fused ends); it has a second, inactive centromere matching the 2B centromere. The hypothesis is testable — it could have been falsified.
+  - id: c11
+    level: SL
+    front: What is a genome, and what is a SNP?
+    back: The genome is all the genetic information of an organism (its entire base sequence). A SNP is a position where a single base varies between members of a species; SNPs give diversity within a largely shared genome.
+  - id: c12
+    level: SL
+    front: Does genome size correlate with complexity? Give evidence.
+    back: Only loosely. Prokaryotes have small genomes, but among eukaryotes there is no close correlation — onion (about 16 Gb) and Paris japonica (about 149 Gb) have far more DNA than humans (about 3.1 Gb). Much of a large genome is non-coding DNA.
+  - id: c13
+    level: SL
+    front: Current and potential future uses of whole-genome sequencing
+    back: Sequencing has become much faster and cheaper. Current use — research into evolutionary relationships by comparing genomes. Potential future use — personalized medicine, e.g. predicting disease risk and choosing drugs and doses to suit a person's genome.
+  - id: c14
+    level: AHL
+    front: Why does the biological species concept fail for asexual organisms and bacteria?
+    back: Clones never interbreed, so by the definition each clone would be its own species. Bacteria also exchange genes with other species by horizontal gene transfer (conjugation, transformation, transduction), so gene pools are not kept separate.
+  - id: c15
+    level: AHL
+    front: Why are hybrids of parents with different chromosome numbers (e.g. mules) usually sterile?
+    back: The hybrid's chromosomes come from two different sets that are not fully homologous, so they cannot all pair in meiosis I. Segregation fails, gametes get unbalanced chromosome sets and are not viable.
+  - id: c16
+    level: AHL
+    front: Features of a good dichotomous key
+    back: Numbered couplets with exactly two opposite statements; features that are easy to observe and present in every member of the species; each lead goes to another couplet or a species name; n species need n − 1 couplets.
+  - id: c17
+    level: AHL
+    front: How are species identified from environmental DNA?
+    back: Sample water or soil; extract the mixed DNA; amplify a barcode region (e.g. COI, rbcL) by PCR; sequence it; match each sequence to a reference database of barcodes. This rapidly reveals many species, including rare ones, without catching them.

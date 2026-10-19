@@ -1,0 +1,190 @@
+---
+import { art } from './a3-1-key-art';
+import { key, specimenById } from './models/a3-1-key';
+
+/** Specimens are numbered in a different order from the key, so the number gives nothing away. */
+const shown = ['centipede', 'ladybird', 'worm', 'woodlouse', 'ant', 'snail', 'millipede', 'spider'];
+const targetText = (to: { couplet: number } | { species: string }) =>
+  'couplet' in to ? `go to ${to.couplet}` : specimenById.get(to.species)!.common;
+---
+<div class="keysim" data-key>
+  <p class="label" id="key-spec-t">1. Choose a specimen to identify</p>
+  <div class="specimens" role="radiogroup" aria-labelledby="key-spec-t">
+    {shown.map((id, i) => (
+      <button type="button" class="spec" role="radio" aria-checked={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-spec={id}>
+        <svg viewBox="0 0 120 90" aria-hidden="true" focusable="false" set:html={art[id]!()} />
+        <span><span class="visually-hidden">Specimen </span>{i + 1}</span>
+      </button>
+    ))}
+  </div>
+
+  <div class="work">
+    <div class="panel">
+      <p class="label">2. Work through the key</p>
+      <div class="big" data-big role="img" aria-label="Enlarged drawing of specimen 1"></div>
+      <p class="couplet-title" data-couplet-title>Couplet 1: which statement is true of this specimen?</p>
+      <div class="leads" data-leads>
+        <button type="button" class="btn lead" data-lead="a"><span class="tag" data-tag="a">1a</span> <span data-text="a">{key[0]!.a.text}</span></button>
+        <button type="button" class="btn lead" data-lead="b"><span class="tag" data-tag="b">1b</span> <span data-text="b">{key[0]!.b.text}</span></button>
+      </div>
+      <p class="result" aria-live="polite" data-result></p>
+      <div class="nav">
+        <button type="button" class="btn small" data-act="back">Back one step</button>
+        <button type="button" class="btn small" data-act="restart">Start again</button>
+      </div>
+    </div>
+
+    <div class="panel whole">
+      <p class="label" id="key-whole-t">The whole key</p>
+      <ol class="couplets" aria-labelledby="key-whole-t" data-whole>
+        {key.map((c) => (
+          <li data-c={c.n}>
+            {(['a', 'b'] as const).map((side) => (
+              <p class="row" data-row={`${c.n}${side}`}>
+                <span class="tag">{c.n}{side}</span>
+                <span class="txt">{c[side].text}</span>
+                <span class="to">{'species' in c[side].to ? <i>{specimenById.get((c[side].to as { species: string }).species)!.binomial}</i> : targetText(c[side].to)}</span>
+              </p>
+            ))}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+
+  <details class="good">
+    <summary>What makes a good dichotomous key?</summary>
+    <ul>
+      <li><strong>Two choices at every step</strong> (a couplet), and the two statements are opposites, so exactly one is true for any specimen.</li>
+      <li>Statements use features that are <strong>easy to see</strong> and <strong>present in every individual</strong> of the species: count legs or segments, look for a shell. Avoid features that vary or change (size, colour that fades, behaviour, season).</li>
+      <li>Each lead ends either in <strong>"go to" another numbered couplet</strong> or in the <strong>name of a species</strong>.</li>
+      <li>A key for <em>n</em> species needs <strong><em>n</em> − 1 couplets</strong>: these 8 species need 7.</li>
+      <li>Start with a feature that splits the group roughly in half (here, legs or no legs), then subdivide.</li>
+    </ul>
+  </details>
+</div>
+
+<script>
+  import { correctRoute, coupletByN, firstWrongStep, follow, specimenById } from './models/a3-1-key';
+
+  document.querySelectorAll<HTMLElement>('[data-key]').forEach((root) => {
+    const specBtns = [...root.querySelectorAll<HTMLButtonElement>('[data-spec]')];
+    const big = root.querySelector<HTMLElement>('[data-big]')!;
+    const title = root.querySelector<HTMLElement>('[data-couplet-title]')!;
+    const leads = root.querySelector<HTMLElement>('[data-leads]')!;
+    const result = root.querySelector<HTMLElement>('[data-result]')!;
+    let spec = specBtns[0]!.dataset.spec!;
+    let choices: ('a' | 'b')[] = [];
+
+    const render = () => {
+      const r = follow(choices);
+      root.querySelectorAll<HTMLElement>('[data-row]').forEach((row) => {
+        row.classList.toggle('taken', r.steps.some((s) => `${s.couplet}${s.choice}` === row.dataset.row));
+      });
+      root.querySelectorAll<HTMLElement>('[data-c]').forEach((li) => {
+        if (Number(li.dataset.c) === r.at) li.setAttribute('aria-current', 'step');
+        else li.removeAttribute('aria-current');
+      });
+      if (r.at !== null) {
+        const c = coupletByN.get(r.at)!;
+        leads.hidden = false;
+        title.textContent = `Couplet ${c.n}: which statement is true of this specimen?`;
+        for (const side of ['a', 'b'] as const) {
+          root.querySelector(`[data-tag="${side}"]`)!.textContent = `${c.n}${side}`;
+          root.querySelector(`[data-text="${side}"]`)!.textContent = c[side].text;
+        }
+        result.textContent = choices.length ? `Route so far: ${r.steps.map((s) => `${s.couplet}${s.choice}`).join(' → ')}.` : '';
+        return;
+      }
+      leads.hidden = true;
+      const sp = specimenById.get(spec)!;
+      const got = specimenById.get(r.result!)!;
+      title.textContent = 'You have reached a name.';
+      if (got.id === sp.id) {
+        result.textContent = `Identified: ${got.common} (${got.binomial}). Correct — route ${r.steps.map((s) => `${s.couplet}${s.choice}`).join(' → ')}, ${r.steps.length} couplets.`;
+      } else {
+        const bad = firstWrongStep(sp, choices)!;
+        result.textContent = `The key led you to ${got.common} (${got.binomial}), but that does not match this specimen. Look again at couplet ${bad} and check the feature it asks about.`;
+      }
+    };
+
+    const chooseSpec = (btn: HTMLButtonElement, focus = false) => {
+      specBtns.forEach((b) => { const on = b === btn; b.setAttribute('aria-checked', String(on)); b.tabIndex = on ? 0 : -1; });
+      if (focus) btn.focus();
+      spec = btn.dataset.spec!;
+      big.innerHTML = '';
+      big.append(btn.querySelector('svg')!.cloneNode(true));
+      big.setAttribute('aria-label', `Enlarged drawing of ${btn.textContent!.trim().toLowerCase()}`);
+      choices = [];
+      render();
+    };
+
+    specBtns.forEach((b, i) => {
+      b.addEventListener('click', () => chooseSpec(b));
+      b.addEventListener('keydown', (e) => {
+        const d = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+        if (d) { e.preventDefault(); chooseSpec(specBtns[(i + d + specBtns.length) % specBtns.length]!, true); }
+      });
+    });
+    root.querySelectorAll<HTMLButtonElement>('[data-lead]').forEach((b) => b.addEventListener('click', () => {
+      if (follow(choices).at === null) return;
+      choices.push(b.dataset.lead as 'a' | 'b');
+      render();
+      if (follow(choices).at === null) result.focus();
+    }));
+    root.querySelector('[data-act="back"]')!.addEventListener('click', () => { choices.pop(); render(); });
+    root.querySelector('[data-act="restart"]')!.addEventListener('click', () => { choices = []; render(); });
+    // sanity: the key must resolve every specimen (throws during development if a couplet is ambiguous)
+    specBtns.forEach((b) => correctRoute(specimenById.get(b.dataset.spec!)!));
+    result.tabIndex = -1;
+    chooseSpec(specBtns[0]!);
+  });
+</script>
+
+<style>
+  .keysim { container-type: inline-size; }
+  .label { font-weight: 700; font-size: var(--step--1); color: var(--text-muted); margin: 0 0 var(--space-2); }
+  .specimens { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-2); margin-bottom: var(--space-4); }
+  @container (min-width: 40rem) { .specimens { grid-template-columns: repeat(8, minmax(0, 1fr)); } }
+  .spec { font: inherit; font-size: 0.85rem; font-weight: 650; color: var(--text); display: grid; justify-items: center; gap: 2px; padding: 4px; background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-s); cursor: pointer; }
+  .spec:hover { background: var(--surface-2); }
+  .spec[aria-checked='true'] { border: 2px solid var(--accent); background: var(--accent-soft); color: var(--accent-strong); }
+  .spec svg { width: 100%; max-width: 5.5rem; height: auto; }
+  .work { display: grid; gap: var(--space-4); }
+  @container (min-width: 44rem) { .work { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; } }
+  .panel { background: var(--surface-2); border-radius: var(--radius-m); padding: var(--space-3); }
+  .big { background: var(--surface); border-radius: var(--radius-s); border: 1px solid var(--border); margin-bottom: var(--space-3); }
+  .big :global(svg) { display: block; width: 100%; max-width: 16rem; height: auto; margin: 0 auto; }
+  .couplet-title { font-weight: 700; margin: 0 0 var(--space-2); font-size: var(--step--1); }
+  .leads { display: grid; gap: var(--space-2); }
+  .leads[hidden] { display: none; }
+  .lead { justify-content: flex-start; text-align: left; width: 100%; }
+  .tag { font-weight: 800; color: var(--accent-strong); font-variant-numeric: tabular-nums; min-width: 1.8rem; }
+  .result { font-size: var(--step--1); margin: var(--space-3) 0 0; min-height: 1.5em; }
+  .result:focus { outline: none; }
+  .nav { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+  .btn.small { min-height: 2rem; padding: 0.3rem 0.7rem; }
+  .couplets { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); font-size: 0.85rem; }
+  .couplets li { border-radius: var(--radius-s); padding: 2px 4px; border: 2px solid transparent; }
+  .couplets li[aria-current='step'] { border-color: var(--accent); background: var(--surface); }
+  .row { display: grid; grid-template-columns: 1.8rem minmax(0, 1fr) auto; gap: 0 var(--space-2); margin: 0; padding: 1px 0; align-items: baseline; }
+  .row .to { color: var(--text-muted); text-align: right; white-space: nowrap; }
+  @container (max-width: 34rem) {
+    .row { grid-template-columns: 1.8rem minmax(0, 1fr); }
+    .row .to { grid-column: 2; text-align: left; white-space: normal; }
+    .row .to::before { content: '→ '; }
+  }
+  .row.taken .txt { font-weight: 750; }
+  .row.taken .txt::before { content: '✓ '; color: var(--good); }
+  .good { margin-top: var(--space-3); font-size: var(--step--1); }
+  .good summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  .good ul { margin: var(--space-2) 0 0; padding-left: 1.2rem; }
+
+  .keysim :global(.o) { stroke: var(--text); stroke-width: 1.2; }
+  .keysim :global(.b) { fill: color-mix(in srgb, var(--bio-tail) 55%, var(--surface)); stroke: var(--text); stroke-width: 1.3; }
+  .keysim :global(.s) { fill: color-mix(in srgb, var(--bio-head) 60%, var(--surface)); stroke: var(--text); stroke-width: 1.3; }
+  .keysim :global(.r) { fill: var(--bio-k); stroke: var(--text); stroke-width: 1.3; }
+  .keysim :global(.d) { fill: var(--text); }
+  .keysim :global(.seg) { stroke: var(--surface); stroke-width: 0.8; opacity: 0.6; }
+  .keysim :global(.l) { fill: none; stroke: var(--text); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+</style>

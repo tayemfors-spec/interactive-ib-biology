@@ -1,0 +1,223 @@
+facts:
+  - id: f1
+    claim: Carl Linnaeus, an 18th-century Swedish botanist, described species by morphology and popularized binomial names (Species Plantarum 1753; Systema Naturae 10th edn 1758).
+    where: [ "index.mdx#variation", "index.mdx#binomial", "flashcards.yaml:c2" ]
+    confidence: high
+    basis: History of taxonomy (ICN and ICZN starting points); IB guide A3.1.2
+    status: checked
+  - id: f2
+    claim: Binomial rules — genus first with capital initial, species epithet lower case, italics in print, underlined by hand; genus may be abbreviated to its initial after first use.
+    where: [ "index.mdx#binomial", "index.mdx (mistakes)", "quiz.yaml:q1", "flashcards.yaml:c3" ]
+    confidence: high
+    basis: ICZN/ICN conventions; IB guide A3.1.3
+    status: checked
+  - id: f3
+    claim: The British robin (Erithacus rubecula) and American robin (Turdus migratorius) are different species; the lion is Panthera leo and the tiger Panthera tigris.
+    where: [ "index.mdx#binomial", "quiz.yaml:q1" ]
+    confidence: high
+    basis: Standard taxonomy
+    status: checked
+  - id: f4
+    claim: Biological species concept — a group that can interbreed to produce fertile offspring (Mayr 1942); other definitions exist (morphological, phylogenetic/genetic).
+    where: [ "index.mdx#species-concepts", "flashcards.yaml:c4", "flashcards.yaml:c5" ]
+    confidence: high
+    basis: Mayr 1942; IB guide A3.1.4
+    status: checked
+  - id: f5
+    claim: Polar bears and grizzly bears occasionally hybridize in the wild and some hybrids are fertile (second-generation hybrids documented in Canada).
+    where: [ "index.mdx#species-concepts" ]
+    confidence: high
+    basis: Pongracz et al. 2017 (J. Mammalogy) genetic analysis of wild Arctic hybrids
+    status: checked
+  - id: f6
+    claim: Cryptic species and sexual dimorphism are problems for the morphological species concept; peafowl males and females look very different.
+    where: [ "index.mdx#variation", "index.mdx (mistakes)", "quiz.yaml:q2" ]
+    confidence: high
+    basis: Standard evolutionary biology
+    status: checked
+  - id: f7
+    claim: Speciation is usually gradual divergence of populations that do not interbreed, so classifying partly diverged populations can be arbitrary.
+    where: [ "index.mdx#species-concepts", "flashcards.yaml:c6" ]
+    confidence: high
+    basis: IB guide A3.1.5; Coyne & Orr, Speciation (2004)
+    status: checked
+  - id: f8
+    claim: Humans 2n = 46; chimpanzees, gorillas and orangutans 2n = 48.
+    where: [ "index.mdx#chromosome-numbers", "index.mdx#karyotypes", "visuals.yaml:genomes", "quiz.yaml:q4", "flashcards.yaml:c7" ]
+    confidence: high
+    basis: Standard primate cytogenetics; IB guide A3.1.6
+    status: checked
+  - id: f9
+    claim: Diploid chromosome numbers are even; odd numbers in body cells arise from aneuploidy or unpaired sex chromosomes (XO males in e.g. grasshoppers).
+    where: [ "index.mdx#chromosome-numbers", "flashcards.yaml:c7", "src/sims/a3-1-genomes.astro readout" ]
+    confidence: high
+    basis: IB guide A3.1.6 (even number); XO sex determination is standard (e.g. Orthoptera). The XO caveat goes slightly beyond the guide — teacher may wish to confirm wording.
+    status: open
+  - id: f10
+    claim: 2n values in the chart — jack jumper ant Myrmecia pilosula 2 (females; males haploid, 1), Drosophila melanogaster 8, Arabidopsis thaliana 10, maize 20, rice 24, cat 38, mouse 40, bread wheat 42 (hexaploid, x = 7), potato 48 (cultivated tetraploid, x = 12), donkey 62, horse 64, dog 78, chicken 78.
+    where: [ "src/sims/models/a3-1-genomes.ts", "visuals.yaml:genomes", "index.mdx#chromosome-numbers", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: Crosland & Crozier 1986 (Science) for M. pilosula; standard cytogenetic references for the others
+    status: checked
+  - id: f11
+    claim: Human chromosome lengths used in the karyogram are GRCh38 sequence lengths (chr1 248.96 Mb … chr21 46.71 Mb, chr22 50.82 Mb, X 156.04 Mb, Y 57.23 Mb); chromosome 1 is about 5.3 times the length of chromosome 21, the shortest; 21 is shorter than 22.
+    where: [ "src/sims/models/a3-1-karyogram.ts", "index.mdx#karyotypes", "src/sims/a3-1-karyogram.astro (how-to)" ]
+    confidence: high
+    basis: Genome Reference Consortium GRCh38 assembly statistics (NCBI)
+    status: checked
+  - id: f12
+    claim: Centromere indices are rounded cytogenetic values; metacentric 1, 3, 16, 19, 20; submetacentric 2, 4–12, 17, 18, X; acrocentric 13–15, 21, 22, Y.
+    where: [ "src/sims/models/a3-1-karyogram.ts", "src/sims/a3-1-karyogram.astro (how-to)" ]
+    confidence: medium
+    basis: Denver/Patau group classification and ISCN ideograms. Y is conventionally grouped with the G-group acrocentrics (drawn at 0.22); chromosome 16 is borderline metacentric/submetacentric (0.42 used). Teacher may wish to confirm the borderline cases.
+    status: open
+  - id: f13
+    claim: Banding patterns in the sorter and chromosome 2 figure are schematic (not real G-band maps); this is stated on screen.
+    where: [ "src/sims/a3-1-karyogram.astro (model note)", "index.mdx#karyotypes (figure caption)" ]
+    confidence: high
+    basis: Design decision
+    status: checked
+  - id: f14
+    claim: Karyograms are made from cells arrested in metaphase of mitosis, stained (e.g. Giemsa G-banding), photographed and sorted into homologous pairs.
+    where: [ "index.mdx#karyotypes" ]
+    confidence: high
+    basis: Standard clinical cytogenetics
+    status: checked
+  - id: f15
+    claim: Trisomy 21 causes Down syndrome; karyotype written 47,XY,+21 (ISCN). Females XX, males XY with a much smaller Y.
+    where: [ "index.mdx#karyotypes", "quiz.yaml:q3", "visuals.yaml:karyogram", "src/sims/models/a3-1-karyogram.ts" ]
+    confidence: high
+    basis: ISCN 2020 nomenclature; standard genetics
+    status: checked
+  - id: f16
+    claim: Human chromosome 2 formed by end-to-end fusion of two ancestral chromosomes homologous to chimpanzee 2A and 2B (formerly numbered 12 and 13); human 2p and proximal 2q correspond to 2A, the rest of 2q to 2B.
+    where: [ "index.mdx#karyotypes", "src/diagrams/a3-1-chr2-fusion.astro", "flashcards.yaml:c10" ]
+    confidence: high
+    basis: Yunis & Prakash 1982 (Science); McConkey 2004 nomenclature (2A/2B); IB guide A3.1.7 (12 and 13)
+    status: checked
+  - id: f17
+    claim: Head-to-head telomere repeats (TTAGGG)n…(CCCTAA)n lie at the fusion site in 2q13, and an inactive vestigial centromere (alpha-satellite remnants) lies at 2q21.
+    where: [ "index.mdx#karyotypes", "src/diagrams/a3-1-chr2-fusion.astro", "quiz.yaml:q4", "flashcards.yaml:c10" ]
+    confidence: high
+    basis: Ijdo et al. 1991 (PNAS); Hillier et al. 2005 (Nature) chromosome 2 sequence
+    status: checked
+  - id: f18
+    claim: In the figure the positions of the fusion site (47% along chr2) and vestigial centromere (54.5%) are approximate, derived from GRCh38 coordinates (~114 Mb and ~132 Mb of 242 Mb); chimpanzee centromere positions are drawn to align with these and are schematic.
+    where: [ "src/sims/models/a3-1-karyogram.ts", "src/diagrams/a3-1-chr2-fusion.astro" ]
+    confidence: medium
+    basis: GRCh38 coordinates of 2q13 fusion and 2q21.3 cryptic centromere; chimp chromosome orientation and possible inversions not modelled
+    status: open
+  - id: f19
+    claim: Any two humans share about 99.9% of their DNA base sequence; a typical genome differs from the reference at about 4–5 million sites; over 100 million SNP positions are known; SNPs usually defined as variants with minor allele frequency ≥1%.
+    where: [ "index.mdx#genomes", "quiz.yaml:q6", "flashcards.yaml:c11" ]
+    confidence: high
+    basis: "1000 Genomes Project Consortium 2015 (Nature: 4.1–5.0 million sites per genome, 88 million variants); dbSNP holds far more than 100 million"
+    status: checked
+  - id: f20
+    claim: Human and chimpanzee genomes differ at about 1.2% of aligned bases (single-nucleotide differences).
+    where: [ "index.mdx#genomes" ]
+    confidence: high
+    basis: Chimpanzee Sequencing and Analysis Consortium 2005 (Nature) — 1.23%
+    status: checked
+  - id: f21
+    claim: Cytochrome c is highly conserved across distantly related species.
+    where: [ "index.mdx#genomes" ]
+    confidence: high
+    basis: Standard molecular evolution
+    status: checked
+  - id: f22
+    claim: Genome sizes used — Mycoplasma genitalium 0.58 Mb; E. coli 4.6 Mb; S. cerevisiae 12.1 Mb; C. elegans 100 Mb; Arabidopsis 135 Mb; Drosophila 175 Mb; rice 390 Mb; Takifugu rubripes 390 Mb; chicken 1.05 Gb; maize 2.3 Gb; mouse 2.7 Gb; human 3.1 Gb; onion 16 Gb; axolotl 32 Gb; Protopterus aethiopicus 130 Gb; Paris japonica 149 Gb; Tmesipteris oblanceolata 160 Gb.
+    where: [ "src/sims/models/a3-1-genomes.ts", "visuals.yaml:genomes", "index.mdx#genome-size", "quiz.yaml:q5", "flashcards.yaml:c12" ]
+    confidence: medium
+    basis: Fraser et al. 1995; Blattner et al. 1997; Goffeau et al. 1996; C. elegans Sequencing Consortium 1998; Arabidopsis Genome Initiative 2000 / TAIR estimate; Bennett et al. 2003 (Drosophila flow cytometry ~175 Mb, assembly ~144 Mb); IRGSP 2005; Aparicio et al. 2002; ICGSC 2004; Schnable et al. 2009; GRCh38/T2T; Finkers et al. 2021 (onion); Nowoshilow et al. 2018 (axolotl); Animal Genome Size Database (lungfish ~133 pg); Pellicer et al. 2010 (Paris japonica 152 pg ≈ 149 Gb); Fernández et al. 2024 iScience (Tmesipteris 160.45 Gb). Drosophila, pufferfish and lungfish values differ by method — teacher may wish to confirm.
+    status: open
+  - id: f23
+    claim: Derived comparisons — onion about 5× human; Paris japonica almost 50×; axolotl about 10×; lungfish about 40×; pufferfish about 1/8; Drosophila about 6% of human; yeast about 2.6× E. coli.
+    where: [ "index.mdx#genome-size", "src/sims/models/a3-1-genomes.ts (notes)", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: Arithmetic from f22
+    status: checked
+  - id: f24
+    claim: C. elegans adults are about 1 mm long with about 1000 somatic cells (959 in the hermaphrodite); Arabidopsis was the first plant genome sequenced (2000); maize genome is mostly transposable elements (~85%).
+    where: [ "src/sims/models/a3-1-genomes.ts (notes)" ]
+    confidence: high
+    basis: Standard model-organism biology; Schnable et al. 2009
+    status: checked
+  - id: f25
+    claim: 1 pg of DNA ≈ 978 Mb; C-value = DNA content of a haploid nucleus.
+    where: [ "index.mdx#genome-size" ]
+    confidence: high
+    basis: Doležel et al. 2003 (Cytometry A)
+    status: checked
+  - id: f26
+    claim: The human genome has about 20,000 protein-coding genes.
+    where: [ "index.mdx#genome-size" ]
+    confidence: high
+    basis: GENCODE / Ensembl (~19,000–20,000)
+    status: checked
+  - id: f27
+    claim: First genome of a free-living organism — Haemophilus influenzae, 1995; Human Genome Project 1990–2003, cost about US$3 billion (≈ $2.7 billion in 1991 dollars).
+    where: [ "index.mdx#sequencing" ]
+    confidence: high
+    basis: Fleischmann et al. 1995 (Science); NHGRI fact sheets
+    status: checked
+  - id: f28
+    claim: A human genome can now be sequenced in a day or two for a few hundred US dollars.
+    where: [ "index.mdx#sequencing" ]
+    confidence: medium
+    basis: NHGRI sequencing-cost data (~$500–600 by 2022) and manufacturer claims of ~$200 (2022–2024). Costs change quickly; excludes analysis and clinical interpretation.
+    status: open
+  - id: f29
+    claim: Earth BioGenome Project aims to sequence all known eukaryotic species; genome comparisons show chimpanzees and bonobos are our closest relatives and Neanderthal DNA is present in most living humans.
+    where: [ "index.mdx#sequencing" ]
+    confidence: high
+    basis: Lewin et al. 2018 (PNAS); Green et al. 2010 (Science); Chen et al. 2020 (Cell) for Neanderthal ancestry in African populations
+    status: checked
+  - id: f30
+    claim: CYP2C19 loss-of-function variants reduce activation of clopidogrel (pharmacogenomic example of personalized medicine).
+    where: [ "index.mdx#sequencing" ]
+    confidence: high
+    basis: FDA boxed warning 2010; CPIC guideline
+    status: checked
+  - id: f31
+    claim: Many dandelions (Taraxacum) reproduce by apomixis and hundreds of microspecies are named; bdelloid rotifers have no known males and appear to have been asexual for millions of years, with several hundred described species.
+    where: [ "index.mdx#asexual-bacteria" ]
+    confidence: medium
+    basis: Richards 1973 / BSBI on Taraxacum microspecies; Mark Welch & Meselson 2000 (Science). Recent work suggests possible rare genetic exchange in bdelloids, hence "appear to".
+    status: open
+  - id: f32
+    claim: Horizontal gene transfer in bacteria by conjugation (via a pilus), transformation and transduction; spreads antibiotic resistance genes on plasmids between species; bacterial species are delimited at about 95% average nucleotide identity.
+    where: [ "index.mdx#asexual-bacteria", "quiz.yaml:q7", "flashcards.yaml:c14", "index.mdx (mustKnow)" ]
+    confidence: high
+    basis: Standard microbiology; Konstantinidis & Tiedje 2005; Jain et al. 2018 (Nat. Commun.)
+    status: checked
+  - id: f33
+    claim: Horse 2n = 64, donkey 2n = 62, mule 2n = 63 (32 + 31); mules develop normally but are almost always sterile because chromosomes cannot pair and segregate properly in meiosis I.
+    where: [ "index.mdx#chromosome-trait", "index.mdx (mistakes)", "quiz.yaml:q8", "flashcards.yaml:c15" ]
+    confidence: high
+    basis: Standard equine cytogenetics; rare fertile female mules reported, hence "almost always"
+    status: checked
+  - id: f34
+    claim: Key traits — snails have a coiled shell and no legs; earthworms are segmented without legs; insects (ladybird, ant) have 3 pairs of legs; ladybirds have hard wing cases (elytra), the seven-spot with 7 spots; worker ants are wingless with a narrow waist (petiole); spiders 4 pairs; woodlice (Oniscus asellus) 7 pairs; Lithobius forficatus 15 pairs, one per segment; millipedes two pairs on most segments.
+    where: [ "src/sims/models/a3-1-key.ts", "src/sims/a3-1-key-art.ts", "visuals.yaml:key-builder" ]
+    confidence: high
+    basis: Standard invertebrate zoology (e.g. Field Studies Council keys)
+    status: checked
+  - id: f35
+    claim: A dichotomous key for n species needs n − 1 couplets; horse chestnut has palmately compound leaves and ash pinnately compound leaves.
+    where: [ "index.mdx#keys", "src/sims/a3-1-key-builder.astro (good key panel)", "flashcards.yaml:c16" ]
+    confidence: high
+    basis: Logic of a binary tree with n leaves; standard botany
+    status: checked
+  - id: f36
+    claim: Standard barcodes — COI (most animals), 12S rRNA (fish eDNA metabarcoding), rbcL and matK (plants); identification needs reference sequences (e.g. BOLD, GenBank); eDNA degrades in days to weeks in water; eDNA is used for great crested newt surveys in UK ponds.
+    where: [ "index.mdx#edna", "src/diagrams/a3-1-edna.astro", "quiz.yaml:q10", "flashcards.yaml:c17" ]
+    confidence: high
+    basis: Hebert et al. 2003; CBOL Plant Working Group 2009; Miya et al. 2015 (MiFish); Biggs et al. 2015 and Natural England survey protocol; Dejean et al. 2011 (eDNA persistence)
+    status: checked
+  - id: f37
+    claim: The mule animation uses a simplified, hypothetical chromosome set (horse A, B, C, D; donkey A, B, CD) to illustrate failed pairing and unbalanced segregation; real horse–donkey karyotype differences involve several fusions and rearrangements, and in mules meiosis usually arrests.
+    where: [ "src/anims/a3-1-hybrid-meiosis.astro", "visuals.yaml:hybrid-meiosis" ]
+    confidence: medium
+    basis: Equine comparative cytogenetics (horse–donkey differ by multiple centric fusions/rearrangements); mule spermatocytes arrest with pairing failures (e.g. Chandley et al. 1975). Teaching model only; labelled "simplified" in captions.
+    status: open

@@ -1,0 +1,179 @@
+---
+import { chromNumbers, formatSize, genomes, groupLabel, logPos, logTicks, sortedBySize, versusHuman } from './models/a3-1-genomes';
+
+const bySize = sortedBySize(genomes);
+const first = genomes.find((g) => g.id === 'onion')!;
+const chromSorted = [...chromNumbers].sort((a, b) => a.n2 - b.n2 || a.common.localeCompare(b.common));
+const CHROM_MAX = 80;
+const pct = (v: number) => `${(v * 100).toFixed(2)}%`;
+---
+<div class="gen" data-gen>
+  <div class="bar">
+    <div class="views" role="group" aria-label="Choose a chart">
+      <button type="button" class="btn" aria-pressed="true" data-view-btn="size">Genome size</button>
+      <button type="button" class="btn" aria-pressed="false" data-view-btn="chrom">Chromosome number</button>
+    </div>
+    <div class="sort" role="group" aria-label="Order of organisms" data-sort-wrap>
+      <button type="button" class="btn small" aria-pressed="true" data-sort="size">By size</button>
+      <button type="button" class="btn small" aria-pressed="false" data-sort="group">By group</button>
+    </div>
+  </div>
+
+  <div class="view" data-view="size">
+    <p class="hint">Genome size (total DNA in one set of chromosomes), on a <strong>log scale</strong>: each gridline is ten times the one before. Select an organism to compare it with the human genome.</p>
+    <div class="grid-row axis" aria-hidden="true">
+      <span></span>
+      <span class="ticks">
+        {logTicks.map((t, i) => (
+          <span class:list={['tick', { minor: i % 2 === 1 }]} style={`left:${pct(logPos(t.v))}`} data-edge={i === 0 ? 'start' : i === logTicks.length - 1 ? 'end' : undefined}>{t.label}</span>
+        ))}
+      </span>
+    </div>
+    <ul class="rows" data-rows>
+      {bySize.map((g) => (
+        <li data-org-row={g.id} data-group={g.group} data-mb={g.mb}>
+          <button type="button" class:list={['grid-row', 'org', { human: g.id === 'human' }]} aria-pressed={g.id === first.id ? 'true' : 'false'} data-org={g.id}>
+            <span class="name"><span class="common">{g.common}</span> <i>{g.binomial}</i> <span class="grp">· {groupLabel[g.group]}</span></span>
+            <span class="track">
+              <span class:list={['fill', `g-${g.group}`]} style={`width:${pct(logPos(g.mb))}`}></span>
+              <span class:list={['val', { inside: logPos(g.mb) > 0.8 }]} style={logPos(g.mb) > 0.8 ? `right:${pct(1 - logPos(g.mb))}` : `left:${pct(logPos(g.mb))}`}>{formatSize(g.mb)}</span>
+            </span>
+          </button>
+        </li>
+      ))}
+    </ul>
+    <p class="readout" aria-live="polite" data-readout><strong>{first.common}</strong> (<i>{first.binomial}</i>): {formatSize(first.mb)}, {versusHuman(first.mb)}. {first.note[0]!.toUpperCase() + first.note.slice(1)}.</p>
+    <p class="key"><span class="sw g-bacterium"></span> bacteria <span class="sw g-fungus"></span> fungi <span class="sw g-plant"></span> plants <span class="sw g-animal"></span> animals (the group is also named in each row)</p>
+    <details class="table">
+      <summary>Show data table</summary>
+      <table>
+        <thead><tr><th scope="col">Organism</th><th scope="col">Group</th><th scope="col">Genome size</th><th scope="col">Base pairs (Mb)</th></tr></thead>
+        <tbody>{bySize.map((g) => <tr><th scope="row">{g.common} (<i>{g.binomial}</i>)</th><td>{groupLabel[g.group]}</td><td>{formatSize(g.mb)}</td><td>{g.mb.toLocaleString('en-GB')}</td></tr>)}</tbody>
+      </table>
+    </details>
+  </div>
+
+  <div class="view" data-view="chrom" hidden>
+    <p class="hint">Diploid chromosome number (2n) on an ordinary (linear) scale. You only need to learn humans (46) and chimpanzees (48).</p>
+    <div class="grid-row axis" aria-hidden="true">
+      <span></span>
+      <span class="ticks">
+        {[0, 20, 40, 60, 80].map((v, i) => <span class="tick" style={`left:${pct(v / CHROM_MAX)}`} data-edge={i === 0 ? 'start' : i === 4 ? 'end' : undefined}>{v}</span>)}
+      </span>
+    </div>
+    <ul class="rows chrom-rows">
+      {chromSorted.map((c) => (
+        <li class:list={['grid-row', 'crow', { human: c.id === 'human' || c.id === 'chimp' }]}>
+          <span class="name"><span class="common">{c.common}</span> <i>{c.binomial}</i> <span class="grp">· {groupLabel[c.group]}</span></span>
+          <span class="track lin">
+            <span class:list={['fill', `g-${c.group}`]} style={`width:${pct(c.n2 / CHROM_MAX)}`}></span>
+            <span class="val" style={`left:${pct(c.n2 / CHROM_MAX)}`}>{c.n2}</span>
+          </span>
+        </li>
+      ))}
+    </ul>
+    <p class="readout">Chromosome number does not follow complexity either: dogs and chickens have 78, wheat 42, humans 46. Every number here is even, because diploid cells carry two sets of chromosomes.</p>
+    <details class="table">
+      <summary>Show data table</summary>
+      <table>
+        <thead><tr><th scope="col">Organism</th><th scope="col">2n</th><th scope="col">Note</th></tr></thead>
+        <tbody>{chromSorted.map((c) => <tr><th scope="row">{c.common} (<i>{c.binomial}</i>)</th><td>{c.n2}</td><td class="note">{c.note ?? ''}</td></tr>)}</tbody>
+      </table>
+    </details>
+  </div>
+  <p class="model-note">Values are rounded published estimates (sources in the page's fact list); measurements of the same species can differ by a few per cent.</p>
+</div>
+
+<script>
+  import { formatSize, genomes, versusHuman } from './models/a3-1-genomes';
+
+  const order = ['bacterium', 'fungus', 'plant', 'animal'];
+
+  document.querySelectorAll<HTMLElement>('[data-gen]').forEach((root) => {
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    const list = root.querySelector<HTMLElement>('[data-rows]')!;
+    const rows = [...list.querySelectorAll<HTMLElement>('[data-org-row]')];
+    const pressGroup = (sel: string, on: HTMLElement) => root.querySelectorAll<HTMLElement>(sel).forEach((b) => b.setAttribute('aria-pressed', String(b === on)));
+
+    root.querySelectorAll<HTMLButtonElement>('[data-view-btn]').forEach((btn) => btn.addEventListener('click', () => {
+      pressGroup('[data-view-btn]', btn);
+      root.querySelectorAll<HTMLElement>('[data-view]').forEach((v) => (v.hidden = v.dataset.view !== btn.dataset.viewBtn));
+      root.querySelector<HTMLElement>('[data-sort-wrap]')!.hidden = btn.dataset.viewBtn !== 'size';
+    }));
+
+    root.querySelectorAll<HTMLButtonElement>('[data-sort]').forEach((btn) => btn.addEventListener('click', () => {
+      pressGroup('[data-sort]', btn);
+      const bySize = (a: HTMLElement, b: HTMLElement) => Number(a.dataset.mb) - Number(b.dataset.mb);
+      const sorted = btn.dataset.sort === 'group'
+        ? [...rows].sort((a, b) => order.indexOf(a.dataset.group!) - order.indexOf(b.dataset.group!) || bySize(a, b))
+        : [...rows].sort(bySize);
+      sorted.forEach((r) => list.appendChild(r));
+    }));
+
+    let timer = 0;
+    list.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-org]');
+      if (!btn) return;
+      pressGroup('[data-org]', btn);
+      const g = genomes.find((x) => x.id === btn.dataset.org)!;
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        const note = g.note[0]!.toUpperCase() + g.note.slice(1);
+        readout.innerHTML = '';
+        const b = document.createElement('strong'); b.textContent = g.common;
+        const i = document.createElement('i'); i.textContent = g.binomial;
+        readout.append(b, ' (', i, `): ${formatSize(g.mb)}, ${g.id === 'human' ? 'the reference for comparison' : versusHuman(g.mb)}. ${note}.`);
+      }, 150);
+    });
+  });
+</script>
+
+<style>
+  .gen { container-type: inline-size; }
+  .bar { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); justify-content: space-between; margin-bottom: var(--space-3); }
+  .views, .sort { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .sort[hidden] { display: none; }
+  .btn.small { min-height: 2rem; padding: 0.3rem 0.7rem; }
+  .hint { font-size: var(--step--1); margin: 0 0 var(--space-3); color: var(--text-muted); }
+  .rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+  .grid-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px var(--space-3); align-items: center; width: 100%; }
+  @container (min-width: 36rem) { .grid-row { grid-template-columns: 15rem minmax(0, 1fr); } }
+  .org { font: inherit; text-align: left; color: var(--text); background: transparent; border: 1px solid transparent; border-radius: var(--radius-s); padding: 4px 6px; cursor: pointer; }
+  .org:hover { background: var(--surface-2); }
+  .org[aria-pressed='true'] { border-color: var(--accent); background: var(--accent-soft); }
+  .crow { padding: 4px 6px; }
+  .human .common { font-weight: 800; }
+  .name { font-size: var(--step--1); line-height: 1.25; }
+  .common { font-weight: 650; }
+  .name i, .grp { color: var(--text-muted); }
+  .grp { font-size: 0.85em; }
+  .track {
+    position: relative; display: block; height: 1.25rem; border-radius: 3px;
+    background-color: var(--surface-2);
+    background-image: repeating-linear-gradient(to right, var(--border-strong) 0 1px, transparent 1px calc(100% / 7));
+  }
+  .track.lin { background-image: repeating-linear-gradient(to right, var(--border-strong) 0 1px, transparent 1px 25%); }
+  .fill { position: absolute; inset: 3px auto 3px 0; border-radius: 0 3px 3px 0; }
+  .g-bacterium { background: var(--bio-k); }
+  .g-fungus { background: var(--bio-glucose); }
+  .g-plant { background: var(--bio-carb); }
+  .g-animal { background: var(--bio-protein); }
+  .val { position: absolute; top: 50%; transform: translateY(-50%); padding: 0 4px; margin-left: 2px; background: var(--surface-2); border-radius: 3px; line-height: 1.2; font-size: 0.8rem; font-weight: 750; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .val.inside { background: var(--surface); color: var(--text); border-radius: 3px; margin-right: 3px; line-height: 1.2; }
+  .axis { margin-bottom: 2px; padding: 0 7px; }
+  .ticks { position: relative; display: block; height: 1.2rem; font-size: 0.75rem; color: var(--text-muted); }
+  .tick { position: absolute; bottom: 0; transform: translateX(-50%); white-space: nowrap; }
+  .tick[data-edge='start'] { transform: none; }
+  .tick[data-edge='end'] { transform: translateX(-100%); }
+  @container (max-width: 30rem) { .tick.minor { display: none; } }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .key { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; }
+  .sw { display: inline-block; width: 0.9rem; height: 0.9rem; border-radius: 2px; margin-left: 4px; }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  .table > table { display: block; overflow-x: auto; }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  th, td { padding: 0.2rem 0.6rem; border-bottom: 1px solid var(--border); text-align: left; }
+  td.note { color: var(--text-muted); }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

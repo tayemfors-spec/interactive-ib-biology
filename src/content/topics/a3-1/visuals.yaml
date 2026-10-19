@@ -1,0 +1,78 @@
+# Visuals for A3.1. Reader-facing text for the sims lives here and in the sim files (which hold
+# the labels that change with the reader's choices). Figures (src/diagrams) carry their own title/desc.
+visuals:
+  - id: karyogram
+    kind: sim
+    module: a3-1-karyogram
+    title: Sort a human karyogram
+    alt: Chromosomes from one cell in random order, to be arranged into 22 homologous pairs plus the sex chromosomes.
+    description: >-
+      The chromosomes from one human cell in metaphase are shown in random order in a "metaphase spread".
+      Each is drawn as two sister chromatids joined at a centromere, with dark bands. Lengths are to scale.
+      You select a chromosome and then choose a numbered place in the karyogram (pairs 1 to 22, and a group
+      for the sex chromosomes). Homologous chromosomes have the same length, the same centromere position and
+      the same banding pattern. A Check button marks each group as correct, wrong or incomplete, and Sort for
+      me completes the karyogram. There are cells from three people: one is a typical female (46,XX), one a
+      typical male (46,XY) and one a male with three copies of chromosome 21 (47,XY,+21, Down syndrome).
+      Two questions ask you to deduce each person's sex from the sex chromosomes (XX or XY) and the total
+      number of chromosomes.
+
+  - id: genomes
+    kind: sim
+    module: a3-1-genomes
+    title: Genome size and chromosome number across organisms
+    alt: Bar charts of genome size on a log scale and diploid chromosome number for bacteria, yeast, plants and animals.
+    description: >-
+      The first chart shows genome size for seventeen organisms on a logarithmic scale running from 100
+      thousand to 1 million million base pairs, so each gridline is ten times the previous one. Bacteria have
+      the smallest genomes (Mycoplasma about 0.58 Mb, E. coli about 4.6 Mb), then baker's yeast (12 Mb). Among
+      eukaryotes size varies enormously and does not follow complexity: the human genome is about 3.1 Gb, but
+      onion has about 16 Gb, the axolotl about 32 Gb, the marbled lungfish about 130 Gb, and the plant Paris
+      japonica about 149 Gb; a fork fern, Tmesipteris oblanceolata, holds the record at about 160 Gb. Selecting
+      an organism compares it with the human genome. The second chart shows diploid chromosome numbers, from 2
+      in the jack jumper ant to 78 in dogs and chickens, with humans at 46 and chimpanzees at 48. All the
+      diploid numbers are even.
+
+  - id: key-builder
+    kind: sim
+    module: a3-1-key-builder
+    level: AHL
+    title: Using a dichotomous key
+    alt: Drawings of eight garden invertebrates and a seven-couplet dichotomous key to identify them step by step.
+    description: >-
+      Eight drawings of invertebrates found in gardens: a snail, an earthworm, a ladybird, an ant, a spider,
+      a woodlouse, a centipede and a millipede, labelled only as specimens 1 to 8. You choose a specimen and
+      work through a dichotomous key: at each numbered couplet you choose which of two opposite statements is
+      true, for example "no legs" or "jointed legs present", and the key sends you to another couplet or gives
+      a species name. The full key is shown alongside with your route marked. If you reach the wrong name, the
+      tool tells you which couplet to look at again. A panel explains what makes a good key: two choices at
+      each step, observable features present in every member of the species, and one fewer couplet than the
+      number of species.
+
+  - id: hybrid-meiosis
+    kind: anim
+    module: a3-1-hybrid-meiosis
+    level: AHL
+    title: Why a mule is sterile
+    alt: Simplified chromosomes from a horse and a donkey combine in a mule but cannot pair properly in meiosis I, giving unbalanced gametes.
+    description: >-
+      A simplified model with a few chromosomes standing for the real 63. A horse sperm carries chromosomes
+      with genes A, B, C and D (blue); a donkey egg carries chromosomes with genes A and B and one chromosome
+      carrying the genes of both C and D (orange, dashed). In the mule's body cells both sets are present, so
+      every gene is there and mitosis works normally. In meiosis I the A and B chromosomes pair with their
+      homologues, but the horse C and D chromosomes and the donkey CD chromosome do not form normal pairs. The
+      chromosomes are shared out unevenly, so one cell gets the genes for C twice and the other has none.
+      Gametes like these are not viable.
+    steps:
+      - id: gametes
+        title: Gametes from two species
+        caption: A horse gamete has 32 chromosomes and a donkey gamete 31. Here 4 and 3 stand for them. Letters show the genes each chromosome carries; the donkey's genes C and D are on one chromosome instead of two.
+      - id: zygote
+        title: The mule has both sets
+        caption: Fertilization gives the mule 63 chromosomes (32 + 31) in every body cell. Every gene is present, and mitosis does not need chromosomes to pair, so the mule grows and develops normally.
+      - id: pairing
+        title: Pairing fails in meiosis I
+        caption: In meiosis I homologous chromosomes must pair. A pairs with A and B with B, but the horse C and D chromosomes do not match the donkey CD chromosome along their length, so they cannot form normal pairs. In real mules pairing fails so widely that meiosis usually stops.
+      - id: segregation
+        title: Unbalanced gametes
+        caption: When the chromosomes separate, they are not shared out as two complete haploid sets. Here one cell has the genes for C twice and the other has none. Such gametes are not viable, so the mule is almost always sterile.

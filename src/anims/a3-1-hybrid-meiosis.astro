@@ -1,0 +1,60 @@
+---
+/** Meiosis in a mule (simplified chromosome set). Animated by a3-1-hybrid-meiosis.ts; drawn in its step-1 state. */
+import { chroms, positions, shown } from './a3-1-hybrid-meiosis';
+const op = (k: string) => `opacity:${shown[k]![0]}`;
+---
+<svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" class="hyb">
+  <g data-el="sperm" style={op('sperm')}>
+    <circle class="cell" cx="125" cy="150" r="72" />
+    <path class="cell" d="M53 150 q -18 -8 -34 4" />
+    <text class="ttl" x="125" y="252" text-anchor="middle">Horse sperm</text>
+    <text class="sub" x="125" y="270" text-anchor="middle">n = 32 (4 shown)</text>
+  </g>
+  <g data-el="egg" style={op('egg')}>
+    <circle class="cell" cx="396" cy="150" r="76" />
+    <text class="ttl" x="396" y="252" text-anchor="middle">Donkey egg</text>
+    <text class="sub" x="396" y="270" text-anchor="middle">n = 31 (3 shown)</text>
+  </g>
+  <g data-el="mule" style={op('mule')}>
+    <circle class="cell" cx="252" cy="160" r="118" />
+    <text class="ttl" x="510" y="44" text-anchor="end">Mule cell</text>
+    <text class="sub" x="510" y="62" text-anchor="end">2n = 63 (7 shown)</text>
+  </g>
+  <g data-el="pairs" style={op('pairs')}>
+    <text class="ok" x="190" y="224" text-anchor="middle">A pairs</text>
+    <text class="ok" x="242" y="224" text-anchor="middle">B pairs</text>
+    <text class="bad" x="384" y="112">C, D and CD</text>
+    <text class="bad" x="384" y="128">do not pair</text>
+    <text class="bad" x="384" y="144">properly</text>
+  </g>
+  <g data-el="cellL" style={op('cellL')}>
+    <circle class="cell" cx="140" cy="155" r="88" />
+    <text class="bad" x="140" y="264" text-anchor="middle">✗ genes C twice</text>
+  </g>
+  <g data-el="cellR" style={op('cellR')}>
+    <circle class="cell" cx="366" cy="155" r="80" />
+    <text class="bad" x="366" y="264" text-anchor="middle">✗ genes C missing</text>
+  </g>
+  {Object.entries(chroms).map(([k, c]) => (
+    <g data-el={k} transform={`translate(${positions[k]![0]![0]} ${positions[k]![0]![1]})`}>
+      <rect class:list={['chr', c.from]} x="-7" y={-c.h / 2} width="14" height={c.h} rx="6" />
+      <text class="gene" x="0" y={c.h / 2 + 15} text-anchor="middle">{c.genes}</text>
+    </g>
+  ))}
+  <text class="key" x="10" y="20"><tspan class="kh">■</tspan> from horse · <tspan class="kd">■</tspan> from donkey (dashed) · letters = genes carried</text>
+</svg>
+<style>
+  .hyb { font-family: var(--font-sans); }
+  .cell { fill: none; stroke: var(--border-strong); stroke-width: 2; }
+  .ttl { font-size: 15px; font-weight: 750; fill: var(--text); }
+  .sub { font-size: 13px; fill: var(--text-muted); }
+  .chr { stroke: var(--text); stroke-width: 1.4; }
+  .horse { fill: var(--bio-protein); }
+  .donkey { fill: var(--bio-head); stroke-dasharray: 4 2; }
+  .gene { font-size: 13px; font-weight: 800; fill: var(--text); }
+  .ok { font-size: 13px; fill: var(--good); font-weight: 700; }
+  .bad { font-size: 13px; fill: var(--bad); font-weight: 700; }
+  .key { font-size: 12.5px; fill: var(--text-muted); }
+  .kh { fill: var(--bio-protein); }
+  .kd { fill: var(--bio-head); }
+</style>

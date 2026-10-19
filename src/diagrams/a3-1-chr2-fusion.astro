@@ -1,0 +1,86 @@
+---
+/** Human chromosome 2 lined up with chimpanzee chromosomes 2A and 2B (schematic banding from the sim model). */
+import { chromShapes } from '../sims/a3-1-chrom-draw';
+import { FUSION_AT, VESTIGIAL_CEN_AT, chimp2, typeById } from '../sims/models/a3-1-karyogram';
+
+const X0 = 40;
+const L = 540;
+const W = 18; // chromosome thickness (2 chromatids of 8 + gap 2)
+const cw = 8;
+const yH = 62;
+const yC = 176;
+const gap = 16;
+const hsa2 = typeById.get('2')!;
+const lenA = L * FUSION_AT;
+const lenB = L * (1 - FUSION_AT);
+const xB = X0 + lenA + gap;
+// horizontal chromosome: p tip at the left
+const horiz = (x: number, y: number, h: number, ci: number, bands: readonly (readonly [number, number])[]) =>
+  `<g transform="translate(${x} ${y + W}) rotate(-90)">${chromShapes({ h, ci, bands, cw })}</g>`;
+const human = horiz(X0, yH, L, hsa2.ci, hsa2.bands);
+const chA = horiz(X0, yC, lenA, chimp2.a.ci, chimp2.a.bands);
+const chB = horiz(xB, yC, lenB, chimp2.b.ci, chimp2.b.bands);
+const xCen = X0 + L * hsa2.ci;
+const xFuse = X0 + L * FUSION_AT;
+const xVes = X0 + L * VESTIGIAL_CEN_AT;
+---
+<svg viewBox="0 0 620 262" role="img" aria-labelledby="c2-t c2-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="c2-t">Evidence that human chromosome 2 formed by fusion</title>
+  <desc id="c2-d">Human chromosome 2 is drawn above chimpanzee chromosomes 2A and 2B, which lie end to end beneath it. Shaded bands link matching regions: the banding of the left part of human 2 matches chimpanzee 2A and the right part matches 2B. Human 2 has one functional centromere, in the position of the 2A centromere. Near the middle of its long arm it has telomere repeat sequences where two chromosome tips joined, and a little further along an inactive second centromere in the position of the 2B centromere. Each chimpanzee chromosome has its own centromere and a telomere at each end.</desc>
+
+  <text class="title" x={X0} y="16">Human chromosome 2</text>
+  <text class="title" x={X0} y={yC + W + 44}>Chimpanzee 2A</text>
+  <text class="title" x={xB} y={yC + W + 44}>Chimpanzee 2B</text>
+  <text class="sub" x={X0 + L} y="16" text-anchor="end">46 chromosomes</text>
+  <text class="sub" x={X0 + L} y={yC + W + 44} text-anchor="end">48 chromosomes</text>
+
+  <!-- homologous regions -->
+  <path class="homA" d={`M${X0} ${yC} L${X0} ${yH + W} L${xFuse} ${yH + W} L${X0 + lenA} ${yC} Z`} />
+  <path class="homB" d={`M${xB} ${yC} L${xFuse} ${yH + W} L${X0 + L} ${yH + W} L${xB + lenB} ${yC} Z`} />
+  <text class="match" x={X0 + lenA / 2} y={yC - 12} text-anchor="middle">same banding</text>
+  <text class="match" x={xB + lenB / 2 + 30} y={yC - 12} text-anchor="middle">same banding</text>
+
+  <Fragment set:html={human + chA + chB} />
+
+  <!-- telomeres -->
+  <rect class="tel" x={X0 - 4} y={yH - 1} width="6" height={W + 2} rx="2" />
+  <rect class="tel" x={X0 + L - 2} y={yH - 1} width="6" height={W + 2} rx="2" />
+  <rect class="tel" x={xFuse - 4} y={yH - 3} width="8" height={W + 6} rx="2" />
+  <rect class="tel" x={X0 - 4} y={yC - 1} width="6" height={W + 2} rx="2" />
+  <rect class="tel" x={X0 + lenA - 2} y={yC - 1} width="6" height={W + 2} rx="2" />
+  <rect class="tel" x={xB - 4} y={yC - 1} width="6" height={W + 2} rx="2" />
+  <rect class="tel" x={xB + lenB - 2} y={yC - 1} width="6" height={W + 2} rx="2" />
+  <!-- inactive centromere -->
+  <circle class="ves" cx={xVes} cy={yH + W / 2} r="11" />
+
+  <!-- labels on human 2 -->
+  <path class="lead" d={`M${xCen} ${yH - 2} L${xCen - 18} 40`} />
+  <text class="lbl" x={xCen - 20} y="38" text-anchor="end">functional centromere</text>
+  <path class="lead" d={`M${xVes} ${yH - 10} L${xVes + 16} 40`} />
+  <text class="lbl" x={xVes + 18} y="38">inactive second centromere</text>
+  <path class="lead" d={`M${xFuse} ${yH + W + 4} L${xFuse} ${yH + W + 26}`} />
+  <text class="lbl tel-t" x={xFuse + 6} y={yH + W + 22}>telomere repeats in the middle</text>
+  <text class="lbl tel-t" x={xFuse + 6} y={yH + W + 38}>(TTAGGG)<tspan class="sm" dy="4">n</tspan><tspan dy="-4"> … (CCCTAA)</tspan><tspan class="sm" dy="4">n</tspan></text>
+
+  <!-- labels on chimp -->
+  <text class="note" x={X0 + lenA * chimp2.a.ci} y={yC + W + 18} text-anchor="middle">centromere</text>
+  <text class="note" x={xB + lenB * chimp2.b.ci} y={yC + W + 18} text-anchor="middle">centromere</text>
+  <rect class="tel" x={X0 + L - 72} y={yC + W + 8} width="6" height="12" rx="2" /><text class="note" x={X0 + L} y={yC + W + 18} text-anchor="end">telomere</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .title { font-size: 16px; font-weight: 750; fill: var(--text); }
+  .sub { font-size: 14px; fill: var(--text-muted); font-weight: 600; }
+  .match { font-size: 14px; fill: var(--text-muted); font-style: italic; }
+  .lbl { font-size: 14px; fill: var(--text); }
+  .note { font-size: 13px; fill: var(--text-muted); }
+  .sm { font-size: 10px; }
+  .lead { stroke: var(--text); stroke-width: 1.2; fill: none; }
+  .homA { fill: color-mix(in srgb, var(--bio-protein) 16%, transparent); }
+  .homB { fill: color-mix(in srgb, var(--bio-protein-2) 16%, transparent); }
+  svg :global(.chromatid) { fill: color-mix(in srgb, var(--bio-protein) 22%, var(--surface)); stroke: var(--text-muted); stroke-width: 0.8; }
+  svg :global(.band) { fill: var(--text); opacity: 0.8; }
+  svg :global(.cen) { fill: var(--bio-head); }
+  .tel { fill: var(--bio-carb); stroke: var(--text); stroke-width: 0.8; }
+  .ves { fill: none; stroke: var(--bio-head); stroke-width: 2.5; stroke-dasharray: 4 3; }
+</style>

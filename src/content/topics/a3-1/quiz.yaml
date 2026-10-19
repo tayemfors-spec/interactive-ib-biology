@@ -1,0 +1,211 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: A3.1.3
+    stem: >-
+      The lion and the tiger belong to the same genus. Which shows the correct way to write the
+      scientific name of the lion in a printed document?
+    options:
+      - id: a
+        text: Panthera Leo, in italics
+        why: The species name (the second word) always starts with a lower-case letter, even when it comes from a proper noun.
+      - id: b
+        text: Panthera leo, in italics
+        why: Correct. Genus first with a capital letter, species second in lower case, and the whole binomial in italics.
+      - id: c
+        text: panthera leo, in italics
+        why: The genus name must start with a capital letter.
+      - id: d
+        text: Leo panthera, in italics
+        why: The genus always comes first. Here the order is reversed and the capitals are on the wrong words.
+    answer: b
+
+  - id: q2
+    level: SL
+    understanding: A3.1.4
+    stem: >-
+      According to the biological species concept, a species is a group of organisms that can
+      interbreed and produce fertile offspring. Which situation shows a limitation of this definition?
+    options:
+      - id: a
+        text: Male and female peacocks look very different from each other.
+        why: This is a problem for the morphological species concept, not the biological one. Male and female peafowl interbreed, so the biological concept correctly puts them in one species.
+      - id: b
+        text: A horse and a donkey can mate but produce sterile mules.
+        why: "This is exactly the case the definition handles well: the offspring are not fertile, so horses and donkeys are separate species."
+      - id: c
+        text: Two populations of a bird species on the same island interbreed freely.
+        why: Free interbreeding producing fertile young is the defining feature of a single species, so this causes no difficulty.
+      - id: d
+        text: It cannot be used to decide whether two types of extinct animal known only from fossils were one species.
+        why: Correct. Interbreeding cannot be tested for organisms that are extinct, so the definition cannot be applied to fossils.
+    answer: d
+
+  - id: q3
+    level: SL
+    understanding: A3.1.7
+    stem: >-
+      A karyogram prepared from a person's white blood cells shows 47 chromosomes. Groups 1 to 20 and 22
+      each have two chromosomes, group 21 has three, and the sex chromosomes are one large X and one much
+      smaller chromosome. What can be deduced about the person?
+    options:
+      - id: a
+        text: A male with trisomy 21 (Down syndrome)
+        why: Correct. The small sex chromosome is a Y, so XY means male, and three copies of chromosome 21 is trisomy 21, the cause of Down syndrome. The karyotype is 47,XY,+21.
+      - id: b
+        text: A female with trisomy 21 (Down syndrome)
+        why: A female has two X chromosomes. One X with a much smaller chromosome indicates XY, a male.
+      - id: c
+        text: A male with a typical karyotype, because humans can have 46 or 47 chromosomes
+        why: The typical human number is 46. An extra chromosome is an abnormality, here an extra chromosome 21.
+      - id: d
+        text: A person with one extra pair of chromosomes
+        why: Only one extra chromosome is present (47 rather than 46), not an extra pair, which would give 48.
+    answer: a
+
+  - id: q4
+    level: SL
+    understanding: A3.1.7
+    stem: >-
+      Humans have 46 chromosomes and chimpanzees have 48. Which observation provides the strongest support
+      for the hypothesis that human chromosome 2 formed by the fusion of two chromosomes inherited from a
+      common ancestor?
+    options:
+      - id: a
+        text: Human chromosome 2 is the second-longest human chromosome.
+        why: Its length alone says nothing about how it formed; many chromosomes are long without being fused.
+      - id: b
+        text: Chimpanzees have more chromosomes than humans, so they must have more genes.
+        why: Chromosome number does not determine gene number, and this observation is the difference to be explained, not evidence for how it arose.
+      - id: c
+        text: Human chromosome 2 contains telomere repeat sequences near its middle, and a second, inactive centromere.
+        why: Correct. Telomeres are normally found only at chromosome ends, and each ancestral chromosome had a centromere, so both features are predicted by an end-to-end fusion of two chromosomes.
+      - id: d
+        text: Chromosome 2 has the same banding pattern in all humans.
+        why: Homologues in all members of a species share their banding pattern; the evidence for fusion is that the banding matches two chimpanzee chromosomes placed end to end.
+    answer: c
+
+  - id: q5
+    level: SL
+    understanding: A3.1.10
+    stem: >-
+      A student extracted these genome sizes from a database. Escherichia coli (bacterium) 4.6 Mb; Saccharomyces
+      cerevisiae (yeast) 12 Mb; Drosophila melanogaster (fruit fly) 175 Mb; Homo sapiens 3100 Mb; Allium cepa
+      (onion) 16 000 Mb. Which conclusion is best supported by these data?
+    options:
+      - id: a
+        text: Genome size is directly proportional to the complexity of an organism.
+        why: The onion has about five times as much DNA as a human, which contradicts a proportional relationship.
+      - id: b
+        text: The prokaryote has the smallest genome, but among eukaryotes genome size does not correlate closely with complexity.
+        why: Correct. E. coli has the least DNA, but a plant (onion) has far more than a human, so complexity cannot be predicted from genome size.
+      - id: c
+        text: Plants have larger genomes than animals.
+        why: Two values cannot support a claim about whole kingdoms; many plants (e.g. Arabidopsis, about 135 Mb) have far smaller genomes than humans.
+      - id: d
+        text: The onion must have more genes than a human.
+        why: Most of a large genome is non-coding DNA such as repeated sequences, so a large genome does not mean more genes.
+    answer: b
+
+  - id: q6
+    level: SL
+    understanding: A3.1.8
+    stem: Which statement about single-nucleotide polymorphisms (SNPs) is correct?
+    options:
+      - id: a
+        text: They are differences in the number of chromosomes between individuals of a species.
+        why: Differences in chromosome number are aneuploidy (for example trisomy 21), not SNPs. A SNP involves a single base.
+      - id: b
+        text: They are positions where the genomes of two different species differ.
+        why: SNPs are variations within a species. Base differences between species accumulate after the species have separated.
+      - id: c
+        text: They always change the protein coded for and usually cause disease.
+        why: Most SNPs are in non-coding DNA or do not change the amino acid sequence, and most have no noticeable effect.
+      - id: d
+        text: They are positions where a single base varies between members of the same species.
+        why: Correct. For example, some people have A and others C at a particular position. SNPs give diversity within a genome that is otherwise shared by the species.
+    answer: d
+
+  - id: q7
+    level: AHL
+    understanding: A3.1.12
+    stem: >-
+      Why is the biological species concept particularly difficult to apply to bacteria?
+    options:
+      - id: a
+        text: Bacteria reproduce asexually and can also acquire genes from other species by horizontal gene transfer.
+        why: Correct. Bacteria do not interbreed, and genes such as antibiotic-resistance genes on plasmids move between even distantly related species, so their gene pools are not kept separate.
+      - id: b
+        text: Bacteria have no DNA that can be compared between groups.
+        why: Bacteria have DNA, and in practice bacterial species are defined by comparing their DNA sequences.
+      - id: c
+        text: Bacteria have too many chromosomes to count.
+        why: Most bacteria have a single circular chromosome (plus plasmids). The problem is how they reproduce and exchange genes, not chromosome number.
+      - id: d
+        text: Bacteria reproduce sexually too often for distinct species to form.
+        why: Bacteria do not reproduce sexually. They divide by binary fission and exchange DNA by conjugation, transformation and transduction.
+    answer: a
+
+  - id: q8
+    level: AHL
+    understanding: A3.1.13
+    stem: >-
+      Horses have 64 chromosomes and donkeys have 62. Mules, their offspring, have 63 chromosomes and are
+      almost always sterile. What is the best explanation for this sterility?
+    options:
+      - id: a
+        text: Mules cannot carry out mitosis because they have an odd number of chromosomes.
+        why: Mitosis does not need chromosomes to pair, which is why mules grow and develop normally.
+      - id: b
+        text: Mules inherit no sex chromosomes, so they cannot make gametes.
+        why: Mules inherit sex chromosomes from both parents. The problem lies in pairing the other chromosomes in meiosis.
+      - id: c
+        text: The chromosomes from the two parents cannot all pair as homologues in meiosis I, so gametes get unbalanced sets and are not viable.
+        why: Correct. With 63 chromosomes from two different sets, some have no homologous partner. Segregation into two balanced haploid sets fails.
+      - id: d
+        text: Mule gametes contain 63 chromosomes, which is too many for fertilization.
+        why: Gametes are produced by meiosis and would be haploid. The difficulty is that meiosis cannot produce balanced haploid gametes at all.
+    answer: c
+
+  - id: q9
+    level: AHL
+    understanding: A3.1.14
+    stem: >-
+      A student is constructing a dichotomous key to identify six species of beetle collected from leaf
+      litter. Which pair of statements would be most suitable for the first couplet?
+    options:
+      - id: a
+        text: "Beetle large / Beetle small"
+        why: Size varies with age and between individuals, and "large" is not defined, so different people would sort the same beetle differently.
+      - id: b
+        text: "Antennae ending in a club / Antennae thread-like along their whole length"
+        why: Correct. This is a clear, observable feature that is fixed for each species and present in every adult, and the two statements are opposites.
+      - id: c
+        text: "Found under logs / Found in leaf litter"
+        why: Habitat is not a feature of the beetle itself, and one species can be found in both places.
+      - id: d
+        text: "Brightly coloured / Dark coloured / Spotted"
+        why: A dichotomous key has exactly two choices at each step, and colour can fade or vary within a species.
+    answer: b
+
+  - id: q10
+    level: AHL
+    understanding: A3.1.15
+    stem: >-
+      Scientists filtered water from a lake, extracted the DNA and amplified a short region of a
+      mitochondrial gene by PCR. The sequences obtained matched reference barcodes for 23 fish species.
+      Which statement about this method is correct?
+    options:
+      - id: a
+        text: It shows how many individual fish of each species live in the lake.
+        why: eDNA mainly shows which species are present. The amount of DNA depends on many factors, so it is not a reliable count of individuals.
+      - id: b
+        text: Every fish in the lake had to be caught so that tissue samples could be taken.
+        why: The DNA comes from cells and secretions the fish shed into the water, so no fish need to be caught.
+      - id: c
+        text: A species not found in the results is definitely absent from the lake.
+        why: A species can be missed if its DNA was scarce in the sample or its barcode is not in the database, so a negative result does not prove absence.
+      - id: d
+        text: Species can only be identified if their barcode sequences are already in a reference database.
+        why: Correct. Identification works by matching each sequence with barcodes from identified specimens; an unrecorded species cannot be named.
+    answer: d
