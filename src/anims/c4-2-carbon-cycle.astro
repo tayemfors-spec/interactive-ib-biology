@@ -1,0 +1,88 @@
+---
+/**
+ * The carbon cycle, C4.2.17–19. Animated by c4-2-carbon-cycle.ts (one group of fluxes per step).
+ * With `exam`, the same drawing is rendered complete and static as the exam-style diagram.
+ */
+interface Props { exam?: boolean }
+const { exam = false } = Astro.props;
+const pid = exam ? 'cx' : 'ca';
+
+const pools = [
+  { id: 'atm', x: 180, y: 10, w: 160, h: 52, l1: 'Carbon dioxide', l2: 'in the atmosphere', cls: 'inorg' },
+  { id: 'ocean', x: 400, y: 10, w: 112, h: 52, l1: 'CO₂ and HCO₃⁻', l2: 'dissolved in water', cls: 'inorg' },
+  { id: 'prod', x: 24, y: 168, w: 116, h: 52, l1: 'Producers', l2: '(autotrophs)', cls: 'prod' },
+  { id: 'cons', x: 200, y: 168, w: 120, h: 52, l1: 'Consumers', l2: '(animals)', cls: 'cons' },
+  { id: 'decomp', x: 388, y: 168, w: 124, h: 52, l1: 'Decomposers', l2: '(saprotrophs)', cls: 'dec' },
+  { id: 'dom', x: 170, y: 266, w: 180, h: 50, l1: 'Dead organic matter', l2: 'dead organisms, faeces', cls: 'dom' },
+  { id: 'fossil', x: 120, y: 362, w: 280, h: 50, l1: 'Peat, coal, oil and natural gas', l2: 'stores of fossilized carbon', cls: 'fossil' },
+];
+
+interface Flux { id: string; step: number; kind: string; paths: string[]; label?: string; lx?: number; ly?: number }
+const fluxes: Flux[] = [
+  { id: 'photo', step: 0, kind: 'photo', paths: ['M178 36 C90 36 60 90 60 164'], label: 'photosynthesis', lx: 88, ly: 74 },
+  { id: 'feed', step: 1, kind: 'feed', paths: ['M142 194 L196 194'], label: 'feeding', lx: 170, ly: 194 },
+  { id: 'death', step: 2, kind: 'dead', paths: ['M82 222 C82 270 122 291 166 291', 'M260 222 L260 262'], label: 'death, egestion', lx: 260, ly: 242 },
+  { id: 'decompose', step: 2, kind: 'dead', paths: ['M352 291 C400 291 450 272 450 224'], label: 'digestion by saprotrophs', lx: 424, ly: 288 },
+  { id: 'resp', step: 3, kind: 'resp', paths: ['M118 166 C128 122 175 96 204 66', 'M266 166 L266 66', 'M452 166 C442 112 362 84 320 66'], label: 'cell respiration', lx: 396, ly: 104 },
+  { id: 'fossilize', step: 4, kind: 'fossil', paths: ['M260 318 L260 358'], label: 'fossilization', lx: 260, ly: 338 },
+  { id: 'combust', step: 5, kind: 'burn', paths: ['M118 387 C22 387 8 300 8 200 C8 92 62 22 176 22'], label: 'combustion', lx: 46, ly: 330 },
+  { id: 'ocean', step: 6, kind: 'ocean', paths: ['M342 28 L396 28', 'M398 46 L344 46'], label: 'exchange', lx: 470, ly: 78 },
+];
+const pill = (s: string) => s.length * 6.7 + 12;
+---
+<svg viewBox="0 0 520 420" xmlns="http://www.w3.org/2000/svg" class:list={['cc', { exam }]} role={exam ? 'img' : undefined} aria-labelledby={exam ? 'cx-t cx-d' : undefined}>
+  {exam && <title id="cx-t">Carbon cycle diagram</title>}
+  {exam && <desc id="cx-d">Boxes for the carbon pools: carbon dioxide in the atmosphere, CO₂ and hydrogen carbonate dissolved in water, producers, consumers, decomposers, dead organic matter, and peat, coal, oil and natural gas. Arrows: photosynthesis from the atmosphere to producers; feeding from producers to consumers; death and egestion from producers and consumers to dead organic matter; digestion of dead matter by saprotrophs; cell respiration from producers, consumers and decomposers back to the atmosphere; fossilization of dead organic matter; combustion of peat and fossil fuels releasing CO₂; and exchange of CO₂ between the air and the oceans.</desc>}
+  <defs>
+    {['photo', 'feed', 'dead', 'resp', 'fossil', 'burn', 'ocean'].map((k) => (
+      <marker id={`${pid}-m-${k}`} viewBox="0 0 10 10" refX="7" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0 L10 5 L0 10 z" class={`mk ${k}`} /></marker>
+    ))}
+  </defs>
+  {fluxes.map((f) => (
+    <g data-flux={f.id} data-step={f.step} class={`flux ${f.kind}`} style={exam || f.step === 0 ? undefined : 'opacity:0.14'}>
+      {f.paths.map((d) => <path class="fl" d={d} marker-end={`url(#${pid}-m-${f.kind})`} />)}
+      {f.label && (
+        <g class="pill">
+          <rect x={f.lx! - pill(f.label) / 2} y={f.ly! - 9} width={pill(f.label)} height="18" rx="9" />
+          <text x={f.lx} y={f.ly! + 4} text-anchor="middle">{f.label}</text>
+        </g>
+      )}
+    </g>
+  ))}
+  {pools.map((p) => (
+    <g data-pool={p.id} class={`pool ${p.cls}`}>
+      <rect x={p.x} y={p.y} width={p.w} height={p.h} rx="9" />
+      <text class="t1" x={p.x + p.w / 2} y={p.y + 22} text-anchor="middle">{p.l1}</text>
+      <text class="t2" x={p.x + p.w / 2} y={p.y + 40} text-anchor="middle">{p.l2}</text>
+    </g>
+  ))}
+</svg>
+<style>
+  .cc { font-family: var(--font-sans); }
+  .pool rect { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.5; }
+  .pool.inorg rect { fill: color-mix(in srgb, var(--bio-water) 12%, var(--surface)); stroke: var(--bio-water); }
+  .pool.prod rect { fill: color-mix(in srgb, var(--bio-carb) 16%, var(--surface)); stroke: var(--bio-carb); }
+  .pool.cons rect { fill: color-mix(in srgb, var(--bio-head) 14%, var(--surface)); stroke: var(--bio-head); }
+  .pool.dec rect, .pool.dom rect { fill: color-mix(in srgb, var(--bio-tail) 20%, var(--surface)); stroke: color-mix(in srgb, var(--bio-tail) 60%, var(--text)); }
+  .pool.fossil rect { fill: color-mix(in srgb, var(--text) 10%, var(--surface)); stroke: var(--text-muted); }
+  .t1 { font-size: 13px; font-weight: 750; fill: var(--text); }
+  .t2 { font-size: 12px; fill: var(--text-muted); }
+  .fl { fill: none; stroke-width: 3; stroke-linecap: butt; }
+  .photo .fl { stroke: var(--bio-carb); stroke-width: 4.5; }
+  .feed .fl { stroke: var(--bio-head); }
+  .dead .fl { stroke: color-mix(in srgb, var(--bio-tail) 50%, var(--text)); stroke-dasharray: 7 4; }
+  .resp .fl { stroke: var(--bio-chol); stroke-width: 4; }
+  .fossil .fl { stroke: var(--text-muted); stroke-dasharray: 2 4; stroke-width: 3.5; }
+  .burn .fl { stroke: var(--bad); stroke-dasharray: 10 4; }
+  .ocean .fl { stroke: var(--bio-water); }
+  .mk.photo { fill: var(--bio-carb); }
+  .mk.feed { fill: var(--bio-head); }
+  .mk.dead { fill: color-mix(in srgb, var(--bio-tail) 50%, var(--text)); }
+  .mk.resp { fill: var(--bio-chol); }
+  .mk.fossil { fill: var(--text-muted); }
+  .mk.burn { fill: var(--bad); }
+  .mk.ocean { fill: var(--bio-water); }
+  .pill rect { fill: var(--surface); stroke: var(--border); stroke-width: 1; }
+  .pill text { font-size: 12px; font-weight: 700; fill: var(--text); }
+  .flux.on .pill rect { stroke: var(--text); stroke-width: 1.5; }
+</style>

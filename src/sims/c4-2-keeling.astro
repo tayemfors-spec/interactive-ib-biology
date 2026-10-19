@@ -1,0 +1,162 @@
+---
+import { range, sx, sy, type Frame } from './chart';
+import { FIRST_YEAR, LAST_YEAR, MONTHS, annualMean, monthly, series, yearSummary } from './models/c4-2-keeling';
+
+const frame: Frame = {
+  w: 640, h: 380, left: 76, right: 16, top: 16, bottom: 52,
+  x: { min: 1958, max: 2026, ticks: range(1960, 2020, 10), label: 'Year' },
+  y: { min: 310, max: 430, ticks: range(320, 420, 20), label: 'CO₂ concentration (ppm)' },
+};
+const inset: Frame = {
+  w: 640, h: 300, left: 76, right: 16, top: 16, bottom: 58,
+  x: { min: 0, max: 11, ticks: range(0, 11, 1), label: 'Month' },
+  y: { min: -4, max: 4, ticks: range(-4, 4, 2), label: 'Difference from annual mean (ppm)' },
+};
+const pts = series();
+const monthlyPath = pts.map((p, i) => `${i ? 'L' : 'M'}${sx(frame, p.t).toFixed(1)} ${sy(frame, p.ppm).toFixed(1)}`).join('');
+const years = range(FIRST_YEAR, LAST_YEAR, 1);
+const trendPath = years.map((y, i) => `${i ? 'L' : 'M'}${sx(frame, y + 0.5).toFixed(1)} ${sy(frame, annualMean(y)).toFixed(1)}`).join('');
+const year0 = 1990;
+const s0 = yearSummary(year0);
+const yearPath = (y: number) => {
+  const m = annualMean(y);
+  return MONTHS.map((_, i) => `${i ? 'L' : 'M'}${sx(inset, i).toFixed(1)} ${sy(inset, monthly(y, i) - m).toFixed(1)}`).join('');
+};
+const tableYears = range(1960, 2020, 5).concat([2024]);
+---
+<div class="kc" data-keeling data-frame={JSON.stringify(frame)} data-inset={JSON.stringify(inset)}>
+  <div class="layout">
+    <div>
+      <svg class="chart" viewBox={`0 0 ${frame.w} ${frame.h}`} role="img" aria-labelledby="kc-t kc-d">
+        <title id="kc-t">Atmospheric CO₂ at Mauna Loa, 1959–2024</title>
+        <desc id="kc-d">Monthly CO₂ concentration rises from about 316 ppm in 1959 to about 425 ppm in 2024 with a small zig-zag every year; the annual mean line curves upwards because the rise has speeded up.</desc>
+        <g class="grid">
+          {frame.x.ticks.map((t) => <line x1={sx(frame, t)} x2={sx(frame, t)} y1={frame.top} y2={frame.h - frame.bottom} />)}
+          {frame.y.ticks.map((t) => <line x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, t)} y2={sy(frame, t)} />)}
+        </g>
+        <g class="ticks">
+          {frame.x.ticks.map((t) => <text x={sx(frame, t)} y={frame.h - frame.bottom + 20} text-anchor="middle">{t}</text>)}
+          {frame.y.ticks.map((t) => <text x={frame.left - 8} y={sy(frame, t)} dy="0.35em" text-anchor="end">{t}</text>)}
+        </g>
+        <text class="axis" x={(frame.left + frame.w - frame.right) / 2} y={frame.h - 8} text-anchor="middle">{frame.x.label}</text>
+        <text class="axis" transform={`translate(16 ${(frame.top + frame.h - frame.bottom) / 2}) rotate(-90)`} text-anchor="middle">{frame.y.label}</text>
+        <rect class="band" data-band x={sx(frame, year0)} y={frame.top} width={sx(frame, year0 + 1) - sx(frame, year0)} height={frame.h - frame.top - frame.bottom} />
+        <path class="line monthly" d={monthlyPath} data-line="monthly" />
+        <path class="line trend" d={trendPath} data-line="trend" />
+      </svg>
+      <ul class="legend" role="list">
+        <li><span class="k monthly"></span> Monthly values (approximate)</li>
+        <li><span class="k trend"></span> Annual mean</li>
+        <li><span class="k band"></span> Selected year</li>
+      </ul>
+    </div>
+    <div class="side">
+      <fieldset class="show">
+        <legend>Show</legend>
+        <label><input type="checkbox" data-show="monthly" checked /> Monthly zig-zag</label>
+        <label><input type="checkbox" data-show="trend" checked /> Annual mean trend</label>
+      </fieldset>
+      <label class="slider">Zoom in on one year: <output data-out="year">{year0}</output>
+        <input type="range" min={FIRST_YEAR} max={LAST_YEAR} step="1" value={year0} data-param="year" />
+      </label>
+      <svg class="chart inset" viewBox={`0 0 ${inset.w} ${inset.h}`} role="img" aria-labelledby="kc-it">
+        <title id="kc-it">Seasonal cycle within the selected year</title>
+        <rect class="summer" x={sx(inset, 4)} y={inset.top} width={sx(inset, 9) - sx(inset, 4)} height={inset.h - inset.top - inset.bottom} />
+        <text class="note" x={(sx(inset, 4) + sx(inset, 9)) / 2} y={inset.top + 22} text-anchor="middle">N. hemisphere growing season</text>
+        <g class="grid">{inset.y.ticks.map((t) => <line x1={inset.left} x2={inset.w - inset.right} y1={sy(inset, t)} y2={sy(inset, t)} />)}</g>
+        <line class="zero" x1={inset.left} x2={inset.w - inset.right} y1={sy(inset, 0)} y2={sy(inset, 0)} />
+        <g class="ticks">
+          {MONTHS.map((m, i) => <text x={sx(inset, i)} y={inset.h - inset.bottom + 26} text-anchor="middle">{m[0]}</text>)}
+          {inset.y.ticks.map((t) => <text x={inset.left - 8} y={sy(inset, t)} dy="0.35em" text-anchor="end">{t > 0 ? `+${t}` : t}</text>)}
+        </g>
+        <text class="axis" x={(inset.left + inset.w - inset.right) / 2} y={inset.h - 6} text-anchor="middle">Month</text>
+        <text class="axis sm" transform={`translate(16 ${(inset.top + inset.h - inset.bottom) / 2}) rotate(-90)`} text-anchor="middle">ppm vs annual mean</text>
+        <path class="line monthly thick" d={yearPath(year0)} data-year-path />
+      </svg>
+    </div>
+  </div>
+  <p class="readout" aria-live="polite" data-readout>
+    In {year0} the annual mean was about {s0.mean.toFixed(0)} ppm. CO₂ peaked in {s0.maxMonth} and was lowest in {s0.minMonth}, a swing of about {s0.swing.toFixed(0)} ppm, then ended the year higher than it started.
+  </p>
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <caption>Annual mean CO₂ at Mauna Loa (ppm, rounded)</caption>
+      <thead><tr><th scope="col">Year</th><th scope="col">Annual mean</th><th scope="col">Rise since 1959</th></tr></thead>
+      <tbody>{tableYears.map((y) => <tr><th scope="row">{y}</th><td>{annualMean(y).toFixed(1)}</td><td>+{(annualMean(y) - annualMean(FIRST_YEAR)).toFixed(1)}</td></tr>)}</tbody>
+    </table>
+  </details>
+  <p class="model-note">Annual means are rounded NOAA Mauna Loa values (years between those listed are interpolated). Monthly values are an <strong>approximation</strong>: a typical seasonal cycle added to the annual trend, so they show the shape of the record rather than individual measurements. The record began in March 1958.</p>
+</div>
+
+<script>
+  import { sx, sy, type Frame } from './chart';
+  import { MONTHS, annualMean, monthly, yearSummary } from './models/c4-2-keeling';
+
+  document.querySelectorAll<HTMLElement>('[data-keeling]').forEach((root) => {
+    const frame = JSON.parse(root.dataset.frame!) as Frame;
+    const inset = JSON.parse(root.dataset.inset!) as Frame;
+    const input = root.querySelector<HTMLInputElement>('[data-param="year"]')!;
+    const band = root.querySelector<SVGRectElement>('[data-band]')!;
+    const ypath = root.querySelector<SVGPathElement>('[data-year-path]')!;
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    let timer = 0;
+    const update = () => {
+      const y = Number(input.value);
+      root.querySelector('[data-out="year"]')!.textContent = String(y);
+      band.setAttribute('x', sx(frame, y).toFixed(1));
+      const m = annualMean(y);
+      ypath.setAttribute('d', MONTHS.map((_, i) => `${i ? 'L' : 'M'}${sx(inset, i).toFixed(1)} ${sy(inset, monthly(y, i) - m).toFixed(1)}`).join(''));
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        const s = yearSummary(y);
+        const end = monthly(y, 11) - monthly(y, 0);
+        readout.textContent = `In ${y} the annual mean was about ${s.mean.toFixed(0)} ppm, ${s.riseSinceStart.toFixed(0)} ppm higher than in 1959. CO₂ peaked in ${s.maxMonth} and was lowest in ${s.minMonth}, a swing of about ${s.swing.toFixed(0)} ppm, and December was about ${end.toFixed(1)} ppm higher than January.` +
+          (y >= 2000 ? ' Since 2000 the annual mean has risen by about 2–2.5 ppm a year, compared with under 1 ppm a year in the 1960s.' : '');
+      }, 300);
+    };
+    input.addEventListener('input', update);
+    root.querySelectorAll<HTMLInputElement>('[data-show]').forEach((cb) => cb.addEventListener('change', () => {
+      root.querySelector<SVGPathElement>(`[data-line="${cb.dataset.show}"]`)!.style.display = cb.checked ? '' : 'none';
+    }));
+  });
+</script>
+
+<style>
+  .kc { container-type: inline-size; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 50rem) { .layout { grid-template-columns: minmax(0, 1.6fr) minmax(16rem, 1fr); align-items: start; } }
+  .side { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .chart { width: 100%; height: auto; font-family: var(--font-sans); display: block; }
+  .grid line { stroke: var(--border); stroke-width: 1; }
+  .zero { stroke: var(--text-muted); stroke-width: 1.4; }
+  .ticks text { font-size: 15px; fill: var(--text-muted); }
+  .axis { font-size: 16px; font-weight: 650; fill: var(--text); }
+  .note { font-size: 15px; fill: var(--text-muted); font-style: italic; }
+  .inset .ticks text, .inset .axis, .inset .note { font-size: 17px; }
+  @container (max-width: 34rem) { .ticks text, .axis, .inset .ticks text, .inset .axis { font-size: 21px; } .inset .note { font-size: 19px; } }
+  .line { fill: none; stroke-linejoin: round; stroke-linecap: round; }
+  .monthly { stroke: var(--bio-water); stroke-width: 1.3; }
+  .monthly.thick { stroke-width: 4; }
+  .trend { stroke: var(--bio-chol); stroke-width: 3; stroke-dasharray: 10 6; }
+  .band { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1; }
+  .summer { fill: color-mix(in srgb, var(--bio-carb) 16%, transparent); }
+  .legend { list-style: none; padding: 0; margin: var(--space-2) 0 0; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); font-size: 0.8rem; color: var(--text-muted); }
+  .legend li { margin: 0; display: flex; align-items: center; gap: var(--space-2); }
+  .k { display: inline-block; width: 1.8rem; flex: none; }
+  .k.monthly { border-top: 2px solid var(--bio-water); }
+  .k.trend { border-top: 3px dashed var(--bio-chol); }
+  .k.band { height: 0.8rem; width: 0.8rem; background: var(--accent-soft); border: 1px solid var(--accent); }
+  .show { border: 0; padding: 0; margin: 0; display: grid; gap: var(--space-1); }
+  .show legend { font-weight: 700; color: var(--text-muted); margin-bottom: var(--space-1); }
+  .show label { display: flex; align-items: center; gap: var(--space-2); min-height: 24px; }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  caption { text-align: left; font-weight: 650; padding-bottom: var(--space-1); }
+  th, td { padding: 0.2rem 0.7rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

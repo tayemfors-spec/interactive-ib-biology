@@ -1,0 +1,54 @@
+---
+/**
+ * Approximate mean net primary production of some biomes (C4.2.15).
+ * Dry-mass values: Whittaker & Likens (1975); carbon ≈ 45% of dry mass. Sources in facts.yaml.
+ */
+const biomes = [
+  { name: 'Tropical rainforest', dry: 2200, note: 'warm and wet all year' },
+  { name: 'Temperate deciduous forest', dry: 1200, note: 'warm summers, leafless winters' },
+  { name: 'Savanna', dry: 900, note: 'wet and dry seasons' },
+  { name: 'Boreal forest (taiga)', dry: 800, note: 'short, cool growing season' },
+  { name: 'Temperate grassland', dry: 600, note: 'dry summers, cold winters' },
+  { name: 'Tundra', dry: 140, note: 'cold; very short summer' },
+  { name: 'Open ocean', dry: 125, note: 'few mineral nutrients' },
+  { name: 'Desert scrub', dry: 90, note: 'too little water' },
+];
+const L = 196, BW = 300, ROW = 40, TOP = 34;
+const x = (v: number) => L + (v / 2200) * BW;
+const C = (v: number) => Math.round((v * 0.45) / 10) * 10;
+---
+<svg viewBox={`0 0 640 ${TOP + biomes.length * ROW + 44}`} role="img" aria-labelledby="np-t np-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="np-t">Approximate net primary production of eight biomes</title>
+  <desc id="np-d">{biomes.map((b) => `${b.name}: about ${b.dry.toLocaleString('en-GB')} grams of dry biomass, or about ${C(b.dry)} grams of carbon, per square metre per year.`).join(' ')}</desc>
+  <text class="head" x={L} y="18">Net primary production (g m⁻² yr⁻¹)</text>
+  {[0, 500, 1000, 1500, 2000].map((v) => (
+    <g>
+      <line class="grid" x1={x(v)} x2={x(v)} y1={TOP - 6} y2={TOP + biomes.length * ROW} />
+      <text class="tick" x={x(v)} y={TOP + biomes.length * ROW + 18} text-anchor="middle">{v.toLocaleString('en-GB')}</text>
+    </g>
+  ))}
+  {biomes.map((b, i) => {
+    const y = TOP + i * ROW;
+    return (
+      <g>
+        <text class="name" x={L - 10} y={y + 15} text-anchor="end">{b.name}</text>
+        <text class="note" x={L - 10} y={y + 30} text-anchor="end">{b.note}</text>
+        <rect class="bar" x={L} y={y + 6} width={x(b.dry) - L} height="24" rx="3" />
+        <text class="val" x={x(b.dry) + 8} y={y + 18}>{b.dry.toLocaleString('en-GB')} dry mass</text>
+        <text class="valc" x={x(b.dry) + 8} y={y + 33}>≈ {C(b.dry)} g of carbon</text>
+      </g>
+    );
+  })}
+  <text class="tick" x={L + BW / 2} y={TOP + biomes.length * ROW + 38} text-anchor="middle">grams of dry biomass per m² per year (approximate means)</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .head { font-size: 14px; font-weight: 750; fill: var(--text); }
+  .grid { stroke: var(--border); stroke-width: 1; }
+  .tick { font-size: 12px; fill: var(--text-muted); }
+  .name { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .note { font-size: 12px; fill: var(--text-muted); }
+  .bar { fill: color-mix(in srgb, var(--bio-carb) 70%, var(--surface)); stroke: var(--bio-carb); stroke-width: 1.2; }
+  .val { font-size: 12.5px; font-weight: 700; fill: var(--text); }
+  .valc { font-size: 12px; fill: var(--text-muted); }
+</style>

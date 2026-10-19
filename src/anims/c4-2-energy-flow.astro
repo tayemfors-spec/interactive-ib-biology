@@ -1,0 +1,105 @@
+---
+/**
+ * Energy flow along a food chain, C4.2.3 / C4.2.12–14. Animated by c4-2-energy-flow.ts.
+ * Elements carry data-step (the step at which they appear). Values are illustrative (10% rule).
+ */
+const boxes = [
+  { id: 'p', x: 74, w: 104, l1: 'Producers', l2: '(plants, algae)', v: '10,000', step: 0 },
+  { id: 'c1', x: 206, w: 92, l1: 'Primary', l2: 'consumers', v: '1,000', step: 2 },
+  { id: 'c2', x: 324, w: 92, l1: 'Secondary', l2: 'consumers', v: '100', step: 3 },
+  { id: 'c3', x: 440, w: 74, l1: 'Tertiary', l2: 'consumers', v: '10', step: 4 },
+];
+const Y = 132, H = 76;
+const cx = (b: (typeof boxes)[number]) => b.x + b.w / 2;
+const heat = (c: number) => `M${c} ${Y - 2} C${c - 10} 112 ${c + 10} 102 ${c} 90 S${c - 10} 62 ${c} 46`;
+const downs = [
+  { from: 'p', d: `M126 ${Y + H + 2} L170 288`, step: 2 },
+  { from: 'c1', d: `M252 ${Y + H + 2} L262 288`, step: 3 },
+  { from: 'c2', d: `M370 ${Y + H + 2} L352 288`, step: 4 },
+  { from: 'c3', d: `M477 ${Y + H + 2} L432 288`, step: 5 },
+];
+const feeds = [
+  { d: 'M181 170 L203 170', w: 9, step: 2 },
+  { d: 'M301 170 L321 170', w: 6, step: 3 },
+  { d: 'M419 170 L437 170', w: 3.5, step: 4 },
+];
+const rays = Array.from({ length: 8 }, (_, i) => (i * Math.PI) / 4);
+---
+<svg viewBox="0 0 520 380" xmlns="http://www.w3.org/2000/svg" class="ef">
+  <defs>
+    <marker id="ef-m-energy" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="m-energy" /></marker>
+    <marker id="ef-m-heat" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="m-heat" /></marker>
+    <marker id="ef-m-dead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="m-dead" /></marker>
+    <marker id="ef-m-nut" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="m-nut" /></marker>
+  </defs>
+
+  <g class="heatband">
+    <rect x="70" y="8" width="444" height="36" rx="8" />
+    <text x="292" y="31" text-anchor="middle">Heat lost to the environment</text>
+  </g>
+
+  <g data-el="sun" class="sun on">
+    {rays.map((a) => <line x1={30 + Math.cos(a) * 19} y1={170 + Math.sin(a) * 19} x2={30 + Math.cos(a) * 26} y2={170 + Math.sin(a) * 26} />)}
+    <circle cx="30" cy="170" r="15" />
+    <text x="30" y="216" text-anchor="middle">Sunlight</text>
+  </g>
+  <path data-el="sunarrow" data-step="0" data-marker="url(#ef-m-energy)" class="arrow energy" style="stroke-width:10" d="M50 170 L71 170" />
+
+  {feeds.map((f, i) => <path data-el={`feed-${i}`} data-step={f.step} data-marker="url(#ef-m-energy)" class="arrow energy" style={`stroke-width:${f.w}; opacity:0`} d={f.d} />)}
+
+  {boxes.map((b, i) => (
+    <g data-el={`box-${b.id}`} data-step={b.step} class={`box lvl-${i}`} style={b.step > 0 ? 'opacity:0.35' : undefined}>
+      <rect x={b.x} y={Y} width={b.w} height={H} rx="9" />
+      <text class="t1" x={cx(b)} y={Y + 23} text-anchor="middle">{b.l1}</text>
+      <text class="t2" x={cx(b)} y={Y + 41} text-anchor="middle">{b.l2}</text>
+      <text data-el={`val-${b.id}`} class="val" x={cx(b)} y={Y + 64} text-anchor="middle" style={b.step > 0 ? 'opacity:0' : undefined}>{b.v}</text>
+    </g>
+  ))}
+
+  {boxes.map((b) => <path data-el={`heat-${b.id}`} data-step={b.id === 'p' ? 1 : b.step} data-marker="url(#ef-m-heat)" class="arrow heat" style="opacity:0" d={heat(cx(b))} />)}
+
+  {downs.map((d) => <path data-el={`down-${d.from}`} data-step={d.step} data-marker="url(#ef-m-dead)" class="arrow dead" style="opacity:0" d={d.d} />)}
+
+  <g data-el="decomp" data-step="5" class="box decomp" style="opacity:0.35">
+    <rect x="130" y="292" width="320" height="48" rx="9" />
+    <text class="t1" x="290" y="312" text-anchor="middle">Decomposers and detritivores</text>
+    <text class="t2" x="290" y="330" text-anchor="middle">dead organisms, dead parts and faeces</text>
+  </g>
+  <path data-el="heat-d" data-step="5" data-marker="url(#ef-m-heat)" class="arrow heat" style="opacity:0" d="M453 316 C463 306 473 326 485 316" />
+  <text data-el="heat-d-t" data-step="5" class="small heat-t" x="491" y="320" style="opacity:0">heat</text>
+
+  <path data-el="recycle" data-step="6" data-fade="1" data-marker="url(#ef-m-nut)" class="arrow nut" style="opacity:0" d="M128 330 C64 330 58 262 100 214" />
+  <text data-el="recycle-t" data-step="6" data-fade="1" class="small nut-t" x="12" y="362" style="opacity:0">mineral nutrients recycled to producers</text>
+  <text class="small units" x="512" y="374" text-anchor="end">values: kJ m⁻² yr⁻¹ (illustrative)</text>
+</svg>
+<style>
+  .ef { font-family: var(--font-sans); }
+  .heatband rect { fill: color-mix(in srgb, var(--bad) 12%, var(--surface)); stroke: var(--bad); stroke-width: 1.5; stroke-dasharray: 6 4; }
+  .heatband text { font-size: 14px; font-weight: 750; fill: var(--text); }
+  .sun circle { fill: var(--bio-glucose); stroke: color-mix(in srgb, var(--bio-glucose) 60%, var(--text)); stroke-width: 1.5; }
+  .sun line { stroke: var(--bio-glucose); stroke-width: 3; stroke-linecap: round; }
+  .sun text { font-size: 12px; font-weight: 700; fill: var(--text); }
+  .box rect { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.5; }
+  .box.lvl-0 rect { fill: color-mix(in srgb, var(--bio-carb) 18%, var(--surface)); stroke: var(--bio-carb); }
+  .box.lvl-1 rect { fill: color-mix(in srgb, var(--bio-glucose) 16%, var(--surface)); stroke: var(--bio-glucose); }
+  .box.lvl-2 rect { fill: color-mix(in srgb, var(--bio-head) 16%, var(--surface)); stroke: var(--bio-head); }
+  .box.lvl-3 rect { fill: color-mix(in srgb, var(--bio-chol) 14%, var(--surface)); stroke: var(--bio-chol); }
+  .box.decomp rect { fill: color-mix(in srgb, var(--bio-tail) 22%, var(--surface)); stroke: color-mix(in srgb, var(--bio-tail) 60%, var(--text)); }
+  .box.on rect { stroke-width: 3.5; }
+  .t1 { font-size: 13px; font-weight: 750; fill: var(--text); }
+  .t2 { font-size: 12px; fill: var(--text-muted); }
+  .val { font-size: 13px; font-weight: 800; fill: var(--text); font-variant-numeric: tabular-nums; }
+  .arrow { fill: none; stroke-linecap: butt; }
+  .energy { stroke: color-mix(in srgb, var(--bio-glucose) 85%, var(--text)); }
+  .m-energy { fill: color-mix(in srgb, var(--bio-glucose) 85%, var(--text)); }
+  .heat { stroke: var(--bad); stroke-width: 2.5; }
+  .m-heat { fill: var(--bad); }
+  .dead { stroke: color-mix(in srgb, var(--bio-tail) 50%, var(--text)); stroke-width: 2.5; stroke-dasharray: 7 4; }
+  .m-dead { fill: color-mix(in srgb, var(--bio-tail) 50%, var(--text)); }
+  .nut { stroke: var(--bio-carb); stroke-width: 2.5; stroke-dasharray: 3 4; }
+  .m-nut { fill: var(--bio-carb); }
+  .arrow.on { filter: drop-shadow(0 0 2px color-mix(in srgb, var(--text) 35%, transparent)); }
+  .small { font-size: 12px; fill: var(--text-muted); }
+  .heat-t { fill: var(--bad); font-weight: 700; }
+  .nut-t { fill: var(--text); font-weight: 650; }
+</style>

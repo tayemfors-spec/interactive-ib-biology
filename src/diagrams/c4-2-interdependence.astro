@@ -1,0 +1,33 @@
+---
+/** Interdependence of photosynthesis and aerobic respiration through the atmosphere (C4.2.21). */
+---
+<svg viewBox="0 0 560 200" role="img" aria-labelledby="id-t id-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="id-t">Photosynthesis and respiration depend on each other</title>
+  <desc id="id-d">Autotrophs release oxygen from photosynthesis into the atmosphere, and heterotrophs (and autotrophs themselves) use it in aerobic respiration. Respiration releases carbon dioxide into the atmosphere, which autotrophs absorb for photosynthesis.</desc>
+  <defs>
+    <marker id="id-o2" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="m-o2" /></marker>
+    <marker id="id-co2" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="m-co2" /></marker>
+  </defs>
+  <g class="box auto"><rect x="16" y="70" width="170" height="60" rx="10" /><text class="t1" x="101" y="96" text-anchor="middle">Autotrophs</text><text class="t2" x="101" y="115" text-anchor="middle">photosynthesis</text></g>
+  <g class="box het"><rect x="374" y="70" width="170" height="60" rx="10" /><text class="t1" x="459" y="96" text-anchor="middle">Heterotrophs</text><text class="t2" x="459" y="115" text-anchor="middle">aerobic respiration</text></g>
+  <path class="o2" d="M101 68 C101 20 459 20 459 58" marker-end="url(#id-o2)" />
+  <text class="lbl o2t" x="280" y="54" text-anchor="middle">O₂ released by photosynthesis</text>
+  <path class="co2" d="M459 132 C459 182 101 182 101 142" marker-end="url(#id-co2)" />
+  <text class="lbl co2t" x="280" y="194" text-anchor="middle">CO₂ released by cell respiration</text>
+  <text class="mid" x="280" y="96" text-anchor="middle">via the atmosphere</text>
+  <text class="mid" x="280" y="114" text-anchor="middle">(autotrophs respire too)</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .box rect { stroke-width: 2; }
+  .auto rect { fill: color-mix(in srgb, var(--bio-carb) 18%, var(--surface)); stroke: var(--bio-carb); }
+  .het rect { fill: color-mix(in srgb, var(--bio-head) 16%, var(--surface)); stroke: var(--bio-head); }
+  .t1 { font-size: 15px; font-weight: 750; fill: var(--text); }
+  .t2 { font-size: 13px; fill: var(--text-muted); }
+  .o2 { fill: none; stroke: var(--bio-water); stroke-width: 4; }
+  .m-o2 { fill: var(--bio-water); }
+  .co2 { fill: none; stroke: var(--bio-chol); stroke-width: 4; stroke-dasharray: 10 5; }
+  .m-co2 { fill: var(--bio-chol); }
+  .lbl { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .mid { font-size: 13px; fill: var(--text-muted); font-style: italic; }
+</style>
