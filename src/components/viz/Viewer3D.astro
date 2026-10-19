@@ -31,7 +31,7 @@ const hasSteps = visual.scenes.some((s) => s.steps.length > 0);
 
   {visual.scenes.length > 1 && (
     <div class="scene-switch" role="group" aria-label="Choose a model" data-3d-only hidden>
-      {visual.scenes.map((s, i) => <button class="btn" type="button" data-scene={s.id} aria-pressed={i === 0 ? 'true' : 'false'}>{s.title}</button>)}
+      {visual.scenes.map((s, i) => <button class="btn" type="button" data-scene={s.id} data-level-block={i > 0 ? s.level : undefined} aria-pressed={i === 0 ? 'true' : 'false'}>{s.title}</button>)}
     </div>
   )}
 

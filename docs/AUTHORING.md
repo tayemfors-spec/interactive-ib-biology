@@ -120,6 +120,7 @@ export default scene;
 - Palette keys for `ctx.material(key)`: `head, tail, protein, protein2, carb, chol, na, k, water, glucose, neutral, text`. Never hard-code colours. Reuse keys by meaning: water → `water`, oxygen/neutral atoms → `neutral`, sugars → `carb` or `glucose`, and so on. For atoms in molecular models a sensible mapping is: O → `k` (red), H → `neutral`, C → `text` (dark), N → `protein`, P → `head`.
 - `render(index, t)` must be **absolute**: it can't rely on earlier frames, because readers step backwards and seek. Use `ease`, `phase` and `lerp` from `src/lib/timeline.ts`.
 - Use InstancedMesh for anything repeated, and set `mesh.count` to the number actually used (unused instances draw at the origin). Keep under ~150k triangles.
+- **AHL scenes:** add `level: AHL` to a scene in YAML; its switcher button is then hidden for SL-only readers. The first scene should be SL in SL+AHL topics.
 - **Per-step labels:** in a process scene, a label can list `steps: [step-id, …]` in YAML, and it then shows only during those steps. Use this rather than parking anchors off-screen.
 - Anchors go on visible surfaces facing the camera, spread out so labels don't pile up. Keep to about 14 labels per scene or fewer. The runtime nudges overlapping chips, and on phones shows numbered markers with a key.
 - Frame the camera so the whole model fits a 4:3 stage. The runtime steps back automatically for square phone stages.

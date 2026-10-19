@@ -137,6 +137,8 @@ export const sceneSchema = z.object({
   /** File name in src/scenes without extension, e.g. "b2-1-membrane". */
   module: z.string().regex(/^[a-d][1-4]-[1-3]-[a-z0-9-]+$/),
   title: z.string(),
+  /** AHL scenes are hidden from the scene switcher when the reader chooses "SL only". */
+  level: level.default('SL'),
   labels: z.array(labelSchema).default([]),
   steps: z.array(stepSchema).default([]),
 });
