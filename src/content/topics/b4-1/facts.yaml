@@ -1,0 +1,157 @@
+facts:
+  - id: f1
+    claim: A habitat is the place where an organism, population, species or community lives; a description can include geographical and physical location and the type of ecosystem.
+    where: [ "index.mdx#habitat", "index.mdx (mustKnow)", "flashcards.yaml:c1", "quiz.yaml:q1" ]
+    confidence: high
+    basis: IB guide B4.1.1; standard ecology texts
+    status: checked
+  - id: f2
+    claim: Marram grass (Ammophila arenaria) is native to the coasts of Europe and North Africa and has been introduced to other continents (e.g. North America's Pacific coast, Australia, New Zealand, South Africa); it grows on mobile dunes where sand is accumulating.
+    where: [ "index.mdx#habitat", "src/diagrams/b4-1-marram.astro" ]
+    confidence: high
+    basis: Huiskamp (1979, Biological Flora of the British Isles, J. Ecol.); CABI Invasive Species Compendium
+    status: checked
+  - id: f3
+    claim: Marram grass leaves roll inwards in dry conditions when hinge (bulliform) cells on the inner (adaxial) surface lose turgor; stomata are on the inner surface in grooves between hairy ridges; the outer surface has a thick cuticle and no stomata; sclerenchyma provides support.
+    where: [ "index.mdx#adaptations", "src/diagrams/b4-1-marram.astro", "flashcards.yaml:c4", "quiz.yaml:q2", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: Standard plant anatomy (xerophyte leaf of Ammophila); IB study guide p.191 checked, not copied
+    status: checked
+  - id: f4
+    claim: Burial by sand stimulates growth of marram grass; rhizomes grow sideways and vertically and the plant has long roots reaching moist sand deep in the dune.
+    where: [ "index.mdx#adaptations", "src/diagrams/b4-1-marram.astro", "flashcards.yaml:c5" ]
+    confidence: high
+    basis: Huiskamp (1979); Maun (2009) The Biology of Coastal Sand Dunes. Exact rooting depth not stated on the page.
+    status: checked
+  - id: f5
+    claim: The red mangrove (Rhizophora mangle) grows on tropical and subtropical coasts of the Americas and West Africa; it has prop (stilt) roots with lenticels and aerenchyma, excludes most salt at the roots, and is viviparous (propagules germinate on the parent and disperse by water).
+    where: [ "index.mdx#habitat", "index.mdx#adaptations", "src/diagrams/b4-1-mangrove.astro", "flashcards.yaml:c7", "quiz.yaml:q1" ]
+    confidence: high
+    basis: Tomlinson (2016) The Botany of Mangroves; Scholander et al. (1962) on salt exclusion by ultrafiltration in Rhizophora
+    status: checked
+  - id: f6
+    claim: The grey mangrove (Avicennia marina) has pneumatophores rising from shallow cable roots and salt glands in its leaves that secrete salt; it is not the species with prop roots.
+    where: [ "index.mdx#adaptations", "src/diagrams/b4-1-mangrove.astro", "flashcards.yaml:c8", "quiz.yaml:q3", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: Tomlinson (2016); standard mangrove physiology reviews
+    status: checked
+  - id: f7
+    claim: Mangrove cells accumulate solutes so their water potential is below that of seawater, allowing water uptake by osmosis.
+    where: [ "index.mdx#adaptations", "src/diagrams/b4-1-mangrove.astro", "flashcards.yaml:c8" ]
+    confidence: high
+    basis: Standard plant physiology (osmotic adjustment in halophytes, compatible solutes such as mannitol and proline)
+    status: checked
+  - id: f8
+    claim: Examples of abiotic factors limiting distribution — heather (Calluna vulgaris) on acidic soils; many mayfly nymphs need well-oxygenated water; most freshwater fish cannot survive in seawater; trees absent from tundra.
+    where: [ "index.mdx#abiotic-distribution" ]
+    confidence: high
+    basis: Standard ecology texts (calcifuge plants, freshwater biotic indices, osmoregulation)
+    status: checked
+  - id: f9
+    claim: On rocky shores the upper limit of many seaweeds is set mainly by desiccation (abiotic) and the lower limit often by competition (biotic).
+    where: [ "index.mdx#abiotic-distribution" ]
+    confidence: medium
+    basis: Connell (1961) barnacle zonation; Schonbeck & Norton (1978, 1980) on fucoid zonation
+    status: checked
+  - id: f10
+    claim: Tolerance curve zones — optimum range, zones of physiological stress and zones of intolerance beyond the lower and upper limits of tolerance (Shelford's law of tolerance). The sim's curve shape and widths are qualitative.
+    where: [ "src/sims/models/b4-1-tolerance.ts", "visuals.yaml:tolerance", "index.mdx#abiotic-distribution", "flashcards.yaml:c9", "quiz.yaml:q4" ]
+    confidence: high
+    basis: Shelford (1913); standard ecology texts
+    status: checked
+  - id: f11
+    claim: The woodland-edge transect data (light 100% → 5%; meadow grass r = 0.99; woodland herb r = −0.69 overall and 0.77 for quadrats with ≤ 30% light) are invented teaching data, labelled as such on screen.
+    where: [ "src/sims/models/b4-1-tolerance.ts", "visuals.yaml:tolerance", "index.mdx#tolerance-transects", "quiz.yaml:q5" ]
+    confidence: high
+    basis: Values computed by the model's pearson() function and checked in tests/unit/b4-1.test.ts
+    status: checked
+  - id: f12
+    claim: Semi-natural habitats have been influenced by humans but are dominated by wild rather than cultivated species; sensors and data loggers can measure light intensity, temperature and pH.
+    where: [ "index.mdx#tolerance-transects", "index.mdx (mustKnow)" ]
+    confidence: high
+    basis: IB guide B4.1.4
+    status: checked
+  - id: f13
+    claim: Reef-building corals are cnidarians with calcium carbonate (aragonite) skeletons and zooxanthellae (dinoflagellates, family Symbiodiniaceae) that supply most of the coral's organic carbon.
+    where: [ "index.mdx#coral-reefs", "index.mdx (mustKnow, mistakes)", "flashcards.yaml:c14" ]
+    confidence: high
+    basis: Muscatine & Porter (1977); LaJeunesse et al. (2018) on Symbiodiniaceae; standard marine biology texts
+    status: checked
+  - id: f14
+    claim: "Approximate reef conditions: depth mostly < ~50 m with fastest growth in the top 20–30 m; clear, low-sediment water; temperature ~23–29 °C (reef development rare where water falls below ~18 °C); salinity ~32–42 ppt; pH ~8.0–8.3."
+    where: [ "index.mdx#coral-reefs", "src/sims/models/b4-1-coral.ts", "visuals.yaml:coral", "flashcards.yaml:c13", "quiz.yaml:q7" ]
+    confidence: medium
+    basis: Kleypas, McManus & Meñez (1999) American Zoologist 39 146–159 (environmental limits to reef development); IB study guide p.192 (checked, not copied). Thresholds vary between regions (e.g. Persian Gulf corals tolerate >33 °C and ~42+ ppt).
+    status: open
+  - id: f15
+    claim: "Sim thresholds: temperature stress 18–23 and 29–32 °C, fail < 18 or > 32 °C; salinity stress 28–32 and 42–45 ppt; pH stress 7.8–8.0, fail < 7.8; light ok ≥ 20%, stress 10–20%, fail < 10% of surface; attenuation coefficient 0.045 m⁻¹ in the clearest water (≈10% light at 50 m)."
+    where: [ "src/sims/models/b4-1-coral.ts", "src/sims/b4-1-coral.astro", "visuals.yaml:coral" ]
+    confidence: low
+    basis: Simplified teaching thresholds chosen to be consistent with f14; clear oceanic water has Kd(PAR) roughly 0.03–0.06 m⁻¹. Labelled "qualitative model with approximate thresholds" on screen.
+    status: open
+  - id: f16
+    claim: Bleaching is triggered by water about 1–2 °C above the usual summer maximum for several weeks; bleached corals have expelled their zooxanthellae and may recover if conditions return to normal quickly.
+    where: [ "index.mdx#coral-reefs", "src/sims/models/b4-1-coral.ts", "flashcards.yaml:c14" ]
+    confidence: high
+    basis: NOAA Coral Reef Watch (degree heating weeks); Hughes et al. (2017) Nature 543 373–377
+    status: checked
+  - id: f17
+    claim: Average surface-ocean pH has fallen from about 8.2 before industrialization to about 8.1 today; lower pH reduces carbonate ion concentration and slows calcification.
+    where: [ "index.mdx#coral-reefs", "src/sims/models/b4-1-coral.ts" ]
+    confidence: high
+    basis: IPCC AR6 WGI ch. 5; NOAA ocean acidification summaries
+    status: checked
+  - id: f18
+    claim: Most coral reefs lie between about 30° N and 30° S.
+    where: [ "index.mdx#coral-reefs" ]
+    confidence: high
+    basis: Kleypas et al. (1999); Spalding et al. (2001) World Atlas of Coral Reefs
+    status: checked
+  - id: f19
+    claim: "Biome graph boundaries used in the sim are approximate, simplified from Whittaker (1975) as redrawn by Ricklefs: tundra below −5 °C; taiga −5 to 5 °C; desert below D(T) = 15 + 0.5(T + 5) cm; temperate forest above F(T) = 40 + 3(T − 5) cm between 5 and 20 °C; tropical forest above 150 cm at ≥ 20 °C; upper envelope from 50 cm at −15 °C to 450 cm at 30 °C."
+    where: [ "src/sims/models/b4-1-biomes.ts", "visuals.yaml:biomes", "index.mdx#biome-distribution", "quiz.yaml:q8" ]
+    confidence: medium
+    basis: Whittaker (1975) Communities and Ecosystems; Ricklefs (2008) The Economy of Nature; plotbiomes R package polygons (compared, not copied). Boundaries are teaching simplifications.
+    status: open
+  - id: f20
+    claim: "Approximate climate normals used for example places: Manaus 27 °C / 230 cm; Phoenix 24 °C / 20 cm; Kano 26 °C / 70 cm; Washington DC 14 °C / 105 cm; Denver 10 °C / 38 cm; Fairbanks −2 °C / 28 cm; Utqiaġvik −11 °C / 12 cm."
+    where: [ "src/sims/models/b4-1-biomes.ts" ]
+    confidence: medium
+    basis: Rounded from WMO/NOAA 1991–2020 normals as remembered; Kano rainfall in particular varies widely between sources (≈ 70–100 cm)
+    status: open
+  - id: f21
+    claim: Climate and vegetation descriptions of tropical forest, temperate forest, taiga, grassland (temperate and savanna), tundra and hot desert, including hot deserts usually receiving under about 25 cm of rain a year and taiga mean annual temperatures of roughly −5 to 5 °C.
+    where: [ "index.mdx#biomes", "src/sims/models/b4-1-biomes.ts" ]
+    confidence: high
+    basis: IB guide B4.1.7; Ricklefs (2008); standard biogeography texts
+    status: checked
+  - id: f22
+    claim: Convergent evolution examples — Cactaceae (Americas) and succulent Euphorbia (Africa) share water-storing spiny stems and CAM; kangaroo rats (Heteromyidae, North America) and jerboas (Dipodidae, Africa and Asia) are unrelated bipedal desert rodents that concentrate urine.
+    where: [ "index.mdx#biomes", "src/sims/models/b4-1-biomes.ts", "quiz.yaml:q9", "flashcards.yaml:c16", "index.mdx (mustKnow)" ]
+    confidence: high
+    basis: Standard evolution texts; Schmidt-Nielsen (1964) Desert Animals (kangaroo rat kidney); jerboa urine concentration reported in desert-rodent physiology reviews
+    status: checked
+  - id: f23
+    claim: Saguaro (Carnegiea gigantea), Sonoran Desert — pleated water-storing stem, spines are modified leaves, thick cuticle, CAM, wide shallow roots and a taproot; an upright stem receives less midday sun on its sides.
+    where: [ "index.mdx#desert-rainforest", "src/diagrams/b4-1-desert.astro", "flashcards.yaml:c17", "quiz.yaml:q10" ]
+    confidence: high
+    basis: US National Park Service (Saguaro NP) species pages; Nobel (1988) Environmental Biology of Agaves and Cacti. Root depth figures deliberately not given.
+    status: checked
+  - id: f24
+    claim: Fennec fox (Vulpes zerda), Sahara — large ears for heat loss and hearing prey, nocturnal, burrows, pale coat, furred soles, obtains most water from food and produces concentrated urine.
+    where: [ "index.mdx#desert-rainforest", "src/diagrams/b4-1-desert.astro", "flashcards.yaml:c3", "quiz.yaml:q10" ]
+    confidence: high
+    basis: Noll-Banholzer (1979) water balance of the fennec; Maloiy et al. (1982); IUCN species account
+    status: checked
+  - id: f25
+    claim: Yellow meranti (Shorea faguetiana) is a dipterocarp of Borneo and the Malay Peninsula; the individual "Menara" in Danum Valley, Sabah, measured 100.8 m in 2019, the tallest known tropical tree. It is an evergreen emergent with buttresses and winged fruits; dipterocarps show mast fruiting every few years.
+    where: [ "index.mdx#desert-rainforest", "src/diagrams/b4-1-rainforest.astro", "flashcards.yaml:c18" ]
+    confidence: medium
+    basis: Shenkin et al. (2019) Frontiers in Forests and Global Change 2:32; Ashton (1988) on dipterocarp masting (predator satiation, Janzen 1974). Exact native range of S. faguetiana (also Sumatra/Thailand?) to confirm.
+    status: open
+  - id: f26
+    claim: Geoffroy's spider monkey (Ateles geoffroyi), southern Mexico and Central America — long limbs, flexible shoulders, hook-like hands with vestigial thumbs, prehensile tail with a bare friction pad that supports its weight, mainly frugivorous, diurnal, upper canopy.
+    where: [ "index.mdx#desert-rainforest", "src/diagrams/b4-1-rainforest.astro", "flashcards.yaml:c18", "quiz.yaml:q10" ]
+    confidence: high
+    basis: Campbell (2008) Spider Monkeys (Cambridge University Press); IUCN species account
+    status: checked

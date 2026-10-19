@@ -1,0 +1,57 @@
+# Visuals for B4.1. Descriptions here are what screen-reader users and text readers get, so they are written
+# to exam standard. Every threshold and figure used in the sims is recorded with its basis in facts.yaml.
+visuals:
+  - id: tolerance
+    kind: sim
+    module: b4-1-tolerance
+    title: Range of tolerance and a belt transect
+    alt: A tolerance curve with optimum, stress and intolerance zones, and charts of plant cover against light along a woodland-edge transect.
+    description: >-
+      Part 1 is a tolerance curve. The x-axis is the level of an abiotic factor such as temperature or soil pH and the
+      y-axis is performance (growth, survival and reproduction). Performance is highest and flat across the optimum
+      range in the middle, falls through a zone of physiological stress on each side, and is zero beyond the lower and
+      upper limits of tolerance, in the zones of intolerance. A strip below the graph shows the individuals found along a
+      gradient of the factor: many in the optimum range, a few in the zones of stress and none in the zones of
+      intolerance. Sliders set the level of the factor and make the species' range of tolerance narrower or wider.
+      Part 2 is an illustrative belt transect from an open meadow into a wood, with a quadrat every 3 m. Light at ground
+      level, measured with a light sensor, falls from 100% of open-meadow light at 0 m to 5% at 30 m. A meadow grass has
+      about 80% cover in the meadow, falling to almost zero by 24 m, and is strongly positively correlated with light
+      (r = 0.99). A woodland herb is absent from the meadow, peaks at 47% cover at 18 m, where light is about 19%,
+      and falls to 9% in the deepest shade. Over all quadrats its correlation with light is moderately negative
+      (r = −0.69), but in the quadrats with 30% light or less it is positive (r = 0.77), because the herb has an optimum
+      at intermediate light. A scatter graph shows either species, and a data table lists every value.
+
+  - id: coral
+    kind: sim
+    module: b4-1-coral
+    title: Could a coral reef form here?
+    alt: Sliders for temperature, depth, turbidity, salinity and pH show whether reef-building corals could grow.
+    description: >-
+      A water column above a sloping reef, with depth marked from 0 to 80 m and light shown fading with depth. A coral
+      sits at the chosen depth and appears healthy, pale (stressed) or absent. Five sliders set water temperature,
+      depth, turbidity, salinity and pH, and a checklist rates each factor as suitable, stressful or unsuitable. The
+      approximate limits used are: temperature suitable at 23–29 °C, stressful at 18–23 °C or 29–32 °C, unsuitable
+      below 18 °C or above 32 °C; light reaching the coral suitable at 20% of surface light or more, stressful at
+      10–20%, unsuitable below 10% (light falls exponentially with depth, and faster in turbid water, so in the clearest
+      water about 10% remains at 50 m); turbidity suitable when the water is clear, stressful when cloudy and unsuitable
+      when very murky because sediment smothers polyps; salinity suitable at 32–42 parts per thousand; pH suitable
+      at 8.0 or above, stressful between 7.8 and 8.0 and unsuitable below 7.8 because carbonate ions become too scarce
+      for skeleton building. Preset buttons show a clear shallow tropical sea, deep water, a river mouth, a marine
+      heatwave, a more acidic ocean and a temperate coast.
+
+  - id: biomes
+    kind: sim
+    module: b4-1-biomes
+    title: Biome explorer
+    alt: A graph of annual precipitation against mean annual temperature divided into biomes; move the point to see the biome.
+    description: >-
+      A Whittaker-style biome graph with mean annual temperature from −15 to 30 °C on the x-axis and annual
+      precipitation from 0 to 450 cm on the y-axis. Tundra occupies the coldest climates, below about −5 °C. Taiga lies
+      between about −5 and 5 °C. Between 5 and 20 °C, temperate grassland occupies drier climates and temperate forest
+      wetter ones. Above 20 °C, hot desert occupies the driest climates, savanna (tropical grassland) climates with up to
+      about 150 cm of rain, and tropical forest the wettest. A thin band of cold desert lies along the bottom between
+      −5 and 20 °C. The boundaries for desert and for forest slope upwards to the right, because warmer climates lose
+      more water by evaporation, so more rain is needed for the same vegetation. Climates above the envelope are rare
+      on Earth. Sliders, dragging and buttons for seven example places move a point on the graph; a card shows the
+      biome's climate, typical community, adaptations, where it is found and an example of convergent evolution.
+      Boundaries are approximate.

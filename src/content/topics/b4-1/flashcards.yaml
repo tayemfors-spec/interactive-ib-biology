@@ -1,0 +1,73 @@
+cards:
+  - id: c1
+    level: SL
+    front: What is a habitat, and what should a description of one include?
+    back: The place where an organism, population, species or community lives. Give its geographical location, its physical location within that area, and the type of ecosystem (and, for a fuller answer, the physical and chemical conditions there).
+  - id: c2
+    level: SL
+    front: Abiotic versus biotic factors
+    back: Abiotic factors are non-living conditions (temperature, light, water, pH, salinity, oxygen, soil type). Biotic factors are living influences (competitors, predators, prey, parasites, disease).
+  - id: c3
+    level: SL
+    front: Fennec fox — adaptations to the hot desert
+    back: Very large ears with many blood vessels radiate heat; nocturnal, spending the day in a burrow; pale fur reflects sunlight and thick fur insulates on cold nights; furry soles protect against hot sand; gets most water from food and makes concentrated urine.
+  - id: c4
+    level: SL
+    front: Marram grass leaf — four adaptations that reduce transpiration
+    back: Leaf rolls up when dry (hinge cells lose turgor); stomata only on the inner surface, sunken in grooves; hairs trap moist air; thick waxy cuticle on the outer surface, which has no stomata.
+  - id: c5
+    level: SL
+    front: How does marram grass cope with being buried by sand?
+    back: Burial stimulates growth. Rhizomes (underground stems) grow sideways and upwards so new shoots reach the surface, and long roots reach water deep in the dune. The rhizomes also bind and stabilize the sand.
+  - id: c6
+    level: SL
+    front: What problems does mangrove mud present to trees?
+    back: It is waterlogged and anaerobic (almost no oxygen for root respiration), very salty (low water potential), soft and unstable, and regularly flooded by the tide.
+  - id: c7
+    level: SL
+    front: Red mangrove (Rhizophora mangle) — adaptations
+    back: Arching prop (stilt) roots anchor it in soft mud; lenticels on roots above the mud let air in, and air spaces carry O₂ to buried roots; roots exclude most salt; seedlings germinate on the tree (vivipary), then drop, float and root.
+  - id: c8
+    level: SL
+    front: Grey mangrove (Avicennia marina) — adaptations
+    back: Pneumatophores (vertical roots growing up out of the mud) take in air at low tide; salt glands in the leaves secrete excess salt. Cells hold high solute concentrations, so water still enters roots by osmosis.
+  - id: c9
+    level: SL
+    front: Sketch the zones of a tolerance curve, from low to high values of a factor
+    back: Zone of intolerance (absent) → lower limit of tolerance → zone of physiological stress (few, poor growth) → optimum range (most abundant) → zone of stress → upper limit → zone of intolerance.
+  - id: c10
+    level: SL
+    front: What is a limiting factor?
+    back: A factor whose level, being outside or near the limits of a species' range of tolerance, restricts where the species can live or how well it grows.
+  - id: c11
+    level: SL
+    front: How do you use a transect to correlate a species' distribution with an abiotic variable?
+    back: Run the transect across a gradient. At regular intervals place a quadrat, record abundance (percentage cover or count) and measure the abiotic variable (e.g. with a light, temperature, moisture or pH sensor). Plot abundance against the variable and look for a correlation; repeat the transect.
+  - id: c12
+    level: SL
+    front: Why does a correlation from a transect not prove cause and effect?
+    back: Other abiotic and biotic factors (moisture, temperature, competition) change along the same gradient. A cause can only be shown by a controlled experiment.
+  - id: c13
+    level: SL
+    front: Five conditions needed for coral reef formation
+    back: Shallow water (mostly less than ~50 m), clear water with little sediment (light for zooxanthellae), warm water ~23–29 °C, salinity ~32–42 ppt, and pH ~8.0–8.3 so calcium carbonate can be deposited.
+  - id: c14
+    level: SL
+    front: What are zooxanthellae, and why do they explain the coral reef conditions?
+    back: Photosynthetic algae living in the cells of reef-building corals (mutualism). They supply most of the coral's sugars, so corals need light, which means shallow, clear water. When the water is too hot, corals expel them (bleaching).
+  - id: c15
+    level: SL
+    front: What two abiotic factors mainly determine which terrestrial biome develops, and why do biome boundaries slope on a biome graph?
+    back: Temperature and precipitation. Warmer climates lose more water by evaporation, so more rain is needed at higher temperatures to support grassland or forest.
+  - id: c16
+    level: SL
+    front: Why are biomes on different continents so similar?
+    back: Similar climates exert similar selection pressures, so unrelated species evolve similar adaptations (convergent evolution), e.g. American cacti and African euphorbias.
+  - id: c17
+    level: SL
+    front: Saguaro cactus — four adaptations to the hot desert
+    back: Pleated stem stores water and swells after rain; leaves reduced to spines; thick waxy cuticle with CAM (stomata open at night); wide shallow roots absorb rain quickly, plus a taproot for anchorage.
+  - id: c18
+    level: SL
+    front: Spider monkey and yellow meranti — rainforest adaptations
+    back: Spider monkey — long limbs, flexible shoulders, hook-like hands and a prehensile tail for moving through the canopy; eats ripe fruit. Yellow meranti — emergent crown above the canopy for light, buttress roots, evergreen leaves, winged fruits, mast fruiting.

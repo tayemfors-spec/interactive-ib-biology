@@ -1,0 +1,190 @@
+---
+import { check, defaults, lightAt, presets, verdict, verdictText } from './models/b4-1-coral';
+
+// Water column: 0–80 m mapped to y = 50…410.
+const W = { w: 360, h: 430, top: 50, bottom: 410, maxDepth: 80 };
+const yAt = (d: number) => W.top + (d / W.maxDepth) * (W.bottom - W.top);
+// Reef slope: shallow at the right, deeper to the left.
+const xAt = (d: number) => 330 - (d / W.maxDepth) * 210;
+const bands = Array.from({ length: 16 }, (_, i) => i * 5);
+const checks = check(defaults);
+const v = verdict(defaults);
+const icon = { ok: '✓', stress: '!', fail: '✕' } as const;
+const word = { ok: 'suitable', stress: 'stressful', fail: 'unsuitable' } as const;
+const L0 = lightAt(defaults.depth, defaults.turbidity);
+const sliders = [
+  { k: 'temp', label: 'Water temperature', min: 10, max: 36, step: 0.5, unit: ' °C' },
+  { k: 'depth', label: 'Depth', min: 1, max: 80, step: 1, unit: ' m' },
+  { k: 'turbidity', label: 'Turbidity (0 = very clear, 10 = very murky)', min: 0, max: 10, step: 1, unit: '' },
+  { k: 'salinity', label: 'Salinity', min: 15, max: 50, step: 1, unit: ' ppt' },
+  { k: 'ph', label: 'pH', min: 7.4, max: 8.4, step: 0.05, unit: '' },
+] as const;
+---
+<div class="coral" data-coral data-w={JSON.stringify(W)}>
+  <div class="layout">
+    <svg class="col" viewBox={`0 0 ${W.w} ${W.h}`} role="img" aria-labelledby="co-t co-d">
+      <title id="co-t">Water column over a reef slope, showing light fading with depth and the coral at the chosen depth</title>
+      <desc id="co-d" data-desc>Light at {defaults.depth} m is about {Math.round(L0)}% of the light at the surface. The coral is healthy.</desc>
+      <rect class="sky" x="0" y="0" width={W.w} height={W.top} />
+      <circle class="sun" cx="40" cy="25" r="14" />
+      {bands.map((d) => <rect class="water" x="0" y={yAt(d)} width={W.w} height={yAt(5) - yAt(0) + 0.5} />)}
+      <g data-light>
+        {bands.map((d) => <rect class="lt" x="0" y={yAt(d)} width={W.w} height={yAt(5) - yAt(0) + 0.5} opacity={(0.45 * lightAt(d + 2.5, defaults.turbidity) / 100).toFixed(3)} />)}
+      </g>
+      <line class="surface" x1="0" x2={W.w} y1={W.top} y2={W.top} />
+      <path class="bed" d={`M${xAt(0)} ${yAt(0)} L${xAt(W.maxDepth)} ${yAt(W.maxDepth)} L${W.w} ${yAt(W.maxDepth)} L${W.w} ${yAt(0)} Z`} />
+      {[0, 20, 40, 60, 80].map((d) => (
+        <>
+          <line class="dtick" x1="0" x2="14" y1={yAt(d)} y2={yAt(d)} />
+          <text class="dlab" x="18" y={yAt(d)} dy="0.35em">{d} m</text>
+        </>
+      ))}
+      <line class="limit" x1="0" x2={xAt(50)} y1={yAt(50)} y2={yAt(50)} />
+      <text class="limtxt" x="18" y={yAt(50) - 8}>~50 m: few reef-building corals below</text>
+      <g class="coral-g" data-coral-g data-status="ok" transform={`translate(${xAt(defaults.depth)} ${yAt(defaults.depth)})`}>
+        <path class="cor" d="M0 0 C-2 -10 -10 -14 -14 -24 M-14 -24 C-17 -30 -22 -32 -24 -38 M-14 -24 C-12 -32 -14 -38 -12 -44 M0 0 C2 -12 0 -22 4 -34 M4 -34 C6 -40 2 -46 4 -52 M4 -34 C10 -38 14 -44 14 -50 M0 0 C6 -6 16 -10 20 -20 M20 -20 C24 -26 30 -28 32 -34" />
+        <text class="cx" x="0" y="-20" text-anchor="middle">✕</text>
+      </g>
+      <text class="lread" data-lread x={xAt(defaults.depth) - 34} y={yAt(defaults.depth) + 4} text-anchor="end">{Math.round(L0)}% light</text>
+    </svg>
+
+    <div class="side">
+      {sliders.map((s) => (
+        <label class="slider">{s.label}: <output data-out={s.k}>{s.k === 'ph' ? defaults.ph.toFixed(2) : defaults[s.k]}{s.unit}</output>
+          <input type="range" min={s.min} max={s.max} step={s.step} value={defaults[s.k]} data-param={s.k} data-unit={s.unit} />
+        </label>
+      ))}
+      <div class="presets" role="group" aria-label="Example sites">
+        <span>Try:</span>
+        {presets.map((p) => <button type="button" class="btn chip" data-preset={p.id}>{p.label}</button>)}
+      </div>
+    </div>
+  </div>
+
+  <p class="verdict" data-verdict={v} aria-live="polite" data-vtext>{verdictText[v]}</p>
+  <ul class="checks" data-checks>
+    {checks.map((c) => (
+      <li data-check={c.factor} data-status={c.status}>
+        <span class="ic" aria-hidden="true">{icon[c.status]}</span>
+        <span><strong>{c.label}</strong> <span class="st">({word[c.status]})</span>: <span data-ct>{c.text}</span></span>
+      </li>
+    ))}
+  </ul>
+  <details class="table">
+    <summary>Show the approximate limits used</summary>
+    <table>
+      <thead><tr><th scope="col">Factor</th><th scope="col">Suitable</th><th scope="col">Stressful</th><th scope="col">Unsuitable</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Temperature</th><td>23–29 °C</td><td>18–23 °C or 29–32 °C</td><td>below 18 °C or above 32 °C</td></tr>
+        <tr><th scope="row">Light reaching the coral</th><td>20% of surface light or more</td><td>10–20%</td><td>below 10%</td></tr>
+        <tr><th scope="row">Turbidity (0–10)</th><td>0–3</td><td>4–6</td><td>7–10</td></tr>
+        <tr><th scope="row">Salinity</th><td>32–42 ppt</td><td>28–32 or 42–45 ppt</td><td>below 28 or above 45 ppt</td></tr>
+        <tr><th scope="row">pH</th><td>8.0 or above</td><td>7.8–8.0</td><td>below 7.8</td></tr>
+      </tbody>
+    </table>
+  </details>
+  <p class="model-note">Qualitative model with approximate thresholds. Light falls exponentially with depth, and faster in turbid water; in the model's clearest water about 10% of surface light is left at 50 m. Real limits vary between coral species and regions, and corals are also harmed by how long unusual conditions last.</p>
+</div>
+
+<script>
+  import { check, lightAt, presets, verdict, verdictText, type Conditions } from './models/b4-1-coral';
+
+  const icon = { ok: '✓', stress: '!', fail: '✕' } as const;
+  const word = { ok: 'suitable', stress: 'stressful', fail: 'unsuitable' } as const;
+  document.querySelectorAll<HTMLElement>('[data-coral]').forEach((root) => {
+    const W = JSON.parse(root.dataset.w!) as { top: number; bottom: number; maxDepth: number };
+    const yAt = (d: number) => W.top + (d / W.maxDepth) * (W.bottom - W.top);
+    const xAt = (d: number) => 330 - (d / W.maxDepth) * 210;
+    const inputs = [...root.querySelectorAll<HTMLInputElement>('[data-param]')];
+    const vtext = root.querySelector<HTMLElement>('[data-vtext]')!;
+    let timer = 0;
+
+    const read = (): Conditions => Object.fromEntries(inputs.map((i) => [i.dataset.param!, Number(i.value)])) as unknown as Conditions;
+    const update = () => {
+      const c = read();
+      inputs.forEach((i) => {
+        const val = Number(i.value);
+        root.querySelector(`[data-out="${i.dataset.param}"]`)!.textContent = `${i.dataset.param === 'ph' ? val.toFixed(2) : val}${i.dataset.unit ?? ''}`;
+      });
+      const light = lightAt(c.depth, c.turbidity);
+      root.querySelectorAll<SVGRectElement>('[data-light] rect').forEach((r, k) => r.setAttribute('opacity', (0.45 * lightAt(k * 5 + 2.5, c.turbidity) / 100).toFixed(3)));
+      const checks = check(c);
+      const v = verdict(c);
+      const g = root.querySelector<SVGGElement>('[data-coral-g]')!;
+      g.setAttribute('transform', `translate(${xAt(c.depth).toFixed(1)} ${yAt(c.depth).toFixed(1)})`);
+      g.dataset.status = v === 'reef' ? 'ok' : v === 'stressed' ? 'stress' : 'fail';
+      const lr = root.querySelector<SVGTextElement>('[data-lread]')!;
+      lr.setAttribute('x', (xAt(c.depth) - 34).toFixed(1)); lr.setAttribute('y', (yAt(c.depth) + 4).toFixed(1));
+      lr.textContent = `${light < 1 ? light.toFixed(1) : Math.round(light)}% light`;
+      root.querySelector('[data-desc]')!.textContent = `Light at ${c.depth} m is about ${Math.round(light)}% of the light at the surface. The coral is ${v === 'reef' ? 'healthy' : v === 'stressed' ? 'stressed' : 'unable to grow'}.`;
+      checks.forEach((ch) => {
+        const li = root.querySelector<HTMLElement>(`[data-check="${ch.factor}"]`)!;
+        li.dataset.status = ch.status;
+        li.querySelector('.ic')!.textContent = icon[ch.status];
+        li.querySelector('.st')!.textContent = `(${word[ch.status]})`;
+        li.querySelector('[data-ct]')!.textContent = ch.text;
+      });
+      const box = root.querySelector<HTMLElement>('[data-verdict]')!;
+      box.dataset.verdict = v;
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        const bad = checks.filter((x) => x.status !== 'ok').map((x) => `${x.label.toLowerCase()} (${word[x.status]})`);
+        vtext.textContent = verdictText[v] + (bad.length ? ` Check: ${bad.join(', ')}.` : '');
+      }, 300);
+    };
+    inputs.forEach((i) => i.addEventListener('input', update));
+    root.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach((b) => b.addEventListener('click', () => {
+      const p = presets.find((x) => x.id === b.dataset.preset)!;
+      inputs.forEach((i) => { i.value = String(p.c[i.dataset.param as keyof Conditions]); });
+      update();
+    }));
+  });
+</script>
+
+<style>
+  .coral { container-type: inline-size; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 42rem) { .layout { grid-template-columns: minmax(0, 1fr) minmax(16rem, 1.1fr); align-items: start; } }
+  .col { width: 100%; max-width: 26rem; height: auto; justify-self: center; font-family: var(--font-sans); border-radius: var(--radius-m); }
+  .sky { fill: var(--surface-2); }
+  .sun { fill: var(--bio-glucose); }
+  .water { fill: color-mix(in srgb, var(--bio-water) 38%, var(--surface)); }
+  .lt { fill: color-mix(in srgb, var(--bio-glucose) 70%, white); }
+  .surface { stroke: var(--bio-water); stroke-width: 3; }
+  .bed { fill: color-mix(in srgb, var(--bio-tail) 55%, var(--surface)); stroke: var(--border-strong); stroke-width: 1.5; }
+  .dtick { stroke: var(--text); stroke-width: 1.5; }
+  .dlab { font-size: 14px; font-weight: 700; fill: var(--text); }
+  .limit { stroke: var(--text); stroke-width: 1.4; stroke-dasharray: 5 4; }
+  .limtxt { font-size: 13px; fill: var(--text); font-weight: 600; }
+  .lread { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .cor { fill: none; stroke-width: 6; stroke-linecap: round; }
+  .coral-g[data-status='ok'] .cor { stroke: var(--bio-head); }
+  .coral-g[data-status='stress'] .cor { stroke: var(--surface); stroke-width: 7; }
+  .coral-g[data-status='fail'] .cor { stroke: var(--text-muted); stroke-dasharray: 2 5; stroke-width: 4; }
+  .cx { display: none; font-size: 26px; font-weight: 800; fill: var(--bad); }
+  .coral-g[data-status='fail'] .cx { display: inline; }
+  .side { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .presets { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .chip { min-height: 2.1rem; padding: 0.3rem 0.65rem; }
+  .verdict { margin: var(--space-4) 0 var(--space-2); padding: var(--space-3); border-radius: var(--radius-m); font-weight: 700; border-left: 5px solid; font-size: var(--step--1); }
+  .verdict[data-verdict='reef'] { background: var(--good-soft); border-color: var(--good); }
+  .verdict[data-verdict='stressed'] { background: var(--warn-soft); border-color: var(--warn); }
+  .verdict[data-verdict='none'] { background: var(--bad-soft); border-color: var(--bad); }
+  .checks { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); font-size: var(--step--1); }
+  .checks li { display: flex; gap: var(--space-2); align-items: flex-start; padding: var(--space-2) var(--space-3); border-radius: var(--radius-s); background: var(--surface-2); }
+  .ic { flex: none; display: inline-grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 50%; font-weight: 800; color: var(--surface); }
+  li[data-status='ok'] .ic { background: var(--good); }
+  li[data-status='stress'] .ic { background: var(--warn); }
+  li[data-status='fail'] .ic { background: var(--bad); }
+  li[data-status='ok'] .st { color: var(--good); }
+  li[data-status='stress'] .st { color: var(--warn); }
+  li[data-status='fail'] .st { color: var(--bad); }
+  .st { font-weight: 700; }
+  .table { margin-top: var(--space-3); font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); }
+  th, td { padding: 0.25rem 0.6rem; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

@@ -1,0 +1,119 @@
+---
+/** Tropical rainforest adaptations: yellow meranti and Geoffroy's spider monkey (B4.1.8). */
+const canopy = [20, 64, 108, 152, 196, 240];
+---
+<svg viewBox="0 0 540 770" role="img" aria-labelledby="rf-t rf-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="rf-t">Adaptations of the yellow meranti and the spider monkey to tropical rainforest</title>
+  <desc id="rf-d">Top: a yellow meranti tree, an emergent whose crown rises well above the main forest canopy into full sunlight. Its tall, straight trunk has broad buttress roots at the base and a shallow root system in thin soil. An enlarged fruit shows the long wings that make it spin as it falls. Labels describe the emergent crown, evergreen leaves, the trunk, buttresses, shallow roots and mast fruiting. Bottom: a spider monkey hanging from a branch by its tail, with long arms and legs and hook-like hands. Labels describe the prehensile tail with a bare gripping pad, the hook-like hands with tiny thumbs, flexible shoulders for swinging, a diet mainly of ripe fruit, and activity by day in the upper canopy.</desc>
+  <text class="ph" x="10" y="22">A  Yellow meranti, <tspan font-style="italic">Shorea faguetiana</tspan> (Borneo)</text>
+  <circle class="sun" cx="40" cy="52" r="12" />
+  {canopy.map((x) => <ellipse class="can" cx={x + 22} cy="196" rx="32" ry="22" />)}
+  <line class="canl" x1="0" x2="300" y1="174" y2="174" />
+  <text class="cl" x="6" y="168">main canopy</text>
+  <rect class="soil" x="0" y="330" width="300" height="34" />
+  <line class="ground" x1="0" x2="300" y1="330" y2="330" />
+  <path class="trunk" d="M140 330 L144 92 L156 92 L160 330 Z" />
+  <path class="butt" d="M141 260 C134 300 112 318 92 330 L141 330 Z M159 260 C166 300 188 318 208 330 L159 330 Z M146 280 C142 306 136 320 128 330 L150 330 Z" />
+  <path class="rootl" d="M100 332 C80 336 50 338 20 340 M200 332 C220 336 250 338 280 340 M150 332 L148 352" />
+  <g class="crown"><ellipse cx="124" cy="78" rx="44" ry="26" /><ellipse cx="168" cy="66" rx="48" ry="30" /><ellipse cx="150" cy="96" rx="58" ry="20" /></g>
+  <g class="fruit" transform="translate(500 372) scale(0.6) translate(-420 -320)">
+    <ellipse class="nut" cx="420" cy="320" rx="8" ry="10" />
+    <path class="wing" d="M416 312 C404 280 398 256 400 236 C410 250 418 280 420 312 Z" />
+    <path class="wing" d="M420 312 C424 278 432 252 446 238 C444 262 432 286 424 312 Z" />
+    <path class="wing" d="M422 314 C440 290 456 276 472 270 C462 292 444 306 426 316 Z" />
+    <path class="wing s" d="M414 316 C404 304 396 300 390 300 C396 310 404 316 414 320 Z" />
+    
+  </g>
+  <text class="cap" x="478" y="370" text-anchor="end">winged fruit (enlarged)</text>
+  <g class="leads">
+    <path d="M212 70 L300 56" />
+    <path d="M160 140 L300 118" />
+    <path d="M190 312 L300 260" />
+    <path d="M240 338 L300 300" />
+  </g>
+  <g class="lab">
+    <text x="304" y="44"><tspan class="b">Emergent</tspan>: crown above the</text>
+    <text x="304" y="61">canopy, in full sunlight, so no</text>
+    <text x="304" y="78">competition for light. <tspan class="b">Evergreen</tspan></text>
+    <text x="304" y="95">leaves photosynthesize all year</text>
+    <text x="304" y="118"><tspan class="b">Tall, straight trunk</tspan>; one tree,</text>
+    <text x="304" y="135">"Menara", is 100.8 m, the tallest</text>
+    <text x="304" y="152">tropical tree known</text>
+    <text x="304" y="256"><tspan class="b">Buttress roots</tspan> support</text>
+    <text x="304" y="273">the tall tree in shallow soil</text>
+    <text x="304" y="296"><tspan class="b">Shallow roots</tspan> take</text>
+    <text x="304" y="313">up nutrients from thin topsoil</text>
+  </g>
+  <text class="note" x="10" y="392">Wings make the fruit spin as it falls, carrying it away from the parent.</text>
+  <text class="note" x="10" y="409">Mass fruiting every few years (mast years) leaves too many seeds to eat.</text>
+
+  <line class="div" x1="0" x2="540" y1="424" y2="424" />
+  <text class="ph" x="10" y="448">B  Spider monkey, <tspan font-style="italic">Ateles geoffroyi</tspan> (Central America)</text>
+  <path class="branch" d="M0 486 C120 478 240 480 360 490" />
+  <g class="leafy">{[40, 90, 300, 340].map((x) => <ellipse cx={x} cy="476" rx="18" ry="8" />)}</g>
+  <g class="monkey">
+    <path class="tail" d="M206 610 C252 618 272 562 264 502 C262 490 270 482 278 488" />
+    <path class="limb" d="M194 608 L186 650 L180 690" />
+    <path class="limb" d="M206 608 L218 650 L226 690" />
+    <ellipse class="body" cx="200" cy="574" rx="20" ry="38" />
+    <circle class="body" cx="200" cy="524" r="17" />
+    <circle class="face" cx="200" cy="528" r="9" />
+    <path class="limb" d="M190 548 C172 532 158 512 150 492" />
+    <path class="hand" d="M150 492 C144 482 156 476 158 487" />
+    <path class="limb" d="M212 552 C240 562 262 566 284 560" />
+    <circle class="fruitb" cx="292" cy="560" r="7" />
+  </g>
+  <g class="leads">
+    <path d="M276 490 L330 500" />
+    <path d="M148 490 L120 524" />
+    <path d="M166 526 L120 600" />
+    <path d="M298 562 L330 578" />
+  </g>
+  <g class="lab">
+    <text x="334" y="500"><tspan class="b">Prehensile tail</tspan> with a</text>
+    <text x="334" y="517">bare, ridged gripping pad</text>
+    <text x="334" y="534">holds the whole body,</text>
+    <text x="334" y="551">freeing the hands</text>
+    <text x="10" y="534"><tspan class="b">Hook-like hands</tspan></text>
+    <text x="10" y="551">with tiny thumbs</text>
+    <text x="10" y="568">hook over branches</text>
+    <text x="10" y="602"><tspan class="b">Long arms</tspan>,</text>
+    <text x="10" y="619">flexible shoulders</text>
+    <text x="10" y="636">for swinging under</text>
+    <text x="10" y="653">branches</text>
+    <text x="334" y="584"><tspan class="b">Long limbs</tspan> reach</text>
+    <text x="334" y="601">fruit at branch tips</text>
+  </g>
+  <text class="note" x="300" y="640">Eats mainly ripe fruit, which</text>
+  <text class="note" x="300" y="657">rainforest trees produce all year.</text>
+  <text class="note" x="300" y="680">Active by day in the upper canopy.</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .ph { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .sun { fill: var(--bio-glucose); }
+  .can { fill: color-mix(in srgb, var(--bio-carb) 45%, var(--surface)); stroke: var(--bio-carb); stroke-width: 1.2; }
+  .canl { stroke: var(--text-muted); stroke-width: 1.2; stroke-dasharray: 5 4; }
+  .cl { font-size: 13px; fill: var(--text); font-weight: 650; }
+  .soil { fill: color-mix(in srgb, var(--bio-head) 30%, var(--surface)); }
+  .ground { stroke: var(--border-strong); stroke-width: 2; }
+  .trunk, .butt { fill: color-mix(in srgb, var(--bio-head) 50%, var(--text)); }
+  .rootl { fill: none; stroke: color-mix(in srgb, var(--bio-head) 50%, var(--text)); stroke-width: 2.5; }
+  .crown ellipse { fill: color-mix(in srgb, var(--bio-carb) 70%, var(--surface)); stroke: var(--bio-carb); stroke-width: 1.5; }
+  .nut { fill: color-mix(in srgb, var(--bio-head) 55%, var(--surface)); stroke: var(--text); stroke-width: 1.2; }
+  .wing { fill: color-mix(in srgb, var(--bio-glucose) 35%, var(--surface)); stroke: var(--text); stroke-width: 1.2; }
+  .cap { font-size: 13px; fill: var(--text); font-weight: 650; }
+  .leads path { fill: none; stroke: var(--text); stroke-width: 1.2; }
+  .lab text { font-size: 14px; fill: var(--text); }
+  .lab .b { font-weight: 750; }
+  .note { font-size: 13.5px; fill: var(--text); font-style: italic; }
+  .div { stroke: var(--border-strong); stroke-width: 1; }
+  .branch { fill: none; stroke: color-mix(in srgb, var(--bio-head) 50%, var(--text)); stroke-width: 9; stroke-linecap: round; }
+  .leafy ellipse { fill: color-mix(in srgb, var(--bio-carb) 60%, var(--surface)); }
+  .tail { fill: none; stroke: color-mix(in srgb, var(--bio-head) 40%, var(--text)); stroke-width: 6; stroke-linecap: round; }
+  .limb { fill: none; stroke: color-mix(in srgb, var(--bio-head) 40%, var(--text)); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+  .hand { fill: none; stroke: color-mix(in srgb, var(--bio-head) 40%, var(--text)); stroke-width: 5; stroke-linecap: round; }
+  .body { fill: color-mix(in srgb, var(--bio-head) 40%, var(--text)); }
+  .fruitb { fill: var(--bio-k); }
+  .face { fill: color-mix(in srgb, var(--bio-tail) 50%, var(--surface)); }
+</style>

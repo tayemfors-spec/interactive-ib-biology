@@ -1,0 +1,302 @@
+---
+import { linePath, range, sx, sy, type Frame } from './chart';
+import { describeR, lightCorrelation, performance, toleranceFor, transect, zoneOf, zoneText } from './models/b4-1-tolerance';
+
+const tf: Frame = {
+  w: 640, h: 330, left: 58, right: 16, top: 34, bottom: 50,
+  x: { min: 0, max: 100, ticks: range(0, 100, 10), label: 'Level of an abiotic factor (e.g. temperature, soil pH)' },
+  y: { min: 0, max: 100, ticks: range(0, 100, 20), label: 'Performance / %' },
+};
+const def = { x: 50, width: 50 };
+const tol = toleranceFor(def.width / 100);
+const curve = linePath(tf, (x) => 100 * performance(x, tol), 200);
+
+// Distribution strip: fixed pseudo-random "individuals"; each is shown where performance beats its threshold.
+const STRIP = { top: 0, h: 46 };
+let seed = 7;
+const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+const people = Array.from({ length: 170 }, () => ({ x: rand() * 100, y: 6 + rand() * (STRIP.h - 12), k: rand() }));
+
+const df: Frame = {
+  w: 520, h: 320, left: 54, right: 14, top: 16, bottom: 50,
+  x: { min: -1.5, max: 31.5, ticks: transect.distance, label: 'Distance from meadow into wood / m' },
+  y: { min: 0, max: 100, ticks: range(0, 100, 20), label: 'Percentage' },
+};
+const bw = 7;
+const lightPath = transect.distance.map((d, i) => `${i ? 'L' : 'M'}${sx(df, d).toFixed(1)} ${sy(df, transect.light[i]!).toFixed(1)}`).join('');
+
+const sf: Frame = {
+  w: 420, h: 320, left: 54, right: 26, top: 16, bottom: 50,
+  x: { min: 0, max: 100, ticks: range(0, 100, 20), label: 'Light / % of open meadow' },
+  y: { min: 0, max: 100, ticks: range(0, 100, 20), label: 'Percentage cover' },
+};
+const r0 = lightCorrelation('grass');
+---
+<div class="tol" data-tol data-tf={JSON.stringify(tf)} data-sf={JSON.stringify(sf)} data-people={JSON.stringify(people)}>
+  <p class="part">1. A range of tolerance</p>
+  <div class="layout">
+    <div>
+      <svg class="chart" viewBox={`0 0 ${tf.w} ${tf.h}`} role="img" aria-labelledby="tol-t tol-d">
+        <title id="tol-t">Tolerance curve: performance of a species against the level of an abiotic factor</title>
+        <desc id="tol-d">A curve that is zero at low levels of the factor, rises through a zone of physiological stress to a flat optimum range in the middle, then falls through a second zone of stress to zero at high levels. Outside the lower and upper limits of tolerance are zones of intolerance.</desc>
+        <g data-zones>
+          <rect class="z intol" data-z="il" x={sx(tf, 0)} width={sx(tf, tol.lower) - sx(tf, 0)} y={tf.top} height={tf.h - tf.top - tf.bottom} />
+          <rect class="z stress" data-z="sl" x={sx(tf, tol.lower)} width={sx(tf, tol.optLow) - sx(tf, tol.lower)} y={tf.top} height={tf.h - tf.top - tf.bottom} />
+          <rect class="z opt" data-z="o" x={sx(tf, tol.optLow)} width={sx(tf, tol.optHigh) - sx(tf, tol.optLow)} y={tf.top} height={tf.h - tf.top - tf.bottom} />
+          <rect class="z stress" data-z="sh" x={sx(tf, tol.optHigh)} width={sx(tf, tol.upper) - sx(tf, tol.optHigh)} y={tf.top} height={tf.h - tf.top - tf.bottom} />
+          <rect class="z intol" data-z="ih" x={sx(tf, tol.upper)} width={sx(tf, 100) - sx(tf, tol.upper)} y={tf.top} height={tf.h - tf.top - tf.bottom} />
+        </g>
+        <g class="zlab">
+          <text data-zl="il" x={(sx(tf, 0) + sx(tf, tol.lower)) / 2} y={tf.top - 10} text-anchor="middle">intolerance</text>
+          <text data-zl="sl" x={(sx(tf, tol.lower) + sx(tf, tol.optLow)) / 2} y={tf.top - 10} text-anchor="middle">stress</text>
+          <text data-zl="o" x={(sx(tf, tol.optLow) + sx(tf, tol.optHigh)) / 2} y={tf.top - 10} text-anchor="middle">optimum</text>
+          <text data-zl="sh" x={(sx(tf, tol.optHigh) + sx(tf, tol.upper)) / 2} y={tf.top - 10} text-anchor="middle">stress</text>
+          <text data-zl="ih" x={(sx(tf, tol.upper) + sx(tf, 100)) / 2} y={tf.top - 10} text-anchor="middle">intolerance</text>
+        </g>
+        <g class="grid">{tf.y.ticks.map((t) => <line x1={tf.left} x2={tf.w - tf.right} y1={sy(tf, t)} y2={sy(tf, t)} />)}</g>
+        <g class="ticks">
+          {tf.x.ticks.map((t) => <text x={sx(tf, t)} y={tf.h - tf.bottom + 18} text-anchor="middle">{t}</text>)}
+          {tf.y.ticks.map((t) => <text x={tf.left - 8} y={sy(tf, t)} dy="0.35em" text-anchor="end">{t}</text>)}
+        </g>
+        <text class="axis" x={(tf.left + tf.w - tf.right) / 2} y={tf.h - 10} text-anchor="middle">{tf.x.label} →</text>
+        <text class="axis" transform={`translate(16 ${(tf.top + tf.h - tf.bottom) / 2}) rotate(-90)`} text-anchor="middle">{tf.y.label}</text>
+        <path class="curve" d={curve} data-curve />
+        <line class="marker" data-mk x1={sx(tf, def.x)} x2={sx(tf, def.x)} y1={tf.top} y2={tf.h - tf.bottom} />
+        <circle class="mdot" data-mdot cx={sx(tf, def.x)} cy={sy(tf, 100 * performance(def.x, tol))} r="7" />
+      </svg>
+      <svg class="strip" viewBox={`0 0 ${tf.w} ${STRIP.h + 20}`} role="img" aria-labelledby="strip-t">
+        <title id="strip-t">Distribution of individuals along a gradient of the factor: most are found in the optimum range, a few in the zones of stress, none in the zones of intolerance</title>
+        <rect class="sbg" x={tf.left} y="0" width={tf.w - tf.left - tf.right} height={STRIP.h} rx="6" />
+        <g data-people-g>
+          {people.filter((p) => p.k < performance(p.x, tol)).map((p) => <circle class="ind" cx={sx(tf, p.x)} cy={p.y} r="3.6" />)}
+        </g>
+        <text class="slab" x={tf.left} y={STRIP.h + 15}>Individuals found along a gradient of this factor (each dot is one)</text>
+      </svg>
+    </div>
+    <div class="controls">
+      <ul class="key zkey" aria-label="Zones">
+        <li><span class="k z-o"></span>Optimum range</li>
+        <li><span class="k z-s"></span>Zone of physiological stress</li>
+        <li><span class="k z-i"></span>Zone of intolerance</li>
+      </ul>
+      <label class="slider">Level of the abiotic factor: <output data-out="x">{def.x}</output>
+        <input type="range" min="0" max="100" step="1" value={def.x} data-param="x" />
+      </label>
+      <label class="slider">Range of tolerance of the species: <output data-out="width">medium</output>
+        <input type="range" min="0" max="100" step="5" value={def.width} data-param="width" />
+      </label>
+      <p class="state" aria-live="polite" data-state><strong>Performance {Math.round(100 * performance(def.x, tol))}%.</strong> {zoneText[zoneOf(def.x, tol)]}</p>
+    </div>
+  </div>
+  <p class="model-note">Qualitative model with arbitrary units. "Performance" stands for growth, survival and reproduction.</p>
+
+  <p class="part">2. Worked example: a belt transect</p>
+  <p class="intro">A belt transect runs from an open meadow (0 m) into a deciduous wood. A 1 m² quadrat is placed every 3 m; in each, percentage cover of two plant species is estimated and light at ground level is measured with a light sensor, as a percentage of the light in the open meadow.</p>
+  <div class="pair">
+    <svg class="chart" viewBox={`0 0 ${df.w} ${df.h}`} role="img" aria-labelledby="tr-t tr-d">
+      <title id="tr-t">Percentage cover of two species and light intensity along the transect</title>
+      <desc id="tr-d">Light falls from 100% in the meadow to 5% at 30 m inside the wood. Meadow grass cover is about 80% in the meadow and falls to almost zero by 24 m. Woodland herb cover is zero in the meadow, rises to a peak of 47% at 18 m, where light is about 19%, then falls to 9% in the deepest shade.</desc>
+      <defs>
+        <pattern id="tol-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <rect width="6" height="6" class="hb" /><line x1="0" y1="0" x2="0" y2="6" class="hl" />
+        </pattern>
+      </defs>
+      <g class="grid">{df.y.ticks.map((t) => <line x1={df.left} x2={df.w - df.right} y1={sy(df, t)} y2={sy(df, t)} />)}</g>
+      {transect.distance.map((d, i) => (
+        <>
+          <rect class="bar grass" x={sx(df, d) - bw - 0.5} width={bw} y={sy(df, transect.grass[i]!)} height={sy(df, 0) - sy(df, transect.grass[i]!)} />
+          <rect class="bar herb" x={sx(df, d) + 0.5} width={bw} y={sy(df, transect.herb[i]!)} height={sy(df, 0) - sy(df, transect.herb[i]!)} />
+        </>
+      ))}
+      <path class="light" d={lightPath} />
+      {transect.distance.map((d, i) => <circle class="ldot" cx={sx(df, d)} cy={sy(df, transect.light[i]!)} r="4" />)}
+      <g class="ticks">
+        {df.x.ticks.map((t) => <text x={sx(df, t)} y={df.h - df.bottom + 18} text-anchor="middle">{t}</text>)}
+        {df.y.ticks.map((t) => <text x={df.left - 8} y={sy(df, t)} dy="0.35em" text-anchor="end">{t}</text>)}
+      </g>
+      <text class="axis" x={(df.left + df.w - df.right) / 2} y={df.h - 10} text-anchor="middle">{df.x.label} →</text>
+      <text class="axis" transform={`translate(15 ${(df.top + df.h - df.bottom) / 2}) rotate(-90)`} text-anchor="middle">{df.y.label}</text>
+    </svg>
+    <svg class="chart" viewBox={`0 0 ${sf.w} ${sf.h}`} role="img" aria-labelledby="sc-t" data-scatter>
+      <title id="sc-t" data-sc-title>Scatter graph of percentage cover against light for the selected species</title>
+      <g class="grid">
+        {sf.x.ticks.map((t) => <line x1={sx(sf, t)} x2={sx(sf, t)} y1={sf.top} y2={sf.h - sf.bottom} />)}
+        {sf.y.ticks.map((t) => <line x1={sf.left} x2={sf.w - sf.right} y1={sy(sf, t)} y2={sy(sf, t)} />)}
+      </g>
+      <rect class="shade" data-shade x={sx(sf, 0)} width={sx(sf, 30) - sx(sf, 0)} y={sf.top} height={sf.h - sf.top - sf.bottom} style="display:none" />
+      <g data-pts>
+        {transect.light.map((l, i) => <circle class="sp grass" cx={sx(sf, l)} cy={sy(sf, transect.grass[i]!)} r="6" />)}
+      </g>
+      <g class="ticks">
+        {sf.x.ticks.map((t) => <text x={sx(sf, t)} y={sf.h - sf.bottom + 18} text-anchor="middle">{t}</text>)}
+        {sf.y.ticks.map((t) => <text x={sf.left - 8} y={sy(sf, t)} dy="0.35em" text-anchor="end">{t}</text>)}
+      </g>
+      <text class="axis" x={(sf.left + sf.w - sf.right) / 2} y={sf.h - 10} text-anchor="middle">{sf.x.label} →</text>
+      <text class="axis" transform={`translate(15 ${(sf.top + sf.h - sf.bottom) / 2}) rotate(-90)`} text-anchor="middle">{sf.y.label}</text>
+    </svg>
+  </div>
+  <ul class="key" aria-label="Key">
+    <li><span class="k k-grass"></span>Meadow grass, % cover</li>
+    <li><span class="k k-herb"></span>Woodland herb, % cover</li>
+    <li><span class="k k-light"></span>Light, % of open meadow</li>
+  </ul>
+  <div class="tcontrols">
+    <div class="choices" role="group" aria-label="Species on the scatter graph">
+      <button type="button" class="btn chip" aria-pressed="true" data-sp="grass">Meadow grass</button>
+      <button type="button" class="btn chip" aria-pressed="false" data-sp="herb">Woodland herb</button>
+    </div>
+    <div class="choices" role="group" aria-label="Quadrats included">
+      <button type="button" class="btn chip" aria-pressed="true" data-sub="all">All quadrats</button>
+      <button type="button" class="btn chip" aria-pressed="false" data-sub="shade">Only quadrats with ≤ 30% light</button>
+    </div>
+  </div>
+  <p class="state" aria-live="polite" data-corr>Meadow grass: r = {r0.toFixed(2)}, {describeR(r0)} between light and percentage cover (11 quadrats).</p>
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <thead><tr><th scope="col">Distance / m</th><th scope="col">Light / %</th><th scope="col">Meadow grass cover / %</th><th scope="col">Woodland herb cover / %</th></tr></thead>
+      <tbody>{transect.distance.map((d, i) => <tr><th scope="row">{d}</th><td>{transect.light[i]}</td><td>{transect.grass[i]}</td><td>{transect.herb[i]}</td></tr>)}</tbody>
+    </table>
+  </details>
+  <p class="model-note">Illustrative data invented for teaching, following realistic patterns; not real measurements. r is Pearson's correlation coefficient.</p>
+</div>
+
+<script>
+  import { linePath, sx, sy, type Frame } from './chart';
+  import { describeR, lightCorrelation, performance, toleranceFor, transect, zoneOf, zoneText, type TransectSpecies } from './models/b4-1-tolerance';
+
+  const NS = 'http://www.w3.org/2000/svg';
+  document.querySelectorAll<HTMLElement>('[data-tol]').forEach((root) => {
+    const tf = JSON.parse(root.dataset.tf!) as Frame;
+    const sf = JSON.parse(root.dataset.sf!) as Frame;
+    const people = JSON.parse(root.dataset.people!) as { x: number; y: number; k: number }[];
+    const get = (k: string) => Number(root.querySelector<HTMLInputElement>(`[data-param="${k}"]`)!.value);
+    const state = root.querySelector<HTMLElement>('[data-state]')!;
+    let timer = 0;
+
+    const update = () => {
+      const x = get('x'), w = get('width');
+      const s = toleranceFor(w / 100);
+      root.querySelector('[data-out="x"]')!.textContent = String(x);
+      root.querySelector('[data-out="width"]')!.textContent = w < 34 ? 'narrow' : w > 66 ? 'wide' : 'medium';
+      const edges: Record<string, [number, number]> = { il: [0, s.lower], sl: [s.lower, s.optLow], o: [s.optLow, s.optHigh], sh: [s.optHigh, s.upper], ih: [s.upper, 100] };
+      for (const [k, [a, b]] of Object.entries(edges)) {
+        const r = root.querySelector<SVGRectElement>(`[data-z="${k}"]`)!;
+        r.setAttribute('x', sx(tf, a).toFixed(1)); r.setAttribute('width', (sx(tf, b) - sx(tf, a)).toFixed(1));
+        const t = root.querySelector<SVGTextElement>(`[data-zl="${k}"]`)!;
+        t.setAttribute('x', ((sx(tf, a) + sx(tf, b)) / 2).toFixed(1));
+      }
+      root.querySelector('[data-curve]')!.setAttribute('d', linePath(tf, (v) => 100 * performance(v, s), 200));
+      const mx = sx(tf, x).toFixed(1);
+      const mk = root.querySelector<SVGLineElement>('[data-mk]')!;
+      mk.setAttribute('x1', mx); mk.setAttribute('x2', mx);
+      const perf = performance(x, s);
+      const dot = root.querySelector<SVGCircleElement>('[data-mdot]')!;
+      dot.setAttribute('cx', mx); dot.setAttribute('cy', sy(tf, 100 * perf).toFixed(1));
+      root.querySelector('[data-people-g]')!.replaceChildren(...people.filter((p) => p.k < performance(p.x, s)).map((p) => {
+        const c = document.createElementNS(NS, 'circle');
+        c.setAttribute('class', 'ind'); c.setAttribute('cx', sx(tf, p.x).toFixed(1)); c.setAttribute('cy', String(p.y)); c.setAttribute('r', '3.6');
+        return c;
+      }));
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        state.innerHTML = `<strong>Performance ${Math.round(100 * perf)}%.</strong> ${zoneText[zoneOf(x, s)]}` +
+          ` Limits of tolerance: ${Math.round(s.lower)} to ${Math.round(s.upper)}; optimum ${Math.round(s.optLow)} to ${Math.round(s.optHigh)}.`;
+      }, 300);
+    };
+    root.querySelectorAll('[data-param]').forEach((el) => el.addEventListener('input', update));
+
+    // Transect scatter
+    let sp: TransectSpecies = 'grass';
+    let sub: 'all' | 'shade' = 'all';
+    const corr = root.querySelector<HTMLElement>('[data-corr]')!;
+    const drawScatter = () => {
+      root.querySelectorAll<HTMLButtonElement>('[data-sp]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.sp === sp)));
+      root.querySelectorAll<HTMLButtonElement>('[data-sub]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.sub === sub)));
+      const max = sub === 'shade' ? 30 : Infinity;
+      root.querySelector<SVGRectElement>('[data-shade]')!.style.display = sub === 'shade' ? '' : 'none';
+      root.querySelector('[data-pts]')!.replaceChildren(...transect.light.map((l, i) => {
+        const c = document.createElementNS(NS, 'circle');
+        c.setAttribute('class', `sp ${sp}${l > max ? ' out' : ''}`);
+        c.setAttribute('cx', sx(sf, l).toFixed(1)); c.setAttribute('cy', sy(sf, transect[sp][i]!).toFixed(1)); c.setAttribute('r', '6');
+        return c;
+      }));
+      const r = lightCorrelation(sp, max);
+      const n = transect.light.filter((l) => l <= max).length;
+      const name = sp === 'grass' ? 'Meadow grass' : 'Woodland herb';
+      let msg = `${name}: r = ${r.toFixed(2)}, ${describeR(r)} between light and percentage cover (${n} quadrats).`;
+      if (sp === 'herb' && sub === 'all') msg += ' The points form a hump, not a straight line: cover peaks at about 20% light. A single r value hides this, so always plot the data.';
+      if (sp === 'herb' && sub === 'shade') msg += ' In the shaded quadrats, more light goes with more cover: below its optimum, light is limiting.';
+      if (sp === 'grass') msg += ' Correlation does not prove that light is the cause: soil moisture, temperature and competition also change along the transect.';
+      corr.textContent = msg;
+    };
+    root.querySelectorAll<HTMLButtonElement>('[data-sp]').forEach((b) => b.addEventListener('click', () => { sp = b.dataset.sp as TransectSpecies; drawScatter(); }));
+    root.querySelectorAll<HTMLButtonElement>('[data-sub]').forEach((b) => b.addEventListener('click', () => { sub = b.dataset.sub as 'all' | 'shade'; drawScatter(); }));
+  });
+</script>
+
+<style>
+  .tol { container-type: inline-size; }
+  .part { margin: 0 0 var(--space-3); font-size: var(--step-0); font-weight: 750; }
+  .part:not(:first-child) { margin-top: var(--space-5); padding-top: var(--space-4); border-top: 1px solid var(--border); }
+  .intro { font-size: var(--step--1); margin: 0 0 var(--space-3); }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 46rem) { .layout { grid-template-columns: minmax(0, 1.6fr) minmax(14rem, 1fr); align-items: start; } }
+  .pair { display: grid; gap: var(--space-3); }
+  @container (min-width: 36rem) { .pair { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: start; } }
+  .chart, .strip { width: 100%; height: auto; font-family: var(--font-sans); }
+  .strip { margin-top: var(--space-1); }
+  .grid line { stroke: var(--border); stroke-width: 1; }
+  .z { stroke: none; }
+  .z.intol { fill: color-mix(in srgb, var(--bad) 13%, var(--surface)); }
+  .z.stress { fill: color-mix(in srgb, var(--warn) 15%, var(--surface)); }
+  .z.opt { fill: color-mix(in srgb, var(--good) 18%, var(--surface)); }
+  .zlab text { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .ticks text { font-size: 14px; fill: var(--text-muted); }
+  .axis { font-size: 15px; font-weight: 650; fill: var(--text); }
+  .curve { fill: none; stroke: var(--accent-strong); stroke-width: 4; stroke-linejoin: round; }
+  .marker { stroke: var(--text); stroke-width: 1.4; stroke-dasharray: 4 4; }
+  .mdot { fill: var(--text); stroke: var(--surface); stroke-width: 2.5; }
+  .sbg { fill: var(--surface-2); stroke: var(--border); }
+  .strip :global(.ind) { fill: var(--bio-carb); }
+  .slab { font-size: 13px; fill: var(--text-muted); }
+  .bar.grass { fill: var(--bio-carb); }
+  .bar.herb { fill: url(#tol-hatch); stroke: var(--bio-protein-2); stroke-width: 1.2; }
+  .hb { fill: color-mix(in srgb, var(--bio-protein-2) 20%, var(--surface)); }
+  .hl { stroke: var(--bio-protein-2); stroke-width: 3; }
+  .light { fill: none; stroke: var(--bio-glucose); stroke-width: 3; stroke-dasharray: 9 6; }
+  .ldot { fill: var(--surface); stroke: var(--bio-glucose); stroke-width: 2.5; }
+  .shade { fill: color-mix(in srgb, var(--text) 8%, transparent); }
+  .chart :global(.sp.grass) { fill: var(--bio-carb); }
+  .chart :global(.sp.herb) { fill: var(--surface); stroke: var(--bio-protein-2); stroke-width: 3; }
+  .chart :global(.sp.out) { opacity: 0.25; }
+  @container (max-width: 34rem) {
+    .ticks text { font-size: 20px; }
+    .zlab { display: none; }
+    .axis { font-size: 19px; }
+    .slab { font-size: 19px; }
+  }
+  .key { list-style: none; margin: var(--space-2) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); font-size: 0.8rem; }
+  .key li { display: flex; align-items: center; gap: 0.4rem; }
+  .k { display: inline-block; width: 1.4rem; height: 0.8rem; border-radius: 2px; }
+  .zkey { margin: 0; }
+  .z-o { background: color-mix(in srgb, var(--good) 18%, var(--surface)); border: 1px solid var(--good); }
+  .z-s { background: color-mix(in srgb, var(--warn) 15%, var(--surface)); border: 1px solid var(--warn); }
+  .z-i { background: color-mix(in srgb, var(--bad) 13%, var(--surface)); border: 1px solid var(--bad); }
+  .k-grass { background: var(--bio-carb); }
+  .k-herb { background: repeating-linear-gradient(45deg, var(--bio-protein-2) 0 2px, color-mix(in srgb, var(--bio-protein-2) 20%, var(--surface)) 2px 5px); border: 1px solid var(--bio-protein-2); }
+  .k-light { height: 0; border-top: 3px dashed var(--bio-glucose); border-radius: 0; }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .state { margin: var(--space-3) 0 0; padding: var(--space-3); border-radius: var(--radius-m); background: var(--surface-2); font-size: var(--step--1); }
+  .controls .state { margin: 0; }
+  .tcontrols { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); margin-top: var(--space-3); }
+  .choices { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .chip { min-height: 2.1rem; padding: 0.3rem 0.65rem; }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  th, td { padding: 0.2rem 0.7rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>
