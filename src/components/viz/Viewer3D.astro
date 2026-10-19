@@ -30,7 +30,7 @@ const hasSteps = visual.scenes.some((s) => s.steps.length > 0);
   </div>
 
   {visual.scenes.length > 1 && (
-    <div class="scene-switch" role="group" aria-label="Choose a model" data-3d-only>
+    <div class="scene-switch" role="group" aria-label="Choose a model" data-3d-only hidden>
       {visual.scenes.map((s, i) => <button class="btn" type="button" data-scene={s.id} aria-pressed={i === 0 ? 'true' : 'false'}>{s.title}</button>)}
     </div>
   )}
@@ -73,7 +73,7 @@ const hasSteps = visual.scenes.some((s) => s.steps.length > 0);
     Drag to rotate, pinch or scroll to zoom. Keyboard: click the model, then use the arrow keys to rotate, + and − to zoom, 0 to reset and L to toggle labels{hasSteps && ', Space to play or pause, and , or . to step'}. Tab moves through the labels.
   </p>
 
-  {hasSteps && <div data-3d-only><ProcessControls /></div>}
+  {hasSteps && <div data-3d-only hidden><ProcessControls /></div>}
   <div class="info" data-info data-3d-only aria-live="polite" hidden></div>
   <p class="nowebgl" data-nowebgl hidden>Your browser can't show 3D graphics (WebGL is off or unsupported), so the exam diagram and text description are shown instead.</p>
 
@@ -183,9 +183,9 @@ const hasSteps = visual.scenes.some((s) => s.steps.length > 0);
   .scene-switch { margin-bottom: var(--space-3); }
   .stage-wrap { position: relative; border-radius: var(--radius-m); background: var(--surface-2); overflow: hidden; }
   .stage-wrap:fullscreen { background: var(--surface); display: grid; }
-  .diagram { position: relative; padding: var(--space-3); }
+  .diagram { position: relative; padding: var(--space-3); display: flex; flex-direction: column; }
   .diagram :global(.exam-diagram > svg) { display: block; width: 100%; height: auto; }
-  .explore { position: absolute; right: var(--space-3); bottom: var(--space-3); box-shadow: var(--shadow); }
+  .explore { align-self: flex-end; margin-top: var(--space-3); box-shadow: var(--shadow); }
   .stage { position: relative; aspect-ratio: 4 / 3; max-height: 70svh; width: 100%; outline-offset: -3px; touch-action: none; }
   @media (max-width: 40rem) { .stage { aspect-ratio: 1 / 1; max-height: 65svh; } }
   .stage-wrap:fullscreen .stage { aspect-ratio: auto; max-height: none; height: 100%; }

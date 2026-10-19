@@ -20,6 +20,7 @@ const ctx = (): SceneContext => ({
 for (const dir of readdirSync(topicsDir)) {
   const { visuals } = visualsSchema.parse(parse(readFileSync(new URL(`${dir}/visuals.yaml`, topicsDir), 'utf8')));
   describe(`${dir} visuals`, () => {
+    it('visuals.yaml parses', () => expect(visuals.length).toBeGreaterThan(0));
     for (const v of visuals) {
       if (v.kind === 'viewer3d') {
         for (const s of v.scenes) {

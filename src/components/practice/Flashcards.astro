@@ -6,7 +6,7 @@ interface Props { code: string; cards: Flashcards }
 const { code, cards } = Astro.props;
 const rev = hash(JSON.stringify(cards.cards.map((c) => [c.id, c.front])));
 ---
-<div class="cards" data-cards data-code={code} data-rev={rev}>
+<div class="cards" data-flashcards data-code={code} data-rev={rev}>
   <h3>Flashcards</h3>
   <p class="cards-help">Say the answer to yourself, then reveal it. Mark <strong>Got it</strong> or <strong>Again</strong>; cards you've got move to the back of the deck.</p>
   <div class="deck">
@@ -37,7 +37,7 @@ const rev = hash(JSON.stringify(cards.cards.map((c) => [c.id, c.front])));
 <script>
   import { getProgress, updateTopic } from '../../lib/progress';
 
-  document.querySelectorAll<HTMLElement>('[data-cards]').forEach((root) => {
+  document.querySelectorAll<HTMLElement>('[data-flashcards]').forEach((root) => {
     const code = root.dataset.code!;
     const rev = root.dataset.rev!;
     const all = [...root.querySelectorAll<HTMLElement>('.card')];

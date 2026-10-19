@@ -174,7 +174,8 @@ export default scene;
 In your worktree:
 
 ```bash
-ln -s /Users/tayem/Documents/interactive-ib-biology/node_modules node_modules   # once
+npm install --prefer-offline --no-audit --no-fund   # once: a local node_modules (do NOT symlink the main one;
+                                                    # Astro and Vitest caches inside it would leak between worktrees)
 export PATH="$HOME/.local/node/bin:$PATH"
 npx astro check            # 0 errors, 0 warnings
 npm run build              # must succeed (runs the integrity checks)

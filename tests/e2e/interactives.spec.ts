@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { sitePaths, watchErrors } from './helpers';
+import { pagesWith, sitePaths, watchErrors } from './helpers';
 
 const topicPaths = sitePaths().filter((p) => /^[a-d]\d-\d-/.test(p));
 
@@ -52,12 +52,12 @@ for (const path of topicPaths) {
     await quiz.locator('button[type=submit]').click();
     await expect(quiz.locator('[data-score]')).toContainText(`You scored ${n} out of ${n}`);
     await expect(quiz.locator('.opt-why:visible').first()).toBeVisible();
-    const cards = page.locator('[data-cards]');
+    const cards = page.locator('[data-flashcards]');
     await cards.locator('[data-reveal]').click();
     await cards.locator('[data-know]').click();
     await page.reload();
     await expect(page.locator('[data-quiz] [data-best]')).toContainText(`Your best: ${n} / ${n}`);
-    await expect(page.locator('[data-cards] [data-card-status]')).toContainText('You know 1');
+    await expect(page.locator('[data-flashcards] [data-card-status]')).toContainText('You know 1');
     expect(errors).toEqual([]);
   });
 }
@@ -75,7 +75,7 @@ test('the site still works when storage is blocked', async ({ page }) => {
 
 test('reduced motion disables autoplay and steps instead', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto(topicPaths[0]!);
+  await page.goto(pagesWith('data-anim')[0]!);
   const a = page.locator('[data-anim]').first();
   await a.scrollIntoViewIfNeeded();
   await expect(a).toHaveAttribute('data-state', 'ready');
@@ -84,7 +84,7 @@ test('reduced motion disables autoplay and steps instead', async ({ page }) => {
 });
 
 test('SL-only filter hides AHL sections', async ({ page }) => {
-  await page.goto(topicPaths[0]!);
+  await page.goto(pagesWith('class="section ahl"')[0]!);
   await page.locator('button[popovertarget="prefs-panel"]').click();
   await page.locator('input[name="pref-level"][value="SL"]').check();
   await expect(page.locator('section[data-level-block="AHL"]').first()).toBeHidden();

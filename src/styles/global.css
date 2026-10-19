@@ -78,3 +78,10 @@ select { font: inherit; color: var(--text); background: var(--surface); border: 
 :root[data-motion='reduce'] *, :root[data-motion='reduce'] *::before, :root[data-motion='reduce'] *::after {
   animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important;
 }
+
+/* ---------- prose tables (topic pages) ---------- */
+.prose table { width: 100%; border-collapse: collapse; margin: var(--space-4) 0 var(--space-5); font-size: var(--step--1); }
+.prose th, .prose td { padding: 0.45rem 0.55rem; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; overflow-wrap: anywhere; hyphens: auto; }
+.prose thead th { background: var(--surface-2); font-weight: 700; }
+.prose tbody th { font-weight: 650; }
+@media (max-width: 30rem) { .prose table { font-size: 0.8rem; } .prose th, .prose td { padding: 0.35rem 0.3rem; } }

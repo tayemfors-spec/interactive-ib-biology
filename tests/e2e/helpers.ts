@@ -29,3 +29,8 @@ export async function scrollThrough(page: Page) {
     window.scrollTo(0, 0);
   });
 }
+
+/** Topic pages whose built HTML contains `needle` (e.g. 'data-anim'), so tests pick a page that has the feature. */
+export function pagesWith(needle: string): string[] {
+  return sitePaths().filter((p) => /^[a-d]\d-\d-/.test(p) && readFileSync(new URL(`../../dist/${p}index.html`, import.meta.url), 'utf8').includes(needle));
+}
