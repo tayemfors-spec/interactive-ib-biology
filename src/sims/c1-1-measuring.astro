@@ -1,0 +1,170 @@
+---
+import { linePath, range, sx, sy, type Frame } from './chart';
+import { V_FINAL, gradient, mean, reading, timeTo, volume } from './models/c1-1-measuring';
+
+const frame: Frame = {
+  w: 620, h: 360, left: 58, right: 18, top: 16, bottom: 52,
+  x: { min: 0, max: 180, ticks: range(0, 180, 30), label: 'Time / s' },
+  y: { min: 0, max: 35, ticks: range(0, 35, 5), label: 'Volume of oxygen / cm³' },
+};
+const d = { enzyme: 2, at: 0 };
+const times = range(0, 180, 10);
+const marks = ['circle', 'square', 'triangle'] as const;
+const markPath = (kind: (typeof marks)[number], x: number, y: number) =>
+  kind === 'circle' ? `M${x - 4} ${y} a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0` : kind === 'square' ? `M${x - 4} ${y - 4} h8 v8 h-8 z` : `M${x} ${y - 5} L${x + 5} ${y + 4} L${x - 5} ${y + 4} z`;
+const pts = marks.map((m, r) => times.map((t) => markPath(m, sx(frame, t), sy(frame, reading(r, t, d.enzyme)))).join(' '));
+const g0 = gradient(d.at, d.enzyme);
+const t10 = timeTo(10, d.enzyme);
+---
+<div class="sim-meas" data-sim-meas data-frame={JSON.stringify(frame)}>
+  <p class="setup">Catalase breaks down hydrogen peroxide: 2 H₂O₂ → 2 H₂O + O₂. The oxygen is collected in a gas syringe and its volume is read every 10 s. Each enzyme concentration is tested three times.</p>
+  <div class="layout">
+    <svg class="chart" viewBox={`0 0 ${frame.w} ${frame.h}`} role="img" aria-labelledby="ms-t" data-chart>
+      <title id="ms-t">Volume of oxygen collected against time, with a tangent drawn to find the rate</title>
+      <g class="grid">
+        {frame.x.ticks.map((t) => <line x1={sx(frame, t)} x2={sx(frame, t)} y1={frame.top} y2={frame.h - frame.bottom} />)}
+        {frame.y.ticks.map((t) => <line x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, t)} y2={sy(frame, t)} />)}
+      </g>
+      <g class="ticks">
+        {frame.x.ticks.map((t) => <text x={sx(frame, t)} y={frame.h - frame.bottom + 18} text-anchor="middle">{t}</text>)}
+        {frame.y.ticks.map((t) => <text x={frame.left - 8} y={sy(frame, t)} dy="0.35em" text-anchor="end">{t}</text>)}
+      </g>
+      <text class="axis" x={(frame.left + frame.w - frame.right) / 2} y={frame.h - 10} text-anchor="middle">{frame.x.label}</text>
+      <text class="axis" transform={`translate(16 ${(frame.top + frame.h - frame.bottom) / 2}) rotate(-90)`} text-anchor="middle">{frame.y.label}</text>
+      <line class="final" x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, V_FINAL)} y2={sy(frame, V_FINAL)} />
+      <text class="note" x={frame.left + 6} y={sy(frame, V_FINAL) - 6}>all H₂O₂ used up</text>
+      <path class="fit" d={linePath(frame, (t) => volume(t, d.enzyme), 120)} data-fit />
+      {pts.map((p, r) => <path class={`pt pt${r}`} d={p} data-pts={r} />)}
+      <path class="tri" data-tri d="" />
+      <path class="tangent" data-tangent d="" />
+      <text class="tlabel" data-tlabel x="0" y="0"></text>
+    </svg>
+    <div class="controls">
+      <label class="slider">Catalase concentration: <output data-out="enzyme">{d.enzyme}%</output>
+        <input type="range" min="0.5" max="5" step="0.5" value={d.enzyme} data-param="enzyme" />
+      </label>
+      <label class="slider">Draw the tangent at time: <output data-out="at">{d.at} s</output>
+        <input type="range" min="0" max="150" step="5" value={d.at} data-param="at" />
+      </label>
+      <div class="key">
+        <span><svg viewBox="0 0 12 12" aria-hidden="true"><path class="pt pt0" d="M2 6 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0" /></svg> repeat 1</span>
+        <span><svg viewBox="0 0 12 12" aria-hidden="true"><path class="pt pt1" d="M2 2 h8 v8 h-8 z" /></svg> repeat 2</span>
+        <span><svg viewBox="0 0 12 12" aria-hidden="true"><path class="pt pt2" d="M6 1 L11 10 L1 10 z" /></svg> repeat 3</span>
+        <span><span class="sw fit"></span> curve of best fit</span>
+        <span><span class="sw tan"></span> tangent</span>
+      </div>
+      <dl class="results">
+        <div><dt>Gradient of tangent</dt><dd data-r="grad">{g0.toFixed(2)} cm³ s⁻¹</dd></div>
+        <div><dt>Initial rate (tangent at 0 s)</dt><dd data-r="init">{gradient(0, d.enzyme).toFixed(2)} cm³ s⁻¹</dd></div>
+        <div><dt>Time to collect 10 cm³</dt><dd data-r="t10">{t10.toFixed(0)} s</dd></div>
+        <div><dt>Rate as 1 / time</dt><dd data-r="inv">{(1000 / t10).toFixed(1)} × 10⁻³ s⁻¹</dd></div>
+      </dl>
+      <p class="visually-hidden" aria-live="polite" data-live></p>
+    </div>
+  </div>
+  <details class="table">
+    <summary>Show data table (three repeats and mean)</summary>
+    <table>
+      <thead><tr><th scope="col">Time / s</th><th scope="col">Repeat 1 / cm³</th><th scope="col">Repeat 2 / cm³</th><th scope="col">Repeat 3 / cm³</th><th scope="col">Mean / cm³</th></tr></thead>
+      <tbody data-tbody>
+        {times.map((t) => {
+          const r = [0, 1, 2].map((k) => reading(k, t, d.enzyme));
+          return <tr><th scope="row">{t}</th>{r.map((v) => <td>{v.toFixed(1)}</td>)}<td>{mean(r).toFixed(1)}</td></tr>;
+        })}
+      </tbody>
+    </table>
+  </details>
+  <p class="model-note">Simulated data from a qualitative model. Readings include small random errors, which is why each concentration is repeated and a mean calculated.</p>
+</div>
+
+<script>
+  import { range, linePath, sx, sy, type Frame } from './chart';
+  import { gradient, mean, reading, timeTo, volume } from './models/c1-1-measuring';
+
+  document.querySelectorAll<HTMLElement>('[data-sim-meas]').forEach((root) => {
+    const f = JSON.parse(root.dataset.frame!) as Frame;
+    const q = <T extends Element>(s: string) => root.querySelector<T>(s)!;
+    const val = (k: string) => Number(q<HTMLInputElement>(`[data-param="${k}"]`).value);
+    const times = range(0, 180, 10);
+    const mark = (r: number, x: number, y: number) =>
+      r === 0 ? `M${x - 4} ${y} a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0` : r === 1 ? `M${x - 4} ${y - 4} h8 v8 h-8 z` : `M${x} ${y - 5} L${x + 5} ${y + 4} L${x - 5} ${y + 4} z`;
+    let timer = 0;
+
+    const update = () => {
+      const e = val('enzyme'), at = val('at');
+      q('[data-out="enzyme"]').textContent = `${e}%`;
+      q('[data-out="at"]').textContent = `${at} s`;
+      q('[data-fit]').setAttribute('d', linePath(f, (t) => volume(t, e), 120));
+      for (let r = 0; r < 3; r++) q(`[data-pts="${r}"]`).setAttribute('d', times.map((t) => mark(r, sx(f, t), sy(f, reading(r, t, e)))).join(' '));
+      // tangent at `at`, clipped to the plot area
+      const g = gradient(at, e), y0 = volume(at, e);
+      const ta = Math.max(0, at - 40), tb = Math.min(180, at + 60);
+      const yAt = (t: number) => y0 + g * (t - at);
+      const clipT = (t: number) => { const y = yAt(t); return y > 35 ? at + (35 - y0) / g : y < 0 ? at + (0 - y0) / g : t; };
+      const a = clipT(ta), b = clipT(tb);
+      q('[data-tangent]').setAttribute('d', `M${sx(f, a).toFixed(1)} ${sy(f, yAt(a)).toFixed(1)} L${sx(f, b).toFixed(1)} ${sy(f, yAt(b)).toFixed(1)}`);
+      // gradient triangle: run of 20 s (or less if the tangent leaves the graph)
+      const run = Math.min(20, b - at);
+      const x1 = sx(f, at), x2 = sx(f, at + run), y1 = sy(f, y0), y2 = sy(f, y0 + g * run);
+      q('[data-tri]').setAttribute('d', `M${x1.toFixed(1)} ${y1.toFixed(1)} L${x2.toFixed(1)} ${y1.toFixed(1)} L${x2.toFixed(1)} ${y2.toFixed(1)}`);
+      const lab = q<SVGTextElement>('[data-tlabel]');
+      lab.setAttribute('x', (x2 + 6).toFixed(1));
+      lab.setAttribute('y', ((y1 + y2) / 2).toFixed(1));
+      lab.textContent = `${(g * run).toFixed(1)} cm³ ÷ ${run} s`;
+      const t10 = timeTo(10, e);
+      q('[data-r="grad"]').textContent = `${g.toFixed(2)} cm³ s⁻¹`;
+      q('[data-r="init"]').textContent = `${gradient(0, e).toFixed(2)} cm³ s⁻¹`;
+      q('[data-r="t10"]').textContent = `${t10.toFixed(0)} s`;
+      q('[data-r="inv"]').textContent = `${(1000 / t10).toFixed(1)} × 10⁻³ s⁻¹`;
+      q('[data-tbody]').innerHTML = times.map((t) => {
+        const r = [0, 1, 2].map((k) => reading(k, t, e));
+        return `<tr><th scope="row">${t}</th>${r.map((v) => `<td>${v.toFixed(1)}</td>`).join('')}<td>${mean(r).toFixed(1)}</td></tr>`;
+      }).join('');
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        q('[data-live]').textContent = (`Tangent at ${at} seconds has a gradient of ${g.toFixed(2)} cubic centimetres per second; initial rate ${gradient(0, e).toFixed(2)}; 10 cubic centimetres collected after ${t10.toFixed(0)} seconds.`);
+      }, 300);
+    };
+    root.querySelectorAll('[data-param]').forEach((el) => el.addEventListener('input', update));
+    update();
+  });
+</script>
+
+<style>
+  .sim-meas { container-type: inline-size; }
+  .setup { margin: 0 0 var(--space-3); font-size: var(--step--1); }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 40rem) { .layout { grid-template-columns: minmax(0, 1.6fr) minmax(15rem, 1fr); align-items: start; } }
+  .chart { width: 100%; height: auto; font-family: var(--font-sans); }
+  .grid line { stroke: var(--border); stroke-width: 1; }
+  .ticks text { font-size: 15px; fill: var(--text-muted); }
+  .axis { font-size: 16px; font-weight: 650; fill: var(--text); }
+  .note { font-size: 13px; fill: var(--text-muted); font-style: italic; }
+  .final { stroke: var(--text-muted); stroke-width: 1.2; stroke-dasharray: 6 4; }
+  .fit { fill: none; stroke: var(--bio-protein); stroke-width: 2.5; }
+  .pt { stroke-width: 1.5; }
+  .pt0 { fill: var(--bio-head); stroke: var(--text); }
+  .pt1 { fill: var(--surface); stroke: var(--text); }
+  .pt2 { fill: var(--bio-carb); stroke: var(--text); }
+  .tangent { stroke: var(--bad); stroke-width: 2.5; stroke-dasharray: 10 5; fill: none; }
+  .tri { stroke: var(--text); stroke-width: 1.5; fill: none; stroke-dasharray: 3 3; }
+  .tlabel { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .key { display: flex; flex-wrap: wrap; gap: 0.3rem 0.9rem; color: var(--text-muted); }
+  .key span { display: inline-flex; align-items: center; gap: 0.3rem; }
+  .key svg { width: 0.9rem; height: 0.9rem; }
+  .sw { display: inline-block; width: 1.6rem; height: 0; border-top: 2.5px solid; }
+  .sw.fit { border-color: var(--bio-protein); }
+  .sw.tan { border-color: var(--bad); border-top-style: dashed; }
+  .results { margin: 0; display: grid; gap: var(--space-1); padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); }
+  .results div { display: flex; justify-content: space-between; gap: var(--space-2); flex-wrap: wrap; }
+  .results dt { color: var(--text-muted); }
+  .results dd { margin: 0; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .table { margin-top: var(--space-3); font-size: var(--step--1); overflow-x: auto; }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  th, td { padding: 0.2rem 0.6rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

@@ -1,0 +1,54 @@
+---
+/**
+ * Anabolism (condensation: monomers → polymer + water) vs catabolism (hydrolysis: polymer + water →
+ * monomers; oxidation of substrates in respiration) with the IB examples (C1.1.3).
+ */
+const beads = (x0: number, y: number, n: number, gap: number) => Array.from({ length: n }, (_, i) => ({ x: x0 + i * gap, y }));
+---
+<div class="pair">
+  <svg viewBox="0 0 300 262" role="img" aria-labelledby="mb-t1 mb-d1" xmlns="http://www.w3.org/2000/svg">
+    <title id="mb-t1">Anabolism</title>
+    <desc id="mb-d1">Separate monomers are joined into a chain. Each new bond is made by a condensation reaction that releases a molecule of water. Examples: protein synthesis, glycogen formation and photosynthesis.</desc>
+    <text class="head" x="12" y="24">Anabolism: building up</text>
+    {beads(28, 62, 4, 40).map((b) => <circle class="mono" cx={b.x} cy={b.y} r="13" />)}
+    <path class="arrow" d="M150 82 L150 118" marker-end="url(#mb-a)" />
+    <text class="lbl" x="162" y="114">condensation</text>
+    <text class="water" x="182" y="92">+ H₂O released</text>
+    <path class="bond" d="M48 146 L172 146" />
+    {beads(48, 146, 4, 40).map((b) => <circle class="mono" cx={b.x} cy={b.y} r="13" />)}
+    <text class="lbl" x="12" y="186">monomers → macromolecule</text>
+    <text class="ex" x="12" y="208">e.g. amino acids → protein; glucose →</text>
+    <text class="ex" x="12" y="226">glycogen; photosynthesis builds sugars</text>
+    <text class="ex" x="12" y="244">from CO₂, then starch from glucose</text>
+    <defs><marker id="mb-a" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker></defs>
+  </svg>
+  <svg viewBox="0 0 300 262" role="img" aria-labelledby="mb-t2 mb-d2" xmlns="http://www.w3.org/2000/svg">
+    <title id="mb-t2">Catabolism</title>
+    <desc id="mb-d2">A chain is broken into separate monomers. Each bond is broken by a hydrolysis reaction that uses a molecule of water. Examples: hydrolysis of macromolecules in digestion and the oxidation of substrates such as glucose in cell respiration.</desc>
+    <text class="head" x="12" y="24">Catabolism: breaking down</text>
+    <path class="bond" d="M48 62 L172 62" />
+    {beads(48, 62, 4, 40).map((b) => <circle class="poly" cx={b.x} cy={b.y} r="13" />)}
+    <path class="arrow" d="M150 82 L150 118" marker-end="url(#mb-b)" />
+    <text class="lbl" x="162" y="114">hydrolysis</text>
+    <text class="water" x="182" y="92">+ H₂O used</text>
+    {beads(28, 146, 4, 40).map((b) => <circle class="poly" cx={b.x} cy={b.y} r="13" />)}
+    <text class="lbl" x="12" y="186">macromolecule → monomers</text>
+    <text class="ex" x="12" y="208">e.g. starch → maltose → glucose and</text>
+    <text class="ex" x="12" y="226">protein → amino acids (digestion);</text>
+    <text class="ex" x="12" y="244">glucose oxidized to CO₂ + H₂O (respiration)</text>
+    <defs><marker id="mb-b" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker></defs>
+  </svg>
+</div>
+<style>
+  .pair { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+  .pair svg { font-family: var(--font-sans); background: var(--surface); border-radius: var(--radius-m); }
+  .head { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .lbl { font-size: 14px; font-weight: 650; fill: var(--text); }
+  .ex { font-size: 13px; fill: var(--text-muted); }
+  .water { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .mono { fill: color-mix(in srgb, var(--bio-carb) 40%, var(--surface)); stroke: var(--bio-carb); stroke-width: 2; }
+  .poly { fill: color-mix(in srgb, var(--bio-head) 35%, var(--surface)); stroke: var(--bio-head); stroke-width: 2; }
+  .bond { stroke: var(--text); stroke-width: 3; }
+  .arrow { stroke: var(--text-muted); stroke-width: 2.5; }
+  .ah { fill: var(--text-muted); }
+</style>

@@ -1,0 +1,63 @@
+---
+/**
+ * Energy profile of an exothermic reaction with and without an enzyme (C1.1.10). The enzyme lowers the
+ * activation energy; the energy of the reactants and products, and so the overall energy released, are
+ * unchanged.
+ */
+const R = 168; // reactant energy level (y)
+const P = 252; // product energy level (y)
+const PEAK = 52, PEAK_E = 128;
+---
+<svg viewBox="0 0 540 350" role="img" aria-labelledby="ae-t ae-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="ae-t">Activation energy with and without an enzyme</title>
+  <desc id="ae-d">Graph of energy against progress of reaction. The substrate starts at a higher energy than the products, so the reaction releases energy overall. Without an enzyme the curve rises to a high peak before falling to the products: the activation energy is large. With an enzyme the curve follows a much lower peak, so the activation energy is smaller. The start and end levels, and so the overall energy released, are the same in both cases.</desc>
+  <path class="axis" d="M56 20 L56 316 L528 316" />
+  <text class="ax" x="20" y="168" transform="rotate(-90 20 168)" text-anchor="middle">Energy →</text>
+  <text class="ax" x="292" y="342" text-anchor="middle">Progress of reaction →</text>
+
+  <path class="guide" d={`M180 ${R} L500 ${R}`} />
+  <path class="curve no" d={`M60 ${R} L170 ${R} C228 ${R} 236 ${PEAK} 276 ${PEAK} C316 ${PEAK} 334 ${P} 396 ${P} L520 ${P}`} />
+  <path class="curve en" d={`M170 ${R} C228 ${R} 240 ${PEAK_E} 276 ${PEAK_E} C312 ${PEAK_E} 334 ${P} 396 ${P}`} />
+
+  <path class="arrow" d={`M262 ${R - 4} L262 ${PEAK + 6}`} marker-end="url(#ae-a)" />
+  <path class="arrow e" d={`M290 ${R - 4} L290 ${PEAK_E + 6}`} marker-end="url(#ae-b)" />
+  <path class="arrow" d={`M490 ${R + 4} L490 ${P - 6}`} marker-end="url(#ae-a)" />
+
+  <text class="lbl" x="70" y={R - 12}>substrate</text>
+  <text class="lbl" x="400" y={P + 24}>products</text>
+  <text class="lbl" x="250" y="36" text-anchor="end">activation energy</text>
+  <text class="lbl" x="250" y="54" text-anchor="end">without enzyme</text>
+  <path class="lead" d="M344 128 L294 146" />
+  <text class="lbl en" x="348" y="116">activation energy</text>
+  <text class="lbl en" x="348" y="134">with enzyme</text>
+  <text class="lbl" x="482" y="200" text-anchor="end">energy</text>
+  <text class="lbl" x="482" y="218" text-anchor="end">released</text>
+  <text class="note" x="292" y="294" text-anchor="middle">overall energy change is the same with or without the enzyme</text>
+
+  <g class="legend" transform="translate(70 240)">
+    <path class="curve no" d="M0 0 L34 0" /><text class="lg" x="42" y="5">without enzyme</text>
+    <path class="curve en" d="M0 22 L34 22" /><text class="lg" x="42" y="27">with enzyme</text>
+  </g>
+  <defs>
+    <marker id="ae-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker>
+    <marker id="ae-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ahe" /></marker>
+  </defs>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .axis { fill: none; stroke: var(--text); stroke-width: 2; }
+  .ax { font-size: 15px; font-weight: 700; fill: var(--text); }
+  .guide { stroke: var(--text-muted); stroke-width: 1.2; stroke-dasharray: 3 4; }
+  .curve { fill: none; stroke-width: 3.5; stroke-linecap: round; }
+  .curve.no { stroke: var(--text); }
+  .curve.en { stroke: var(--bio-protein); stroke-dasharray: 10 6; }
+  .arrow { stroke: var(--text); stroke-width: 2; }
+  .arrow.e { stroke: var(--bio-protein); }
+  .ah { fill: var(--text); }
+  .ahe { fill: var(--bio-protein); }
+  .lbl { font-size: 15px; font-weight: 650; fill: var(--text); }
+  .lbl.en { fill: var(--text); font-style: italic; }
+  .note { font-size: 13.5px; fill: var(--text-muted); font-style: italic; }
+  .lg { font-size: 14px; fill: var(--text); }
+  .lead { stroke: var(--text-muted); stroke-width: 1.2; }
+</style>

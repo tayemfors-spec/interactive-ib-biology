@@ -1,0 +1,201 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: C1.1.3
+    stem: Which of these is an anabolic reaction?
+    options:
+      - id: a
+        text: Hydrolysis of starch to maltose in the small intestine
+        why: Hydrolysis breaks a macromolecule into smaller molecules, so it is catabolic (part of digestion).
+      - id: b
+        text: Condensation of glucose molecules to form glycogen in liver cells
+        why: Correct. Glycogen formation builds a macromolecule from monomers by condensation, so it is anabolic.
+      - id: c
+        text: Oxidation of glucose to carbon dioxide and water in cell respiration
+        why: Respiration breaks glucose down into smaller molecules, so it is catabolic, even though it releases energy that is later used for anabolism.
+      - id: d
+        text: Breakdown of proteins into amino acids by pepsin and trypsin
+        why: This is digestion by hydrolysis, which is catabolic. Building proteins from amino acids would be anabolic.
+    answer: b
+
+  - id: q2
+    level: SL
+    understanding: C1.1.5
+    stem: Which statement describes the induced-fit model of enzyme action?
+    options:
+      - id: a
+        text: As the substrate binds, both the active site and the substrate change shape so that they fit together closely.
+        why: Correct. In induced fit both partners change shape; this strains the substrate's bonds and helps catalysis.
+      - id: b
+        text: The active site is rigid and exactly complementary to the substrate before binding, like a lock and key.
+        why: This is the older lock-and-key model, which does not include the shape changes seen when substrates bind.
+      - id: c
+        text: The enzyme changes shape permanently once the reaction has been catalysed.
+        why: After the products are released the enzyme returns to its original shape, so it can be used again.
+      - id: d
+        text: Binding of the substrate changes the sequence of amino acids in the active site.
+        why: Binding changes the shape (conformation), not the amino acid sequence, which is fixed by the gene.
+    answer: a
+
+  - id: q3
+    level: SL
+    understanding: C1.1.7
+    stem: >-
+      Pepsin catalyses the hydrolysis of proteins in the stomach at about pH 2. A sample of pepsin kept at
+      pH 8 for an hour and then returned to pH 2 no longer hydrolyses protein. What is the best explanation?
+    options:
+      - id: a
+        text: At pH 8 the substrate molecules move too slowly to collide with the active site.
+        why: pH does not change how fast molecules move; temperature does. And the enzyme stays inactive even back at pH 2.
+      - id: b
+        text: The alkaline conditions hydrolysed the peptide bonds of the pepsin.
+        why: Denaturation does not break the peptide bonds of the chain; it disrupts the weaker bonds that hold its 3D shape.
+      - id: c
+        text: Changes to the charges on R-groups broke bonds holding the 3D structure, so the active site lost its shape and the enzyme was denatured.
+        why: Correct. pH 8 is far from pepsin's optimum, so it is denatured. The active site no longer fits the substrate, and the change is not reversed at pH 2.
+      - id: d
+        text: The higher pH raised the activation energy of the reaction.
+        why: The enzyme's ability to lower the activation energy is lost because its active site is altered; the pH itself does not set the activation energy.
+    answer: c
+
+  - id: q4
+    level: SL
+    understanding: C1.1.8
+    stem: >-
+      The rate of an enzyme-catalysed reaction was measured at different temperatures. It rose from 10 °C
+      to a maximum at 40 °C, then fell sharply to zero at 55 °C. What explains the fall between 40 °C and 55 °C?
+    options:
+      - id: a
+        text: Molecules move more slowly, so there are fewer collisions between substrate and enzyme.
+        why: Molecules move faster as temperature rises, so collisions become more frequent, not less.
+      - id: b
+        text: The substrate is used up more quickly at higher temperatures.
+        why: The rates are measured with the same starting substrate; running out of substrate would not make the rate fall to zero at 55 °C.
+      - id: c
+        text: All the active sites are occupied, so the enzyme is saturated.
+        why: Saturation explains a plateau on a substrate concentration graph, not a fall in rate with temperature.
+      - id: d
+        text: The enzyme is being denatured, so fewer active sites can bind the substrate.
+        why: Correct. Above the optimum, bonds holding the enzyme's 3D shape break; more and more active sites lose their shape, so the rate falls steeply.
+    answer: d
+
+  - id: q5
+    level: SL
+    understanding: C1.1.9
+    stem: >-
+      In an experiment with catalase, the volume of oxygen collected rose in a straight line for the first
+      40 s, reaching 24 cm³. What was the initial rate of reaction?
+    options:
+      - id: a
+        text: 1.67 cm³ s⁻¹
+        why: This is 40 ÷ 24 — the division is the wrong way round. Rate is the change in product divided by the time.
+      - id: b
+        text: 0.60 cm³ s⁻¹
+        why: Correct. Rate = 24 cm³ ÷ 40 s = 0.60 cm³ s⁻¹.
+      - id: c
+        text: 0.60 s cm⁻³
+        why: The number is right but the units are inverted. Rate is volume per unit time, so cm³ s⁻¹.
+      - id: d
+        text: 960 cm³ s
+        why: Multiplying volume by time does not give a rate; rate is volume divided by time.
+    answer: b
+
+  - id: q6
+    level: SL
+    understanding: C1.1.10
+    stem: >-
+      An energy diagram compares an exothermic reaction with and without an enzyme. Which difference will the
+      diagram show?
+    options:
+      - id: a
+        text: With the enzyme the peak of the curve is lower, but the energy levels of the substrate and products are unchanged.
+        why: Correct. The enzyme lowers the activation energy only; the overall energy change is the same.
+      - id: b
+        text: With the enzyme the products are at a lower energy, so more energy is released.
+        why: Enzymes do not change the energy of the products or the overall energy released.
+      - id: c
+        text: With the enzyme the substrate starts at a higher energy, so less extra energy is needed to reach the peak.
+        why: The substrate's energy level is the same; the enzyme lowers the peak (the transition state), not raises the start.
+      - id: d
+        text: The enzyme supplies the activation energy, so the curve has no peak.
+        why: There is still an activation energy with an enzyme, just a smaller one. Enzymes do not supply energy.
+    answer: a
+
+  - id: q7
+    level: AHL
+    understanding: C1.1.15
+    stem: >-
+      The rate of an enzyme-catalysed reaction was measured at a range of substrate concentrations, with and
+      without a fixed concentration of substance X. At the lowest substrate concentration, the rate with X was
+      40% of the rate without it. At the highest substrate concentration it was 98%. What do these data suggest?
+    options:
+      - id: a
+        text: X is a non-competitive inhibitor that binds to an allosteric site.
+        why: A non-competitive inhibitor reduces the rate by the same proportion at every substrate concentration, so the maximum rate would stay lower.
+      - id: b
+        text: X binds irreversibly to the active site.
+        why: An irreversible inhibitor permanently removes enzyme molecules from action, so adding substrate could not restore the rate.
+      - id: c
+        text: X denatures the enzyme.
+        why: Denatured enzyme cannot be restored by adding substrate, so the rate would stay low at high substrate concentrations.
+      - id: d
+        text: X is a competitive inhibitor; at high substrate concentrations substrate molecules occupy almost all the active sites.
+        why: Correct. The inhibition is overcome by raising the substrate concentration, which is the signature of competitive inhibition.
+    answer: d
+
+  - id: q8
+    level: AHL
+    understanding: C1.1.16
+    stem: Which statement describes end-product inhibition in the pathway that makes isoleucine from threonine?
+    options:
+      - id: a
+        text: Isoleucine binds to the active site of the last enzyme in the pathway, blocking its own formation.
+        why: The end product inhibits the first enzyme, not the last, and it binds to an allosteric site.
+      - id: b
+        text: Threonine inhibits threonine deaminase when threonine is in excess.
+        why: Threonine is the substrate of threonine deaminase; it is the end product, isoleucine, that inhibits.
+      - id: c
+        text: Isoleucine binds to an allosteric site on threonine deaminase, the enzyme of the first step, so the whole pathway slows.
+        why: Correct. Inhibiting the first step stops the whole pathway, so intermediates do not build up; binding is reversible.
+      - id: d
+        text: Isoleucine binds permanently to threonine deaminase, so new enzyme must be made to restart the pathway.
+        why: Binding is reversible; when isoleucine is used up it detaches and the enzyme becomes active again.
+    answer: c
+
+  - id: q9
+    level: AHL
+    understanding: C1.1.17
+    stem: How does penicillin kill bacteria?
+    options:
+      - id: a
+        text: It binds covalently to the active site of transpeptidases, irreversibly preventing them from cross-linking peptidoglycan in the cell wall.
+        why: Correct. This is mechanism-based inhibition; without cross-links the wall of a growing cell is weak and the cell bursts.
+      - id: b
+        text: It competes reversibly with the substrate for the active site, so its effect disappears when substrate concentration is high.
+        why: Penicillin binds covalently and permanently, so it is not a reversible competitive inhibitor.
+      - id: c
+        text: It hydrolyses the peptidoglycan of the existing cell wall.
+        why: Penicillin is not an enzyme. It stops new cross-links being made; it does not digest the wall.
+      - id: d
+        text: It binds reversibly to an allosteric site on transpeptidases.
+        why: Penicillin binds in the active site and forms a covalent bond there, so the inhibition is irreversible.
+    answer: a
+
+  - id: q10
+    level: AHL
+    understanding: C1.1.13
+    stem: Why is the Krebs cycle described as a cyclical pathway, whereas glycolysis is linear?
+    options:
+      - id: a
+        text: The Krebs cycle takes place inside mitochondria, whereas glycolysis takes place in the cytoplasm.
+        why: This is true, but location does not decide whether a pathway is cyclical or linear.
+      - id: b
+        text: In the Krebs cycle the compound that accepts the incoming acetyl group, oxaloacetate, is regenerated at the end of each turn.
+        why: Correct. Regeneration of the starting acceptor is what makes a pathway cyclical; glycolysis ends with pyruvate, not glucose.
+      - id: c
+        text: All the reactions of the Krebs cycle are catalysed by the same enzyme.
+        why: Each reaction in a pathway, cyclical or linear, is catalysed by a different, specific enzyme.
+      - id: d
+        text: The Krebs cycle releases carbon dioxide.
+        why: Releasing CO₂ is a feature of the Krebs cycle, but it is not what makes it cyclical.
+    answer: b

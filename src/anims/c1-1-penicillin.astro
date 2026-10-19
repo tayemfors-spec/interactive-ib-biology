@@ -1,0 +1,73 @@
+---
+/**
+ * Mechanism-based inhibition of transpeptidase by penicillin (C1.1.17). Drawn in the step-1 start
+ * state (cross-link about to be made); animated by c1-1-penicillin.ts.
+ */
+const glycan = (y: number) => Array.from({ length: 13 }, (_, i) => 20 + i * 22).map((x, i) => ({ x, y, k: i % 2 }));
+const pepX = [60, 140, 220];
+---
+<svg viewBox="0 0 520 362" xmlns="http://www.w3.org/2000/svg" class="pen">
+  <text class="head" x="12" y="22">Bacterial cell wall (peptidoglycan)</text>
+  <path class="strand" d="M20 62 L284 62" /><path class="strand" d="M20 248 L284 248" />
+  {[...glycan(62), ...glycan(248)].map((g) => <circle class={g.k ? 'sug b' : 'sug'} cx={g.x} cy={g.y} r="8" />)}
+  {pepX.map((x) => <path class="pep" d={`M${x} 70 L${x} 112`} />)}
+  {pepX.map((x) => <path class="pep" d={`M${x} 240 L${x} 198`} />)}
+  <path class="xlink new" d="M60 112 L60 198" /><path class="xlink new" d="M140 112 L140 198" />
+  <path data-el="newlink" class="xlink new" style="opacity:0" d="M220 112 L220 198" />
+  <path data-el="nolink" class="nolink" style="opacity:0" d="M220 116 L220 194" />
+  <text class="lbl" x="20" y="274">cross-links join the peptides</text>
+
+  <g transform="translate(282 155)">
+    <path data-el="eNormal" class="enz" d="M-30 -40 C0 -62 46 -46 48 -8 C52 30 22 58 -10 52 C-24 50 -30 40 -30 28 L-30 18 L-8 18 L-8 -16 L-30 -16 Z" />
+    <path data-el="eResist" class="enz res" style="opacity:0" d="M-30 -40 C0 -62 46 -46 48 -8 C52 30 22 58 -10 52 C-24 50 -30 40 -30 28 L-30 18 L-12 18 L-20 6 L-10 -4 L-14 -16 L-30 -16 Z" />
+    <circle data-el="ser" class="ser" cx="-6" cy="1" r="5" />
+  </g>
+  <text class="lbl" x="296" y="96">transpeptidase</text>
+  <text class="small" data-el="sertxt" x="300" y="226">active site with serine</text>
+
+  <g data-el="pen" transform="translate(150 330)">
+    <rect class="lactam" x="-11" y="-11" width="22" height="22" />
+    <path class="thz" d="M-11 -11 L-28 -15 L-34 2 L-22 14 L-11 11" />
+  </g>
+  <text data-el="pentxt" class="mol" x="92" y="322" text-anchor="end">penicillin</text>
+  <path data-el="bond" class="bond" style="opacity:0" d="M267 156 L272 156" />
+  <text data-el="bondtxt" class="warn" style="opacity:0" x="12" y="296">covalent bond to serine: irreversible</text>
+
+  <text class="head" x="352" y="22">The bacterium</text>
+  <g data-el="cellOk">
+    <rect class="cell" x="356" y="262" width="148" height="56" rx="28" />
+    <rect class="cyto" x="362" y="268" width="136" height="44" rx="22" />
+  </g>
+  <g data-el="cellBurst" style="opacity:0">
+    <path class="cell weak" d="M424 254 L382 254 C360 254 350 272 350 290 C350 310 362 328 386 328 L478 328 C500 328 510 310 510 290 C510 272 500 254 478 254 L446 254" />
+    <path class="spill" d="M426 256 C420 236 432 222 440 228 C448 220 458 234 446 256 Z" />
+  </g>
+  <text data-el="cellTxt" class="status" x="352" y="350">Wall strong</text>
+</svg>
+<style>
+  .pen { font-family: var(--font-sans); }
+  .head { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .strand { stroke: var(--bio-carb); stroke-width: 3; }
+  .sug { fill: color-mix(in srgb, var(--bio-carb) 45%, var(--surface)); stroke: var(--bio-carb); stroke-width: 1.5; }
+  .sug.b { fill: var(--surface); }
+  .pep { stroke: var(--bio-head); stroke-width: 4; stroke-linecap: round; }
+  .xlink { stroke: var(--bio-head); stroke-width: 4; stroke-dasharray: 3 4; }
+  .xlink.new { stroke-dasharray: none; stroke: var(--bio-head); }
+  .nolink { stroke: var(--bad); stroke-width: 2.5; stroke-dasharray: 2 5; }
+  .lbl { font-size: 14px; font-weight: 650; fill: var(--text); }
+  .small { font-size: 12.5px; fill: var(--text-muted); }
+  .enz { fill: color-mix(in srgb, var(--bio-protein) 35%, var(--surface)); stroke: var(--bio-protein); stroke-width: 2; }
+  .enz.res { fill: color-mix(in srgb, var(--bio-protein-2) 35%, var(--surface)); stroke: var(--bio-protein-2); }
+  .ser { fill: var(--bio-k); stroke: var(--text); stroke-width: 1; }
+  .lactam { fill: var(--bio-glucose); stroke: var(--text); stroke-width: 1.5; }
+  .thz { fill: color-mix(in srgb, var(--bio-glucose) 40%, var(--surface)); stroke: var(--text); stroke-width: 1.5; }
+  .mol { font-size: 12.5px; font-weight: 700; fill: var(--text); }
+  .bond { stroke: var(--bad); stroke-width: 4; stroke-linecap: round; }
+  .warn { font-size: 13px; font-weight: 800; fill: var(--bad); }
+  .cell { fill: none; stroke: var(--bio-carb); stroke-width: 6; }
+  .cell.weak { stroke-dasharray: 10 6; }
+  .cyto { fill: color-mix(in srgb, var(--bio-water) 25%, var(--surface)); stroke: none; }
+  .spill { fill: color-mix(in srgb, var(--bio-water) 35%, var(--surface)); stroke: var(--bio-water); stroke-width: 1.5; }
+  .status { font-size: 12.5px; font-weight: 800; fill: var(--accent-strong); }
+  .status.off { fill: var(--bad); }
+</style>

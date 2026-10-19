@@ -1,0 +1,356 @@
+---
+import { linePath, range, sx, sy, type Frame } from './chart';
+import { PRESETS, label, optimumTemp, preset, rate } from './models/c1-1-rate';
+
+const d = { enzymeId: 'amylase', temp: 37, ph: 7, substrate: 6, enzyme: 5 };
+const e = preset(d.enzymeId);
+const base = (label: string, xmin: number, xmax: number, ticks: number[]): Frame => ({
+  w: 300, h: 220, left: 46, right: 12, top: 12, bottom: 48,
+  x: { min: xmin, max: xmax, ticks, label },
+  y: { min: 0, max: 100, ticks: [0, 25, 50, 75, 100], label: 'Rate' },
+});
+const frames = {
+  temp: base('Temperature / °C', 0, 100, range(0, 100, 25)),
+  ph: base('pH', 0, 14, range(0, 14, 2)),
+  substrate: base('Substrate concentration', 0, 20, range(0, 20, 5)),
+};
+type Key = keyof typeof frames;
+const fns: Record<Key, (x: number) => number> = {
+  temp: (x) => rate({ ...d, temp: x }, e),
+  ph: (x) => rate({ ...d, ph: x }, e),
+  substrate: (x) => rate({ ...d, substrate: x }, e),
+};
+const titles: Record<Key, string> = { temp: 'Effect of temperature', ph: 'Effect of pH', substrate: 'Effect of substrate concentration' };
+const keys: Key[] = ['temp', 'ph', 'substrate'];
+const now = rate(d, e);
+const tables: Record<Key, number[]> = { temp: range(0, 100, 10), ph: range(0, 14, 1), substrate: range(0, 20, 2) };
+---
+<div class="sim-enz" data-sim-enz data-frames={JSON.stringify(frames)}>
+  <div class="top">
+    <div class="controls">
+      <label class="slider">Enzyme
+        <select data-enzyme>
+          {PRESETS.map((p) => <option value={p.id} selected={p.id === d.enzymeId}>{p.name}</option>)}
+        </select>
+      </label>
+      <p class="where" data-where>Works in the {e.where}. Optimum about pH {e.optPH} and {Math.round(optimumTemp(e))} °C.</p>
+      <label class="slider">Temperature: <output data-out="temp">{d.temp} °C</output>
+        <input type="range" min="0" max="100" step="1" value={d.temp} data-param="temp" />
+      </label>
+      <label class="slider">pH: <output data-out="ph">{d.ph}</output>
+        <input type="range" min="0" max="14" step="0.5" value={d.ph} data-param="ph" />
+      </label>
+      <label class="slider">Substrate concentration: <output data-out="substrate">{d.substrate}</output>
+        <input type="range" min="0" max="20" step="1" value={d.substrate} data-param="substrate" />
+      </label>
+      <label class="slider">Enzyme concentration: <output data-out="enzyme">{d.enzyme}</output>
+        <input type="range" min="1" max="10" step="1" value={d.enzyme} data-param="enzyme" />
+      </label>
+      <button class="btn" type="button" data-fresh>Use fresh enzyme</button>
+    </div>
+    <div class="particles">
+      <svg viewBox="0 0 400 240" role="img" aria-labelledby="enz-pt enz-pd" data-box>
+        <title id="enz-pt">Particle view of enzyme and substrate molecules</title>
+        <desc id="enz-pd">Enzyme molecules with a notch-shaped active site and substrate particles moving at random. A reaction happens when a substrate particle collides with a free active site. Denatured enzymes are drawn as irregular shapes with no active site.</desc>
+        <rect class="box" x="1" y="1" width="398" height="238" rx="10" />
+        <g data-enzymes></g>
+        <g data-parts></g>
+      </svg>
+      <div class="prow">
+        <button class="btn" type="button" data-play><span data-play-label>Play particles</span></button>
+        <span class="count" data-count>Reactions in the last 5 s: 0</span>
+      </div>
+      <p class="pkey"><span class="dot s"></span> substrate <span class="dot p"></span> product <span class="dot e"></span> enzyme (notch = active site)</p>
+    </div>
+  </div>
+
+  <p class="readout" aria-live="polite" data-readout>Rate now: {now.toFixed(0)} ({label(now)}). Below the optimum, raising the temperature makes molecules move faster, so substrate–active site collisions are more frequent.</p>
+
+  <div class="graphs">
+    {keys.map((k) => {
+      const f = frames[k];
+      return (
+        <div class="g">
+          <svg viewBox={`0 0 ${f.w} ${f.h}`} role="img" aria-label={`${titles[k]} on the rate of the enzyme-catalysed reaction`} data-graph={k}>
+            <g class="grid">
+              {f.x.ticks.map((t) => <line x1={sx(f, t)} x2={sx(f, t)} y1={f.top} y2={f.h - f.bottom} />)}
+              {f.y.ticks.map((t) => <line x1={f.left} x2={f.w - f.right} y1={sy(f, t)} y2={sy(f, t)} />)}
+            </g>
+            <g class="ticks">
+              {f.x.ticks.map((t) => <text x={sx(f, t)} y={f.h - f.bottom + 17} text-anchor="middle">{t}</text>)}
+              {f.y.ticks.map((t) => <text x={f.left - 5} y={sy(f, t)} dy="0.35em" text-anchor="end">{t}</text>)}
+            </g>
+            <text class="axis" x={(f.left + f.w - f.right) / 2} y={f.h - 8} text-anchor="middle">{f.x.label}</text>
+            <text class="axis" transform={`translate(13 ${(f.top + f.h - f.bottom) / 2}) rotate(-90)`} text-anchor="middle">Rate</text>
+            <path class="line" d={linePath(f, fns[k], 120)} data-line={k} />
+            <line class="vline" data-vline={k} x1={sx(f, (d as Record<string, number | string>)[k] as number)} x2={sx(f, (d as Record<string, number | string>)[k] as number)} y1={f.top} y2={f.h - f.bottom} />
+            <circle class="dot-now" r="6" data-dot={k} cx={sx(f, (d as Record<string, number | string>)[k] as number)} cy={sy(f, now)} />
+          </svg>
+          <p class="gcap">{titles[k]}</p>
+        </div>
+      );
+    })}
+  </div>
+
+  <details class="table">
+    <summary>Show data tables</summary>
+    <div class="tables" data-tables>
+      {keys.map((k) => (
+        <table>
+          <caption>{titles[k]}</caption>
+          <thead><tr><th scope="col">{frames[k].x.label}</th><th scope="col">Rate</th></tr></thead>
+          <tbody>{tables[k].map((x) => <tr><th scope="row">{x}</th><td>{fns[k](x).toFixed(1)}</td></tr>)}</tbody>
+        </table>
+      ))}
+    </div>
+  </details>
+  <p class="model-note">Qualitative model: each graph shows the rate as one factor changes while the others stay at the slider values. Rate is on a scale where 100 is the fastest this enzyme can work (10 units of enzyme, saturating substrate, optimum temperature and pH). The temperature curve is for fresh enzyme; the dot shows the enzyme you have now.</p>
+</div>
+
+<script>
+  import { linePath, range, sx, sy, type Frame } from './chart';
+  import { PRESETS, activeFraction, kinetic, label, occupancy, optimumTemp, pHFactor, preset, rate, type RateParams } from './models/c1-1-rate';
+  import { prefersReducedMotion } from '../lib/prefs';
+
+  const NS = 'http://www.w3.org/2000/svg';
+  type Key = 'temp' | 'ph' | 'substrate';
+  const KEYS: Key[] = ['temp', 'ph', 'substrate'];
+  const TABLE: Record<Key, number[]> = { temp: range(0, 100, 10), ph: range(0, 14, 1), substrate: range(0, 20, 2) };
+  const UNITS: Record<Key, string> = { temp: 'Temperature / °C', ph: 'pH', substrate: 'Substrate concentration' };
+
+  document.querySelectorAll<HTMLElement>('[data-sim-enz]').forEach((root) => {
+    const frames = JSON.parse(root.dataset.frames!) as Record<Key, Frame>;
+    const q = <T extends Element>(s: string) => root.querySelector<T>(s)!;
+    const input = (k: string) => q<HTMLInputElement>(`[data-param="${k}"]`);
+    const select = q<HTMLSelectElement>('[data-enzyme]');
+    const readout = q<HTMLElement>('[data-readout]');
+    let maxTemp = Number(input('temp').value);
+    let timer = 0;
+
+    const params = (): RateParams => ({
+      temp: Number(input('temp').value), ph: Number(input('ph').value),
+      substrate: Number(input('substrate').value), enzyme: Number(input('enzyme').value), maxTemp,
+    });
+
+    const explain = (p: RateParams) => {
+      const e = preset(select.value);
+      const opt = optimumTemp(e);
+      const parts: string[] = [];
+      const af = activeFraction(p.temp, e.tm, maxTemp);
+      if (maxTemp > opt + 4 && p.temp < maxTemp - 3 && af < 0.6)
+        parts.push(`The enzyme was heated to ${maxTemp} °C earlier. Denaturation is irreversible, so cooling it has not restored its activity — press "Use fresh enzyme".`);
+      else if (p.temp > opt + 2) parts.push(`Above the optimum (about ${Math.round(opt)} °C) bonds holding the enzyme's 3D shape break and active sites change shape (denaturation), so the rate falls steeply.`);
+      else if (p.temp < opt - 2) parts.push('Below the optimum, raising the temperature makes molecules move faster, so substrate–active site collisions are more frequent and more energetic.');
+      else parts.push('This is close to the optimum temperature.');
+      const dph = Math.abs(p.ph - e.optPH);
+      if (dph >= 3) parts.push(`pH ${p.ph} is far from the optimum (pH ${e.optPH}): the active site's charges and shape are altered and the enzyme is denatured.`);
+      else if (dph >= 1) parts.push(`pH ${p.ph} is away from the optimum (pH ${e.optPH}), which changes the charges on amino acids in the active site, so the substrate binds less well.`);
+      const occ = occupancy(p.substrate);
+      if (p.substrate === 0) parts.push('With no substrate there is nothing to react.');
+      else if (occ > 0.8) parts.push(`About ${Math.round(occ * 100)}% of active sites are occupied at any moment, so adding more substrate barely raises the rate; adding enzyme would.`);
+      else if (occ < 0.5) parts.push('Active sites are often empty, so more substrate means more collisions and a faster rate.');
+      return parts.join(' ');
+    };
+
+    const update = () => {
+      const p = params();
+      maxTemp = Math.max(maxTemp, p.temp);
+      p.maxTemp = maxTemp;
+      const e = preset(select.value);
+      q('[data-out="temp"]').textContent = `${p.temp} °C`;
+      q('[data-out="ph"]').textContent = String(p.ph);
+      q('[data-out="substrate"]').textContent = String(p.substrate);
+      q('[data-out="enzyme"]').textContent = String(p.enzyme);
+      q('[data-where]').textContent = `Works in the ${e.where}. Optimum about pH ${e.optPH} and ${Math.round(optimumTemp(e))} °C.`;
+      const now = rate(p, e);
+      const fresh = { ...p, maxTemp: undefined };
+      const fn: Record<Key, (x: number) => number> = {
+        temp: (x) => rate({ ...fresh, temp: x }, e),
+        ph: (x) => rate({ ...p, ph: x }, e),
+        substrate: (x) => rate({ ...p, substrate: x }, e),
+      };
+      for (const k of KEYS) {
+        const f = frames[k];
+        q(`[data-line="${k}"]`).setAttribute('d', linePath(f, fn[k], 120));
+        const x = sx(f, p[k]).toFixed(1);
+        const v = q(`[data-vline="${k}"]`); v.setAttribute('x1', x); v.setAttribute('x2', x);
+        const dot = q(`[data-dot="${k}"]`); dot.setAttribute('cx', x); dot.setAttribute('cy', sy(f, now).toFixed(1));
+      }
+      q('[data-tables]').innerHTML = KEYS.map((k) => `<table><caption>${k === 'temp' ? 'Effect of temperature' : k === 'ph' ? 'Effect of pH' : 'Effect of substrate concentration'}</caption><thead><tr><th scope="col">${UNITS[k]}</th><th scope="col">Rate</th></tr></thead><tbody>${TABLE[k].map((x) => `<tr><th scope="row">${x}</th><td>${fn[k](x).toFixed(1)}</td></tr>`).join('')}</tbody></table>`).join('');
+      sim.configure(p, e);
+      clearTimeout(timer);
+      timer = window.setTimeout(() => { readout.textContent = `Rate now: ${now.toFixed(0)} (${label(now)}). ${explain(p)}`; }, 300);
+    };
+
+    // ---------- particle view ----------
+    const sim = (() => {
+      const W = 400, H = 240;
+      const gE = q<SVGGElement>('[data-enzymes]');
+      const gP = q<SVGGElement>('[data-parts]');
+      const countEl = q<HTMLElement>('[data-count]');
+      const playBtn = q<HTMLButtonElement>('[data-play]');
+      const playLabel = q<HTMLElement>('[data-play-label]');
+      type Enz = { x: number; y: number; active: boolean; busy: number; el: SVGGElement };
+      type Part = { x: number; y: number; vx: number; vy: number; product: number; el: SVGCircleElement };
+      let enz: Enz[] = [];
+      let parts: Part[] = [];
+      let speed = 1, bindP = 1, turnover = 0.6;
+      let events: number[] = [];
+      let clock = 0, raf = 0, last = 0, playing = false;
+      let seed = 7;
+      const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+
+      const enzPath = 'M-9 -16 L-4 -4 L4 -4 L9 -16 C22 -10 22 14 0 18 C-22 14 -22 -10 -9 -16 Z';
+      const denPath = 'M-14 -10 C-4 -18 6 -6 14 -12 C22 0 12 10 16 16 C4 22 -6 12 -16 16 C-22 6 -10 0 -14 -10 Z';
+      const positions = Array.from({ length: 10 }, (_, i) => ({ x: 52 + (i % 5) * 74, y: i < 5 ? 78 : 170 }));
+
+      const configure = (p: RateParams, e: ReturnType<typeof preset>) => {
+        const n = p.enzyme;
+        const af = activeFraction(p.temp, e.tm, p.maxTemp ?? p.temp);
+        const nActive = Math.round(n * af);
+        speed = Math.sqrt(kinetic(p.temp));
+        turnover = 0.7 / kinetic(p.temp);
+        bindP = pHFactor(p.ph, e.optPH, e.phWidth);
+        if (enz.length !== n || enz.filter((x) => x.active).length !== nActive) {
+          gE.replaceChildren();
+          enz = positions.slice(0, n).map((pos, i) => {
+            const g = document.createElementNS(NS, 'g');
+            const active = i < nActive;
+            g.setAttribute('transform', `translate(${pos.x} ${pos.y})`);
+            const path = document.createElementNS(NS, 'path');
+            path.setAttribute('d', active ? enzPath : denPath);
+            path.setAttribute('class', active ? 'enz' : 'enz den');
+            g.append(path);
+            gE.append(g);
+            return { ...pos, active, busy: 0, el: g };
+          });
+        }
+        const target = Math.round(p.substrate * 3);
+        while (parts.length > target) parts.pop()!.el.remove();
+        while (parts.length < target) {
+          const el = document.createElementNS(NS, 'circle');
+          el.setAttribute('r', '4.5');
+          gP.append(el);
+          const a = rnd() * Math.PI * 2;
+          parts.push({ x: 12 + rnd() * (W - 24), y: 12 + rnd() * (H - 24), vx: Math.cos(a), vy: Math.sin(a), product: 0, el });
+        }
+        draw();
+      };
+
+      const draw = () => {
+        for (const s of parts) {
+          s.el.setAttribute('cx', s.x.toFixed(1));
+          s.el.setAttribute('cy', s.y.toFixed(1));
+          s.el.setAttribute('class', s.product > 0 ? 'p' : 's');
+        }
+        for (const e of enz) e.el.classList.toggle('busy', e.busy > 0);
+        const nowEvents = events.filter((t) => clock - t <= 5).length;
+        countEl.textContent = `Reactions in the last 5 s: ${nowEvents}`;
+      };
+
+      const stepSim = (dt: number) => {
+        clock += dt;
+        for (const e of enz) if (e.busy > 0) { e.busy -= dt; if (e.busy <= 0) { events.push(clock); e.busy = 0; } }
+        for (const s of parts) {
+          // random motion: a random walk whose speed rises with temperature
+          const a = Math.atan2(s.vy, s.vx) + (rnd() - 0.5) * 1.6;
+          s.vx = Math.cos(a); s.vy = Math.sin(a);
+          s.x += s.vx * 70 * speed * dt; s.y += s.vy * 70 * speed * dt;
+          if (s.x < 6 || s.x > W - 6) { s.vx = -s.vx; s.x = Math.max(6, Math.min(W - 6, s.x)); }
+          if (s.y < 6 || s.y > H - 6) { s.vy = -s.vy; s.y = Math.max(6, Math.min(H - 6, s.y)); }
+          if (s.product > 0) { s.product -= dt; continue; }
+          for (const e of enz) {
+            if (!e.active || e.busy > 0) continue;
+            // the active site is the notch at the top of each enzyme
+            if (Math.hypot(s.x - e.x, s.y - (e.y - 10)) < 11 && rnd() < bindP) {
+              e.busy = turnover;
+              s.product = turnover + 2.5; // shown as product for a while, then topped up as substrate
+              s.x = e.x; s.y = e.y - 26; s.vy = -1; s.vx = (rnd() - 0.5);
+              break;
+            }
+          }
+        }
+        events = events.filter((t) => clock - t <= 5);
+      };
+
+      const tick = (t: number) => {
+        const dt = Math.min(0.05, (t - last) / 1000);
+        last = t;
+        stepSim(dt);
+        draw();
+        raf = playing ? requestAnimationFrame(tick) : 0;
+      };
+      const setPlaying = (on: boolean) => {
+        playing = on;
+        playLabel.textContent = on ? 'Pause particles' : 'Play particles';
+        if (on && !raf) { last = performance.now(); raf = requestAnimationFrame(tick); }
+      };
+      const applyMotionPref = () => {
+        if (prefersReducedMotion()) { setPlaying(false); playLabel.textContent = 'Advance 2 seconds'; }
+        else if (!playing) playLabel.textContent = 'Play particles';
+      };
+      playBtn.addEventListener('click', () => {
+        if (prefersReducedMotion()) { for (let i = 0; i < 40; i++) stepSim(0.05); draw(); return; }
+        setPlaying(!playing);
+      });
+      new IntersectionObserver(([en]) => { if (!en?.isIntersecting && playing) setPlaying(false); }).observe(root);
+      window.addEventListener('ibbio:prefs', applyMotionPref);
+      applyMotionPref();
+      return { configure };
+    })();
+
+    root.querySelectorAll('[data-param]').forEach((el) => el.addEventListener('input', update));
+    select.addEventListener('change', () => {
+      const e = preset(select.value);
+      input('ph').value = String(e.optPH);
+      maxTemp = Number(input('temp').value);
+      update();
+    });
+    q('[data-fresh]').addEventListener('click', () => { maxTemp = Number(input('temp').value); update(); });
+    void PRESETS;
+    update();
+  });
+</script>
+
+<style>
+  .sim-enz { container-type: inline-size; }
+  .top { display: grid; gap: var(--space-4); }
+  @container (min-width: 38rem) { .top { grid-template-columns: minmax(15rem, 1fr) minmax(0, 1.4fr); align-items: start; } }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); align-content: start; }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  select { font: inherit; padding: 0.35rem 0.5rem; border-radius: var(--radius-s); border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); min-height: 2.25rem; }
+  .where { margin: 0; color: var(--text-muted); }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .controls .btn { justify-self: start; }
+  .particles svg { width: 100%; height: auto; display: block; }
+  .box { fill: var(--surface-2); stroke: var(--border); }
+  .particles :global(.enz) { fill: color-mix(in srgb, var(--bio-protein) 35%, var(--surface)); stroke: var(--bio-protein); stroke-width: 2; transition: fill 0.2s; }
+  .particles :global(.busy .enz) { fill: color-mix(in srgb, var(--bio-protein) 70%, var(--surface)); }
+  .particles :global(.enz.den) { stroke-dasharray: 4 3; fill: var(--surface-3); stroke: var(--text-muted); }
+  .particles :global(circle.s) { fill: var(--bio-glucose); stroke: var(--text); stroke-width: 0.8; }
+  .particles :global(circle.p) { fill: var(--bio-carb); stroke: var(--text); stroke-width: 0.8; }
+  .prow { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; margin-top: var(--space-2); font-size: var(--step--1); }
+  .count { font-weight: 700; font-variant-numeric: tabular-nums; }
+  .pkey { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-1) 0 0; display: flex; flex-wrap: wrap; gap: 0.3rem 0.6rem; align-items: center; }
+  .dot { display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 50%; border: 1px solid var(--text); }
+  .dot.s { background: var(--bio-glucose); }
+  .dot.p { background: var(--bio-carb); }
+  .dot.e { background: color-mix(in srgb, var(--bio-protein) 35%, var(--surface)); border-color: var(--bio-protein); border-radius: 40%; }
+  .readout { margin: var(--space-3) 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .graphs { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+  .g svg { width: 100%; height: auto; display: block; font-family: var(--font-sans); }
+  .gcap { margin: 0; font-size: var(--step--1); font-weight: 700; text-align: center; color: var(--text-muted); }
+  .grid line { stroke: var(--border); stroke-width: 1; }
+  .ticks text { font-size: 15px; fill: var(--text-muted); }
+  .axis { font-size: 15px; font-weight: 650; fill: var(--text); }
+  .line { fill: none; stroke: var(--bio-protein); stroke-width: 3.5; stroke-linejoin: round; stroke-linecap: round; }
+  .vline { stroke: var(--text-muted); stroke-width: 1.2; stroke-dasharray: 3 3; }
+  .dot-now { fill: var(--bio-head); stroke: var(--text); stroke-width: 1.5; }
+  .table { margin-top: var(--space-3); font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  .tables { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: start; }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  caption { font-weight: 700; text-align: left; }
+  th, td { padding: 0.2rem 0.7rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

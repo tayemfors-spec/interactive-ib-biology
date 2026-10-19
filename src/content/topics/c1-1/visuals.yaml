@@ -1,0 +1,173 @@
+# Visuals for C1.1. Label and step text here is what readers see in the 3D viewer and the text
+# descriptions, so it is written to exam standard. Label ids must match anchors in src/scenes.
+visuals:
+  - id: enzyme
+    kind: viewer3d
+    title: An enzyme at work, and denatured
+    alt: A globular enzyme with an active site in a cleft binds a substrate by induced fit, releases two products, and is then denatured.
+    description: >-
+      A globular enzyme made of two domains with a cleft between them. The active site lies in the cleft
+      and is lined by just a few amino acids (shown as purple spheres), held in position by the folding of
+      the whole protein. The model steps through one catalytic cycle: substrate molecules (a disaccharide
+      of two sugar rings joined through an oxygen atom) move at random in solution; one collides with the
+      active site in the right orientation and binds; the cleft closes round it and the substrate is bent
+      so that its bond is strained (induced fit, forming the enzyme–substrate complex); a water molecule is
+      used to break the bond (hydrolysis); the cleft reopens and the two products leave, with the enzyme
+      unchanged and ready to bind another substrate molecule. A final step shows the enzyme denatured by
+      heat: the polypeptide unfolds, the active-site amino acids are scattered, and the substrate no
+      longer fits.
+    scenes:
+      - id: catalysis
+        module: c1-1-active-site
+        title: Catalysis and denaturation
+        labels:
+          - id: enzyme
+            name: Enzyme (globular protein)
+            text: A single polypeptide folded into a compact, roughly spherical 3D shape. Here it has two domains joined by a hinge, with the active site in the cleft between them.
+            steps: [random-motion, collision, induced-fit, reaction, release]
+          - id: active-site
+            name: Active site
+            text: The region where the substrate binds and the reaction is catalysed. Its shape and chemical properties are complementary to the substrate, which makes the enzyme specific.
+            steps: [random-motion, collision, release]
+          - id: residues
+            name: Active-site amino acids
+            text: Only a few amino acids form the active site. The rest of the protein's fold holds them in exactly the right positions to bind the substrate and catalyse the reaction.
+            steps: [collision, induced-fit]
+          - id: substrate
+            name: Substrate
+            text: The molecule the enzyme acts on, here a disaccharide. Like the enzyme, it moves at random and must collide with the active site to react.
+            steps: [random-motion, collision, induced-fit]
+          - id: water
+            name: Water (used in hydrolysis)
+            text: A water molecule enters the active site and is used to break the bond between the two sugar units. Its –OH (blue) and –H (white) end up on the two products.
+            steps: [reaction]
+          - id: products
+            name: Products
+            text: Two monosaccharides are formed. They do not fit the active site as well as the substrate, so they are released, leaving the enzyme free to bind another substrate molecule.
+            steps: [reaction, release]
+          - id: unfolded
+            name: Denatured enzyme
+            text: Heat has broken the hydrogen bonds and other bonds that held the protein's 3D shape, so the chain has unfolded. Peptide bonds are not broken, but the shape is lost and cannot reform.
+            steps: [denatured]
+          - id: site-lost
+            name: Active site lost
+            text: The amino acids that formed the active site are now far apart. The substrate can no longer bind, so the reaction is not catalysed.
+            steps: [denatured]
+        steps:
+          - id: random-motion
+            title: Random motion
+            caption: Substrate molecules in solution move about at random and so does the enzyme. Nothing directs the substrate towards the active site; it gets there only by chance collisions.
+          - id: collision
+            title: Collision with the active site
+            caption: A substrate molecule collides with the active site in the right orientation and binds to it. The active site is roughly complementary to the substrate in shape and chemical properties.
+          - id: induced-fit
+            title: Induced fit
+            caption: Binding causes the enzyme to change shape — the cleft closes so the active site fits the substrate tightly. The substrate also changes shape, bending so that the bond to be broken is strained. This is the enzyme–substrate complex.
+          - id: reaction
+            title: Bond broken (hydrolysis)
+            caption: In the enzyme–substrate complex, less energy is needed to break the strained bond (a lower activation energy). A water molecule is used and the disaccharide is split into two monosaccharides.
+          - id: release
+            title: Products released
+            caption: The products separate from the active site and the enzyme returns to its original shape. It has not been used up or changed, so it can catalyse the same reaction again many times.
+          - id: denatured
+            title: Denatured by heat
+            caption: At high temperature, vibrations break the bonds that hold the enzyme's 3D shape, so the polypeptide unfolds and the active site is lost. The substrate no longer fits. Denaturation is permanent — cooling does not restore the shape.
+
+  - id: rate
+    kind: sim
+    module: c1-1-rate
+    title: What affects the rate of an enzyme-catalysed reaction?
+    alt: Sliders for temperature, pH, substrate and enzyme concentration update three graphs of enzyme activity and a particle view.
+    description: >-
+      Choose an enzyme (salivary amylase, pepsin, trypsin or an enzyme from a hot-spring bacterium) and set
+      the temperature, pH, substrate concentration and enzyme concentration. Three graphs show the rate as each
+      factor changes while the others are held at the slider values. The temperature curve rises gradually
+      to an optimum (about 40 °C for human enzymes) and then falls steeply as the enzyme is denatured. The
+      pH curve is bell-shaped around each enzyme's optimum (about pH 2 for pepsin, pH 7 for salivary amylase,
+      pH 8 for trypsin). The substrate curve rises steeply and then levels off when all active sites are
+      occupied. Heating the enzyme above its optimum and then cooling it shows that heat denaturation is
+      irreversible. A particle view shows substrate molecules moving at random and reacting when they
+      collide with a free active site.
+
+  - id: measuring
+    kind: sim
+    module: c1-1-measuring
+    title: Measuring the rate of catalase activity
+    alt: Graph of oxygen volume against time for catalase, with a tangent and gradient triangle that give the rate.
+    description: >-
+      Catalase breaks down hydrogen peroxide into water and oxygen, and the volume of oxygen collected is
+      recorded every 10 seconds in three repeats. The graph shows the readings and a curve of best fit that
+      is steepest at the start and levels off when all the hydrogen peroxide has been used. A slider moves a
+      tangent along the curve and a triangle shows its gradient, in cubic centimetres per second; the
+      tangent at time zero gives the initial rate. Another slider changes the catalase concentration: more
+      enzyme gives a steeper start but the same final volume. The rate is also given as 1 ÷ the time taken to
+      collect 10 cm³, and a table lists the repeats and their mean.
+
+  - id: inhibition
+    kind: sim
+    module: c1-1-inhibition
+    level: AHL
+    title: Competitive and non-competitive inhibition
+    alt: Graph of rate against substrate concentration with no inhibitor, a competitive inhibitor and a non-competitive inhibitor.
+    description: >-
+      A graph of rate against substrate concentration with three curves. With no inhibitor the rate rises
+      and levels off at a maximum when all active sites are in use. With a competitive inhibitor the rate is
+      lower at low substrate concentrations, but as substrate concentration rises the substrate wins most of
+      the competition for the active sites and the rate approaches the same maximum. With a non-competitive
+      inhibitor bound to the allosteric site, the maximum rate is lower and adding substrate cannot overcome
+      the inhibition. Sliders change the inhibitor and substrate concentrations, and rows of 12 enzyme
+      molecules show how many have substrate bound and how many are inhibited.
+
+  - id: feedback
+    kind: anim
+    module: c1-1-feedback
+    level: AHL
+    title: End-product inhibition of isoleucine synthesis
+    alt: Step-by-step diagram of isoleucine inhibiting threonine deaminase, the first enzyme in its own synthesis pathway.
+    description: >-
+      The pathway that converts threonine to isoleucine in five enzyme-catalysed steps, beside an enlarged
+      view of the first enzyme, threonine deaminase, which has an active site for threonine and an allosteric
+      site for isoleucine. A gauge shows the isoleucine concentration in the cell. When isoleucine is scarce
+      the pathway runs; when it accumulates, isoleucine binds to the allosteric site, the active site
+      changes shape and the whole pathway stops; when isoleucine is used in protein synthesis it leaves the
+      allosteric site and the pathway starts again.
+    steps:
+      - id: scarce
+        title: Isoleucine scarce
+        caption: Little isoleucine is present, so threonine deaminase is active. Threonine binds its active site and is converted to the first intermediate, and the pathway produces isoleucine.
+      - id: accumulates
+        title: Isoleucine accumulates
+        caption: Isoleucine is now being made faster than it is used, so its concentration in the cell rises.
+      - id: inhibits
+        title: Isoleucine binds the allosteric site
+        caption: Isoleucine binds reversibly to the allosteric site of threonine deaminase. This changes the enzyme's conformation so the active site no longer catalyses the reaction. The first step stops, so the whole pathway stops and no intermediates build up.
+      - id: released
+        title: Inhibition released
+        caption: As isoleucine is used in protein synthesis its concentration falls. Isoleucine detaches from the allosteric site, the enzyme returns to its active shape and isoleucine is made again — negative feedback.
+
+  - id: penicillin
+    kind: anim
+    module: c1-1-penicillin
+    level: AHL
+    title: Penicillin and transpeptidase
+    alt: Diagram of penicillin bonding permanently to the active site of transpeptidase, and a resistant transpeptidase that it cannot bind.
+    description: >-
+      Part of a bacterial cell wall: two peptidoglycan strands of sugar units with short peptide chains, some
+      joined by cross-links, beside a transpeptidase enzyme and a drawing of the whole bacterium. The
+      transpeptidase makes a new cross-link. Penicillin then enters its active site and forms a covalent bond
+      with a serine there, inactivating the enzyme permanently. Without new cross-links the wall of the
+      growing cell is weak, water enters and the cell bursts. In a resistant bacterium the transpeptidase has
+      an altered active site that penicillin cannot bind, so cross-linking continues.
+    steps:
+      - id: crosslink
+        title: Transpeptidase makes cross-links
+        caption: Transpeptidases link the peptide chains of neighbouring peptidoglycan strands. These cross-links make the bacterial cell wall strong enough to resist the pressure of water entering the cell.
+      - id: binds
+        title: Penicillin bonds to the active site
+        caption: Penicillin fits the active site and reacts with a serine there, forming a covalent bond. The bond is not broken, so each enzyme molecule is permanently inactivated — irreversible, mechanism-based inhibition.
+      - id: bursts
+        title: Weak wall, cell bursts
+        caption: With its transpeptidases inactivated, a growing bacterium cannot cross-link new peptidoglycan. The wall weakens, water enters by osmosis and the cell bursts.
+      - id: resistance
+        title: Resistant transpeptidase
+        caption: In resistant bacteria, mutations have changed amino acids in or near the transpeptidase active site. Penicillin no longer binds well, but the enzyme still makes cross-links, so the wall stays strong.

@@ -1,0 +1,78 @@
+---
+/**
+ * Linear vs cyclical metabolic pathways (C1.1.13): glycolysis (linear) and the Krebs and Calvin cycles
+ * (cyclical: the compound that accepts the incoming substrate is regenerated at the end of each turn).
+ */
+const ring = (cx: number, cy: number, r: number, a0: number, a1: number) => {
+  const p = (a: number) => [cx + r * Math.cos((a * Math.PI) / 180), cy + r * Math.sin((a * Math.PI) / 180)];
+  const [x0, y0] = p(a0), [x1, y1] = p(a1);
+  return `M${x0!.toFixed(1)} ${y0!.toFixed(1)} A${r} ${r} 0 0 1 ${x1!.toFixed(1)} ${y1!.toFixed(1)}`;
+};
+---
+<div class="trio">
+  <svg viewBox="0 0 260 270" role="img" aria-labelledby="pw-t1 pw-d1" xmlns="http://www.w3.org/2000/svg">
+    <title id="pw-t1">Linear pathway: glycolysis</title>
+    <desc id="pw-d1">Glucose is converted step by step, each step catalysed by a different enzyme, into two molecules of pyruvate. The end product is different from the starting compound, and the pathway does not return to its start.</desc>
+    <text class="head" x="12" y="24">Linear: glycolysis</text>
+    <rect class="box" x="70" y="40" width="120" height="30" rx="7" /><text class="t" x="130" y="55" dy="0.35em" text-anchor="middle">glucose (6C)</text>
+    {[0, 1, 2, 3].map((i) => <path class="arr" d={`M130 ${76 + i * 38} L130 ${104 + i * 38}`} marker-end="url(#pw-a)" />)}
+    {[0, 1, 2].map((i) => <circle class="dot" cx="130" cy={110 + i * 38} r="5" />)}
+    <text class="n" x="146" y="152">intermediates</text>
+    <rect class="box end" x="62" y="230" width="136" height="30" rx="7" /><text class="t" x="130" y="245" dy="0.35em" text-anchor="middle">2 × pyruvate (3C)</text>
+    <text class="n" x="12" y="214">each arrow: a</text>
+    <text class="n" x="12" y="228">different enzyme</text>
+    <defs><marker id="pw-a" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker></defs>
+  </svg>
+
+  <svg viewBox="0 0 260 270" role="img" aria-labelledby="pw-t2 pw-d2" xmlns="http://www.w3.org/2000/svg">
+    <title id="pw-t2">Cyclical pathway: the Krebs cycle</title>
+    <desc id="pw-d2">An acetyl group with two carbons joins oxaloacetate, with four carbons, to form citrate, with six. In a series of reactions round the cycle two carbon dioxide molecules are released and oxaloacetate is regenerated, ready to accept the next acetyl group.</desc>
+    <text class="head" x="12" y="24">Cyclical: Krebs cycle</text>
+    <path class="cyc" d={ring(130, 150, 70, 200, 330)} marker-end="url(#pw-b)" />
+    <path class="cyc" d={ring(130, 150, 70, 340, 520)} marker-end="url(#pw-b)" />
+    <text class="t" x="44" y="96" text-anchor="middle">oxaloacetate</text><text class="n" x="44" y="112" text-anchor="middle">(4C)</text>
+    <text class="t" x="216" y="96" text-anchor="middle">citrate</text><text class="n" x="216" y="112" text-anchor="middle">(6C)</text>
+    <path class="in" d="M130 48 L130 74" marker-end="url(#pw-a2)" /><text class="t" x="130" y="42" text-anchor="middle">acetyl group (2C)</text>
+    <path class="out" d="M196 200 L226 226" marker-end="url(#pw-a2)" /><text class="t" x="214" y="246">2 CO₂</text>
+    <text class="n" x="130" y="154" text-anchor="middle">oxaloacetate</text>
+    <text class="n" x="130" y="170" text-anchor="middle">regenerated</text>
+    <defs>
+      <marker id="pw-b" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ahc" /></marker>
+      <marker id="pw-a2" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker>
+    </defs>
+  </svg>
+
+  <svg viewBox="0 0 260 270" role="img" aria-labelledby="pw-t3 pw-d3" xmlns="http://www.w3.org/2000/svg">
+    <title id="pw-t3">Cyclical pathway: the Calvin cycle</title>
+    <desc id="pw-d3">Carbon dioxide combines with ribulose bisphosphate (RuBP, five carbons) to give two three-carbon molecules of glycerate 3-phosphate, which are reduced to triose phosphate. Some triose phosphate leaves the cycle to make glucose and other carbon compounds; the rest is used to regenerate RuBP.</desc>
+    <text class="head" x="12" y="24">Cyclical: Calvin cycle</text>
+    <path class="cyc" d={ring(130, 150, 70, 200, 330)} marker-end="url(#pw-c)" />
+    <path class="cyc" d={ring(130, 150, 70, 340, 520)} marker-end="url(#pw-c)" />
+    <text class="t" x="40" y="96" text-anchor="middle">RuBP (5C)</text>
+    <text class="t" x="218" y="96" text-anchor="middle">2 × GP</text><text class="n" x="218" y="112" text-anchor="middle">(3C)</text>
+    <path class="in" d="M130 48 L130 74" marker-end="url(#pw-a3)" /><text class="t" x="130" y="42" text-anchor="middle">CO₂</text>
+    <text class="t" x="196" y="232" text-anchor="middle">triose phosphate</text>
+    <path class="out" d="M74 214 L44 240" marker-end="url(#pw-a3)" /><text class="n" x="12" y="258">some leaves → glucose</text>
+    <text class="n" x="130" y="154" text-anchor="middle">RuBP</text>
+    <text class="n" x="130" y="170" text-anchor="middle">regenerated</text>
+    <defs>
+      <marker id="pw-c" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ahc" /></marker>
+      <marker id="pw-a3" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker>
+    </defs>
+  </svg>
+</div>
+<style>
+  .trio { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); }
+  .trio svg { font-family: var(--font-sans); background: var(--surface); border-radius: var(--radius-m); max-width: 22rem; margin-inline: auto; width: 100%; }
+  .head { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .t { font-size: 13.5px; font-weight: 700; fill: var(--text); }
+  .n { font-size: 12.5px; fill: var(--text-muted); }
+  .box { fill: color-mix(in srgb, var(--bio-glucose) 25%, var(--surface)); stroke: var(--bio-glucose); stroke-width: 1.5; }
+  .box.end { fill: color-mix(in srgb, var(--bio-head) 20%, var(--surface)); stroke: var(--bio-head); }
+  .dot { fill: var(--text-muted); }
+  .arr { stroke: var(--text-muted); stroke-width: 2.2; }
+  .cyc { fill: none; stroke: var(--bio-protein); stroke-width: 4; }
+  .in, .out { stroke: var(--text); stroke-width: 2; }
+  .ah { fill: var(--text); }
+  .ahc { fill: var(--bio-protein); }
+</style>

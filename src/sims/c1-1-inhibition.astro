@@ -1,0 +1,209 @@
+---
+import { linePath, range, sx, sy, type Frame } from './chart';
+import { VMAX, competitive, none, nonCompetitive, states } from './models/c1-1-inhibition';
+
+const frame: Frame = {
+  w: 620, h: 360, left: 58, right: 18, top: 16, bottom: 52,
+  x: { min: 0, max: 100, ticks: range(0, 100, 20), label: 'Substrate concentration' },
+  y: { min: 0, max: 110, ticks: range(0, 100, 20), label: 'Rate of reaction' },
+};
+const d = { inhib: 2, s: 4 };
+const N = 12;
+const counts = (mode: 'competitive' | 'noncompetitive', s: number, i: number) => {
+  const st = states(mode, s, i);
+  const sub = Math.round(st.substrate * N), inh = Math.round(st.inhibitor * N);
+  return { sub, inh: Math.min(inh, N - sub) };
+};
+const rowC = counts('competitive', d.s, d.inhib);
+const rowN = counts('noncompetitive', d.s, d.inhib);
+const icons = Array.from({ length: N }, (_, k) => k);
+---
+<div class="sim-inh" data-sim-inh data-frame={JSON.stringify(frame)}>
+  <div class="layout">
+    <svg class="chart" viewBox={`0 0 ${frame.w} ${frame.h}`} role="img" aria-labelledby="in-t" data-chart>
+      <title id="in-t">Rate of reaction against substrate concentration with no inhibitor, a competitive inhibitor and a non-competitive inhibitor</title>
+      <g class="grid">
+        {frame.x.ticks.map((t) => <line x1={sx(frame, t)} x2={sx(frame, t)} y1={frame.top} y2={frame.h - frame.bottom} />)}
+        {frame.y.ticks.map((t) => <line x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, t)} y2={sy(frame, t)} />)}
+      </g>
+      <g class="ticks">
+        {frame.x.ticks.map((t) => <text x={sx(frame, t)} y={frame.h - frame.bottom + 18} text-anchor="middle">{t}</text>)}
+        {frame.y.ticks.map((t) => <text x={frame.left - 8} y={sy(frame, t)} dy="0.35em" text-anchor="end">{t}</text>)}
+      </g>
+      <text class="axis" x={(frame.left + frame.w - frame.right) / 2} y={frame.h - 10} text-anchor="middle">{frame.x.label} →</text>
+      <text class="axis" transform={`translate(16 ${(frame.top + frame.h - frame.bottom) / 2}) rotate(-90)`} text-anchor="middle">{frame.y.label} →</text>
+      <line class="vmax" x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, VMAX)} y2={sy(frame, VMAX)} />
+      <text class="note" x={frame.left + 6} y={sy(frame, VMAX) - 6}>maximum rate with no inhibitor (all active sites in use)</text>
+      <path class="line none" d={linePath(frame, none, 120)} data-line="none" />
+      <path class="line comp" d={linePath(frame, (s) => competitive(s, d.inhib), 120)} data-line="comp" />
+      <path class="line nonc" d={linePath(frame, (s) => nonCompetitive(s, d.inhib), 120)} data-line="nonc" />
+      <line class="marker" data-marker x1={sx(frame, d.s)} x2={sx(frame, d.s)} y1={frame.top} y2={frame.h - frame.bottom} />
+    </svg>
+    <div class="controls">
+      <div class="legend">
+        <span><span class="key none"></span> No inhibitor</span>
+        <span><span class="key comp"></span> Competitive inhibitor</span>
+        <span><span class="key nonc"></span> Non-competitive inhibitor</span>
+      </div>
+      <label class="slider">Inhibitor concentration: <output data-out="inhib">{d.inhib}</output>
+        <input type="range" min="0" max="6" step="0.5" value={d.inhib} data-param="inhib" />
+      </label>
+      <label class="slider">Substrate concentration: <output data-out="s">{d.s}</output>
+        <input type="range" min="0" max="100" step="1" value={d.s} data-param="s" />
+      </label>
+      <dl class="results">
+        <div><dt>No inhibitor</dt><dd data-r="none">{none(d.s).toFixed(0)}</dd></div>
+        <div><dt>Competitive</dt><dd data-r="comp">{competitive(d.s, d.inhib).toFixed(0)}</dd></div>
+        <div><dt>Non-competitive</dt><dd data-r="nonc">{nonCompetitive(d.s, d.inhib).toFixed(0)}</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <div class="pics">
+    {(['competitive', 'noncompetitive'] as const).map((mode) => {
+      const c = mode === 'competitive' ? rowC : rowN;
+      return (
+        <div class="pic">
+          <p class="ptitle">{mode === 'competitive' ? 'Competitive: inhibitor and substrate compete for the active site' : 'Non-competitive: inhibitor binds the allosteric site'}</p>
+          <svg viewBox="0 0 480 64" role="img" aria-label={`${mode === 'competitive' ? 'Competitive' : 'Non-competitive'} inhibition: 12 enzyme molecules, showing how many have substrate bound and how many are inhibited`} data-pic={mode}>
+            {icons.map((k) => {
+              const state = k < c.sub ? 'sub' : k < c.sub + c.inh ? 'inh' : 'free';
+              const x = 22 + (k % 12) * 38.5;
+              return (
+                <g transform={`translate(${x} 36)`} data-icon class={state}>
+                  {mode === 'competitive' ? (
+                    <>
+                      <path class="enz" d="M-8 -16 L-5 -5 L5 -5 L8 -16 C18 -12 18 14 0 16 C-18 14 -18 -12 -8 -16 Z" />
+                      <circle class="s" cx="0" cy="-12" r="5.5" />
+                      <rect class="ci" x="-5.5" y="-17.5" width="11" height="11" rx="2" />
+                    </>
+                  ) : (
+                    <>
+                      <path class="enz e-free" d="M-8 -16 L-5 -5 L5 -5 L8 -16 C18 -12 18 0 16 2 L10 6 L16 10 C14 15 6 16 0 16 C-18 14 -18 -12 -8 -16 Z" />
+                      <path class="enz e-inh" d="M-8 -16 L-2 -8 L4 -12 L8 -16 C18 -12 18 0 16 2 L10 6 L16 10 C14 15 6 16 0 16 C-18 14 -18 -12 -8 -16 Z" />
+                      <circle class="s" cx="0" cy="-12" r="5.5" />
+                      <path class="ni" d="M10 6 L19 0 L19 12 Z" />
+                    </>
+                  )}
+                </g>
+              );
+            })}
+          </svg>
+        </div>
+      );
+    })}
+    <p class="pkey"><span class="dot s"></span> substrate <span class="sq"></span> competitive inhibitor (similar shape to substrate) <span class="tri"></span> non-competitive inhibitor (on the allosteric site)</p>
+  </div>
+
+  <p class="readout" aria-live="polite" data-readout>At substrate concentration {d.s}: competitive inhibitor reduces the rate to {competitive(d.s, d.inhib).toFixed(0)}, non-competitive to {nonCompetitive(d.s, d.inhib).toFixed(0)} (no inhibitor: {none(d.s).toFixed(0)}).</p>
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <thead><tr><th scope="col">Substrate</th><th scope="col">No inhibitor</th><th scope="col">Competitive</th><th scope="col">Non-competitive</th></tr></thead>
+      <tbody data-tbody>{range(0, 100, 10).map((s) => <tr><th scope="row">{s}</th><td>{none(s).toFixed(1)}</td><td>{competitive(s, d.inhib).toFixed(1)}</td><td>{nonCompetitive(s, d.inhib).toFixed(1)}</td></tr>)}</tbody>
+    </table>
+  </details>
+  <p class="model-note">Qualitative model with arbitrary units. Both inhibitors bind reversibly and have the same affinity for the enzyme. The pictures show the share of 12 enzyme molecules in each state at one moment.</p>
+</div>
+
+<script>
+  import { linePath, range, sx } from './chart';
+  import type { Frame } from './chart';
+  import { competitive, none, nonCompetitive, states, type Mode } from './models/c1-1-inhibition';
+
+  document.querySelectorAll<HTMLElement>('[data-sim-inh]').forEach((root) => {
+    const f = JSON.parse(root.dataset.frame!) as Frame;
+    const q = <T extends Element>(s: string) => root.querySelector<T>(s)!;
+    const val = (k: string) => Number(q<HTMLInputElement>(`[data-param="${k}"]`).value);
+    let timer = 0;
+
+    const setIcons = (mode: Mode, s: number, i: number) => {
+      const st = states(mode, s, i);
+      const sub = Math.round(st.substrate * 12);
+      const inh = Math.min(12 - sub, Math.round(st.inhibitor * 12));
+      root.querySelectorAll<SVGGElement>(`[data-pic="${mode}"] [data-icon]`).forEach((g, k) => {
+        g.setAttribute('class', k < sub ? 'sub' : k < sub + inh ? 'inh' : 'free');
+      });
+      return { sub, inh };
+    };
+
+    const update = () => {
+      const i = val('inhib'), s = val('s');
+      q('[data-out="inhib"]').textContent = String(i);
+      q('[data-out="s"]').textContent = String(s);
+      q('[data-line="comp"]').setAttribute('d', linePath(f, (x) => competitive(x, i), 120));
+      q('[data-line="nonc"]').setAttribute('d', linePath(f, (x) => nonCompetitive(x, i), 120));
+      const mx = sx(f, s).toFixed(1);
+      const m = q('[data-marker]'); m.setAttribute('x1', mx); m.setAttribute('x2', mx);
+      const r0 = none(s), rc = competitive(s, i), rn = nonCompetitive(s, i);
+      q('[data-r="none"]').textContent = r0.toFixed(0);
+      q('[data-r="comp"]').textContent = rc.toFixed(0);
+      q('[data-r="nonc"]').textContent = rn.toFixed(0);
+      const c = setIcons('competitive', s, i);
+      const n = setIcons('noncompetitive', s, i);
+      q('[data-tbody]').innerHTML = range(0, 100, 10).map((x) => `<tr><th scope="row">${x}</th><td>${none(x).toFixed(1)}</td><td>${competitive(x, i).toFixed(1)}</td><td>${nonCompetitive(x, i).toFixed(1)}</td></tr>`).join('');
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        const pc = r0 > 0 ? Math.round((100 * rc) / r0) : 100, pn = r0 > 0 ? Math.round((100 * rn) / r0) : 100;
+        let msg = `At substrate concentration ${s}: no inhibitor ${r0.toFixed(0)}, competitive ${rc.toFixed(0)} (${pc}% of uninhibited), non-competitive ${rn.toFixed(0)} (${pn}%).`;
+        if (i === 0) msg += ' With no inhibitor, all three curves are the same.';
+        else if (s >= 50) msg += ` At high substrate concentration, substrate occupies most active sites (${c.inh} of 12 enzymes hold a competitive inhibitor), so competitive inhibition is almost overcome — but ${n.inh} of 12 enzymes still carry the non-competitive inhibitor, which substrate cannot displace.`;
+        else msg += ' Raise the substrate concentration to see which kind of inhibition can be overcome.';
+        q('[data-readout]').textContent = msg;
+      }, 300);
+    };
+    root.querySelectorAll('[data-param]').forEach((el) => el.addEventListener('input', update));
+    update();
+  });
+</script>
+
+<style>
+  .sim-inh { container-type: inline-size; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 40rem) { .layout { grid-template-columns: minmax(0, 1.6fr) minmax(15rem, 1fr); align-items: start; } }
+  .chart { width: 100%; height: auto; font-family: var(--font-sans); }
+  .grid line { stroke: var(--border); stroke-width: 1; }
+  .ticks text { font-size: 15px; fill: var(--text-muted); }
+  .axis { font-size: 16px; font-weight: 650; fill: var(--text); }
+  .note { font-size: 13px; fill: var(--text-muted); font-style: italic; }
+  .vmax { stroke: var(--text-muted); stroke-width: 1.2; stroke-dasharray: 6 4; }
+  .line { fill: none; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+  .line.none { stroke: var(--bio-protein); }
+  .line.comp { stroke: var(--bio-head); stroke-dasharray: 12 7; }
+  .line.nonc { stroke: var(--bio-protein-2); stroke-dasharray: 2 7; }
+  .marker { stroke: var(--text); stroke-width: 1.2; stroke-dasharray: 3 3; }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .legend { display: grid; gap: var(--space-1); }
+  .legend > span { display: flex; align-items: center; gap: var(--space-2); }
+  .key { display: inline-block; width: 2rem; height: 0; border-top: 3.5px solid; }
+  .key.none { border-color: var(--bio-protein); }
+  .key.comp { border-color: var(--bio-head); border-top-style: dashed; }
+  .key.nonc { border-color: var(--bio-protein-2); border-top-style: dotted; }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .results { margin: 0; display: grid; gap: var(--space-1); padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); }
+  .results div { display: flex; justify-content: space-between; gap: var(--space-2); }
+  .results dt { color: var(--text-muted); }
+  .results dd { margin: 0; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .pics { margin-top: var(--space-3); display: grid; gap: var(--space-2); }
+  .ptitle { margin: 0; font-size: var(--step--1); font-weight: 700; }
+  .pic svg { width: 100%; height: auto; display: block; background: var(--surface-2); border-radius: var(--radius-m); }
+  .enz { fill: color-mix(in srgb, var(--bio-protein) 35%, var(--surface)); stroke: var(--bio-protein); stroke-width: 1.6; }
+  .s { fill: var(--bio-glucose); stroke: var(--text); stroke-width: 1; }
+  .ci { fill: var(--text); }
+  .ni { fill: var(--bio-k); stroke: var(--text); stroke-width: 1; }
+  g.free .s, g.free .ci, g.free .ni, g.sub .ci, g.sub .ni, g.inh .s { display: none; }
+  g .e-inh { display: none; }
+  g.inh .e-inh { display: inline; }
+  g.inh .e-free { display: none; }
+  .pkey { font-size: 0.8rem; color: var(--text-muted); margin: 0; display: flex; flex-wrap: wrap; gap: 0.3rem 0.6rem; align-items: center; }
+  .dot { display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 50%; background: var(--bio-glucose); border: 1px solid var(--text); }
+  .sq { display: inline-block; width: 0.65rem; height: 0.65rem; background: var(--text); border-radius: 2px; }
+  .tri { display: inline-block; width: 0; height: 0; border-left: 0.4rem solid transparent; border-right: 0.4rem solid transparent; border-bottom: 0.7rem solid var(--bio-k); }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  th, td { padding: 0.2rem 0.7rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>
