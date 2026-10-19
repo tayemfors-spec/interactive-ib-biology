@@ -1,0 +1,109 @@
+---
+/**
+ * Motor units (B3.3.4): two motor neurons in the spinal cord, each branching to several muscle fibres
+ * scattered through the muscle; each fibre receives one neuromuscular junction from one neuron only.
+ * Below, one neuromuscular junction magnified.
+ */
+const fibreY = Array.from({ length: 8 }, (_, i) => 66 + i * 30);
+const unitA = new Set([0, 2, 3, 6]);
+const nmjX = [352, 396, 330, 372, 410, 344, 388, 362];
+const A: [number, number] = [214, 118];
+const B: [number, number] = [214, 238];
+const branch = ([x0, y0]: [number, number], x1: number, y1: number) => `M${x0} ${y0} C${x0 + 50} ${y0}, ${x1 - 60} ${y1 - 14}, ${x1 - 6} ${y1 - 12}`;
+const vesicles = [[150, 402], [176, 392], [204, 404], [232, 394], [258, 404], [190, 418], [222, 418], [162, 422], [250, 424]];
+const ach = [[176, 451], [198, 455], [220, 450], [242, 456], [262, 452]];
+const receptors = [150, 172, 194, 216, 238, 260, 282];
+---
+<svg viewBox="0 0 640 540" role="img" aria-labelledby="mu-title mu-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="mu-title">Two motor units and a neuromuscular junction</title>
+  <desc id="mu-desc">Two motor neurons have their cell bodies in the spinal cord. The axon of each one branches, and each branch ends at a neuromuscular junction on a different muscle fibre. The four fibres supplied by the first neuron are coloured; they are scattered among the four fibres of the second motor unit. Every fibre receives a junction from only one neuron. Below, a magnified neuromuscular junction shows the axon terminal containing vesicles of acetylcholine, the synaptic cleft, and acetylcholine receptors in the folded sarcolemma of the muscle fibre.</desc>
+
+  <!-- spinal cord and motor neurons -->
+  <rect class="cord" x="12" y="40" width="130" height="250" rx="22" />
+  <text class="t" x="77" y="30" text-anchor="middle">spinal cord</text>
+  <path class="axon a" d={`M92 118 H${A[0]}`} />
+  <path class="axon b" d={`M92 238 H${B[0]}`} />
+  <path class="cell a" d="M72 98 l22 14 l-2 16 l-20 10 l-18 -12 l2 -18 z" />
+  <path class="cell b" d="M72 218 l22 14 l-2 16 l-20 10 l-18 -12 l2 -18 z" />
+  <circle class="nucleus" cx="74" cy="118" r="5" />
+  <circle class="nucleus" cx="74" cy="238" r="5" />
+
+  <!-- muscle fibres -->
+  {fibreY.map((y, i) => (
+    <g class={unitA.has(i) ? 'fibre a' : 'fibre b'}>
+      <rect x="290" y={y - 10} width="330" height="20" rx="10" />
+      <path class="stripes" d={`M300 ${y} H612`} />
+    </g>
+  ))}
+
+  <!-- axon branches ending at neuromuscular junctions -->
+  {fibreY.map((y, i) => {
+    const from = unitA.has(i) ? A : B;
+    return (
+      <g class={unitA.has(i) ? 'nmj a' : 'nmj b'}>
+        <path class="axon" d={branch(from, nmjX[i]!, y)} />
+        <ellipse cx={nmjX[i]} cy={y - 9} rx="9" ry="5" />
+      </g>
+    );
+  })}
+
+  <!-- labels -->
+  <path class="lead" d="M60 312 L68 140" /><text class="t" x="20" y="328">cell body of motor neuron</text>
+  <path class="lead" d="M164 96 L170 116" /><text class="t" x="152" y="90">axon</text>
+  <path class="lead" d="M252 312 L258 254" /><text class="t" x="196" y="328">axon branches</text>
+  <path class="lead" d="M424 24 L398 52" /><text class="t" x="430" y="28">neuromuscular junctions</text>
+  <text class="t" x="455" y="328" text-anchor="middle">muscle fibres</text>
+  <g class="legend">
+    <rect class="sw a" x="300" y="346" width="18" height="12" rx="3" /><text class="t" x="326" y="357">one motor unit: a motor neuron + all its fibres</text>
+    <rect class="sw b" x="300" y="368" width="18" height="12" rx="3" /><text class="t" x="326" y="379">fibres of a second motor unit</text>
+  </g>
+
+  <!-- magnified neuromuscular junction -->
+  <text class="t strong" x="20" y="368">One junction, magnified</text>
+  <path class="mag" d="M330 70 L200 384" />
+  <path class="terminal" d="M20 412 H120 C140 380, 280 378, 300 412 C306 430, 290 444, 270 446 H140 C118 444, 110 430, 118 420 L20 420 Z" />
+  {vesicles.map(([x, y]) => <circle class="ves" cx={x} cy={y} r="7" />)}
+  {ach.map(([x, y]) => <circle class="ach" cx={x} cy={y} r="2.6" />)}
+  <path class="lemma" d="M20 466 H120 l6 14 l10 -14 h12 l6 14 l10 -14 h12 l6 14 l10 -14 h12 l6 14 l10 -14 h12 l6 14 l10 -14 h12 l6 14 l10 -14 H440" />
+  {receptors.map((x) => <rect class="rec" x={x} y="460" width="8" height="8" rx="2" />)}
+  <rect class="fibre-in" x="20" y="482" width="420" height="46" />
+  <path class="stripes in" d="M24 505 H436" />
+
+  <path class="lead" d="M330 400 L292 404" /><text class="t" x="336" y="404">axon terminal of the motor neuron</text>
+  <path class="lead" d="M330 424 L262 406" /><text class="t" x="336" y="428">vesicles of acetylcholine</text>
+  <path class="lead" d="M330 450 L268 454" /><text class="t" x="336" y="452">synaptic cleft</text>
+  <path class="lead" d="M330 474 L290 466" /><text class="t" x="336" y="476">ACh receptors in the sarcolemma</text>
+  <path class="lead" d="M450 506 L436 506" /><text class="t on-fibre" x="456" y="510">muscle fibre</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .t { font-size: 14px; fill: var(--text); }
+  .t.strong { font-weight: 800; }
+  .cord { fill: color-mix(in srgb, var(--text) 8%, var(--surface)); stroke: var(--border-strong); stroke-width: 1.5; }
+  .axon { fill: none; stroke-width: 3; stroke-linecap: round; }
+  .a .axon, .axon.a { stroke: var(--bio-na); }
+  .b .axon, .axon.b { stroke: var(--text-muted); }
+  .cell.a { fill: var(--bio-na); }
+  .cell.b { fill: var(--text-muted); }
+  .nucleus { fill: var(--surface); }
+  .fibre rect { stroke-width: 1.2; }
+  .fibre.a rect { fill: var(--bio-k); stroke: color-mix(in srgb, var(--bio-k) 60%, black); }
+  .fibre.b rect { fill: color-mix(in srgb, var(--bio-k) 28%, var(--surface)); stroke: var(--border-strong); }
+  .stripes { stroke: color-mix(in srgb, black 25%, transparent); stroke-width: 18; stroke-dasharray: 2 5; }
+  .fibre.b .stripes { stroke: color-mix(in srgb, var(--text) 12%, transparent); }
+  .nmj ellipse { stroke: var(--surface); stroke-width: 1; }
+  .nmj.a ellipse { fill: var(--bio-na); }
+  .nmj.b ellipse { fill: var(--text-muted); }
+  .sw.a { fill: var(--bio-k); }
+  .sw.b { fill: color-mix(in srgb, var(--bio-k) 28%, var(--surface)); stroke: var(--border-strong); }
+  .lead { stroke: var(--text); stroke-width: 1.2; fill: none; }
+  .mag { stroke: var(--text-muted); stroke-width: 1.2; stroke-dasharray: 4 4; fill: none; }
+  .terminal { fill: color-mix(in srgb, var(--bio-na) 35%, var(--surface)); stroke: var(--bio-na); stroke-width: 2; }
+  .ves { fill: var(--surface); stroke: var(--bio-na); stroke-width: 1.5; }
+  .ach { fill: var(--bio-glucose); }
+  .lemma { fill: none; stroke: var(--bio-head); stroke-width: 3; }
+  .rec { fill: var(--bio-protein); }
+  .fibre-in { fill: color-mix(in srgb, var(--bio-k) 30%, var(--surface)); }
+  .stripes.in { stroke: color-mix(in srgb, var(--bio-k) 45%, transparent); stroke-width: 44; stroke-dasharray: 10 14; }
+  .on-fibre { font-weight: 700; }
+</style>

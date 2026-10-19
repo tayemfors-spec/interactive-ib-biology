@@ -1,0 +1,73 @@
+cards:
+  - id: c1
+    level: AHL
+    front: Give a motile and a sessile species and one movement adaptation of each.
+    back: Motile — Arctic tern, with long narrow wings and powerful flight muscles for long-distance migration. Sessile — acorn barnacle, cemented to rock, which sweeps its feathery legs (cirri) through the water to filter food; its larvae are motile and disperse.
+  - id: c2
+    level: AHL
+    front: Describe the structure of a skeletal muscle fibre.
+    back: One long multinucleate cell (formed by fusion of cells), bounded by the sarcolemma, packed with parallel myofibrils, with many mitochondria between them and sarcoplasmic reticulum wrapped round each myofibril.
+  - id: c3
+    level: AHL
+    front: What do the A-band, I-band and H-zone contain?
+    back: A-band — the whole length of the myosin filaments (with overlapping actin). I-band — actin only, with a Z-line through the middle. H-zone — myosin only, in the centre of the A-band.
+  - id: c4
+    level: AHL
+    front: Which bands change length when a sarcomere contracts?
+    back: The I-band and H-zone shorten and the Z-lines move closer together. The A-band stays the same length, because the myosin filaments do not shorten — actin slides past them.
+  - id: c5
+    level: AHL
+    front: How does Ca²⁺ start a contraction?
+    back: An action potential makes the sarcoplasmic reticulum release Ca²⁺. Ca²⁺ binds to troponin, which moves tropomyosin off the myosin-binding sites on actin, so myosin heads can bind and form cross-bridges.
+  - id: c6
+    level: AHL
+    front: List the stages of the cross-bridge cycle in order.
+    back: 1 Cocked head (with ADP + Pi) binds actin. 2 Pi released — power stroke pulls actin towards the M-line; ADP released. 3 ATP binds — head detaches. 4 ATP hydrolysed — head re-cocked, ready to bind further along.
+  - id: c7
+    level: AHL
+    front: Give three uses of ATP in muscle contraction and relaxation.
+    back: ATP binding detaches myosin heads from actin; ATP hydrolysis re-cocks the heads; active transport pumps Ca²⁺ back into the sarcoplasmic reticulum so the muscle can relax.
+  - id: c8
+    level: AHL
+    front: What are the roles of titin?
+    back: It anchors each myosin filament to the Z-lines and keeps it centred; it prevents the sarcomere being overstretched; and it stores elastic potential energy when stretched, which helps the sarcomere recoil and adds to the force of the next contraction.
+  - id: c9
+    level: AHL
+    front: Why do skeletal muscles work in antagonistic pairs?
+    back: A muscle exerts force only by contracting, and it can only pull. A relaxed muscle cannot lengthen itself, so it must be stretched by the contraction of another muscle acting in the opposite direction (for example triceps and biceps).
+  - id: c10
+    level: AHL
+    front: What is a motor unit?
+    back: One motor neuron and all the muscle fibres it stimulates, connected by neuromuscular junctions (acetylcholine is the neurotransmitter). All the fibres in the unit contract together when the neuron fires.
+  - id: c11
+    level: AHL
+    front: Compare an arthropod exoskeleton with a vertebrate endoskeleton.
+    back: Exoskeleton — external, made of chitin, muscles attached to its inner surface, must be moulted to grow. Endoskeleton — internal bone and cartilage, muscles attached outside it by tendons, grows with the body. Both anchor muscles and act as levers.
+  - id: c12
+    level: AHL
+    front: In elbow flexion, name the fulcrum, effort and load.
+    back: Fulcrum — the elbow joint. Effort — the pull of the biceps where its tendon joins the radius. Load — the weight of the forearm and hand and anything held.
+  - id: c13
+    level: AHL
+    front: Give the role of each part of the hip joint.
+    back: Femur and pelvis — levers and muscle anchorage; cartilage — smooth surface, reduces friction, absorbs shocks; synovial fluid — lubrication; joint capsule — encloses the joint and holds the fluid; ligaments — join bone to bone, prevent dislocation; muscles — move the femur; tendons — join muscle to bone.
+  - id: c14
+    level: AHL
+    front: How do you measure a joint angle with a goniometer?
+    back: Put the pivot over the centre of the joint, line the fixed arm up with the stationary bone and the moving arm with the moving bone, then read the angle at the end of the movement. Repeat and take a mean; record from the anatomical position (0°).
+  - id: c15
+    level: AHL
+    front: Compare the range of motion of the elbow and the hip.
+    back: The elbow is a hinge joint — flexion and extension in one plane (about 0–145°). The hip is a ball-and-socket joint — flexion/extension, abduction/adduction and rotation, in three planes.
+  - id: c16
+    level: AHL
+    front: How do the intercostal muscles act as an antagonistic pair?
+    back: Their fibres slope in different directions. External intercostals raise the ribs (up and out) in inspiration; internal intercostals lower them (down and in) in forced expiration. Each layer stretches the other, storing energy in its titin.
+  - id: c17
+    level: AHL
+    front: Give the four reasons for locomotion, with an example of each.
+    back: Foraging — dolphins chasing fish. Escaping danger — a scallop swimming away from a starfish. Searching for a mate — male emperor moths following a female's pheromone. Migration — Arctic terns flying between the Arctic and Antarctic.
+  - id: c18
+    level: AHL
+    front: How are marine mammals such as dolphins adapted for swimming?
+    back: Streamlined, tapering body with no hind limbs or ear flaps and hairless skin; forelimbs modified as flippers for steering; horizontal tail flukes beaten up and down for thrust; blowhole on top of the head, closed during dives, with cartilage-reinforced airways for rapid breathing at the surface.

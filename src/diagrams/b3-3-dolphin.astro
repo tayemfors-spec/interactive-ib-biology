@@ -1,0 +1,55 @@
+---
+/**
+ * Swimming adaptations of a marine mammal (B3.3.10): a bottlenose dolphin from the side, with insets of the
+ * flukes seen from above and a section through the body wall. In side view the flukes are seen edge-on,
+ * because they are horizontal (unlike the vertical tail fin of a fish).
+ */
+const body = 'M58 206 C66 199 92 194 122 193 C136 170 172 151 232 146 C330 139 424 160 498 184 L540 192 L540 200 C470 222 382 246 290 249 C212 251 150 236 122 220 C100 215 78 212 58 206 Z';
+const flukeSide = 'M534 190 C560 188 595 189 622 185 C625 191 625 196 622 200 C595 199 560 200 534 200 Z';
+const fin = 'M300 142 C318 122 334 104 360 94 C352 114 352 132 368 148 Z';
+const flipper = 'M172 232 C186 256 206 280 240 294 C230 272 220 254 214 238 Z';
+const bones = 'M182 238 L192 252 M192 252 L206 266 M196 249 L210 262 M206 266 L222 282 M209 263 L227 280 M212 260 L230 276 M203 267 L216 284';
+const flukeTop = 'M470 370 C500 368 515 366 528 364 C548 342 578 326 612 322 C598 340 594 356 600 370 C594 384 598 400 612 418 C578 414 548 398 528 376 C515 374 500 372 470 370 Z';
+---
+<svg viewBox="0 0 640 440" role="img" aria-labelledby="dol-title dol-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="dol-title">Swimming adaptations of a bottlenose dolphin</title>
+  <desc id="dol-desc">Side view of a bottlenose dolphin. The body is streamlined, widest near the front and tapering towards the tail, with a smooth hairless outline, no hind limbs and no external ears. The blowhole, its nostril, is on top of the head. The dorsal fin on the back gives stability. The front limbs are flippers containing arm and finger bones and are used for steering. The tail ends in horizontal flukes, seen edge-on from the side, which are beaten up and down. Insets show the flukes from above as two broad lobes, and a section through the body showing a thick layer of blubber under the skin.</desc>
+
+  <path class="body" d={body} />
+  <path class="body" d={flukeSide} />
+  <path class="body" d={fin} />
+  <path class="body flip" d={flipper} />
+  <path class="bones" d={bones} />
+  <path class="line" d="M60 207 Q92 212 124 210" />
+  <circle class="eye" cx="138" cy="196" r="3.2" />
+  <ellipse class="eye" cx="206" cy="150" rx="7" ry="2.6" />
+  <path class="arrow" d="M604 152 V234 M598 162 L604 150 L610 162 M598 224 L604 236 L610 224" />
+
+  <path class="lead" d="M150 84 L204 147" /><text class="t" x="16" y="58">blowhole: the nostril on top of the</text><text class="t" x="16" y="76">head, closed by a muscular flap in dives</text>
+  <path class="lead" d="M372 64 L354 102" /><text class="t" x="332" y="58">dorsal fin: stability (stops rolling)</text>
+  <path class="lead" d="M560 136 L598 150" /><text class="t" x="470" y="116">flukes beat</text><text class="t" x="470" y="134">up and down</text>
+  <path class="lead" d="M150 300 L212 266" /><text class="t" x="16" y="300">flipper: forelimb with arm</text><text class="t" x="16" y="318">and finger bones; steering</text>
+  <path class="lead" d="M330 268 L330 247" /><text class="t" x="250" y="284">streamlined: widest near the front,</text><text class="t" x="250" y="302">tapering behind; no hind limbs,</text><text class="t" x="250" y="320">no external ears, hairless skin</text>
+
+  <!-- insets -->
+  <circle class="blubber" cx="90" cy="384" r="40" />
+  <circle class="core" cx="90" cy="384" r="27" />
+  <path class="lead" d="M146 380 L126 380" /><text class="t" x="150" y="377">blubber under the skin:</text><text class="t" x="150" y="395">buoyancy, smooth outline</text>
+  <text class="s" x="90" y="436" text-anchor="middle">section through body</text>
+  <path class="body" d={flukeTop} />
+  <text class="s" x="460" y="386" text-anchor="end">tail from above:</text><text class="s" x="460" y="402" text-anchor="end">two horizontal lobes</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .body { fill: color-mix(in srgb, var(--bio-water) 35%, var(--surface)); stroke: color-mix(in srgb, var(--bio-water) 50%, var(--text)); stroke-width: 1.8; }
+  .body.flip { fill: color-mix(in srgb, var(--bio-water) 55%, var(--surface)); }
+  .bones { stroke: var(--text-muted); stroke-width: 2; stroke-linecap: round; fill: none; }
+  .line { stroke: var(--text); stroke-width: 1.4; fill: none; }
+  .eye { fill: var(--text); }
+  .arrow { stroke: var(--warn); stroke-width: 2.5; fill: none; }
+  .blubber { fill: color-mix(in srgb, var(--bio-tail) 70%, var(--surface)); stroke: var(--text-muted); stroke-width: 1.5; }
+  .core { fill: color-mix(in srgb, var(--bio-k) 40%, var(--surface)); stroke: var(--text-muted); stroke-width: 1; }
+  .t { font-size: 14px; fill: var(--text); }
+  .s { font-size: 13px; fill: var(--text-muted); }
+  .lead { stroke: var(--text); stroke-width: 1.2; fill: none; }
+</style>

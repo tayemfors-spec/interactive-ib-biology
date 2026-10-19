@@ -1,0 +1,139 @@
+---
+/**
+ * Exam-style sarcomere, relaxed above and contracted below (B3.3.2). Lengths are to scale from the
+ * sliding filament model in src/scenes/b3-3-kit.ts (200 px per µm): the myosin filaments, and so the A-band,
+ * are the same length in both; the I-bands and H-zone are shorter when contracted.
+ */
+import { SARC, bandsAt } from '../scenes/b3-3-kit';
+
+const PX = 200;
+const CX = 320;
+const MH = (SARC.myosin / 2) * PX; // 160
+const rows = [
+  { y0: 160, b: bandsAt(SARC.relaxed), title: 'Relaxed' },
+  { y0: 420, b: bandsAt(SARC.contracted), title: 'Contracted' },
+];
+const myoY = [-32, 0, 32];
+const actY = [-48, -16, 16, 48];
+
+const heads = (y: number) => {
+  let d = '';
+  for (const side of [1, -1])
+    for (let x = 20; x < MH - 4; x += 12)
+      for (const edge of [-1, 1]) {
+        const x0 = CX + side * x;
+        const y0 = y + edge * 4.5;
+        d += `M${x0} ${y0} l${side * 5} ${edge * 6} `;
+      }
+  return d;
+};
+const zigzag = (x0: number, x1: number, y: number, n = 9) => {
+  const pts = Array.from({ length: n + 1 }, (_, i) => `${(x0 + ((x1 - x0) * i) / n).toFixed(1)} ${i === 0 || i === n ? y : y + (i % 2 ? -4 : 4)}`);
+  return `M${pts.join(' L')}`;
+};
+const bracket = (x0: number, x1: number, y: number) => `M${x0} ${y - 6} V${y} H${x1} V${y - 6}`;
+
+const markers = [
+  { n: 1, x: 80, to: [80, 224] },
+  { n: 2, x: 180, to: [180, 210] },
+  { n: 3, x: 290, to: [296, 198] },
+  { n: 4, x: 350, to: [323, 206] },
+  { n: 5, x: 440, to: [440, 202] },
+  { n: 6, x: 520, to: [520, 196] },
+];
+const key = [
+  'Z-line (Z-disc): the end of the sarcomere, where actin filaments are anchored',
+  'Thin filament (actin), fixed to a Z-line at one end',
+  'Thick filament (myosin), centred on the M-line',
+  'M-line: the centre of the sarcomere, holding the myosin filaments together',
+  'Myosin heads, which form cross-bridges with actin',
+  'Titin: elastic protein joining each myosin filament to the Z-line',
+];
+---
+<div class="exam-diagram">
+  <svg viewBox="0 0 640 520" role="img" aria-labelledby="sarc-title sarc-desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="sarc-title">A sarcomere relaxed and contracted</title>
+    <desc id="sarc-desc">Two drawings of the same sarcomere between Z-lines. Thin actin filaments are attached to each Z-line and thick myosin filaments with heads sit in the centre, held at the M-line; titin joins the ends of the myosin to the Z-lines. Brackets mark the sarcomere, the A-band, the I-bands and the H-zone. In the contracted sarcomere the Z-lines are closer together because the actin has slid further between the myosin. Dashed guide lines show that the A-band is the same length in both drawings, while the I-bands and H-zone are shorter.</desc>
+
+    {rows.map(({ y0, b, title }, r) => {
+      const zx = (b.L / 2) * PX;
+      const zL = CX - zx, zR = CX + zx;
+      const tip = b.actinTip * PX;
+      return (
+        <g>
+          <text class="title" x="12" y={y0 - 138}>{title}</text>
+          <rect class="aband" x={CX - MH} y={y0 - 62} width={2 * MH} height="124" />
+          {/* neighbouring sarcomeres' actin, beyond each Z-line */}
+          {actY.map((dy) => <path class="actin faint" d={`M${zL - 30} ${y0 + dy} H${zL} M${zR} ${y0 + dy} H${zR + 30}`} />)}
+          {actY.map((dy) => <path class="actin" d={`M${zL} ${y0 + dy} H${CX - tip} M${CX + tip} ${y0 + dy} H${zR}`} />)}
+          {myoY.map((dy) => <path class="titin" d={`${zigzag(CX - MH, zL, y0 + dy)} ${zigzag(CX + MH, zR, y0 + dy)}`} />)}
+          {myoY.map((dy) => <rect class="myosin" x={CX - MH} y={y0 + dy - 4.5} width={2 * MH} height="9" rx="4" />)}
+          <path class="heads" d={myoY.map((dy) => heads(y0 + dy)).join(' ')} />
+          <path class="mline" d={`M${CX} ${y0 - 50} V${y0 + 50}`} />
+          <path class="zline" d={`M${zL} ${y0 - 62} V${y0 + 62} M${zR} ${y0 - 62} V${y0 + 62}`} />
+
+          <path class="br" d={bracket(zL, zR, y0 - 130)} />
+          <text class="bl" x={CX} y={y0 - 138}>sarcomere</text>
+          <path class="br" d={bracket(CX - tip, CX + tip, y0 - 104)} />
+          <text class="bl" x={CX} y={y0 - 112}>H-zone</text>
+          <path class="br" d={bracket(zL, CX - MH, y0 - 78)} />
+          <path class="br" d={bracket(CX - MH, CX + MH, y0 - 78)} />
+          <path class="br" d={bracket(CX + MH, zR, y0 - 78)} />
+          <text class="bl" x={(zL + CX - MH) / 2} y={y0 - 86}>I-band</text>
+          <text class="bl" x={CX} y={y0 - 86}>A-band</text>
+          <text class="bl" x={(zR + CX + MH) / 2} y={y0 - 86}>I-band</text>
+
+          {r === 1 && (
+            <g>
+              <path class="ghostz" d={`M${CX - rows[0]!.b.L / 2 * PX} ${y0 - 62} V${y0 + 62} M${CX + rows[0]!.b.L / 2 * PX} ${y0 - 62} V${y0 + 62}`} />
+              <path class="arrow" d={`M${CX - rows[0]!.b.L / 2 * PX + 3} ${y0 + 72} H${zL - 3} M${zL - 9} ${y0 + 67} L${zL - 3} ${y0 + 72} L${zL - 9} ${y0 + 77}`} />
+              <path class="arrow" d={`M${CX + rows[0]!.b.L / 2 * PX - 3} ${y0 + 72} H${zR + 3} M${zR + 9} ${y0 + 67} L${zR + 3} ${y0 + 72} L${zR + 9} ${y0 + 77}`} />
+              <text class="note" x={CX} y={y0 + 92}>Z-lines pulled closer together; actin and myosin do not change length</text>
+            </g>
+          )}
+        </g>
+      );
+    })}
+
+    <!-- guides: the ends of the A-band line up in both drawings -->
+    <path class="guide" d={`M${CX - MH} 82 V482 M${CX + MH} 82 V482`} />
+
+    <g class="markers">
+      {markers.map((m) => (
+        <g>
+          <path class="lead" d={`M${m.x} 234 L${m.to[0]} ${m.to[1]}`} />
+          <circle cx={m.x} cy="246" r="12" />
+          <text x={m.x} y="246" dy="0.36em" text-anchor="middle">{m.n}</text>
+        </g>
+      ))}
+    </g>
+  </svg>
+  <ol class="key">
+    {key.map((k) => <li>{k}</li>)}
+  </ol>
+</div>
+
+<style>
+  .exam-diagram svg { font-family: var(--font-sans); }
+  .title { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .aband { fill: color-mix(in srgb, var(--text) 7%, transparent); }
+  .actin { stroke: var(--bio-protein); stroke-width: 3; fill: none; }
+  .actin.faint { opacity: 0.4; }
+  .myosin { fill: var(--bio-protein-2); }
+  .heads { stroke: var(--bio-protein-2); stroke-width: 2; fill: none; stroke-linecap: round; }
+  .titin { stroke: var(--bio-carb); stroke-width: 1.6; fill: none; }
+  .mline { stroke: var(--bio-head); stroke-width: 3; }
+  .zline { stroke: var(--text); stroke-width: 5; }
+  .ghostz { stroke: var(--text-muted); stroke-width: 2; stroke-dasharray: 4 4; }
+  .arrow { stroke: var(--text-muted); stroke-width: 1.6; fill: none; }
+  .note { font-size: 13px; fill: var(--text-muted); font-style: italic; text-anchor: middle; }
+  .br { stroke: var(--text); stroke-width: 1.5; fill: none; }
+  .bl { font-size: 14px; font-weight: 700; fill: var(--text); text-anchor: middle; }
+  .guide { stroke: var(--text-muted); stroke-width: 1.3; stroke-dasharray: 2 5; }
+  .markers circle { fill: var(--surface); stroke: var(--text); stroke-width: 1.8; }
+  .markers text { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .lead { stroke: var(--text); stroke-width: 1.3; }
+  .key { columns: 2 17rem; column-gap: var(--space-5); margin: var(--space-3) 0 0; padding: 0; list-style: none; counter-reset: k; font-size: var(--step--1); }
+  .key li { break-inside: avoid; margin: 0 0 0.3rem; display: grid; grid-template-columns: 1.7rem 1fr; counter-increment: k; }
+  .key li::before { content: counter(k); font-weight: 800; display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; border: 1.5px solid var(--text); border-radius: 50%; font-size: 0.75rem; margin-top: 0.1rem; }
+</style>

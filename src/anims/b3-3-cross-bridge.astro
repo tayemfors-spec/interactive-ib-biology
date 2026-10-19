@@ -1,0 +1,91 @@
+---
+/**
+ * Cross-bridge cycle (B3.3.2). Right-hand half of a sarcomere: M-line off to the left, Z-line to the right.
+ * Drawn in the step-1 starting state; animated by b3-3-cross-bridge.ts (keep the constants in step).
+ */
+const BEAD = 23.25; // actin subunit spacing
+const SITE0 = 336; // binding site opposite the cocked head
+const SITES = [-3, -2, -1, 0, 1, 2].map((k) => SITE0 + 4 * BEAD * k);
+const beadsTop = Array.from({ length: 30 }, (_, i) => -40 + i * BEAD);
+const beadsBot = beadsTop.map((x) => x + BEAD / 2);
+const caSR = [[40, 44], [66, 50], [92, 42], [118, 50], [144, 44], [170, 50]];
+const ghosts = [100, 190, 370, 460];
+---
+<svg viewBox="0 0 520 360" xmlns="http://www.w3.org/2000/svg" class="xb">
+  <!-- sarcoplasmic reticulum -->
+  <rect class="sr" x="12" y="12" width="200" height="54" rx="22" />
+  <text class="lbl" x="112" y="28" text-anchor="middle">sarcoplasmic reticulum</text>
+  <circle class="ca" cx="232" cy="38" r="7" /><text class="lbl" x="244" y="43">= Ca²⁺</text>
+
+  <!-- counters -->
+  <g class="counters">
+    <rect x="330" y="10" width="182" height="52" rx="8" />
+    <text x="342" y="31" data-el="cStroke">Power strokes: 0</text>
+    <text x="342" y="51" data-el="cATP">ATP used by this head: 0</text>
+  </g>
+
+  <!-- thin filament: actin beads, binding sites, tropomyosin and troponin move together -->
+  <g data-el="actin" transform="translate(0 0)">
+    {beadsTop.map((x) => <circle class="actin" cx={x} cy="138" r="11.5" />)}
+    {beadsBot.map((x) => <circle class="actin" cx={x} cy="160" r="11.5" />)}
+    {SITES.map((x) => <rect class="site" x={x - 7} y="164" width="14" height="9" rx="2" />)}
+    <g data-el="tropo" transform="translate(0 0)">
+      <path class="tropo" d="M-60 168 H620" />
+      {SITES.map((x) => <g class="tn"><circle cx={x + 46} cy="176" r="8" /><circle cx={x + 56} cy="172" r="6" /></g>)}
+    </g>
+  </g>
+  <text class="lbl" x="508" y="112" text-anchor="end">thin filament (actin)</text>
+
+  <!-- thick filament and the heads that are not followed -->
+  <rect class="thick" x="-10" y="287" width="540" height="26" rx="6" />
+  <text class="on-thick" x="80" y="305">thick filament (myosin)</text>
+  {ghosts.map((x) => <g class="ghost" transform={`translate(${x} 287) rotate(22)`}><path d="M0 0 L0 -50" /><ellipse cx="0" cy="-66" rx="11" ry="20" /></g>)}
+
+  <!-- the myosin head followed through the cycle (drawn by the driver; start = cocked, detached) -->
+  <path data-el="neck" class="neck" d="M289.5 287 L306.9 244.6" />
+  <ellipse data-el="head" class="head" cx="316" cy="222.6" rx="13" ry="23.8" transform="rotate(22.4 316 222.6)" />
+
+  <!-- energy carriers on or near the head -->
+  <g data-el="adp" class="tok" transform="translate(347.4 235.5)"><rect class="adp" x="-21" y="-11" width="42" height="22" rx="11" /><text text-anchor="middle" dy="0.35em" data-el="adpT">ADP</text></g>
+  <g data-el="pi" class="tok" transform="translate(293.8 213.5)"><circle class="pi" r="11" /><text text-anchor="middle" dy="0.35em">Pi</text></g>
+  <g data-el="atp" class="tok" style="opacity:0" transform="translate(230 330)"><rect class="adp" x="-21" y="-11" width="42" height="22" rx="11" /><text text-anchor="middle" dy="0.35em">ATP</text></g>
+
+  <!-- calcium ions -->
+  {caSR.map(([x, y], i) => <circle data-el={`ca${i}`} class="ca" cx={x} cy={y} r="7" />)}
+
+  <!-- labels with leaders the driver keeps attached -->
+  <path data-el="lTropo" class="lead" d="M92 208 L64 168" />
+  <text class="lbl" x="14" y="222">tropomyosin</text>
+  <path data-el="lTn" class="lead" d="M118 234 L102 182" />
+  <text class="lbl" x="104" y="248">troponin</text>
+  <path data-el="lSite" class="lead" d="M440 208 L429 173" />
+  <text class="lbl" x="420" y="222">binding site</text>
+  <path data-el="lHead" class="lead" d="M372 254 L328 228" />
+  <text class="lbl" x="376" y="258">myosin head</text>
+
+  <text class="dir" x="12" y="346">← towards the M-line</text>
+  <text class="dir" x="508" y="346" text-anchor="end">Z-line →</text>
+</svg>
+<style>
+  .xb { font-family: var(--font-sans); }
+  .sr { fill: color-mix(in srgb, var(--bio-water) 18%, var(--surface)); stroke: var(--bio-water); stroke-width: 2; }
+  .lbl { font-size: 13px; font-weight: 600; fill: var(--text); }
+  .dir { font-size: 13px; font-weight: 700; fill: var(--text-muted); }
+  .actin { fill: var(--bio-protein); stroke: color-mix(in srgb, var(--bio-protein) 60%, black); stroke-width: 1; }
+  .site { fill: var(--bio-carb); stroke: color-mix(in srgb, var(--bio-carb) 55%, black); stroke-width: 1; }
+  .tropo { stroke: var(--bio-head); stroke-width: 7; stroke-linecap: round; fill: none; }
+  .tn circle { fill: var(--bio-chol); stroke: color-mix(in srgb, var(--bio-chol) 55%, black); stroke-width: 1; }
+  .thick { fill: var(--bio-protein-2); stroke: color-mix(in srgb, var(--bio-protein-2) 60%, black); stroke-width: 1.2; }
+  .on-thick { font-size: 13px; font-weight: 700; fill: #fff; }
+  .ghost { opacity: 0.35; }
+  .ghost path, .neck { stroke: var(--bio-protein-2); stroke-width: 7; stroke-linecap: round; fill: none; }
+  .ghost ellipse { fill: var(--bio-protein-2); }
+  .head { fill: var(--bio-protein-2); stroke: var(--text); stroke-width: 1.5; }
+  .adp { fill: var(--bio-head); }
+  .pi { fill: var(--bio-glucose); }
+  .tok text { font-size: 11px; font-weight: 800; fill: #000; }
+  .ca { fill: var(--bio-glucose); stroke: color-mix(in srgb, var(--bio-glucose) 50%, black); stroke-width: 1.2; }
+  .lead { stroke: var(--text); stroke-width: 1.2; fill: none; }
+  .counters rect { fill: var(--surface); stroke: var(--border-strong); }
+  .counters text { font-size: 13px; font-weight: 700; fill: var(--text); }
+</style>

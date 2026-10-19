@@ -1,0 +1,51 @@
+---
+/**
+ * Internal and external intercostal muscles (B3.3.8), drawn from the same geometry as the animation
+ * (src/anims/b3-3-antagonistic.ts): ribs raised by the external layer, lowered by the internal layer.
+ */
+import { LOWERED, RAISED, ribs } from '../anims/b3-3-antagonistic';
+const panels = [
+  { x: 0, g: ribs(RAISED), title: 'Inspiration', a: 'external intercostals contract', b: 'internal intercostals stretched', on: 'ext' },
+  { x: 324, g: ribs(LOWERED), title: 'Forced expiration', a: 'internal intercostals contract', b: 'external intercostals stretched', on: 'int' },
+];
+const vertebrae = Array.from({ length: 6 }, (_, i) => 34 + i * 46);
+---
+<svg viewBox="0 0 640 400" role="img" aria-labelledby="ic-title ic-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="ic-title">Antagonistic action of the external and internal intercostal muscles</title>
+  <desc id="ic-desc">Two side views of three ribs joined to the vertebral column at the back and the sternum at the front. Between neighbouring ribs, external intercostal fibres slope downwards and forwards, and internal intercostal fibres slope downwards and backwards, at an angle to the external fibres. In inspiration the external intercostals contract and the ribs are raised, moving the sternum up and forwards; the internal layer is stretched. In forced expiration the internal intercostals contract and the ribs are lowered; the external layer is stretched.</desc>
+  {panels.map((p) => (
+    <g transform={`translate(${p.x} 0)`}>
+      <text class="h" x="14" y="22">{p.title}</text>
+      <g transform="translate(-30 26) scale(0.78)">
+        {vertebrae.map((y) => <rect class="vert" x="48" y={y} width="28" height="38" rx="7" />)}
+        <path class={p.on === 'int' ? 'int on' : 'int'} d={p.g.int} />
+        <path class={p.on === 'ext' ? 'ext on' : 'ext'} d={p.g.ext} />
+        {p.g.ribPaths.map((d) => <path class="rib" d={d} />)}
+        <path class="rib" d={p.g.sternum} />
+      </g>
+      <text class="t strong" x="14" y="344">{p.a}</text>
+      <text class="t" x="14" y="362">{p.b}</text>
+      <text class="s" x="14" y="384">{p.on === 'ext' ? 'ribs up and out; thorax volume increases' : 'ribs down and in; thorax volume decreases'}</text>
+    </g>
+  ))}
+  <path class="divider" d="M318 10 V390" />
+  <g class="legend">
+    <path class="ext on" d="M196 300 h24" /><text class="t" x="226" y="305">external</text>
+    <path class="int on" d="M196 320 h24" /><text class="t" x="226" y="325">internal</text>
+  </g>
+  <text class="s" x="262" y="56" text-anchor="end">sternum (front) →</text>
+  <text class="s" x="14" y="300">vertebrae</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .h { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .t { font-size: 14px; fill: var(--text); }
+  .t.strong { font-weight: 700; }
+  .s { font-size: 13px; fill: var(--text-muted); }
+  .divider { stroke: var(--border); stroke-width: 1.5; }
+  .vert { fill: color-mix(in srgb, var(--bio-tail) 55%, var(--surface)); stroke: var(--text-muted); stroke-width: 1.2; }
+  .rib { fill: none; stroke: color-mix(in srgb, var(--bio-tail) 75%, var(--text-muted)); stroke-width: 9; stroke-linecap: round; }
+  .ext { fill: none; stroke: var(--bio-k); stroke-width: 2; opacity: 0.6; }
+  .int { fill: none; stroke: var(--bio-protein-2); stroke-width: 2; stroke-dasharray: 5 3; opacity: 0.6; }
+  .ext.on, .int.on { stroke-width: 3.6; opacity: 1; }
+</style>

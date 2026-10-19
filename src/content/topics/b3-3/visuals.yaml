@@ -1,0 +1,209 @@
+# Visuals for B3.3 (all AHL). Label and step text here is what readers see in the 3D viewer, the animations
+# and the text descriptions, so it is written to exam standard. Label ids must match anchors in the scene modules.
+visuals:
+  - id: muscle
+    kind: viewer3d
+    level: AHL
+    title: A sarcomere and the sliding filaments in 3D
+    alt: One sarcomere with actin and myosin filaments, titin and Z-lines; steps show the filaments sliding as it contracts.
+    description: >-
+      The first model is a single sarcomere seen from the side, running from one Z-line to the next. Thin actin
+      filaments are attached to each Z-line and point towards the centre; thick myosin filaments sit in the middle,
+      held together at the M-line, with myosin heads projecting towards the actin everywhere except a bare zone in
+      the centre. Each thick filament is surrounded by six thin filaments. Coiled titin molecules join the ends of
+      the thick filaments to the Z-lines. Coloured brackets above the sarcomere mark the I-bands (actin only), the
+      A-band (the length of the myosin filaments) and the H-zone (myosin only). In five steps, calcium ions appear,
+      myosin heads bind to actin, the actin filaments slide towards the M-line and the sarcomere shortens: the
+      A-band stays the same length while the I-bands and H-zone shorten, compared with faint brackets showing the
+      relaxed lengths. In the last step the heads detach and the sarcomere is stretched again, stretching the titin.
+      A second model shows the levels of organisation: a whole muscle with its tendon, a bundle of muscle fibres,
+      one multinucleate fibre with its sarcolemma, nuclei, mitochondria, sarcoplasmic reticulum and myofibrils, and
+      a single myofibril made of sarcomeres.
+    scenes:
+      - id: sarcomere
+        module: b3-3-sarcomere
+        title: Sliding filaments
+        labels:
+          - id: z-line
+            level: AHL
+            name: Z-line (Z-disc)
+            text: The boundary between one sarcomere and the next. Thin actin filaments of both neighbouring sarcomeres are anchored here, and titin is attached to it. As the sarcomere contracts, its two Z-lines are pulled closer together.
+          - id: m-line
+            level: AHL
+            name: M-line
+            text: The line at the centre of the sarcomere where the thick myosin filaments are held together. It lies in the middle of the A-band and the H-zone, and the actin filaments are pulled towards it.
+          - id: actin
+            level: AHL
+            name: Thin filament (actin)
+            text: Two twisted chains of globular actin subunits, with tropomyosin and troponin. Each is fixed to a Z-line at one end, and its free end overlaps the myosin. It slides towards the M-line but does not change length.
+          - id: myosin
+            level: AHL
+            name: Thick filament (myosin)
+            text: A bundle of myosin molecules about 1.6 µm long, centred on the M-line. In the lattice each thick filament is surrounded by six thin filaments. Its length sets the length of the A-band.
+          - id: myosin-head
+            level: AHL
+            name: Myosin heads
+            text: Project from the thick filament towards actin, except in the bare zone at the centre. Each head binds actin to form a cross-bridge, pulls it towards the M-line (power stroke), then uses ATP to detach and re-cock.
+          - id: titin
+            level: AHL
+            name: Titin
+            text: A giant elastic protein running from the Z-line along each thick filament to the M-line. In the I-band it acts as a spring. It keeps myosin centred, prevents overstretching and stores energy when stretched.
+          - id: a-band
+            level: AHL
+            name: A-band (dark band)
+            text: The length of the thick filaments, including the parts that overlap actin. It looks dark in micrographs. Its length does not change when the sarcomere contracts, because the filaments themselves do not shorten.
+          - id: i-band
+            level: AHL
+            name: I-band (light band)
+            text: The region with thin filaments only (no myosin), on either side of a Z-line. Each sarcomere contains half of two I-bands. The I-band shortens during contraction as actin slides further into the A-band.
+          - id: h-zone
+            level: AHL
+            name: H-zone
+            text: The central part of the A-band where there is myosin but no overlapping actin. It shortens during contraction and almost disappears when the free ends of the actin filaments nearly meet.
+        steps:
+          - id: relaxed
+            level: AHL
+            title: A relaxed sarcomere
+            caption: The sarcomere runs from one Z-line to the next. Actin filaments are fixed to the Z-lines and myosin filaments are centred on the M-line. The myosin heads are cocked but cannot bind to actin yet. Brackets mark the I-bands (actin only), the A-band (the length of the myosin) and the H-zone (myosin only).
+          - id: calcium
+            level: AHL
+            title: Ca²⁺ arrives and cross-bridges form
+            caption: Stimulation by a motor neuron makes the sarcoplasmic reticulum release Ca²⁺ (yellow). Ca²⁺ binds to troponin and tropomyosin moves aside, exposing binding sites on actin. Myosin heads where the filaments overlap bind to actin, forming cross-bridges. Heads in the H-zone have no actin to reach.
+          - id: sliding
+            level: AHL
+            title: Actin slides towards the M-line
+            caption: Each head makes a power stroke that pulls the actin towards the M-line, then uses ATP to detach, re-cocks and binds again further along. The heads work out of step, so the filaments slide smoothly. The Z-lines are pulled closer together and the sarcomere shortens.
+          - id: compare
+            level: AHL
+            title: Compare the bands
+            caption: The faint brackets below show the relaxed lengths. The A-band has not changed, because the myosin filaments are the same length. The I-bands and the H-zone are shorter, because actin and myosin now overlap more. No filament has shortened — they have slid past each other.
+          - id: relax
+            level: AHL
+            title: Relaxation and stretching
+            caption: Ca²⁺ is pumped back into the sarcoplasmic reticulum, tropomyosin covers the binding sites and the heads detach. A sarcomere cannot lengthen itself, so it is pulled longer by the antagonistic muscle. The titin is stretched, storing potential energy, and stops the filaments being pulled apart.
+      - id: hierarchy
+        module: b3-3-hierarchy
+        title: Muscle to myofibril
+        labels:
+          - id: muscle
+            level: AHL
+            name: Skeletal muscle
+            text: An organ made of many bundles of muscle fibres wrapped in connective tissue and attached to bones by tendons. The cut end shows the bundles. A muscle exerts force only when it contracts, and then it can only pull.
+          - id: tendon
+            level: AHL
+            name: Tendon
+            text: A tough cord of collagen-rich connective tissue joining muscle to bone. It stretches very little, so it passes the force of contraction on to the bone.
+          - id: fascicle
+            level: AHL
+            name: Bundle of fibres
+            text: Muscle fibres lie parallel to each other in bundles (fascicles), each wrapped in a sheath of connective tissue. A muscle contains many such bundles.
+          - id: muscle-fibre
+            level: AHL
+            name: Muscle fibre
+            text: One long cell, formed by the fusion of many cells during development, so it is multinucleate. Fibres are typically 10–100 µm wide and can be several centimetres long.
+          - id: sarcolemma
+            level: AHL
+            name: Sarcolemma
+            text: The plasma membrane of the muscle fibre. It carries action potentials, which pass deep into the fibre along T-tubules (infoldings of the sarcolemma) and trigger release of Ca²⁺.
+          - id: nuclei
+            level: AHL
+            name: Many nuclei
+            text: A fibre has many nuclei, lying at the edge just under the sarcolemma. They come from the many cells that fused to form the fibre.
+          - id: mitochondria
+            level: AHL
+            name: Mitochondria
+            text: Numerous mitochondria lie between the myofibrils. Aerobic respiration in them supplies the ATP used by myosin heads and by the Ca²⁺ pumps of the sarcoplasmic reticulum.
+          - id: sr
+            level: AHL
+            name: Sarcoplasmic reticulum
+            text: A specialised endoplasmic reticulum forming a network of membrane tubules around every myofibril. It stores Ca²⁺, releases it when the fibre is stimulated and pumps it back by active transport.
+          - id: myofibril
+            level: AHL
+            name: Myofibril
+            text: Cylinders about 1–2 µm wide, packed side by side along the whole length of the fibre. Each is a chain of sarcomeres, and the bands line up across neighbouring myofibrils, so the fibre looks striated.
+          - id: sarcomere
+            level: AHL
+            name: Sarcomere
+            text: The repeating unit of a myofibril, from one Z-line to the next, about 2–2.5 µm long at rest. Thousands of sarcomeres in series shorten together, so the whole muscle shortens.
+          - id: z-line
+            level: AHL
+            name: Z-lines
+            text: Narrow dark lines at the boundaries between sarcomeres. Along the myofibril, dark A-bands alternate with light I-bands, and a Z-line runs through the middle of each I-band.
+
+  - id: cross-bridge
+    kind: anim
+    module: b3-3-cross-bridge
+    level: AHL
+    title: The cross-bridge cycle
+    alt: Step-by-step diagram of calcium exposing binding sites on actin and a myosin head binding, pulling and detaching using ATP.
+    description: >-
+      A close-up of part of one thin filament above part of one thick filament, in the right-hand half of a sarcomere,
+      so the M-line is off to the left and the Z-line to the right. The thin filament is a chain of actin subunits
+      with a tropomyosin strand and troponin. A piece of sarcoplasmic reticulum at the top left stores calcium ions.
+      One myosin head is followed through its cycle in seven steps, with counters for the number of power strokes
+      made and the ATP used by the head.
+    steps:
+      - id: release
+        level: AHL
+        title: Ca²⁺ is released
+        caption: An action potential from a motor neuron spreads along the sarcolemma and down the T-tubules. This causes the sarcoplasmic reticulum to release calcium ions into the fluid around the myofibrils.
+      - id: expose
+        level: AHL
+        title: Binding sites are exposed
+        caption: Ca²⁺ binds to troponin. Troponin changes shape and moves tropomyosin, which had been covering the myosin-binding sites on actin. The binding sites are now exposed.
+      - id: attach
+        level: AHL
+        title: A cross-bridge forms
+        caption: The myosin head is already cocked and holds ADP and a phosphate (Pi). It binds to an exposed binding site on actin. The attached head is a cross-bridge.
+      - id: stroke
+        level: AHL
+        title: Power stroke
+        caption: Release of Pi triggers the power stroke. The head swivels towards the M-line, pulling the actin filament along with it by a few nanometres. ADP is released at the end of the stroke.
+      - id: detach
+        level: AHL
+        title: ATP binds and the head detaches
+        caption: A new ATP molecule binds to the myosin head, which makes the head let go of actin, so the cross-bridge breaks. Without ATP the heads stay attached, which is why muscles go rigid after death (rigor mortis).
+      - id: recock
+        level: AHL
+        title: ATP hydrolysis re-cocks the head
+        caption: The myosin head hydrolyses ATP to ADP and Pi, which stay bound. The energy released swings the head back to its cocked position, opposite a binding site further along the actin. While Ca²⁺ is present the cycle repeats.
+      - id: relax
+        level: AHL
+        title: Relaxation
+        caption: When stimulation stops, Ca²⁺ is pumped back into the sarcoplasmic reticulum by active transport, using ATP. Tropomyosin covers the binding sites again, so no new cross-bridges can form and the muscle relaxes.
+
+  - id: antagonistic
+    kind: anim
+    module: b3-3-antagonistic
+    level: AHL
+    title: Antagonistic muscles at the elbow and the ribs
+    alt: The biceps and triceps take turns to bend and straighten the arm, a goniometer measures the elbow angle, and intercostals move the ribs.
+    description: >-
+      The first part shows a human arm from the side, with the humerus in the upper arm, the radius and ulna in the
+      forearm and the elbow joint between them. The biceps runs down the front of the upper arm to a tendon on the
+      radius; the triceps runs down the back to a tendon on the point of the ulna behind the elbow. Each muscle is
+      drawn shorter and fatter when it contracts and longer and thinner when it is stretched. A goniometer is then
+      placed over the elbow to measure the range of flexion. The second part shows three ribs from the side, between
+      the vertebral column and the sternum, with external intercostal fibres sloping one way and internal intercostal
+      fibres sloping the other. Contraction of one layer raises or lowers the ribs and stretches the other layer.
+    steps:
+      - id: flex
+        level: AHL
+        title: Biceps contracts — the elbow flexes
+        caption: The biceps contracts and shortens, pulling on its tendon, which is attached to the radius just below the elbow. The forearm rotates about the elbow joint, which acts as the fulcrum, and the arm bends. The triceps relaxes and is stretched, which also stretches the titin in its sarcomeres.
+      - id: extend
+        level: AHL
+        title: Triceps contracts — the elbow extends
+        caption: Now the triceps contracts, pulling on the ulna behind the elbow, and the arm straightens. The relaxed biceps is pulled back to its full length and the titin in it stores energy. Each muscle of the pair can only pull, so each one has to be lengthened by the other.
+      - id: measure
+        level: AHL
+        title: Measuring range of motion
+        caption: The pivot of a goniometer is placed over the elbow, with its fixed arm along the upper arm and its moving arm along the forearm. The person bends the elbow as far as possible. Flexion is read from 0° (arm straight) to about 145°. This hinge joint moves in one plane only.
+      - id: inhale
+        level: AHL
+        title: External intercostals — ribs up and out
+        caption: Between neighbouring ribs are two layers of intercostal muscle whose fibres slope in different directions. When the external intercostals contract, the ribs are pulled upwards and outwards. The thorax gets bigger, so air is drawn into the lungs, and the internal intercostals are stretched.
+      - id: exhale
+        level: AHL
+        title: Internal intercostals — ribs down and in
+        caption: In forced expiration the internal intercostals contract. Their fibres slope the opposite way, so they pull the ribs downwards and inwards, the thorax gets smaller and air is pushed out. This stretches the external intercostals, storing potential energy in their titin.

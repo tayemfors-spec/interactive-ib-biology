@@ -1,0 +1,73 @@
+---
+/**
+ * Range of motion at the hip in three planes (B3.3.7). Angles are measured from the anatomical position
+ * (leg straight down = 0°). Values are typical adult active ranges and vary between people.
+ */
+const R = 70;
+const CY = 100;
+type P = readonly [number, number];
+/** deg measured from straight down; + = anticlockwise on screen (towards the right of the figure). */
+const ray = (cx: number, deg: number, r = R): P => {
+  const a = (deg * Math.PI) / 180;
+  return [cx + r * Math.sin(a), CY + r * Math.cos(a)];
+};
+const f = (p: P) => `${p[0].toFixed(1)} ${p[1].toFixed(1)}`;
+const arc = (cx: number, from: number, to: number, r: number) =>
+  `M${f(ray(cx, from, r))} A${r} ${r} 0 ${Math.abs(to - from) > 180 ? 1 : 0} ${to > from ? 0 : 1} ${f(ray(cx, to, r))}`;
+const leg = (cx: number, deg: number, r0 = 0, r = R) => `M${f(ray(cx, deg, r0))} L${f(ray(cx, deg, r))}`;
+const panels = [
+  { cx: 107, title: 'Flexion and extension', view: '(left leg, side view)', a: 120, b: -30, r0: 0 },
+  { cx: 320, title: 'Abduction and adduction', view: '(left leg, front view)', a: 45, b: -30, r0: 0 },
+  { cx: 533, title: 'Rotation', view: '(left leg, from above)', a: 45, b: -45, r0: 22 },
+];
+const labels: { x: number; y: number; t: string; v: string }[] = [
+  { x: 174, y: 84, t: 'flexion', v: '≈ 120°' },
+  { x: 14, y: 188, t: 'extension', v: '≈ 30°' },
+  { x: 376, y: 150, t: 'abduction', v: '≈ 45°' },
+  { x: 232, y: 188, t: 'adduction', v: '≈ 30°' },
+  { x: 572, y: 188, t: 'lateral', v: '≈ 45°' },
+  { x: 452, y: 188, t: 'medial', v: '≈ 45°' },
+];
+---
+<svg viewBox="0 0 640 290" role="img" aria-labelledby="rom-title rom-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="rom-title">Range of motion of the hip in three planes</title>
+  <desc id="rom-desc">Three diagrams of movement at the hip, measured from the leg hanging straight down (0°). From the side, the thigh can be flexed forwards to about 120° and extended backwards to about 30°. From the front, it can be abducted away from the midline to about 45° and adducted across it to about 30°. Seen from above, the thigh can rotate medially (inwards) and laterally (outwards) by about 45° each way.</desc>
+
+  <!-- side view: trunk; front view: pelvis -->
+  <path class="trunk" d="M107 92 V52" /><circle class="joint" cx="107" cy="46" r="9" />
+  <path class="trunk" d="M276 92 H364" />
+  <circle class="thigh" cx="533" cy={CY} r="22" />
+
+  {panels.map((p) => (
+    <g>
+      <text class="h" x={p.cx} y="18" text-anchor="middle">{p.title}</text>
+      <text class="s" x={p.cx} y="35" text-anchor="middle">{p.view}</text>
+      <path class="ref" d={leg(p.cx, 0, p.r0, p.r0 ? R + 40 : R)} />
+      <path class="arc" d={arc(p.cx, 0, p.a, 40)} />
+      <path class="arc b" d={arc(p.cx, 0, p.b, 50)} />
+      <path class="leg" d={leg(p.cx, p.a, p.r0)} />
+      <path class="leg b" d={leg(p.cx, p.b, p.r0)} />
+      {p.r0 === 0 && <circle class="joint" cx={p.cx} cy={CY} r="7" />}
+      <text class="s" x={p.cx} y={p.r0 ? CY + R + 56 : CY + R + 18} text-anchor="middle">{p.r0 ? '0° = toes forward' : '0°'}</text>
+    </g>
+  ))}
+  <text class="s" x="533" y={CY + 4} text-anchor="middle">thigh</text>
+  {labels.map((l) => <text class="t" x={l.x} y={l.y}>{l.t}<tspan x={l.x} dy="16">{l.v}</tspan></text>)}
+
+  <text class="note" x="320" y="280" text-anchor="middle">Typical adult ranges from the anatomical position (0°); they vary between people.</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .h { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .t { font-size: 14px; font-weight: 600; fill: var(--text); }
+  .s { font-size: 13px; fill: var(--text-muted); }
+  .note { font-size: 12.5px; fill: var(--text-muted); font-style: italic; }
+  .ref { stroke: var(--text-muted); stroke-width: 2; stroke-dasharray: 5 4; fill: none; }
+  .leg { stroke: var(--bio-protein); stroke-width: 9; stroke-linecap: round; fill: none; }
+  .leg.b { stroke: var(--bio-protein-2); }
+  .trunk { stroke: var(--text-muted); stroke-width: 10; stroke-linecap: round; }
+  .arc { stroke: var(--bio-protein); stroke-width: 2.5; fill: none; }
+  .arc.b { stroke: var(--bio-protein-2); stroke-dasharray: 6 3; }
+  .joint { fill: var(--surface); stroke: var(--text); stroke-width: 2; }
+  .thigh { fill: var(--surface-3); stroke: var(--text); stroke-width: 2; }
+</style>

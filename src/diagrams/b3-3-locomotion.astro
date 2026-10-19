@@ -1,0 +1,92 @@
+---
+/** Four reasons for locomotion (B3.3.9), each with a named example. Schematic sketches, not to scale. */
+const dolphin = 'M58 206 C66 199 92 194 122 193 C136 170 172 151 232 146 C330 139 424 160 498 184 L540 192 L540 200 C470 222 382 246 290 249 C212 251 150 236 122 220 C100 215 78 212 58 206 Z';
+const star = (cx: number, cy: number, r1: number, r2: number) =>
+  Array.from({ length: 10 }, (_, i) => {
+    const a = (Math.PI / 5) * i - Math.PI / 2;
+    const r = i % 2 ? r2 : r1;
+    return `${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`;
+  }).join(' ');
+const fish: [number, number][] = [[214, 104], [232, 92], [236, 116], [252, 104], [256, 86], [270, 112], [222, 126], [262, 128], [284, 96]];
+const moth = (x: number, y: number, s: number, rot: number) => `translate(${x} ${y}) rotate(${rot}) scale(${s})`;
+const ribs = [-50, -30, -10, 10, 30, 50];
+---
+<svg viewBox="0 0 640 380" role="img" aria-labelledby="loc-title loc-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="loc-title">Four reasons for locomotion</title>
+  <desc id="loc-desc">Four sketches. Foraging: bottlenose dolphins swim after a shoal of fish. Escaping danger: a scallop claps its two shell valves together, squirting out water, and swims away from a predatory starfish. Searching for a mate: a male emperor moth flies upwind in a zigzag along the trail of scent released by a female. Migration: Arctic terns fly from breeding grounds in the Arctic to the Antarctic and back every year.</desc>
+  <path class="grid" d="M320 8 V372 M8 190 H632" />
+
+  <!-- foraging -->
+  <text class="h" x="16" y="28">Foraging for food</text>
+  <text class="s" x="16" y="46">bottlenose dolphins chase shoals of fish</text>
+  <g transform="translate(20 50) scale(0.33)"><path class="dol" d={dolphin} /><path class="dol" d="M300 142 C318 122 334 104 360 94 C352 114 352 132 368 148 Z" /></g>
+  <g transform="translate(20 104) scale(0.33)"><path class="dol" d={dolphin} /></g>
+  {fish.map(([x, y]) => <path class="fish" d={`M${x} ${y} l10 -5 v10 z M${x + 10} ${y} l6 -4 v8 z`} />)}
+  <path class="arrow" d="M196 160 H286 M278 154 L288 160 L278 166" />
+
+  <!-- escaping danger -->
+  <text class="h" x="336" y="28">Escaping danger</text>
+  <text class="s" x="336" y="46">a scallop claps its valves and swims</text>
+  <text class="s" x="336" y="62">away from a predatory starfish</text>
+  <polygon class="starfish" points={star(386, 124, 38, 15)} />
+  <g transform="translate(540 118) rotate(90)">
+    <path class="shell" d="M0 -40 C30 -40, 46 -14, 40 14 L6 30 H-6 L-40 14 C-46 -14, -30 -40, 0 -40 Z" />
+    {ribs.map((a) => <path class="shellrib" d={`M0 26 L${(40 * Math.sin((a * Math.PI) / 180)).toFixed(1)} ${(-34 * Math.cos((a * Math.PI) / 180)).toFixed(1)}`} />)}
+  </g>
+  <path class="jet" d="M502 108 l-26 -10 M502 118 h-30 M502 128 l-26 10" />
+  <path class="arrow" d="M584 160 h40 M616 154 L626 160 L616 166" />
+  <text class="s" x="452" y="178">water forced out</text>
+
+  <!-- searching for a mate -->
+  <text class="h" x="16" y="216">Searching for a mate</text>
+  <text class="s" x="16" y="234">a male emperor moth flies upwind along</text>
+  <text class="s" x="16" y="250">the scent trail (pheromone) of a female</text>
+  <path class="plume" d="M50 300 L300 262 M50 300 L300 350" />
+  {[[90, 300], [120, 292], [124, 312], [160, 286], [170, 318], [200, 300], [220, 280], [236, 330], [262, 296], [282, 316], [270, 272], [214, 340]].map(([x, y]) => <circle class="scent" cx={x} cy={y} r="2.2" />)}
+  <g transform={moth(40, 300, 0.9, 0)}><path class="moth" d="M0 0 L-14 -16 L-16 6 Z M0 0 L14 -16 L16 6 Z" /><path class="mbody" d="M0 -8 V10" /></g>
+  <path class="zig" d="M290 320 L250 284 L214 318 L176 288 L140 312 L104 296" />
+  <g transform={moth(96, 297, 0.8, -90)}><path class="moth male" d="M0 0 L-14 -16 L-16 6 Z M0 0 L14 -16 L16 6 Z" /><path class="mbody" d="M0 -8 V10" /></g>
+  <text class="s" x="20" y="340">female</text>
+  <text class="s" x="232" y="370">wind →</text>
+
+  <!-- migration -->
+  <text class="h" x="336" y="216">Migration</text>
+  <text class="s" x="336" y="234">Arctic terns breed in the Arctic and</text>
+  <text class="s" x="336" y="250">spend the southern summer near Antarctica</text>
+  <g transform="translate(470 322) scale(0.86) translate(-470 -312)">
+  <circle class="globe" cx="470" cy="312" r="54" />
+  <path class="eq" d="M416 312 H524" />
+  <text class="s" x="470" y="254" text-anchor="middle">N</text>
+  <text class="s" x="470" y="378" text-anchor="middle">S</text>
+  <path class="route" d="M482 262 C560 272, 568 352, 482 362" />
+  <path class="route" d="M458 362 C380 352, 380 272, 458 262" />
+  <path class="head" d="M486 356 L478 363 L488 368 Z M454 268 L462 261 L452 256 Z" />
+  </g>
+  <text class="s" x="560" y="300">south in</text>
+  <text class="s" x="560" y="316">autumn,</text>
+  <text class="s" x="560" y="332">north in</text>
+  <text class="s" x="560" y="348">spring</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .grid { stroke: var(--border); stroke-width: 1.5; }
+  .h { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .s { font-size: 13px; fill: var(--text-muted); }
+  .dol { fill: color-mix(in srgb, var(--bio-water) 35%, var(--surface)); stroke: color-mix(in srgb, var(--bio-water) 50%, var(--text)); stroke-width: 4; }
+  .fish { fill: var(--bio-protein); }
+  .arrow { stroke: var(--warn); stroke-width: 2.5; fill: none; }
+  .starfish { fill: var(--bio-head); stroke: color-mix(in srgb, var(--bio-head) 60%, black); stroke-width: 1.2; }
+  .shell { fill: color-mix(in srgb, var(--bio-chol) 30%, var(--surface)); stroke: var(--bio-chol); stroke-width: 2; }
+  .shellrib { stroke: var(--bio-chol); stroke-width: 1.2; }
+  .jet { stroke: var(--bio-water); stroke-width: 2.5; stroke-linecap: round; }
+  .plume { stroke: var(--text-muted); stroke-width: 1.2; stroke-dasharray: 4 4; fill: none; }
+  .scent { fill: var(--bio-carb); }
+  .moth { fill: color-mix(in srgb, var(--bio-head) 55%, var(--surface)); stroke: var(--bio-head); stroke-width: 1.4; }
+  .moth.male { fill: var(--bio-head); }
+  .mbody { stroke: var(--text); stroke-width: 3; stroke-linecap: round; }
+  .zig { stroke: var(--bio-head); stroke-width: 2; stroke-dasharray: 5 3; fill: none; }
+  .globe { fill: color-mix(in srgb, var(--bio-water) 20%, var(--surface)); stroke: var(--bio-water); stroke-width: 2; }
+  .eq { stroke: var(--bio-water); stroke-width: 1; stroke-dasharray: 3 3; }
+  .route { stroke: var(--bio-k); stroke-width: 2.5; fill: none; stroke-dasharray: 6 4; }
+  .head { fill: var(--bio-k); }
+</style>
