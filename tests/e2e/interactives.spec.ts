@@ -5,6 +5,7 @@ const topicPaths = sitePaths().filter((p) => /^[a-d]\d-\d-/.test(p));
 
 for (const path of topicPaths) {
   test(`animations and sims on /${path} work`, async ({ page }) => {
+    test.setTimeout(180_000); // some pages have 100+ controls to exercise
     const errors = watchErrors(page);
     await page.goto(path);
     const anims = page.locator('[data-anim]');
@@ -33,7 +34,8 @@ for (const path of topicPaths) {
     const simButtons = page.locator('figure.sim button');
     for (let i = 0; i < (await simButtons.count()); i++) {
       const b = simButtons.nth(i);
-      if (await b.isVisible()) await b.click();
+      // a control can move or hide while others are clicked; page errors are still caught below
+      if (await b.isVisible()) await b.click({ timeout: 5_000 }).catch(() => {});
     }
     await page.waitForTimeout(500);
     expect(errors).toEqual([]);

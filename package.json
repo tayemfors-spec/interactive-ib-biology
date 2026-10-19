@@ -13,7 +13,7 @@
     "preview": "astro preview",
     "check": "astro check",
     "serve": "node scripts/serve.mjs",
-    "test:unit": "vitest run",
+    "test:unit": "rm -rf node_modules/.vitest-cache .vitest-cache && vitest run",
     "test:links": "start-server-and-test serve http://127.0.0.1:4321 links",
     "links": "linkinator http://127.0.0.1:4321/ --recurse --retry --timeout 15000 --skip \"^https://example\\.github\\.io\"",
     "test:e2e": "playwright test",
