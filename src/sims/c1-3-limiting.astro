@@ -1,0 +1,199 @@
+---
+import { linePath, range, sx, sy, type Frame } from './chart';
+import { CURRENT_CO2, FACE_CO2, PRE_INDUSTRIAL_CO2, axes, bubblesPerMinute, factorNames, lampDistance, limitingFactor, rate, type Conditions, type Factor } from './models/c1-3-limiting';
+
+const defaults: Conditions = { light: 30, co2: CURRENT_CO2, temp: 25 };
+const xf: Factor = 'light';
+const makeFrame = (f: Factor): Frame => {
+  const a = axes[f];
+  const step = f === 'co2' ? 200 : f === 'temp' ? 10 : 20;
+  return { w: 640, h: 380, left: 58, right: 18, top: 16, bottom: 52, x: { min: a.min, max: a.max, ticks: range(a.min, a.max, step), label: a.label }, y: { min: 0, max: 110, ticks: range(0, 100, 20), label: 'Rate of photosynthesis (a.u.)' } };
+};
+const frame = makeFrame(xf);
+const at = (c: Conditions, f: Factor, v: number): Conditions => ({ ...c, [f]: v });
+const seg = (c: Conditions, f: Factor, own: boolean) => (v: number) => {
+  const cc = at(c, f, v);
+  return (limitingFactor(cc) === f) === own ? rate(cc) : NaN;
+};
+const paths = { own: linePath(frame, seg(defaults, xf, true), 160), other: linePath(frame, seg(defaults, xf, false), 160) };
+const r0 = rate(defaults);
+const lim0 = limitingFactor(defaults);
+const table = range(0, 100, 10).map((v) => ({ v, r: rate(at(defaults, xf, v)) }));
+const co2Marks = [
+  { v: PRE_INDUSTRIAL_CO2, t: 'pre-industrial' },
+  { v: CURRENT_CO2, t: 'today' },
+  { v: FACE_CO2, t: 'FACE' },
+];
+---
+<div class="sim-lim" data-sim-lim data-frames={JSON.stringify({ light: makeFrame('light'), co2: makeFrame('co2'), temp: makeFrame('temp') })}>
+  <div class="layout">
+    <div>
+      <svg class="chart" viewBox={`0 0 ${frame.w} ${frame.h}`} role="img" aria-labelledby="lim-t lim-d" data-chart>
+        <title id="lim-t">Rate of photosynthesis against the chosen factor</title>
+        <desc id="lim-d" data-desc>Rate rises with light intensity and then levels off where another factor becomes limiting.</desc>
+        <g class="grid" data-grid>
+          {frame.x.ticks.map((t) => <line x1={sx(frame, t)} x2={sx(frame, t)} y1={frame.top} y2={frame.h - frame.bottom} />)}
+          {frame.y.ticks.map((t) => <line x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, t)} y2={sy(frame, t)} />)}
+        </g>
+        <g class="ticks" data-ticks>
+          {frame.x.ticks.map((t) => <text x={sx(frame, t)} y={frame.h - frame.bottom + 18} text-anchor="middle">{t}</text>)}
+          {frame.y.ticks.map((t) => <text x={frame.left - 8} y={sy(frame, t)} dy="0.35em" text-anchor="end">{t}</text>)}
+        </g>
+        <line class="axisline" x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, 0)} y2={sy(frame, 0)} />
+        <line class="axisline" x1={frame.left} x2={frame.left} y1={frame.top} y2={frame.h - frame.bottom} />
+        <g class="co2marks" data-co2marks style="display:none">
+          {co2Marks.map((m) => <g data-mark={m.v}><line y1={frame.top} y2={frame.h - frame.bottom} /><text y={frame.top + 12} dx="4">{m.t}</text></g>)}
+        </g>
+        <text class="axis" data-xlabel x={(frame.left + frame.w - frame.right) / 2} y={frame.h - 10} text-anchor="middle">{frame.x.label} →</text>
+        <text class="axis" transform={`translate(16 ${(frame.top + frame.h - frame.bottom) / 2}) rotate(-90)`} text-anchor="middle">{frame.y.label} →</text>
+        <path class="line other" d={paths.other} data-line="other" />
+        <path class="line own" d={paths.own} data-line="own" />
+        <circle class="dot" r="7" cx={sx(frame, defaults.light)} cy={sy(frame, r0)} data-dot />
+      </svg>
+      <p class="legend-line"><span class="key own"></span> the plotted factor is limiting <span class="key other"></span> another factor is limiting (plateau)</p>
+    </div>
+    <div class="controls">
+      <fieldset class="xchoice">
+        <legend>Plot rate against</legend>
+        <label><input type="radio" name="lim-x" value="light" checked data-x /> Light</label>
+        <label><input type="radio" name="lim-x" value="co2" data-x /> CO₂</label>
+        <label><input type="radio" name="lim-x" value="temp" data-x /> Temperature</label>
+      </fieldset>
+      <label class="slider">Light intensity: <output data-out="light">{defaults.light}%</output>
+        <input type="range" min="0" max="100" step="1" value={defaults.light} data-param="light" />
+      </label>
+      <p class="aside" data-lamp>Lamp at about {lampDistance(defaults.light).toFixed(0)} cm (100% at 10 cm; intensity ∝ 1/distance²)</p>
+      <label class="slider">CO₂ concentration: <output data-out="co2">{defaults.co2} ppm</output>
+        <input type="range" min="0" max="1200" step="10" value={defaults.co2} data-param="co2" />
+      </label>
+      <label class="slider">Temperature: <output data-out="temp">{defaults.temp} °C</output>
+        <input type="range" min="0" max="50" step="1" value={defaults.temp} data-param="temp" />
+      </label>
+      <dl class="stats">
+        <div><dt>Rate</dt><dd data-stat="rate">{r0.toFixed(0)} a.u.</dd></div>
+        <div><dt>Pondweed</dt><dd data-stat="bubbles">≈ {bubblesPerMinute(r0)} bubbles min⁻¹</dd></div>
+        <div class="wide"><dt>Limiting factor</dt><dd data-stat="lim">{factorNames[lim0]}</dd></div>
+      </dl>
+    </div>
+  </div>
+  <p class="readout" aria-live="polite" data-readout>
+    Rate {r0.toFixed(0)} (arbitrary units). The limiting factor is {factorNames[lim0]}: increasing it would increase the rate.
+  </p>
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <thead><tr><th scope="col" data-th>{axes[xf].label}</th><th scope="col">Rate (a.u.)</th></tr></thead>
+      <tbody data-tbody>{table.map((r) => <tr><th scope="row">{r.v}</th><td>{r.r.toFixed(1)}</td></tr>)}</tbody>
+    </table>
+  </details>
+  <p class="model-note">Qualitative model with arbitrary units. Each factor sets a maximum possible rate and the lowest one wins; real curves bend more gradually, and the optimum temperature varies between species.</p>
+</div>
+
+<script>
+  import { linePath, range, sx, sy, type Frame } from './chart';
+  import { axes, bubblesPerMinute, factorNames, lampDistance, limitingFactor, rate, type Conditions, type Factor } from './models/c1-3-limiting';
+
+  document.querySelectorAll<HTMLElement>('[data-sim-lim]').forEach((root) => {
+    const frames = JSON.parse(root.dataset.frames!) as Record<Factor, Frame>;
+    const q = <T extends Element>(s: string) => root.querySelector<T>(s)!;
+    const get = (k: Factor) => Number(q<HTMLInputElement>(`[data-param="${k}"]`).value);
+    const units: Record<Factor, string> = { light: '%', co2: ' ppm', temp: ' °C' };
+    const readout = q<HTMLElement>('[data-readout]');
+    let timer = 0;
+
+    const drawAxes = (f: Frame, x: Factor) => {
+      q('[data-grid]').innerHTML =
+        f.x.ticks.map((t) => `<line x1="${sx(f, t)}" x2="${sx(f, t)}" y1="${f.top}" y2="${f.h - f.bottom}" />`).join('') +
+        f.y.ticks.map((t) => `<line x1="${f.left}" x2="${f.w - f.right}" y1="${sy(f, t)}" y2="${sy(f, t)}" />`).join('');
+      q('[data-ticks]').innerHTML =
+        f.x.ticks.map((t) => `<text x="${sx(f, t)}" y="${f.h - f.bottom + 18}" text-anchor="middle">${t}</text>`).join('') +
+        f.y.ticks.map((t) => `<text x="${f.left - 8}" y="${sy(f, t)}" dy="0.35em" text-anchor="end">${t}</text>`).join('');
+      q('[data-xlabel]').textContent = `${f.x.label} →`;
+      const marks = q<SVGGElement>('[data-co2marks]');
+      marks.style.display = x === 'co2' ? '' : 'none';
+      marks.querySelectorAll<SVGGElement>('[data-mark]').forEach((g) => {
+        const X = sx(f, Number(g.dataset.mark)).toFixed(1);
+        g.querySelectorAll('line').forEach((l) => { l.setAttribute('x1', X); l.setAttribute('x2', X); });
+        g.querySelector('text')!.setAttribute('x', X);
+      });
+      q('[data-th]').textContent = f.x.label;
+    };
+
+    const update = () => {
+      const x = (q<HTMLInputElement>('[data-x]:checked').value as Factor);
+      const f = frames[x];
+      const c: Conditions = { light: get('light'), co2: get('co2'), temp: get('temp') };
+      (['light', 'co2', 'temp'] as Factor[]).forEach((k) => (q(`[data-out="${k}"]`).textContent = `${c[k]}${units[k]}`));
+      const d = lampDistance(c.light);
+      q('[data-lamp]').textContent = Number.isFinite(d) ? `Lamp at about ${d.toFixed(0)} cm (100% at 10 cm; intensity ∝ 1/distance²)` : 'No light: lamp switched off';
+      drawAxes(f, x);
+      const at = (v: number): Conditions => ({ ...c, [x]: v });
+      const seg = (own: boolean) => (v: number) => ((limitingFactor(at(v)) === x) === own ? rate(at(v)) : NaN);
+      q('[data-line="own"]').setAttribute('d', linePath(f, seg(true), 160));
+      q('[data-line="other"]').setAttribute('d', linePath(f, seg(false), 160));
+      const r = rate(c);
+      const lim = limitingFactor(c);
+      const dot = q<SVGCircleElement>('[data-dot]');
+      dot.setAttribute('cx', sx(f, c[x]).toFixed(1));
+      dot.setAttribute('cy', sy(f, r).toFixed(1));
+      q('[data-stat="rate"]').textContent = `${r.toFixed(0)} a.u.`;
+      q('[data-stat="bubbles"]').textContent = `≈ ${bubblesPerMinute(r)} bubbles min⁻¹`;
+      q('[data-stat="lim"]').textContent = r === 0 ? 'none can act: rate is zero' : factorNames[lim];
+      const a = axes[x];
+      const step = (a.max - a.min) / 10;
+      q('[data-tbody]').innerHTML = range(a.min, a.max, step).map((v) => `<tr><th scope="row">${v}</th><td>${rate(at(v)).toFixed(1)}</td></tr>`).join('');
+      q('[data-desc]').textContent = `Rate of photosynthesis plotted against ${factorNames[x]}, with the other two factors fixed at the slider values.`;
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        let msg: string;
+        if (c.light === 0) msg = 'No light, so the light-dependent reactions stop and there is no photosynthesis.';
+        else if (c.co2 === 0) msg = 'No carbon dioxide, so nothing can be fixed by Rubisco and there is no photosynthesis.';
+        else if (c.temp >= 45) msg = 'At this temperature the enzymes, including Rubisco, are denatured, so photosynthesis stops.';
+        else msg = `Rate ${r.toFixed(0)} (arbitrary units). The limiting factor is ${factorNames[lim]}: increasing it would increase the rate, while increasing either of the other factors would have little effect.`;
+        if (lim === 'temp' && c.temp > 30 && c.temp < 45) msg += ' Above the optimum, raising the temperature further lowers the rate as enzymes start to denature.';
+        readout.textContent = msg;
+      }, 350);
+    };
+    root.querySelectorAll('[data-param], [data-x]').forEach((el) => el.addEventListener('input', update));
+    root.querySelectorAll('[data-x]').forEach((el) => el.addEventListener('change', update));
+  });
+</script>
+
+<style>
+  .sim-lim { container-type: inline-size; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 46rem) { .layout { grid-template-columns: minmax(0, 1.6fr) minmax(15rem, 1fr); align-items: start; } }
+  .chart { width: 100%; height: auto; font-family: var(--font-sans); }
+  .grid line { stroke: var(--border); stroke-width: 1; }
+  .axisline { stroke: var(--text-muted); stroke-width: 1.4; }
+  .ticks text { font-size: 15px; fill: var(--text-muted); }
+  .axis { font-size: 16px; font-weight: 650; fill: var(--text); }
+  .line { fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+  .own { stroke: var(--bio-carb); }
+  .other { stroke: var(--bio-head); stroke-dasharray: 10 7; }
+  .dot { fill: var(--surface); stroke: var(--text); stroke-width: 3; }
+  .co2marks line { stroke: var(--text-muted); stroke-width: 1.2; stroke-dasharray: 3 4; }
+  .co2marks text { font-size: 13px; fill: var(--text-muted); font-style: italic; }
+  .legend-line { font-size: var(--step--1); color: var(--text-muted); margin: var(--space-1) 0 0; display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .key { display: inline-block; width: 2rem; height: 0; border-top: 4px solid; }
+  .key.own { border-color: var(--bio-carb); }
+  .key.other { border-color: var(--bio-head); border-top-style: dashed; }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .xchoice { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-3); }
+  .xchoice legend { font-weight: 700; color: var(--text-muted); margin-bottom: var(--space-1); }
+  .xchoice label { display: flex; align-items: center; gap: var(--space-1); min-height: 24px; }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  .aside { margin: calc(-1 * var(--space-2)) 0 0; color: var(--text-muted); font-size: 0.8rem; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); margin: 0; }
+  .stats div { background: var(--surface-2); border-radius: var(--radius-m); padding: var(--space-2); }
+  .stats .wide { grid-column: 1 / -1; }
+  .stats dt { font-size: 0.75rem; color: var(--text-muted); font-weight: 700; }
+  .stats dd { margin: 0; font-weight: 800; }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  th, td { padding: 0.2rem 0.7rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

@@ -1,0 +1,210 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: C1.3.3
+    stem: >-
+      An alga is given water containing the heavy oxygen isotope ¹⁸O and normal carbon dioxide, and is left in
+      the light. Where will most of the ¹⁸O be found shortly afterwards?
+    options:
+      - id: a
+        text: In the glucose made by the alga
+        why: The oxygen atoms in glucose come from carbon dioxide, which was not labelled here.
+      - id: b
+        text: Nowhere, because water is only a solvent in photosynthesis
+        why: Water is a reactant. It is split to provide the hydrogen (electrons and H⁺) used to reduce carbon dioxide.
+      - id: c
+        text: In the oxygen gas released by the alga
+        why: Correct. Water is split (photolysis) and its oxygen atoms are released as O₂, a by-product.
+      - id: d
+        text: In carbon dioxide given off by the alga
+        why: In the light, an alga takes in far more carbon dioxide than it releases, and the CO₂ supplied was not labelled. The label goes to the oxygen released by splitting water.
+    answer: c
+
+  - id: q2
+    level: SL
+    understanding: C1.3.4
+    stem: >-
+      On a thin-layer chromatogram of a leaf extract, the solvent front is 72 mm from the origin line. A
+      blue-green spot has its centre 45 mm from the origin. What is its Rf value, and which pigment is it most
+      likely to be?
+    options:
+      - id: a
+        text: 0.63 — chlorophyll a
+        why: Correct. Rf = 45 ÷ 72 = 0.625 ≈ 0.63, and a blue-green colour with this Rf fits chlorophyll a.
+      - id: b
+        text: 1.6 — chlorophyll a
+        why: This divides the solvent distance by the spot distance. Rf is spot ÷ solvent, so it can never exceed 1.
+      - id: c
+        text: 0.63 — carotene
+        why: The calculation is right, but carotene is orange-yellow and runs almost with the solvent front (Rf close to 1).
+      - id: d
+        text: 0.38 — chlorophyll b
+        why: 0.38 is the fraction of the solvent distance NOT travelled (27 ÷ 72). Chlorophyll b is also yellow-green, not blue-green.
+    answer: a
+
+  - id: q3
+    level: SL
+    understanding: C1.3.6
+    stem: >-
+      A student lights a pondweed with one colour of light at a time and collects the oxygen produced.
+      Under green light (530 nm) 0.6 cm³ is collected in 8 minutes; under red light (680 nm) 1.8 cm³ is
+      collected in 6 minutes. Which statement is correct?
+    options:
+      - id: a
+        text: The rate in red light is three times the rate in green light.
+        why: That compares the volumes without dividing by the different times. The rates are 0.30 and 0.075 cm³ min⁻¹, a four-fold difference.
+      - id: b
+        text: No photosynthesis occurs in green light, so the 0.6 cm³ must be an error.
+        why: Photosynthesis continues in green light at a lower rate; the action spectrum does not fall to zero because accessory pigments absorb some green light.
+      - id: c
+        text: The rate in green light is 0.6 × 8 = 4.8 cm³ min⁻¹.
+        why: Rate is volume divided by time, not multiplied.
+      - id: d
+        text: The rates are 0.075 cm³ min⁻¹ in green light and 0.30 cm³ min⁻¹ in red light.
+        why: Correct. Rate = volume ÷ time — 0.6 ÷ 8 = 0.075 and 1.8 ÷ 6 = 0.30 cm³ min⁻¹. Points like these are plotted to make an action spectrum.
+    answer: d
+
+  - id: q4
+    level: SL
+    understanding: C1.3.7
+    stem: >-
+      The rate of photosynthesis of a plant at 20 °C was measured at increasing light intensities, at two CO₂
+      concentrations. At low light intensities both curves were identical; at high light intensities both
+      levelled off, but the curve for 0.1% CO₂ levelled off higher than the curve for 0.04% CO₂. What limited
+      the rate on the plateau of the 0.04% CO₂ curve?
+    options:
+      - id: a
+        text: Light intensity
+        why: On the plateau, increasing light intensity no longer increases the rate, so light is not limiting there.
+      - id: b
+        text: CO₂ concentration
+        why: Correct. Raising CO₂ to 0.1% raised the plateau, so CO₂ concentration was limiting the 0.04% curve at high light intensity.
+      - id: c
+        text: Chlorophyll concentration, because the curves were identical at low light
+        why: Identical curves at low light show that light intensity was limiting there (CO₂ made no difference). Chlorophyll was not varied.
+      - id: d
+        text: Temperature, because enzymes are denatured at 20 °C
+        why: 20 °C is below the optimum for most plants, so enzymes are not denatured. The higher plateau at 0.1% CO₂ shows that CO₂ was limiting.
+    answer: b
+
+  - id: q5
+    level: SL
+    understanding: C1.3.8
+    stem: >-
+      In a free-air carbon dioxide enrichment (FACE) experiment on a wheat crop, CO₂ is released from pipes
+      around some rings to keep the concentration at 550 ppm. Control rings have identical pipes that release
+      ordinary air. Why do the control rings release air?
+    options:
+      - id: a
+        text: So that the only difference between enriched and control rings is the CO₂ concentration
+        why: Correct. Blowing air through identical pipes controls for any effects of the equipment and gas flow (e.g. on wind or temperature), so differences can be attributed to CO₂.
+      - id: b
+        text: To raise the CO₂ concentration in the control rings to 550 ppm as well
+        why: Ordinary air has the current atmospheric concentration (about 420 ppm); the control rings must stay at that level to show the effect of enrichment.
+      - id: c
+        text: To prevent the plants in the control rings from photosynthesising
+        why: Control plants must photosynthesise normally; they provide the baseline for comparison.
+      - id: d
+        text: Because FACE experiments can only be done in enclosed greenhouses
+        why: FACE experiments are done in the open field; that is their advantage over greenhouse studies.
+    answer: a
+
+  - id: q6
+    level: AHL
+    understanding: C1.3.10
+    stem: Which is an advantage of grouping many pigment molecules of several types into a photosystem?
+    options:
+      - id: a
+        text: Each pigment molecule can split water and reduce NADP independently.
+        why: A single pigment molecule cannot perform any part of photosynthesis on its own. Water splitting and NADP reduction need protein complexes.
+      - id: b
+        text: Accessory pigments make the reaction centre emit electrons without absorbing energy.
+        why: The reaction centre still needs energy to excite an electron; accessory pigments supply energy they have absorbed, not electrons.
+      - id: c
+        text: Energy absorbed over a wide range of wavelengths is funnelled to one reaction centre, which is supplied rapidly.
+        why: Correct. Hundreds of pigments of different types absorb more photons and more wavelengths, and pass the energy to the reaction centre.
+      - id: d
+        text: More reaction centres are produced, so each photon excites several electrons.
+        why: Each photosystem has one reaction centre, and one absorbed photon's energy excites one electron.
+    answer: c
+
+  - id: q7
+    level: AHL
+    understanding: C1.3.12
+    stem: >-
+      Which describes how ATP is produced in the light-dependent reactions?
+    options:
+      - id: a
+        text: ATP synthase pumps H⁺ into the thylakoid space using energy from excited electrons.
+        why: Electron carriers (the cytochrome complex) pump H⁺ into the thylakoid space. ATP synthase lets H⁺ flow out.
+      - id: b
+        text: H⁺ diffuses from the stroma into the thylakoid space through ATP synthase.
+        why: This reverses the direction. H⁺ is concentrated in the thylakoid space and diffuses out to the stroma.
+      - id: c
+        text: Photosystem I transfers phosphate groups directly to ADP in the thylakoid space.
+        why: Photosystems emit excited electrons; they do not phosphorylate ADP. ATP is made in the stroma.
+      - id: d
+        text: H⁺ diffuses from the thylakoid space to the stroma through ATP synthase, which makes ATP from ADP and Pi.
+        why: Correct. This is chemiosmosis — the proton gradient built by photolysis and proton pumping drives ATP synthase.
+    answer: d
+
+  - id: q8
+    level: AHL
+    understanding: C1.3.13
+    stem: Where do the electrons and hydrogen ion used to reduce NADP come from?
+    options:
+      - id: a
+        text: Two electrons and one H⁺ come directly from the splitting of water in the stroma.
+        why: Photolysis happens on the thylakoid-space side of photosystem II, not in the stroma, and its electrons reach NADP only after re-excitation in photosystem I.
+      - id: b
+        text: Two electrons emitted by photosystem I, and one H⁺ from the stroma
+        why: Correct. Excited electrons from photosystem I pass via ferredoxin to NADP reductase on the stroma side, and the H⁺ is taken from the stroma.
+      - id: c
+        text: Two electrons from ATP synthase, and one H⁺ from the thylakoid space
+        why: ATP synthase does not supply electrons. NADP is reduced on the stroma side, using H⁺ from the stroma.
+      - id: d
+        text: Two electrons emitted by photosystem II directly, and one H⁺ from the thylakoid space
+        why: Electrons from photosystem II must be re-excited by photosystem I before they can reduce NADP, and the H⁺ comes from the stroma.
+    answer: b
+
+  - id: q9
+    level: AHL
+    understanding: C1.3.17
+    stem: >-
+      A chloroplast makes one molecule of glucose using the Calvin cycle. How many molecules of triose phosphate
+      are made, and how many are used to regenerate RuBP?
+    options:
+      - id: a
+        text: 12 made; 10 used to regenerate RuBP
+        why: Correct. Six CO₂ fixed onto six RuBP give 12 GP and so 12 TP. Ten TP (five-sixths) regenerate six RuBP and two make one glucose.
+      - id: b
+        text: 6 made; 5 used to regenerate RuBP
+        why: These are the figures for three turns, which fix three CO₂ and give only one spare TP — half a glucose.
+      - id: c
+        text: 2 made; none used to regenerate RuBP
+        why: Two TP make the glucose, but without regenerating RuBP the cycle would stop. Most TP must be recycled.
+      - id: d
+        text: 12 made; 2 used to regenerate RuBP
+        why: This reverses the proportions. Five-sixths of the TP is recycled and only one-sixth is available for glucose.
+    answer: a
+
+  - id: q10
+    level: AHL
+    understanding: C1.3.19
+    stem: >-
+      Algae photosynthesising in bright light with plenty of CO₂ are suddenly put in the dark. What happens to
+      the concentrations of glycerate 3-phosphate (GP) and RuBP in the stroma during the next minute?
+    options:
+      - id: a
+        text: GP falls and RuBP rises
+        why: This is what happens when CO₂ is removed in the light — RuBP can still be regenerated but cannot be fixed.
+      - id: b
+        text: Both stay the same, because the Calvin cycle is light-independent
+        why: The Calvin cycle needs ATP and reduced NADP from the light-dependent reactions, so it is affected within seconds.
+      - id: c
+        text: GP rises and RuBP falls
+        why: Correct. Rubisco still fixes CO₂ onto RuBP, making GP, but without ATP and reduced NADP, GP cannot be reduced to TP and RuBP cannot be regenerated.
+      - id: d
+        text: Both rise, because Rubisco works faster in the dark
+        why: Rubisco does not speed up in the dark, and RuBP cannot rise when its regeneration (which needs ATP) has stopped.
+    answer: c

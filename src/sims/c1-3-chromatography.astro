@@ -1,0 +1,152 @@
+---
+import { pigments, spotDistance } from './models/c1-3-chromatography';
+
+/** Geometry of the drawn strip: 1 mm = PX pixels. The origin line is 10 mm above the bottom of the strip. */
+const PX = 3.4;
+const ORIGIN_Y = 330;
+const MAX_RUN = 85; // mm
+const STRIP = { x: 80, w: 110, top: ORIGIN_Y - MAX_RUN * PX - 14, bottom: ORIGIN_Y + 10 * PX };
+const run0 = 75; // % of the maximum run shown at first
+const front0 = (MAX_RUN * run0) / 100;
+/** Spot fill colours approximate the pigments' real colours (content, not theme). */
+const fills: Record<string, string> = {
+  carotene: '#e8960c', phaeophytin: '#7d7f72', chla: '#1f8a6a', chlb: '#8db532', xanthophyll1: '#e2c21b', xanthophyll2: '#d9b92a',
+};
+const y = (mm: number) => ORIGIN_Y - mm * PX;
+---
+<div class="sim-chrom" data-sim-chrom data-geo={JSON.stringify({ PX, ORIGIN_Y, MAX_RUN })}>
+  <div class="layout">
+    <svg class="strip" viewBox="0 0 290 400" role="img" aria-labelledby="ch-t ch-d" data-svg>
+      <title id="ch-t">Thin-layer chromatogram of leaf pigments</title>
+      <desc id="ch-d" data-desc>A TLC strip with a pencil origin line near the bottom. As the running solvent rises, the leaf extract separates into spots: orange carotene near the solvent front, then grey phaeophytin, blue-green chlorophyll a, yellow-green chlorophyll b and yellow xanthophylls lowest.</desc>
+      <rect class="solvent-pool" x="60" y={STRIP.bottom - 22} width="150" height="40" rx="6" />
+      <rect class="plate" x={STRIP.x} y={STRIP.top} width={STRIP.w} height={STRIP.bottom - STRIP.top} />
+      <rect class="wet" data-wet x={STRIP.x} y={y(front0)} width={STRIP.w} height={STRIP.bottom - y(front0)} />
+      <line class="origin" x1={STRIP.x} x2={STRIP.x + STRIP.w} y1={ORIGIN_Y} y2={ORIGIN_Y} />
+      <text class="lbl" x={STRIP.x + STRIP.w + 6} y={ORIGIN_Y + 4}>origin (pencil)</text>
+      <line class="front" data-front x1={STRIP.x} x2={STRIP.x + STRIP.w} y1={y(front0)} y2={y(front0)} />
+      <text class="lbl" data-front-lbl x={STRIP.x + STRIP.w + 6} y={y(front0) + 4}>solvent front</text>
+      {pigments.map((p, i) => (
+        <g data-spot={p.id} transform={`translate(${STRIP.x + STRIP.w / 2} ${y(spotDistance(p.rf, front0))})`}>
+          <ellipse rx="22" ry="6" fill={fills[p.id]} opacity={p.id === 'phaeophytin' ? 0.55 : 0.9} />
+          <text class="num" x="-34" dy="0.35em" text-anchor="middle">{i + 1}</text>
+        </g>
+      ))}
+      <g class="ruler" data-ruler style="display:none">
+        <line data-r-spot x1="178" x2="178" y1={ORIGIN_Y} y2={ORIGIN_Y} />
+        <line data-r-front x1="56" x2="56" y1={ORIGIN_Y} y2={ORIGIN_Y} />
+        <text data-r-spot-t x="196" y={ORIGIN_Y}></text>
+        <text data-r-front-t x="52" y={ORIGIN_Y} text-anchor="end"></text>
+      </g>
+    </svg>
+    <div class="controls">
+      <label class="slider">Let the solvent run: <output data-out="run">{front0.toFixed(0)} mm</output>
+        <input type="range" min="0" max="100" step="1" value={run0} data-param="run" />
+      </label>
+      <div class="measure" role="group" aria-label="Measure a spot">
+        <span class="mlabel">Measure a spot:</span>
+        {pigments.map((_, i) => <button class="btn" type="button" data-measure={i}>Spot {i + 1}</button>)}
+      </div>
+      <p class="calc" data-calc aria-live="polite">Choose a spot to measure it from the origin line.</p>
+      <table class="ref">
+        <caption>Reference: typical colours and Rf values (approximate)</caption>
+        <thead><tr><th scope="col">Pigment</th><th scope="col">Colour</th><th scope="col">Rf</th></tr></thead>
+        <tbody>{pigments.map((p) => <tr><th scope="row">{p.name}</th><td>{p.colour}</td><td>{p.rf.toFixed(2)}</td></tr>)}</tbody>
+      </table>
+    </div>
+  </div>
+  <p class="model-note">Rf values depend on the solvent, the paper or TLC plate and the temperature, so the ones here are typical rather than fixed. Identify a pigment from its colour, its Rf and its position relative to the other spots.</p>
+</div>
+
+<script>
+  import { identify, pigments, rf, round2, spotDistance } from './models/c1-3-chromatography';
+
+  document.querySelectorAll<HTMLElement>('[data-sim-chrom]').forEach((root) => {
+    const { PX, ORIGIN_Y, MAX_RUN } = JSON.parse(root.dataset.geo!) as { PX: number; ORIGIN_Y: number; MAX_RUN: number };
+    const q = <T extends Element>(s: string) => root.querySelector<T>(s)!;
+    const input = q<HTMLInputElement>('[data-param="run"]');
+    const calc = q<HTMLElement>('[data-calc]');
+    const ruler = q<SVGGElement>('[data-ruler]');
+    const yOf = (mm: number) => ORIGIN_Y - mm * PX;
+    let chosen = -1;
+    const front = () => Math.round(((MAX_RUN * Number(input.value)) / 100) * 10) / 10;
+
+    const measure = () => {
+      const f = front();
+      if (chosen < 0) { ruler.style.display = 'none'; return; }
+      const p = pigments[chosen]!;
+      const d = Math.round(spotDistance(p.rf, f) * 10) / 10;
+      if (f < 15) {
+        ruler.style.display = 'none';
+        calc.textContent = 'The solvent has not run far enough to separate the spots. Let it run further: aim for most of the strip.';
+        return;
+      }
+      ruler.style.display = '';
+      const set = (sel: string, y2: number) => q(sel).setAttribute('y2', yOf(y2).toFixed(1));
+      set('[data-r-spot]', d); set('[data-r-front]', f);
+      const ts = q('[data-r-spot-t]'), tf = q('[data-r-front-t]');
+      ts.setAttribute('y', yOf(d / 2).toFixed(1)); ts.textContent = `${d} mm`;
+      tf.setAttribute('y', yOf(f / 2).toFixed(1)); tf.textContent = `${f} mm`;
+      const value = round2(rf(d, f));
+      const id = identify(value);
+      calc.textContent = `Spot ${chosen + 1}: moved ${d} mm; solvent front moved ${f} mm. Rf = ${d} ÷ ${f} = ${value.toFixed(2)}. ` +
+        (id ? `Its colour is ${id.colour} and its Rf matches ${id.name}. ${id.note}` : 'No reference pigment has this Rf.');
+    };
+
+    const update = () => {
+      const f = front();
+      q('[data-out="run"]').textContent = `${f.toFixed(0)} mm`;
+      const fy = yOf(f);
+      const fl = q<SVGLineElement>('[data-front]');
+      fl.setAttribute('y1', fy.toFixed(1)); fl.setAttribute('y2', fy.toFixed(1));
+      fl.style.opacity = f > 0 ? '1' : '0';
+      q('[data-front-lbl]').setAttribute('y', (fy + 4).toFixed(1));
+      const wet = q<SVGRectElement>('[data-wet]');
+      const bottom = Number(wet.getAttribute('y')) + Number(wet.getAttribute('height'));
+      wet.setAttribute('y', fy.toFixed(1)); wet.setAttribute('height', Math.max(0, bottom - fy).toFixed(1));
+      pigments.forEach((p) => {
+        const g = q<SVGGElement>(`[data-spot="${p.id}"]`);
+        g.setAttribute('transform', `translate(135 ${yOf(spotDistance(p.rf, f)).toFixed(1)})`);
+        // before separation the spots overlap into one dark green spot, so hide the numbers
+        g.querySelector('text')!.style.opacity = f < 15 ? '0' : '1';
+      });
+      measure();
+    };
+    input.addEventListener('input', update);
+    root.querySelectorAll<HTMLButtonElement>('[data-measure]').forEach((b) =>
+      b.addEventListener('click', () => {
+        chosen = Number(b.dataset.measure);
+        root.querySelectorAll('[data-measure]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        measure();
+      }),
+    );
+  });
+</script>
+
+<style>
+  .sim-chrom { container-type: inline-size; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 40rem) { .layout { grid-template-columns: minmax(12rem, 0.8fr) minmax(0, 1.2fr); align-items: start; } }
+  .strip { width: 100%; max-width: 22rem; height: auto; margin-inline: auto; display: block; font-family: var(--font-sans); }
+  .solvent-pool { fill: color-mix(in srgb, var(--bio-water) 30%, transparent); }
+  .plate { fill: var(--surface-2); stroke: var(--border-strong); stroke-width: 1.5; }
+  .wet { fill: color-mix(in srgb, var(--bio-water) 12%, transparent); }
+  .origin { stroke: var(--text-muted); stroke-width: 1.5; }
+  .front { stroke: var(--bio-water); stroke-width: 2; stroke-dasharray: 5 3; }
+  .lbl { font-size: 12px; fill: var(--text-muted); }
+  .num { font-size: 13px; font-weight: 800; fill: var(--text); }
+  .ruler line { stroke: var(--text); stroke-width: 1.6; }
+  .ruler text { font-size: 12px; font-weight: 700; fill: var(--text); }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .measure { display: flex; flex-wrap: wrap; gap: var(--space-1); align-items: center; }
+  .mlabel { font-weight: 700; color: var(--text-muted); margin-right: var(--space-1); }
+  .measure .btn[aria-pressed='true'] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .calc { margin: 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); }
+  .ref { border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  .ref caption { text-align: left; font-weight: 700; color: var(--text-muted); margin-bottom: var(--space-1); }
+  .ref th, .ref td { padding: 0.2rem 0.6rem; border-bottom: 1px solid var(--border); text-align: left; }
+  .ref td:last-child { text-align: right; white-space: nowrap; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

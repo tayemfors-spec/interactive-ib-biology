@@ -1,0 +1,65 @@
+cards:
+  - id: c1
+    level: SL
+    front: Write the word equation for photosynthesis.
+    back: carbon dioxide + water → glucose + oxygen, using light energy absorbed by chlorophyll.
+  - id: c2
+    level: SL
+    front: What energy transformation happens in photosynthesis?
+    back: Light energy is transformed into chemical energy in carbon compounds such as glucose. This supplies most of the chemical energy used by life in ecosystems.
+  - id: c3
+    level: SL
+    front: Where does the oxygen released in photosynthesis come from?
+    back: From water, which is split to provide the hydrogen used to reduce carbon dioxide. The oxygen is a by-product of plants, algae and cyanobacteria.
+  - id: c4
+    level: SL
+    front: How is an Rf value calculated?
+    back: Rf = distance moved by the spot ÷ distance moved by the solvent, both measured from the origin line. It lies between 0 and 1.
+  - id: c5
+    level: SL
+    front: List the leaf pigments in order from the top of a typical chromatogram.
+    back: Carotene (orange-yellow, near the solvent front), then chlorophyll a (blue-green), chlorophyll b (yellow-green) and xanthophylls (yellow). Grey phaeophytin may appear between carotene and chlorophyll a.
+  - id: c6
+    level: SL
+    front: Why do pigments absorb only certain wavelengths, and why do leaves look green?
+    back: An absorbed photon must have exactly the energy needed to raise an electron to a higher level, so only some wavelengths are absorbed. Chlorophyll absorbs little green light, which is reflected or transmitted.
+  - id: c7
+    level: SL
+    front: Absorption spectrum vs action spectrum
+    back: Absorption — % of light absorbed by a pigment at each wavelength. Action — rate of photosynthesis at each wavelength. Both peak in blue and red; the action spectrum is above zero in green due to accessory pigments.
+  - id: c8
+    level: SL
+    front: Name the three limiting factors and how each can be varied in a pondweed experiment.
+    back: Light intensity (lamp distance, intensity ∝ 1/d²), CO₂ concentration (different amounts of sodium hydrogencarbonate) and temperature (thermostatic water bath). Vary one; keep the other two constant.
+  - id: c9
+    level: SL
+    front: What is a FACE experiment and what is its advantage over a greenhouse study?
+    back: Free-air CO₂ enrichment — CO₂ is released around open-air plots to keep it at a raised level (e.g. 550 ppm), with control plots receiving air. Plants grow in natural field conditions, though fewer variables can be controlled.
+  - id: c10
+    level: AHL
+    front: Describe a photosystem.
+    back: A membrane-bound array of chlorophyll and accessory pigments held by proteins (antenna complexes) around a reaction-centre chlorophyll that emits excited electrons. Found in thylakoid membranes of chloroplasts and cyanobacteria.
+  - id: c11
+    level: AHL
+    front: Give the equation for photolysis and the fate of each product.
+    back: 2H₂O → O₂ + 4H⁺ + 4e⁻. Electrons replace those lost by P680 in photosystem II; H⁺ adds to the proton gradient in the thylakoid space; O₂ is waste.
+  - id: c12
+    level: AHL
+    front: Outline chemiosmosis in the thylakoid.
+    back: Electron carriers use energy from excited electrons to pump H⁺ from the stroma into the thylakoid space. H⁺ diffuses back to the stroma through ATP synthase, which makes ATP from ADP + Pi.
+  - id: c13
+    level: AHL
+    front: Cyclic vs non-cyclic photophosphorylation
+    back: Non-cyclic — electrons from PSII pass to PSI and then reduce NADP; water is split and O₂ released; makes ATP and reduced NADP. Cyclic — electrons from PSI return to PSI via the carrier chain; makes ATP only.
+  - id: c14
+    level: AHL
+    front: What does Rubisco catalyse, and why is so much of it needed?
+    back: RuBP + CO₂ → 2 glycerate 3-phosphate (carbon fixation). It works slowly and is not effective at low CO₂ concentrations, so high concentrations are needed in the stroma; it is the most abundant enzyme on Earth.
+  - id: c15
+    level: AHL
+    front: How is triose phosphate made, and what happens to it?
+    back: Glycerate 3-phosphate is reduced using reduced NADP and ATP. Five of every six TP regenerate RuBP (5 TP → 3 RuBP, using ATP); the rest is used to make glucose, sucrose, starch, amino acids and other compounds.
+  - id: c16
+    level: AHL
+    front: Why does a lack of CO₂ stop photosystem II working?
+    back: The Calvin cycle stops, so NADP is not regenerated. With all NADP reduced, PSI has no electron acceptor, the carriers stay reduced, and PSII cannot pass on its excited electrons — so photolysis and O₂ release stop.

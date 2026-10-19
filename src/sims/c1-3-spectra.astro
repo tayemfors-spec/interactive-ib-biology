@@ -1,0 +1,150 @@
+---
+import { linePath, range, sx, sy, type Frame } from './chart';
+import { RANGE, absorption, action, colourBands, colourName, wavelengthToRgb } from './models/c1-3-spectra';
+
+const frame: Frame = {
+  w: 640, h: 400, left: 58, right: 18, top: 16, bottom: 92,
+  x: { min: RANGE.min, max: RANGE.max, ticks: range(400, 700, 50), label: 'Wavelength of light (nm)' },
+  y: { min: 0, max: 105, ticks: range(0, 100, 20), label: 'Absorption or rate (% of max)' },
+};
+const series = [
+  { id: 'chlA', name: 'Chlorophyll a (absorption)', fn: (n: number) => absorption('chlA', n), checked: true },
+  { id: 'chlB', name: 'Chlorophyll b (absorption)', fn: (n: number) => absorption('chlB', n), checked: true },
+  { id: 'car', name: 'Carotenoids (absorption)', fn: (n: number) => absorption('car', n), checked: true },
+  { id: 'action', name: 'Action spectrum (rate)', fn: action, checked: true },
+];
+const nm0 = 550;
+const baseY = frame.h - frame.bottom;
+const strip = range(400, 695, 5).map((n) => ({ x: sx(frame, n), w: sx(frame, n + 5) - sx(frame, n) + 0.5, c: wavelengthToRgb(n + 2.5) }));
+const table = range(400, 700, 20).map((n) => ({ n, c: colourName(n), vals: series.map((s) => s.fn(n)) }));
+---
+<div class="sim-spec" data-sim-spec data-frame={JSON.stringify(frame)}>
+  <div class="layout">
+    <svg class="chart" viewBox={`0 0 ${frame.w} ${frame.h}`} role="img" aria-labelledby="sp-t sp-d">
+      <title id="sp-t">Absorption spectra of chlorophyll a, chlorophyll b and carotenoids, with the action spectrum of photosynthesis</title>
+      <desc id="sp-d">Chlorophylls absorb strongly in violet-blue and red light and very little green. Carotenoids absorb violet, blue and some blue-green light. The action spectrum has peaks in blue and red and a trough, above zero, in green.</desc>
+      <g class="grid">
+        {frame.x.ticks.map((t) => <line x1={sx(frame, t)} x2={sx(frame, t)} y1={frame.top} y2={baseY} />)}
+        {frame.y.ticks.map((t) => <line x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, t)} y2={sy(frame, t)} />)}
+      </g>
+      <line class="axisline" x1={frame.left} x2={frame.w - frame.right} y1={baseY} y2={baseY} />
+      <line class="axisline" x1={frame.left} x2={frame.left} y1={frame.top} y2={baseY} />
+      <g class="ticks">
+        {frame.x.ticks.map((t) => <text x={sx(frame, t)} y={baseY + 17} text-anchor="middle">{t}</text>)}
+        {frame.y.ticks.map((t) => <text x={frame.left - 8} y={sy(frame, t)} dy="0.35em" text-anchor="end">{t}</text>)}
+      </g>
+      <g aria-hidden="true">{strip.map((s) => <rect x={s.x} y={baseY + 24} width={s.w} height="14" fill={s.c} />)}</g>
+      <g class="cnames">
+        {colourBands.map((b) => <text x={sx(frame, (b.from + b.to) / 2)} y={baseY + 54} text-anchor="middle">{b.name}</text>)}
+      </g>
+      <text class="axis" x={(frame.left + frame.w - frame.right) / 2} y={frame.h - 8} text-anchor="middle">{frame.x.label} →</text>
+      <text class="axis" transform={`translate(16 ${(frame.top + baseY) / 2}) rotate(-90)`} text-anchor="middle">{frame.y.label} →</text>
+      {series.map((s) => <path class={`line ${s.id}`} d={linePath(frame, s.fn, 240)} data-line={s.id} />)}
+      <line class="marker" data-marker x1={sx(frame, nm0)} x2={sx(frame, nm0)} y1={frame.top} y2={baseY + 38} />
+    </svg>
+    <div class="controls">
+      <fieldset class="legend">
+        <legend>Show</legend>
+        {series.map((s) => <label><input type="checkbox" data-show={s.id} checked={s.checked} /> <span class={`key ${s.id}`}></span> {s.name}</label>)}
+      </fieldset>
+      <label class="slider">Wavelength: <output data-out="nm">{nm0} nm ({colourName(nm0)})</output>
+        <input type="range" min="400" max="700" step="5" value={nm0} data-param="nm" />
+      </label>
+      <div class="swatch-row"><span class="swatch" data-swatch style={`background:${wavelengthToRgb(nm0)}`}></span><span>Colour of this light</span></div>
+      <dl class="stats" data-stats>
+        {series.map((s) => <div><dt>{s.name}</dt><dd data-stat={s.id}>{s.fn(nm0).toFixed(0)}%</dd></div>)}
+      </dl>
+    </div>
+  </div>
+  <p class="readout" aria-live="polite" data-readout>
+    At {nm0} nm ({colourName(nm0)} light) the chlorophylls absorb very little: most of this light is reflected or passes through, which is why leaves look green. The rate of photosynthesis is still about {action(nm0).toFixed(0)}% of the maximum.
+  </p>
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <thead><tr><th scope="col">nm</th><th scope="col">Colour</th><th scope="col">Chl a</th><th scope="col">Chl b</th><th scope="col">Carotenoids</th><th scope="col">Action</th></tr></thead>
+      <tbody>{table.map((r) => <tr><th scope="row">{r.n}</th><td>{r.c}</td>{r.vals.map((v) => <td>{v.toFixed(0)}</td>)}</tr>)}</tbody>
+    </table>
+  </details>
+  <p class="model-note">Approximate shapes for pigments dissolved in an organic solvent (each scaled to 100% at its own peak) and a typical action spectrum. Exact peak positions shift a little inside the leaf.</p>
+</div>
+
+<script>
+  import { sx, type Frame } from './chart';
+  import { absorption, action, colourName, wavelengthToRgb } from './models/c1-3-spectra';
+
+  document.querySelectorAll<HTMLElement>('[data-sim-spec]').forEach((root) => {
+    const frame = JSON.parse(root.dataset.frame!) as Frame;
+    const q = <T extends Element>(s: string) => root.querySelector<T>(s)!;
+    const input = q<HTMLInputElement>('[data-param="nm"]');
+    const readout = q<HTMLElement>('[data-readout]');
+    let timer = 0;
+    const update = () => {
+      const nm = Number(input.value);
+      const col = colourName(nm);
+      q('[data-out="nm"]').textContent = `${nm} nm (${col})`;
+      const X = sx(frame, nm).toFixed(1);
+      const m = q<SVGLineElement>('[data-marker]');
+      m.setAttribute('x1', X); m.setAttribute('x2', X);
+      q<HTMLElement>('[data-swatch]').style.background = wavelengthToRgb(nm);
+      const a = absorption('chlA', nm), b = absorption('chlB', nm), c = absorption('car', nm), r = action(nm);
+      q('[data-stat="chlA"]').textContent = `${a.toFixed(0)}%`;
+      q('[data-stat="chlB"]').textContent = `${b.toFixed(0)}%`;
+      q('[data-stat="car"]').textContent = `${c.toFixed(0)}%`;
+      q('[data-stat="action"]').textContent = `${r.toFixed(0)}%`;
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        const most = Math.max(a, b, c);
+        let msg = `At ${nm} nm (${col} light): `;
+        if (most < 12) msg += `the chlorophylls${c < 12 ? ' and carotenoids' : ''} absorb very little, so most of this light is reflected or passes through. This is why leaves look green.`;
+        else if (c > a && c > b) msg += 'carotenoids absorb strongly here and pass the energy on to chlorophyll, extending the range of wavelengths used.';
+        else msg += `${a >= b ? 'chlorophyll a' : 'chlorophyll b'} absorbs strongly; photons of this wavelength have the right energy to excite its electrons.`;
+        msg += ` Relative rate of photosynthesis: about ${r.toFixed(0)}% of the maximum.`;
+        readout.textContent = msg;
+      }, 350);
+    };
+    input.addEventListener('input', update);
+    root.querySelectorAll<HTMLInputElement>('[data-show]').forEach((cb) => cb.addEventListener('change', () => (q<SVGPathElement>(`[data-line="${cb.dataset.show}"]`).style.display = cb.checked ? '' : 'none')));
+  });
+</script>
+
+<style>
+  .sim-spec { container-type: inline-size; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 46rem) { .layout { grid-template-columns: minmax(0, 1.6fr) minmax(15rem, 1fr); align-items: start; } }
+  .chart { width: 100%; height: auto; font-family: var(--font-sans); }
+  .grid line { stroke: var(--border); stroke-width: 1; }
+  .axisline { stroke: var(--text-muted); stroke-width: 1.4; }
+  .ticks text { font-size: 15px; fill: var(--text-muted); }
+  .cnames text { font-size: 13px; fill: var(--text); font-style: italic; }
+  .axis { font-size: 16px; font-weight: 650; fill: var(--text); }
+  .line { fill: none; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+  .chlA { stroke: var(--bio-carb); }
+  .chlB { stroke: var(--bio-protein); stroke-dasharray: 10 6; }
+  .car { stroke: var(--bio-head); stroke-dasharray: 2 6; stroke-width: 3.6; }
+  .action { stroke: var(--text); stroke-width: 4.2; stroke-dasharray: 20 6 4 6; }
+  .marker { stroke: var(--text); stroke-width: 1.4; stroke-dasharray: 3 3; }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .legend { border: 0; padding: 0; margin: 0; display: grid; gap: var(--space-1); }
+  .legend legend { font-weight: 700; color: var(--text-muted); margin-bottom: var(--space-1); }
+  .legend label { display: flex; align-items: center; gap: var(--space-2); min-height: 24px; }
+  .key { display: inline-block; width: 2rem; height: 0; border-top: 3.5px solid; flex: none; }
+  .key.chlA { border-color: var(--bio-carb); }
+  .key.chlB { border-color: var(--bio-protein); border-top-style: dashed; }
+  .key.car { border-color: var(--bio-head); border-top-style: dotted; }
+  .key.action { border-color: var(--text); border-top-width: 4px; border-top-style: dashed; }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .swatch-row { display: flex; align-items: center; gap: var(--space-2); color: var(--text-muted); }
+  .swatch { width: 2.5rem; height: 1.4rem; border-radius: 4px; border: 1px solid var(--border-strong); }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); margin: 0; }
+  .stats div { background: var(--surface-2); border-radius: var(--radius-m); padding: var(--space-2); }
+  .stats dt { font-size: 0.75rem; color: var(--text-muted); font-weight: 700; }
+  .stats dd { margin: 0; font-weight: 800; }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  th, td { padding: 0.2rem 0.6rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>
