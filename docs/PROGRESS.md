@@ -32,3 +32,13 @@ Reference material is in the scratchpad (not in the repo): guide extracts in `sc
 - Wait for the Theme B builders, then follow steps 2–6 above.
 - Then Theme C, then Theme D, using the same procedure and the topic visual plans in `docs/PLAN.md` §2.
 - Final integration: full verify, home/theme pages, every topic linked in the sidebar, and a REVIEW.md summary.
+
+## Checkpoint — 2026-10-20 (usage limit reached)
+**Done on main:** Themes A, B complete and reviewed. Theme C merged and verified (481 unit, 540 e2e, Lighthouse ≥98); C review fixes NOT yet merged. Merged D2.3, D2.2, D1.3 (commit b51a906) — not yet re-verified on main.
+**Uncommitted on main (unverified):** `src/components/viz/Figure.astro` and `Anim.astro` phone horizontal-scroll for wide SVGs (Figure .art has tabindex/role=region). Verify with e2e + axe (mobile) before committing.
+**Branches awaiting check/merge (worktree-agent-*):** C review fixers — C2.1/C2.2/C3.1 and C3.2/C4.1/C4.2; reviewer C1.1–C1.3 result pending (re-run if lost). Builders D1.1, D1.2, D2.1 (wave 1) and D3.1, D3.2, D3.3 (wave 2). For each: `git log -1 <branch>`; check `git diff --name-only main...<branch>` touches only its topic; merge; if a branch has no commit, rebuild that topic.
+**Next steps:**
+1. Merge C fixer branches, run C1.1–C1.3 fixes, `npm run verify`, add C review log to REVIEW.md, commit "Stage 5: Theme C complete".
+2. Launch D4.1, D4.2, D4.3 builders (ports 4450–4452, same brief template).
+3. Merge all Theme D, verify, 3 examiner reviews (align D2.3 osmosis "solvation" wording with B2.1), fixes, commit "Stage 6".
+4. Final full verify, update REVIEW.md/PROGRESS.md, final report. Do NOT deploy (needs user).
