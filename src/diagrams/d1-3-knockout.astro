@@ -1,0 +1,73 @@
+---
+/** Gene knockout as a way of finding out what a gene does (D1.3.8). */
+const mouse = (x: number, y: number) => ({
+  body: `M${x - 46} ${y} C${x - 46} ${y - 34} ${x + 30} ${y - 38} ${x + 40} ${y - 6} C${x + 44} ${y + 8} ${x + 30} ${y + 18} ${x} ${y + 18} C${x - 30} ${y + 18} ${x - 46} ${y + 14} ${x - 46} ${y} Z`,
+  tail: `M${x - 46} ${y + 6} C${x - 70} ${y + 10} ${x - 74} ${y + 30} ${x - 96} ${y + 24}`,
+  ear: [x + 26, y - 26],
+  eye: [x + 34, y - 10],
+});
+const wt = mouse(150, 196);
+const ko = mouse(470, 196);
+const exons = [[60, 92], [112, 150], [172, 214], [236, 262]];
+---
+<svg viewBox="0 0 640 380" role="img" aria-labelledby="d13k-t d13k-d" xmlns="http://www.w3.org/2000/svg" class="ko">
+  <title id="d13k-t">Investigating gene function by gene knockout</title>
+  <desc id="d13k-d">Left: a normal gene X with its coding sections intact, in a wild-type mouse. Right: the same gene made inoperative, for example by deleting part of it or by causing a frameshift, in a knockout mouse. The two mice are raised in the same conditions and their phenotypes are compared; any difference shows what the product of gene X normally does. For example, mice with the p53 gene knocked out develop tumours at a young age, showing that p53 protects against cancer.</desc>
+  <defs>
+    <marker id="d13k-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="head" /></marker>
+  </defs>
+  <text class="h" x="160" y="26" text-anchor="middle">Wild type</text>
+  <text class="h" x="480" y="26" text-anchor="middle">Knockout</text>
+  <!-- genes -->
+  <g>
+    <line class="dna" x1="40" y1="70" x2="280" y2="70" />
+    {exons.map(([a, b]) => <rect class="exon" x={a} y="58" width={b! - a!} height="24" rx="3" />)}
+    <text class="lbl" x="160" y="104" text-anchor="middle">gene X: working</text>
+  </g>
+  <g>
+    <line class="dna" x1="360" y1="70" x2="600" y2="70" />
+    {exons.map(([a, b], i) => i === 1 ? <rect class="exon gone" x={a! + 320} y="58" width={b! - a!} height="24" rx="3" /> : <rect class="exon" x={a! + 320} y="58" width={b! - a!} height="24" rx="3" />)}
+    <path class="x" d="M432 52 l38 36 M470 52 l-38 36" />
+    <text class="lbl" x="480" y="104" text-anchor="middle">gene X: made inoperative</text>
+    <text class="lbl muted" x="480" y="121" text-anchor="middle">(e.g. part deleted, or a frameshift)</text>
+  </g>
+  <path class="arrow" d="M292 70 H348" marker-end="url(#d13k-arrow)" />
+  <text class="lbl b" x="320" y="58" text-anchor="middle">knock out</text>
+  <!-- mice -->
+  {[wt, ko].map((m) => (
+    <g>
+      <path class="tail" d={m.tail} />
+      <path class="mouse" d={m.body} />
+      <circle class="mouse" cx={m.ear[0]} cy={m.ear[1]} r="11" />
+      <circle class="eye" cx={m.eye[0]} cy={m.eye[1]} r="3" />
+    </g>
+  ))}
+  <text class="lbl" x="160" y="240" text-anchor="middle">normal phenotype</text>
+  <text class="lbl" x="480" y="240" text-anchor="middle">any change in phenotype?</text>
+  <path class="arrow" d="M240 186 H382" marker-end="url(#d13k-arrow)" marker-start="url(#d13k-arrow)" />
+  <text class="lbl b" x="311" y="176" text-anchor="middle">compare</text>
+  <text class="lbl muted" x="311" y="206" text-anchor="middle">same conditions</text>
+  <!-- inference -->
+  <rect class="box" x="16" y="262" width="608" height="106" rx="8" />
+  <text class="lbl b" x="30" y="286">The difference shows what the product of gene X normally does.</text>
+  <text class="lbl" x="30" y="308">Example: mice lacking a working p53 gene (a tumour suppressor) develop tumours</text>
+  <text class="lbl" x="30" y="327">at a young age, so p53 normally helps to prevent cancer.</text>
+  <text class="lbl" x="30" y="352">Libraries of knockout strains exist for model organisms, e.g. mice, yeast, Arabidopsis.</text>
+</svg>
+<style>
+  .ko { font-family: var(--font-sans); }
+  .h { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .lbl { font-size: 14px; fill: var(--text); }
+  .lbl.b { font-weight: 750; }
+  .lbl.muted { fill: var(--text-muted); font-size: 13px; }
+  .dna { stroke: var(--text-muted); stroke-width: 4; }
+  .exon { fill: color-mix(in srgb, var(--bio-protein) 35%, var(--surface)); stroke: var(--bio-protein); stroke-width: 1.5; }
+  .exon.gone { fill: none; stroke-dasharray: 4 3; }
+  .x { stroke: var(--bad); stroke-width: 4; stroke-linecap: round; }
+  .arrow { fill: none; stroke: var(--text); stroke-width: 1.8; }
+  .head { fill: var(--text); }
+  .mouse { fill: color-mix(in srgb, var(--text-muted) 30%, var(--surface)); stroke: var(--text-muted); stroke-width: 1.5; }
+  .tail { fill: none; stroke: var(--text-muted); stroke-width: 3; stroke-linecap: round; }
+  .eye { fill: var(--text); }
+  .box { fill: var(--surface); stroke: var(--border-strong); }
+</style>

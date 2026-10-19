@@ -1,0 +1,333 @@
+---
+code: D1.3
+description: "IB Biology D1.3 revision: edit a gene to see silent, missense, nonsense and frameshift mutations, then explore mutagens and CRISPR–Cas9."
+updated: 2026-10-19
+related: [D1.2, D1.1, D4.1, A3.1]
+mustKnow:
+  - term: Gene mutation
+    definition: "A change to the <strong>base sequence</strong> of a gene. It is a structural change to the DNA at the molecular level, and it is copied when the DNA replicates."
+    level: SL
+  - term: Base substitution
+    definition: "One base is replaced by a different base, so one codon changes but the length of the gene does not. Substitutions are the origin of <strong>single-nucleotide polymorphisms (SNPs)</strong>."
+    level: SL
+  - term: Silent, missense and nonsense
+    definition: "A <strong>silent</strong> (same-sense) substitution gives a codon for the same amino acid; a <strong>missense</strong> substitution changes one amino acid; a <strong>nonsense</strong> substitution creates a stop codon, so the polypeptide is cut short."
+    level: SL
+  - term: Frameshift mutation
+    definition: "An insertion or deletion of a number of bases that is <strong>not a multiple of 3</strong>. The reading frame shifts, so every codon after the mutation is changed."
+    level: SL
+  - term: Mutagen
+    definition: "An agent that increases the rate of mutation above the background rate: chemicals (e.g. benzo[a]pyrene and nitrosamines in tobacco smoke, mustard gas) or radiation (UV, X-rays, gamma rays, alpha and beta particles)."
+    level: SL
+  - term: Randomness of mutation
+    definition: "Mutations can occur at any base in the genome, although some bases mutate more often. No natural mechanism directs a mutation to a particular base to produce a useful trait."
+    level: SL
+  - term: Germ-line and somatic mutations
+    definition: "A <strong>germ-line</strong> mutation, in a cell that gives rise to gametes, can be inherited. A <strong>somatic</strong> mutation, in a body cell, is not inherited but can cause cancer."
+    level: SL
+  - term: Gene knockout
+    definition: "Deliberately making a gene inoperative in an organism, then comparing its phenotype with the wild type, to find out what the gene does."
+    level: AHL
+  - term: CRISPR–Cas9
+    definition: "A gene-editing system in which a <strong>guide RNA</strong> complementary to a target sequence directs the endonuclease <strong>Cas9</strong> to cut both DNA strands at that site; the cell's repair of the cut makes the edit."
+    level: AHL
+  - term: Conserved sequence
+    definition: "A base sequence that is identical or similar across a species or group of species. A <strong>highly conserved</strong> sequence has stayed similar over long periods of evolution."
+    level: AHL
+mistakes:
+  - wrong: "Every base substitution changes the amino acid sequence of the polypeptide."
+    right: "Because the genetic code is degenerate, many substitutions (especially of the third base of a codon) give a codon for the same amino acid and are silent. Others change one amino acid (missense) or create a stop codon (nonsense)."
+    level: SL
+  - wrong: "In sickle-cell anaemia the mRNA codon GAG changes to GTG."
+    right: "GTG is the DNA codon on the coding strand. The mRNA codon changes from GAG to <strong>GUG</strong>, because RNA has uracil instead of thymine; glutamic acid is replaced by valine."
+    level: SL
+  - wrong: "Any insertion or deletion causes a frameshift."
+    right: "Only insertions or deletions of a number of bases that is not a multiple of 3 cause a frameshift. Inserting or deleting 3 bases adds or removes a codon and keeps the reading frame, though the protein may still not work."
+    level: SL
+  - wrong: "A frameshift changes only the codon where the mutation happens."
+    right: "A frameshift changes every codon from the mutation onwards, in the direction of translation, and often brings a stop codon into frame so the polypeptide is shortened."
+    level: SL
+  - wrong: "Organisms mutate in order to adapt, e.g. bacteria mutate to become resistant when they meet an antibiotic."
+    right: "Mutations are random and are not caused by need. Resistant mutants arise by chance, often before the antibiotic is present; the antibiotic then selects them."
+    level: SL
+  - wrong: "Mutations only happen when a mutagen is present."
+    right: "There is always a low background rate of mutation, mainly from errors in DNA replication and repair that are not corrected. Mutagens increase the rate."
+    level: SL
+  - wrong: "A mutation that causes skin cancer will be passed on to the person's children."
+    right: "Mutations in somatic (body) cells are passed only to the descendants of that cell by mitosis. Only mutations in germ-line cells, which give rise to gametes, can be inherited."
+    level: SL
+  - wrong: "All mutations are harmful."
+    right: "Most are neutral or harmful to the individual, but a few are beneficial. Mutation is the original source of all new alleles, so in the long term it is essential for evolution."
+    level: SL
+  - wrong: "In CRISPR–Cas9 gene editing, the Cas9 enzyme recognises the target gene's sequence."
+    right: "The guide RNA's spacer finds the target by complementary base pairing; Cas9 needs a PAM next to the target and then cuts both strands. Changing the guide RNA retargets the same Cas9."
+    level: AHL
+  - wrong: "Conserved sequences are conserved because mutations cannot happen in them."
+    right: "Mutations can happen anywhere. Sequences may be conserved because natural selection removes changes that stop the product working, or because the mutation rate in that region is lower."
+    level: AHL
+---
+
+<Section id="mutation-types" title="Gene mutations: substitutions, insertions and deletions" level="SL" covers="D1.3.1">
+
+A **gene mutation** is a change to the **base sequence** of a gene. It is a structural change at the molecular level: the order of nucleotides in the DNA is altered. Because DNA replication copies whatever sequence is present, a mutation is passed on to every cell produced from the mutated cell. (Changes to whole chromosomes, such as an extra copy of chromosome 21, are a different kind of mutation and are not part of this topic.)
+
+There are three types of gene mutation:
+
+| Type | What happens | Effect on length |
+|---|---|---|
+| **Base substitution** | One base is replaced by a different base, e.g. A replaced by T | None |
+| **Insertion** | One or more extra nucleotides are added | Longer |
+| **Deletion** | One or more nucleotides are removed | Shorter |
+
+The effect of a mutation on the protein depends on how it changes the **codons**, the triplets of bases read during translation (see <TopicLink code="D1.2" />). The diagram below applies each type of mutation to the same short stretch of the β-globin gene, one of the genes for haemoglobin.
+
+<Figure name="d1-3-types" caption="The same region of the β-globin gene (coding strand) after three kinds of mutation. The substitution in codon 6 changes one amino acid. Inserting or deleting a single base in codon 6 changes every codon from that point on." />
+
+Base substitutions are the most common type. They are not all equally likely: swaps between the two **purines** (A ↔ G) or between the two **pyrimidines** (C ↔ T), called **transitions**, are more frequent than swaps between a purine and a pyrimidine (**transversions**).
+
+<Callout type="exam">
+
+When asked to distinguish the three types, give a precise matched statement for each: a substitution **replaces** one base with another; an insertion **adds** one or more nucleotides; a deletion **removes** one or more nucleotides. Mention that only insertions and deletions change the length of the gene.
+
+</Callout>
+
+</Section>
+
+<Section id="substitutions" title="Base substitutions, SNPs and the genetic code" level="SL" covers="D1.3.2">
+
+### Single-nucleotide polymorphisms
+
+When a base substitution in a germ-line cell is inherited and spreads through a population, individuals end up with different bases at that position. A position like this is a **single-nucleotide polymorphism (SNP**, pronounced "snip"). SNPs are the most common type of genetic difference between people: two unrelated humans differ at roughly one base in every thousand, millions of positions in total. Most SNPs are in non-coding DNA and have no effect.
+
+### Why some substitutions change nothing
+
+The genetic code is **degenerate**: there are 64 codons but only 20 amino acids, so most amino acids are coded for by two, four or even six codons. Codons for the same amino acid usually differ only in the **third base**. So a substitution in a coding sequence may or may not change an amino acid:
+
+- **Silent (same-sense) mutation**: the new codon codes for the same amino acid, e.g. GAG → GAA (both glutamic acid). The polypeptide is unchanged.
+- **Missense mutation**: the new codon codes for a different amino acid, so one amino acid in the polypeptide is different. The effect can be minor if the new amino acid has similar properties or is in a part of the protein that is not critical, or severe.
+- **Nonsense mutation**: the codon becomes a **stop codon** (UAA, UAG or UGA). Translation ends early and a shortened polypeptide, which usually does not function, is produced.
+
+### Sickle-cell disease
+
+**Sickle-cell disease** is caused by a missense mutation in the β-globin gene. In codon 6 the base A is replaced by T on the coding strand: **GAG becomes GTG**, so the mRNA codon is **GUG** instead of GAG and **valine** replaces **glutamic acid**. The resulting haemoglobin S is less soluble at low oxygen concentrations and forms long fibres that distort red blood cells into a sickle shape. A different substitution in the same codon, GAG → AAG (glutamic acid → lysine), gives haemoglobin C.
+
+<Sim topic="d1-3" id="mutations" />
+
+<Callout type="exam">
+
+Watch which sequence you are given. The **coding strand** of DNA has the same sequence as the mRNA except that T is replaced by U; the **template strand** is complementary to both. In sickle-cell disease the DNA (coding strand) codon is GTG but the mRNA codon is GUG.
+
+</Callout>
+
+</Section>
+
+<Section id="indels" title="Insertions, deletions and frameshifts" level="SL" covers="D1.3.3">
+
+The consequences of an insertion or deletion depend mainly on whether the number of nucleotides added or removed is a **multiple of 3**.
+
+### Not a multiple of 3: frameshift
+
+mRNA is read in non-overlapping groups of three bases from the start codon, and this grouping is called the **reading frame**. Inserting or deleting 1, 2, 4, 5 or any other number of bases that is not a multiple of 3 shifts the reading frame. Every codon from the mutation onwards, in the direction of translation, is read in a different set of three. This is a **frameshift mutation**:
+
+- the amino acid sequence after the mutation is almost completely different;
+- a stop codon is often brought into frame, so translation ends early and a **truncated** polypeptide is produced;
+- the polypeptide almost certainly cannot fold into its normal shape or function.
+
+The earlier in a gene the frameshift happens, the more of the polypeptide is affected.
+
+### A multiple of 3: in-frame
+
+Inserting or deleting 3, 6, 9 … bases adds or removes whole codons, so the reading frame is kept. The polypeptide gains or loses one or more amino acids at that point, and the rest is translated normally. Even so, the change in structure can stop the protein working, especially if it is in an important region such as an active site.
+
+### Large insertions and deletions
+
+Some mutations add or remove hundreds or thousands of bases, for example deleting a whole exon. These almost always stop the polypeptide from functioning, even when the reading frame happens to be kept.
+
+Use the **Delete 1 base**, **Delete 3 bases**, **Insert 1 base** and **Insert 3 bases** buttons in the mutation explorer above to compare the two cases.
+
+<Callout type="tip" title="Why frameshifts are usually worse">
+
+A substitution changes at most one codon. A frameshift changes every codon after it. So frameshifts nearly always destroy the function of the protein, while many substitutions have little or no effect.
+
+</Callout>
+
+</Section>
+
+<Section id="causes" title="What causes gene mutations?" level="SL" covers="D1.3.4">
+
+### Errors in replication and repair
+
+Mutations happen even without any outside cause. During **DNA replication**, DNA polymerase occasionally adds a base that is not complementary to the template. Proofreading by DNA polymerase and later **DNA repair** enzymes correct almost all of these errors, but a very small fraction remain, and repair itself sometimes makes mistakes. At the next replication the wrong base acts as a template, so the change becomes permanent in one of the daughter molecules. This gives a low **background mutation rate**: each human is born with roughly 60–70 new mutations that neither parent had.
+
+### Mutagens
+
+A **mutagen** is an agent that increases the mutation rate above the background rate. Most mutagens are also **carcinogens**, because mutations can cause cancer.
+
+**Chemical mutagens** react with DNA and change the bases so that they pair incorrectly when copied, or distort the double helix:
+
+- **Benzo[a]pyrene** and **nitrosamines** in tobacco smoke. Benzo[a]pyrene is converted in the body into a compound that bonds to guanine.
+- **Mustard gas**, used as a chemical weapon, which adds groups to bases and can cross-link the two strands.
+
+**Mutagenic radiation** carries enough energy to damage DNA:
+
+- **Ultraviolet (UV) radiation**, especially UVB and UVC, is absorbed by DNA bases. It can join two adjacent pyrimidines, typically two thymines, forming a **thymine dimer** that causes errors when the DNA is copied or repaired. UV in sunlight is the main cause of skin cancer.
+- **Ionizing radiation**, including **X-rays**, **gamma rays**, and **alpha and beta particles** from radioactive isotopes, breaks one or both DNA strands and damages bases. Faulty repair of the breaks can delete or insert bases.
+
+<Anim topic="d1-3" id="causes" />
+
+<Callout type="exam">
+
+The guide asks for examples of **both** kinds of mutagen. Name a specific chemical (e.g. benzo[a]pyrene or nitrosamines in tobacco smoke, or mustard gas) and a specific type of radiation (e.g. UV, X-rays or gamma rays). "Chemicals" or "radiation" alone does not earn the mark.
+
+</Callout>
+
+</Section>
+
+<Section id="randomness" title="Mutation is random" level="SL" covers="D1.3.5">
+
+Mutations can happen at **any base** in a genome: in genes and between them, in essential genes and unimportant ones. Which bases mutate in a particular cell is a matter of chance, so two cells exposed to the same mutagen end up with different mutations.
+
+That does not mean every base is equally likely to change. Mutations are chemical changes, and some happen more readily than others:
+
+- **Transitions** (A ↔ G, C ↔ T) are more common than transversions, because the bases involved have similar structures.
+- Some positions are **hotspots**. In mammals, a cytosine followed by a guanine (a CG site) is often methylated, and methylated cytosine can lose an amino group and become thymine. As a result, C → T changes at CG sites happen at least ten times more often than most other substitutions.
+- The neighbouring bases and the position of a sequence in the genome also affect how often it mutates.
+
+The key point is that **no natural mechanism is known** that makes a deliberate change to a particular base in order to change a trait. A cell cannot "decide" to mutate the gene it needs. If bacteria are exposed to an antibiotic, resistant mutants were present before the exposure and the antibiotic **selects** them; the antibiotic did not cause the useful mutation. Experiments in the 1940s–50s, such as replica plating, showed this directly. Mutation provides random variation; **natural selection** is what makes evolution non-random.
+
+<Callout type="note" title="Contrast with gene editing">
+
+Gene editing with CRISPR–Cas9 (AHL, below) is a human technique for making a directed change at one chosen base. Nothing comparable is known to happen in nature to produce adaptive changes.
+
+</Callout>
+
+</Section>
+
+<Section id="germ-somatic" title="Mutations in germ cells and somatic cells" level="SL" covers="D1.3.6">
+
+The consequences of a mutation depend on the type of cell in which it occurs.
+
+### Somatic cells
+
+**Somatic cells** are body cells that do not produce gametes, such as skin, lung or liver cells. A mutation in a somatic cell is passed by mitosis only to that cell's descendants, forming a **clone** of mutant cells. It is **not inherited** by the organism's offspring. Usually the effect is small, because one cell among billions is affected and it can be replaced.
+
+The most serious exception is **cancer**. Mutations in genes that control the cell cycle, such as **proto-oncogenes**, which stimulate division, and **tumour suppressor genes** such as the gene for p53, which halt it, can lead to uncontrolled cell division and a **tumour**. Usually several mutations in the same cell line are needed, which is one reason why cancer is more common in older people and in people with long exposure to mutagens, such as smokers.
+
+### Germ cells
+
+**Germ cells** are gametes and the cells that give rise to them, in the testes and ovaries. A mutation in a germ-line cell can be passed on in a gamete. The zygote formed at fertilization then carries the mutation, and because all the cells of the offspring come from the zygote by mitosis, **every cell** of the offspring has it, including its own germ cells. Germ-line mutations are therefore **inherited** and can spread through a population over many generations. This is how new alleles, including those that cause genetic diseases, enter the gene pool.
+
+| | Somatic mutation | Germ-line mutation |
+|---|---|---|
+| Cells affected | Descendants of one body cell | Every cell of the offspring |
+| Inherited? | No | Yes |
+| Main consequence | Possible cancer | Possible genetic disease, or a new allele in the population |
+
+<Callout type="exam">
+
+Link each to its consequence: germ-line mutations → **inheritance**; somatic mutations → **cancer** (not inherited). Explain why using mitosis: every cell of an offspring comes from the zygote by mitosis.
+
+</Callout>
+
+</Section>
+
+<Section id="variation" title="Mutation as the source of genetic variation" level="SL" covers="D1.3.7">
+
+**Gene mutation is the original source of all genetic variation.** Every allele of every gene first arose by mutation. Meiosis and fertilization produce new **combinations** of alleles, but they cannot make a new allele. Without mutation, all the alleles that exist would eventually be lost or fixed, and variation would decline.
+
+For an individual organism, most mutations are either:
+
+- **neutral**: they are in non-coding DNA, they are silent, or the amino acid change does not affect function; or
+- **harmful**: they reduce or destroy the function of a protein. The most harmful are lethal.
+
+A few mutations are **beneficial** in a particular environment. The sickle-cell allele is harmful in people with two copies, but people with one copy are partly protected against malaria, so in regions where malaria is common the allele has risen in frequency. Over many generations, natural selection increases the frequency of beneficial alleles. Mutation is therefore essential for evolution in the long term, especially when the environment changes (see <TopicLink code="D4.1" />).
+
+### Nature of science: commercial genetic tests
+
+Companies now sell **genetic tests** directly to the public. A sample of saliva is analysed for hundreds of thousands of SNPs, giving information about ancestry and about variants linked to disease, such as *BRCA1* and *BRCA2* alleles (breast and ovarian cancer) or the APOE ε4 allele (Alzheimer's disease).
+
+- Most results give a change in **risk**, not a diagnosis. Many people with a "high-risk" variant never develop the disease, and a "low-risk" result does not mean a person is safe.
+- Without **expert interpretation**, such as genetic counselling, results can cause unnecessary anxiety or false reassurance, and people may make poor decisions about their health.
+- There are also questions of **privacy**: who owns the data, and could it be used by insurers or employers?
+
+</Section>
+
+<Section id="knockout" title="Gene knockout" level="AHL" covers="D1.3.8">
+
+Sequencing a genome reveals thousands of genes whose functions are unknown. One way to find out what a gene does is a **gene knockout**: the gene is deliberately changed so that it is **inoperative**, and the phenotype of the knockout organism is compared with that of **wild-type** organisms raised in the same conditions. Any difference shows what the gene's product normally does. This is a controlled experiment in which the only variable is whether that one gene works.
+
+A gene can be knocked out by deleting part of it, inserting a sequence into it, or causing a frameshift, for example with CRISPR–Cas9 (next section). Details of the techniques are not required.
+
+<Figure name="d1-3-knockout" level="AHL" caption="Gene knockout. Gene X is made inoperative and the knockout organism is compared with wild-type controls. Knockout mice lacking a working p53 gene develop tumours early in life, which shows that the p53 protein normally helps to prevent cancer." />
+
+### Knockout libraries
+
+Because knockouts are so useful, **libraries of knockout organisms** have been made for several **model organisms** used in research:
+
+- **Mice**: international projects aim to produce and study a knockout strain for every protein-coding gene, about 20 000. Strains are stored as frozen embryos or sperm and supplied to researchers.
+- **Baker's yeast** (*Saccharomyces cerevisiae*): a collection of strains with each gene deleted in turn. It showed that only about a fifth of yeast genes are essential for growth in the laboratory.
+- **Arabidopsis thaliana**, the nematode *Caenorhabditis elegans* and the zebrafish also have large mutant libraries.
+
+<Callout type="tip" title="Interpreting knockout results">
+
+A knockout shows that a gene is **needed** for a process, not that it is the only gene involved. If knocking out a gene has no visible effect, another gene may be compensating, or the gene may only matter in conditions that were not tested.
+
+</Callout>
+
+</Section>
+
+<Section id="crispr" title="Gene editing with CRISPR–Cas9" level="AHL" covers="D1.3.9">
+
+**Gene editing** is making a deliberate, targeted change to the base sequence of a gene. The **CRISPR–Cas9** system, developed in 2012 from a defence system in bacteria, made this cheap, fast and precise. Its role in prokaryotes is not required.
+
+### How it works
+
+1. **Guide RNA.** Scientists design a **guide RNA (gRNA)**. Its first ~20 bases, the **spacer**, are complementary to the **target sequence** in the gene to be edited. The rest of the gRNA folds into a shape that binds to Cas9.
+2. **Finding the target.** **Cas9** is an **endonuclease**, an enzyme that cuts DNA. The Cas9–gRNA complex binds DNA wherever it finds a short **PAM** sequence (5′-NGG-3′ for the most common Cas9). It separates the strands next to the PAM; if the spacer is complementary to that DNA, it base-pairs with the target strand.
+3. **Cutting.** Cas9 then cuts **both strands**, about 3 base pairs from the PAM, making a **double-strand break**.
+4. **Repair.** The cell repairs the break, and this is what makes the edit:
+   - **Non-homologous end joining (NHEJ)** joins the ends back together. It often inserts or deletes a few bases, causing a frameshift that **knocks out** the gene.
+   - **Homology-directed repair (HDR)** copies a **DNA template** supplied with the Cas9, whose ends match the DNA on each side of the cut. The sequence in the middle of the template is copied into the gene, allowing a **precise edit**, such as correcting a single base.
+
+To target a different gene, only the spacer of the guide RNA needs to be changed. Newer variants such as base editing and prime editing change bases without cutting both strands.
+
+<Anim topic="d1-3" id="crispr" />
+
+### A successful application: exa-cel for sickle-cell disease
+
+In 2023, **exa-cel** (brand name Casgevy) became the first CRISPR–Cas9 treatment to be approved, in the UK and then the USA, for sickle-cell disease. Blood stem cells are collected from the patient and edited outside the body. The edit disrupts an enhancer of the **BCL11A** gene, which normally switches off **fetal haemoglobin (HbF)** after birth. After chemotherapy clears the old bone marrow cells, the edited stem cells are returned. Their red blood cells make HbF, which does not sickle and dilutes haemoglobin S, so most treated patients stopped having painful crises. CRISPR–Cas9 is also used in crops: a tomato edited so that an enzyme that makes the signalling molecule GABA is more active, giving fruit with several times more GABA, went on sale in Japan in 2021.
+
+### Ethics and regulation
+
+- **Somatic editing**, as in exa-cel, affects only the patient, who can give consent. The main issues are safety (including **off-target** cuts at similar sequences elsewhere), and very high cost, which limits access.
+- **Germ-line editing** of embryos or gametes would be inherited by all descendants, who cannot consent, and any off-target damage would be passed on. It also raises fears of editing for **enhancement** rather than treating disease. In 2018 a scientist in China announced the birth of twins whose embryos he had edited; this was widely condemned and he was imprisoned.
+- Scientists in different countries work under **different regulatory systems**: some ban germ-line editing outright, others allow it for research but not to start a pregnancy. Because the consequences could cross borders, there is an **international effort**, through scientific summits and the World Health Organization, to **harmonize regulation**.
+
+<Callout type="exam">
+
+For an "outline" question, give the sequence: gRNA **complementary** to the target → Cas9 binds next to a **PAM** → Cas9 **cuts both strands** → repair by **NHEJ** (indels, knockout) or **HDR** using a template (precise edit). Then name a specific application such as exa-cel for sickle-cell disease.
+
+</Callout>
+
+</Section>
+
+<Section id="conserved" title="Conserved and highly conserved sequences" level="AHL" covers="D1.3.10">
+
+Comparing the genomes of different organisms shows that some sequences hardly change. A **conserved sequence** is identical or similar across a species or a group of species. A **highly conserved sequence** has stayed identical or similar over long periods of evolution, so it is found in distantly related species.
+
+Examples:
+
+- **Histone H4**, a protein around which DNA is wound in eukaryotic chromosomes. The 102 amino acids of the cow and pea proteins differ at only two positions, even though their lineages separated well over a billion years ago.
+- Genes for **ribosomal RNA** and **ubiquitin**, a small protein that labels other proteins for breakdown, are similar in all eukaryotes.
+- Hundreds of **ultra-conserved elements**, non-coding stretches of 200 or more bases, are identical in humans, mice and rats.
+
+<Figure name="d1-3-conserved" level="AHL" caption="An illustrative alignment for the start of the histone H4 gene, and the two hypotheses for conservation. The codons are invented for illustration, but the pattern — amino acids identical, some synonymous third-base differences — is typical of real conserved genes." />
+
+### Two hypotheses
+
+1. **Functional requirement for the gene product.** Mutations arise in these sequences at the usual rate, but the gene product is so important, and its structure so finely tuned, that almost any change stops it working. Organisms carrying such mutations survive and reproduce less, so **natural selection** removes the mutations (purifying selection). For conserved non-coding sequences, this hypothesis implies they have important functions, such as regulating genes, even if these are not yet known.
+2. **Slower rate of mutation.** Mutation rates are not the same everywhere in the genome. Some regions may be less exposed to damage, or more efficiently repaired, so fewer mutations arise in the first place.
+
+These hypotheses make different predictions. If selection is responsible, **synonymous** changes (which do not alter the protein) should still accumulate in the gene while amino-acid changes do not. If the mutation rate is low, all positions, including synonymous third bases, should change slowly. For most conserved protein-coding genes, synonymous sites do change, which supports the functional-requirement hypothesis; both factors may contribute for other sequences.
+
+</Section>
