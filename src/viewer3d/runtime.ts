@@ -195,6 +195,8 @@ export async function mountViewer(fig: HTMLElement, scenes: SceneDef[]): Promise
       a.object.getWorldPosition(l.pos);
       v.copy(l.pos).project(camera);
       const offStep = !!l.def.steps && !!stepId && !l.def.steps.includes(stepId);
+      const keyItem = keyList.children[labelEls.indexOf(l)] as HTMLElement | undefined;
+      if (keyItem) keyItem.hidden = offStep;
       const hidden = offStep || !labelsOn || v.z > 1 || Math.abs(v.x) > 1.05 || Math.abs(v.y) > 1.05;
       l.el.hidden = hidden && l.def.id !== selected;
       if (l.el.hidden) continue;

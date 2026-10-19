@@ -219,6 +219,7 @@ const hasSteps = visual.scenes.some((s) => s.steps.length > 0);
   }
   .labels :global(.label3d[aria-pressed='true']) { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
   .labels :global(.label3d.dimmed:not([aria-pressed='true'])) { opacity: 0.5; }
+  .labels :global(.label3d[hidden]) { display: none !important; }
   .loading { position: absolute; inset: auto 0 45% 0; text-align: center; color: var(--text-muted); font-weight: 600; margin: 0; }
   .toolbar { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; margin-top: var(--space-3); }
   .cam { display: flex; gap: var(--space-1); margin-right: auto; }
