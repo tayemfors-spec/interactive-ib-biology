@@ -8,8 +8,8 @@ Updated by Claude during the build. If a session is interrupted, resume from **N
 |---|---|
 | 0 Setup, 1 Syllabus, 2 Framework + B2.1 | Done (committed) |
 | 3 Theme A (9 topics) | Done: merged, examiner-reviewed, fixed, all gates green (commit `afe7580`) |
-| 4 Theme B (9 remaining topics) | In progress: 9 builder agents running in git worktrees under `.claude/worktrees/` |
-| 5 Theme C (9 topics) | Not started |
+| 4 Theme B (9 remaining topics) | Merged into main; all gates green except one flaky test, since hardened. Examiner review running (3 reviewers); fixes and the Stage 4 commit come next |
+| 5 Theme C (9 topics) | Builders running in worktrees; C1.1, C1.2, C1.3 and C2.1 finished and committed on their branches (not yet merged) |
 | 6 Theme D (12 topics) | Not started |
 | 7 Polish / final integration | Not started |
 | 8–9 Deploy / Search Console | Needs the user (GitHub account, sign-in). Not started; no deployment without the user |
@@ -23,6 +23,10 @@ Updated by Claude during the build. If a session is interrupted, resume from **N
 6. Re-verify, add the review log and open claims to `REVIEW.md`, then commit `Stage N: Theme X complete`.
 
 Reference material is in the scratchpad (not in the repo): guide extracts in `scratchpad/guide/<CODE>.txt` and study-guide page images in `scratchpad/allott/<CODE>/`. A copy of the official guide is in the git-ignored `reference/` folder.
+
+## Notes
+- Before any unit-test run after a merge, clear `node_modules/.vitest-cache` (the `test:unit` script now does this).
+- Review screenshots are made with `PORT=4431 node scripts/serve.mjs &` and `PORT=4431 node scripts/shoot-visuals.mjs <slugs>`.
 
 ## Next steps
 - Wait for the Theme B builders, then follow steps 2–6 above.
