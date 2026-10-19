@@ -1,0 +1,163 @@
+facts:
+  - id: f1
+    claim: Word equation carbon dioxide + water → glucose + oxygen; balanced form 6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂.
+    where: ["index.mdx#energy", "flashcards.yaml:c1", "frontmatter mustKnow"]
+    confidence: high
+    basis: IB guide C1.3.2–C1.3.3; standard textbooks (Campbell Biology)
+    status: checked
+  - id: f2
+    claim: All O₂ released in photosynthesis comes from water; shown with ¹⁸O-labelled water in the 1940s (Ruben, Randall, Kamen and Hyde, 1941).
+    where: ["index.mdx#energy", "quiz.yaml:q1", "flashcards.yaml:c3"]
+    confidence: high
+    basis: Ruben et al. 1941 J. Am. Chem. Soc. 63, 877; Campbell Biology. Page says only "experiments in the 1940s".
+    status: checked
+  - id: f3
+    claim: Oxygenic photosynthesis is carried out by plants, algae and cyanobacteria.
+    where: ["index.mdx#energy"]
+    confidence: high
+    basis: IB guide C1.3.3
+    status: checked
+  - id: f4
+    claim: Chromatography order (non-polar solvent, TLC) from the top — carotene (Rf ≈ 0.9+), phaeophytin, chlorophyll a, chlorophyll b, xanthophylls. Sim Rf values 0.92, 0.78, 0.62, 0.50, 0.38, 0.27 are illustrative.
+    where: ["index.mdx#chromatography", "visuals.yaml:chromatography", "src/sims/models/c1-3-chromatography.ts", "flashcards.yaml:c5", "quiz.yaml:q2"]
+    confidence: medium
+    basis: Typical published TLC/paper results vary with solvent (e.g. petroleum ether–propanone). Some paper systems run xanthophyll above chlorophyll b. Study guide gives carotene 0.9, chl a 0.65, chl b 0.6, xanthophylls 0.3–0.5.
+    status: open
+  - id: f5
+    claim: Chlorophyll colours — a blue-green, b yellow-green; carotene orange-yellow; xanthophylls yellow; phaeophytin grey (breakdown product lacking Mg²⁺).
+    where: ["index.mdx#chromatography", "src/sims/models/c1-3-chromatography.ts"]
+    confidence: high
+    basis: Standard plant biochemistry texts
+    status: checked
+  - id: f6
+    claim: Absorption peaks (in organic solvent) chlorophyll a ≈ 430 and 662 nm; chlorophyll b ≈ 453 and 642 nm; carotenoids ≈ 425, 450, 478 nm with negligible absorption above ~520 nm. Sim curves are approximate Gaussian fits scaled to each pigment's own maximum.
+    where: ["visuals.yaml:spectra", "src/sims/models/c1-3-spectra.ts", "tests/unit/c1-3.test.ts"]
+    confidence: medium
+    basis: Lichtenthaler 1987 (Methods Enzymol. 148); exact peaks shift with solvent and in vivo.
+    status: checked
+  - id: f7
+    claim: Action spectrum has peaks in blue and red and a trough in green that is well above zero; modelled trough ≈ 25% of maximum.
+    where: ["index.mdx#spectra", "src/sims/models/c1-3-spectra.ts"]
+    confidence: medium
+    basis: Engelmann/classic algal action spectra; McCree 1972 leaf data show a much shallower green trough (~65–70%), so the depth of the trough is not fixed. Teacher may wish to check the depth shown.
+    status: open
+  - id: f8
+    claim: Visible light 400–700 nm is used in photosynthesis; shorter wavelengths have more energy per photon.
+    where: ["index.mdx#spectra", "flashcards.yaml:c6"]
+    confidence: high
+    basis: Physics (E = hc/λ); PAR definition
+    status: checked
+  - id: f9
+    claim: Colour bands used on axes — violet 400–450, blue 450–495, green 495–570, yellow 570–590, orange 590–620, red 620–700 nm.
+    where: ["src/sims/models/c1-3-spectra.ts"]
+    confidence: medium
+    basis: Common textbook boundaries; boundaries are conventional and vary slightly between sources.
+    status: checked
+  - id: f10
+    claim: Light intensity from a point source is proportional to 1/distance² (inverse square law).
+    where: ["index.mdx#limiting", "src/sims/models/c1-3-limiting.ts", "flashcards.yaml:c8"]
+    confidence: high
+    basis: Physics; holds for a point source, approximately for a lamp at these distances
+    status: checked
+  - id: f11
+    claim: Temperature curve rises to an optimum then falls steeply as enzymes (including Rubisco) denature; model optimum 30 °C and zero at 45 °C, noted as species-dependent.
+    where: ["index.mdx#limiting", "src/sims/models/c1-3-limiting.ts"]
+    confidence: medium
+    basis: Typical temperate C3 plants have optima ~20–30 °C; values in the model are illustrative.
+    status: checked
+  - id: f12
+    claim: Atmospheric CO₂ ≈ 280 ppm pre-industrial, ≈ 420 ppm today (mid-2020s).
+    where: ["index.mdx#co2-enrichment", "src/sims/models/c1-3-limiting.ts", "quiz.yaml:q5"]
+    confidence: high
+    basis: NOAA Mauna Loa annual means (~424 ppm in 2024); ice-core pre-industrial ~280 ppm
+    status: checked
+  - id: f13
+    claim: FACE rings use pipes or towers releasing CO₂ upwind, with sensor feedback to hold a target (often ~550 ppm); control rings release air; early FACE on crops and young tree plantations, later on mature natural forest.
+    where: ["index.mdx#co2-enrichment", "visuals.yaml:limiting", "quiz.yaml:q5", "flashcards.yaml:c9"]
+    confidence: high
+    basis: Ainsworth & Long 2005 New Phytol. 165, 351; EucFACE and BIFoR FACE descriptions (BIFoR uses +150 ppm above ambient)
+    status: checked
+  - id: f14
+    claim: FACE found smaller growth and yield increases than enclosure studies predicted, partly because nitrogen and water become limiting.
+    where: ["index.mdx#co2-enrichment"]
+    confidence: medium
+    basis: Long et al. 2006 Science 312, 1918; Ainsworth & Long 2005. Magnitude debated.
+    status: open
+  - id: f15
+    claim: Photosystems are in membranes (thylakoids of chloroplasts; thylakoid membranes in cyanobacterial cytoplasm); antenna complexes of hundreds of chlorophyll a/b and carotenoid molecules; reaction centre a special pair of chlorophyll a (P680 in PSII, P700 in PSI); PSII/PSI named by order of discovery.
+    where: ["index.mdx#photosystems", "visuals.yaml:photosynthesis", "flashcards.yaml:c10"]
+    confidence: high
+    basis: Campbell Biology; Taiz & Zeiger Plant Physiology
+    status: checked
+  - id: f16
+    claim: Isolated chlorophyll in solution re-emits absorbed energy as heat and red fluorescence.
+    where: ["index.mdx#photosystems"]
+    confidence: high
+    basis: Campbell Biology (Fig. on chlorophyll fluorescence)
+    status: checked
+  - id: f17
+    claim: Photolysis at the Mn-containing oxygen-evolving complex on the lumen side of PSII — 2H₂O → O₂ + 4H⁺ + 4e⁻; H⁺ released into the lumen.
+    where: ["index.mdx#photolysis", "visuals.yaml:photosynthesis", "src/diagrams/c1-3-thylakoid.astro", "flashcards.yaml:c11"]
+    confidence: high
+    basis: Taiz & Zeiger; IB guide C1.3.11
+    status: checked
+  - id: f18
+    claim: Great Oxidation Event about 2.4 billion years ago; banded iron formations; ozone layer; aerobic respiration became possible.
+    where: ["index.mdx#photolysis"]
+    confidence: high
+    basis: Lyons et al. 2014 Nature 506, 307
+    status: checked
+  - id: f19
+    claim: Electron carriers PSII → plastoquinone → cytochrome b6f complex → plastocyanin → PSI → ferredoxin → NADP reductase; the cytochrome complex (via plastoquinone) moves H⁺ from stroma to lumen; ATP synthase lets H⁺ return to the stroma and ATP is made in the stroma.
+    where: ["index.mdx#chemiosmosis", "index.mdx#thylakoid-system", "visuals.yaml:photosynthesis", "src/diagrams/c1-3-thylakoid.astro", "quiz.yaml:q7"]
+    confidence: high
+    basis: Taiz & Zeiger; Alberts. IB does not require carrier names.
+    status: checked
+  - id: f20
+    claim: Cyclic flow returns electrons from ferredoxin to the cytochrome complex; makes ATP only, no NADP reduced, no O₂; it supplements ATP because the Calvin cycle needs 3 ATP per 2 reduced NADP.
+    where: ["index.mdx#chemiosmosis", "visuals.yaml:photosynthesis", "flashcards.yaml:c13"]
+    confidence: high
+    basis: Taiz & Zeiger
+    status: checked
+  - id: f21
+    claim: NADP + 2e⁻ + H⁺ (from stroma) → reduced NADP, catalysed by NADP reductase (ferredoxin–NADP⁺ reductase) on the stroma side; 4 e⁻ from 2 H₂O reduce 2 NADP.
+    where: ["index.mdx#thylakoid-system", "visuals.yaml:photosynthesis", "quiz.yaml:q8"]
+    confidence: high
+    basis: IB guide C1.3.13; biochemistry texts
+    status: checked
+  - id: f22
+    claim: RuBP + CO₂ → unstable 6C → 2 glycerate 3-phosphate; Rubisco most abundant enzyme on Earth, slow and poor at low CO₂ (it also reacts with O₂).
+    where: ["index.mdx#calvin", "visuals.yaml:calvin", "flashcards.yaml:c14"]
+    confidence: high
+    basis: IB guide C1.3.15; Ellis 1979 Trends Biochem. Sci.; Bar-On & Milo 2019 PNAS
+    status: checked
+  - id: f23
+    claim: Each GP → TP uses 1 ATP and 1 reduced NADP; 5 TP → 3 RuBP uses 3 ATP; per 3 CO₂ — 9 ATP, 6 reduced NADP, 1 TP net; per glucose (6 turns) — 18 ATP, 12 reduced NADP, 12 TP of which 10 recycled (5/6).
+    where: ["index.mdx#calvin", "visuals.yaml:calvin", "src/anims/c1-3-calvin.ts", "quiz.yaml:q9", "flashcards.yaml:c15"]
+    confidence: high
+    basis: Standard Calvin cycle stoichiometry (Berg, Biochemistry); IB guide C1.3.17
+    status: checked
+  - id: f24
+    claim: Mineral nutrients — N as nitrate/ammonium, S as sulfate, P as phosphate, Mg for chlorophyll; amino acids are made from Calvin cycle intermediates such as glycerate 3-phosphate.
+    where: ["index.mdx#products"]
+    confidence: high
+    basis: Taiz & Zeiger; IB guide C1.3.18
+    status: checked
+  - id: f25
+    claim: Dark — GP rises, RuBP falls; low CO₂ — RuBP rises, GP falls (Calvin/Bassham experiments with Chlorella).
+    where: ["index.mdx#interdependence", "quiz.yaml:q10"]
+    confidence: high
+    basis: Bassham & Calvin; Campbell Biology
+    status: checked
+  - id: f26
+    claim: Study guide p.33 calls the graph of rate against wavelength an "absorption spectrum"; it is an action spectrum. Not copied.
+    where: ["index.mdx#spectra"]
+    confidence: high
+    basis: Definition in IB guide C1.3.6
+    status: checked
+  - id: f27
+    claim: Chloroplast length about 5–10 µm (exam diagram note).
+    where: ["src/diagrams/c1-3-chloroplast.astro"]
+    confidence: high
+    basis: Standard cell biology texts
+    status: checked

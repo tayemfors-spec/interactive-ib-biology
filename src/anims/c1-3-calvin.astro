@@ -1,0 +1,117 @@
+---
+/**
+ * Calvin cycle (C1.3.15–C1.3.17), followed for three turns (3 CO₂). Each dot is one carbon atom; the dark
+ * dots are carbon atoms that have just been fixed from CO₂. Drawn in the step-1 start state; animated by
+ * c1-3-calvin.ts (positions there must match the constants here).
+ */
+const R = 5.5, GAP = 12;
+const dots = (n: number) => Array.from({ length: n }, (_, i) => i * GAP);
+const RUBP_POOL = [[40, 214], [40, 236], [40, 258]];
+const CO2_START = [[44, 44], [80, 58], [116, 44]];
+---
+<svg viewBox="0 0 580 430" xmlns="http://www.w3.org/2000/svg" class="calvin">
+  <defs>
+    <marker id="cv-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" class="arrowhead" />
+    </marker>
+  </defs>
+  <text class="where" x="290" y="424" text-anchor="middle">Stroma of the chloroplast</text>
+
+  <!-- the cycle -->
+  <g class="track">
+    <path d="M110 206 Q120 112 186 94" marker-end="url(#cv-arrow)" />
+    <path d="M276 94 Q356 102 362 164" marker-end="url(#cv-arrow)" />
+    <path d="M362 238 Q376 274 358 306" marker-end="url(#cv-arrow)" />
+    <path d="M300 352 Q150 400 104 286" marker-end="url(#cv-arrow)" />
+    <path class="exit" d="M404 368 Q424 384 448 386" marker-end="url(#cv-arrow)" />
+  </g>
+  <ellipse class="enzyme" cx="230" cy="92" rx="44" ry="20" />
+  <text class="enz-t" x="230" y="97" text-anchor="middle">Rubisco</text>
+
+  <text class="name" x="14" y="160">ribulose</text>
+  <text class="name" x="14" y="176">bisphosphate</text>
+  <text class="name sub" x="14" y="192">RuBP · 5C</text>
+  <text class="name" x="424" y="186">glycerate</text>
+  <text class="name" x="424" y="202">3-phosphate</text>
+  <text class="name sub" x="424" y="218">GP · 3C</text>
+  <text class="name" x="424" y="320">triose</text>
+  <text class="name" x="424" y="336">phosphate</text>
+  <text class="name sub" x="424" y="352">TP · 3C</text>
+  <text class="name" x="452" y="384">→ glucose, starch,</text>
+  <text class="name" x="452" y="400">amino acids …</text>
+  <text class="cyc" x="236" y="190" text-anchor="middle">Calvin</text>
+  <text class="cyc" x="236" y="208" text-anchor="middle">cycle</text>
+
+  <!-- energy inputs (shown in their steps) -->
+  <g data-el="inReduce" class="energy" style="opacity:0">
+    <text x="392" y="246">in: 6 ATP + 6 reduced NADP</text>
+    <text x="392" y="264">out: 6 ADP + 6 Pi + 6 NADP</text>
+  </g>
+  <g data-el="inRegen" class="energy" style="opacity:0">
+    <text x="150" y="410" text-anchor="middle">in: 3 ATP → out: 3 ADP</text>
+  </g>
+
+  <!-- molecules -->
+  {CO2_START.map(([x, y], i) => (
+    <g data-el={`co2-${i + 1}`} transform={`translate(${x} ${y})`}><circle class="c fixed" r={R} /><text class="mol-t" x="10" dy="0.35em">CO₂</text></g>
+  ))}
+  {RUBP_POOL.map(([x, y], i) => (
+    <g data-el={`rubp-${i + 1}`} transform={`translate(${x} ${y})`}>{dots(5).map((dx) => <circle class="c rubp" cx={dx} r={R} />)}</g>
+  ))}
+  {[1, 2, 3, 4, 5, 6].map((n) => (
+    <g data-el={`gp-${n}`} style="opacity:0" transform="translate(230 92)">{dots(3).map((dx, k) => <circle class={`c gp${n % 2 === 1 && k === 2 ? ' fixed' : ''}`} cx={dx} r={R} />)}</g>
+  ))}
+  {[1, 2, 3, 4, 5, 6, 7].map((n) => (
+    <g data-el={`tp-${n}`} style="opacity:0" transform="translate(230 92)" class={n === 7 ? 'ghost' : undefined}>{dots(3).map((dx, k) => <circle class={`c tp${n % 2 === 1 && k === 2 ? ' fixed' : ''}`} cx={dx} r={R} />)}</g>
+  ))}
+  <g data-el="glucose" style="opacity:0" transform="translate(500 300)">
+    <polygon class="glc" points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11" />
+    <text class="mol-t" x="0" y="38" text-anchor="middle">glucose</text>
+  </g>
+
+  <g class="counters">
+    <rect x="404" y="8" width="170" height="104" rx="8" />
+    <text x="414" y="28" data-el="cHead" class="head">Totals (3 turns)</text>
+    <text x="414" y="48" data-el="cCO2">CO₂ fixed: 0</text>
+    <text x="414" y="66" data-el="cATP">ATP used: 0</text>
+    <text x="414" y="84" data-el="cNADPH">reduced NADP used: 0</text>
+    <text x="414" y="102" data-el="cTP">TP leaving cycle: 0</text>
+  </g>
+
+  <g data-el="summary" style="opacity:0" class="summary">
+    <rect x="128" y="132" width="220" height="140" rx="10" />
+    <text x="238" y="154" text-anchor="middle" class="head">One glucose = 6 turns</text>
+    <text x="140" y="176">6 CO₂ + 6 RuBP → 12 GP</text>
+    <text x="140" y="196">12 GP → 12 TP</text>
+    <text x="146" y="212" class="small">(12 ATP + 12 reduced NADP)</text>
+    <text x="140" y="232">10 TP → 6 RuBP (6 ATP)</text>
+    <text x="140" y="252">2 TP → 1 glucose</text>
+    <text x="140" y="268" class="small">5/6 of TP is recycled</text>
+  </g>
+</svg>
+<style>
+  .calvin { font-family: var(--font-sans); }
+  .where { font-size: 13px; font-weight: 700; fill: var(--text-muted); }
+  .track path { fill: none; stroke: var(--text-muted); stroke-width: 2.4; }
+  .track .exit { stroke-dasharray: 5 4; }
+  .arrowhead { fill: var(--text-muted); }
+  .enzyme { fill: var(--surface); stroke: var(--bio-protein-2); stroke-width: 3; }
+  .enz-t { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .name { font-size: 13px; fill: var(--text); }
+  .name.sub { font-weight: 800; }
+  .cyc { font-size: 15px; font-weight: 700; font-style: italic; fill: var(--text-muted); }
+  .energy text { font-size: 13px; font-weight: 700; fill: var(--accent-strong); }
+  .c { stroke: color-mix(in srgb, var(--text) 45%, transparent); stroke-width: 1; }
+  .rubp { fill: var(--bio-protein); }
+  .gp { fill: var(--bio-glucose); }
+  .tp { fill: var(--bio-carb); }
+  .fixed { fill: var(--text); }
+  .ghost { opacity: 0.6; }
+  .ghost .c { stroke-dasharray: 2 2; }
+  .glc { fill: color-mix(in srgb, var(--bio-carb) 35%, var(--surface)); stroke: var(--bio-carb); stroke-width: 2.5; }
+  .mol-t { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .counters rect, .summary rect { fill: var(--surface); stroke: var(--border-strong); }
+  .counters text, .summary text { font-size: 13px; font-weight: 600; fill: var(--text); }
+  .counters .head, .summary .head { font-weight: 800; }
+  .summary .small { font-size: 12px; fill: var(--text-muted); }
+</style>

@@ -1,0 +1,245 @@
+# Visuals for C1.3. Label/step text here is what readers see in the 3D viewer and the text descriptions,
+# so it is written to exam standard. Label ids must match anchors in the scene modules (src/scenes).
+visuals:
+  - id: photosynthesis
+    kind: viewer3d
+    title: Where photosynthesis happens in a chloroplast
+    alt: A chloroplast cut open to show its double membrane, stroma and grana, and an AHL model of the light-dependent reactions in a thylakoid membrane.
+    description: >-
+      The first model is a chloroplast cut in half. It is bounded by two membranes (the envelope) with a narrow
+      space between them. Inside is the stroma, a protein-rich fluid that contains starch grains, 70S ribosomes
+      and a loop of naked DNA. Flattened sacs called thylakoids, each enclosing a thylakoid space (lumen), are
+      stacked into grana, and neighbouring grana are joined by single unstacked thylakoids called lamellae.
+      The light-dependent reactions take place in the thylakoid membranes and the light-independent reactions
+      (the Calvin cycle) in the stroma. The second model (AHL) is a patch of thylakoid membrane with the stroma
+      above and the thylakoid space below. In seven steps it shows light absorbed by photosystem II, water split
+      on the lumen side, electrons passing along a chain of carriers while H⁺ is pumped into the lumen, light
+      re-exciting the electrons in photosystem I, NADP reduced in the stroma, ATP made by ATP synthase as H⁺
+      diffuses back to the stroma, and cyclic electron flow around photosystem I.
+    scenes:
+      - id: chloroplast
+        module: c1-3-chloroplast
+        title: Chloroplast
+        labels:
+          - id: outer-membrane
+            name: Outer membrane
+            text: The outer of the two membranes of the chloroplast envelope. It is freely permeable to small molecules such as CO₂, O₂ and water.
+          - id: inner-membrane
+            name: Inner membrane
+            text: The inner membrane of the envelope. It controls which substances enter and leave the stroma, for example letting triose phosphate out to the cytoplasm in exchange for phosphate.
+          - id: stroma
+            name: Stroma
+            text: The fluid inside the inner membrane. It contains enzymes of the Calvin cycle, including large amounts of Rubisco, plus ATP, reduced NADP and the substrates they act on.
+          - id: granum
+            name: Granum
+            text: A stack of disc-shaped thylakoids (plural grana). Stacking packs a large area of thylakoid membrane, with its photosystems, into a small volume.
+          - id: thylakoid
+            name: Thylakoid
+            text: A flattened membrane sac. Its membrane holds the photosystems, electron carriers and ATP synthase, so the light-dependent reactions happen here.
+          - id: lumen
+            name: Thylakoid space (lumen)
+            text: The small volume of fluid enclosed by each thylakoid membrane. H⁺ ions accumulate here during the light-dependent reactions, so a steep proton gradient builds up quickly.
+          - id: lamella
+            name: Lamella (intergranal thylakoid)
+            text: A single, unstacked thylakoid that joins grana together. Its lumen is continuous with the lumens of the thylakoids in the grana it connects.
+          - id: starch
+            name: Starch grain
+            text: Excess carbohydrate made in photosynthesis is stored here as insoluble starch, which has no osmotic effect. It is broken down again when sugar is needed, for example at night.
+          - id: ribosomes
+            name: 70S ribosomes
+            text: Smaller ribosomes like those of prokaryotes. They make some of the chloroplast's own proteins; most chloroplast proteins are coded by nuclear genes and imported.
+          - id: dna
+            name: Naked circular DNA
+            text: The chloroplast's own small genome, a loop of DNA not associated with histones, like a bacterial chromosome. It is evidence for the endosymbiotic origin of chloroplasts.
+          - id: light-dependent
+            name: Light-dependent reactions
+            text: Take place in the thylakoid membranes. Light energy is used to split water, release oxygen, make ATP and reduce NADP.
+          - id: light-independent
+            name: Light-independent reactions
+            text: The Calvin cycle takes place in the stroma. CO₂ is fixed by Rubisco and reduced to triose phosphate using ATP and reduced NADP from the thylakoids.
+      - id: thylakoid
+        module: c1-3-thylakoid
+        title: Thylakoid membrane (AHL)
+        level: AHL
+        labels:
+          - id: stroma
+            name: Stroma
+            level: AHL
+            text: The fluid outside the thylakoid. Its H⁺ concentration stays low because protons are pumped out of it. NADP is reduced and ATP is made on this side.
+          - id: lumen
+            name: Thylakoid space (lumen)
+            level: AHL
+            text: The fluid inside the thylakoid. Photolysis and proton pumping make its H⁺ concentration high, so a proton gradient develops across the thylakoid membrane.
+          - id: membrane
+            name: Thylakoid membrane
+            level: AHL
+            text: A phospholipid bilayer that is impermeable to H⁺, so the proton gradient is kept. It holds the photosystems, electron carriers and ATP synthase in fixed positions.
+          - id: antenna
+            name: Light-harvesting (antenna) complex
+            level: AHL
+            steps: [light-psii]
+            text: An array of many chlorophyll and accessory pigment molecules (green and orange) held by proteins. Each absorbs photons and passes the energy, pigment to pigment, towards the reaction centre.
+          - id: p680
+            name: Reaction centre (P680)
+            level: AHL
+            steps: [light-psii, photolysis]
+            text: A special pair of chlorophyll a molecules in photosystem II. When energy reaches it, an electron is excited and emitted to an electron acceptor. It is refilled with electrons from water.
+          - id: psii
+            name: Photosystem II
+            level: AHL
+            steps: [light-psii, photolysis, etc]
+            text: A membrane protein complex holding an array of pigments and a reaction centre. It emits excited electrons into the electron transport chain and splits water.
+          - id: oec
+            name: Water-splitting site
+            level: AHL
+            steps: [photolysis]
+            text: Part of photosystem II on the lumen side (the oxygen-evolving complex, containing manganese). It splits water — 2H₂O → O₂ + 4H⁺ + 4e⁻ — releasing H⁺ into the lumen.
+          - id: pq
+            name: Plastoquinone
+            level: AHL
+            steps: [etc, cyclic]
+            text: A small, mobile electron carrier that moves within the membrane. It carries electrons from photosystem II to the cytochrome complex, taking up H⁺ from the stroma as it does so.
+          - id: cyt
+            name: Cytochrome complex
+            level: AHL
+            steps: [etc, cyclic]
+            text: An electron carrier that uses energy released by the electrons to pump H⁺ from the stroma into the thylakoid space, building the proton gradient.
+          - id: pc
+            name: Plastocyanin
+            level: AHL
+            steps: [etc, cyclic]
+            text: A small, mobile protein in the thylakoid space that carries electrons from the cytochrome complex to photosystem I.
+          - id: psi
+            name: Photosystem I
+            level: AHL
+            steps: [etc, light-psi, cyclic]
+            text: The second photosystem, with its own antenna of pigments. It is located where the thylakoid membrane faces the stroma and re-excites electrons that arrive from photosystem II.
+          - id: p700
+            name: Reaction centre (P700)
+            level: AHL
+            steps: [light-psi, cyclic]
+            text: The reaction-centre chlorophyll of photosystem I. Absorbed energy excites an electron, which is emitted to ferredoxin; the electron is replaced by one arriving via plastocyanin.
+          - id: fd
+            name: Ferredoxin
+            level: AHL
+            steps: [light-psi, nadp, cyclic]
+            text: An electron carrier on the stroma side of the membrane. It passes excited electrons from photosystem I to NADP reductase, or, in cyclic flow, back to the cytochrome complex.
+          - id: fnr
+            name: NADP reductase
+            level: AHL
+            steps: [nadp]
+            text: An enzyme on the stroma surface of the membrane. It transfers two electrons from photosystem I and one H⁺ from the stroma to NADP, forming reduced NADP.
+          - id: atp-synthase
+            name: ATP synthase
+            level: AHL
+            steps: [chemiosmosis, cyclic]
+            text: Lets H⁺ diffuse from the lumen back to the stroma. The flow turns part of the enzyme, which phosphorylates ADP to ATP on the stroma side (chemiosmosis).
+        steps:
+          - id: light-psii
+            title: Light excites photosystem II
+            level: AHL
+            caption: Photons (yellow) are absorbed by pigment molecules in the antenna complex. The energy is passed from pigment to pigment until it reaches the reaction centre chlorophyll, P680. An electron in P680 is raised to a higher energy level and emitted to an electron acceptor. This happens four times, so four excited electrons (purple) leave photosystem II.
+          - id: photolysis
+            title: Photolysis of water
+            level: AHL
+            caption: P680 has lost electrons, so it is a very strong oxidising agent. At the water-splitting site on the lumen side of photosystem II, two water molecules are split — 2H₂O → O₂ + 4H⁺ + 4e⁻. The electrons replace those lost by P680, the H⁺ (red) stay in the thylakoid space, and the oxygen is a waste product that diffuses away.
+          - id: etc
+            title: Electron transport pumps protons
+            level: AHL
+            caption: The excited electrons pass along a chain of carriers — plastoquinone, the cytochrome complex and plastocyanin — to photosystem I, losing energy at each step. The energy is used to pump H⁺ from the stroma into the thylakoid space. Together with H⁺ from photolysis this builds a steep proton gradient across the membrane.
+          - id: light-psi
+            title: Light re-excites the electrons in photosystem I
+            level: AHL
+            caption: Photons are absorbed by the antenna pigments of photosystem I and the energy is passed to its reaction centre, P700. Electrons are excited again and emitted to ferredoxin on the stroma side. The electrons that arrived from photosystem II via plastocyanin replace the ones P700 has lost.
+          - id: nadp
+            title: NADP is reduced in the stroma
+            level: AHL
+            caption: Ferredoxin passes the electrons to NADP reductase on the stroma side of the membrane. Each NADP accepts two electrons and one H⁺ from the stroma, becoming reduced NADP. The four electrons from two water molecules reduce two NADP. Removing H⁺ from the stroma adds to the proton gradient.
+          - id: chemiosmosis
+            title: ATP synthesis by chemiosmosis
+            level: AHL
+            caption: H⁺ is now much more concentrated in the thylakoid space than in the stroma, but the membrane is impermeable to it. H⁺ diffuses back into the stroma through ATP synthase, down its concentration gradient. The flow turns part of the enzyme, which joins ADP and inorganic phosphate (Pi) to make ATP in the stroma. Because the electrons came from photosystem II and end up in reduced NADP, this is non-cyclic photophosphorylation.
+          - id: cyclic
+            title: Cyclic photophosphorylation
+            level: AHL
+            caption: When the stroma needs extra ATP, excited electrons from photosystem I return via ferredoxin to the cytochrome complex instead of reducing NADP. They pass back to photosystem I through plastocyanin, pumping more H⁺ on the way, so ATP is made by ATP synthase. Photosystem II is not used, so no water is split, no oxygen is released and no NADP is reduced.
+
+  - id: calvin
+    kind: anim
+    module: c1-3-calvin
+    level: AHL
+    title: The Calvin cycle
+    alt: Step-by-step diagram of three turns of the Calvin cycle, from carbon fixation by Rubisco to regeneration of RuBP.
+    description: >-
+      A diagram of the Calvin cycle in the stroma, followed for three turns. Each dot is one carbon atom and the
+      dark dots are carbon atoms just fixed from carbon dioxide. Three molecules of RuBP (5 carbon atoms each)
+      each combine with one CO₂, catalysed by Rubisco, giving six molecules of glycerate 3-phosphate (3 carbon
+      atoms each). These are reduced to six triose phosphates using six ATP and six reduced NADP. One triose
+      phosphate leaves the cycle; the other five are converted, using three ATP, back into three RuBP. A final
+      step totals six turns, which make two spare triose phosphates — enough for one glucose. Counters record
+      the CO₂ fixed, the ATP and reduced NADP used and the triose phosphate leaving the cycle.
+    steps:
+      - id: start
+        title: CO₂ enters the stroma
+        level: AHL
+        caption: Carbon dioxide diffuses into the stroma from the air spaces in the leaf. Three molecules of ribulose bisphosphate (RuBP), a five-carbon sugar phosphate, are waiting there.
+      - id: fixation
+        title: Carbon fixation by Rubisco
+        level: AHL
+        caption: Rubisco joins each CO₂ to a RuBP (carboxylation). The six-carbon product is unstable and splits at once into two molecules of glycerate 3-phosphate (GP), each with three carbon atoms. Three CO₂ + three RuBP give six GP.
+      - id: reduction
+        title: GP is reduced to triose phosphate
+        level: AHL
+        caption: Each GP is converted to triose phosphate (TP), a three-carbon sugar phosphate, using one ATP (energy) and one reduced NADP (which supplies the hydrogen). Six GP need six ATP and six reduced NADP; the ADP, Pi and NADP go back to the thylakoids to be recycled.
+      - id: export
+        title: One TP leaves the cycle
+        level: AHL
+        caption: Only one of the six TP is a net gain — it contains the three carbon atoms fixed in these three turns. It can leave the cycle to be used for making glucose, sucrose, starch and other compounds.
+      - id: regeneration
+        title: RuBP is regenerated using ATP
+        level: AHL
+        caption: The other five TP (15 carbon atoms) are rearranged in a series of reactions into three RuBP (15 carbon atoms), using three more ATP. With RuBP regenerated, the cycle can fix CO₂ again. Totals for three turns are nine ATP and six reduced NADP.
+      - id: glucose
+        title: Six turns make one glucose
+        level: AHL
+        caption: A glucose molecule (6C) needs two TP, so the cycle must turn six times — fixing six CO₂ and using 18 ATP and 12 reduced NADP. Of the 12 TP made, 10 (five-sixths) are recycled to regenerate six RuBP, and two are combined to form glucose.
+
+  - id: limiting
+    kind: sim
+    module: c1-3-limiting
+    title: Limiting factors explorer
+    alt: Sliders for light intensity, CO₂ concentration and temperature change a graph of the rate of photosynthesis and show which factor is limiting.
+    description: >-
+      A graph of the rate of photosynthesis against light intensity, CO₂ concentration or temperature (you choose
+      the x-axis), with the other two factors fixed by sliders. Where the plotted factor is the limiting factor,
+      the line is solid and the rate rises as the factor increases; where another factor is limiting, the line is
+      dashed and the rate levels off. The temperature graph rises to an optimum and then falls steeply as enzymes
+      are denatured. The panel names the limiting factor, estimates oxygen bubbles per minute from a pondweed,
+      and converts light intensity into the lamp distance that would give it, using the inverse square law. On
+      the CO₂ graph, lines mark pre-industrial, present-day and typical FACE enrichment concentrations.
+
+  - id: spectra
+    kind: sim
+    module: c1-3-spectra
+    title: Absorption and action spectra
+    alt: Graph of light absorption by chlorophyll a, chlorophyll b and carotenoids, and the action spectrum of photosynthesis, with a wavelength slider.
+    description: >-
+      A graph with wavelength from 400 to 700 nm on the x-axis, labelled with both numbers and the colours of
+      light (violet, blue, green, yellow, orange, red). Chlorophyll a absorbs most strongly at about 430 nm and
+      662 nm, chlorophyll b at about 453 nm and 642 nm, and both absorb very little green light. Carotenoids absorb
+      violet, blue and blue-green light only. The action spectrum, showing the rate of photosynthesis at each
+      wavelength, has peaks in blue and red and a trough in green that does not fall to zero. A slider picks a
+      wavelength and reports how strongly each pigment absorbs it and the relative rate of photosynthesis.
+
+  - id: chromatography
+    kind: sim
+    module: c1-3-chromatography
+    title: Separating leaf pigments by chromatography
+    alt: A thin-layer chromatography strip where the solvent rises to separate leaf pigments; measure each spot to calculate its Rf value.
+    description: >-
+      A chromatography strip with a pencil origin line near the bottom where a concentrated spot of leaf extract
+      was placed. A slider lets the running solvent rise up the strip. As it does, the pigments separate into
+      spots: orange-yellow carotene runs nearly with the solvent front, followed by grey phaeophytin, blue-green
+      chlorophyll a, yellow-green chlorophyll b and yellow xanthophylls lowest. Choosing a spot measures its
+      distance from the origin and the distance moved by the solvent, calculates Rf = distance moved by spot ÷
+      distance moved by solvent, and identifies the pigment from a reference table of colours and typical Rf values.

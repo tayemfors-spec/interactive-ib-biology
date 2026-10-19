@@ -1,0 +1,100 @@
+---
+/**
+ * Exam-style chloroplast in section (C1.3; structure from A2.2). Numbered markers keep it legible at phone
+ * width; the key below names each part and says where the two stages of photosynthesis happen.
+ */
+const CX = 400, CY = 205, RX = 340, RY = 160;
+const IRX = RX - 14, IRY = RY - 14;
+const DISC_W = 74, DISC_H = 11, DISC_GAP = 3.5;
+/** Grana: centre x, centre y and number of thylakoids in the stack. */
+const grana = [
+  { x: 165, y: 196, n: 8 },
+  { x: 300, y: 222, n: 10 },
+  { x: 450, y: 186, n: 9 },
+  { x: 600, y: 214, n: 7 },
+];
+const discs = grana.map((g) => {
+  const top = g.y - (g.n * (DISC_H + DISC_GAP)) / 2;
+  return Array.from({ length: g.n }, (_, i) => ({ x: g.x - DISC_W / 2, y: top + i * (DISC_H + DISC_GAP) }));
+});
+/** Lamellae join a thylakoid in one granum to a thylakoid in the next. */
+const lamella = (a: number, ai: number, b: number, bi: number) => {
+  const p = discs[a]![ai]!, q = discs[b]![bi]!;
+  const x1 = p.x + DISC_W, y1 = p.y + DISC_H / 2, x2 = q.x, y2 = q.y + DISC_H / 2;
+  const mx = (x1 + x2) / 2;
+  return `M${x1} ${y1} C${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`;
+};
+const lamellae = [lamella(0, 2, 1, 2), lamella(0, 6, 1, 8), lamella(1, 5, 2, 3), lamella(2, 7, 3, 5), lamella(1, 1, 2, 0), lamella(2, 4, 3, 1)];
+const starch = [{ x: 232, y: 290, rx: 26, ry: 15 }, { x: 528, y: 108, rx: 24, ry: 14 }];
+const ribosomes: [number, number][] = [[110, 150], [122, 262], [240, 128], [380, 290], [372, 128], [520, 280], [690, 170], [672, 262], [560, 300], [230, 168], [96, 205], [700, 222]];
+const dna = 'M630 118 c10 -14 26 -6 22 6 s-20 10 -12 22 s24 4 26 -8 s-10 -26 -24 -22 s-22 10 -12 2';
+const lumenDisc = discs[3]![1]!;
+const markers: { n: number; x: number; y: number; to: [number, number] }[] = [
+  { n: 1, x: 70, y: 52, to: [CX - 250, CY - RY * 0.68] },
+  { n: 2, x: 46, y: 118, to: [CX - IRX * 0.93, CY - IRY * 0.36] },
+  { n: 3, x: 300, y: 376, to: [380, 316] },
+  { n: 4, x: 300, y: 40, to: [300, 150] },
+  { n: 5, x: 414, y: 40, to: [440, discs[2]![0]!.y] },
+  { n: 6, x: 760, y: 120, to: [lumenDisc.x + DISC_W - 8, lumenDisc.y + DISC_H / 2] },
+  { n: 7, x: 380, y: 384, to: [360, 219] },
+  { n: 8, x: 200, y: 378, to: [226, 302] },
+  { n: 9, x: 758, y: 300, to: [672, 262] },
+  { n: 10, x: 724, y: 56, to: [650, 118] },
+];
+const key = [
+  'Outer membrane',
+  'Inner membrane (the two membranes form the double-membrane envelope)',
+  'Stroma: site of the light-independent reactions (Calvin cycle)',
+  'Granum: a stack of thylakoids',
+  'Thylakoid membrane: site of the light-dependent reactions',
+  'Thylakoid space (lumen) inside a thylakoid',
+  'Lamella (intergranal thylakoid) joining grana',
+  'Starch grain',
+  '70S ribosomes',
+  'Naked circular DNA',
+];
+---
+<div class="exam-diagram">
+  <svg viewBox="0 0 800 410" role="img" aria-labelledby="chl-title chl-desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="chl-title">Chloroplast in section</title>
+    <desc id="chl-desc">An oval chloroplast bounded by a double membrane. Inside, the stroma contains grana — stacks of flattened thylakoids — joined by single lamellae, plus starch grains, ribosomes and a loop of DNA. The light-dependent reactions happen in the thylakoid membranes and the light-independent reactions in the stroma.</desc>
+    <ellipse class="outer" cx={CX} cy={CY} rx={RX} ry={RY} />
+    <ellipse class="inner" cx={CX} cy={CY} rx={IRX} ry={IRY} />
+    <g class="lam">{lamellae.map((d) => <path d={d} />)}</g>
+    <g class="thy">{discs.flat().map((d) => <rect x={d.x} y={d.y} width={DISC_W} height={DISC_H} rx={DISC_H / 2} />)}</g>
+    <g class="starch">{starch.map((s) => <ellipse cx={s.x} cy={s.y} rx={s.rx} ry={s.ry} />)}</g>
+    <g class="ribo">{ribosomes.map(([x, y]) => <circle cx={x} cy={y} r="3.6" />)}</g>
+    <path class="dna" d={dna} />
+    <text class="note" x={CX} y="404" text-anchor="middle">Length about 5–10 µm</text>
+    <g class="markers">
+      {markers.map((m) => (
+        <g>
+          <path class="lead" d={`M${m.x} ${m.y} L${m.to[0]} ${m.to[1]}`} />
+          <circle cx={m.x} cy={m.y} r="14" />
+          <text x={m.x} y={m.y} dy="0.36em" text-anchor="middle">{m.n}</text>
+        </g>
+      ))}
+    </g>
+  </svg>
+  <ol class="key">
+    {key.map((k) => <li>{k}</li>)}
+  </ol>
+</div>
+
+<style>
+  .exam-diagram svg { font-family: var(--font-sans); }
+  .outer { fill: color-mix(in srgb, var(--bio-carb) 8%, var(--surface)); stroke: var(--bio-carb); stroke-width: 3; }
+  .inner { fill: color-mix(in srgb, var(--bio-carb) 14%, var(--surface)); stroke: var(--bio-carb); stroke-width: 3; }
+  .thy rect { fill: color-mix(in srgb, var(--bio-carb) 22%, var(--surface)); stroke: color-mix(in srgb, var(--bio-carb) 75%, black); stroke-width: 2.2; }
+  .lam path { fill: none; stroke: color-mix(in srgb, var(--bio-carb) 75%, black); stroke-width: 4; }
+  .starch ellipse { fill: var(--surface); stroke: var(--text-muted); stroke-width: 1.6; }
+  .ribo circle { fill: var(--text); }
+  .dna { fill: none; stroke: var(--bio-na); stroke-width: 2.2; }
+  .note { font-size: 13px; fill: var(--text-muted); font-style: italic; }
+  .markers circle { fill: var(--surface); stroke: var(--text); stroke-width: 1.8; }
+  .markers text { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .lead { stroke: var(--text); stroke-width: 1.4; }
+  .key { columns: 2 17rem; column-gap: var(--space-5); margin: var(--space-3) 0 0; padding: 0; list-style: none; counter-reset: k; font-size: var(--step--1); }
+  .key li { break-inside: avoid; margin: 0 0 0.3rem; display: grid; grid-template-columns: 1.7rem 1fr; counter-increment: k; }
+  .key li::before { content: counter(k); font-weight: 800; display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; border: 1.5px solid var(--text); border-radius: 50%; font-size: 0.75rem; margin-top: 0.1rem; }
+</style>

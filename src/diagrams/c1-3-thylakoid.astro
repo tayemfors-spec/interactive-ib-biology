@@ -1,0 +1,140 @@
+---
+/**
+ * Exam-style diagram of the light-dependent reactions in a thylakoid membrane (C1.3.11–C1.3.14).
+ * Stroma at the top, thylakoid space (lumen) at the bottom. Numbered components are named in the key.
+ */
+const MT = 172, MB = 240; // membrane top and bottom (phosphate head layers)
+const hLumen: [number, number][] = [[200, 330], [290, 352], [400, 318], [470, 360], [560, 330], [610, 372], [120, 380], [350, 392]];
+const hStroma: [number, number][] = [[172, 118], [318, 132]];
+const key = [
+  'Photosystem II: antenna pigments pass energy to the reaction centre chlorophyll (P680), which emits excited electrons',
+  'Plastoquinone: carries electrons (and H⁺ picked up from the stroma) through the membrane',
+  'Cytochrome complex: electron carrier that uses energy from the electrons to pump H⁺ into the thylakoid space',
+  'Plastocyanin: carries electrons through the thylakoid space to photosystem I',
+  'Photosystem I: light re-excites electrons at its reaction centre (P700)',
+  'Ferredoxin: accepts excited electrons from photosystem I on the stroma side',
+  'NADP reductase: NADP + 2e⁻ + H⁺ (from the stroma) → reduced NADP',
+  'ATP synthase: H⁺ diffuse back to the stroma through it (chemiosmosis), powering ADP + Pi → ATP',
+];
+---
+<div class="exam-diagram">
+  <svg viewBox="0 0 720 440" role="img" aria-labelledby="thy-title thy-desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="thy-title">Light-dependent reactions in the thylakoid membrane</title>
+    <desc id="thy-desc">The thylakoid membrane separates the stroma (top) from the thylakoid space (bottom). Light excites electrons in photosystem II; water is split on the thylakoid-space side, releasing oxygen and H⁺. Electrons pass through plastoquinone, the cytochrome complex and plastocyanin to photosystem I, while H⁺ is pumped into the thylakoid space. Light re-excites the electrons in photosystem I; they pass via ferredoxin to NADP reductase, which reduces NADP in the stroma. A dashed path shows cyclic electron flow from ferredoxin back to the cytochrome complex. H⁺ diffuses back to the stroma through ATP synthase, which makes ATP in the stroma.</desc>
+    <defs>
+      <marker id="th-e" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah-e" /></marker>
+      <marker id="th-h" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah-h" /></marker>
+      <marker id="th-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah-l" /></marker>
+      <marker id="th-g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah-g" /></marker>
+      <marker id="th-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah-k" /></marker>
+    </defs>
+    <text class="side" x="80" y="24">Stroma (low H⁺ concentration)</text>
+    <text class="side" x="14" y="432">Thylakoid space / lumen (high H⁺ concentration)</text>
+    <rect class="mem" x="0" y={MT} width="720" height={MB - MT} />
+
+    <!-- light -->
+    <path class="light" d="M30 46 l14 22 l-12 6 l20 30 l-12 6 l24 32" marker-end="url(#th-l)" />
+    <text class="t-light" x="22" y="40">light</text>
+    <path class="light" d="M346 46 l14 22 l-12 6 l20 30 l-12 6 l24 32" marker-end="url(#th-l)" />
+    <text class="t-light" x="338" y="40">light</text>
+
+    <!-- components -->
+    <rect class="ps" x="62" y="148" width="90" height="116" rx="16" />
+    <circle class="rc" cx="107" cy="196" r="9" />
+    <text class="t-in" x="107" y="226" text-anchor="middle">P680</text>
+    <circle class="carrier" cx="196" cy="206" r="15" />
+    <rect class="cyt" x="232" y="150" width="62" height="112" rx="14" />
+    <circle class="carrier" cx="336" cy="282" r="15" />
+    <rect class="ps" x="372" y="148" width="90" height="116" rx="16" />
+    <circle class="rc" cx="417" cy="196" r="9" />
+    <text class="t-in" x="417" y="226" text-anchor="middle">P700</text>
+    <circle class="carrier" cx="488" cy="146" r="15" />
+    <ellipse class="enzyme" cx="556" cy="146" rx="34" ry="20" />
+    <rect class="atps" x="640" y="160" width="60" height="92" rx="10" />
+    <rect class="atps" x="662" y="112" width="16" height="50" />
+    <circle class="atps" cx="670" cy="92" r="30" />
+
+    <!-- photolysis -->
+    <text class="t-mol" x="22" y="312">2H₂O</text>
+    <text class="t-mol" x="22" y="356">O₂</text>
+    <text class="t-h" x="140" y="318">4H⁺</text>
+    <path class="flow" d="M62 300 Q92 296 98 268" marker-end="url(#th-g)" />
+    <path class="flow" d="M98 268 Q90 312 48 344" marker-end="url(#th-g)" />
+    <path class="flow-k" d="M110 268 Q118 300 136 306" marker-end="url(#th-k)" />
+    <text class="t-small" x="70" y="290">4e⁻</text>
+
+    <!-- electron path (non-cyclic) -->
+    <path class="e" d="M152 196 L180 204" marker-end="url(#th-e)" />
+    <path class="e" d="M211 206 L232 206" marker-end="url(#th-e)" />
+    <path class="e" d="M268 262 Q280 282 320 282" marker-end="url(#th-e)" />
+    <path class="e" d="M351 280 Q370 276 384 262" marker-end="url(#th-e)" />
+    <path class="e" d="M450 148 Q462 132 473 140" marker-end="url(#th-e)" />
+    <path class="e" d="M503 146 L520 146" marker-end="url(#th-e)" />
+    <!-- cyclic -->
+    <path class="e cyc" d="M484 130 Q420 92 300 100 Q268 104 264 148" marker-end="url(#th-e)" />
+    <text class="t-small" x="380" y="88">cyclic</text>
+
+    <!-- proton pumping -->
+    <text class="t-h" x="232" y="106">H⁺</text>
+    <path class="flow-k" d="M250 112 L250 148" marker-end="url(#th-k)" />
+    <path class="flow-k" d="M276 264 L276 310" marker-end="url(#th-k)" />
+    <text class="t-h" x="262" y="330">H⁺</text>
+
+    <!-- NADP reduction -->
+    <text class="t-mol" x="476" y="72" text-anchor="middle">NADP + H⁺</text>
+    <path class="flow" d="M500 80 Q532 92 540 124" marker-end="url(#th-g)" />
+    <path class="flow" d="M572 126 Q580 96 592 80" marker-end="url(#th-g)" />
+    <text class="t-mol" x="596" y="72" text-anchor="middle">reduced NADP</text>
+
+    <!-- ATP synthase -->
+    <path class="flow-k thick" d="M712 330 L712 120" marker-end="url(#th-k)" />
+    <text class="t-h" x="676" y="352">H⁺</text>
+    <text class="t-mol" x="632" y="28" text-anchor="middle">ADP + Pi</text>
+    <text class="t-mol" x="632" y="46" text-anchor="middle">→ ATP</text>
+
+    <g class="hs">{hLumen.map(([x, y]) => <text x={x} y={y}>H⁺</text>)}</g>
+    <g class="hs faint">{hStroma.map(([x, y]) => <text x={x} y={y}>H⁺</text>)}</g>
+
+    <g class="badges">
+      {[[107, 166, 1], [196, 206, 2], [263, 174, 3], [336, 282, 4], [417, 166, 5], [488, 146, 6], [556, 146, 7], [670, 92, 8]].map(([x, y, n]) => (
+        <g><circle cx={x} cy={y} r="11" /><text x={x} y={y} dy="0.36em" text-anchor="middle">{n}</text></g>
+      ))}
+    </g>
+  </svg>
+  <ol class="key">
+    {key.map((k) => <li>{k}</li>)}
+  </ol>
+</div>
+
+<style>
+  .exam-diagram svg { font-family: var(--font-sans); }
+  .side { font-size: 16px; font-weight: 700; fill: var(--text-muted); }
+  .mem { fill: color-mix(in srgb, var(--bio-tail) 35%, transparent); stroke: var(--bio-head); stroke-width: 8; stroke-dasharray: 2 4; }
+  .ps { fill: color-mix(in srgb, var(--bio-carb) 70%, var(--surface)); stroke: color-mix(in srgb, var(--bio-carb) 60%, black); stroke-width: 1.6; }
+  .rc { fill: var(--bio-glucose); stroke: var(--text); stroke-width: 1.2; }
+  .cyt { fill: color-mix(in srgb, var(--bio-protein-2) 75%, var(--surface)); stroke: color-mix(in srgb, var(--bio-protein-2) 60%, black); stroke-width: 1.6; }
+  .carrier { fill: color-mix(in srgb, var(--bio-protein) 55%, var(--surface)); stroke: color-mix(in srgb, var(--bio-protein) 60%, black); stroke-width: 1.4; }
+  .enzyme { fill: color-mix(in srgb, var(--bio-protein-2) 55%, var(--surface)); stroke: color-mix(in srgb, var(--bio-protein-2) 60%, black); stroke-width: 1.4; }
+  .atps { fill: color-mix(in srgb, var(--bio-head) 60%, var(--surface)); stroke: color-mix(in srgb, var(--bio-head) 60%, black); stroke-width: 1.4; }
+  .light { fill: none; stroke: var(--bio-glucose); stroke-width: 4; stroke-linejoin: round; }
+  .ah-l { fill: var(--bio-glucose); }
+  .e { fill: none; stroke: var(--bio-na); stroke-width: 3.2; }
+  .e.cyc { stroke-dasharray: 7 5; stroke-width: 2.4; }
+  .ah-e { fill: var(--bio-na); }
+  .flow { fill: none; stroke: var(--text-muted); stroke-width: 2; }
+  .flow-k { fill: none; stroke: var(--bio-k); stroke-width: 2.4; }
+  .flow-k.thick { stroke-width: 4; }
+  .ah-h, .ah-k { fill: var(--bio-k); }
+  .ah-g { fill: var(--text-muted); }
+  .t-light { font-size: 14px; font-weight: 700; fill: var(--text-muted); }
+  .t-in { font-size: 13px; font-weight: 800; fill: var(--text); }
+  .t-mol { font-size: 16px; font-weight: 700; fill: var(--text); }
+  .t-small { font-size: 14px; font-weight: 700; fill: var(--text-muted); }
+  .t-h, .hs text { font-size: 16px; font-weight: 800; fill: var(--bio-k); }
+  .hs.faint text { opacity: 0.8; }
+  .badges circle { fill: var(--surface); stroke: var(--text); stroke-width: 1.6; }
+  .badges text { font-size: 13px; font-weight: 800; fill: var(--text); }
+  .key { columns: 2 18rem; column-gap: var(--space-5); margin: var(--space-3) 0 0; padding: 0; list-style: none; counter-reset: k; font-size: var(--step--1); }
+  .key li { break-inside: avoid; margin: 0 0 0.3rem; display: grid; grid-template-columns: 1.7rem 1fr; counter-increment: k; }
+  .key li::before { content: counter(k); font-weight: 800; display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; border: 1.5px solid var(--text); border-radius: 50%; font-size: 0.75rem; margin-top: 0.1rem; }
+</style>
