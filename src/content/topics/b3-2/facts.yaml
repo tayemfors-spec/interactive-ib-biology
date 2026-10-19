@@ -1,0 +1,217 @@
+facts:
+  - id: f1
+    claim: Capillaries have a lumen of about 5–10 µm, so red blood cells (about 7.5 µm across) pass in single file.
+    where: ["index.mdx#vessels", "visuals.yaml:transport vessels rbc", "index.mdx (mustKnow)"]
+    confidence: high
+    basis: Standard histology (Junqueira's Basic Histology; Guyton & Hall); IB guide B3.2.1
+    status: checked
+  - id: f2
+    claim: The capillary wall is a single layer of endothelial cells on a basement membrane; gaps (intercellular clefts) between cells let water and small solutes out while cells and most plasma proteins stay in.
+    where: ["index.mdx#vessels", "visuals.yaml:transport vessels c-wall/pore/basement", "diagrams/b3-2-vessels", "flashcards.yaml:c1"]
+    confidence: high
+    basis: Guyton & Hall, Textbook of Medical Physiology (capillary structure); Campbell Biology
+    status: checked
+  - id: f3
+    claim: Fenestrated capillaries occur where exchange is especially rapid, e.g. the renal glomerulus, intestinal villi and endocrine glands.
+    where: ["index.mdx#vessels", "visuals.yaml:transport vessels fenestration", "quiz.yaml:q1", "flashcards.yaml:c1"]
+    confidence: high
+    basis: Junqueira's Basic Histology (fenestrated capillaries in kidney, intestine, endocrine glands); IB guide B3.2.1
+    status: checked
+  - id: f4
+    claim: Artery walls have a tunica intima (endothelium), a thick tunica media of circular smooth muscle and elastic fibres, and a tunica externa rich in collagen; veins have a thinner media relative to a wider lumen.
+    where: ["index.mdx#vessels", "index.mdx#arteries", "index.mdx#veins", "visuals.yaml:transport vessels", "diagrams/b3-2-vessels", "quiz.yaml:q2"]
+    confidence: high
+    basis: Junqueira's Basic Histology; Campbell Biology; IB guide B3.2.2–B3.2.5
+    status: checked
+  - id: f5
+    claim: The inner lining of arteries often looks folded (corrugated) in sections because the internal elastic lamina recoils; vein sections are often flattened or irregular.
+    where: ["index.mdx#vessels", "visuals.yaml:transport vessels a-intima/v-lumen", "quiz.yaml:q2"]
+    confidence: medium
+    basis: Histology atlases (wavy internal elastic lamina in fixed muscular arteries)
+    status: checked
+  - id: f6
+    claim: Elastic recoil of large arteries during diastole keeps arterial pressure at about 80 mmHg between beats; systolic pressure is about 120 mmHg at rest.
+    where: ["index.mdx#arteries", "index.mdx#cardiac-cycle", "flashcards.yaml:c3", "visuals.yaml:cardiac-cycle"]
+    confidence: high
+    basis: Guyton & Hall (Windkessel effect; normal 120/80 mmHg)
+    status: checked
+  - id: f7
+    claim: The radial pulse is on the thumb side of the palm surface of the wrist and the carotid pulse beside the trachea; fingertips (not the thumb) are used; multiply a 15 s count by 4.
+    where: ["index.mdx#pulse", "sims/b3-2-pulse", "quiz.yaml:q3", "flashcards.yaml:c4", "index.mdx (mistakes)"]
+    confidence: high
+    basis: Standard clinical skills guidance; IB guide B3.2.4
+    status: checked
+  - id: f8
+    claim: A normal resting adult heart rate is about 60–100 beats per minute.
+    where: ["index.mdx#pulse", "sims/models/b3-2-pulse (PEOPLE)"]
+    confidence: high
+    basis: American Heart Association; NHS guidance
+    status: checked
+  - id: f9
+    claim: Pulse oximeters and optical fitness watches detect pulses from changes in light absorption by blood in tissue (photoplethysmography); chest straps detect the heart's electrical activity.
+    where: ["index.mdx#pulse", "sims/b3-2-pulse"]
+    confidence: high
+    basis: Device technical literature (photoplethysmography; ECG chest straps)
+    status: checked
+  - id: f10
+    claim: Veins have pocket valves that prevent backflow and thin walls compressed by skeletal muscle (skeletal muscle pump); most of the blood volume is in the veins at any time.
+    where: ["index.mdx#veins", "visuals.yaml:transport vessels valve/v-wall", "flashcards.yaml:c5"]
+    confidence: high
+    basis: Guyton & Hall (about 64% of blood volume in systemic veins)
+    status: checked
+  - id: f11
+    claim: Venous valves are mostly bicuspid (two cusps); the 3D model shows two cusps, attached upstream with free edges pointing towards the heart.
+    where: ["scenes/b3-2-vessels.ts", "visuals.yaml:transport vessels valve"]
+    confidence: high
+    basis: Vascular anatomy texts (bicuspid venous valves)
+    status: checked
+  - id: f12
+    claim: Atherosclerotic plaques (atheroma) contain lipids including cholesterol, fibrous tissue and immune cells, beneath the endothelium; plaque rupture triggers a thrombus that can occlude a coronary artery, causing myocardial infarction; narrowing causes angina on exertion.
+    where: ["index.mdx#coronary", "sims/b3-2-occlusion", "flashcards.yaml:c6", "index.mdx (mustKnow)"]
+    confidence: high
+    basis: Robbins Basic Pathology; British Heart Foundation
+    status: checked
+  - id: f13
+    claim: CHD risk factors include hypertension, smoking, high (LDL) cholesterol, obesity, physical inactivity, diabetes, age, male sex and family history.
+    where: ["index.mdx#coronary"]
+    confidence: high
+    basis: WHO; British Heart Foundation; American Heart Association
+    status: checked
+  - id: f14
+    claim: Occlusion model thresholds are qualitative — angina on exertion with narrowings above about 66% of diameter, ischaemia at rest above about 92%; clinically, exertional angina usually appears with about 70% diameter stenosis and resting flow falls only with very severe stenosis.
+    where: ["sims/models/b3-2-occlusion.ts", "sims/b3-2-occlusion", "tests/unit/b3-2.test.ts"]
+    confidence: medium
+    basis: Gould & Lipscomb 1974 (coronary flow reserve vs stenosis); clinical convention of 70% significant stenosis
+    status: open
+  - id: f15
+    claim: Correlation coefficients range from −1 to +1; sign gives direction, magnitude gives strength; correlation does not establish causation (confounding variables).
+    where: ["index.mdx#coronary", "quiz.yaml:q4", "flashcards.yaml:c7", "index.mdx (mustKnow, mistakes)"]
+    confidence: high
+    basis: Standard statistics; IB guide B3.2.6 NOS
+    status: checked
+  - id: f16
+    claim: The scatter graphs use invented data; Pearson r is computed from the plotted points (A ≈ +0.94, B ≈ +0.08).
+    where: ["diagrams/b3-2-chd-data.astro", "index.mdx#coronary"]
+    confidence: high
+    basis: Computed in the diagram frontmatter
+    status: checked
+  - id: f17
+    claim: Transpiration pull — evaporation from mesophyll cell walls, capillary action through cellulose walls, tension (negative pressure) in xylem, cohesion transmitting it down a continuous column; passive, energy from heat that causes evaporation.
+    where: ["index.mdx#transpiration", "anims/b3-2-transpiration", "visuals.yaml:transpiration", "quiz.yaml:q5", "flashcards.yaml:c8"]
+    confidence: high
+    basis: Taiz & Zeiger, Plant Physiology (cohesion–tension theory); IB guide B3.2.7
+    status: checked
+  - id: f18
+    claim: Mature xylem vessels are dead, lack end walls (perforation plates), have lignified secondary walls (annular/spiral in protoxylem, more extensive in metaxylem) and pits.
+    where: ["index.mdx#xylem", "diagrams/b3-2-xylem", "flashcards.yaml:c9"]
+    confidence: high
+    basis: Raven, Biology of Plants; IB guide B3.2.8
+    status: checked
+  - id: f19
+    claim: In a young dicot stem, vascular bundles form a ring with phloem outside, xylem inside and cambium between; cortex outside, pith inside. In a dicot root, xylem is central and star/cross-shaped with phloem between its arms, inside the endodermis.
+    where: ["index.mdx#stem-root", "diagrams/b3-2-stem", "diagrams/b3-2-root", "quiz.yaml:q6", "flashcards.yaml:c10"]
+    confidence: high
+    basis: Raven, Biology of Plants; Esau, Plant Anatomy
+    status: checked
+  - id: f20
+    claim: Capillary blood pressure is roughly 35 mmHg at the arteriole end and 15 mmHg at the venule end; plasma proteins retained in the blood oppose filtration osmotically.
+    where: ["index.mdx#tissue-fluid"]
+    confidence: medium
+    basis: Guyton & Hall (classic Starling values; textbooks quote 30–40 and 10–20 mmHg)
+    status: open
+  - id: f21
+    claim: Revised Starling principle — in many tissues little fluid is reabsorbed at the venule end in the steady state and most filtered fluid returns as lymph.
+    where: ["index.mdx#tissue-fluid (note callout)"]
+    confidence: medium
+    basis: Levick & Michel 2010, Cardiovascular Research 87:198–210
+    status: open
+  - id: f22
+    claim: Tissue fluid resembles plasma in small solutes but has very little protein and no red blood cells or platelets.
+    where: ["index.mdx#tissue-fluid", "flashcards.yaml:c12", "visuals.yaml:transport vessels pore"]
+    confidence: high
+    basis: Guyton & Hall; IB guide B3.2.12
+    status: checked
+  - id: f23
+    claim: Lymph capillaries are blind-ended with thin, gapped walls; lymph vessels have valves; lymph returns to the blood via ducts emptying into the subclavian veins; a few litres a day.
+    where: ["index.mdx#lymph", "diagrams/b3-2-tissue-fluid", "flashcards.yaml:c13"]
+    confidence: high
+    basis: Guyton & Hall (lymph flow about 2–3 L per day); IB guide B3.2.13
+    status: checked
+  - id: f24
+    claim: Bony fish have a single circulation — heart (atrium, ventricle) → gills → body → heart — with pressure much lower after the gill capillaries; mammals have separate pulmonary (low pressure) and systemic (high pressure) circulations.
+    where: ["index.mdx#circulation", "diagrams/b3-2-circulation", "flashcards.yaml:c14", "index.mdx (mustKnow)"]
+    confidence: high
+    basis: Hill, Wyse & Anderson, Animal Physiology; IB guide B3.2.14
+    status: checked
+  - id: f25
+    claim: In an anterior view the heart's right side is on the viewer's left; the LV wall is roughly two to three times as thick as the RV wall; the apex is formed by the LV and points down and to the left.
+    where: ["scenes/b3-2-heart.ts", "diagrams/b3-2-heart-section", "index.mdx#heart", "index.mdx (mistakes)", "flashcards.yaml:c15"]
+    confidence: high
+    basis: Gray's Anatomy; Moore, Clinically Oriented Anatomy
+    status: checked
+  - id: f26
+    claim: Tricuspid valve has three cusps, mitral two; aortic and pulmonary valves have three cusps each; AV cusps are tethered by chordae tendineae to papillary muscles; the anterior mitral leaflet is continuous with the aortic valve.
+    where: ["scenes/b3-2-heart.ts", "visuals.yaml:transport heart tricuspid/bicuspid/semilunar", "diagrams/b3-2-heart-section"]
+    confidence: high
+    basis: Gray's Anatomy
+    status: checked
+  - id: f27
+    claim: Four pulmonary veins open into the posterior wall of the left atrium; the SAN lies in the right atrial wall at the junction with the superior vena cava; coronary arteries arise from the aortic sinuses just above the aortic valve.
+    where: ["scenes/b3-2-heart.ts", "visuals.yaml:transport heart pulmonary-veins/san/coronary", "index.mdx#heart"]
+    confidence: high
+    basis: Gray's Anatomy; Moore, Clinically Oriented Anatomy
+    status: checked
+  - id: f28
+    claim: The pulmonary trunk lies anterior and to the left of the ascending aorta; the right pulmonary artery passes behind the ascending aorta. The 3D model draws the trunk crossing in front of the aorta for this reason.
+    where: ["scenes/b3-2-heart.ts", "visuals.yaml:transport heart pulmonary-artery"]
+    confidence: high
+    basis: Gray's Anatomy
+    status: checked
+  - id: f29
+    claim: At 75 bpm one cardiac cycle lasts 0.8 s, with atrial systole about 0.1 s, ventricular systole about 0.3 s and diastole about 0.4 s.
+    where: ["sims/models/b3-2-cardiac.ts", "anims/b3-2-cardiac-cycle", "index.mdx#cardiac-cycle", "tests/unit/b3-2.test.ts"]
+    confidence: high
+    basis: Guyton & Hall; Tortora, Principles of Anatomy and Physiology
+    status: checked
+  - id: f30
+    claim: Pressure graph values — aorta about 80–120 mmHg with a dicrotic notch at aortic valve closure; LV from about 3 to 120 mmHg; LA below about 12 mmHg; valves open/close where curves cross; two isovolumetric periods; first sound at AV valve closure, second at semilunar closure.
+    where: ["sims/models/b3-2-cardiac.ts", "anims/b3-2-cardiac-cycle", "visuals.yaml:cardiac-cycle", "quiz.yaml:q7", "index.mdx#cardiac-cycle"]
+    confidence: high
+    basis: Wiggers diagram (Guyton & Hall); typical textbook values
+    status: checked
+  - id: f31
+    claim: The impulse from the SAN is delayed at the atrioventricular node before passing to the ventricles, which contract from the apex upwards.
+    where: ["index.mdx#cardiac-cycle", "visuals.yaml:cardiac-cycle iso-contraction"]
+    confidence: high
+    basis: Guyton & Hall (AV nodal delay about 0.1 s; Purkinje conduction to apex first)
+    status: checked
+  - id: f32
+    claim: A resting blood pressure persistently at or above about 140/90 mmHg is usually classed as hypertension.
+    where: ["index.mdx#cardiac-cycle"]
+    confidence: medium
+    basis: WHO and NICE use 140/90 mmHg; the 2017 ACC/AHA guideline uses 130/80 mmHg
+    status: open
+  - id: f33
+    claim: Root pressure arises from active transport of mineral ions into the xylem with water following by osmosis; it is positive, is seen in guttation and bleeding sap, operates in humid conditions and in spring before leaves open, and is usually much smaller in magnitude than transpiration tensions.
+    where: ["index.mdx#root-pressure", "anims/b3-2-transpiration root-pressure", "flashcards.yaml:c17", "index.mdx (mustKnow)"]
+    confidence: high
+    basis: Taiz & Zeiger, Plant Physiology (root pressure typically about 0.05–0.5 MPa); IB guide B3.2.17
+    status: checked
+  - id: f34
+    claim: Sieve tube elements are living, with sieve plates, reduced cytoplasm and organelles and no nucleus; companion cells have a nucleus and many mitochondria and are joined to sieve tube elements by many plasmodesmata; phloem walls are not lignified.
+    where: ["index.mdx#phloem", "diagrams/b3-2-phloem", "quiz.yaml:q10", "flashcards.yaml:c18", "index.mdx (mustKnow, mistakes)"]
+    confidence: high
+    basis: Raven, Biology of Plants; Taiz & Zeiger
+    status: checked
+  - id: f35
+    claim: Pressure-flow translocation — active loading at sources raises solute concentration, water enters by osmosis and hydrostatic pressure rises; unloading at sinks lowers it; sap in any one sieve tube flows one way at a time.
+    where: ["index.mdx#phloem", "diagrams/b3-2-phloem", "flashcards.yaml:c18"]
+    confidence: high
+    basis: Münch pressure-flow hypothesis (Taiz & Zeiger)
+    status: checked
+  - id: f36
+    claim: In the 3D vessel model the capillary is drawn hundreds of times larger than to scale relative to the artery and vein.
+    where: ["scenes/b3-2-vessels.ts", "visuals.yaml:transport vessels c-wall", "diagrams/b3-2-vessels"]
+    confidence: high
+    basis: Design note
+    status: checked

@@ -1,0 +1,95 @@
+---
+/**
+ * Phloem (B3.2.18): sieve tube elements and a companion cell (left) and translocation by pressure flow
+ * from a source to a sink (right). Sap moves from high hydrostatic pressure at the source to lower
+ * pressure at the sink; water enters and leaves the sieve tubes by osmosis.
+ */
+const plates = [40, 196, 352];
+const pores = (y: number) => Array.from({ length: 5 }, (_, i) => 160 + i * 14).map((x) => `M${x} ${y} h8`).join(' ');
+const mitos: [number, number, number][] = [[108, 100, 20], [124, 128, -30], [104, 156, 60], [128, 238, 10], [106, 262, -40], [124, 290, 45], [106, 316, 0], [124, 108, 80]];
+const pd = [120, 150, 180, 210, 240, 270, 300];
+const loadSucrose: [number, number][] = [[600, 60], [618, 74], [588, 80], [606, 92]];
+---
+<svg viewBox="0 0 720 400" role="img" aria-labelledby="ph-t ph-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="ph-t">Phloem sieve tubes, companion cells and translocation</title>
+  <desc id="ph-d">Left: two sieve tube elements end to end, separated by sieve plates with pores. They have a plasma membrane but no nucleus and very little cytoplasm. Beside them is a companion cell with a nucleus and many mitochondria, joined to the sieve tube by plasmodesmata through the shared wall. Right: at a source such as a leaf, sucrose is loaded into the phloem by active transport; water follows from the xylem by osmosis, raising the pressure. Sap flows along the phloem to a sink such as a root, where sucrose is unloaded and water leaves, so the pressure is lower.</desc>
+
+  <!-- ===== sieve tube and companion cell ===== -->
+  <rect class="wall" x="150" y="36" width="90" height="320" />
+  <rect class="sap" x="154" y="40" width="82" height="312" />
+  <path class="pm" d="M157 40 V352 M233 40 V352" />
+  {plates.map((y) => <g><rect class="plate" x="150" y={y - 4} width="90" height="8" /><path class="pore" d={pores(y)} /></g>)}
+  <circle class="org" cx="162" cy="120" r="3" /><circle class="org" cx="228" cy="280" r="3" />
+  <rect class="wall" x="78" y="86" width="72" height="240" rx="18" />
+  <rect class="cc" x="82" y="90" width="64" height="232" rx="15" />
+  <ellipse class="nuc" cx="114" cy="200" rx="16" ry="24" />
+  {mitos.map(([x, y, a]) => <rect class="mito" x={x - 9} y={y - 4.5} width="18" height="9" rx="4.5" transform={`rotate(${a} ${x} ${y})`} />)}
+  {pd.map((y) => <path class="pd" d={`M144 ${y} H158`} />)}
+  <g class="flow"><path d="M195 330 V250" /><polygon points="195,238 188,252 202,252" /><path d="M195 174 V96" /><polygon points="195,84 188,98 202,98" /></g>
+
+  <g class="lead">
+    <path d="M240 60 L262 52" /><path d="M222 196 L262 128" /><path d="M235 300 L262 210" /><path d="M86 220 L60 250" /><path d="M150 240 L262 286" /><path d="M118 186 L60 168" />
+  </g>
+  <text class="t" x="266" y="48">thin wall,</text><text class="s" x="266" y="64">not lignified</text>
+  <text class="t" x="266" y="124">sieve plate</text><text class="s" x="266" y="140">pores let sap</text><text class="s" x="266" y="156">flow through</text>
+  <text class="t" x="266" y="206">sieve tube</text><text class="t" x="266" y="222">element</text><text class="s" x="266" y="238">no nucleus; little</text><text class="s" x="266" y="254">cytoplasm, few</text><text class="s" x="266" y="270">organelles</text>
+  <text class="t" x="266" y="300">plasmodesmata</text><text class="s" x="266" y="316">link the two</text><text class="s" x="266" y="332">cells' cytoplasm</text>
+  <text class="t" x="6" y="268">companion</text><text class="t" x="6" y="284">cell: many</text><text class="t" x="6" y="300">mitochondria</text><text class="s" x="6" y="316">(ATP for</text><text class="s" x="6" y="332">active transport)</text>
+  <text class="s" x="6" y="160">nucleus</text>
+  <text class="m" x="195" y="390" text-anchor="middle">sap can flow either way</text>
+
+  <!-- ===== translocation ===== -->
+  <path class="div" d="M384 20 V380" />
+  <rect class="organ" x="400" y="20" width="310" height="96" rx="12" />
+  <text class="t" x="414" y="42">SOURCE</text><text class="s" x="414" y="58">e.g. a photosynthesising leaf</text>
+  <rect class="organ" x="400" y="284" width="310" height="96" rx="12" />
+  <text class="t" x="414" y="372">SINK</text><text class="s" x="460" y="372">e.g. root, fruit, storage organ</text>
+  <rect class="xy" x="470" y="64" width="24" height="270" rx="4" />
+  <rect class="ph" x="590" y="50" width="30" height="284" rx="4" />
+  <text class="t" x="482" y="352" text-anchor="middle">xylem</text>
+  <text class="t" x="605" y="352" text-anchor="middle">phloem</text>
+  {loadSucrose.map(([x, y]) => <circle class="suc" cx={x} cy={y} r="4" />)}
+  <g class="arr suc-a"><path d="M660 78 H630" /><polygon points="622,78 634,72 634,84" /></g>
+  <text class="n" x="664" y="74">sucrose</text><text class="n" x="664" y="90">loaded</text><text class="n" x="664" y="106">(ATP)</text>
+  <g class="arr w"><path d="M498 96 H580" /><polygon points="588,96 576,90 576,102" /></g>
+  <text class="n" x="502" y="88">water in</text><text class="n" x="502" y="114">by osmosis</text>
+  <text class="hp" x="587" y="136" text-anchor="end">high pressure</text>
+  <g class="arr big"><path d="M605 140 V250" /><polygon points="605,264 596,248 614,248" /></g>
+  <text class="n" x="630" y="200">sap flows</text><text class="n" x="630" y="216">down the</text><text class="n" x="630" y="232">pressure</text><text class="n" x="630" y="248">gradient</text>
+  <text class="hp" x="587" y="270" text-anchor="end">lower pressure</text>
+  <g class="arr w"><path d="M588 312 H504" /><polygon points="496,312 508,306 508,318" /></g>
+  <g class="arr suc-a"><path d="M622 300 H652" /><polygon points="660,300 648,294 648,306" /></g>
+  <text class="n" x="664" y="300">sucrose</text><text class="n" x="664" y="316">unloaded</text>
+  <text class="n" x="502" y="332">water leaves</text>
+  <g class="arr w"><path d="M482 250 V140" /><polygon points="482,128 476,142 488,142" /></g>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .wall { fill: color-mix(in srgb, var(--bio-carb) 45%, var(--surface)); }
+  .sap { fill: color-mix(in srgb, var(--bio-glucose) 14%, var(--surface)); }
+  .pm { stroke: color-mix(in srgb, var(--bio-head) 70%, black); stroke-width: 1.2; }
+  .plate { fill: color-mix(in srgb, var(--bio-carb) 55%, var(--surface)); }
+  .pore { stroke: color-mix(in srgb, var(--bio-glucose) 14%, var(--surface)); stroke-width: 9; }
+  .org { fill: var(--text-muted); }
+  .cc { fill: color-mix(in srgb, var(--bio-tail) 30%, var(--surface)); }
+  .nuc { fill: var(--bio-protein-2); }
+  .mito { fill: color-mix(in srgb, var(--bio-chol) 60%, var(--surface)); stroke: color-mix(in srgb, var(--bio-chol) 60%, black); }
+  .pd { stroke: var(--text); stroke-width: 2.2; }
+  .flow path { stroke: color-mix(in srgb, var(--bio-glucose) 80%, black); stroke-width: 3; }
+  .flow polygon { fill: color-mix(in srgb, var(--bio-glucose) 80%, black); }
+  .lead path { stroke: var(--text); stroke-width: 1.1; fill: none; }
+  .div { stroke: var(--border); }
+  .organ { fill: var(--surface-2); stroke: var(--border-strong); }
+  .xy { fill: color-mix(in srgb, var(--bio-water) 30%, var(--surface)); stroke: var(--bio-water); }
+  .ph { fill: color-mix(in srgb, var(--bio-glucose) 30%, var(--surface)); stroke: color-mix(in srgb, var(--bio-glucose) 80%, black); }
+  .suc { fill: color-mix(in srgb, var(--bio-glucose) 85%, black); }
+  .arr path { stroke-width: 3; fill: none; }
+  .arr.w path { stroke: var(--bio-water); } .arr.w polygon { fill: var(--bio-water); }
+  .arr.suc-a path { stroke: color-mix(in srgb, var(--bio-glucose) 85%, black); } .arr.suc-a polygon { fill: color-mix(in srgb, var(--bio-glucose) 85%, black); }
+  .arr.big path { stroke: color-mix(in srgb, var(--bio-glucose) 85%, black); stroke-width: 8; } .arr.big polygon { fill: color-mix(in srgb, var(--bio-glucose) 85%, black); }
+  .t { font-size: 14px; font-weight: 750; fill: var(--text); }
+  .s { font-size: 13px; fill: var(--text); }
+  .n { font-size: 12.5px; font-weight: 650; fill: var(--text); }
+  .hp { font-size: 13px; font-weight: 800; fill: var(--accent-strong); }
+  .m { font-size: 12.5px; fill: var(--text-muted); font-style: italic; }
+</style>

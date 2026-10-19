@@ -1,0 +1,181 @@
+---
+/**
+ * Exam-style frontal (coronal) section of the mammalian heart, anterior view (B3.2.15).
+ * The heart's RIGHT side is on the viewer's LEFT. Same outline as the 3D model (src/scenes/b3-2-heart.ts),
+ * drawn in ventricular diastole: AV valves open, semilunar valves closed.
+ */
+type P = [number, number];
+const X = (x: number) => 330 + 30 * x;
+const Y = (y: number) => 292 - 30 * y;
+const fmt = ([x, y]: P) => `${X(x).toFixed(1)} ${Y(y).toFixed(1)}`;
+/** Smooth path through points (Catmull–Rom as cubic Béziers), continuing from the current point. */
+const through = (pts: P[]) => {
+  let d = '';
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[i - 1] ?? pts[i]!, p1 = pts[i]!, p2 = pts[i + 1]!, p3 = pts[i + 2] ?? p2;
+    const c1: P = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+    const c2: P = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+    d += ` C${fmt(c1)} ${fmt(c2)} ${fmt(p2)}`;
+  }
+  return d;
+};
+const closed = (segs: P[][]) => `M${fmt(segs[0]![0]!)}` + segs.map(through).join('') + ' Z';
+const open = (pts: P[]) => `M${fmt(pts[0]!)}` + through(pts);
+
+const OUT_MAIN: P[] = [[-4.8, 0.9], [-4.72, 0], [-4.45, -1.6], [-3.95, -3.2], [-3.0, -4.75], [-1.6, -6.05], [0, -6.85], [1.35, -7.1], [2.3, -6.8], [3.45, -5.6], [4.35, -3.9], [4.95, -2.0], [5.15, -0.3], [5.0, 1.0], [4.95, 2.2], [5.0, 3.2], [4.6, 4.0], [3.6, 4.35], [2.2, 4.35], [1.05, 4.2]];
+const main = closed([
+  OUT_MAIN,
+  [[1.05, 4.2], [1.0, 3.0], [0.97, 1.6], [1.0, 1.0]],
+  [[1.0, 1.0], [1.15, 0.72], [1.4, 0.95]],
+  [[1.4, 0.95], [1.5, 2.0], [1.55, 3.35]],
+  [[1.55, 3.35], [2.4, 3.6], [3.6, 3.55], [4.3, 3.1]],
+  [[4.3, 3.1], [4.35, 2.0], [4.2, 1.1], [3.95, 0.7]],
+  [[3.95, 0.7], [3.45, -0.6], [3.2, -2.4], [2.8, -4.2], [2.2, -5.35], [1.75, -5.6]],
+  [[1.75, -5.6], [1.2, -5.0], [0.7, -3.6], [0.45, -2.2], [0.4, -0.7]],
+  [[0.4, -0.7], [0.0, 0.2], [-0.45, 1.0], [-0.5, 2.4], [-0.55, 4.2]],
+  [[-0.55, 4.2], [-1.4, 4.3], [-2.2, 4.2]],
+  [[-2.2, 4.2], [-2.2, 3.55]],
+  [[-2.2, 3.55], [-1.7, 3.2], [-1.55, 2.0], [-1.6, 0.9], [-1.75, 0.4]],
+  [[-1.75, 0.4], [-1.05, -0.3], [-0.9, -1.6], [-0.95, -3.2], [-1.25, -4.6]],
+  [[-1.25, -4.6], [-2.1, -4.25], [-3.25, -3.0], [-3.8, -1.6], [-4.0, -0.2], [-4.05, 0.4]],
+  [[-4.05, 0.4], [-4.3, 0.65], [-4.3, 0.9]],
+  [[-4.3, 0.9], [-4.8, 0.9]],
+]);
+const raWall = closed([
+  [[-3.6, 4.15], [-4.2, 4.05], [-4.65, 3.5], [-4.85, 2.6], [-4.85, 1.9]],
+  [[-4.85, 1.9], [-4.3, 1.9]],
+  [[-4.3, 1.9], [-4.35, 2.8], [-4.1, 3.35], [-3.6, 3.6]],
+  [[-3.6, 3.6], [-3.6, 4.15]],
+]);
+const box = (pts: P[]) => `M${fmt(pts[0]!)}` + pts.slice(1).map((p) => ` L${fmt(p)}`).join('') + ' Z';
+const rightFloor = box([[-4.9, 0.95], [-4.9, 1.9], [-4.4, 3.6], [-3.6, 4.15], [-2.1, 4.15], [-1.5, 3.2], [-1.45, 0.4], [-0.85, -0.3], [-0.8, -3.2], [-1.2, -4.7], [-2.2, -4.35], [-3.3, -3.05], [-3.9, -1.6], [-4.15, 0.4]]);
+const leftFloor = box([[1.4, 0.8], [1.45, 3.45], [2.4, 3.7], [3.6, 3.65], [4.4, 3.15], [4.45, 2.0], [4.3, 1.0], [3.6, -0.6], [3.3, -2.4], [2.9, -4.2], [2.25, -5.45], [1.75, -5.7], [1.1, -5.05], [0.6, -3.6], [0.35, -2.2], [0.3, -0.7], [-0.6, 1.0], [-0.6, 4.15], [1.1, 4.15], [1.05, 1.0]]);
+
+const aorta = open([[0.25, 1.0], [0.25, 3.5], [0.3, 5.6], [0.8, 7.1], [2.0, 7.9], [3.5, 7.65], [4.4, 6.8], [5.0, 5.6], [5.25, 4.4]]);
+const trunk = open([[-1.25, -0.6], [-1.15, -0.1], [-0.85, 1.1], [-0.1, 2.5], [0.9, 3.75], [1.65, 4.75]]);
+const lpa = open([[1.65, 4.75], [2.6, 5.05], [4.2, 5.0], [6.1, 4.85]]);
+const rpa = open([[1.65, 4.75], [1.2, 5.1], [-1.0, 5.1], [-3.5, 5.05], [-6.0, 4.85]]);
+const svc = open([[-2.9, 3.6], [-2.9, 5.5], [-2.9, 7.4]]);
+const ivc = open([[-3.9, 1.4], [-4.9, 1.4], [-5.55, 0.9], [-5.7, -0.6], [-5.6, -3.6]]);
+const veins = [open([[6.4, 3.1], [5.2, 2.95], [4.2, 2.9]]), open([[6.4, 1.6], [5.2, 1.7], [4.15, 1.75]])];
+const deg = Math.PI / 180;
+const flap = (h: P, len: number, ang: number) => `M${fmt(h)} L${fmt([h[0] + len * Math.cos(ang * deg), h[1] + len * Math.sin(ang * deg)])}`;
+const valves = [
+  flap([-4.05, 0.4], 1.22, -78), flap([-1.75, 0.4], 1.22, -102),
+  flap([1.15, 0.72], 1.45, -80), flap([3.95, 0.7], 1.45, -100),
+];
+const cusps = [
+  `M${fmt([-0.45, 1.25])} Q${fmt([-0.15, 0.95])} ${fmt([0.25, 1.35])} Q${fmt([0.65, 0.95])} ${fmt([0.95, 1.25])}`,
+  `M${fmt([-1.55, 0.55])} Q${fmt([-1.2, 0.3])} ${fmt([-0.95, 0.75])} Q${fmt([-0.65, 0.45])} ${fmt([-0.4, 0.9])}`,
+];
+const chordae = [
+  [[-3.8, -0.79], [-3.25, -2.2]], [[-3.8, -0.79], [-3.0, -2.2]], [[-2.0, -0.79], [-1.5, -1.95]], [[-2.0, -0.79], [-1.25, -1.95]],
+  [[1.4, -0.71], [0.95, -2.25]], [[1.4, -0.71], [1.2, -2.25]], [[3.7, -0.73], [2.75, -2.4]], [[3.7, -0.73], [3.0, -2.4]],
+] as [P, P][];
+const papillary: P[] = [[-3.15, -2.55], [-1.35, -2.3], [1.05, -2.6], [2.85, -2.75]];
+const coronary = [open([[5.25, 0.85], [5.35, -0.4], [5.1, -2.0], [4.5, -3.9], [3.55, -5.7], [2.4, -6.95]]), open([[-4.95, 0.55], [-4.9, -0.2], [-4.6, -1.7], [-4.1, -3.3], [-3.1, -4.9]])];
+// blood-flow arrows (in heart units): [from, to, side]
+const arrows: [P, P, 'r' | 'l'][] = [
+  [[-2.9, 6.6], [-2.9, 4.4], 'r'], [[-5.65, -2.6], [-5.65, -0.6], 'r'], [[-3.0, 2.6], [-2.9, -0.4], 'r'], [[-2.6, -2.6], [-1.7, -1.0], 'r'],
+  [[2.6, 5.05], [4.6, 5.0], 'r'], [[-0.6, 5.1], [-2.4, 5.08], 'r'],
+  [[6.2, 2.4], [4.9, 2.35], 'l'], [[3.0, 2.8], [2.8, -0.2], 'l'], [[1.9, -3.2], [0.9, -0.9], 'l'], [[0.25, 2.6], [0.25, 4.8], 'l'], [[2.6, 7.95], [3.9, 7.4], 'l'],
+];
+const head = (from: P, to: P) => {
+  const dx = to[0] - from[0], dy = to[1] - from[1], L = Math.hypot(dx, dy);
+  const ux = dx / L, uy = dy / L, s = 0.32;
+  const a: P = [to[0] - ux * s * 1.6 + uy * s, to[1] - uy * s * 1.6 - ux * s];
+  const b: P = [to[0] - ux * s * 1.6 - uy * s, to[1] - uy * s * 1.6 + ux * s];
+  return `${fmt(to)} ${fmt(a)} ${fmt(b)}`;
+};
+type L = { t: string[]; at: P; x: number; y: number; end?: boolean };
+const labels: L[] = [
+  { t: ['superior', 'vena cava'], at: [-2.9, 6.4], x: 8, y: 92 },
+  { t: ['sinoatrial node', '(pacemaker)'], at: [-3.98, 3.78], x: 8, y: 168 },
+  { t: ['right atrium'], at: [-3.3, 2.4], x: 8, y: 232 },
+  { t: ['pulmonary', 'semilunar valve'], at: [-0.95, 0.65], x: 8, y: 280 },
+  { t: ['tricuspid valve', '(right AV valve)'], at: [-3.2, -0.3], x: 8, y: 334 },
+  { t: ['inferior', 'vena cava'], at: [-5.65, -2.0], x: 8, y: 398 },
+  { t: ['right ventricle'], at: [-2.6, -3.0], x: 8, y: 454 },
+  { t: ['septum'], at: [-0.25, -3.6], x: 8, y: 500 },
+  { t: ['aorta'], at: [3.0, 7.75], x: 560, y: 46 },
+  { t: ['pulmonary artery'], at: [5.0, 4.95], x: 560, y: 120 },
+  { t: ['pulmonary veins'], at: [5.8, 1.68], x: 560, y: 178 },
+  { t: ['left atrium'], at: [3.4, 2.6], x: 560, y: 226 },
+  { t: ['aortic semilunar', 'valve'], at: [0.6, 1.1], x: 560, y: 270 },
+  { t: ['bicuspid (mitral)', 'valve (left AV valve)'], at: [3.4, -0.35], x: 560, y: 326 },
+  { t: ['left ventricle', '(thick wall)'], at: [4.1, -2.6], x: 560, y: 392 },
+  { t: ['coronary artery', '(on the surface)'], at: [4.62, -3.6], x: 560, y: 454 },
+];
+---
+<svg viewBox="0 0 720 560" role="img" aria-labelledby="hs-t hs-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="hs-t">The mammalian heart in frontal section</title>
+  <desc id="hs-d">Front view of a heart cut through from top to bottom, so the heart's right side is on the viewer's left. Blood from the superior and inferior venae cavae enters the right atrium, passes through the tricuspid valve into the right ventricle and leaves through the pulmonary semilunar valve into the pulmonary artery. Blood from the pulmonary veins enters the left atrium, passes through the bicuspid valve into the left ventricle, whose wall is much thicker, and leaves through the aortic semilunar valve into the aorta. A thick septum separates the two sides. The sinoatrial node is in the wall of the right atrium near the superior vena cava; coronary arteries run on the outer surface.</desc>
+  <path class="floor r" d={rightFloor} />
+  <path class="floor l" d={leftFloor} />
+  <path class="vw r" d={rpa} /><path class="vl r" d={rpa} />
+  <path class="vw l" d={aorta} /><path class="vl l" d={aorta} />
+  <path class="vw r" d={svc} /><path class="vl r" d={svc} />
+  <path class="vw r ivc" d={ivc} /><path class="vl r ivc" d={ivc} />
+  {veins.map((v) => <><path class="vw l vein" d={v} /><path class="vl l vein" d={v} /></>)}
+  <path class="myo" d={main} />
+  <path class="myo" d={raWall} />
+  {coronary.map((c) => <path class="cor" d={c} />)}
+  <path class="vw r trunk" d={trunk} /><path class="vl r trunk" d={trunk} />
+  <path class="vw r" d={lpa} /><path class="vl r" d={lpa} />
+  {chordae.map(([a, b]) => <path class="chord" d={`M${fmt(a)} L${fmt(b)}`} />)}
+  {papillary.map(([x, y]) => <ellipse class="pap" cx={X(x)} cy={Y(y)} rx="7" ry="13" />)}
+  {valves.map((v) => <path class="valve" d={v} />)}
+  {cusps.map((c) => <path class="cusp" d={c} />)}
+  <circle class="san" cx={X(-3.98)} cy={Y(3.78)} r="7" />
+  {arrows.map(([a, b, s]) => <g class={`arr ${s}`}><path d={`M${fmt(a)} L${fmt(b)}`} /><polygon points={head(a, b)} /></g>)}
+  {labels.map((l) => {
+    const right = l.x > 300;
+    const lx = right ? l.x - 6 : l.x + 118;
+    return (
+      <g>
+        <path class="lead" d={`M${X(l.at[0]).toFixed(1)} ${Y(l.at[1]).toFixed(1)} L${lx} ${l.y - 5}`} />
+        <circle class="dot" cx={X(l.at[0])} cy={Y(l.at[1])} r="2.6" />
+        <text class="t" x={l.x} y={l.y}>{l.t.map((line, k) => <tspan x={l.x} dy={k ? 15 : 0}>{line}</tspan>)}</text>
+      </g>
+    );
+  })}
+  <text class="side" x="150" y="548" text-anchor="middle">heart's RIGHT side (viewer's left)</text>
+  <text class="side" x="500" y="548" text-anchor="middle">heart's LEFT side (viewer's right)</text>
+  <g class="key">
+    <rect class="kr" x="286" y="520" width="14" height="10" /><text x="304" y="529">deoxygenated</text>
+    <rect class="kl" x="286" y="536" width="14" height="10" /><text x="304" y="545">oxygenated</text>
+  </g>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .floor.r { fill: color-mix(in srgb, var(--bio-protein) 28%, var(--surface)); }
+  .floor.l { fill: color-mix(in srgb, var(--bio-k) 26%, var(--surface)); }
+  .myo { fill: color-mix(in srgb, var(--bio-chol) 62%, var(--surface)); stroke: color-mix(in srgb, var(--bio-chol) 55%, black); stroke-width: 1.4; stroke-linejoin: round; }
+  .vw { fill: none; stroke-width: 45; stroke-linecap: butt; }
+  .vl { fill: none; stroke-width: 33; stroke-linecap: butt; }
+  .vw.r { stroke: color-mix(in srgb, var(--bio-protein) 75%, black); }
+  .vl.r { stroke: color-mix(in srgb, var(--bio-protein) 28%, var(--surface)); }
+  .vw.l { stroke: color-mix(in srgb, var(--bio-k) 75%, black); }
+  .vl.l { stroke: color-mix(in srgb, var(--bio-k) 26%, var(--surface)); }
+  .vw.ivc { stroke-width: 32; } .vl.ivc { stroke-width: 22; }
+  .vw.vein { stroke-width: 20; } .vl.vein { stroke-width: 12; }
+  .vw.trunk, .vl.trunk { stroke-linecap: round; }
+  .cor { fill: none; stroke: color-mix(in srgb, var(--bio-k) 85%, black); stroke-width: 4.5; stroke-linecap: round; }
+  .valve { stroke: var(--text); stroke-width: 4; stroke-linecap: round; }
+  .cusp { fill: none; stroke: var(--text); stroke-width: 3.5; stroke-linecap: round; }
+  .chord { stroke: var(--text); stroke-width: 1; }
+  .pap { fill: color-mix(in srgb, var(--bio-chol) 62%, var(--surface)); stroke: color-mix(in srgb, var(--bio-chol) 55%, black); }
+  .san { fill: var(--bio-glucose); stroke: var(--text); stroke-width: 1.4; }
+  .arr path { stroke-width: 3; fill: none; }
+  .arr.r path { stroke: color-mix(in srgb, var(--bio-protein) 80%, black); }
+  .arr.r polygon { fill: color-mix(in srgb, var(--bio-protein) 80%, black); }
+  .arr.l path { stroke: color-mix(in srgb, var(--bio-k) 80%, black); }
+  .arr.l polygon { fill: color-mix(in srgb, var(--bio-k) 80%, black); }
+  .lead { stroke: var(--text); stroke-width: 1.1; fill: none; }
+  .dot { fill: var(--text); }
+  .t { font-size: 13.5px; font-weight: 650; fill: var(--text); }
+  .side { font-size: 13px; font-weight: 800; fill: var(--text-muted); }
+  .key text { font-size: 12px; fill: var(--text); }
+  .kr { fill: color-mix(in srgb, var(--bio-protein) 75%, black); }
+  .kl { fill: color-mix(in srgb, var(--bio-k) 75%, black); }
+</style>
