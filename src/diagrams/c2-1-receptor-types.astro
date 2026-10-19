@@ -1,0 +1,71 @@
+---
+/** Transmembrane versus intracellular receptors (C2.1.6): where hydrophilic and hydrophobic amino acids are. */
+const heads = Array.from({ length: 40 }, (_, i) => 10 + i * 16).filter((x) => !(x > 92 && x < 172));
+const top = 116;
+const bot = 176;
+---
+<svg viewBox="0 0 640 330" role="img" aria-labelledby="rt-t rt-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="rt-t">Transmembrane and intracellular receptors</title>
+  <desc id="rt-d">Left: a transmembrane receptor crosses the phospholipid bilayer. Its parts outside and inside the cell have hydrophilic amino acids on their surface, and the part within the membrane has a band of hydrophobic amino acids in contact with the fatty acid tails. A hydrophilic ligand binds to it outside the cell and does not enter. Right: a hydrophobic steroid hormone diffuses through the bilayer and binds to an intracellular receptor, whose surface is hydrophilic so it is dissolved in the cytoplasm; the complex then acts on DNA in the nucleus.</desc>
+  <text class="side" x="12" y="24">Outside the cell</text>
+  <text class="side" x="12" y="322">Cytoplasm</text>
+  <g class="tail">{heads.map((x) => <path d={`M${x - 2} ${top + 7} V${top + 26} M${x + 2} ${top + 7} V${top + 26} M${x - 2} ${bot - 7} V${bot - 26} M${x + 2} ${bot - 7} V${bot - 26}`} />)}</g>
+  <g class="head">{heads.map((x) => <><circle cx={x} cy={top} r="7" /><circle cx={x} cy={bot} r="7" /></>)}</g>
+
+  <!-- transmembrane receptor -->
+  <path class="philic" d="M96 60 Q132 40 168 60 L168 112 L96 112 Z" />
+  <rect class="phobic" x="104" y="112" width="56" height="68" />
+  <path class="philic" d="M100 180 L164 180 L170 250 Q132 268 94 250 Z" />
+  <path class="pocket" d="M118 60 q14 18 28 0" />
+  <rect class="lig1" x="120" y="34" width="24" height="18" rx="5" />
+  <text class="t" x="180" y="42">hydrophilic ligand</text>
+  <text class="t" x="180" y="58">stays outside</text>
+  <text class="t" x="180" y="148">band of hydrophobic</text>
+  <text class="t" x="180" y="164">amino acids</text>
+  <path class="arrow" d="M132 262 V290" marker-end="url(#rt-ah)" />
+  <text class="t" x="146" y="292">signal passed on inside</text>
+  <text class="h" x="40" y="214" text-anchor="middle">Trans-</text>
+  <text class="h" x="40" y="230" text-anchor="middle">membrane</text>
+
+  <!-- intracellular receptor -->
+  <g transform="translate(-30 0)">
+  <g class="ster">
+    <polygon points="430,40 440,34 450,40 450,52 440,58 430,52" />
+    <polygon points="450,40 460,34 470,40 470,52 460,58 450,52" />
+  </g>
+  <path class="diff" d="M450 66 V230" marker-end="url(#rt-ah)" />
+  <text class="t" x="480" y="56">hydrophobic steroid</text>
+  <text class="t" x="480" y="72">diffuses through</text>
+  <text class="t" x="480" y="88">the bilayer</text>
+  <path class="philic" d="M410 250 Q410 226 436 228 L436 244 Q450 236 464 244 L464 228 Q492 226 492 252 Q492 290 450 292 Q410 290 410 250 Z" />
+  <text class="t" x="504" y="258">intracellular receptor:</text>
+  <text class="t" x="504" y="274">hydrophilic surface</text>
+  <text class="t" x="504" y="290">→ then to DNA</text>
+  </g>
+  <text class="h" x="340" y="282" text-anchor="middle">Intra-</text>
+  <text class="h" x="340" y="298" text-anchor="middle">cellular</text>
+
+  <g class="legend">
+    <rect class="philic" x="236" y="204" width="16" height="16" /><text class="t" x="258" y="217">hydrophilic</text>
+    <rect class="phobic" x="236" y="228" width="16" height="16" /><text class="t" x="258" y="241">hydrophobic</text>
+  </g>
+  <defs>
+    <marker id="rt-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker>
+  </defs>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .side { font-size: 16px; font-weight: 700; fill: var(--text-muted); }
+  .h { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .t { font-size: 14px; fill: var(--text); }
+  .tail path { stroke: var(--bio-tail); stroke-width: 2; fill: none; }
+  .head circle { fill: var(--bio-head); stroke: color-mix(in srgb, var(--bio-head) 60%, black); stroke-width: 1; }
+  .philic { fill: color-mix(in srgb, var(--bio-protein) 35%, var(--surface)); stroke: var(--bio-protein); stroke-width: 2; }
+  .phobic { fill: var(--bio-protein); stroke: color-mix(in srgb, var(--bio-protein) 60%, black); stroke-width: 2; }
+  .pocket { fill: none; stroke: var(--bio-protein); stroke-width: 2; }
+  .lig1 { fill: var(--bio-k); }
+  .ster polygon { fill: none; stroke: var(--bio-chol); stroke-width: 3; }
+  .diff { stroke: var(--bio-chol); stroke-width: 2; stroke-dasharray: 6 4; fill: none; }
+  .arrow { stroke: var(--text); stroke-width: 1.6; fill: none; }
+  .ah { fill: var(--text); }
+</style>

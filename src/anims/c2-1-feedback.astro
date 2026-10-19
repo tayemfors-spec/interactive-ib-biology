@@ -1,0 +1,77 @@
+---
+/**
+ * Negative feedback (thyroxine) and positive feedback (oestradiol → GnRH → LH → oestradiol), C2.1.14.
+ * Drawn in the step-1 start state (negative feedback, thyroxine at its set point); driven by c2-1-feedback.ts.
+ */
+const gx = 312, gy = 252, gw = 192, gh = 176;
+---
+<svg viewBox="0 0 520 360" xmlns="http://www.w3.org/2000/svg" class="fb">
+  <text class="title" x="16" y="22" data-el="title">Negative feedback: thyroxine</text>
+
+  <!-- the chain -->
+  <rect class="box" x="24" y="38" width="200" height="40" rx="8" />
+  <text class="bt" x="124" y="63" text-anchor="middle">Hypothalamus</text>
+  <path class="chain" data-el="a1" d="M124 80 V120" stroke-width="5" marker-end="url(#fb-ah)" />
+  <text class="hl" x="136" y="106" data-el="l1">TRH</text>
+  <rect class="box" x="24" y="124" width="200" height="40" rx="8" />
+  <text class="bt" x="124" y="149" text-anchor="middle">Anterior pituitary</text>
+  <path class="chain" data-el="a2" d="M124 166 V206" stroke-width="5" marker-end="url(#fb-ah)" />
+  <text class="hl" x="136" y="192" data-el="l2">TSH</text>
+  <rect class="box" x="24" y="210" width="200" height="40" rx="8" />
+  <text class="bt" x="124" y="235" text-anchor="middle" data-el="g3">Thyroid gland</text>
+  <path class="chain" data-el="a3" d="M124 252 V284" stroke-width="5" marker-end="url(#fb-ah)" />
+  <rect class="prod" x="58" y="288" width="132" height="28" rx="14" />
+  <text class="pt" x="124" y="307" text-anchor="middle" data-el="prod">Thyroxine</text>
+
+  <!-- feedback path -->
+  <g data-el="fbk" class="fbk neg">
+    <path class="fbpath" d="M190 302 H262 V58 H232" marker-end="url(#fb-ah2)" />
+    <path class="fbpath" d="M262 144 H232" marker-end="url(#fb-ah2)" />
+    <circle cx="262" cy="196" r="14" class="sign-bg" />
+    <text x="262" y="196" dy="0.36em" text-anchor="middle" class="sign" data-el="sign">−</text>
+  </g>
+  <text class="fbt" x="276" y="318" data-el="fbt">inhibits</text>
+
+  <!-- graph -->
+  <path class="axisl" d={`M${gx} ${gy - gh} V${gy} H${gx + gw}`} />
+  <text class="ax" x={gx + gw / 2} y={gy + 18} text-anchor="middle">time →</text>
+  <text class="ax" transform={`translate(${gx - 8} ${gy - gh / 2}) rotate(-90)`} text-anchor="middle" data-el="ylab">thyroxine level →</text>
+  <path class="setp" data-el="setp" d={`M${gx} ${gy - gh * 0.5} H${gx + gw}`} />
+  <text class="setp-t" x={gx + gw} y={gy - gh * 0.5 - 6} text-anchor="end" data-el="setpt">normal level</text>
+  <path class="curve" data-el="curve" d={`M${gx} ${gy - gh * 0.5}`} />
+  <circle class="dot" data-el="dot" cx={gx} cy={gy - gh * 0.5} r="5" />
+  <text class="ovu" x={gx + gw * 0.707} y={gy - gh - 4} text-anchor="middle" data-el="ovu" style="opacity:0">ovulation</text>
+
+  <text class="rule" x="16" y="348" data-el="rule">More product → less production; less product → more production</text>
+  <defs>
+    <marker id="fb-ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker>
+    <marker id="fb-ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah2" /></marker>
+  </defs>
+</svg>
+<style>
+  .fb { font-family: var(--font-sans); }
+  .title { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .box { fill: var(--surface); stroke: var(--text-muted); stroke-width: 1.5; }
+  .bt { font-size: 15px; font-weight: 700; fill: var(--text); }
+  .hl { font-size: 14px; font-weight: 700; fill: var(--text); }
+  .chain { stroke: var(--bio-protein); fill: none; }
+  .ah { fill: var(--bio-protein); }
+  .prod { fill: color-mix(in srgb, var(--bio-head) 30%, var(--surface)); stroke: var(--bio-head); stroke-width: 2; }
+  .pt { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .fbpath { fill: none; stroke-width: 3; stroke-dasharray: 7 5; }
+  .fbk.neg .fbpath { stroke: var(--bad); }
+  .fbk.pos .fbpath { stroke: var(--good); }
+  .fbk.neg .sign-bg { fill: var(--bad); }
+  .fbk.pos .sign-bg { fill: var(--good); }
+  .ah2 { fill: var(--text-muted); }
+  .sign { font-size: 20px; font-weight: 900; fill: #fff; }
+  .fbt { font-size: 13px; font-style: italic; fill: var(--text-muted); }
+  .axisl { fill: none; stroke: var(--text); stroke-width: 1.5; }
+  .ax { font-size: 13px; fill: var(--text-muted); }
+  .setp { stroke: var(--text-muted); stroke-width: 1.2; stroke-dasharray: 3 4; }
+  .setp-t { font-size: 12px; fill: var(--text-muted); font-style: italic; }
+  .curve { fill: none; stroke: var(--bio-head); stroke-width: 3.5; stroke-linejoin: round; stroke-linecap: round; }
+  .dot { fill: var(--bio-head); }
+  .ovu { font-size: 13px; font-weight: 800; fill: var(--text); }
+  .rule { font-size: 13px; font-weight: 700; fill: var(--text); }
+</style>

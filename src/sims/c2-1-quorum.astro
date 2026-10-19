@@ -1,0 +1,186 @@
+---
+import { linePath, range, sx, sy, type Frame } from './chart';
+import { DENSITY, THRESHOLD_PERCENT, aiPercent, lightPerCell } from './models/c2-1-quorum';
+
+const frame: Frame = {
+  w: 640, h: 380, left: 58, right: 18, top: 16, bottom: 52,
+  x: { min: 0, max: 100, ticks: range(0, 100, 20), label: 'Population density (relative)' },
+  y: { min: 0, max: 130, ticks: range(0, 120, 20), label: 'Level (full light organ = 100)' },
+};
+const start = 10;
+const paths = {
+  ai: linePath(frame, (x) => aiPercent(Math.max(DENSITY.min, x)), 120),
+  light: linePath(frame, (x) => lightPerCell(Math.max(DENSITY.min, x)), 120),
+};
+const table = [1, 10, 20, 30, 40, 60, 80, 100].map((d) => ({ d, ai: aiPercent(d), light: lightPerCell(d) }));
+// cells in the panel: deterministic positions; the first n are shown, n rising with density
+const cells = Array.from({ length: 90 }, (_, i) => {
+  const a = Math.sin(i * 12.9898) * 43758.5453;
+  const b = Math.sin(i * 78.233) * 12543.123;
+  return { x: 18 + (a - Math.floor(a)) * 564, y: 16 + (b - Math.floor(b)) * 108, r: Math.round((a * 7) % 180) };
+});
+const nShown = (d: number) => Math.max(1, Math.round((d / DENSITY.max) * cells.length));
+---
+<div class="sim-q" data-sim-quorum data-frame={JSON.stringify(frame)}>
+  <div class="layout">
+    <div class="panel">
+      <svg class="tank" viewBox="0 0 600 140" role="img" aria-labelledby="q-tank-t" data-tank>
+        <title id="q-tank-t">Vibrio fischeri cells at the chosen density, glowing in proportion to the light each emits</title>
+        <rect class="water" x="1" y="1" width="598" height="138" rx="12" />
+        <rect class="glowfill" x="1" y="1" width="598" height="138" rx="12" data-glowfill style={`opacity:${(lightPerCell(start) / 100) * 0.45 * (start / DENSITY.max)}`} />
+        {cells.map((c, i) => (
+          <g transform={`translate(${c.x.toFixed(1)} ${c.y.toFixed(1)}) rotate(${c.r})`} data-cell style={i < nShown(start) ? '' : 'display:none'}>
+            <circle class="halo" r="11" style={`opacity:${(lightPerCell(start) / 100) * 0.8}`} />
+            <rect class="cellbody" x="-8" y="-4" width="16" height="8" rx="4" />
+          </g>
+        ))}
+      </svg>
+      <p class="tank-note"><strong data-where>Sea water: cells far apart.</strong> Each rod is a bacterium; the glow shows the light each cell emits.</p>
+    </div>
+    <svg class="chart" viewBox={`0 0 ${frame.w} ${frame.h}`} role="img" aria-labelledby="q-chart-t" data-chart>
+      <title id="q-chart-t">Autoinducer concentration and light per cell against population density</title>
+      <g class="grid">
+        {frame.x.ticks.map((t) => <line x1={sx(frame, t)} x2={sx(frame, t)} y1={frame.top} y2={frame.h - frame.bottom} />)}
+        {frame.y.ticks.map((t) => <line x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, t)} y2={sy(frame, t)} />)}
+      </g>
+      <g class="ticks">
+        {frame.x.ticks.map((t) => <text x={sx(frame, t)} y={frame.h - frame.bottom + 18} text-anchor="middle">{t}</text>)}
+        {frame.y.ticks.map((t) => <text x={frame.left - 8} y={sy(frame, t)} dy="0.35em" text-anchor="end">{t}</text>)}
+      </g>
+      <text class="axis" x={(frame.left + frame.w - frame.right) / 2} y={frame.h - 10} text-anchor="middle">{frame.x.label} →</text>
+      <text class="axis" transform={`translate(16 ${(frame.top + frame.h - frame.bottom) / 2}) rotate(-90)`} text-anchor="middle">{frame.y.label} →</text>
+      <line class="thr" x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, THRESHOLD_PERCENT)} y2={sy(frame, THRESHOLD_PERCENT)} />
+      <text class="thr-t" x={frame.w - frame.right - 6} y={sy(frame, THRESHOLD_PERCENT) - 6} text-anchor="end">autoinducer threshold</text>
+      <path class="line ai" d={paths.ai} data-line="ai" />
+      <path class="line light" d={paths.light} data-line="light" />
+      <line class="marker" data-marker x1={sx(frame, start)} x2={sx(frame, start)} y1={frame.top} y2={frame.h - frame.bottom} />
+    </svg>
+  </div>
+  <div class="controls">
+    <div class="keys">
+      <span><span class="key ai"></span> Autoinducer concentration</span>
+      <span><span class="key light"></span> Light emitted per cell</span>
+    </div>
+    <label class="slider">Population density: <output data-out="density">{start}</output>
+      <input type="range" min={DENSITY.min} max={DENSITY.max} step="1" value={start} data-param="density" />
+    </label>
+    <div class="presets" role="group" aria-label="Presets">
+      <button class="btn" type="button" data-preset={DENSITY.sea}>Free-living in sea water</button>
+      <button class="btn" type="button" data-preset={DENSITY.organ}>Inside the squid's light organ</button>
+    </div>
+    <fieldset class="exp">
+      <legend>Experiments</legend>
+      <label><input type="checkbox" data-opt="knockout" /> Knock out the receptor gene (luxR)</label>
+      <label><input type="checkbox" data-opt="added" /> Add autoinducer to the water</label>
+    </fieldset>
+  </div>
+  <p class="readout" aria-live="polite" data-readout>
+    At density {start}, the autoinducer concentration is below the threshold, so the lux genes are off and the cells give out almost no light ({lightPerCell(start).toFixed(0)}% of maximum per cell).
+  </p>
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <thead><tr><th scope="col">Density</th><th scope="col">Autoinducer</th><th scope="col">Light per cell (%)</th></tr></thead>
+      <tbody data-tbody>{table.map((r) => <tr><th scope="row">{r.d}</th><td>{r.ai.toFixed(0)}</td><td>{r.light.toFixed(0)}</td></tr>)}</tbody>
+    </table>
+  </details>
+  <p class="model-note">Qualitative model with relative units. It shows the shape of the response — a switch at a threshold, sharpened by positive feedback because the lux genes include the gene for autoinducer synthase — not measured values.</p>
+</div>
+
+<script>
+  import { linePath, sx, type Frame } from './chart';
+  import { DENSITY, aiPercent, autoinducer, lightPerCell, THRESHOLD, type QuorumOptions } from './models/c2-1-quorum';
+
+  document.querySelectorAll<HTMLElement>('[data-sim-quorum]').forEach((root) => {
+    const frame = JSON.parse(root.dataset.frame!) as Frame;
+    const slider = root.querySelector<HTMLInputElement>('[data-param="density"]')!;
+    const out = root.querySelector<HTMLElement>('[data-out="density"]')!;
+    const knock = root.querySelector<HTMLInputElement>('[data-opt="knockout"]')!;
+    const added = root.querySelector<HTMLInputElement>('[data-opt="added"]')!;
+    const line = (k: string) => root.querySelector<SVGPathElement>(`[data-line="${k}"]`)!;
+    const marker = root.querySelector<SVGLineElement>('[data-marker]')!;
+    const cells = [...root.querySelectorAll<SVGGElement>('[data-cell]')];
+    const glowfill = root.querySelector<SVGRectElement>('[data-glowfill]')!;
+    const where = root.querySelector<HTMLElement>('[data-where]')!;
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    const tbody = root.querySelector<HTMLElement>('[data-tbody]')!;
+    let timer = 0;
+
+    const opts = (): QuorumOptions => ({ receptor: !knock.checked, added: added.checked ? 1.5 * THRESHOLD : 0 });
+
+    const update = () => {
+      const d = Number(slider.value);
+      const o = opts();
+      out.textContent = String(d);
+      line('ai').setAttribute('d', linePath(frame, (x) => aiPercent(Math.max(DENSITY.min, x), o), 120));
+      line('light').setAttribute('d', linePath(frame, (x) => lightPerCell(Math.max(DENSITY.min, x), o), 120));
+      const mx = sx(frame, d).toFixed(1);
+      marker.setAttribute('x1', mx); marker.setAttribute('x2', mx);
+      const light = lightPerCell(d, o);
+      const n = Math.max(1, Math.round((d / DENSITY.max) * cells.length));
+      cells.forEach((c, i) => {
+        c.style.display = i < n ? '' : 'none';
+        c.querySelector<SVGCircleElement>('.halo')!.style.opacity = String((light / 100) * 0.8);
+      });
+      glowfill.style.opacity = String((light / 100) * 0.45 * (d / DENSITY.max));
+      where.textContent = d <= 15 ? 'Sea water: cells far apart.' : d >= 80 ? 'Squid light organ: cells packed together.' : 'Cells becoming more crowded.';
+      tbody.innerHTML = [1, 10, 20, 30, 40, 60, 80, 100]
+        .map((x) => `<tr><th scope="row">${x}</th><td>${aiPercent(x, o).toFixed(0)}</td><td>${lightPerCell(x, o).toFixed(0)}</td></tr>`)
+        .join('');
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        const above = autoinducer(d, o) >= THRESHOLD;
+        let s = `At density ${d}, `;
+        if (o.receptor === false) s += 'autoinducer still builds up, but with no LuxR receptor to bind it the lux genes are never switched on: no light at any density.';
+        else if (above) s += `the autoinducer concentration is above the threshold. LuxR–autoinducer switches on the lux genes, so each cell emits ${light.toFixed(0)}% of its maximum light.`;
+        else s += `the autoinducer concentration is below the threshold, so the lux genes are off and the cells give out almost no light (${light.toFixed(0)}% of maximum per cell).`;
+        if (added.checked && o.receptor !== false) s += ' Added autoinducer makes even a sparse population glow, which shows the cells respond to the chemical, not to the density itself.';
+        readout.textContent = s;
+      }, 300);
+    };
+    slider.addEventListener('input', update);
+    knock.addEventListener('change', update);
+    added.addEventListener('change', update);
+    root.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach((b) => b.addEventListener('click', () => { slider.value = b.dataset.preset!; update(); }));
+  });
+</script>
+
+<style>
+  .sim-q { container-type: inline-size; }
+  .layout { display: grid; gap: var(--space-4); }
+  .tank { width: 100%; height: auto; font-family: var(--font-sans); }
+  .water { fill: color-mix(in srgb, var(--bio-water) 10%, var(--surface-2)); stroke: var(--border-strong); }
+  .glowfill { fill: var(--bio-water); transition: opacity 0.3s; }
+  .halo { fill: var(--bio-water); transition: opacity 0.3s; }
+  .cellbody { fill: color-mix(in srgb, var(--text-muted) 70%, var(--surface)); stroke: var(--text); stroke-width: 0.8; }
+  .tank-note { font-size: var(--step--1); color: var(--text-muted); margin: var(--space-1) 0 0; }
+  .tank-note strong { color: var(--text); }
+  .chart { width: 100%; height: auto; font-family: var(--font-sans); }
+  .grid line { stroke: var(--border); stroke-width: 1; }
+  .ticks text { font-size: 15px; fill: var(--text-muted); }
+  .axis { font-size: 16px; font-weight: 650; fill: var(--text); }
+  .thr { stroke: var(--text-muted); stroke-width: 1.6; stroke-dasharray: 2 5; }
+  .thr-t { font-size: 14px; fill: var(--text-muted); font-style: italic; }
+  .line { fill: none; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+  .line.ai { stroke: var(--bio-protein-2); }
+  .line.light { stroke: var(--bio-water); stroke-dasharray: 12 7; }
+  .marker { stroke: var(--text); stroke-width: 1.2; stroke-dasharray: 3 3; }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); margin-top: var(--space-3); }
+  .keys { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); }
+  .keys > span { display: inline-flex; align-items: center; gap: var(--space-2); }
+  .key { display: inline-block; width: 2rem; height: 0; border-top: 3.5px solid; }
+  .key.ai { border-color: var(--bio-protein-2); }
+  .key.light { border-color: var(--bio-water); border-top-style: dashed; }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .presets { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .exp { border: 0; padding: 0; margin: 0; display: grid; gap: var(--space-1); }
+  .exp legend { font-weight: 700; color: var(--text-muted); margin-bottom: var(--space-1); }
+  .exp label { display: flex; align-items: center; gap: var(--space-2); min-height: 24px; }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  th, td { padding: 0.2rem 0.7rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

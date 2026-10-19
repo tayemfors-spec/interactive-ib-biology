@@ -1,0 +1,201 @@
+questions:
+  - id: q1
+    level: AHL
+    understanding: C2.1.1
+    stem: >-
+      Glucagon circulates in the blood and reaches every tissue, but liver cells respond to it while skin cells
+      do not. What is the best explanation?
+    options:
+      - id: a
+        text: Glucagon is broken down before it reaches the skin.
+        why: Blood carries glucagon to all tissues, including the skin, so the hormone does reach skin cells.
+      - id: b
+        text: Only liver cells have receptors with a binding site complementary to glucagon.
+        why: Correct. A cell responds only to ligands for which it has specific receptors; liver cells make glucagon receptors and skin cells do not.
+      - id: c
+        text: Glucagon enters liver cells by diffusion but cannot enter skin cells.
+        why: Glucagon is a hydrophilic peptide; it does not enter any cell but binds to receptors on the outside of target cells.
+      - id: d
+        text: Liver cells are closer to the pancreas, so the glucagon concentration is higher there.
+        why: Hormones are spread through the whole circulation; small differences in concentration do not explain an all-or-nothing difference in response.
+    answer: b
+
+  - id: q2
+    level: AHL
+    understanding: C2.1.2
+    stem: >-
+      A dilute culture of Vibrio fischeri gives out no light. When liquid filtered from a dense, glowing culture
+      (containing no cells) is added to it, the dilute culture starts to glow within an hour, without any increase
+      in the number of cells. What does this show?
+    options:
+      - id: a
+        text: The dilute cells were dead until nutrients in the filtrate revived them.
+        why: The cells were alive (they responded within an hour without dividing); nothing in the result points to nutrients.
+      - id: b
+        text: Light is produced only when bacteria are in physical contact with each other.
+        why: The number and spacing of cells did not change, yet they began to glow, so contact is not what triggers light.
+      - id: c
+        text: Light production depends only on the number of cells present, not on any chemical.
+        why: The number of cells did not change, yet the culture began to glow, so something in the cell-free filtrate must have triggered it.
+      - id: d
+        text: Dense cultures release a chemical that switches on light production when its concentration is high enough.
+        why: Correct. The filtrate carried autoinducer at a high concentration, which bound to receptors in the dilute cells and induced the lux genes, even though the population was not dense.
+    answer: d
+
+  - id: q3
+    level: AHL
+    understanding: C2.1.3
+    stem: >-
+      Which type of signalling chemical is a small protein secreted by many cell types, especially immune cells,
+      that usually acts on the cell that released it or on nearby cells?
+    options:
+      - id: a
+        text: A cytokine, such as an interleukin
+        why: Correct. Cytokines are small signalling proteins that mostly act locally, for example in immune responses and inflammation.
+      - id: b
+        text: A hormone, such as insulin
+        why: Hormones are secreted by endocrine glands into the blood and act at a distance, not mainly on nearby cells.
+      - id: c
+        text: A neurotransmitter, such as acetylcholine
+        why: Neurotransmitters are released by neurons at synapses, and acetylcholine is not a protein.
+      - id: d
+        text: Calcium ions
+        why: Ca²⁺ is an inorganic ion acting mainly inside cells, not a protein secreted by immune cells.
+    answer: a
+
+  - id: q4
+    level: AHL
+    understanding: C2.1.6
+    stem: Which describes the receptor for the steroid hormone testosterone?
+    options:
+      - id: a
+        text: A transmembrane protein with a band of hydrophobic amino acids; testosterone stays outside the cell.
+        why: This describes a receptor for a hydrophilic signal such as insulin. Testosterone is hydrophobic and crosses the membrane.
+      - id: b
+        text: A transmembrane protein with a hydrophilic surface all over; testosterone enters through it.
+        why: A protein held in the membrane must have hydrophobic amino acids in contact with the fatty acid tails, and steroids do not need a channel to cross.
+      - id: c
+        text: A protein in the cytoplasm with a hydrophilic surface; testosterone diffuses into the cell to reach it.
+        why: Correct. Steroids are hydrophobic and pass through the bilayer; their receptors are dissolved in the cytoplasm or nucleus, so their surface is hydrophilic.
+      - id: d
+        text: A protein in the cytoplasm with a hydrophobic surface; testosterone is carried in by a transporter.
+        why: A protein with a hydrophobic surface would not stay dissolved in the cytoplasm, and steroids cross the bilayer by simple diffusion.
+    answer: c
+
+  - id: q5
+    level: AHL
+    understanding: C2.1.8
+    stem: What happens immediately after acetylcholine binds to its receptor in the membrane of a muscle fibre?
+    options:
+      - id: a
+        text: A channel in the receptor opens and positive ions, mainly Na⁺, diffuse into the cell.
+        why: Correct. The acetylcholine receptor is itself an ion channel; binding changes its shape and opens it, and the inward diffusion of Na⁺ depolarizes the membrane.
+      - id: b
+        text: Acetylcholine enters the cell and binds to DNA.
+        why: Acetylcholine is hydrophilic and stays outside; it acts on a transmembrane receptor, not on genes.
+      - id: c
+        text: A G protein is activated and cyclic AMP opens the channel.
+        why: That describes a GPCR pathway. The nicotinic acetylcholine receptor opens directly, with no second messenger.
+      - id: d
+        text: K⁺ ions are pumped into the cell using ATP.
+        why: The receptor is a channel, so ions move by diffusion, not by pumping, and the main inward flow is of Na⁺.
+    answer: a
+
+  - id: q6
+    level: AHL
+    understanding: C2.1.9
+    stem: Which event directly activates a G protein after a ligand binds to a G protein-coupled receptor?
+    options:
+      - id: a
+        text: The ligand passes through the receptor and binds to the G protein.
+        why: The ligand stays on the outside of the receptor; the signal is passed through by a change in the receptor's shape.
+      - id: b
+        text: GDP on the α subunit is replaced by GTP.
+        why: Correct. The receptor's change in shape makes the α subunit release GDP and bind GTP, which activates the G protein so that α separates from β and γ.
+      - id: c
+        text: GTP on the α subunit is hydrolysed to GDP.
+        why: Hydrolysis of GTP to GDP is what switches the G protein off again; this reverses the activation step.
+      - id: d
+        text: The α, β and γ subunits bind together to the receptor.
+        why: They are bound together in the inactive state; on activation α separates from β and γ.
+    answer: b
+
+  - id: q7
+    level: AHL
+    understanding: C2.1.10
+    stem: >-
+      A drug inhibits phosphodiesterase, the enzyme that breaks down cyclic AMP. Predict the effect of the drug
+      on liver cells responding to adrenaline.
+    options:
+      - id: a
+        text: Glucose release falls, because cAMP can no longer be made.
+        why: Phosphodiesterase breaks cAMP down; inhibiting it does not stop adenylyl cyclase from making cAMP.
+      - id: b
+        text: No effect, because adrenaline acts directly on glycogen phosphorylase.
+        why: Adrenaline does not enter the cell; its effect on glycogen phosphorylase is through the G protein, cAMP and the kinase cascade, so cAMP levels matter.
+      - id: c
+        text: Adrenaline can no longer bind to its receptor.
+        why: The drug's target is phosphodiesterase inside the cell, not the receptor's binding site.
+      - id: d
+        text: cAMP stays high for longer, so glycogen breakdown and glucose release are increased or prolonged.
+        why: Correct. With less cAMP broken down, the second messenger keeps protein kinase A and the cascade active, so the response lasts longer.
+    answer: d
+
+  - id: q8
+    level: AHL
+    understanding: C2.1.11
+    stem: How does insulin increase the rate of glucose uptake by muscle cells?
+    options:
+      - id: a
+        text: Insulin binds to glucose in the blood and carries it into the cell.
+        why: Insulin does not bind glucose or enter the cell; it binds to a receptor on the cell surface.
+      - id: b
+        text: Insulin activates sodium–potassium pumps that pump glucose into the cell.
+        why: Na⁺/K⁺ pumps move Na⁺ and K⁺, not glucose, and the insulin pathway acts by adding glucose transporters to the membrane.
+      - id: c
+        text: Its receptor phosphorylates tyrosines, starting reactions that move GLUT4 vesicles to the plasma membrane, so more glucose enters by facilitated diffusion.
+        why: Correct. This is the tyrosine kinase pathway; the extra GLUT4 transporters let glucose diffuse in down its concentration gradient.
+      - id: d
+        text: Its receptor is a glucose channel that opens when insulin binds.
+        why: The insulin receptor is a tyrosine kinase, not a channel. Glucose enters through separate GLUT4 transporters.
+    answer: c
+
+  - id: q9
+    level: AHL
+    understanding: C2.1.13
+    stem: Which statement about the action of progesterone on cells of the endometrium is correct?
+    options:
+      - id: a
+        text: It binds to a receptor in the plasma membrane and activates a G protein.
+        why: Progesterone is a steroid, so it crosses the membrane and binds an intracellular receptor.
+      - id: b
+        text: It binds to an intracellular receptor, and the complex promotes transcription of specific genes that keep the endometrium thick.
+        why: Correct. The progesterone–receptor complex acts as a transcription factor in endometrium cells, maintaining the lining ready for implantation.
+      - id: c
+        text: It enters the nucleus and is translated into proteins that thicken the endometrium.
+        why: Hormones are not translated; it is mRNA from the genes that progesterone switches on that is translated.
+      - id: d
+        text: It stimulates hypothalamus cells to secrete GnRH, which acts on the endometrium.
+        why: GnRH acts on the anterior pituitary, not the endometrium; the guide's GnRH example is for oestradiol.
+    answer: b
+
+  - id: q10
+    level: AHL
+    understanding: C2.1.14
+    stem: >-
+      A patient takes thyroxine tablets that raise the concentration of thyroxine in the blood. Which change
+      would you expect, and what type of regulation does it show?
+    options:
+      - id: a
+        text: TSH secretion rises — positive feedback.
+        why: Thyroxine inhibits, not stimulates, TSH secretion, so TSH would fall.
+      - id: b
+        text: TSH secretion rises — negative feedback.
+        why: In negative feedback a rise in the product reduces its production, so TSH would fall, not rise.
+      - id: c
+        text: TSH secretion falls — negative feedback.
+        why: Correct. High thyroxine inhibits TRH and TSH secretion, so the thyroid is stimulated less; more product leads to less production.
+      - id: d
+        text: TSH secretion falls — positive feedback.
+        why: In positive feedback the product would stimulate more of its own production; a fall in TSH reverses the change, which is negative feedback.
+    answer: c

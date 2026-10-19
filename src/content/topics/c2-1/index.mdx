@@ -1,0 +1,405 @@
+---
+code: C2.1
+description: "IB Biology C2.1 chemical signalling (HL): step through GPCR, insulin and steroid receptors in 3D, try a quorum-sensing simulation, then self-test."
+updated: 2026-10-19
+related: [C2.2, C3.1, D3.1, D3.3]
+mustKnow:
+  - term: Ligand
+    definition: "The signalling chemical that binds to a receptor. It binds <strong>reversibly</strong> to a specific binding site whose shape and chemical properties are complementary to it, and is not changed by binding."
+    level: AHL
+  - term: Receptor
+    definition: "A protein with a binding site for a specific signalling chemical. Binding of the ligand changes the receptor's shape, which starts a response in the target cell. Only cells with the right receptor respond to a signal."
+    level: AHL
+  - term: Quorum sensing
+    definition: "Control of gene expression in bacteria according to population density. Every cell releases an <strong>autoinducer</strong>; only when the population is dense does its concentration pass a threshold that switches on particular genes, such as the lux genes for light in <em>Vibrio fischeri</em>."
+    level: AHL
+  - term: Signal transduction pathway
+    definition: "The sequence of reactions inside a cell that is set off when a signalling chemical binds to a receptor, ending in the cell's response. It often amplifies the signal."
+    level: AHL
+  - term: Second messenger
+    definition: "A small molecule made inside the cell in response to a signal arriving at a membrane receptor, which carries the signal to enzymes in the cytoplasm. <strong>Cyclic AMP (cAMP)</strong> is the second messenger for adrenaline."
+    level: AHL
+  - term: G protein-coupled receptor (GPCR)
+    definition: "A transmembrane receptor that crosses the membrane seven times and passes signals into the cell through a <strong>G protein</strong> on its cytoplasmic side. Binding of the ligand makes the G protein swap GDP for GTP, activating it. Humans have about 800 different GPCRs."
+    level: AHL
+  - term: Tyrosine kinase receptor
+    definition: "A transmembrane receptor whose cytoplasmic part is an enzyme that adds phosphate from ATP to tyrosine. When insulin binds, the receptor phosphorylates its own tyrosines, starting a pathway that moves GLUT4 glucose transporters into the plasma membrane."
+    level: AHL
+  - term: Intracellular receptor
+    definition: "A receptor in the cytoplasm or nucleus for hydrophobic signals such as steroid hormones, which pass through the membrane. The activated hormone–receptor complex binds specific DNA sequences and promotes transcription of particular genes."
+    level: AHL
+  - term: Negative feedback
+    definition: "Regulation in which the product of a pathway inhibits its own production, so more product leads to less production and less product to more. It keeps a level close to a set point (e.g. thyroxine)."
+    level: AHL
+  - term: Positive feedback
+    definition: "Regulation in which the product of a pathway stimulates its own production, so a change is amplified and the level rises rapidly to a peak (e.g. oestradiol and the LH surge before ovulation)."
+    level: AHL
+mistakes:
+  - wrong: "Adrenaline enters the liver cell and activates the enzymes that break down glycogen."
+    right: "Adrenaline is hydrophilic and stays outside the cell. It binds to a G protein-coupled receptor; inside the cell the signal is carried by the G protein and then by the second messenger, cyclic AMP."
+    level: AHL
+  - wrong: "The G protein is activated when its GTP is converted to GDP."
+    right: "The G protein is activated when GDP leaves the α subunit and <strong>GTP binds in its place</strong>. Hydrolysis of GTP to GDP is what switches it off again."
+    level: AHL
+  - wrong: "Steroid hormones bind to receptors in the plasma membrane."
+    right: "Steroids are hydrophobic, so they diffuse through the phospholipid bilayer and bind to <strong>intracellular</strong> receptors in the cytoplasm or nucleus. Hydrophilic signals such as insulin and adrenaline use transmembrane receptors."
+    level: AHL
+  - wrong: "Insulin carries glucose into cells, or the insulin receptor transports glucose."
+    right: "Insulin binds to a tyrosine kinase receptor and does not enter the cell. The signal pathway moves vesicles containing GLUT4 to the plasma membrane; glucose then enters through GLUT4 by facilitated diffusion."
+    level: AHL
+  - wrong: "In quorum sensing, bacteria only start making the autoinducer once their population is dense."
+    right: "Every cell releases the autoinducer at a low rate all the time. Its concentration rises with population density, and only above a threshold does it switch on the target genes (after which induced cells make even more)."
+    level: AHL
+  - wrong: "Nitrous oxide (N<sub>2</sub>O) is a neurotransmitter."
+    right: "The gaseous signalling molecule is <strong>nitric oxide (NO)</strong>. Nitrous oxide is laughing gas. (The IB guide's wording says nitrous oxide; check with your teacher.)"
+    level: AHL
+  - wrong: "Negative feedback means a response that reduces something."
+    right: "Negative feedback <strong>reverses a change in either direction</strong>: a rise in the product reduces its production, and a fall increases it. Positive feedback amplifies a change in the same direction."
+    level: AHL
+  - wrong: "Hormones act more quickly than neurotransmitters because they spread through the whole body."
+    right: "Neurotransmitters diffuse only about 20–40 nm across a synapse and act within a millisecond on one cell. Hormones are carried in the blood, take longer to arrive and act on all cells with receptors, often for longer."
+    level: AHL
+  - wrong: "The acetylcholine receptor uses a second messenger to change the membrane potential."
+    right: "The nicotinic acetylcholine receptor <strong>is</strong> an ion channel: binding of acetylcholine opens it directly, and positive ions (mainly Na⁺) diffuse in, depolarizing the membrane."
+    level: AHL
+---
+
+<Section id="receptors-ligands" title="Receptors and ligands" level="AHL" covers="C2.1.1">
+
+Cells in a multicellular organism, and even single-celled organisms, communicate by **chemical signals**. One cell releases a signalling chemical; another cell, the **target cell**, detects it and responds.
+
+Detection depends on **receptors**: proteins with a **binding site** for one particular signalling chemical. The signalling chemical is called the **ligand** (a general term for any molecule that binds to a specific site on another molecule).
+
+- The binding site has a **shape and chemical properties** (charges, polarity, hydrophobic patches) that are complementary to the ligand, so only that ligand, or very similar molecules, bind. This **specificity** is like that of an enzyme's active site, but the ligand is not changed by binding.
+- Binding is by weak, non-covalent interactions, so it is **reversible**. The proportion of receptors with a ligand bound depends on the ligand's concentration, so the size of the response can reflect how much signal there is.
+- Binding causes a **conformational change** (change in shape) in the receptor. This is what passes the signal on.
+
+A cell responds only to signals for which it has receptors. Every cell is exposed to many signals at once, but different cell types make different sets of receptors, so the same hormone can affect liver cells and have no effect at all on skin cells.
+
+<Callout type="exam">
+
+Use the word **ligand** for the signalling chemical, and say that it binds to a **specific binding site** on the receptor, causing a **conformational change**.
+
+</Callout>
+
+</Section>
+
+<Section id="quorum" title="Quorum sensing in bacteria" level="AHL" covers="C2.1.2">
+
+Bacteria also signal to one another. In **quorum sensing**, a population of bacteria uses a signalling chemical to sense its own **population density** and switches certain genes on only when the population is dense enough for them to be useful.
+
+### Bioluminescence in *Vibrio fischeri*
+
+*Vibrio fischeri* is a marine bacterium that can produce light (**bioluminescence**) using the enzyme **luciferase**.
+
+1. Every cell makes a signalling chemical called an **autoinducer** at a low rate, using an enzyme called LuxI. The autoinducer is a small molecule that **diffuses freely** through the cell membrane, in and out of cells.
+2. When cells are few and far apart, as in open sea water, the autoinducer diffuses away and its concentration stays low.
+3. In a dense population the autoinducer **accumulates**. Inside each cell it binds to a receptor protein, **LuxR**, in the cytoplasm.
+4. Above a **threshold concentration**, the LuxR–autoinducer complex binds to a specific DNA sequence and promotes transcription of the **lux genes**, which code for luciferase and the enzymes that make its substrate. The cells emit blue-green light.
+5. The lux genes include the gene for LuxI, so induced cells make **more** autoinducer, which reinforces the switch (positive feedback).
+
+<Sim topic="c2-1" id="quorum" />
+
+### Why light only at high density?
+
+Light from a single cell is too faint to have any effect, so making luciferase at low density would waste energy and materials. *V. fischeri* lives at very high density in the **light organ** of the Hawaiian bobtail squid (*Euprymna scolopes*). The squid supplies the bacteria with nutrients; the bacteria's light, shining down from the squid's underside, matches the moonlight from above, so predators below do not see the squid's shadow (**counter-illumination**). It is an example of interaction between cells (signals pass from cell to cell) and interdependence (no single cell can produce the effect).
+
+<Callout type="exam">
+
+For quorum sensing, make three points: all cells release the autoinducer; its concentration rises with **population density**; above a **threshold** it switches on gene expression (here the genes for luciferase, giving bioluminescence).
+
+</Callout>
+
+</Section>
+
+<Section id="categories" title="Functional categories of signalling chemicals" level="AHL" covers="C2.1.3">
+
+Animals use many signalling chemicals, which can be grouped by **what they do** and **how far they travel**.
+
+| Category | Released by | How it reaches targets | Typical effect | Examples |
+|---|---|---|---|---|
+| **Hormones** | Endocrine glands (ductless), secreting into the blood | Carried in the blood to the whole body | Act on any cell with receptors; effects last minutes to hours or longer | Insulin, adrenaline, thyroxine, oestradiol |
+| **Neurotransmitters** | Presynaptic neurons, at synapses | Diffuse across the synaptic gap | Act on one postsynaptic cell within a millisecond; removed rapidly | Acetylcholine, dopamine, glutamate |
+| **Cytokines** | Many cell types, especially cells of the immune system | Usually act on the secreting cell itself or on nearby cells | Control immune responses, inflammation, cell growth and division | Interleukins, interferons |
+| **Calcium ions (Ca²⁺)** | Enter the cytoplasm through channels from outside or from internal stores | Act inside the cell where they are released | Trigger events such as neurotransmitter release from presynaptic neurons and contraction of muscle fibres | — |
+
+Some points that distinguish the categories:
+
+- **Hormones** and **neurotransmitters** differ mainly in distance and duration (next sections). The same chemical can be both: noradrenaline is released by neurons at synapses and also secreted into the blood as a hormone.
+- **Cytokines** are small proteins. Unlike hormones, most act **locally**. One cytokine can be made by several cell types and can have several effects.
+- **Calcium ions** are unusual: an inorganic ion, mostly acting **inside** cells. Pumps keep the Ca²⁺ concentration in the cytoplasm very low (roughly ten-thousand times lower than outside), so opening Ca²⁺ channels causes a sudden rise that the cell detects as a signal.
+
+</Section>
+
+<Section id="diversity" title="Chemical diversity of hormones and neurotransmitters" level="AHL" covers="C2.1.4">
+
+Signalling chemicals belong to many different chemical groups.
+
+| Chemical group | Hormone examples | Neurotransmitter examples |
+|---|---|---|
+| **Amines** (made from amino acids such as tyrosine) | Adrenaline, thyroxine, melatonin | Dopamine, noradrenaline, serotonin |
+| **Proteins and peptides** | Insulin, glucagon, ADH, FSH, LH | Endorphins (peptides) |
+| **Steroids** (made from cholesterol) | Oestradiol, progesterone, testosterone, cortisol | — |
+| **Amino acids** | — | Glutamate, glycine, GABA |
+| **Gas** | — | Nitric oxide (NO) |
+| Other | — | Acetylcholine (an ester of choline) |
+
+### Why so many different chemicals?
+
+- Each signal must be **distinguishable**: a receptor can only respond to the right signal if each signal has a distinct shape and chemical properties.
+- Signals with **different properties** suit different jobs. Hydrophilic peptides and most amines dissolve in blood and act at the cell surface, giving fast responses. Hydrophobic steroids cross membranes and change gene expression, giving slower but longer-lasting responses. A small gas such as **nitric oxide** diffuses in all directions through membranes, including back to the presynaptic cell, and is broken down within seconds.
+- Signalling systems have **evolved many times**, and each has used molecules that were already available, such as amino acids and their derivatives, or cholesterol.
+
+<Callout type="note" title="Nitric oxide, not nitrous oxide">
+
+The IB guide's list of neurotransmitters says "nitrous oxide". The gaseous signalling molecule is in fact **nitric oxide (NO)**; nitrous oxide (N₂O) is laughing gas, used as an anaesthetic. This page uses nitric oxide. Ask your teacher how to answer if this appears in an exam.
+
+</Callout>
+
+</Section>
+
+<Section id="local-distant" title="Localized and distant effects" level="AHL" covers="C2.1.5">
+
+Signalling chemicals differ in how far they travel, which decides how many cells they affect and how quickly.
+
+**Neurotransmitters** act **locally**. They are released from the end of a presynaptic neuron into a synaptic gap only about 20–40 nm wide, diffuse across it in a fraction of a millisecond, and bind to receptors on the membrane of the one postsynaptic cell. They are then rapidly broken down or reabsorbed, so each signal is brief and goes to a single, precise destination.
+
+**Hormones** act at a **distance**. They are secreted by endocrine glands into the blood and carried all around the body, which takes from seconds to about a minute. Every cell with the right receptors responds, wherever it is: for example, LH secreted by the pituitary gland at the base of the brain acts on cells in the ovaries or testes. Hormones persist in the blood for minutes to hours, so their effects are widespread and longer-lasting.
+
+<Figure name="c2-1-distance" caption="Neurotransmitters signal across a gap of a few tens of nanometres to one cell; hormones are carried in the blood and act on every cell that has the right receptors, wherever it is in the body." />
+
+| | Neurotransmitter | Hormone |
+|---|---|---|
+| Route | Diffusion across a synaptic gap | Transport in the blood |
+| Distance | About 20–40 nm | Up to the length of the body |
+| Speed of arrival | Under a millisecond | Seconds to a minute |
+| Cells affected | One postsynaptic cell | All cells with receptors |
+| Duration | Very short | Minutes to hours or longer |
+
+<Callout type="exam">
+
+In a "contrast" question, give matched pairs: route (synaptic gap vs blood), distance, speed, number of target cells and duration.
+
+</Callout>
+
+</Section>
+
+<Section id="receptor-types" title="Transmembrane and intracellular receptors" level="AHL" covers="C2.1.6">
+
+Whether a signal can enter the cell depends on whether it can cross the hydrophobic core of the plasma membrane, and this decides where its receptor is.
+
+**Transmembrane receptors** are integral proteins of the plasma membrane. Hydrophilic signals, such as peptide and protein hormones (insulin), amines (adrenaline) and most neurotransmitters, cannot pass through the bilayer, so they **remain outside** and bind to the receptor's outer part.
+
+- The parts of the receptor outside and inside the cell have **hydrophilic** amino acids on their surface, in contact with water.
+- The part within the membrane has a band of **hydrophobic** amino acids, in contact with the fatty acid tails. This holds the receptor in the membrane.
+
+**Intracellular receptors** are in the **cytoplasm or nucleus**. Their ligands are hydrophobic signals, mainly **steroid hormones**, which **pass through** the bilayer by simple diffusion and enter the cell.
+
+- The receptor has **hydrophilic** amino acids over its surface, so it is dissolved in the cytoplasm or nucleoplasm and is not held in a membrane.
+- Its binding site is lined with hydrophobic amino acids that fit the steroid.
+
+<Figure name="c2-1-receptor-types" caption="Transmembrane receptors have hydrophilic regions on each side of the membrane and a hydrophobic band within it; their ligands stay outside. Intracellular receptors have a hydrophilic surface; their hydrophobic ligands enter the cell." />
+
+| | Transmembrane receptor | Intracellular receptor |
+|---|---|---|
+| Location | Plasma membrane | Cytoplasm or nucleus |
+| Ligand | Hydrophilic; stays outside the cell | Hydrophobic; enters the cell |
+| Surface amino acids | Hydrophilic outside and inside, hydrophobic band in the membrane | Hydrophilic all over |
+| Examples | Insulin receptor, adrenaline receptor, acetylcholine receptor | Receptors for oestradiol, progesterone, testosterone |
+
+</Section>
+
+<Section id="transduction" title="Signal transduction pathways" level="AHL" covers="C2.1.7">
+
+Binding of a ligand to its receptor sets off a **sequence of responses** inside the cell, called a **signal transduction pathway**. "Transduction" means the signal is converted from one form to another: from a chemical outside the cell into a change in shape of the receptor, and then into a chain of interactions between molecules inside.
+
+The pathways differ for the two kinds of receptor:
+
+- **Transmembrane receptors**: binding changes the shape of the part of the receptor in the cytoplasm. This may open an ion channel (the acetylcholine receptor), activate a G protein (GPCRs), or activate an enzyme activity of the receptor itself (tyrosine kinase receptors). Often a **second messenger** such as cyclic AMP is made inside the cell, and **protein kinases** (enzymes that add phosphate groups to other proteins) pass the signal from enzyme to enzyme.
+- **Intracellular receptors**: the hormone–receptor complex binds to DNA and changes which genes are transcribed.
+
+Two features are common to many pathways:
+
+- **Amplification**: each activated molecule activates many molecules of the next stage, so a few ligand molecules can produce a large response.
+- **Reversibility**: the signal is switched off when the ligand leaves the receptor and the intermediates are inactivated, so the cell can respond to the next change.
+
+Pathways are very diverse, because they have evolved many times rather than from a single origin. You need three in detail: the G protein pathway for adrenaline, the tyrosine kinase pathway for insulin and the intracellular pathway for steroid hormones. Step through all three in the 3D model below (switch models with the buttons above it).
+
+</Section>
+
+<Section id="ach" title="Neurotransmitter receptors and membrane potential" level="AHL" covers="C2.1.8">
+
+Receptors for neurotransmitters are transmembrane proteins in the plasma membrane of postsynaptic neurons and muscle fibres. Many of them are themselves **ion channels**, so they can change the voltage across the membrane (the **membrane potential**) very quickly.
+
+The example to learn is the **acetylcholine receptor** (the nicotinic type, at synapses between motor neurons and skeletal muscle fibres, and between many neurons):
+
+1. **Acetylcholine** released by the presynaptic neuron diffuses across the synaptic gap and binds to binding sites on the receptor.
+2. Binding causes a **conformational change** that **opens a channel** through the middle of the receptor.
+3. **Positively charged ions**, mainly sodium ions (Na⁺), **diffuse into** the cell through the channel, down their concentration and electrical gradients.
+4. The inside of the cell becomes less negative (**depolarization**). If the change is large enough it triggers an **action potential** in a neuron, or **contraction** of a muscle fibre.
+5. Acetylcholine is quickly broken down in the synaptic gap by the enzyme acetylcholinesterase, so the channel closes and the signal ends.
+
+No second messenger is needed, which is why this kind of signalling is so fast. See <TopicLink code="B2.1" /> for a simulation of this gated channel and <TopicLink code="C2.2" /> for how action potentials and synapses work.
+
+<Callout type="exam">
+
+The key sequence: ligand binds → receptor changes shape → **channel opens** → **positive ions diffuse in** → membrane potential changes (depolarization), which may trigger further effects.
+
+</Callout>
+
+</Section>
+
+<Section id="gpcr" title="G protein-coupled receptors" level="AHL" covers="C2.1.9">
+
+<Viewer3D topic="c2-1" id="receptors" />
+
+**G protein-coupled receptors (GPCRs)** are transmembrane receptors that pass a signal into the cell through a second protein, a **G protein**, on the cytoplasmic side of the membrane. A GPCR is a single polypeptide that crosses the membrane **seven times**, with its ligand-binding site on the outside.
+
+The G protein has three subunits, **α, β and γ**. In the resting state it is attached to the inside of the receptor, and its α subunit carries a molecule of **GDP** (guanosine diphosphate), which keeps it **inactive**.
+
+1. A ligand binds to the receptor's binding site outside the cell.
+2. The receptor changes shape, which makes the α subunit **release GDP** and **bind GTP** (guanosine triphosphate) in its place.
+3. With GTP bound, the G protein is **active**. The α subunit separates from β and γ and from the receptor.
+4. The activated subunits interact with other proteins in the membrane or cytoplasm (effectors), such as enzymes or ion channels, starting the cell's response.
+5. The α subunit slowly **hydrolyses its GTP to GDP**, which switches it off; it then rejoins β and γ.
+
+One activated receptor can activate many G proteins before the ligand leaves it, so the signal is amplified at the first step.
+
+### Many receptors, one mechanism
+
+Humans have **about 800 different GPCRs**, encoded by about 4% of our genes. They detect a huge range of signals: hormones such as adrenaline and glucagon, many neurotransmitters, odour molecules in the nose, and even light (rhodopsin in the retina). Because they are so widespread, roughly a third of medical drugs act on GPCRs.
+
+<Callout type="exam" title="Drawing a GPCR pathway">
+
+A labelled diagram should show: the ligand binding **outside**; the receptor crossing the membrane; the G protein (α, β, γ) on the **cytoplasmic** side; **GTP replacing GDP** on the α subunit; and α activating an effector (for adrenaline, adenylyl cyclase making cAMP). Compare yours with the **Exam diagram** view above.
+
+</Callout>
+
+</Section>
+
+<Section id="adrenaline" title="How adrenaline (epinephrine) receptors work" level="AHL" covers="C2.1.10">
+
+Adrenaline is secreted by the adrenal glands in "fight or flight" situations. One of its effects is to make the liver release glucose into the blood within seconds. Its receptors are GPCRs in the plasma membrane of target cells such as liver cells.
+
+1. Adrenaline binds to the receptor on the outside of the liver cell; it does **not** enter the cell.
+2. The receptor activates a **G protein** (GDP is replaced by GTP on the α subunit).
+3. The α subunit activates **adenylyl cyclase**, an enzyme in the plasma membrane.
+4. Adenylyl cyclase converts **ATP** into **cyclic AMP (cAMP)**. Each enzyme makes many cAMP molecules.
+5. cAMP is the **second messenger** (adrenaline is the first). It spreads through the cytoplasm and activates **protein kinase A**.
+6. Protein kinase A starts a **cascade** of phosphorylation: it activates phosphorylase kinase, which activates **glycogen phosphorylase**. Each enzyme activates many molecules of the next, so the signal is greatly **amplified**.
+7. Glycogen phosphorylase breaks down **glycogen**, and the glucose produced is released into the blood.
+
+The response stops when adrenaline concentration falls: the G protein hydrolyses its GTP and cAMP is broken down by **phosphodiesterase**.
+
+<Callout type="exam">
+
+Name the stages in order: adrenaline → receptor → **G protein** → **adenylyl cyclase** → **cAMP** (second messenger) → protein kinase → cascade → glycogen broken down. State that cAMP is the **second messenger** and that the cascade **amplifies** the signal.
+
+</Callout>
+
+<Callout type="note" title="Nature of science: two names for one hormone">
+
+The hormone was isolated from the adrenal glands around 1900 by different research groups working at about the same time, who named it separately. **Adrenaline** comes from Latin (*ad*, at, and *renes*, kidneys) and **epinephrine** from Greek (*epi*, above, and *nephros*, kidney): both refer to the glands on top of the kidneys. Usually scientists agree on one name, but both persist: adrenaline is more common in the UK and Europe, epinephrine in North America. Agreed naming conventions are an example of international cooperation that helps everyone.
+
+</Callout>
+
+</Section>
+
+<Section id="insulin" title="Tyrosine kinase receptors and insulin" level="AHL" covers="C2.1.11">
+
+A **kinase** is an enzyme that transfers a phosphate group from ATP to another molecule. Phosphorylation changes the shape of a protein, often switching it on. A **tyrosine kinase** adds phosphate to the amino acid **tyrosine** in proteins.
+
+Some transmembrane receptors are themselves tyrosine kinases. The example is the receptor for the protein hormone **insulin**, which is secreted by β cells of the pancreas when the blood glucose concentration is high.
+
+1. The insulin receptor is made of two linked halves (a dimer). Each half crosses the membrane and has a **tyrosine kinase** domain in the cytoplasm.
+2. **Insulin binds** to the part of the receptor outside the cell. It does not enter the cell.
+3. Binding causes a conformational change that brings the two kinase domains together, and each **phosphorylates tyrosines** on the other half (autophosphorylation).
+4. The phosphorylated tyrosines act as docking sites for **relay proteins**, which are phosphorylated in turn, starting a sequence of reactions inside the cell.
+5. The sequence ends with **vesicles containing glucose transporters** (GLUT4) moving to the plasma membrane and fusing with it.
+6. With more transporters in the membrane, glucose enters the cell by **facilitated diffusion**, and the blood glucose concentration falls.
+
+This happens mainly in **muscle** and **fat (adipose)** cells, which store most of their GLUT4 inside the cell until insulin arrives. Use the **Tyrosine kinase receptor** model in the 3D viewer above to see each step.
+
+<Callout type="note" title="Scope">
+
+The guide limits this to: insulin binding to a membrane receptor → tyrosine phosphorylation inside the cell → a sequence of reactions → vesicles with glucose transporters moving to the plasma membrane. You do not need the names of the relay proteins.
+
+</Callout>
+
+</Section>
+
+<Section id="steroids" title="Intracellular receptors and gene expression" level="AHL" covers="C2.1.12">
+
+**Steroid hormones**, including **oestradiol**, **progesterone** and **testosterone**, are made from cholesterol. They are hydrophobic, so they diffuse straight through the plasma membrane and act through **intracellular receptors**.
+
+1. The hormone diffuses through the phospholipid bilayer into the cytoplasm.
+2. It binds to a specific binding site on its receptor, **activating** the receptor by changing its shape. Some steroid receptors wait in the cytoplasm (as for testosterone) and others are mostly already in the nucleus (as for oestradiol).
+3. The hormone–receptor complex enters the **nucleus** through a nuclear pore.
+4. The activated receptor binds to **specific DNA sequences** (hormone response elements) near particular genes. The receptor is acting as a **transcription factor**.
+5. This **promotes transcription** of those genes, so more of their mRNA and protein are made. (Some genes are repressed instead.)
+
+Only genes with the right DNA sequence nearby are affected, and only cells with the receptor respond. Because the response depends on making new mRNA and protein, it takes longer (minutes to hours) than responses through membrane receptors, but it lasts longer. See the **Intracellular receptor** model in the 3D viewer above, and <TopicLink code="D2.2" /> for how gene expression is regulated.
+
+<Callout type="exam">
+
+Use the sequence: steroid **passes through the membrane** → binds **receptor inside the cell** → hormone–receptor complex binds **specific DNA sequences** → **transcription** of particular genes is promoted.
+
+</Callout>
+
+</Section>
+
+<Section id="oestradiol-progesterone" title="Effects of oestradiol and progesterone on target cells" level="AHL" covers="C2.1.13">
+
+Oestradiol and progesterone are steroid hormones secreted by the ovaries (and by the corpus luteum and, in pregnancy, the placenta). Both act through intracellular receptors and change gene expression in their target cells.
+
+| | Oestradiol | Progesterone |
+|---|---|---|
+| Target cells (as limited by the guide) | Cells in the **hypothalamus** that secrete gonadotropin-releasing hormone (**GnRH**) | Cells of the **endometrium** (the lining of the uterus) |
+| What happens in the cell | Oestradiol binds its receptor; the complex changes transcription of genes, altering GnRH production and release | Progesterone binds its receptor; the complex promotes transcription of specific genes |
+| Effect | When oestradiol is high late in the follicular phase, GnRH secretion increases, so the pituitary releases more LH and FSH (leading to the LH surge) | The endometrium is kept thick, with a good blood supply and secreting glands, ready for an embryo to implant |
+
+### Oestradiol and GnRH
+
+For most of the menstrual cycle, oestradiol at moderate levels reduces GnRH secretion (negative feedback). Late in the follicular phase, when developing follicles secrete high levels of oestradiol for about two days, its effect reverses: it **stimulates** GnRH secretion and makes the pituitary more sensitive to GnRH. This is the positive feedback that causes the LH surge and ovulation (next section).
+
+### Progesterone and the endometrium
+
+After ovulation the corpus luteum secretes progesterone. In endometrium cells it binds to progesterone receptors and changes gene expression so that the endometrium is **maintained** and prepared for implantation. If no pregnancy occurs, the corpus luteum breaks down, progesterone falls and the endometrium is shed (menstruation). See <TopicLink code="D3.1" /> for the whole menstrual cycle.
+
+<Callout type="note" title="Simplified for IB">
+
+In reality much of oestradiol's effect on GnRH-secreting cells is passed on by neighbouring hypothalamus neurons (kisspeptin neurons) that carry the oestrogen receptor. Answer exam questions in the IB form: oestradiol acts on hypothalamus cells that secrete GnRH.
+
+</Callout>
+
+</Section>
+
+<Section id="feedback" title="Positive and negative feedback" level="AHL" covers="C2.1.14">
+
+Signalling pathways are regulated by **feedback**: the amount of the pathway's end product affects how much more is produced, usually by acting on an early step.
+
+**Negative feedback**: the product **inhibits** its own production. More product leads to less production, and less product leads to more, so a change in **either** direction is reversed and the level stays near a **set point**.
+
+- Example: **thyroxine**. The hypothalamus secretes TRH, which stimulates the anterior pituitary to secrete TSH, which stimulates the thyroid gland to secrete thyroxine. High thyroxine inhibits secretion of TRH and TSH, so thyroxine falls; low thyroxine removes the inhibition, so it rises again.
+
+**Positive feedback**: the product **stimulates** its own production. More product leads to more production, so a change is **amplified** and the level rises rapidly to a peak. It needs something else to end it.
+
+- Example: **the LH surge**. Developing follicles secrete rising amounts of oestradiol, which stimulates GnRH and LH secretion; LH stimulates the follicles to secrete even more oestradiol. LH rises steeply to a peak that triggers **ovulation**, after which oestradiol falls and the loop ends.
+
+<Anim topic="c2-1" id="feedback" />
+
+| | Negative feedback | Positive feedback |
+|---|---|---|
+| Effect of the product on the pathway | Inhibits | Stimulates |
+| Result | Change is reversed; level kept stable | Change is amplified; rapid rise to a peak |
+| Example | Thyroxine inhibiting TRH and TSH secretion | Oestradiol stimulating GnRH and LH (LH surge) |
+
+Feedback also works within single cells: in quorum sensing, the autoinducer switches on the gene for its own synthase (positive feedback). Negative feedback is far more common; see <TopicLink code="D3.3" /> for homeostasis and <TopicLink code="C3.1" /> for how the nervous and endocrine systems are integrated.
+
+<Callout type="exam">
+
+To distinguish, describe the **direction**: in negative feedback a rise in the product causes a fall in its production (and vice versa); in positive feedback a rise causes a further rise. Then give one example of each with the hormones named.
+
+</Callout>
+
+</Section>
