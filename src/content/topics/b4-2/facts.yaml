@@ -1,0 +1,169 @@
+facts:
+  - id: f1
+    claim: The niche is the role of a species, including its tolerance of abiotic factors and its biotic interactions (including how it obtains food), which affect survival, growth and reproduction; it is multidimensional (Hutchinson's n-dimensional hypervolume).
+    where: ["index.mdx#niche", "index.mdx (mustKnow)", "flashcards.yaml:c1", "flashcards.yaml:c2"]
+    confidence: high
+    basis: IB guide B4.2.1; Hutchinson 1957; Begon, Townsend & Harper, Ecology
+    status: checked
+  - id: f2
+    claim: Obligate aerobes need continuous O₂; obligate anaerobes are killed or inhibited by O₂; facultative anaerobes use O₂ when present but can grow without it, and grow faster with it.
+    where: ["index.mdx#oxygen", "diagrams/b4-2-oxygen", "quiz.yaml:q1", "flashcards.yaml:c3"]
+    confidence: high
+    basis: Standard microbiology (Madigan et al., Brock Biology of Microorganisms); IB guide B4.2.2
+    status: checked
+  - id: f3
+    claim: Examples - Mycobacterium tuberculosis is an obligate aerobe; Clostridium tetani and methanogenic archaea are obligate anaerobes; Escherichia coli and Saccharomyces yeast are facultative anaerobes.
+    where: ["index.mdx#oxygen", "diagrams/b4-2-oxygen", "flashcards.yaml:c4"]
+    confidence: high
+    basis: Brock Biology of Microorganisms
+    status: checked
+  - id: f4
+    claim: Almost all animals and plants are obligate aerobes; humans are obligate aerobes even though some tissues can respire anaerobically briefly.
+    where: ["index.mdx#oxygen", "index.mdx (mistakes)", "diagrams/b4-2-oxygen"]
+    confidence: high
+    basis: Standard physiology. "Almost all" because a few animals (e.g. the parasite Henneguya salminicola) lack aerobic respiration
+    status: checked
+  - id: f5
+    claim: In a broth tube with O₂ entering from the top, obligate aerobes grow at the top, obligate anaerobes only in the anoxic lower part, facultative anaerobes throughout but densest at the top.
+    where: ["diagrams/b4-2-oxygen", "quiz.yaml:q1", "index.mdx#oxygen"]
+    confidence: high
+    basis: Classic thioglycollate-broth growth patterns (Brock)
+    status: checked
+  - id: f6
+    claim: Photosynthesis occurs in plants, eukaryotic algae (seaweeds; unicellular algae such as diatoms and Chlorella) and several groups of bacteria including cyanobacteria; not in archaea (no chlorophyll-based photosynthesis known in archaea).
+    where: ["index.mdx#modes", "index.mdx#archaea", "flashcards.yaml:c5", "visuals.yaml:nutrition photo"]
+    confidence: high
+    basis: IB guide B4.2.3; Brock; Campbell Biology
+    status: checked
+  - id: f7
+    claim: Chemoautotrophs (some bacteria and archaea) fix CO₂ using energy from oxidizing inorganic chemicals such as Fe²⁺ to Fe³⁺.
+    where: ["index.mdx#modes", "index.mdx#archaea", "visuals.yaml:nutrition chemo"]
+    confidence: high
+    basis: Brock (iron-oxidizing bacteria such as Acidithiobacillus ferrooxidans; archaea such as Ferroplasma)
+    status: checked
+  - id: f8
+    claim: All animals are heterotrophs; holozoic nutrition is ingestion, internal digestion, absorption, assimilation, egestion. Spiders begin digestion outside the body; tapeworms have no gut and absorb pre-digested food.
+    where: ["index.mdx#modes", "quiz.yaml:q2", "flashcards.yaml:c6", "flashcards.yaml:c7", "visuals.yaml:nutrition"]
+    confidence: high
+    basis: IB guide B4.2.4; Campbell Biology; invertebrate zoology texts (Brusca)
+    status: checked
+  - id: f9
+    claim: Euglena gracilis is a freshwater protist with chloroplasts that photosynthesizes in light and can grow heterotrophically on dissolved organic compounds in the dark; dark-grown or bleached cells survive as heterotrophs, so it is a facultative mixotroph.
+    where: ["index.mdx#mixo-sapro", "quiz.yaml:q3", "visuals.yaml:nutrition mixo", "anims/b4-2-nutrition"]
+    confidence: high
+    basis: IB guide B4.2.5; Euglena physiology literature (e.g. Zakryś et al. 2017). Note E. gracilis also needs vitamins B1 and B12, so "autotrophic growth" means growth on mineral medium with vitamins
+    status: checked
+  - id: f10
+    claim: Mixotrophs are common in oceanic plankton (dinoflagellates, ciliates and others); Mesodinium rubrum retains functional chloroplasts from ingested cryptophyte algae and must keep feeding, an obligate mixotroph.
+    where: ["index.mdx#mixo-sapro"]
+    confidence: medium
+    basis: Stoecker et al. 2017 (Annu. Rev. Mar. Sci.); Johnson et al. 2007 (Nature 445:426)
+    status: open
+  - id: f11
+    claim: Saprotrophs (many fungi and bacteria) have cell walls, secrete enzymes (proteases, cellulases) into dead matter, digest it externally and absorb the products; they are decomposers that release CO₂ and mineral nutrients. Not all fungi and bacteria are saprotrophs.
+    where: ["index.mdx#mixo-sapro", "quiz.yaml:q4", "flashcards.yaml:c9", "visuals.yaml:nutrition sapro", "index.mdx (mistakes)"]
+    confidence: high
+    basis: IB guide B4.2.6; Campbell Biology
+    status: checked
+  - id: f12
+    claim: Archaea are one of three domains; they differ from bacteria in membrane lipids, cell walls and many genes; energy sources include oxidation of H₂, H₂S, Fe²⁺, ammonia, organic compounds, and light via non-chlorophyll pigments (bacteriorhodopsin in haloarchaea); methanogens are obligate anaerobes in swamps, rice paddies and the guts of cattle and termites.
+    where: ["index.mdx#archaea", "flashcards.yaml:c10", "visuals.yaml:nutrition archaea", "anims/b4-2-nutrition"]
+    confidence: high
+    basis: Woese et al. 1990; Brock Biology of Microorganisms; IB guide B4.2.7
+    status: checked
+  - id: f13
+    claim: Hominidae includes Pongo, Gorilla, Pan and Homo plus extinct genera such as Paranthropus.
+    where: ["index.mdx#dentition"]
+    confidence: high
+    basis: Standard primate taxonomy (Wood, Human Evolution)
+    status: checked
+  - id: f14
+    claim: Paranthropus robustus - South Africa (e.g. Swartkrans), roughly 2 to 1 million years ago; very large flat molars, molarized premolars, very thick enamel, small incisors and canines, sagittal crest in many (especially male) skulls, flaring zygomatic arches, deep mandible; inferred herbivorous diet of tough or hard plant foods, with microwear and isotope evidence suggesting some dietary variety.
+    where: ["index.mdx#dentition", "sims/models/b4-2-dentition", "quiz.yaml:q5", "flashcards.yaml:c11"]
+    confidence: medium
+    basis: Wood 2019; Ungar 2017; Sponheimer et al. 2006 (Science 314:980). Date range varies by source (about 2.0–1.0 Ma); teacher to confirm wording
+    status: open
+  - id: f15
+    claim: Homo floresiensis - Liang Bua, Flores, Indonesia; skeletal remains about 100 000–60 000 years old; adults about 1.1 m tall with a brain of about 400 cm³; small molars similar to small modern humans, primitive premolars, no sagittal crest, no chin; found with stone tools and animal bones including juvenile Stegodon, some cut-marked.
+    where: ["index.mdx#dentition", "sims/models/b4-2-dentition"]
+    confidence: medium
+    basis: Brown et al. 2004; Morwood et al. 2005 (Nature 437:1012); Kaifu et al. 2015 (PLoS ONE); Sutikna et al. 2016 (Nature 532:366). Cut marks on Stegodon bones as reported by Morwood et al.; teacher to confirm
+    status: open
+  - id: f16
+    claim: Gorillas are mainly herbivorous (leaves, stems, pith, fruit, some insects); large canines in males are used for display and fighting; males have sagittal crests; enamel is relatively thin; tall shearing crests on molars.
+    where: ["sims/models/b4-2-dentition", "index.mdx (mistakes)", "index.mdx#dentition"]
+    confidence: high
+    basis: Ungar 2017; Fleagle, Primate Adaptation and Evolution
+    status: checked
+  - id: f17
+    claim: Modern humans have small molars with low rounded cusps and relatively thick enamel, small non-projecting canines, no diastema, no sagittal crest, and a chin.
+    where: ["sims/models/b4-2-dentition", "index.mdx#dentition"]
+    confidence: high
+    basis: Wood 2019; Ungar 2017
+    status: checked
+  - id: f18
+    claim: Insect mouthparts are homologous; leaf beetles, grasshoppers and caterpillars have chewing mandibles; aphids have piercing–sucking stylets that reach phloem sieve tubes.
+    where: ["index.mdx#herbivory", "diagrams/b4-2-herbivory", "quiz.yaml:q8", "flashcards.yaml:c13"]
+    confidence: high
+    basis: IB guide B4.2.9; Gullan & Cranston, The Insects
+    status: checked
+  - id: f19
+    claim: Hawthorn thorns are modified stems and cactus spines are modified leaves; nettle stinging hairs inject irritants; grass leaves contain silica; secondary compounds include nicotine, caffeine and cyanogenic glycosides (release cyanide when tissue is damaged), often concentrated in seeds.
+    where: ["index.mdx#herbivory", "diagrams/b4-2-herbivory", "flashcards.yaml:c14"]
+    confidence: high
+    basis: Raven Biology of Plants; Taiz & Zeiger, Plant Physiology
+    status: checked
+  - id: f20
+    claim: Koalas feed almost entirely on eucalyptus leaves and detoxify their compounds with liver enzymes (expanded cytochrome P450 gene families).
+    where: ["index.mdx#herbivory", "diagrams/b4-2-herbivory", "flashcards.yaml:c14"]
+    confidence: high
+    basis: Johnson et al. 2018 (Nature Genetics 50:1102), koala genome
+    status: checked
+  - id: f21
+    claim: Predator and prey examples - cone snails inject venom via a harpoon-like radular tooth; rattlesnakes are venomous; owls have forward-facing eyes and acute hearing; pit vipers sense heat with facial pits; wolves hunt in packs; poison dart frogs sequester dietary alkaloids and are aposematic; hedgehogs and porcupines have spines; stick insects are camouflaged; meerkats use sentinels with alarm calls; fish school; cinnabar moth larvae store toxins from ragwort.
+    where: ["index.mdx#predators", "quiz.yaml:q10", "flashcards.yaml:c15"]
+    confidence: high
+    basis: Standard zoology and behavioural ecology (Davies, Krebs & West)
+    status: checked
+  - id: f22
+    claim: Tropical rainforest floor receives only about 1–2 % of full sunlight.
+    where: ["index.mdx#light", "diagrams/b4-2-forest"]
+    confidence: medium
+    basis: Commonly cited range (e.g. Chazdon & Pearcy 1991; values from under 1 % to about 2 % reported)
+    status: open
+  - id: f23
+    claim: Lianas are rooted in soil and use trees for support so need less wood; epiphytes (orchids, bromeliads, ferns) grow on branches and are not parasites; strangler figs germinate on branches from seeds dispersed by birds or bats, root down to the soil, encircle the host and overtop its crown, often killing it; shade-tolerant plants have large thin leaves and low respiration rates.
+    where: ["index.mdx#light", "diagrams/b4-2-forest", "quiz.yaml:q9", "flashcards.yaml:c16"]
+    confidence: high
+    basis: IB guide B4.2.11; Whitmore, An Introduction to Tropical Rain Forests
+    status: checked
+  - id: f24
+    claim: Connell (1961, Ecology 42:710) on the Isle of Cumbrae, Scotland - Chthamalus stellatus adults restricted to the upper shore by competition with Balanus (now Semibalanus) balanoides, which smothers, undercuts and crushes it; Chthamalus survived lower when Semibalanus was removed; Semibalanus' upper limit is set by desiccation.
+    where: ["index.mdx#realized", "sims/b4-2-barnacles", "sims/models/b4-2-barnacles", "quiz.yaml:q6", "index.mdx (mistakes)"]
+    confidence: high
+    basis: Connell 1961
+    status: checked
+  - id: f25
+    claim: Gause (1934) - P. aurelia and P. caudatum each grew alone but P. caudatum died out when grown together on bacteria; P. caudatum and P. bursaria coexisted, P. bursaria feeding mainly on yeast at the bottom of the tube.
+    where: ["index.mdx#exclusion", "sims/models/b4-2-competition (presets)", "quiz.yaml:q7"]
+    confidence: high
+    basis: Gause, The Struggle for Existence (1934); Begon, Townsend & Harper
+    status: checked
+  - id: f26
+    claim: Park (1954) - in Tribolium, T. castaneum usually won in hot, humid conditions and T. confusum in cool, dry conditions.
+    where: ["index.mdx#exclusion"]
+    confidence: high
+    basis: Park 1954 (Physiological Zoology 27:177)
+    status: checked
+  - id: f27
+    claim: MacArthur (1958) - five warbler species coexist in North American spruce forests by feeding in different parts of the trees.
+    where: ["index.mdx#exclusion"]
+    confidence: high
+    basis: MacArthur 1958 (Ecology 39:599)
+    status: checked
+  - id: f28
+    claim: Lotka–Volterra competition outcomes - coexistence when KA > αAB·KB and KB > αBA·KA; exclusion of B when KA > αAB·KB and KB < αBA·KA (and vice versa); founder-dependent outcome when both fail. The preset parameter values are illustrative, not Gause's measurements.
+    where: ["sims/b4-2-competition", "sims/models/b4-2-competition", "tests/unit/b4-2.test.ts", "index.mdx#exclusion"]
+    confidence: high
+    basis: Standard ecology texts (Begon, Townsend & Harper; Gotelli, A Primer of Ecology)
+    status: checked

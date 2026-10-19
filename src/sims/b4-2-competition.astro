@@ -1,0 +1,217 @@
+---
+/**
+ * B4.2.13 competitive exclusion: Lotka–Volterra competition between two species, with each species
+ * also grown alone for comparison (as in Gause's separate cultures). Maths in models/b4-2-competition.ts.
+ */
+import { range, sx, sy, type Frame } from './chart';
+import { T_END, defaultParams, outcome, outcomeText, presets, simulate, type Run } from './models/b4-2-competition';
+
+const frame: Frame = {
+  w: 640, h: 360, left: 58, right: 18, top: 16, bottom: 52,
+  x: { min: 0, max: T_END, ticks: range(0, T_END, 10), label: 'Time (arbitrary units)' },
+  y: { min: 0, max: 160, ticks: range(0, 160, 20), label: 'Population size' },
+};
+const p = defaultParams;
+const start = presets[0]!.start;
+const path = (run: Run, key: 'a' | 'b') =>
+  run.t.map((t, i) => `${i ? 'L' : 'M'}${sx(frame, t).toFixed(1)} ${sy(frame, Math.min(frame.y.max, run[key][i]!)).toFixed(1)}`).join('');
+const mixed = simulate(p, start[0], start[1]);
+const aloneA = simulate(p, start[0], 0);
+const aloneB = simulate(p, 0, start[1]);
+const rows = range(0, T_END, 5).map((t) => {
+  const i = mixed.t.findIndex((x) => Math.abs(x - t) < 1e-6);
+  return { t, a: mixed.a[i]!, b: mixed.b[i]!, aa: aloneA.a[i]!, bb: aloneB.b[i]! };
+});
+const sliders = [
+  { k: 'r', label: 'Growth rate, r', min: 0.1, max: 1.5, step: 0.1 },
+  { k: 'K', label: 'Carrying capacity alone, K', min: 20, max: 150, step: 10 },
+  { k: 'alpha', label: 'Competition from the other species, α', min: 0, max: 2, step: 0.05 },
+  { k: 'n0', label: 'Starting number', min: 1, max: 30, step: 1 },
+] as const;
+const val = (s: 'a' | 'b', k: string) => (k === 'n0' ? start[s === 'a' ? 0 : 1] : p[s][k as 'r' | 'K' | 'alpha']);
+const fmt = (k: string, v: number) => (k === 'alpha' ? v.toFixed(2) : k === 'r' ? v.toFixed(1) : String(v));
+---
+<div class="sim-comp" data-sim-comp data-frame={JSON.stringify(frame)}>
+  <div class="presets" role="group" aria-label="Example settings">
+    <span class="ph">Try:</span>
+    {presets.map((x, i) => <button type="button" class="btn chip" data-preset={x.id} aria-pressed={i === 0 ? 'true' : 'false'}>{x.label}</button>)}
+  </div>
+  <p class="preset-note" data-preset-note>{presets[0]!.note}</p>
+  <div class="layout">
+    <svg class="chart" viewBox={`0 0 ${frame.w} ${frame.h}`} role="img" aria-labelledby="bc-t" data-chart>
+      <title id="bc-t">Population size of species A and B over time, together and each grown alone</title>
+      <g class="grid">
+        {frame.x.ticks.map((t) => <line x1={sx(frame, t)} x2={sx(frame, t)} y1={frame.top} y2={frame.h - frame.bottom} />)}
+        {frame.y.ticks.map((t) => <line x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, t)} y2={sy(frame, t)} />)}
+      </g>
+      <line class="zero" x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, 0)} y2={sy(frame, 0)} />
+      <line class="zero" x1={frame.left} x2={frame.left} y1={frame.top} y2={frame.h - frame.bottom} />
+      <g class="ticks">
+        {frame.x.ticks.map((t) => <text x={sx(frame, t)} y={frame.h - frame.bottom + 18} text-anchor="middle">{t}</text>)}
+        {frame.y.ticks.map((t) => <text x={frame.left - 8} y={sy(frame, t)} dy="0.35em" text-anchor="end">{t}</text>)}
+      </g>
+      <text class="axis" x={(frame.left + frame.w - frame.right) / 2} y={frame.h - 10} text-anchor="middle">{frame.x.label} →</text>
+      <text class="axis" transform={`translate(16 ${(frame.top + frame.h - frame.bottom) / 2}) rotate(-90)`} text-anchor="middle">{frame.y.label} →</text>
+      <path class="line alone a" d={path(aloneA, 'a')} data-line="aloneA" />
+      <path class="line alone b" d={path(aloneB, 'b')} data-line="aloneB" />
+      <path class="line mix a" d={path(mixed, 'a')} data-line="a" />
+      <path class="line mix b" d={path(mixed, 'b')} data-line="b" />
+    </svg>
+    <div class="controls">
+      {(['a', 'b'] as const).map((s) => (
+        <fieldset class={`sp sp-${s}`}>
+          <legend><span class={`key mix ${s}`}></span> Species {s.toUpperCase()}</legend>
+          {sliders.map((sl) => (
+            <label class="slider">
+              <span>{sl.k === 'alpha' ? `Competition from species ${s === 'a' ? 'B' : 'A'}, α` : sl.label}: <output data-out={`${s}-${sl.k}`}>{fmt(sl.k, val(s, sl.k))}</output></span>
+              <input type="range" min={sl.min} max={sl.max} step={sl.step} value={val(s, sl.k)} data-param={`${s}-${sl.k}`} />
+            </label>
+          ))}
+        </fieldset>
+      ))}
+      <fieldset class="legend">
+        <legend>Show</legend>
+        <label><input type="checkbox" data-show-alone checked /> <span class="key alone a"></span><span class="key alone b"></span> Each species grown alone</label>
+      </fieldset>
+    </div>
+  </div>
+  <p class="readout" aria-live="polite" data-readout><strong>Outcome:</strong> {outcomeText[outcome(p)]}</p>
+  <div class="keys" aria-hidden="true">
+    <span><span class="key mix a"></span> A, grown with B</span>
+    <span><span class="key mix b"></span> B, grown with A</span>
+    <span data-key-alone><span class="key alone a"></span> A alone</span>
+    <span data-key-alone><span class="key alone b"></span> B alone</span>
+  </div>
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <thead><tr><th scope="col">Time</th><th scope="col">A (with B)</th><th scope="col">B (with A)</th><th scope="col">A alone</th><th scope="col">B alone</th></tr></thead>
+      <tbody data-tbody>{rows.map((r) => <tr><th scope="row">{r.t}</th><td>{r.a.toFixed(1)}</td><td>{r.b.toFixed(1)}</td><td>{r.aa.toFixed(1)}</td><td>{r.bb.toFixed(1)}</td></tr>)}</tbody>
+    </table>
+  </details>
+  <p class="model-note">Mathematical model (Lotka–Volterra competition equations), not real data. α is how strongly one individual of the other species slows your growth compared with one of your own: α &lt; 1 when the niches only partly overlap, α ≈ 1 or more when they are almost the same. The equations are beyond the IB syllabus; the outcomes they show are not.</p>
+</div>
+
+<script>
+  import { range, sx, sy, type Frame } from './chart';
+  import { T_END, outcome, outcomeText, presets, simulate, type CompParams, type Run } from './models/b4-2-competition';
+
+  document.querySelectorAll<HTMLElement>('[data-sim-comp]').forEach((root) => {
+    const frame = JSON.parse(root.dataset.frame!) as Frame;
+    const input = (k: string) => root.querySelector<HTMLInputElement>(`[data-param="${k}"]`)!;
+    const get = (k: string) => Number(input(k).value);
+    const out = (k: string, v: string) => (root.querySelector(`[data-out="${k}"]`)!.textContent = v);
+    const line = (k: string) => root.querySelector<SVGPathElement>(`[data-line="${k}"]`)!;
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    const tbody = root.querySelector<HTMLElement>('[data-tbody]')!;
+    const note = root.querySelector<HTMLElement>('[data-preset-note]')!;
+    const presetBtns = [...root.querySelectorAll<HTMLButtonElement>('[data-preset]')];
+    const showAlone = root.querySelector<HTMLInputElement>('[data-show-alone]')!;
+    const path = (run: Run, key: 'a' | 'b') =>
+      run.t.map((t, i) => `${i ? 'L' : 'M'}${sx(frame, t).toFixed(1)} ${sy(frame, Math.min(frame.y.max, run[key][i]!)).toFixed(1)}`).join('');
+    let timer = 0;
+
+    const params = (): CompParams => ({
+      a: { r: get('a-r'), K: get('a-K'), alpha: get('a-alpha') },
+      b: { r: get('b-r'), K: get('b-K'), alpha: get('b-alpha') },
+    });
+
+    const update = () => {
+      const p = params();
+      const a0 = get('a-n0'), b0 = get('b-n0');
+      for (const s of ['a', 'b'] as const) {
+        out(`${s}-r`, p[s].r.toFixed(1)); out(`${s}-K`, String(p[s].K)); out(`${s}-alpha`, p[s].alpha.toFixed(2)); out(`${s}-n0`, String(get(`${s}-n0`)));
+      }
+      const mixed = simulate(p, a0, b0);
+      const aloneA = simulate(p, a0, 0);
+      const aloneB = simulate(p, 0, b0);
+      line('a').setAttribute('d', path(mixed, 'a'));
+      line('b').setAttribute('d', path(mixed, 'b'));
+      line('aloneA').setAttribute('d', path(aloneA, 'a'));
+      line('aloneB').setAttribute('d', path(aloneB, 'b'));
+      tbody.innerHTML = range(0, T_END, 5).map((t) => {
+        const i = mixed.t.findIndex((x) => Math.abs(x - t) < 1e-6);
+        return `<tr><th scope="row">${t}</th><td>${mixed.a[i]!.toFixed(1)}</td><td>${mixed.b[i]!.toFixed(1)}</td><td>${aloneA.a[i]!.toFixed(1)}</td><td>${aloneB.b[i]!.toFixed(1)}</td></tr>`;
+      }).join('');
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        const o = outcome(p);
+        const endA = mixed.a.at(-1)!, endB = mixed.b.at(-1)!;
+        let text = outcomeText[o];
+        if (o === 'depends') text += endA > endB ? ' With these starting numbers, A wins.' : endB > endA ? ' With these starting numbers, B wins.' : ' With exactly equal starts the model balances on a knife edge.';
+        readout.innerHTML = `<strong>Outcome:</strong> ${text} At time ${T_END}: A = ${endA.toFixed(1)}, B = ${endB.toFixed(1)} (alone they would reach ${p.a.K} and ${p.b.K}).`;
+      }, 300);
+    };
+
+    const setPreset = (btn: HTMLButtonElement) => {
+      const pr = presets.find((x) => x.id === btn.dataset.preset)!;
+      presetBtns.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      for (const s of ['a', 'b'] as const) {
+        input(`${s}-r`).value = String(pr.p[s].r);
+        input(`${s}-K`).value = String(pr.p[s].K);
+        input(`${s}-alpha`).value = String(pr.p[s].alpha);
+        input(`${s}-n0`).value = String(pr.start[s === 'a' ? 0 : 1]);
+      }
+      note.textContent = pr.note;
+      update();
+    };
+
+    presetBtns.forEach((b) => b.addEventListener('click', () => setPreset(b)));
+    root.querySelectorAll('[data-param]').forEach((el) => el.addEventListener('input', () => {
+      presetBtns.forEach((b) => b.setAttribute('aria-pressed', 'false'));
+      note.textContent = 'Your own settings.';
+      update();
+    }));
+    showAlone.addEventListener('change', () => {
+      const d = showAlone.checked ? '' : 'none';
+      line('aloneA').style.display = d; line('aloneB').style.display = d;
+      root.querySelectorAll<HTMLElement>('[data-key-alone]').forEach((k) => (k.style.display = d));
+    });
+  });
+</script>
+
+<style>
+  .sim-comp { container-type: inline-size; }
+  .presets { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .ph { font-weight: 700; font-size: var(--step--1); color: var(--text-muted); }
+  .chip { min-height: 2.25rem; font-size: var(--step--1); padding-inline: 0.7rem; }
+  .preset-note { font-size: var(--step--1); color: var(--text-muted); margin: var(--space-2) 0 var(--space-3); min-height: 2.6em; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 46rem) { .layout { grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 1fr); align-items: start; } }
+  .chart { width: 100%; height: auto; font-family: var(--font-sans); }
+  .grid line { stroke: var(--border); stroke-width: 1; }
+  .zero { stroke: var(--text-muted); stroke-width: 1.4; }
+  .ticks text { font-size: 15px; fill: var(--text-muted); }
+  .axis { font-size: 16px; font-weight: 650; fill: var(--text); }
+  .line { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .line.mix { stroke-width: 3.5; }
+  .line.alone { stroke-width: 2; opacity: 0.85; }
+  .line.a { stroke: var(--bio-protein); }
+  .line.b { stroke: var(--bio-head); }
+  .line.mix.b { stroke-dasharray: 12 7; }
+  .line.alone.a { stroke-dasharray: 2 5; }
+  .line.alone.b { stroke-dasharray: 8 4 2 4; }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  @container (min-width: 30rem) and (max-width: 46rem) { .controls { grid-template-columns: 1fr 1fr; } .controls .legend { grid-column: 1 / -1; } }
+  .sp { border: 1px solid var(--border); border-radius: var(--radius-m); padding: var(--space-2) var(--space-3); margin: 0; display: grid; gap: var(--space-2); }
+  .sp legend { font-weight: 750; padding: 0 var(--space-1); display: flex; align-items: center; gap: var(--space-2); }
+  .legend { border: 0; padding: 0; margin: 0; display: grid; gap: var(--space-1); }
+  .legend legend { font-weight: 700; color: var(--text-muted); margin-bottom: var(--space-1); }
+  .legend label { display: flex; align-items: center; gap: var(--space-2); }
+  .key { display: inline-block; width: 1.8rem; height: 0; border-top: 3.5px solid; vertical-align: middle; }
+  .key.a { border-color: var(--bio-protein); }
+  .key.b { border-color: var(--bio-head); }
+  .key.mix.b { border-top-style: dashed; }
+  .key.alone { border-top-width: 2.5px; border-top-style: dotted; width: 1.4rem; }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .keys { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); font-size: 0.8rem; color: var(--text-muted); margin-top: var(--space-2); }
+  .keys > span { display: inline-flex; align-items: center; gap: var(--space-1); }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  .table { overflow-x: auto; }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  th, td { padding: 0.2rem 0.6rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

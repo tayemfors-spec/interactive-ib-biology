@@ -1,0 +1,90 @@
+---
+/** Strategies for reaching light in a tropical forest (B4.2.11). Schematic cross-section, not to scale. */
+const crown = (cx: number, cy: number, r: number) => [[-r * 0.9, 0], [-r * 0.35, -r * 0.45], [r * 0.35, -r * 0.4], [r * 0.9, 0.05 * r], [0, r * 0.15]].map(([dx, dy]) => ({ cx: cx + dx!, cy: cy + dy!, r: r * 0.62 }));
+const G = 372;
+---
+<svg viewBox="0 0 640 440" role="img" aria-labelledby="fo-t fo-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="fo-t">How plants in a tropical forest reach light</title>
+  <desc id="fo-d">A cross-section of a tropical forest. Light intensity is highest above the canopy and falls to a small percentage of full sunlight at the forest floor. A canopy tree has a tall trunk with a dominant leading shoot that grew up to the canopy. A liana is rooted in the soil and climbs up another tree's trunk to spread its leaves in the canopy, using the tree for support. Epiphytes grow on high branches, with roots that take water and minerals from rain and debris, not from soil. A strangler epiphyte starts high on a host tree, sends roots down the trunk to the soil, encircles the trunk and shades its crown; the host may eventually die. Shade-tolerant shrubs and herbs on the forest floor have large, thin leaves that absorb the little light that reaches them.</desc>
+  <defs>
+    <linearGradient id="fo-light" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" class="l-hi" />
+      <stop offset="0.45" class="l-mid" />
+      <stop offset="1" class="l-lo" />
+    </linearGradient>
+  </defs>
+  <rect class="sky" x="0" y="0" width="640" height={G} />
+  <rect class="soil" x="0" y={G} width="640" height={440 - G} />
+
+  <!-- canopy tree -->
+  <rect class="trunk" x="92" y="100" width="18" height={G - 100} />
+  {crown(101, 92, 60).map((c) => <circle class="crown" cx={c.cx} cy={c.cy} r={c.r} />)}
+
+  <!-- liana on a second tree -->
+  <rect class="trunk" x="248" y="118" width="16" height={G - 118} />
+  {crown(256, 110, 52).map((c) => <circle class="crown" cx={c.cx} cy={c.cy} r={c.r} />)}
+  <path class="liana" d={`M236 ${G} C238 330 270 312 268 280 C266 248 240 236 244 204 C248 176 270 166 266 138 C262 118 280 96 300 92`} />
+  {[[300, 92], [312, 82], [290, 80]].map(([x, y]) => <ellipse class="lleaf" cx={x} cy={y} rx="9" ry="5" />)}
+
+  <!-- epiphytes on a branch -->
+  <path class="branch" d="M110 132 C140 140 168 142 190 138" />
+  <g transform="translate(160 136)">
+    <path class="epi" d="M-2 -2 C-12 -6 -20 -14 -22 -24 M-1 -2 C-6 -12 -8 -22 -6 -32 M1 -2 C4 -14 8 -24 6 -34 M2 -2 C12 -8 18 -16 22 -26" />
+    <path class="root" d="M-6 2 l-4 12 M2 2 l0 14 M8 2 l4 12" />
+  </g>
+
+  <!-- strangler fig around a host tree -->
+  <rect class="trunk host" x="470" y="140" width="18" height={G - 140} />
+  {crown(479, 132, 44).map((c) => <circle class="crown host" cx={c.cx} cy={c.cy} r={c.r} />)}
+  {crown(486, 96, 50).map((c) => <circle class="crown fig" cx={c.cx} cy={c.cy} r={c.r} />)}
+  <path class="froot" d={`M474 120 C462 180 480 220 466 270 C458 310 470 340 462 ${G} M486 122 C500 170 474 210 490 260 C500 300 482 330 494 ${G} M480 160 C496 190 462 230 482 300`} />
+
+  <!-- forest floor -->
+  {[[40, 1], [190, 0.9], [340, 1.1], [420, 0.9]].map(([x, s]) => (
+    <g transform={`translate(${x} ${G}) scale(${s})`}>
+      <path class="stem" d="M0 0 L0 -30" />
+      <ellipse class="shade" cx="-14" cy="-26" rx="16" ry="8" transform="rotate(-14 -14 -26)" />
+      <ellipse class="shade" cx="14" cy="-32" rx="16" ry="8" transform="rotate(14 14 -32)" />
+      <ellipse class="shade" cx="0" cy="-40" rx="12" ry="6" />
+    </g>
+  ))}
+
+  <!-- labels -->
+  <g class="lab">
+    <rect x="10" y="168" width="72" height="34" rx="6" /><text x="16" y="182">canopy</text><text x="16" y="197">tree</text>
+    <rect x="284" y="236" width="74" height="34" rx="6" /><text x="290" y="250">liana</text><text x="290" y="265">(climber)</text>
+    <rect x="128" y="150" width="74" height="22" rx="6" /><text x="134" y="165">epiphytes</text>
+    <rect x="510" y="196" width="88" height="50" rx="6" /><text x="516" y="210">strangler</text><text x="516" y="225">epiphyte</text><text x="516" y="240">(fig)</text>
+    <rect x="374" y="300" width="124" height="34" rx="6" /><text x="380" y="314">shade-tolerant</text><text x="380" y="329">shrubs and herbs</text>
+  </g>
+
+  <!-- light bar -->
+  <rect class="lbar" x="614" y="20" width="16" height={G - 20} rx="4" />
+  <text class="lt" x="606" y="36" text-anchor="end">full sunlight</text>
+  <text class="lt" x="606" y={G - 8} text-anchor="end">about 1–2 %</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .sky { fill: color-mix(in srgb, var(--bio-glucose) 6%, var(--surface)); }
+  .soil { fill: color-mix(in srgb, var(--bio-head) 28%, var(--surface)); }
+  .trunk { fill: color-mix(in srgb, var(--bio-head) 50%, var(--text)); }
+  .trunk.host { opacity: 0.75; }
+  .crown { fill: color-mix(in srgb, var(--bio-carb) 70%, var(--surface)); stroke: color-mix(in srgb, var(--bio-carb) 70%, var(--text)); stroke-width: 1; }
+  .crown.host { fill: color-mix(in srgb, var(--bio-carb) 35%, var(--surface)); }
+  .crown.fig { fill: color-mix(in srgb, var(--bio-carb) 85%, var(--text)); opacity: 0.92; }
+  .liana { fill: none; stroke: color-mix(in srgb, var(--bio-carb) 55%, var(--text)); stroke-width: 4; stroke-linecap: round; }
+  .lleaf { fill: color-mix(in srgb, var(--bio-carb) 85%, var(--surface)); stroke: var(--text); stroke-width: 0.8; }
+  .branch { fill: none; stroke: color-mix(in srgb, var(--bio-head) 50%, var(--text)); stroke-width: 6; stroke-linecap: round; }
+  .epi { fill: none; stroke: var(--bio-carb); stroke-width: 4; stroke-linecap: round; }
+  .root { stroke: var(--text-muted); stroke-width: 1.5; }
+  .froot { fill: none; stroke: color-mix(in srgb, var(--bio-tail) 60%, var(--text)); stroke-width: 4; stroke-linecap: round; }
+  .stem { stroke: color-mix(in srgb, var(--bio-carb) 60%, var(--text)); stroke-width: 3; }
+  .shade { fill: color-mix(in srgb, var(--bio-carb) 55%, var(--text)); }
+  .lab rect { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1; }
+  .lab text { font-size: 13px; font-weight: 650; fill: var(--text); }
+  .lbar { fill: url(#fo-light); stroke: var(--border-strong); }
+  .l-hi { stop-color: var(--bio-glucose); }
+  .l-mid { stop-color: color-mix(in srgb, var(--bio-glucose) 35%, var(--surface)); }
+  .l-lo { stop-color: var(--surface-3); }
+  .lt { font-size: 12px; font-weight: 650; fill: var(--text); }
+</style>

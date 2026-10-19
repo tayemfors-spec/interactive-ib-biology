@@ -1,0 +1,84 @@
+# Visuals for B4.2. Step captions here are what readers see under the animation, so they are written to exam standard.
+visuals:
+  - id: nutrition
+    kind: anim
+    module: b4-2-nutrition
+    title: Modes of nutrition
+    alt: Step-by-step diagrams of photosynthesis, chemosynthesis, holozoic, mixotrophic and saprotrophic nutrition, and the energy sources of archaea.
+    description: >-
+      Eight diagrams, one for each step. A plant, algal or cyanobacterial cell absorbs light and takes in carbon
+      dioxide and water, and makes sugars and other organic compounds, releasing oxygen. A chemoautotrophic
+      prokaryote oxidizes iron(II) ions to iron(III) and uses the energy released to fix carbon dioxide. An animal
+      gut shows the five stages of holozoic nutrition: ingestion at the mouth, digestion of food into small
+      molecules, absorption across the gut wall into the blood, assimilation into a body cell's own molecules,
+      and egestion of undigested fibre. Euglena photosynthesizes in light and takes in organic compounds in the dark.
+      A fungal hypha secretes enzymes into a dead leaf and absorbs the small products. An archaeal cell makes ATP
+      using energy from light, from inorganic chemicals or from carbon compounds.
+    steps:
+      - id: photo
+        title: Photoautotrophs
+        caption: Plants, eukaryotic algae and several groups of prokaryotes, including cyanobacteria, absorb light energy and use it to fix carbon dioxide, with water, into sugars and then all their other carbon compounds. Oxygen is released. They are autotrophs - they make their own food from inorganic substances.
+      - id: chemo
+        title: Chemoautotrophs
+        caption: Some bacteria and archaea are autotrophs that need no light. They release energy by oxidizing inorganic chemicals, such as iron(II) ions (Fe²⁺ to Fe³⁺), and use it to fix carbon dioxide into carbon compounds.
+      - id: ingest
+        title: Ingestion and digestion
+        caption: Animals are heterotrophs. In holozoic nutrition, food is ingested (taken into the gut through the mouth) and then digested inside the gut - enzymes hydrolyse large, insoluble molecules into small, soluble ones. Indigestible material, such as fibre, is left behind.
+      - id: absorb
+        title: Absorption and assimilation
+        caption: The small molecules are absorbed across the gut wall into the blood, which carries them to body cells. There they are assimilated - built into the body's own macromolecules, such as proteins - so they become part of its tissues.
+      - id: egest
+        title: Egestion
+        caption: Undigested material, which never entered the body's cells, is egested from the end of the gut as faeces. This is not excretion, which removes waste products of metabolism.
+      - id: mixo
+        title: Mixotroph - Euglena
+        caption: The protist Euglena has chloroplasts and photosynthesizes in light, but in the dark it takes in organic compounds and lives heterotrophically. Because it can grow by either mode alone, it is a facultative mixotroph. Obligate mixotrophs, common in oceanic plankton, need both modes to grow.
+      - id: sapro
+        title: Saprotrophs
+        caption: Fungi and many bacteria feed on dead organic matter. They secrete digestive enzymes into it, digest it outside their cells and absorb the small soluble products. These decomposers release carbon dioxide and mineral nutrients back into the ecosystem.
+      - id: archaea
+        title: Archaea - many energy sources
+        caption: Archaea, one of the three domains of life, obtain energy for ATP production in many ways - by oxidizing inorganic chemicals (such as hydrogen, hydrogen sulfide, Fe²⁺ or ammonia), by oxidizing carbon compounds from other organisms, or by absorbing light with pigments that are not chlorophyll.
+
+  - id: dentition
+    kind: sim
+    module: b4-2-dentition
+    title: Skulls, teeth and diet in the Hominidae
+    alt: Schematic skulls of a gorilla, Paranthropus robustus, Homo floresiensis and Homo sapiens with features to highlight and a diet to infer.
+    description: >-
+      Four schematic side views of skulls, face to the left: a living gorilla, Paranthropus robustus, Homo floresiensis
+      and a modern human, drawn the same size. Buttons highlight one feature at a time - the molars and premolars,
+      the incisors and canines, the chewing muscles with the sagittal crest and cheekbones, or the jaw and face - and
+      describe it for each skull. The gorilla has large shearing molars, very large canines used in display, and a
+      sagittal crest. Paranthropus robustus has very large, flat, thick-enamelled molars and premolars, small front
+      teeth, a sagittal crest and a deep jaw, suggesting a herbivorous diet of tough or hard plant food. Homo
+      floresiensis and Homo sapiens have small, unspecialized teeth and no crest, consistent with an omnivorous diet.
+      For each skull you choose a diet and then read the evidence, including its limitations.
+
+  - id: barnacles
+    kind: sim
+    module: b4-2-barnacles
+    title: Fundamental and realized niches - Connell's barnacles
+    alt: A rocky shore showing where two barnacle species live, with bars comparing each species' fundamental and realized niche.
+    description: >-
+      A rocky shore from the high-tide mark to the low-tide mark, with two barnacle species. On the natural shore
+      Chthamalus is found only on the upper shore and Semibalanus on the middle and lower shore. Bars compare each
+      species' fundamental niche (dashed outline) with its realized niche (filled). Removing Semibalanus lets
+      Chthamalus spread down into the lower zone, showing that competition had restricted its realized niche.
+      Removing Chthamalus does not let Semibalanus spread upwards, because it cannot tolerate drying out on the
+      upper shore.
+
+  - id: competition
+    kind: sim
+    module: b4-2-competition
+    title: Competitive exclusion - a two-species model
+    alt: Graph of two competing populations over time, with sliders for growth rate, carrying capacity and competition coefficients.
+    description: >-
+      A line graph of population size against time for two species, A and B, grown together, with dotted lines for
+      each species grown alone. Each species has sliders for its growth rate, its carrying capacity when alone, its
+      starting number and a competition coefficient for the effect of the other species on it. Example settings
+      reproduce the outcomes of Gause's Paramecium experiments - P. aurelia excluding P. caudatum, and P. caudatum
+      coexisting with P. bursaria. When interspecific competition is weaker than intraspecific competition both
+      species coexist at lower numbers than alone; when one species competes strongly with the other, the weaker
+      competitor declines towards zero whatever its growth rate. The model is the Lotka-Volterra competition model
+      and the units are arbitrary.

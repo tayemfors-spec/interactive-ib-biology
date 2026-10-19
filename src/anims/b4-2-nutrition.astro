@@ -1,0 +1,194 @@
+---
+/**
+ * Modes of nutrition (B4.2.3–B4.2.7). Eight panels, one per step; the driver (b4-2-nutrition.ts) shows one
+ * panel at a time and moves the particles in it. Drawn in the step-1 start state.
+ */
+const rays = [0, 45, 90, 135, 180, 225, 270, 315];
+const chloro = [[222, 140], [296, 128], [262, 196], [330, 186]];
+const villi = Array.from({ length: 12 }, (_, i) => 236 + i * 14);
+---
+<svg viewBox="0 0 520 340" xmlns="http://www.w3.org/2000/svg" class="nut">
+  <defs><marker id="nut-ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker></defs>
+  <!-- 1 photoautotroph -->
+  <g data-el="p0">
+    <text class="h" x="16" y="26">Autotroph: photosynthesis</text>
+    <g transform="translate(66 86)">
+      <circle class="sun" r="24" />
+      {rays.map((a) => <line class="ray" x1="30" y1="0" x2="40" y2="0" transform={`rotate(${a})`} />)}
+    </g>
+    <text class="s" x="66" y="138" text-anchor="middle">light</text>
+    <rect class="cell plant" x="170" y="90" width="200" height="150" rx="36" />
+    {chloro.map(([x, y]) => <ellipse class="chl" cx={x} cy={y} rx="22" ry="11" />)}
+    <text class="s" x="270" y="258" text-anchor="middle">plant, algal or cyanobacterial cell</text>
+    {[1, 2, 3].map((n) => <circle data-el={`ph${n}`} class="photon" r="5" transform="translate(96 96)" />)}
+    {[1, 2, 3].map((n) => <g data-el={`c${n}`} class="mol" transform="translate(40 230)"><circle class="co2" r="11" /><text dy="0.35em" text-anchor="middle">CO₂</text></g>)}
+    {[1, 2].map((n) => <g data-el={`w${n}`} class="mol" transform="translate(120 300)"><circle class="h2o" r="11" /><text dy="0.35em" text-anchor="middle">H₂O</text></g>)}
+    <g data-el="sugar" style="opacity:0" transform="translate(436 150)"><path class="sug" d="M-16 0 L-8 -14 L8 -14 L16 0 L8 14 L-8 14 Z" /><text dy="0.35em" text-anchor="middle" class="st">C₆</text></g>
+    <text data-el="sugarLab" class="s" x="436" y="188" text-anchor="middle" style="opacity:0">sugars, then other</text>
+    <text data-el="sugarLab2" class="s" x="436" y="204" text-anchor="middle" style="opacity:0">organic compounds</text>
+    {[1, 2].map((n) => <g data-el={`o${n}`} class="mol" style="opacity:0" transform="translate(360 100)"><circle class="o2" r="10" /><text dy="0.35em" text-anchor="middle">O₂</text></g>)}
+    <text class="foot" x="16" y="310">Light energy is used to fix inorganic carbon (CO₂) into carbon compounds.</text>
+    <text class="foot" x="16" y="328">Autotrophs make their own food from inorganic substances.</text>
+  </g>
+
+  <!-- 2 chemoautotroph -->
+  <g data-el="p1" style="opacity:0">
+    <text class="h" x="16" y="26">Autotroph: chemosynthesis</text>
+    <text class="s" x="16" y="48">No light needed (some bacteria and archaea)</text>
+    <rect class="cell prok" x="186" y="112" width="170" height="104" rx="52" />
+    <text class="s" x="271" y="238" text-anchor="middle">prokaryotic cell</text>
+    {[1, 2, 3].map((n) => <g data-el={`fe${n}`} class="mol" transform="translate(40 120)"><circle class="fe" r="13" /><text data-el={`fet${n}`} dy="0.35em" text-anchor="middle">Fe²⁺</text></g>)}
+    <text class="s" x="40" y="94" text-anchor="middle">Fe²⁺ in</text>
+    <text class="s" x="476" y="54" text-anchor="middle">Fe³⁺ out</text>
+    <g data-el="energy" style="opacity:0"><path class="bolt" d="M262 140 L252 166 L266 166 L256 192 L282 158 L268 158 L278 140 Z" /></g>
+    {[1, 2].map((n) => <g data-el={`k${n}`} class="mol" transform="translate(70 270)"><circle class="co2" r="11" /><text dy="0.35em" text-anchor="middle">CO₂</text></g>)}
+    <g data-el="org" style="opacity:0" transform="translate(440 190)"><path class="sug" d="M-16 0 L-8 -14 L8 -14 L16 0 L8 14 L-8 14 Z" /><text dy="0.35em" text-anchor="middle" class="st">C₆</text></g>
+    <text data-el="orgLab" class="s" x="440" y="228" text-anchor="middle" style="opacity:0">organic compounds</text>
+    <text class="foot" x="16" y="310">Energy released by oxidizing inorganic chemicals (e.g. Fe²⁺ → Fe³⁺)</text>
+    <text class="foot" x="16" y="328">is used to fix CO₂ into carbon compounds.</text>
+  </g>
+
+  <!-- 3–5 holozoic nutrition -->
+  <g data-el="gut" style="opacity:0">
+    <text class="h" x="16" y="26">Heterotroph: holozoic nutrition (animals)</text>
+    <path class="gutwall" d="M70 116 L470 116 M70 176 L470 176" />
+    <path class="gutin" d="M70 120 L470 120 L470 172 L70 172 Z" />
+    {villi.map((x) => <path class="villus" d={`M${x} 172 q5 -12 10 0`} />)}
+    <rect class="blood" x="226" y="214" width="180" height="20" rx="10" />
+    <text class="s" x="316" y="250" text-anchor="middle">blood</text>
+    <rect class="body" x="404" y="258" width="104" height="58" rx="10" />
+    <text class="s" x="456" y="332" text-anchor="middle">body cell</text>
+    <path class="flow" d="M14 146 L52 146" />
+    <text class="s" x="22" y="134">food</text>
+    <path class="flow" d="M300 182 L300 208 M410 224 L430 254" />
+    <text class="s" x="70" y="104" text-anchor="middle">mouth</text>
+    <text class="s" x="470" y="104" text-anchor="middle">anus</text>
+    <text data-el="L1" class="stage" x="100" y="200">1 ingestion</text>
+    <text data-el="L2" class="stage" x="150" y="76">2 digestion</text>
+    <text data-el="L3" class="stage" x="272" y="76">3 absorption</text>
+    <text data-el="L4" class="stage" x="300" y="286">4 assimilation</text>
+    <text data-el="L5" class="stage" x="400" y="76">5 egestion</text>
+    <g data-el="food" transform="translate(24 146)"><path class="food" d="M-18 -10 C-10 -20 12 -18 18 -6 C24 6 10 18 -4 16 C-18 14 -26 0 -18 -10 Z" /></g>
+    {[1, 2, 3, 4, 5].map((n) => <circle data-el={`m${n}`} class="small" r="5" style="opacity:0" />)}
+    <path data-el="fibre" class="fibre" d="M-12 0 q6 -8 12 0 t12 0" style="opacity:0" />
+    <path data-el="chain" class="chain" d="M420 288 L436 280 L452 288 L468 280 L484 288" style="opacity:0" />
+  </g>
+
+  <!-- 6 mixotroph -->
+  <g data-el="p5" style="opacity:0">
+    <text class="h" x="16" y="26">Mixotroph: <tspan font-style="italic">Euglena</tspan> (facultative)</text>
+    <rect class="lightbg" x="10" y="44" width="246" height="246" rx="12" />
+    <g data-el="dark"><rect class="darkbg" x="264" y="44" width="246" height="246" rx="12" /></g>
+    <g transform="translate(46 84)"><circle class="sun" r="16" />{rays.map((a) => <line class="ray" x1="20" y1="0" x2="27" y2="0" transform={`rotate(${a})`} />)}</g>
+    <text class="s" x="133" y="72" text-anchor="middle">In light</text>
+    <text class="s light-t" x="387" y="72" text-anchor="middle">In the dark</text>
+    {[0, 1].map((side) => (
+      <g transform={`translate(${side ? 387 : 133} 168)`}>
+        <path class="eug" d="M-70 0 C-60 -22 -10 -26 30 -16 C52 -10 66 -4 74 0 C66 4 52 10 30 16 C-10 26 -60 22 -70 0 Z" />
+        <path class="flag" d="M-70 0 C-90 -10 -100 10 -116 -2" />
+        <circle class="eye" cx="-54" cy="-6" r="4.5" />
+        {[[-26, -6], [-2, 6], [22, -4], [6, -12], [-16, 10]].map(([x, y]) => <ellipse class={`chl ${side ? 'idle' : ''}`} cx={x} cy={y} rx="8" ry="4" />)}
+      </g>
+    ))}
+    {[1, 2, 3].map((n) => <g data-el={`e${n}`} class="mol" transform="translate(40 250)"><circle class="co2" r="8.5" /><text dy="0.35em" text-anchor="middle" class="tiny">CO₂</text></g>)}
+    {[1, 2, 3, 4].map((n) => <circle data-el={`d${n}`} class="small org" r="5" transform="translate(300 250)" />)}
+    <text class="s" x="133" y="232" text-anchor="middle">photosynthesis in chloroplasts</text>
+    <text class="s light-t" data-el="darkLab" x="387" y="232" text-anchor="middle">takes in organic compounds</text>
+    <text class="foot" x="16" y="314">Can feed autotrophically, heterotrophically, or both, so it is a facultative mixotroph.</text>
+    <text class="foot" x="16" y="332">Obligate mixotrophs need both modes to grow.</text>
+  </g>
+
+  <!-- 7 saprotroph -->
+  <g data-el="p6" style="opacity:0">
+    <text class="h" x="16" y="26">Heterotroph: saprotrophic nutrition</text>
+    <path class="leaf" d="M40 270 C120 196 360 192 496 236 C420 304 160 320 40 270 Z" />
+    <text class="s" x="430" y="292" text-anchor="middle">dead organic matter</text>
+    <path class="hypha-wall" d="M24 232 L330 232 C352 232 352 264 330 264 L24 264" />
+    <path class="hypha" d="M24 236 L328 236 C344 236 344 260 328 260 L24 260 Z" />
+    <text class="s" x="24" y="192">fungal hypha: cell wall outside the plasma membrane</text>
+    {[1, 2, 3, 4].map((n) => <path data-el={`z${n}`} class="enz" d="M-6 -5 L6 -5 L6 5 L0 1 L-6 5 Z" transform="translate(336 248)" />)}
+    {[1, 2, 3, 4, 5].map((n) => <circle data-el={`q${n}`} class="small" r="4.5" style="opacity:0" />)}
+    <text data-el="enzLab" class="s" x="380" y="170" style="opacity:0">enzymes secreted</text>
+    <text data-el="absLab" class="s" x="96" y="290" style="opacity:0">small soluble products absorbed</text>
+    <text class="foot" x="16" y="326">Digestion happens outside the organism; fungi and many bacteria feed this way.</text>
+  </g>
+
+  <!-- 8 archaea -->
+  <g data-el="p7" style="opacity:0">
+    <text class="h" x="16" y="26">Archaea: many energy sources for ATP</text>
+    <rect class="cell arch" x="196" y="138" width="128" height="76" rx="38" />
+    <text class="s" x="260" y="232" text-anchor="middle">archaeal cell</text>
+    <g data-el="atp" style="opacity:0"><rect class="atp" x="236" y="164" width="48" height="24" rx="12" /><text class="at" x="260" y="180" text-anchor="middle">ATP</text></g>
+    <g data-el="src1" style="opacity:0">
+      <rect class="src" x="8" y="146" width="160" height="58" rx="8" />
+      <text class="sb" x="18" y="168">Light</text><text class="s" x="18" y="188">pigment, not chlorophyll</text>
+      <path class="arr" d="M170 176 L192 176" />
+    </g>
+    <g data-el="src2" style="opacity:0">
+      <rect class="src" x="150" y="44" width="220" height="58" rx="8" />
+      <text class="sb" x="160" y="66">Inorganic chemicals</text><text class="s" x="160" y="86">e.g. H₂, H₂S, Fe²⁺, NH₃ oxidized</text>
+      <path class="arr" d="M260 104 L260 134" />
+    </g>
+    <g data-el="src3" style="opacity:0">
+      <rect class="src" x="368" y="146" width="140" height="58" rx="8" />
+      <text class="sb" x="378" y="168">Carbon</text><text class="s" x="378" y="188">compounds oxidized</text>
+      <path class="arr" d="M366 176 L328 176" />
+    </g>
+    <text class="s" x="260" y="270" text-anchor="middle">hot springs · salt lakes · deep-sea vents · soils · oceans · animal guts</text>
+    <text class="foot" x="16" y="310">One of the three domains (Archaea, Bacteria, Eukarya). No archaea are</text>
+    <text class="foot" x="16" y="328">known to photosynthesize with chlorophyll.</text>
+  </g>
+</svg>
+<style>
+  .nut { font-family: var(--font-sans); }
+  .h { font-size: 17px; font-weight: 800; fill: var(--text); }
+  .s { font-size: 13px; fill: var(--text); }
+  .sb { font-size: 14px; font-weight: 750; fill: var(--text); }
+  .foot { font-size: 13px; fill: var(--text-muted); font-style: italic; }
+  .sun { fill: var(--bio-glucose); }
+  .ray { stroke: var(--bio-glucose); stroke-width: 3; stroke-linecap: round; }
+  .photon { fill: var(--bio-glucose); stroke: var(--text); stroke-width: 0.8; }
+  .cell { stroke-width: 2.5; }
+  .cell.plant { fill: color-mix(in srgb, var(--bio-carb) 14%, var(--surface)); stroke: var(--bio-carb); }
+  .cell.prok { fill: color-mix(in srgb, var(--bio-protein) 12%, var(--surface)); stroke: var(--bio-protein); }
+  .cell.arch { fill: color-mix(in srgb, var(--bio-protein-2) 14%, var(--surface)); stroke: var(--bio-protein-2); }
+  .chl { fill: var(--bio-carb); stroke: color-mix(in srgb, var(--bio-carb) 60%, black); stroke-width: 1; }
+  .chl.idle { opacity: 0.55; }
+  .mol text { font-size: 10px; font-weight: 800; fill: var(--text); }
+  .mol text.tiny { font-size: 9px; }
+  .co2 { fill: color-mix(in srgb, var(--text-muted) 30%, var(--surface)); stroke: var(--text); stroke-width: 1; }
+  .o2 { fill: color-mix(in srgb, var(--bio-water) 35%, var(--surface)); stroke: var(--bio-water); stroke-width: 1.2; }
+  .fe { fill: color-mix(in srgb, var(--bio-head) 40%, var(--surface)); stroke: var(--bio-head); stroke-width: 1.2; }
+  .sug { fill: var(--bio-glucose); stroke: var(--text); stroke-width: 1.2; }
+  .st { font-size: 11px; font-weight: 800; fill: #000; }
+  .bolt { fill: var(--bio-glucose); stroke: var(--text); stroke-width: 1; }
+  .gutwall { stroke: var(--bio-k); stroke-width: 6; fill: none; stroke-linecap: round; }
+  .gutin { fill: color-mix(in srgb, var(--bio-k) 10%, var(--surface)); }
+  .villus { fill: none; stroke: var(--bio-k); stroke-width: 2; }
+  .blood { fill: color-mix(in srgb, var(--bio-k) 45%, var(--surface)); stroke: var(--bio-k); stroke-width: 1.5; }
+  .body { fill: color-mix(in srgb, var(--bio-carb) 14%, var(--surface)); stroke: var(--bio-carb); stroke-width: 2; }
+  .stage { font-size: 14px; font-weight: 800; fill: var(--text-muted); }
+  .stage.on { fill: var(--accent-strong); }
+  .food { fill: var(--bio-head); stroke: var(--text); stroke-width: 1.2; }
+  .small { fill: var(--bio-protein); stroke: var(--text); stroke-width: 0.8; }
+  .small.org { fill: var(--bio-head); }
+  .fibre { fill: none; stroke: color-mix(in srgb, var(--bio-head) 50%, var(--text)); stroke-width: 4; stroke-linecap: round; }
+  .chain { fill: none; stroke: var(--bio-protein); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+  .lightbg { fill: color-mix(in srgb, var(--bio-glucose) 14%, var(--surface)); }
+  .darkbg { fill: color-mix(in srgb, var(--text) 78%, var(--surface)); }
+  .light-t { fill: var(--surface); }
+  .eug { fill: color-mix(in srgb, var(--bio-carb) 22%, var(--surface)); stroke: var(--bio-carb); stroke-width: 2; }
+  .flag { fill: none; stroke: var(--bio-carb); stroke-width: 2; }
+  .eye { fill: var(--bio-k); }
+  .leaf { fill: color-mix(in srgb, var(--bio-head) 30%, var(--surface)); stroke: color-mix(in srgb, var(--bio-head) 60%, var(--text)); stroke-width: 2; }
+  .hypha-wall { fill: none; stroke: var(--text); stroke-width: 2.5; }
+  .hypha { fill: color-mix(in srgb, var(--surface) 75%, var(--bio-tail)); stroke: var(--bio-protein-2); stroke-width: 1.2; }
+  .enz { fill: var(--bio-protein-2); stroke: var(--text); stroke-width: 0.8; }
+  .src { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.4; }
+  .arr { stroke: var(--text); stroke-width: 2.5; fill: none; marker-end: url(#nut-ar); }
+  .ah { fill: var(--text); }
+  .h2o { fill: color-mix(in srgb, var(--bio-water) 30%, var(--surface)); stroke: var(--bio-water); stroke-width: 1.2; }
+  .flow { stroke: var(--text-muted); stroke-width: 2; fill: none; marker-end: url(#nut-ar); stroke-dasharray: 4 3; }
+  .atp { fill: var(--bio-head); }
+  .at { font-size: 13px; font-weight: 800; fill: #fff; }
+</style>

@@ -1,0 +1,91 @@
+---
+/** Herbivore feeding adaptations and plant defences (B4.2.9). Schematic, not to scale. */
+---
+<svg viewBox="0 0 640 430" role="img" aria-labelledby="hb-t hb-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="hb-t">Insect mouthparts for feeding on plants, and plant defences against herbivores</title>
+  <desc id="hb-d">Left panel, herbivore adaptations. A leaf beetle or caterpillar has chewing mouthparts: a pair of hard, toothed mandibles that bite off and chew pieces of leaf, leaving notches in the leaf edge. An aphid has piercing and sucking mouthparts: a long, thin stylet pushed through the leaf or stem tissue into a phloem sieve tube, so it can feed on phloem sap. Right panel, plant defences. Physical defences include thorns and spines on stems and stinging hairs on leaves, such as those of nettles. Chemical defences are toxic secondary compounds, such as alkaloids and cyanogenic glycosides, stored in leaves and especially in seeds. Some herbivores have metabolic adaptations to detoxify these compounds, for example koalas, whose liver enzymes break down compounds in eucalyptus leaves.</desc>
+  <rect class="panel h" x="6" y="6" width="310" height="418" rx="12" />
+  <rect class="panel p" x="324" y="6" width="310" height="418" rx="12" />
+  <text class="hd" x="20" y="32">Herbivore adaptations</text>
+  <text class="hd" x="338" y="32">Plant defences</text>
+
+  <!-- chewing -->
+  <text class="sub" x="20" y="58">Chewing mouthparts (beetles, caterpillars)</text>
+  <path class="leaf" d="M20 180 C40 110 140 86 220 92 C210 100 204 112 212 120 C202 126 198 138 206 146 C190 160 120 196 20 180 Z" />
+  <path class="vein" d="M24 176 C80 150 150 120 210 100" />
+  <g transform="translate(262 120)">
+    <ellipse class="ins" cx="18" cy="0" rx="26" ry="20" />
+    <path class="mand" d="M-6 -12 C-26 -16 -38 -6 -40 2 L-34 -2 L-30 2 L-24 -4 C-16 -8 -10 -6 -6 -4 Z" />
+    <path class="mand" d="M-6 12 C-26 16 -38 6 -40 -2 L-34 2 L-30 -2 L-24 4 C-16 8 -10 6 -6 4 Z" />
+    <circle class="eye" cx="10" cy="-10" r="4" />
+  </g>
+  <text class="lb" x="244" y="160">toothed mandibles</text>
+  <text class="lb" x="244" y="176">bite and chew leaf</text>
+  <text class="lb" x="120" y="204" text-anchor="middle">notches bitten from the leaf edge</text>
+
+  <!-- piercing -->
+  <text class="sub" x="20" y="240">Piercing and sucking mouthparts (aphids)</text>
+  <rect class="stem" x="20" y="300" width="190" height="96" rx="8" />
+  <rect class="phloem" x="34" y="352" width="162" height="22" rx="6" />
+  <text class="lb in" x="115" y="367" text-anchor="middle">phloem sieve tube</text>
+  <text class="lb" x="30" y="322">stem or leaf tissue</text>
+  <g transform="translate(256 292)">
+    <ellipse class="ins" cx="10" cy="0" rx="34" ry="20" />
+    <path class="leg" d="M-4 16 l-10 18 M14 18 l0 20 M30 14 l10 18" />
+    <circle class="eye" cx="-16" cy="-6" r="3.5" />
+  </g>
+  <path class="stylet" d="M228 294 L118 360" />
+  <text class="lb" x="216" y="352">thin stylet</text>
+  <text class="lb" x="216" y="368">pierces tissue</text>
+  <text class="lb" x="216" y="384">to reach</text>
+  <text class="lb" x="216" y="400">phloem sap</text>
+
+  <!-- physical defences -->
+  <text class="sub" x="338" y="58">Physical: thorns, spines, stinging hairs</text>
+  <path class="pstem" d="M390 210 C392 160 388 120 392 70" />
+  <path class="thorn" d="M391 170 L366 158 L390 162 Z M391 130 L416 118 L392 122 Z M390 96 L368 86 L390 90 Z" />
+  <text class="lb" x="424" y="134">sharp thorns</text>
+  <text class="lb" x="424" y="150">and spines</text>
+  <path class="nleaf" d="M504 196 C504 152 544 98 614 92 C616 146 580 192 504 196 Z" />
+  {[[532, 170], [550, 152], [570, 136], [590, 118], [560, 176], [584, 160], [604, 134]].map(([x, y]) => <path class="hair" d={`M${x} ${y} l${-8} ${-14}`} />)}
+  <text class="lb" x="476" y="218">stinging hairs (nettle)</text>
+  <text class="lb" x="476" y="234">inject irritant chemicals</text>
+
+  <!-- chemical defences -->
+  <text class="sub" x="338" y="270">Chemical: toxic secondary compounds</text>
+  <ellipse class="seed" cx="372" cy="318" rx="24" ry="16" />
+  <ellipse class="seed" cx="414" cy="330" rx="20" ry="14" />
+  <g class="tox"><circle cx="372" cy="318" r="5" /><circle cx="414" cy="330" r="5" /><circle cx="384" cy="312" r="3.5" /></g>
+  <text class="lb" x="448" y="308">stored in leaves and</text>
+  <text class="lb" x="448" y="324">especially seeds, e.g.</text>
+  <text class="lb" x="448" y="340">alkaloids, cyanogenic</text>
+  <text class="lb" x="448" y="356">glycosides</text>
+  <rect class="note" x="338" y="372" width="282" height="42" rx="8" />
+  <text class="lb" x="348" y="390">Counter-adaptation: some herbivores detoxify</text>
+  <text class="lb" x="348" y="406">them, e.g. koalas eating eucalyptus leaves</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .panel { stroke-width: 1.5; }
+  .panel.h { fill: color-mix(in srgb, var(--bio-head) 8%, var(--surface)); stroke: var(--bio-head); }
+  .panel.p { fill: color-mix(in srgb, var(--bio-carb) 8%, var(--surface)); stroke: var(--bio-carb); }
+  .hd { font-size: 17px; font-weight: 800; fill: var(--text); }
+  .sub { font-size: 13px; font-weight: 750; fill: var(--text); }
+  .lb { font-size: 13px; fill: var(--text); }
+  .lb.in { font-weight: 700; }
+  .leaf, .nleaf { fill: color-mix(in srgb, var(--bio-carb) 40%, var(--surface)); stroke: var(--bio-carb); stroke-width: 1.5; }
+  .vein { fill: none; stroke: var(--bio-carb); stroke-width: 1.5; }
+  .ins { fill: color-mix(in srgb, var(--text-muted) 45%, var(--surface)); stroke: var(--text); stroke-width: 1.4; }
+  .mand { fill: var(--bio-head); stroke: var(--text); stroke-width: 1.2; }
+  .eye { fill: var(--text); }
+  .leg { stroke: var(--text); stroke-width: 2; fill: none; stroke-linecap: round; }
+  .stem { fill: color-mix(in srgb, var(--bio-carb) 25%, var(--surface)); stroke: var(--bio-carb); stroke-width: 1.5; }
+  .phloem { fill: color-mix(in srgb, var(--bio-glucose) 35%, var(--surface)); stroke: var(--bio-glucose); stroke-width: 1.5; }
+  .stylet { stroke: var(--text); stroke-width: 2.5; stroke-linecap: round; }
+  .pstem { fill: none; stroke: color-mix(in srgb, var(--bio-carb) 60%, var(--text)); stroke-width: 7; stroke-linecap: round; }
+  .thorn { fill: color-mix(in srgb, var(--bio-head) 50%, var(--text)); }
+  .hair { stroke: var(--text); stroke-width: 1.4; stroke-linecap: round; }
+  .seed { fill: color-mix(in srgb, var(--bio-head) 35%, var(--surface)); stroke: var(--text); stroke-width: 1.3; }
+  .tox circle { fill: var(--bio-k); }
+  .note { fill: var(--surface); stroke: var(--border-strong); }
+</style>
