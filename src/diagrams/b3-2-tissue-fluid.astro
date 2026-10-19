@@ -1,0 +1,73 @@
+---
+/**
+ * Tissue fluid formation and reabsorption in a capillary bed, and drainage into a lymph vessel
+ * (B3.2.11–B3.2.13). Blood flows left to right from an arteriole to a venule.
+ */
+const cellsTop: [number, number][] = [[170, 92], [250, 82], [330, 96], [410, 84], [490, 94], [570, 86]];
+const cellsBot: [number, number][] = [[190, 286], [290, 292], [390, 284], [490, 290]];
+const outX = [180, 240, 300];
+const inX = [430, 490, 550];
+const proteins: [number, number][] = [[150, 186], [190, 196], [230, 184], [270, 194], [480, 186], [520, 196], [560, 184], [600, 194]];
+---
+<svg viewBox="0 0 720 420" role="img" aria-labelledby="tf-t tf-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="tf-t">Formation of tissue fluid and its drainage</title>
+  <desc id="tf-d">A capillary runs from an arteriole on the left to a venule on the right between tissue cells. Near the arteriole end, where blood pressure is high, fluid is forced out through the capillary wall as tissue fluid; plasma proteins stay in the blood. Tissue fluid bathes the cells, which take up oxygen and glucose and release carbon dioxide and urea. Near the venule end, where pressure is lower, most of the fluid drains back into the capillary. The excess enters a blind-ended lymph vessel with gaps in its thin wall and valves, and is returned to the blood.</desc>
+  <!-- tissue cells and the fluid around them -->
+  <rect class="tfluid" x="110" y="52" width="520" height="272" rx="16" />
+  {[...cellsTop, ...cellsBot].map(([x, y]) => <g><ellipse class="cell" cx={x} cy={y} rx="34" ry="24" /><circle class="nuc" cx={x + 4} cy={y} r="7" /></g>)}
+  <!-- arteriole, capillary, venule -->
+  <rect class="art" x="8" y="166" width="120" height="44" rx="6" />
+  <rect class="ven" x="612" y="164" width="100" height="48" rx="6" />
+  <rect class="cap" x="120" y="172" width="500" height="32" />
+  <path class="capwall" d="M120 172 H620 M120 204 H620" />
+  {proteins.map(([x, y]) => <circle class="prot" cx={x} cy={y} r="4" />)}
+  <g class="flowb"><path d="M24 188 H100" /><polygon points="110,188 98,182 98,194" /><path d="M630 188 H690" /><polygon points="700,188 688,182 688,194" /></g>
+  <!-- filtration out, reabsorption in -->
+  {outX.map((x) => <g class="out"><path d={`M${x} 166 V138`} /><polygon points={`${x},128 ${x - 6},140 ${x + 6},140`} /><path d={`M${x} 210 V238`} /><polygon points={`${x},248 ${x - 6},236 ${x + 6},236`} /></g>)}
+  {inX.map((x) => <g class="in"><path d={`M${x} 130 V158`} /><polygon points={`${x},168 ${x - 6},156 ${x + 6},156`} /><path d={`M${x} 246 V218`} /><polygon points={`${x},208 ${x - 6},220 ${x + 6},220`} /></g>)}
+  <text class="t" x="14" y="158">arteriole</text>
+  <text class="t" x="640" y="156">venule</text>
+  <text class="note" x="240" y="30" text-anchor="middle">high blood pressure:</text>
+  <text class="note" x="240" y="46" text-anchor="middle">plasma forced out (pressure filtration)</text>
+  <text class="note" x="490" y="30" text-anchor="middle">lower pressure:</text>
+  <text class="note" x="490" y="46" text-anchor="middle">tissue fluid drains back in</text>
+  <!-- exchange with one cell -->
+  <text class="s" x="375" y="193" text-anchor="middle">plasma proteins stay in the blood</text>
+  <text class="s" x="120" y="342">tissue fluid bathes the cells: they take in O₂ and glucose, release CO₂ and urea</text>
+  <!-- lymph vessel: blind-ended, thin wall with gaps, valves -->
+  <path class="lymph" d="M260 360 H700 V392 H260 Q240 392 240 376 Q240 360 260 360 Z" />
+  <path class="lymphw" d="M700 360 H260 Q240 360 240 376 Q240 392 260 392 H700" />
+  {[300, 380, 460, 540].map((x) => <path class="gap" d={`M${x} 356 v8`} />)}
+  <path class="valve" d="M612 361 L632 376 L612 391" />
+  {[300, 460].map((x) => <g class="drain"><path d={`M${x} 312 V326 M${x} 346 V350`} /><polygon points={`${x},360 ${x - 6},348 ${x + 6},348`} /></g>)}
+  <g class="flowl"><path d="M646 376 H684" /><polygon points="696,376 684,370 684,382" /></g>
+  <text class="t" x="20" y="372">lymph vessel</text>
+  <text class="s" x="20" y="390">blind end, thin wall</text>
+  <text class="s" x="20" y="406">with gaps; valves</text>
+  <text class="s" x="712" y="414" text-anchor="end">lymph is returned to the blood in veins near the heart</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .tfluid { fill: color-mix(in srgb, var(--bio-water) 9%, var(--surface)); stroke: var(--border); stroke-dasharray: 5 4; }
+  .cell { fill: color-mix(in srgb, var(--bio-tail) 30%, var(--surface)); stroke: color-mix(in srgb, var(--bio-tail) 60%, black); }
+  .nuc { fill: var(--bio-protein-2); }
+  .art { fill: color-mix(in srgb, var(--bio-k) 55%, var(--surface)); stroke: color-mix(in srgb, var(--bio-k) 60%, black); }
+  .ven { fill: color-mix(in srgb, var(--bio-protein) 50%, var(--surface)); stroke: color-mix(in srgb, var(--bio-protein) 60%, black); }
+  .cap { fill: color-mix(in srgb, var(--bio-k) 30%, var(--surface)); }
+  .capwall { stroke: color-mix(in srgb, var(--bio-head) 70%, black); stroke-width: 3; stroke-dasharray: 22 4; }
+  .prot { fill: var(--text); }
+  .flowb path, .flowl path { stroke: var(--text); stroke-width: 3; }
+  .flowb polygon, .flowl polygon { fill: var(--text); }
+  .out path, .in path, .drain path { stroke-width: 3; fill: none; }
+  .out path { stroke: var(--bio-water); } .out polygon { fill: var(--bio-water); }
+  .in path { stroke: var(--bio-carb); } .in polygon { fill: var(--bio-carb); }
+  .drain path { stroke: var(--bio-protein-2); } .drain polygon { fill: var(--bio-protein-2); }
+  .ex path { stroke: var(--text); stroke-width: 1.4; }
+  .lymph { fill: color-mix(in srgb, var(--bio-protein-2) 14%, var(--surface)); stroke: none; }
+  .lymphw { fill: none; stroke: var(--bio-protein-2); stroke-width: 2.5; }
+  .gap { stroke: color-mix(in srgb, var(--bio-protein-2) 14%, var(--surface)); stroke-width: 7; }
+  .valve { fill: none; stroke: var(--bio-protein-2); stroke-width: 2.5; }
+  .t { font-size: 14.5px; font-weight: 750; fill: var(--text); }
+  .s { font-size: 13px; fill: var(--text); }
+  .note { font-size: 13.5px; font-weight: 700; fill: var(--accent-strong); }
+</style>

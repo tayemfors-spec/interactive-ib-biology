@@ -1,0 +1,145 @@
+---
+import { PEOPLE, multiplier } from './models/b3-2-pulse';
+/** Pulse-rate practice (B3.2.4): count simulated radial pulses for 15, 30 or 60 s and compare with a digital reading. */
+---
+<div class="sim-pulse" data-sim-pulse data-people={JSON.stringify(PEOPLE)}>
+  <div class="layout">
+    <div class="wrist">
+      <svg viewBox="0 0 300 190" role="img" aria-labelledby="pu-t pu-d">
+        <title id="pu-t">Fingertips on the radial pulse at the wrist</title>
+        <desc id="pu-d">An outline of a wrist with two fingertips resting on the thumb side, over the radial artery. The artery glows each time a pulse of blood passes.</desc>
+        <path class="arm" d="M0 70 C80 60 200 60 300 64 L300 150 C200 154 80 152 0 146 Z" />
+        <path class="thumb" d="M300 64 C276 40 250 24 232 30" />
+        <path class="artery" data-artery d="M10 82 C90 78 200 76 300 78" />
+        <path class="finger" d="M150 6 C150 40 156 62 172 76 C184 82 198 76 196 62 C192 40 188 20 186 6 Z" />
+        <path class="finger" d="M196 4 C198 40 204 62 220 74 C232 80 244 72 242 60 C238 40 234 20 232 4 Z" />
+        <text class="lbl" x="10" y="176">wrist (palm up): radial artery on the thumb side</text>
+      </svg>
+      <p class="beat" data-beat aria-hidden="true">pulse</p>
+    </div>
+    <div class="controls">
+      <fieldset class="periods">
+        <legend>Count for</legend>
+        <label><input type="radio" name="pu-period" value="15" checked data-period /> 15 s (× 4)</label>
+        <label><input type="radio" name="pu-period" value="30" data-period /> 30 s (× 2)</label>
+        <label><input type="radio" name="pu-period" value="60" data-period /> 60 s (× 1)</label>
+      </fieldset>
+      <div class="buttons">
+        <button class="btn btn-primary" type="button" data-start>Start counting</button>
+        <button class="btn tap" type="button" data-tap disabled>Tap for each beat</button>
+      </div>
+      <p class="timer" data-timer aria-live="off">Time left: — · Beats counted: 0</p>
+      <div class="buttons">
+        <button class="btn" type="button" data-digital>Show digital reading</button>
+        <button class="btn" type="button" data-person>New person</button>
+      </div>
+      <p class="digital" data-digital-out>Pulse oximeter: — bpm</p>
+    </div>
+  </div>
+  <p class="readout" aria-live="polite" data-readout>
+    Choose a counting time, press Start, then tap once for every pulse you see. Your count × {multiplier(15)} gives beats per minute for a 15 s count.
+  </p>
+  <details class="table">
+    <summary>Show results table</summary>
+    <table>
+      <thead><tr><th scope="col">Count time</th><th scope="col">Beats</th><th scope="col">× </th><th scope="col">Heart rate (bpm)</th><th scope="col">Digital (bpm)</th></tr></thead>
+      <tbody data-tbody><tr><td colspan="5">No counts yet.</td></tr></tbody>
+    </table>
+  </details>
+  <p class="model-note">Simulated pulse at a steady rate. Real heart rate varies slightly from beat to beat, and a pulse oximeter averages over several beats.</p>
+</div>
+
+<script>
+  import { estimate, multiplier, resolution } from './models/b3-2-pulse';
+  import { prefersReducedMotion } from '../lib/prefs';
+
+  document.querySelectorAll<HTMLElement>('[data-sim-pulse]').forEach((root) => {
+    const people = JSON.parse(root.dataset.people!) as number[];
+    const q = <T extends Element>(s: string) => root.querySelector<T>(s)!;
+    const startBtn = q<HTMLButtonElement>('[data-start]');
+    const tapBtn = q<HTMLButtonElement>('[data-tap]');
+    const timer = q<HTMLElement>('[data-timer]');
+    const readout = q<HTMLElement>('[data-readout]');
+    const digitalOut = q<HTMLElement>('[data-digital-out]');
+    const artery = q<SVGPathElement>('[data-artery]');
+    const beatEl = q<HTMLElement>('[data-beat]');
+    const tbody = q<HTMLElement>('[data-tbody]');
+    let person = 0;
+    let bpm = people[0]!;
+    let running = false, taps = 0, t0 = 0, raf = 0, nextBeat = 0, period = 15;
+    const rows: string[] = [];
+
+    const flash = () => {
+      artery.classList.add('on'); beatEl.classList.add('on');
+      window.setTimeout(() => { artery.classList.remove('on'); beatEl.classList.remove('on'); }, prefersReducedMotion() ? 220 : 160);
+    };
+    const finish = () => {
+      running = false;
+      cancelAnimationFrame(raf);
+      startBtn.disabled = false; tapBtn.disabled = true;
+      startBtn.textContent = 'Count again';
+      const est = estimate(taps, period);
+      const m = multiplier(period);
+      timer.textContent = `Time up · Beats counted: ${taps}`;
+      readout.textContent = `${taps} beats in ${period} s × ${m} = ${est} beats per minute. Each beat missed or added changes the result by ${resolution(period)} bpm, so a ${period} s count can only give multiples of ${m}. Press "Show digital reading" to compare.`;
+      rows.unshift(`<tr><td>${period} s</td><td>${taps}</td><td>× ${m}</td><td>${est}</td><td>${bpm}</td></tr>`);
+      tbody.innerHTML = rows.slice(0, 8).join('');
+    };
+    const frame = (now: number) => {
+      const t = (now - t0) / 1000;
+      if (t >= nextBeat) { flash(); nextBeat += 60 / bpm; }
+      timer.textContent = `Time left: ${Math.max(0, period - t).toFixed(0)} s · Beats counted: ${taps}`;
+      if (t >= period) { finish(); return; }
+      raf = requestAnimationFrame(frame);
+    };
+    startBtn.addEventListener('click', () => {
+      period = Number(root.querySelector<HTMLInputElement>('[data-period]:checked')?.value ?? 15);
+      taps = 0; running = true; t0 = performance.now(); nextBeat = 0.35;
+      startBtn.disabled = true; tapBtn.disabled = false; tapBtn.focus();
+      readout.textContent = `Counting for ${period} s: tap once for every pulse.`;
+      raf = requestAnimationFrame(frame);
+    });
+    tapBtn.addEventListener('click', () => { if (running) { taps++; timer.textContent = timer.textContent!.replace(/Beats counted: \d+/, `Beats counted: ${taps}`); } });
+    q<HTMLButtonElement>('[data-digital]').addEventListener('click', () => {
+      digitalOut.textContent = `Pulse oximeter: ${bpm} bpm`;
+      readout.textContent = `The pulse oximeter reads ${bpm} bpm. It shines light through the fingertip and detects the change in absorption as each pulse of blood arrives, then averages over several beats. Compare it with your counted value.`;
+    });
+    q<HTMLButtonElement>('[data-person]').addEventListener('click', () => {
+      if (running) finish();
+      person = (person + 1) % people.length;
+      bpm = people[person]!;
+      digitalOut.textContent = 'Pulse oximeter: — bpm';
+      startBtn.textContent = 'Start counting';
+      readout.textContent = 'A new person: their heart rate is hidden until you count it or show the digital reading.';
+    });
+  });
+</script>
+
+<style>
+  .sim-pulse { container-type: inline-size; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 40rem) { .layout { grid-template-columns: minmax(0, 1.2fr) minmax(14rem, 1fr); align-items: start; } }
+  .wrist { position: relative; }
+  .wrist svg { width: 100%; height: auto; font-family: var(--font-sans); }
+  .arm { fill: color-mix(in srgb, var(--bio-head) 18%, var(--surface)); stroke: var(--border-strong); stroke-width: 1.5; }
+  .thumb { fill: none; stroke: var(--border-strong); stroke-width: 1.5; }
+  .finger { fill: color-mix(in srgb, var(--bio-head) 28%, var(--surface)); stroke: var(--border-strong); stroke-width: 1.5; }
+  .artery { fill: none; stroke: color-mix(in srgb, var(--bio-k) 45%, var(--surface)); stroke-width: 7; stroke-linecap: round; }
+  .artery.on { stroke: var(--bio-k); stroke-width: 11; }
+  .lbl { font-size: 12.5px; fill: var(--text-muted); }
+  .beat { position: absolute; top: 0.25rem; left: 0.5rem; margin: 0; font-weight: 800; color: var(--text-muted); opacity: 0.25; }
+  .beat.on { opacity: 1; color: var(--bio-k); }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .periods { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-3); }
+  .periods legend { font-weight: 700; color: var(--text-muted); margin-bottom: var(--space-1); width: 100%; }
+  .periods label { display: flex; align-items: center; gap: var(--space-1); min-height: 24px; }
+  .buttons { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .tap { min-width: 9rem; min-height: 2.75rem; font-weight: 800; }
+  .timer, .digital { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  th, td { padding: 0.2rem 0.6rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

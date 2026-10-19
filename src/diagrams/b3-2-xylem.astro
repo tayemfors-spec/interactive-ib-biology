@@ -1,0 +1,58 @@
+---
+/**
+ * A xylem vessel in longitudinal section (B3.2.8): a continuous tube of dead cells joined end to end,
+ * end walls gone (only rims remain), no contents, lignified wall thickening with pits.
+ */
+const top = 40, bottom = 300, xl = 150, xr = 250;
+const joins = [126, 214];
+const wrap = (text: string, max = 50) => text.split(' ').reduce<string[]>((lines, w) => {
+  const last = lines[lines.length - 1];
+  if (last !== undefined && (last + ' ' + w).length <= max) lines[lines.length - 1] = last + ' ' + w; else lines.push(w);
+  return lines;
+}, []);
+const notes = [
+  { y: 50, name: 'Thick, lignified side walls', fn: 'lignin makes the walls rigid, so the vessel does not collapse under tension' },
+  { y: 110, name: 'Pits', fn: 'gaps in the thickening where water can enter and leave' },
+  { y: 172, name: 'No end walls', fn: 'broken down as the vessel formed (only rims remain), so flow is unimpeded' },
+  { y: 232, name: 'No cell contents', fn: 'the cells are dead: no cytoplasm, nucleus or plasma membrane' },
+  { y: 286, name: 'Water and mineral ions', fn: 'move up passively, pulled by transpiration' },
+];
+const pits = Array.from({ length: 22 }, (_, i) => ({ y: 52 + (i % 11) * 22 + (i < 11 ? 0 : 11), side: i < 11 ? xl : xr }));
+---
+<svg viewBox="0 0 720 340" role="img" aria-labelledby="xy-t xy-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="xy-t">Structure of a xylem vessel</title>
+  <desc id="xy-d">A long tube cut lengthways. It is made of cells joined end to end whose end walls have broken down, leaving only small rims, and it has no cytoplasm or nucleus. The side walls are thickened and lignified, with pits where the wall is thin so water can pass sideways. An arrow shows water flowing up the tube.</desc>
+  <rect class="lumen" x={xl} y={top} width={xr - xl} height={bottom - top} />
+  <rect class="wall" x={xl - 14} y={top} width="14" height={bottom - top} />
+  <rect class="wall" x={xr} y={top} width="14" height={bottom - top} />
+  {pits.map((p) => <rect class="pit" x={p.side === xl ? xl - 14 : xr} y={p.y} width="14" height="9" />)}
+  {joins.map((y) => <g><path class="rim" d={`M${xl} ${y} h12 M${xr} ${y} h-12`} /></g>)}
+  <path class="flow" d={`M200 ${bottom - 20} V${top + 22}`} /><polygon class="flowh" points={`200,${top + 8} 192,${top + 24} 208,${top + 24}`} />
+  <g class="lead">
+    <path d={`M${xr + 14} 70 L340 52`} />
+    <path d={`M${xr + 7} ${pits[14]!.y + 4} L340 112`} />
+    <path d={`M${xr - 12} ${joins[0]} L340 176`} />
+    <path d={`M226 200 L340 228`} />
+    <path d="M200 260 L340 282" />
+  </g>
+  {notes.map((n) => (
+    <g>
+      <text class="t" x="346" y={n.y}>{n.name}</text>
+      <text class="s" x="346" y={n.y + 16}>{wrap(n.fn).map((line, k) => <tspan x="346" dy={k ? 15 : 0}>{line}</tspan>)}</text>
+    </g>
+  ))}
+  <text class="m" x="200" y="326" text-anchor="middle">one xylem vessel, cut lengthways</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .lumen { fill: color-mix(in srgb, var(--bio-water) 12%, var(--surface)); }
+  .wall { fill: color-mix(in srgb, var(--bio-head) 55%, var(--surface)); stroke: color-mix(in srgb, var(--bio-head) 60%, black); stroke-width: 1; }
+  .pit { fill: color-mix(in srgb, var(--bio-water) 12%, var(--surface)); }
+  .rim { stroke: color-mix(in srgb, var(--bio-head) 60%, black); stroke-width: 4; stroke-linecap: round; }
+  .flow { stroke: var(--bio-water); stroke-width: 4; }
+  .flowh { fill: var(--bio-water); }
+  .lead path { stroke: var(--text); stroke-width: 1.2; fill: none; }
+  .t { font-size: 15px; font-weight: 750; fill: var(--text); }
+  .s { font-size: 13px; fill: var(--text); }
+  .m { font-size: 13px; fill: var(--text-muted); font-style: italic; }
+</style>

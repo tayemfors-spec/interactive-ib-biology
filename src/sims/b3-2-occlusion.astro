@@ -1,0 +1,128 @@
+---
+import { DEMAND, areaLeft, supply } from './models/b3-2-occlusion';
+/** Coronary artery narrowing (B3.2.6): plaque size, activity and a clot vs oxygen supply to heart muscle. */
+const n0 = 0.3;
+---
+<div class="sim-occ" data-sim-occ>
+  <div class="layout">
+    <svg class="art" viewBox="0 0 345 230" role="img" aria-labelledby="oc-t oc-d">
+      <title id="oc-t">Coronary artery in cross-section and the heart muscle it supplies</title>
+      <desc id="oc-d">A ring-shaped artery wall with a fatty plaque (atheroma) growing from one side into the lumen, which narrows as the plaque grows. A blood clot can form on a ruptured plaque and block the lumen completely. Bars compare oxygen supply with oxygen demand of the heart muscle.</desc>
+      <circle class="wall" cx="90" cy="100" r="74" />
+      <circle class="lumen" cx="90" cy="100" r="54" />
+      <path class="plaque" data-plaque d="" />
+      <circle class="clot" data-clot cx="90" cy="100" r="54" style="opacity:0" />
+      <text class="lbl" x="90" y="196" text-anchor="middle">coronary artery (section)</text>
+      <g class="bars">
+        <text class="lbl" x="190" y="34">Oxygen to the muscle</text>
+        <rect class="track" x="190" y="46" width="120" height="22" rx="4" />
+        <rect class="supply" data-supply x="190" y="46" width="40" height="22" rx="4" />
+        <line class="demand" data-demand x1="230" x2="230" y1="40" y2="74" />
+        <text class="sm" x="190" y="88">bar: supply, line: demand</text>
+        <rect class="muscle" data-muscle x="190" y="108" width="120" height="70" rx="10" />
+        <text class="sm" x="250" y="132" text-anchor="middle">cardiac muscle</text>
+        <text class="state" x="250" y="156" text-anchor="middle" data-state-t>enough O₂</text>
+      </g>
+    </svg>
+    <div class="controls">
+      <label class="slider">Narrowing of the lumen by plaque: <output data-out>{Math.round(n0 * 100)}% of diameter</output>
+        <input type="range" min="0" max="100" step="5" value={n0 * 100} data-n />
+      </label>
+      <fieldset class="act">
+        <legend>Activity</legend>
+        <label><input type="radio" name="oc-act" value="rest" checked data-act /> At rest</label>
+        <label><input type="radio" name="oc-act" value="exercise" data-act /> Exercising</label>
+      </fieldset>
+      <label class="check"><input type="checkbox" data-clot-in /> The plaque ruptures and a blood clot forms</label>
+    </div>
+  </div>
+  <p class="readout" aria-live="polite" data-readout>
+    Lumen area left: {Math.round(areaLeft(n0) * 100)}%. At rest the artery supplies {supply(n0, 'rest').toFixed(1)} of a demand of {DEMAND.rest}: the heart muscle gets enough oxygen.
+  </p>
+  <p class="model-note">Qualitative model in arbitrary units (resting demand = 1). Real narrowings vary, and symptoms depend on which artery is affected and on other vessels that may supply the same muscle.</p>
+</div>
+
+<script>
+  import { DEMAND, areaLeft, maxSupply, outcome, supply, type Activity } from './models/b3-2-occlusion';
+
+  document.querySelectorAll<HTMLElement>('[data-sim-occ]').forEach((root) => {
+    const q = <T extends Element>(s: string) => root.querySelector<T>(s)!;
+    const slider = q<HTMLInputElement>('[data-n]');
+    const clotIn = q<HTMLInputElement>('[data-clot-in]');
+    const readout = q<HTMLElement>('[data-readout]');
+    let timer = 0;
+    const W = 120, scale = W / 4; // bar: 0–4 units
+
+    // plaque: a crescent growing from the lower wall into the lumen
+    const plaquePath = (n: number) => {
+      if (n <= 0) return '';
+      const R = 54, cx = 90, cy = 100;
+      const apex = cy + R - 2 * R * n; // highest point of the plaque: the lumen left is 2R(1 − n) across
+      const chord = apex + Math.min(R * 0.3, (cy + R - apex) * 0.5);
+      const w = Math.sqrt(Math.max(0, R * R - (chord - cy) ** 2));
+      const large = chord < cy ? 1 : 0;
+      const k = 2 * apex - chord; // control point so the curve peaks at the apex
+      return `M${(cx - w).toFixed(1)} ${chord.toFixed(1)} A${R} ${R} 0 ${large} 0 ${(cx + w).toFixed(1)} ${chord.toFixed(1)} Q${cx} ${k.toFixed(1)} ${(cx - w).toFixed(1)} ${chord.toFixed(1)} Z`;
+    };
+
+    const update = () => {
+      const n = Number(slider.value) / 100;
+      const act = (root.querySelector<HTMLInputElement>('[data-act]:checked')?.value ?? 'rest') as Activity;
+      const clot = clotIn.checked;
+      q('[data-out]').textContent = `${Math.round(n * 100)}% of diameter`;
+      q<SVGPathElement>('[data-plaque]').setAttribute('d', plaquePath(Math.min(n, 0.999)));
+      q<SVGCircleElement>('[data-clot]').style.opacity = clot || n >= 1 ? '1' : '0';
+      const s = supply(n, act, clot), d = DEMAND[act];
+      q('[data-supply]').setAttribute('width', (s * scale).toFixed(1));
+      for (const k of ['x1', 'x2']) q('[data-demand]').setAttribute(k, (190 + d * scale).toFixed(1));
+      const o = outcome(n, act, clot);
+      const muscle = q('[data-muscle]');
+      muscle.setAttribute('class', `muscle ${o}`);
+      q('[data-state-t]').textContent = { normal: 'enough O₂', angina: 'short of O₂', 'rest-ischaemia': 'short of O₂', infarction: 'no O₂: cells die' }[o];
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        const area = Math.round(areaLeft(n) * 100);
+        const head = clot ? 'A blood clot has formed on the plaque and blocked the artery completely.' : `Lumen area left: ${area}%.`;
+        const msg = {
+          normal: `${act === 'rest' ? 'At rest' : 'During exercise'} the artery can still supply all the oxygen the heart muscle needs (supply ${s.toFixed(1)}, demand ${d}).`,
+          angina: `The narrowed artery cannot increase flow enough for exercise (maximum supply ${maxSupply(n).toFixed(1)}, demand ${d}). Heart muscle beyond the plaque is short of oxygen, causing chest pain (angina) and breathlessness; it eases with rest.`,
+          'rest-ischaemia': `The artery is so narrow that it cannot supply enough oxygen even at rest (maximum ${maxSupply(n).toFixed(1)}, demand ${DEMAND.rest}). This is a serious warning sign of coronary heart disease.`,
+          infarction: 'The cardiac muscle supplied by this artery gets no oxygen. It cannot respire aerobically, so it stops contracting and its cells begin to die within minutes: a myocardial infarction (heart attack).',
+        }[o];
+        readout.textContent = `${head} ${msg}`;
+      }, 300);
+    };
+    slider.addEventListener('input', update);
+    clotIn.addEventListener('change', update);
+    root.querySelectorAll('[data-act]').forEach((r) => r.addEventListener('change', update));
+    update();
+  });
+</script>
+
+<style>
+  .sim-occ { container-type: inline-size; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 40rem) { .layout { grid-template-columns: minmax(0, 1.4fr) minmax(14rem, 1fr); align-items: start; } }
+  .art { width: 100%; height: auto; font-family: var(--font-sans); }
+  .wall { fill: color-mix(in srgb, var(--bio-chol) 55%, var(--surface)); stroke: color-mix(in srgb, var(--bio-chol) 70%, black); stroke-width: 1.5; }
+  .lumen { fill: color-mix(in srgb, var(--bio-k) 30%, var(--surface)); }
+  .plaque { fill: var(--bio-tail); stroke: color-mix(in srgb, var(--bio-tail) 60%, black); stroke-width: 1.5; }
+  .clot { fill: color-mix(in srgb, var(--bio-k) 75%, black); }
+  .lbl { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .sm { font-size: 12px; fill: var(--text-muted); }
+  .state { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .track { fill: var(--surface-2); stroke: var(--border-strong); }
+  .supply { fill: var(--bio-k); }
+  .demand { stroke: var(--text); stroke-width: 3; stroke-dasharray: 4 3; }
+  .muscle { fill: color-mix(in srgb, var(--bio-chol) 55%, var(--surface)); stroke: var(--border-strong); transition: fill 0.3s; }
+  .muscle.angina, .muscle.rest-ischaemia { fill: color-mix(in srgb, var(--bio-glucose) 45%, var(--surface)); }
+  .muscle.infarction { fill: color-mix(in srgb, var(--text-muted) 40%, var(--surface)); }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .act { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-3); }
+  .act legend { font-weight: 700; color: var(--text-muted); width: 100%; margin-bottom: var(--space-1); }
+  .act label, .check { display: flex; align-items: center; gap: var(--space-2); min-height: 24px; }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

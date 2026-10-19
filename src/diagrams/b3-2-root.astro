@@ -1,0 +1,76 @@
+---
+/**
+ * Plan diagram of a transverse section of a young dicotyledonous root (B3.2.10): xylem forms a central
+ * star (here four arms, a cross) with phloem in the bays between the arms, inside the endodermis;
+ * a wide cortex; epidermis with root hairs.
+ */
+const cx = 200, cy = 205, R = 172;
+const arms = 4;
+const star = Array.from({ length: arms * 2 }, (_, i) => {
+  const a = (i / (arms * 2)) * Math.PI * 2 - Math.PI / 4;
+  const r = i % 2 === 0 ? 46 : 13;
+  return `${(cx + r * Math.cos(a)).toFixed(1)} ${(cy + r * Math.sin(a)).toFixed(1)}`;
+});
+const phloem = Array.from({ length: arms }, (_, i) => {
+  const a = (i / arms) * Math.PI * 2;
+  return [cx + 33 * Math.cos(a), cy + 33 * Math.sin(a)] as const;
+});
+const hairs = Array.from({ length: 16 }, (_, i) => {
+  const a = Math.PI * 0.55 + (i / 15) * Math.PI * 0.9;
+  return { a, len: 14 + ((i * 7) % 5) * 4 };
+});
+const at = (r: number, a: number) => [cx + r * Math.cos(a), cy + r * Math.sin(a)] as const;
+const wrap = (text: string, max = 44) => text.split(' ').reduce<string[]>((lines, w) => {
+  const last = lines[lines.length - 1];
+  if (last !== undefined && (last + ' ' + w).length <= max) lines[lines.length - 1] = last + ' ' + w; else lines.push(w);
+  return lines;
+}, []);
+const lbl = [
+  { to: at(R - 2, -0.8), y: 40, name: 'Epidermis', fn: 'outer layer; root hairs increase the surface area for absorbing water and mineral ions' },
+  { to: at(120, -0.4), y: 112, name: 'Cortex', fn: 'wide band of large thin-walled cells that water crosses to reach the centre; may store starch' },
+  { to: at(60, -0.15), y: 184, name: 'Endodermis', fn: 'ring of cells around the vascular tissue; controls entry of water and ions' },
+  { to: at(30, 0.2), y: 248, name: 'Phloem', fn: 'groups between the arms of the xylem: transports sugars' },
+  { to: at(36, Math.PI / 4), y: 312, name: 'Xylem', fn: 'central star or cross shape: transports water and mineral ions up to the stem' },
+];
+---
+<svg viewBox="0 0 720 420" role="img" aria-labelledby="rt-t rt-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="rt-t">Plan diagram of a dicot root in transverse section</title>
+  <desc id="rt-d">A circular section. A thin epidermis with root hairs on its outer surface surrounds a wide cortex. In the centre, inside a ring of endodermis, is the vascular tissue: xylem shaped like a cross or star, with phloem in the four spaces between its arms.</desc>
+  {hairs.map((h) => { const [x0, y0] = at(R, h.a); const [x1, y1] = at(R + h.len, h.a); return <path class="hair" d={`M${x0.toFixed(1)} ${y0.toFixed(1)} L${x1.toFixed(1)} ${y1.toFixed(1)}`} />; })}
+  <circle class="epi" cx={cx} cy={cy} r={R} />
+  <circle class="cortex" cx={cx} cy={cy} r={R - 7} />
+  <circle class="endo" cx={cx} cy={cy} r="62" />
+  <circle class="stele" cx={cx} cy={cy} r="56" />
+  <polygon class="xylem" points={star.join(' ')} />
+  {phloem.map(([x, y]) => <circle class="phloem" cx={x} cy={y} r="10" />)}
+  {lbl.map((l) => {
+    const x0 = 404;
+    return (
+      <g>
+        <path class="lead" d={`M${l.to[0].toFixed(1)} ${l.to[1].toFixed(1)} L${x0 - 8} ${l.y - 5}`} />
+        <circle class="dot" cx={l.to[0]} cy={l.to[1]} r="2.6" />
+        <text class="t" x={x0} y={l.y}>{l.name}</text>
+        <text class="s" x={x0} y={l.y + 18}>{wrap(l.fn).map((line, k) => <tspan x={x0} dy={k ? 16 : 0}>{line}</tspan>)}</text>
+      </g>
+    );
+  })}
+  <path class="lead" d={`M${at(R + 16, Math.PI * 0.9)[0].toFixed(1)} ${at(R + 16, Math.PI * 0.9)[1].toFixed(1)} L24 360`} />
+  <text class="t" x="8" y="380">Root hairs</text>
+  <path class="lead" d={`M${(cx + 40).toFixed(1)} ${(cy + 46).toFixed(1)} L404 378`} />
+  <text class="t" x="410" y="382">Vascular tissue (central)</text>
+  <text class="s" x="410" y="398">xylem and phloem together in the centre</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .hair { stroke: var(--text); stroke-width: 1.4; }
+  .epi { fill: color-mix(in srgb, var(--bio-tail) 50%, var(--surface)); stroke: var(--text); stroke-width: 1.6; }
+  .cortex { fill: color-mix(in srgb, var(--bio-tail) 16%, var(--surface)); stroke: var(--text); stroke-width: 1; }
+  .endo { fill: color-mix(in srgb, var(--bio-protein-2) 40%, var(--surface)); stroke: var(--text); stroke-width: 1.2; }
+  .stele { fill: var(--surface); stroke: var(--text); stroke-width: 1; }
+  .xylem { fill: color-mix(in srgb, var(--bio-water) 40%, var(--surface)); stroke: var(--text); stroke-width: 1.3; stroke-linejoin: round; }
+  .phloem { fill: color-mix(in srgb, var(--bio-protein-2) 30%, var(--surface)); stroke: var(--text); stroke-width: 1.3; }
+  .lead { stroke: var(--text); stroke-width: 1.2; fill: none; }
+  .dot { fill: var(--text); }
+  .t { font-size: 15px; font-weight: 750; fill: var(--text); }
+  .s { font-size: 13px; fill: var(--text); }
+</style>

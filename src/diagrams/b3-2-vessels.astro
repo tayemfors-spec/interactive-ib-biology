@@ -1,0 +1,117 @@
+---
+/**
+ * Exam-style transverse sections of an artery, a vein and a capillary (B3.2.1–B3.2.5).
+ * Artery and vein are drawn at about the same scale; the capillary is drawn far larger than to scale.
+ */
+const TAU = Math.PI * 2;
+const ring = (cx: number, cy: number, r: number, ex = 1, ey = 1, amp = 0, folds = 0, n = 160) =>
+  Array.from({ length: n }, (_, i) => {
+    const a = (i / n) * TAU;
+    const rr = r + amp * Math.sin(folds * a);
+    return `${i ? 'L' : 'M'}${(cx + rr * Math.cos(a) * ex).toFixed(1)} ${(cy + rr * Math.sin(a) * ey).toFixed(1)}`;
+  }).join('') + 'Z';
+const A = { x: 140, y: 168 };
+const V = { x: 410, y: 168 };
+const C = { x: 668, y: 168 };
+// capillary endothelium: two cells with a pore (gap) at one junction
+const arc = (cx: number, cy: number, r0: number, r1: number, a0: number, a1: number) => {
+  const p = (r: number, a: number) => `${(cx + r * Math.cos(a)).toFixed(1)} ${(cy + r * Math.sin(a)).toFixed(1)}`;
+  const large = a1 - a0 > Math.PI ? 1 : 0;
+  return `M${p(r1, a0)} A${r1} ${r1} 0 ${large} 1 ${p(r1, a1)} L${p(r0, a1)} A${r0} ${r0} 0 ${large} 0 ${p(r0, a0)} Z`;
+};
+const j1 = -Math.PI * 0.62, gap = 0.12;
+---
+<div class="exam-diagram">
+  <svg viewBox="0 0 800 380" role="img" aria-labelledby="bv-t bv-d" xmlns="http://www.w3.org/2000/svg">
+    <title id="bv-t">Transverse sections of an artery, a vein and a capillary</title>
+    <desc id="bv-d">The artery has a thick wall relative to its narrow, round lumen: a thin tunica intima with a folded inner surface, a thick tunica media of smooth muscle and elastic fibres, and a tunica externa. The vein has a thin wall relative to a wide, slightly flattened lumen, with a thin tunica media. The capillary, drawn much larger than to scale, has a wall one endothelial cell thick, with a pore between cells, a nucleus and a red blood cell in its lumen.</desc>
+
+    <!-- artery -->
+    <path class="externa" d={ring(A.x, A.y, 104, 1, 1, 1.5, 9)} />
+    <path class="media" d={ring(A.x, A.y, 84, 1, 1, 1, 22)} />
+    {[76, 66, 56].map((r) => <path class="elastic" d={ring(A.x, A.y, r, 1, 1, 1.3, 26)} />)}
+    <path class="intima" d={ring(A.x, A.y, 46, 1, 1, 3.5, 14)} />
+    <path class="lumen" d={ring(A.x, A.y, 40, 1, 1, 3.5, 14)} />
+    <!-- vein -->
+    <path class="externa" d={ring(V.x, V.y, 104, 1, 0.84)} />
+    <path class="media" d={ring(V.x, V.y, 92, 1, 0.84)} />
+    <path class="intima" d={ring(V.x, V.y, 86, 1, 0.84)} />
+    <path class="lumen" d={ring(V.x, V.y, 82, 1, 0.84, 1.2, 7)} />
+    <!-- capillary -->
+    <circle class="basement" cx={C.x} cy={C.y} r="52" />
+    <circle class="lumen" cx={C.x} cy={C.y} r="47" />
+    <path class="endo" d={arc(C.x, C.y, 38, 47, j1 + gap, j1 + Math.PI)} />
+    <path class="endo" d={arc(C.x, C.y, 38, 47, j1 + Math.PI, j1 + TAU)} />
+    <ellipse class="nucleus" cx={C.x + 30} cy={C.y + 25} rx="13" ry="6" transform={`rotate(-50 ${C.x + 30} ${C.y + 25})`} />
+    <ellipse class="rbc" cx={C.x - 4} cy={C.y} rx="26" ry="26" />
+    <ellipse class="rbc-c" cx={C.x - 4} cy={C.y} rx="11" ry="11" />
+
+    <!-- labels: artery -->
+    <g class="lead">
+      <path d={`M${A.x - 70} ${A.y - 76} L${A.x - 104} ${A.y - 128}`} />
+      <path d={`M${A.x + 58} ${A.y - 40} L${A.x + 98} ${A.y - 128}`} />
+      <path d={`M${A.x + 30} ${A.y + 32} L${A.x + 92} ${A.y + 112}`} />
+      <path d={`M${A.x - 14} ${A.y + 4} L${A.x - 80} ${A.y + 124}`} />
+      <path d={`M${A.x - 50} ${A.y + 50} L${A.x - 112} ${A.y + 100}`} />
+    </g>
+    <text class="t" x={A.x - 128} y={A.y - 134}>tunica externa</text>
+    <text class="t" x={A.x + 66} y={A.y - 134}>tunica media</text>
+    <text class="s" x={A.x + 66} y={A.y - 120}>(thick)</text>
+    <text class="t" x={A.x + 58} y={A.y + 128}>tunica intima</text>
+    <text class="t" x={A.x - 134} y={A.y + 142}>narrow lumen</text>
+    <text class="s" x={A.x - 136} y={A.y + 114}>elastic fibres</text>
+
+    <!-- labels: vein -->
+    <g class="lead">
+      <path d={`M${V.x + 66} ${V.y - 64} L${V.x + 96} ${V.y - 128}`} />
+      <path d={`M${V.x - 20} ${V.y + 10} L${V.x - 40} ${V.y + 120}`} />
+      <path d={`M${V.x + 84} ${V.y + 40} L${V.x + 96} ${V.y + 120}`} />
+    </g>
+    <text class="t" x={V.x + 40} y={V.y - 134}>thin tunica media</text>
+    <text class="t" x={V.x + 50} y={V.y + 136}>tunica externa</text>
+    <text class="t" x={V.x - 96} y={V.y + 136}>wide lumen</text>
+
+    <!-- labels: capillary -->
+    <g class="lead">
+      <path d={`M${C.x + 40} ${C.y - 30} L${C.x + 62} ${C.y - 96}`} />
+      <path d={`M${C.x + 18} ${C.y - 44} L${C.x - 14} ${C.y - 112}`} />
+      <path d={`M${C.x + 36} ${C.y + 28} L${C.x + 70} ${C.y + 96}`} />
+      <path d={`M${C.x - 10} ${C.y + 10} L${C.x - 54} ${C.y + 96}`} />
+      <path d={`M${C.x - 50} ${C.y - 10} L${C.x - 74} ${C.y - 38}`} />
+    </g>
+    <text class="s" x={C.x + 20} y={C.y - 114}>endothelium:</text>
+    <text class="s" x={C.x + 20} y={C.y - 100}>one cell thick</text>
+    <text class="s" x={C.x - 86} y={C.y - 126}>pore between cells</text>
+    <text class="s" x={C.x + 26} y={C.y + 110}>nucleus of</text>
+    <text class="s" x={C.x + 26} y={C.y + 124}>endothelial cell</text>
+    <text class="s" x={C.x - 124} y={C.y + 110}>red blood cell</text>
+    <text class="s" x={C.x - 138} y={C.y - 56}>basement</text>
+    <text class="s" x={C.x - 138} y={C.y - 42}>membrane</text>
+
+    <text class="h" x={A.x} y="350" text-anchor="middle">Artery</text>
+    <text class="s m" x={A.x} y="368" text-anchor="middle">thick wall, narrow lumen</text>
+    <text class="h" x={V.x} y="350" text-anchor="middle">Vein</text>
+    <text class="s m" x={V.x} y="368" text-anchor="middle">thin wall, wide lumen</text>
+    <text class="h" x={C.x} y="350" text-anchor="middle">Capillary</text>
+    <text class="s m" x={C.x} y="368" text-anchor="middle">drawn far larger (≈ 10 µm across)</text>
+  </svg>
+</div>
+
+<style>
+  .exam-diagram svg { font-family: var(--font-sans); }
+  .externa { fill: color-mix(in srgb, var(--bio-tail) 45%, var(--surface)); stroke: color-mix(in srgb, var(--bio-tail) 60%, black); stroke-width: 1.4; }
+  .media { fill: color-mix(in srgb, var(--bio-chol) 45%, var(--surface)); stroke: color-mix(in srgb, var(--bio-chol) 60%, black); stroke-width: 1.2; }
+  .elastic { fill: none; stroke: var(--bio-glucose); stroke-width: 2.2; }
+  .intima { fill: color-mix(in srgb, var(--bio-head) 55%, var(--surface)); stroke: color-mix(in srgb, var(--bio-head) 60%, black); stroke-width: 1.2; }
+  .lumen { fill: var(--surface); stroke: none; }
+  .basement { fill: color-mix(in srgb, var(--bio-carb) 45%, var(--surface)); }
+  .endo { fill: color-mix(in srgb, var(--bio-head) 55%, var(--surface)); stroke: color-mix(in srgb, var(--bio-head) 60%, black); stroke-width: 1.2; }
+  .nucleus { fill: var(--bio-protein-2); }
+  .rbc { fill: color-mix(in srgb, var(--bio-k) 70%, var(--surface)); stroke: color-mix(in srgb, var(--bio-k) 70%, black); stroke-width: 1.2; }
+  .rbc-c { fill: color-mix(in srgb, var(--bio-k) 45%, var(--surface)); }
+  .lead path { stroke: var(--text); stroke-width: 1.3; fill: none; }
+  .h { font-size: 17px; font-weight: 800; fill: var(--text); }
+  .t { font-size: 14.5px; font-weight: 650; fill: var(--text); }
+  .s { font-size: 13.5px; fill: var(--text); }
+  .m { fill: var(--text-muted); }
+</style>

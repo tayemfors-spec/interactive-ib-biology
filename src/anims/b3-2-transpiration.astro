@@ -1,0 +1,158 @@
+---
+/**
+ * Water transport from roots to leaves (B3.2.7) and root pressure (B3.2.17, AHL).
+ * One xylem vessel runs from the root (bottom) to a leaf vein (top). Drawn in the step-1 start state;
+ * animated by b3-2-transpiration.ts. Schematic, not to scale.
+ */
+const palisade = Array.from({ length: 20 }, (_, i) => 22 + i * 26.5);
+const epiTop = Array.from({ length: 19 }, (_, i) => 20 + i * 28);
+const epiBot = epiTop.filter((x) => x < 360 || x > 430);
+const spongy: [number, number, number, number][] = [
+  [40, 132, 20, 14], [92, 150, 24, 15], [150, 128, 22, 13], [198, 160, 18, 13], [60, 172, 19, 10], [130, 172, 22, 11],
+  [330, 128, 22, 14], [342, 168, 18, 12], [380, 140, 16, 12], [440, 132, 22, 14], [470, 168, 22, 11], [520, 140, 20, 15],
+  [300, 158, 12, 10], [215, 126, 14, 10],
+];
+const vapour: [number, number][] = [[178, 150], [118, 152], [360, 150], [410, 158], [312, 140], [470, 150], [74, 150], [420, 172]];
+const columnY = Array.from({ length: 36 }, (_, i) => 172 + i * 13);
+const soil: [number, number, number][] = [[24, 500, 14], [58, 486, 11], [30, 560, 16], [80, 600, 13], [100, 556, 10], [64, 538, 9], [20, 612, 10], [110, 498, 9]];
+const cortex: [number, number][] = [[170, 484], [206, 494], [172, 522], [208, 532], [170, 562], [206, 570], [174, 600], [208, 606]];
+---
+<svg viewBox="0 0 560 640" xmlns="http://www.w3.org/2000/svg" class="tp">
+  <defs>
+    <clipPath id="tp-xylem"><rect x="249" y="166" width="22" height="452" /></clipPath>
+  </defs>
+
+  <!-- ================= LEAF ================= -->
+  <rect class="frame" x="6" y="8" width="548" height="214" rx="10" />
+  <text class="h" x="16" y="26">Leaf (section)</text>
+  <g class="epi">{epiTop.map((x) => <rect x={x} y="32" width="26" height="14" rx="4" />)}</g>
+  <g class="pal">{palisade.map((x) => <rect x={x} y="50" width="22" height="54" rx="8" />)}</g>
+  <g class="spongy">{spongy.map(([x, y, rx, ry]) => <ellipse cx={x} cy={y} rx={rx} ry={ry} />)}</g>
+  <!-- leaf vein (vascular bundle) containing the top of the xylem vessel -->
+  <ellipse class="bundle" cx="260" cy="150" rx="30" ry="30" />
+  <g class="epi">{epiBot.map((x) => <rect x={x} y="186" width="26" height="12" rx="4" />)}</g>
+  <ellipse data-el="guardL" class="guard" cx="381" cy="192" rx="13" ry="8" />
+  <ellipse data-el="guardR" class="guard" cx="419" cy="192" rx="13" ry="8" />
+  <text class="sm" x="362" y="214" text-anchor="end">stoma</text>
+  <text class="sm" x="16" y="214">spongy mesophyll (moist walls)</text>
+  <g data-el="vapour">{vapour.map(([x, y], i) => <circle data-el={`v${i}`} class="vap" cx={x} cy={y} r="4" style="opacity:0" />)}</g>
+  <g data-el="aEvap" class="arrow" style="opacity:0">
+    <path d="M150 141 Q160 146 170 146" /><polygon points="176,146 166,141 166,151" />
+    <path d="M340 141 Q352 146 360 146" /><polygon points="366,146 356,141 356,151" />
+    <text class="note" x="470" y="120" text-anchor="middle">evaporation into</text>
+    <text class="note" x="470" y="136" text-anchor="middle">air spaces</text>
+  </g>
+  <g data-el="aStoma" class="arrow" style="opacity:0">
+    <path d="M400 160 L400 204" /><polygon points="400,216 394,204 406,204" />
+    <text class="note" x="482" y="212" text-anchor="middle">vapour diffuses out</text>
+  </g>
+  <g data-el="aWalls" class="arrow water" style="opacity:0">
+    <path d="M286 146 Q300 136 312 134" /><polygon points="320,133 309,128 310,139" />
+    <path d="M234 146 Q222 136 210 132" /><polygon points="202,131 213,127 212,138" />
+    <text class="note" x="470" y="120" text-anchor="middle">water drawn through</text>
+    <text class="note" x="470" y="136" text-anchor="middle">cell walls</text>
+  </g>
+
+  <!-- ================= STEM ================= -->
+  <rect class="frame" x="6" y="230" width="548" height="208" rx="10" />
+  <text class="h" x="16" y="250">Stem</text>
+  <!-- ================= ROOT ================= -->
+  <rect class="frame" x="6" y="446" width="548" height="188" rx="10" />
+  <text class="h" x="16" y="466">Root</text>
+  <g class="soil">{soil.map(([x, y, r]) => <circle cx={x} cy={y} r={r} />)}</g>
+  <text class="sm halo" x="16" y="486">soil particles and water</text>
+  <g class="cell">
+    <path d="M128 516 L54 518 Q42 524 54 530 L128 532 L128 470 L152 470 L152 630 L128 630 Z" />
+    {[[128, 470, 24, 44], [128, 540, 24, 44], [128, 586, 24, 44]].map(([x, y, w, h]) => <rect x={x} y={y} width={w} height={h} rx="5" />)}
+  </g>
+  <g class="cell">{cortex.map(([x, y]) => <circle cx={x} cy={y} r="17" />)}</g>
+  <g class="endo">{[470, 508, 546, 584].map((y) => <rect x="226" y={y} width="17" height="36" rx="4" />)}</g>
+  <text class="sm" x="40" y="508">root hair cell</text>
+  <text class="sm" x="190" y="462" text-anchor="middle">cortex</text>
+
+  <!-- ================= XYLEM VESSEL (continuous from root to leaf) ================= -->
+  <g class="xylem">
+    <rect class="lumen" x="249" y="166" width="22" height="452" />
+    <path class="wall" d="M247 166 V618 M273 166 V618" />
+    {Array.from({ length: 34 }, (_, i) => 176 + i * 13).map((y) => <path class="ring" d={`M244 ${y} h6 M270 ${y} h6`} />)}
+  </g>
+  <g clip-path="url(#tp-xylem)">
+    <g data-el="column" transform="translate(0 0)">
+      <g data-el="hbonds" class="hb" style="opacity:0">{columnY.slice(0, -1).map((y) => <path d={`M260 ${y + 5} V${y + 8}`} />)}</g>
+      {columnY.map((y) => <circle class="h2o" cx="260" cy={y} r="5" />)}
+    </g>
+  </g>
+  <g data-el="adhesion" class="hb" style="opacity:0">{[280, 330, 380].map((y) => <path d={`M251 ${y} h4 M265 ${y} h4`} />)}</g>
+  <text class="sm" x="286" y="268">xylem vessel (dead, hollow; lignified wall)</text>
+  <path class="lead" d="M284 264 L274 272" />
+
+  <g data-el="aPull" class="arrow water" style="opacity:0">
+    <path d="M226 420 V290" /><polygon points="226,278 220,292 232,292" />
+    <text class="note" x="216" y="300" text-anchor="end">tension pulls</text>
+    <text class="note" x="216" y="316" text-anchor="end">water up</text>
+    <text class="note" x="216" y="340" text-anchor="end">cohesion holds</text>
+    <text class="note" x="216" y="356" text-anchor="end">the column</text>
+    <text class="note" x="216" y="372" text-anchor="end">together</text>
+  </g>
+  <g class="gauge">
+    <rect x="296" y="300" width="250" height="62" rx="9" />
+    <text class="g1" x="306" y="324" data-el="gauge1">Pressure in xylem:</text>
+    <text class="g2" x="306" y="346" data-el="gauge2">not yet changed</text>
+  </g>
+
+  <g data-el="aRoot" class="arrow water" style="opacity:0">
+    <path d="M72 524 H118" /><polygon points="126,524 116,518 116,530" />
+    <path d="M154 530 Q170 544 186 548" /><polygon points="194,550 183,543 182,554" />
+    <path d="M214 552 H236" /><polygon points="244,552 234,546 234,558" />
+    <text class="note" x="300" y="500">water enters root hairs</text>
+    <text class="note" x="300" y="516">by osmosis and moves to</text>
+    <text class="note" x="300" y="532">the xylem</text>
+  </g>
+  <g data-el="rootWater">{[0, 1, 2, 3, 4].map((i) => <circle data-el={`r${i}`} class="h2o" cx="40" cy="526" r="4.5" style="opacity:0" />)}</g>
+  <g data-el="ions" style="opacity:0">
+    {[0, 1, 2].map((i) => <g data-el={`i${i}`} transform={`translate(234 ${490 + i * 40})`}><circle class="ion" r="6.5" /><text class="ion-t" text-anchor="middle" dy="0.35em">+</text></g>)}
+  </g>
+  <g data-el="aIons" class="arrow ions" style="opacity:0">
+    <text class="note" x="300" y="488">root cells next to the xylem</text>
+    <text class="note" x="300" y="504">actively pump mineral ions into</text>
+    <text class="note" x="300" y="520">the xylem (uses ATP);</text>
+    <text class="note" x="300" y="544">water follows by osmosis,</text>
+    <text class="note" x="300" y="560">raising the pressure</text>
+  </g>
+  <text class="sm" x="300" y="466">endodermis</text>
+  <path class="lead" d="M298 462 L244 478" />
+  <text class="sm muted" x="262" y="634" text-anchor="middle">centre of root</text>
+</svg>
+<style>
+  .tp { font-family: var(--font-sans); }
+  .frame { fill: none; stroke: var(--border); stroke-width: 1.2; }
+  .h { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .sm { font-size: 13px; fill: var(--text); }
+  .muted { fill: var(--text-muted); }
+  .halo { paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+  .note { font-size: 13px; font-weight: 700; fill: var(--accent-strong); paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+  .lead { stroke: var(--text-muted); stroke-width: 1.2; fill: none; }
+  .epi rect { fill: color-mix(in srgb, var(--bio-carb) 18%, var(--surface)); stroke: color-mix(in srgb, var(--bio-carb) 55%, var(--surface)); stroke-width: 1.2; }
+  .pal rect { fill: color-mix(in srgb, var(--bio-carb) 45%, var(--surface)); stroke: color-mix(in srgb, var(--bio-carb) 70%, black); stroke-width: 1.2; }
+  .spongy ellipse { fill: color-mix(in srgb, var(--bio-carb) 32%, var(--surface)); stroke: var(--bio-water); stroke-width: 2.6; }
+  .bundle { fill: color-mix(in srgb, var(--bio-tail) 30%, var(--surface)); stroke: color-mix(in srgb, var(--bio-tail) 70%, black); stroke-width: 1.2; }
+  .guard { fill: color-mix(in srgb, var(--bio-carb) 60%, var(--surface)); stroke: color-mix(in srgb, var(--bio-carb) 70%, black); stroke-width: 1.4; }
+  .vap { fill: color-mix(in srgb, var(--bio-water) 55%, var(--surface)); stroke: var(--bio-water); stroke-width: 1; }
+  .soil circle { fill: color-mix(in srgb, var(--bio-head) 30%, var(--surface)); stroke: color-mix(in srgb, var(--bio-head) 55%, var(--surface)); stroke-width: 1.2; }
+  .cell path, .cell rect, .cell circle { fill: color-mix(in srgb, var(--bio-tail) 22%, var(--surface)); stroke: color-mix(in srgb, var(--bio-tail) 70%, black); stroke-width: 1.2; }
+  .endo rect { fill: color-mix(in srgb, var(--bio-protein-2) 22%, var(--surface)); stroke: var(--bio-protein-2); stroke-width: 1.4; }
+  .xylem .lumen { fill: color-mix(in srgb, var(--bio-water) 12%, var(--surface)); }
+  .xylem .wall { stroke: color-mix(in srgb, var(--bio-head) 70%, black); stroke-width: 5; stroke-dasharray: 30 4; }
+  .xylem .ring { stroke: color-mix(in srgb, var(--bio-head) 70%, black); stroke-width: 3; }
+  .h2o { fill: var(--bio-water); }
+  .hb path { stroke: var(--text); stroke-width: 2; }
+  .arrow path { fill: none; stroke: var(--text); stroke-width: 3; }
+  .arrow polygon { fill: var(--text); }
+  .arrow.water path { stroke: var(--bio-water); }
+  .arrow.water polygon { fill: var(--bio-water); }
+  .gauge rect { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.3; }
+  .g1 { font-size: 13px; font-weight: 700; fill: var(--text-muted); }
+  .g2 { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .ion { fill: var(--bio-na); }
+  .ion-t { font-size: 11px; font-weight: 800; fill: #fff; }
+</style>

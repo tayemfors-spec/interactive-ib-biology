@@ -1,0 +1,204 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: B3.2.1
+    stem: >-
+      The capillaries of the glomerulus in the kidney are fenestrated. Why is this an advantage in the
+      glomerulus?
+    options:
+      - id: a
+        text: Fenestrations let red blood cells leave the blood and enter the filtrate.
+        why: Blood cells are far too large to pass through fenestrations; they stay in the capillaries.
+      - id: b
+        text: Fenestrations let large volumes of fluid be filtered out of the blood very rapidly.
+        why: Correct. Fenestrations are extra pores through the endothelial cells, used where exchange must be especially rapid, such as filtration in the glomerulus.
+      - id: c
+        text: Fenestrations thicken the capillary wall so that it can withstand high blood pressure.
+        why: Fenestrations are pores, so they make the wall more permeable, not thicker or stronger.
+      - id: d
+        text: Fenestrations let large plasma proteins such as albumin pass freely out of the blood.
+        why: The basement membrane still holds back large proteins, so very little protein leaves even through fenestrated capillaries.
+    answer: b
+
+  - id: q2
+    level: SL
+    understanding: B3.2.2
+    stem: >-
+      In a micrograph of tissue in transverse section, vessel P has a round lumen 0.4 mm across, a wall 0.3 mm
+      thick and a folded lining. Vessel Q has a flattened lumen 1.2 mm across and a wall 0.1 mm thick. Which
+      identification and reason are correct?
+    options:
+      - id: a
+        text: P is a vein, because its lumen is smaller than Q's.
+        why: Lumen size alone is not the test, and here it is the narrower vessel that is the artery. Compare wall thickness with lumen diameter.
+      - id: b
+        text: Q is an artery, because its wide lumen carries more blood at high pressure.
+        why: A wide lumen with a thin wall is the structure of a vein, which carries blood at low pressure.
+      - id: c
+        text: P is a capillary, because its lumen is narrow.
+        why: A capillary lumen is only about 5–10 µm across, far smaller than 0.4 mm, and its wall is one cell thick.
+      - id: d
+        text: P is an artery and Q is a vein, because P's wall is thick relative to its lumen and Q's is thin.
+        why: Correct. A thick wall around a narrow, round lumen with a folded lining is typical of an artery; a thin wall around a wide, flattened lumen is a vein.
+    answer: d
+
+  - id: q3
+    level: SL
+    understanding: B3.2.4
+    stem: >-
+      A student places two fingertips on her radial artery and counts 19 pulses in 15 seconds. What is her
+      heart rate?
+    options:
+      - id: a
+        text: 76 beats per minute
+        why: Correct. 15 s is a quarter of a minute, so 19 × 4 = 76 beats per minute.
+      - id: b
+        text: 19 beats per minute
+        why: This is the count for 15 s only; it must be converted to a rate per minute.
+      - id: c
+        text: 285 beats per minute
+        why: This multiplies by the number of seconds (19 × 15) instead of by 60 ÷ 15 = 4.
+      - id: d
+        text: 38 beats per minute
+        why: Multiplying by 2 converts a 30 s count, not a 15 s count.
+    answer: a
+
+  - id: q4
+    level: SL
+    understanding: B3.2.6
+    stem: >-
+      A study of 20 countries found a correlation coefficient of r = +0.85 between mean saturated fat intake
+      and the death rate from coronary heart disease. Which conclusion is justified?
+    options:
+      - id: a
+        text: Eating saturated fat causes coronary heart disease.
+        why: Correlation does not prove causation. The countries may also differ in smoking, exercise or other diet, which could be the real cause.
+      - id: b
+        text: 85% of deaths from coronary heart disease are caused by saturated fat.
+        why: r measures the strength of the linear relationship between two variables. It is not a percentage of cases explained by a cause.
+      - id: c
+        text: There is a strong positive correlation, but other factors that differ between countries could explain it.
+        why: Correct. A value close to +1 is a strong positive correlation; confounding variables mean it cannot by itself show cause.
+      - id: d
+        text: The correlation is weak, because r is less than 1.
+        why: Only a perfect correlation has r = 1. A value of +0.85 indicates a strong positive correlation.
+    answer: c
+
+  - id: q5
+    level: SL
+    understanding: B3.2.7
+    stem: Which statement explains how water is moved up the xylem of a transpiring plant?
+    options:
+      - id: a
+        text: Root cells use ATP to pump water into the xylem, pushing it up to the leaves.
+        why: In a transpiring plant water moves passively under tension; no ATP is used to move water, and water is never pumped directly.
+      - id: b
+        text: Evaporation from leaf cell walls draws water out of the xylem, creating tension that cohesion transmits down the continuous water column.
+        why: Correct. This is the cohesion–tension mechanism (transpiration pull).
+      - id: c
+        text: Open stomata lower the air pressure inside the leaf, which sucks water up the xylem.
+        why: Stomata let water vapour diffuse out; they do not create suction. Tension arises from water being drawn into the walls of leaf cells.
+      - id: d
+        text: Living xylem cells contract rhythmically to squeeze water upwards.
+        why: Mature xylem vessels are dead, empty tubes and cannot contract.
+    answer: b
+
+  - id: q6
+    level: SL
+    understanding: B3.2.10
+    stem: >-
+      A plan diagram of a transverse section shows an epidermis with root hairs, a wide cortex, and a central
+      star-shaped tissue with small groups of another tissue between its arms. What does the diagram show?
+    options:
+      - id: a
+        text: A root; the star-shaped tissue is xylem and the groups between its arms are phloem.
+        why: Correct. In a dicot root the vascular tissue is central, with xylem in a star or cross shape and phloem between the arms.
+      - id: b
+        text: A stem; the groups between the arms are vascular bundles.
+        why: Root hairs show it is a root. In a stem the vascular bundles form a ring near the outside, around a central pith.
+      - id: c
+        text: A root; the star-shaped tissue is phloem and the groups between its arms are xylem.
+        why: This swaps the two tissues. The xylem forms the star; the phloem lies between its arms.
+      - id: d
+        text: A stem; the star-shaped tissue is pith.
+        why: Pith is a central tissue of large cells in stems, not star-shaped, and stems do not have root hairs.
+    answer: a
+
+  - id: q7
+    level: AHL
+    understanding: B3.2.16
+    stem: >-
+      A graph of pressure in the left side of the heart shows that at 0.12 s the pressure in the left atrium is
+      5 mmHg, in the left ventricle 30 mmHg and in the aorta 81 mmHg. What is the state of the valves at this
+      moment?
+    options:
+      - id: a
+        text: Bicuspid valve open; aortic valve closed
+        why: Ventricular pressure (30) is higher than atrial pressure (5), so the bicuspid valve has already closed.
+      - id: b
+        text: Bicuspid valve closed; aortic valve open
+        why: The aortic valve opens only when ventricular pressure exceeds aortic pressure; 30 mmHg is well below 81 mmHg.
+      - id: c
+        text: Both valves closed
+        why: Correct. The ventricle is above the atrium (bicuspid closed) but below the aorta (aortic valve closed), so this is the start of ventricular systole, when pressure rises with both valves shut.
+      - id: d
+        text: Both valves open
+        why: The two valves are never open at the same time; that would let blood flow straight from atrium to aorta.
+    answer: c
+
+  - id: q8
+    level: AHL
+    understanding: B3.2.15
+    stem: Which sequence correctly traces the flow of blood from the venae cavae to the aorta?
+    options:
+      - id: a
+        text: right atrium → bicuspid valve → right ventricle → pulmonary vein → lungs → pulmonary artery → left atrium → tricuspid valve → left ventricle → aorta
+        why: Both pairs are swapped. The tricuspid valve is on the right, the bicuspid on the left; the pulmonary artery leaves the heart and the pulmonary veins return to it.
+      - id: b
+        text: right atrium → tricuspid valve → right ventricle → pulmonary vein → lungs → pulmonary artery → left atrium → bicuspid valve → left ventricle → aorta
+        why: Arteries carry blood away from the heart, so blood leaves the right ventricle in the pulmonary artery and returns to the left atrium in the pulmonary veins.
+      - id: c
+        text: left atrium → bicuspid valve → left ventricle → pulmonary artery → lungs → pulmonary vein → right atrium → tricuspid valve → right ventricle → aorta
+        why: The venae cavae drain into the right atrium, and the aorta leaves the left ventricle.
+      - id: d
+        text: right atrium → tricuspid valve → right ventricle → pulmonary artery → lungs → pulmonary vein → left atrium → bicuspid valve → left ventricle → aorta
+        why: Correct. The right side pumps blood to the lungs, and the left side pumps it to the body through the aorta.
+    answer: d
+
+  - id: q9
+    level: AHL
+    understanding: B3.2.11
+    stem: Why does tissue fluid leave a capillary near the arteriole end but drain back in near the venule end?
+    options:
+      - id: a
+        text: Blood pressure is high at the arteriole end and forces plasma out; by the venule end it has fallen, and plasma proteins kept in the blood draw water back in by osmosis.
+        why: Correct. Pressure filtration at the arteriole end; at the venule end the lower pressure lets fluid drain back.
+      - id: b
+        text: Pump proteins in the endothelium actively transport fluid out at the arteriole end and back in at the venule end.
+        why: Tissue fluid forms by pressure filtration, which is passive; it is not pumped.
+      - id: c
+        text: There are pores only at the arteriole end, and the venule end absorbs fluid through its plasma membranes.
+        why: The capillary wall is permeable along its whole length; the direction of movement depends on the pressures.
+      - id: d
+        text: Plasma proteins leave at the arteriole end and pull water out with them.
+        why: Most plasma proteins are too large to leave the capillary. Their staying in the blood is what helps water return.
+    answer: a
+
+  - id: q10
+    level: AHL
+    understanding: B3.2.18
+    stem: Which feature of companion cells most directly enables sucrose to be loaded into phloem sieve tubes at a source?
+    options:
+      - id: a
+        text: Lignified walls that stop the cells collapsing
+        why: Lignified walls are an adaptation of xylem vessels; phloem walls are not lignified.
+      - id: b
+        text: Many mitochondria that supply ATP for active transport
+        why: Correct. Loading sucrose against its concentration gradient is active transport, which needs ATP from the companion cell's many mitochondria; plasmodesmata then pass it to the sieve tube.
+      - id: c
+        text: Sieve plates with large pores that let sap flow
+        why: Sieve plates belong to sieve tube elements and ease the flow of sap; they do not load sucrose.
+      - id: d
+        text: The absence of a nucleus, leaving more room for sucrose
+        why: Companion cells do have a nucleus. It is sieve tube elements that lack one.
+    answer: b

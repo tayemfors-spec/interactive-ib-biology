@@ -1,0 +1,247 @@
+# Visuals for B3.2. Label/step text here is what readers see in the 3D viewer and the text descriptions.
+# Label ids must match anchors in the scene modules (src/scenes/b3-2-*.ts).
+visuals:
+  - id: transport
+    kind: viewer3d
+    title: Blood vessels and the heart in 3D
+    alt: Short lengths of an artery, a vein and a capillary cut across to show their walls, and a mammalian heart cut open in frontal section.
+    description: >-
+      The first model shows three blood vessels side by side, each cut across so the front face shows the
+      wall in transverse section. The artery has a thick wall compared with its narrow lumen: a thin tunica
+      intima whose lining looks folded, a thick tunica media of circular smooth muscle with wavy layers of
+      elastic fibres, and an outer tunica externa of collagen-rich connective tissue. The vein has a thin wall
+      and a wide, slightly flattened lumen; its far end is cut open lengthways to show a pocket valve whose
+      cusps point towards the heart. The capillary, drawn far larger than to scale, has a wall one endothelial
+      cell thick on a thin basement membrane, a narrow pore between two endothelial cells, fenestrations
+      through the cells and red blood cells in single file. The second model (higher level) is a mammalian
+      heart cut open from top to bottom and seen from the front, so the heart's right side is on the viewer's
+      left. It shows the four chambers, the thick-walled left ventricle, the septum, the tricuspid and
+      bicuspid valves with their tendons, the semilunar valves, the venae cavae, pulmonary artery, pulmonary
+      veins and aorta, coronary arteries on the surface and the sinoatrial node, and it steps through the
+      route blood takes through both sides of the heart.
+    scenes:
+      - id: vessels
+        module: b3-2-vessels
+        title: Artery, vein and capillary
+        labels:
+          - id: a-externa
+            name: Tunica externa
+            text: The outer coat of tough connective tissue rich in collagen fibres. Collagen has high tensile strength, so it stops the artery bulging outwards (an aneurysm) or bursting when blood pressure is high.
+          - id: a-media
+            name: Tunica media (thick)
+            text: The thickest layer of an artery wall, made of circular smooth muscle and elastic fibres. Its thickness lets the artery withstand the high pressure of blood pumped from the heart.
+          - id: elastic
+            name: Elastic fibres
+            text: Layers of elastin in the tunica media. They are stretched by each pulse of blood (storing energy) and recoil between beats, pushing blood onwards, which keeps the pressure up and evens out the flow.
+          - id: muscle
+            name: Smooth muscle cells
+            text: Smooth muscle cells (nuclei shown dark) run in circles around the artery. Contraction narrows the lumen (vasoconstriction) and relaxation widens it (vasodilation), adjusting blood flow.
+          - id: a-intima
+            name: Tunica intima (endothelium)
+            text: A single layer of smooth, flat endothelial cells that lines the lumen and reduces friction. In micrographs of arteries it often looks folded (corrugated), because the elastic layer beneath it recoils.
+          - id: a-lumen
+            name: Lumen of artery (narrow)
+            text: The lumen is narrow compared with the thickness of the wall, which helps to maintain high blood pressure. In sections it is usually round.
+          - id: v-wall
+            name: Thin wall of vein
+            text: The tunica media is thin, with few muscle and elastic fibres, because blood pressure in veins is low and there is no pulse. The thin, flexible wall can be squeezed flat by surrounding skeletal muscles.
+          - id: v-lumen
+            name: Lumen of vein (wide)
+            text: Wide compared with the thickness of the wall, which gives little resistance to the slow, low-pressure flow of blood back to the heart. Veins often look flattened or irregular in sections.
+          - id: valve
+            name: Pocket valve
+            text: Pocket-shaped flaps (cusps) attached to the vein wall. Blood flowing towards the heart pushes them back against the wall; blood starting to flow backwards fills the pockets, which meet and close the vein.
+          - id: c-wall
+            name: Capillary wall one cell thick
+            text: A single layer of very thin endothelial cells, so substances diffuse only a very short distance between the blood and the tissues. (This capillary is drawn far larger than to scale.)
+          - id: pore
+            name: Pore between endothelial cells
+            text: Narrow gaps between neighbouring endothelial cells let water and small solutes leak out of the blood to form tissue fluid, while blood cells and most plasma proteins stay inside.
+          - id: basement
+            name: Basement membrane
+            text: A thin layer of extracellular fibrous proteins around the endothelium. It supports the capillary and acts as a filter, letting small and medium-sized particles through but not large proteins.
+          - id: fenestration
+            name: Fenestrations
+            text: Larger pores through the endothelial cells themselves, found in fenestrated capillaries where exchange must be especially rapid, such as the glomerulus of the kidney, the villi of the small intestine and endocrine glands.
+          - id: rbc
+            name: Red blood cells in single file
+            text: The lumen of a capillary (about 5–10 µm) is only just wide enough for red blood cells to pass in single file. Capillaries branch so much that their total surface area for exchange is huge.
+      - id: heart
+        module: b3-2-heart
+        title: Heart, frontal section (AHL)
+        labels:
+          - id: ra
+            name: Right atrium
+            level: AHL
+            text: A thin-walled collecting chamber that receives deoxygenated blood from the body through the venae cavae. Its contraction tops up the right ventricle through the tricuspid valve.
+          - id: la
+            name: Left atrium
+            level: AHL
+            text: Receives oxygenated blood from the lungs through the pulmonary veins and pumps it into the left ventricle. Atria need only thin walls because they pump blood a short distance at low pressure.
+          - id: rv
+            name: Right ventricle
+            level: AHL
+            text: Pumps deoxygenated blood to the lungs through the pulmonary artery. Its wall is thinner than the left ventricle's because the lungs are close and their capillaries would be damaged by high pressure.
+          - id: lv
+            name: Left ventricle (thickest wall)
+            level: AHL
+            text: Its thick wall of cardiac muscle contracts strongly enough to produce the high pressure (about 120 mmHg) needed to pump oxygenated blood through the aorta to all the organs of the body.
+          - id: septum
+            name: Septum
+            level: AHL
+            text: A thick wall between the left and right sides of the heart. It keeps oxygenated and deoxygenated blood apart, so the heart works as two pumps side by side (a double pump).
+          - id: tricuspid
+            name: Tricuspid valve (right AV valve)
+            level: AHL
+            text: The atrioventricular valve between the right atrium and right ventricle, with three flaps. It closes when the ventricle contracts, preventing backflow; tendons (chordae tendineae) stop it turning inside out.
+          - id: bicuspid
+            name: Bicuspid (mitral) valve (left AV valve)
+            level: AHL
+            text: The atrioventricular valve between the left atrium and left ventricle, with two flaps. It closes as soon as ventricular pressure rises above atrial pressure, so blood cannot flow back into the atrium.
+          - id: semilunar
+            name: Semilunar valves
+            level: AHL
+            text: The aortic and pulmonary valves, each with three pocket-shaped cusps (two show in this cut). They open when ventricular pressure exceeds the pressure in the artery and close to stop blood flowing back.
+          - id: vena-cava
+            name: Venae cavae
+            level: AHL
+            text: The superior and inferior venae cavae return deoxygenated blood at low pressure from the upper and lower parts of the body to the right atrium.
+          - id: pulmonary-artery
+            name: Pulmonary artery
+            level: AHL
+            text: Carries deoxygenated blood from the right ventricle to the lungs. Its trunk lies in front of the aorta, so it is drawn crossing over it before dividing into the left and right pulmonary arteries.
+          - id: pulmonary-veins
+            name: Pulmonary veins
+            level: AHL
+            text: Four pulmonary veins (two from each lung) bring oxygenated blood to the left atrium. They open into the back wall of the atrium, so in this model they come from behind the heart.
+          - id: aorta
+            name: Aorta
+            level: AHL
+            text: The largest artery. It receives oxygenated blood at high pressure from the left ventricle; its first branches are the coronary arteries, and branches from its arch supply the head and arms.
+          - id: coronary
+            name: Coronary arteries
+            level: AHL
+            text: Branch from the aorta just above the aortic valve and run over the surface of the heart, supplying its cardiac muscle with oxygen and glucose. A blockage starves the muscle beyond it of oxygen.
+          - id: san
+            name: Sinoatrial node (pacemaker)
+            level: AHL
+            text: A small group of specialized cardiac muscle cells in the wall of the right atrium, near where the superior vena cava enters. It initiates each heartbeat with an electrical impulse that spreads through the atria.
+        steps:
+          - id: caval
+            title: Venae cavae to right atrium
+            level: AHL
+            caption: Deoxygenated blood from the body returns at low pressure through the superior and inferior venae cavae and fills the right atrium. Meanwhile the ventricles are contracting, so the tricuspid valve is closed.
+          - id: right-av
+            title: Right atrium to right ventricle
+            level: AHL
+            caption: As the ventricles relax, pressure in the right ventricle falls below that in the right atrium. The tricuspid valve opens and blood flows into the ventricle, and atrial contraction tops it up. The pulmonary valve is closed.
+          - id: right-out
+            title: Right ventricle to pulmonary artery
+            level: AHL
+            caption: The right ventricle contracts. Rising pressure closes the tricuspid valve and opens the pulmonary semilunar valve, and deoxygenated blood is pumped into the pulmonary artery, which divides to carry it to both lungs.
+          - id: pulm-veins
+            title: Pulmonary veins to left atrium
+            level: AHL
+            caption: Oxygenated blood returns from the lungs through the four pulmonary veins into the left atrium. The bicuspid valve is closed because the ventricles are contracting.
+          - id: left-av
+            title: Left atrium to left ventricle
+            level: AHL
+            caption: As the left ventricle relaxes, the bicuspid (mitral) valve opens and blood flows from the left atrium into the left ventricle; atrial contraction completes the filling. The aortic valve is closed.
+          - id: left-out
+            title: Left ventricle to aorta
+            level: AHL
+            caption: The thick-walled left ventricle contracts strongly. The bicuspid valve closes, the aortic semilunar valve opens and oxygenated blood is pumped at high pressure into the aorta. Both sides of the heart contract at the same time.
+
+  - id: pulse
+    kind: sim
+    module: b3-2-pulse
+    title: Measuring heart rate from the pulse
+    alt: Count a simulated radial pulse for 15, 30 or 60 seconds, work out the heart rate and compare it with a digital reading.
+    description: >-
+      A drawing of a wrist with two fingertips on the radial pulse. After you press Start, the artery glows
+      each time a pulse of blood passes and you tap a button once for every beat. When the time is up, the
+      count is multiplied up to one minute: by 4 for a 15 second count, by 2 for 30 seconds. The result is
+      compared with a pulse oximeter reading. A short count is quicker but less precise, because each beat
+      missed or added changes a 15 second result by 4 beats per minute.
+
+  - id: occlusion
+    kind: sim
+    module: b3-2-occlusion
+    title: Narrowed coronary arteries
+    alt: A slider grows a fatty plaque inside a coronary artery; bars compare the oxygen supplied to heart muscle with its demand at rest and during exercise.
+    description: >-
+      A coronary artery in cross-section beside bars showing the oxygen supplied to the heart muscle it serves
+      and the muscle's demand. As the plaque (atheroma) grows, the lumen narrows. At rest the supply is
+      maintained until the narrowing is severe, but during exercise the narrowed artery cannot deliver enough,
+      so the muscle is short of oxygen (angina). If the plaque ruptures and a blood clot forms, the artery is
+      blocked completely (occlusion): the muscle it supplies receives no oxygen and starts to die, a
+      myocardial infarction. The model is qualitative.
+
+  - id: transpiration
+    kind: anim
+    module: b3-2-transpiration
+    title: How water moves from roots to leaves
+    alt: Step-by-step diagram of water evaporating in a leaf, the tension it creates in the xylem, cohesion of the water column and water entering the roots.
+    description: >-
+      A single xylem vessel runs from a root (bottom) through the stem to a vein in a leaf (top). The leaf is
+      shown in section with palisade and spongy mesophyll, air spaces and a stoma between two guard cells.
+      Water evaporates from moist spongy mesophyll cell walls and the vapour diffuses out through the stoma.
+      Water drawn through the cell walls to replace it is pulled out of the xylem, putting the water column
+      under tension; cohesion between water molecules transmits the pull down to the roots, where water enters
+      from the soil. A final higher-level step shows root pressure, when root cells pump mineral ions into the
+      xylem and water follows by osmosis.
+    steps:
+      - id: evaporate
+        title: Evaporation in the leaf
+        caption: Water evaporates from the moist cell walls of spongy mesophyll cells into the air spaces inside the leaf, which become saturated with water vapour. Heat is the energy source that drives evaporation.
+      - id: stomata
+        title: Vapour diffuses out
+        caption: Water vapour diffuses out of the leaf through open stomata, from the humid air spaces into the drier air outside. This loss of water vapour from the leaf is transpiration.
+      - id: walls
+        title: Water drawn through cell walls
+        caption: Evaporated water is replaced by water drawn through the narrow spaces between cellulose fibres in the cell walls, by capillary action (adhesion to hydrophilic cellulose and cohesion between water molecules). This water is pulled out of the xylem in the leaf vein.
+      - id: tension
+        title: Tension in the xylem
+        caption: Drawing water out of the xylem leaves the water inside under tension (negative pressure). Cohesion — hydrogen bonds between water molecules — transmits the pull down the continuous column to the roots. Lignified walls stop the vessel collapsing.
+      - id: roots
+        title: Water enters the roots
+        caption: As water is pulled up the xylem, water moves into the root xylem from the surrounding cells, and soil water enters root hair cells by osmosis. All of this is passive; the xylem vessels are dead and the energy comes from evaporation in the leaves.
+      - id: root-pressure
+        title: Root pressure (AHL)
+        level: AHL
+        caption: When transpiration is too slow, as in very humid air or in spring before deciduous trees open their leaves, root cells actively pump mineral ions into the xylem. Water follows by osmosis, creating a positive pressure (root pressure) that pushes the sap upwards.
+
+  - id: cardiac-cycle
+    kind: anim
+    module: b3-2-cardiac-cycle
+    level: AHL
+    title: The cardiac cycle with pressure graph
+    alt: The left side of the heart beating, with a graph of pressure in the left atrium, left ventricle and aorta over one 0.8 second cycle.
+    description: >-
+      The left atrium, left ventricle and aorta (with the right side of the heart faded behind) next to a
+      graph of pressure against time for one heartbeat at 75 beats per minute (0.8 seconds). The graph shows
+      aortic pressure between about 80 and 120 mmHg, left ventricular pressure rising from near zero to about
+      120 mmHg and falling again, and a low atrial pressure. A cursor moves along the graph while panels show
+      whether the bicuspid (atrioventricular) and aortic (semilunar) valves are open or closed. Each valve
+      opens or closes exactly where two pressure curves cross. The animation is slowed down.
+    steps:
+      - id: atrial-systole
+        title: Atrial systole
+        level: AHL
+        caption: The sinoatrial node fires and the impulse spreads through the atrial walls, so the atria contract. Atrial pressure is slightly higher than ventricular pressure, so blood flows through the open bicuspid valve and the ventricle finishes filling. The aortic valve is closed.
+      - id: iso-contraction
+        title: Ventricular systole begins
+        level: AHL
+        caption: After a short delay the ventricle contracts. As soon as its pressure rises above atrial pressure the bicuspid valve closes (the first heart sound). With both valves closed, pressure rises steeply but no blood leaves yet.
+      - id: ejection
+        title: Blood is ejected
+        level: AHL
+        caption: When ventricular pressure exceeds aortic pressure (about 80 mmHg) the aortic semilunar valve opens and blood is ejected into the aorta. Both pressures rise to a peak of about 120 mmHg, the systolic pressure. The atrium relaxes and starts to refill.
+      - id: iso-relaxation
+        title: Diastole begins
+        level: AHL
+        caption: The ventricle relaxes. When its pressure falls below aortic pressure the semilunar valve closes (the second heart sound), making a small notch in the aortic curve. Both valves are closed while ventricular pressure falls steeply.
+      - id: filling
+        title: Ventricle fills
+        level: AHL
+        caption: When ventricular pressure falls below atrial pressure the bicuspid valve opens and blood that collected in the atrium flows into the ventricle. Elastic recoil of the aorta keeps blood moving as aortic pressure falls slowly to about 80 mmHg, the diastolic pressure.

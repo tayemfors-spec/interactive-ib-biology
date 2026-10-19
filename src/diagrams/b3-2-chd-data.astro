@@ -1,0 +1,63 @@
+---
+/**
+ * Two scatter graphs of INVENTED country-level data (B3.2.6 NOS): a strong positive correlation and a
+ * very weak one, each with its Pearson correlation coefficient computed from the plotted points.
+ */
+const pearson = (xs: number[], ys: number[]) => {
+  const n = xs.length;
+  const mx = xs.reduce((a, b) => a + b, 0) / n, my = ys.reduce((a, b) => a + b, 0) / n;
+  let sxy = 0, sxx = 0, syy = 0;
+  for (let i = 0; i < n; i++) { const dx = xs[i]! - mx, dy = ys[i]! - my; sxy += dx * dy; sxx += dx * dx; syy += dy * dy; }
+  return sxy / Math.sqrt(sxx * syy);
+};
+const panels = [
+  {
+    x0: 70, title: 'A: saturated fat intake',
+    xl: 'Saturated fat (% of food energy)', xmin: 6, xmax: 20, xt: [6, 10, 14, 18],
+    xs: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+    ys: [110, 150, 120, 190, 170, 230, 200, 260, 300, 250, 330, 310],
+  },
+  {
+    x0: 430, title: 'B: mean adult height',
+    xl: 'Mean adult height (cm)', xmin: 158, xmax: 178, xt: [160, 165, 170, 175],
+    xs: [161, 163, 164, 166, 167, 168, 169, 170, 171, 172, 174, 176],
+    ys: [220, 140, 280, 180, 250, 130, 300, 200, 160, 270, 190, 230],
+  },
+].map((p) => ({ ...p, r: pearson(p.xs, p.ys) }));
+const W = 260, top = 40, H = 220, ymax = 350;
+const sx = (p: (typeof panels)[number], v: number) => p.x0 + ((v - p.xmin) / (p.xmax - p.xmin)) * W;
+const sy = (v: number) => top + H - (v / ymax) * H;
+const yt = [0, 100, 200, 300];
+const fmt = (r: number) => (r >= 0 ? '+' : '−') + Math.abs(r).toFixed(2);
+---
+<svg viewBox="0 0 720 340" role="img" aria-labelledby="chd-t chd-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="chd-t">Two scatter graphs of invented data on coronary heart disease</title>
+  <desc id="chd-d">Graph A plots death rate from coronary heart disease against saturated fat intake for twelve countries: the points rise steeply from left to right with little scatter, a strong positive correlation, r = {fmt(panels[0]!.r)}. Graph B plots the same death rates against mean adult height: the points are scattered with no clear trend, r = {fmt(panels[1]!.r)}. The data are invented for practice.</desc>
+  {panels.map((p) => (
+    <g>
+      <text class="h" x={p.x0} y="22">{p.title}</text>
+      {yt.map((v) => <g><line class="grid" x1={p.x0} x2={p.x0 + W} y1={sy(v)} y2={sy(v)} /><text class="tick" x={p.x0 - 6} y={sy(v)} dy="0.35em" text-anchor="end">{v}</text></g>)}
+      {p.xt.map((v) => <text class="tick" x={sx(p, v)} y={top + H + 16} text-anchor="middle">{v}</text>)}
+      <path class="axis" d={`M${p.x0} ${top} V${top + H} H${p.x0 + W}`} />
+      {p.xs.map((x, i) => <circle class="pt" cx={sx(p, x)} cy={sy(p.ys[i]!)} r="5" />)}
+      <text class="axis-t" x={p.x0 + W / 2} y={top + H + 34} text-anchor="middle">{p.xl}</text>
+      <rect class="rbox" x={p.x0 + 12} y={top + 6} width="96" height="26" rx="6" />
+      <text class="r" x={p.x0 + 22} y={top + 24}>r = {fmt(p.r)}</text>
+    </g>
+  ))}
+  <text class="axis-t" transform={`translate(18 ${top + H / 2}) rotate(-90)`} text-anchor="middle">CHD deaths per 100 000</text>
+  <text class="axis-t" transform={`translate(378 ${top + H / 2}) rotate(-90)`} text-anchor="middle">CHD deaths per 100 000</text>
+  <text class="note" x="360" y="334" text-anchor="middle">Invented data for twelve countries, for practice only. Each point is one country.</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .h { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .grid { stroke: var(--border); }
+  .axis { stroke: var(--text); stroke-width: 1.4; fill: none; }
+  .tick { font-size: 12.5px; fill: var(--text-muted); }
+  .axis-t { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .pt { fill: var(--bio-k); stroke: var(--surface); stroke-width: 1.2; }
+  .rbox { fill: var(--surface); stroke: var(--border-strong); }
+  .r { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .note { font-size: 12.5px; fill: var(--text-muted); font-style: italic; }
+</style>

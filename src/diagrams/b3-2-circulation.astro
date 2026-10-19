@@ -1,0 +1,73 @@
+---
+/**
+ * Circuit diagrams (B3.2.14): single circulation in a bony fish vs double circulation in a mammal.
+ * Red = oxygenated, blue = deoxygenated. In the mammal the heart's right side is drawn on the viewer's left.
+ */
+const arrowHead = (x: number, y: number, dir: 'u' | 'd' | 'l' | 'r') => {
+  const s = 7;
+  const pts = { u: [[x, y - s], [x - s, y + s], [x + s, y + s]], d: [[x, y + s], [x - s, y - s], [x + s, y - s]], l: [[x - s, y], [x + s, y - s], [x + s, y + s]], r: [[x + s, y], [x - s, y - s], [x - s, y + s]] }[dir];
+  return pts.map((p) => p.join(',')).join(' ');
+};
+---
+<svg viewBox="0 0 720 360" role="img" aria-labelledby="ci-t ci-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="ci-t">Single circulation in a bony fish and double circulation in a mammal</title>
+  <desc id="ci-d">Fish: blood is pumped from the heart (one atrium and one ventricle) to the gills, where it is oxygenated, then flows on to the body organs and back to the heart, passing through the heart once per circuit. Mammal: the right ventricle pumps deoxygenated blood to the lungs; oxygenated blood returns to the left atrium; the left ventricle pumps it to the body organs; deoxygenated blood returns to the right atrium. Blood passes through the heart twice per circuit.</desc>
+  <text class="h" x="170" y="24" text-anchor="middle">Bony fish: single circulation</text>
+  <text class="h" x="530" y="24" text-anchor="middle">Mammal: double circulation</text>
+  <path class="div" d="M352 40 V340" />
+
+  <!-- fish -->
+  <rect class="organ" x="110" y="44" width="120" height="44" rx="10" /><text class="t" x="170" y="71" text-anchor="middle">gills</text>
+  <rect class="organ" x="110" y="270" width="120" height="44" rx="10" /><text class="t" x="170" y="297" text-anchor="middle">body organs</text>
+  <rect class="heart" x="16" y="150" width="96" height="58" rx="10" /><text class="s" x="64" y="174" text-anchor="middle">heart</text><text class="s" x="64" y="192" text-anchor="middle">atrium → ventricle</text>
+  <path class="deoxy" d="M64 150 V66 H110" /><polygon class="hd" points={arrowHead(100, 66, 'r')} />
+  <path class="oxy" d="M230 66 H300 V292 H230" /><polygon class="ho" points={arrowHead(300, 180, 'd')} />
+  <path class="deoxy" d="M110 292 H64 V208" /><polygon class="hd" points={arrowHead(64, 230, 'u')} />
+  <text class="n" x="176" y="112" text-anchor="middle">pressure is much lower</text>
+  <text class="n" x="176" y="128" text-anchor="middle">after the gill capillaries</text>
+  <text class="n" x="170" y="236" text-anchor="middle">blood passes through the</text>
+  <text class="n" x="170" y="252" text-anchor="middle">heart once per circuit</text>
+
+  <!-- mammal -->
+  <rect class="organ" x="470" y="44" width="120" height="44" rx="10" /><text class="t" x="530" y="71" text-anchor="middle">lungs</text>
+  <rect class="organ" x="470" y="270" width="120" height="44" rx="10" /><text class="t" x="530" y="297" text-anchor="middle">body organs</text>
+  <rect class="heart r" x="470" y="146" width="58" height="66" rx="8" /><text class="s" x="499" y="172" text-anchor="middle">right</text><text class="s" x="499" y="188" text-anchor="middle">side</text>
+  <rect class="heart l" x="532" y="146" width="58" height="66" rx="8" /><text class="s" x="561" y="172" text-anchor="middle">left</text><text class="s" x="561" y="188" text-anchor="middle">side</text>
+  <!-- pulmonary circuit -->
+  <path class="deoxy" d="M482 146 V88" /><polygon class="hd" points={arrowHead(482, 112, 'u')} />
+  <path class="oxy" d="M578 88 V146" /><polygon class="ho" points={arrowHead(578, 122, 'd')} />
+  <!-- systemic circuit -->
+  <path class="oxy" d="M590 180 H690 V292 H590" /><polygon class="ho" points={arrowHead(690, 240, 'd')} />
+  <path class="deoxy" d="M470 292 H384 V180 H470" /><polygon class="hd" points={arrowHead(384, 240, 'u')} />
+  <text class="lbl" x="600" y="62">pulmonary</text><text class="lbl" x="600" y="78">circulation</text>
+  <text class="lbl" x="420" y="336">systemic circulation (high pressure)</text>
+  <text class="s" x="476" y="114" text-anchor="end">pulmonary</text><text class="s" x="476" y="130" text-anchor="end">artery</text>
+  <text class="s" x="584" y="114">pulmonary</text><text class="s" x="584" y="130">veins</text>
+  <text class="n" x="530" y="236" text-anchor="middle">twice through the</text>
+  <text class="n" x="530" y="252" text-anchor="middle">heart per circuit</text>
+  <text class="s" x="392" y="172">venae cavae</text>
+  <text class="s" x="604" y="172">aorta</text>
+
+  <g class="key">
+    <path class="oxy" d="M16 340 h26" /><text x="48" y="344">oxygenated</text>
+    <path class="deoxy" d="M140 340 h26" /><text x="172" y="344">deoxygenated</text>
+  </g>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .h { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .div { stroke: var(--border); stroke-width: 1.2; }
+  .organ { fill: var(--surface-2); stroke: var(--border-strong); stroke-width: 1.4; }
+  .heart { fill: color-mix(in srgb, var(--bio-chol) 30%, var(--surface)); stroke: color-mix(in srgb, var(--bio-chol) 60%, black); stroke-width: 1.4; }
+  .heart.r { fill: color-mix(in srgb, var(--bio-protein) 25%, var(--surface)); }
+  .heart.l { fill: color-mix(in srgb, var(--bio-k) 25%, var(--surface)); }
+  .oxy { fill: none; stroke: var(--bio-k); stroke-width: 5; stroke-linejoin: round; }
+  .deoxy { fill: none; stroke: var(--bio-protein); stroke-width: 5; stroke-linejoin: round; stroke-dasharray: 10 4; }
+  .ho { fill: color-mix(in srgb, var(--bio-k) 75%, black); }
+  .hd { fill: color-mix(in srgb, var(--bio-protein) 75%, black); }
+  .t { font-size: 15px; font-weight: 750; fill: var(--text); }
+  .s { font-size: 13px; fill: var(--text); }
+  .n { font-size: 13px; fill: var(--text-muted); font-style: italic; }
+  .lbl { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .key text { font-size: 13px; fill: var(--text); }
+</style>

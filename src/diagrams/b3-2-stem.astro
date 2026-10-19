@@ -1,0 +1,72 @@
+---
+/**
+ * Plan diagram of a transverse section of a young dicotyledonous stem (B3.2.9): tissue areas only,
+ * no individual cells. Vascular bundles in a ring near the outside: phloem towards the outside,
+ * xylem towards the centre, cambium between them.
+ */
+const cx = 200, cy = 205, R = 172;
+const N = 8;
+const bundles = Array.from({ length: N }, (_, i) => {
+  const a = (i / N) * Math.PI * 2 - Math.PI / 2 + Math.PI / N;
+  const p = (r: number, da = 0) => [cx + r * Math.cos(a + da), cy + r * Math.sin(a + da)] as const;
+  // a teardrop-shaped bundle: phloem cap (outer), cambium line, xylem (inner)
+  const outer = 128, mid = 104, inner = 74, w = 0.16, wi = 0.1;
+  const pt = (q: readonly [number, number]) => `${q[0].toFixed(1)} ${q[1].toFixed(1)}`;
+  const phloem = `M${pt(p(mid, -w))} Q${pt(p(outer + 6, -w * 1.1))} ${pt(p(outer, 0))} Q${pt(p(outer + 6, w * 1.1))} ${pt(p(mid, w))} Z`;
+  const xylem = `M${pt(p(mid, -w))} L${pt(p(mid, w))} Q${pt(p(inner + 8, wi * 1.4))} ${pt(p(inner, 0))} Q${pt(p(inner + 8, -wi * 1.4))} ${pt(p(mid, -w))} Z`;
+  const cambium = `M${pt(p(mid, -w * 1.05))} L${pt(p(mid, w * 1.05))}`;
+  return { a, phloem, xylem, cambium };
+});
+const wrap = (text: string, max = 44) => text.split(' ').reduce<string[]>((lines, w) => {
+  const last = lines[lines.length - 1];
+  if (last !== undefined && (last + ' ' + w).length <= max) lines[lines.length - 1] = last + ' ' + w; else lines.push(w);
+  return lines;
+}, []);
+const b0 = bundles[1]!; // the bundle the labels point to (upper right)
+const at = (r: number, a: number) => [cx + r * Math.cos(a), cy + r * Math.sin(a)] as const;
+const lbl = [
+  { to: at(R - 2, -0.9), y: 40, name: 'Epidermis', fn: 'one layer of cells; waxy cuticle reduces water loss and protects' },
+  { to: at(150, -0.35), y: 104, name: 'Cortex', fn: 'cells that are turgid support the stem; may store starch' },
+  { to: at(122, b0.a), y: 168, name: 'Phloem', fn: 'outer part of each bundle: transports sugars and other organic compounds' },
+  { to: at(104, b0.a + 0.12), y: 232, name: 'Cambium', fn: 'dividing cells that produce new xylem and phloem' },
+  { to: at(86, b0.a + 0.05), y: 296, name: 'Xylem', fn: 'inner part of each bundle: carries water and mineral ions; lignified walls support' },
+  { to: at(30, 0.6), y: 374, name: 'Pith', fn: 'large thin-walled cells in the centre; storage' },
+];
+---
+<svg viewBox="0 0 720 420" role="img" aria-labelledby="st-t st-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="st-t">Plan diagram of a dicot stem in transverse section</title>
+  <desc id="st-d">A circular section. The outer edge is a thin epidermis; inside it a band of cortex; then a ring of eight separate vascular bundles, each with phloem on the outside, a line of cambium in the middle and xylem on the inside; the centre is pith.</desc>
+  <circle class="epi" cx={cx} cy={cy} r={R} />
+  <circle class="cortex" cx={cx} cy={cy} r={R - 7} />
+  <circle class="pith" cx={cx} cy={cy} r="96" />
+  {bundles.map((b) => <g><path class="phloem" d={b.phloem} /><path class="xylem" d={b.xylem} /><path class="cambium" d={b.cambium} /></g>)}
+  <text class="m" x={cx} y={cy + 4} text-anchor="middle">pith</text>
+  {lbl.map((l) => {
+    const x0 = 404;
+    return (
+      <g>
+        <path class="lead" d={`M${l.to[0].toFixed(1)} ${l.to[1].toFixed(1)} L${x0 - 8} ${l.y - 5}`} />
+        <circle class="dot" cx={l.to[0]} cy={l.to[1]} r="2.6" />
+        <text class="t" x={x0} y={l.y}>{l.name}</text>
+        <text class="s" x={x0} y={l.y + 18}>{wrap(l.fn).map((line, k) => <tspan x={x0} dy={k ? 16 : 0}>{line}</tspan>)}</text>
+      </g>
+    );
+  })}
+  <path class="lead" d={`M${at(118, bundles[5]!.a)[0].toFixed(1)} ${at(118, bundles[5]!.a)[1].toFixed(1)} L40 380`} />
+  <text class="t" x="8" y="398">Vascular bundle</text>
+  <text class="s" x="8" y="414">(in a ring near the outside)</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .epi { fill: color-mix(in srgb, var(--bio-carb) 55%, var(--surface)); stroke: var(--text); stroke-width: 1.6; }
+  .cortex { fill: color-mix(in srgb, var(--bio-carb) 16%, var(--surface)); stroke: var(--text); stroke-width: 1; }
+  .pith { fill: var(--surface); stroke: none; }
+  .phloem { fill: color-mix(in srgb, var(--bio-protein-2) 30%, var(--surface)); stroke: var(--text); stroke-width: 1.3; }
+  .xylem { fill: color-mix(in srgb, var(--bio-water) 35%, var(--surface)); stroke: var(--text); stroke-width: 1.3; }
+  .cambium { stroke: var(--text); stroke-width: 1.3; stroke-dasharray: 3 2; }
+  .lead { stroke: var(--text); stroke-width: 1.2; fill: none; }
+  .dot { fill: var(--text); }
+  .t { font-size: 15px; font-weight: 750; fill: var(--text); }
+  .s { font-size: 13px; fill: var(--text); }
+  .m { font-size: 14px; fill: var(--text-muted); font-style: italic; }
+</style>
