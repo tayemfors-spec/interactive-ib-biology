@@ -185,3 +185,18 @@ PORT=<your port> npx playwright test --project=mobile-safari -g "<id-slug>"
 ```
 
 Playwright starts its own server (`scripts/serve.mjs`) on `PORT`, so use the port in your brief to avoid clashing with other builders. Fix every failure before you finish.
+
+## 12. Lessons from Theme A (read before starting)
+
+- **Helpers:** shared geometry for your scenes can go in `src/scenes/<id>-kit.ts` with **no default export**; import it from your scene modules.
+- **Servers:** stop only the server you started (`kill <pid>`), never `pkill -f serve.mjs`, because other builders run servers on other ports.
+- **Scratch files:** keep screenshots and scripts in a folder named after your topic (e.g. `…/scratchpad/<id>/`). Never commit them.
+- **Screenshots of visuals:** `node scripts/shoot-visuals.mjs <slug>` (with `PORT=<your port>` and your server running) captures every figure, every 3D scene and every animation step's completed state into `screenshots/<slug>/`, with the sticky header disabled. Inspect them all.
+- **Reduced motion:** a reader with reduced motion only ever sees each step's **completed** state (t = 1). Make sure the end state of every step shows what its caption describes. Don't let the key moment happen mid-step and then disappear.
+- **YAML:** quote, or avoid, `: ` inside captions. The build fails on "Nested mappings are not allowed".
+- **Precision traps** examiners caught last time:
+  - Use "divergent evolution", not "adaptive radiation", for a modified homologous structure.
+  - Use correct ploidy notation (2n, 3n, 4x).
+  - Give the direction of every linkage (5′ → 3′).
+  - Don't attribute a feature to the wrong named example or place. For instance, Haast's eagle lived only on the South Island.
+  - Every quiz distractor must be the result of a real error.
