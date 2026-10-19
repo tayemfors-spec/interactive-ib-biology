@@ -61,7 +61,7 @@ const list: EarlyEvent[] = [
     method: 'Carbon isotope ratio',
   },
   {
-    id: 'stromatolites', ga: 3.43, range: [3.48, 3.43], certainty: 'widely accepted',
+    id: 'stromatolites', ga: 3.48, range: [3.48, 3.43], certainty: 'widely accepted',
     title: 'Stromatolites, Western Australia',
     text: 'Layered stromatolites in the Pilbara region (Strelley Pool and Dresser formations) were built by mats of microbes trapping sediment. These are the oldest widely accepted fossil evidence of life.',
     method: 'Fossils in rocks dated radiometrically',
@@ -117,7 +117,7 @@ export const oxygen = (ga: number): Oxygen => (ga > GOE ? 'none' : 'present');
 export type LifeEvidence = 'none' | 'disputed' | 'isotopic' | 'fossil';
 /** The strongest kind of evidence for life that exists from rocks of this age or older. */
 export function lifeEvidence(ga: number): LifeEvidence {
-  if (ga <= 3.43) return 'fossil';
+  if (ga <= 3.48) return 'fossil';
   if (ga <= 3.7) return 'isotopic';
   if (ga <= 4.1) return 'disputed';
   return 'none';

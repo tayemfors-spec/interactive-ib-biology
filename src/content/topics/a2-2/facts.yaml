@@ -151,7 +151,7 @@ facts:
     status: checked
   - id: f26
     claim: Centrioles are present in animal cells and absent from most fungi and from flowering plants and conifers; motile sperm of mosses and ferns (also cycads, Ginkgo) have basal bodies and flagella; chytrid fungi have flagellated zoospores.
-    where: ["index.mdx#cell-types", "flashcards.yaml:c13", "visuals.yaml:cells/plant no-centrioles"]
+    where: ["index.mdx#cell-types", "flashcards.yaml:c13", "visuals.yaml:cells description (plant cell)"]
     confidence: high
     basis: Campbell; Raven Biology of Plants; fungal phylogeny (chytrids retain flagella)
     status: checked
@@ -198,7 +198,7 @@ facts:
     basis: IB guide A2.2.10–11; standard EM interpretation (Alberts)
     status: checked
   - id: f34
-    claim: Endosymbiosis — all eukaryotes descend from a nucleated, sexually reproducing unicellular ancestor; mitochondria came from an aerobic (alpha-proteo)bacterium, and later, in the ancestor of algae and plants, chloroplasts from a cyanobacterium; most endosymbiont genes moved to the nucleus.
+    claim: Endosymbiosis — all eukaryotes descend from a nucleated, sexually reproducing unicellular ancestor; mitochondria came from an aerobic (alpha-proteo)bacterium, and later, in the ancestor of green algae, red algae and plants, chloroplasts from a cyanobacterium (primary endosymbiosis; some other algae gained chloroplasts later by engulfing such algae, secondary endosymbiosis); most endosymbiont genes moved to the nucleus.
     where: ["index.mdx#endosymbiosis", "visuals.yaml:endosymbiosis", "index.mdx (mustKnow, mistakes)"]
     confidence: medium
     basis: IB guide A2.2.12; Archibald, One Plus One Equals One. Whether the nucleus came before the mitochondrion is still debated (archaeal-host models); the IB sequence is followed here

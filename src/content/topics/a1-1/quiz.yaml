@@ -33,7 +33,7 @@ questions:
         why: Both hydrogens are δ+, so they repel rather than attract. A hydrogen bond joins a δ+ hydrogen to a δ− oxygen.
       - id: c
         text: A dashed line between the two oxygen atoms
-        why: Both oxygens are δ−. The hydrogen bond runs from a δ+ hydrogen to the δ− oxygen (O–H···O), so the line should end at the hydrogen, not the other oxygen.
+        why: Both oxygens are δ−, so a line drawn from oxygen to oxygen is wrong. One end of the dashed line must be a δ+ hydrogen of one molecule and the other end the δ− oxygen of the other (O–H···O).
       - id: d
         text: A dashed line from a δ+ hydrogen of one molecule to the δ− oxygen of the other molecule
         why: Correct. A hydrogen bond is an intermolecular attraction between opposite partial charges, drawn as a dashed line.

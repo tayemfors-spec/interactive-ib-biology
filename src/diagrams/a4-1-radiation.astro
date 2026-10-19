@@ -2,7 +2,8 @@
 /**
  * A4.1.9: adaptive radiation of Darwin's finches (Galápagos). A simplified tree of seven species from
  * one ancestral finch, with beak shapes matched to diet. Branching follows the main clades found in
- * molecular studies (warbler finches branch off first; tree finches and ground finches are sister groups).
+ * genomic studies (Lamichhaney et al. 2015): warbler finches branch off first, then the vegetarian finch,
+ * which is sister to the tree finches plus the ground finches. The woodpecker finch is one of the tree finches.
  * Numbered markers keep it legible at phone width; the key gives names, beaks and diets in real text.
  */
 const tipY = 116;
@@ -19,20 +20,20 @@ const beaks: Beak[] = [
 ];
 // tree: [x1, y1, x2, y2]
 const nodes = {
-  smallMed: [517, 152],
-  large: [470, 188],
-  ground: [420, 226],
-  tree: [178, 172],
-  split: [320, 262],
+  smallMed: [520, 142],
+  large: [478, 170],
+  ground: [430, 200],
+  split: [330, 226],
+  veg: [260, 256],
   root: [190, 288],
 };
 const lines: [number, number, number, number][] = [
   [nodes.smallMed[0]!, nodes.smallMed[1]!, xs[5]!, tipY], [nodes.smallMed[0]!, nodes.smallMed[1]!, xs[6]!, tipY],
   [nodes.large[0]!, nodes.large[1]!, xs[4]!, tipY], [nodes.large[0]!, nodes.large[1]!, nodes.smallMed[0]!, nodes.smallMed[1]!],
   [nodes.ground[0]!, nodes.ground[1]!, xs[3]!, tipY], [nodes.ground[0]!, nodes.ground[1]!, nodes.large[0]!, nodes.large[1]!],
-  [nodes.tree[0]!, nodes.tree[1]!, xs[1]!, tipY], [nodes.tree[0]!, nodes.tree[1]!, xs[2]!, tipY],
-  [nodes.split[0]!, nodes.split[1]!, nodes.tree[0]!, nodes.tree[1]!], [nodes.split[0]!, nodes.split[1]!, nodes.ground[0]!, nodes.ground[1]!],
-  [nodes.root[0]!, nodes.root[1]!, xs[0]!, tipY], [nodes.root[0]!, nodes.root[1]!, nodes.split[0]!, nodes.split[1]!],
+  [nodes.split[0]!, nodes.split[1]!, xs[2]!, tipY], [nodes.split[0]!, nodes.split[1]!, nodes.ground[0]!, nodes.ground[1]!],
+  [nodes.veg[0]!, nodes.veg[1]!, xs[1]!, tipY], [nodes.veg[0]!, nodes.veg[1]!, nodes.split[0]!, nodes.split[1]!],
+  [nodes.root[0]!, nodes.root[1]!, xs[0]!, tipY], [nodes.root[0]!, nodes.root[1]!, nodes.veg[0]!, nodes.veg[1]!],
 ];
 const key = [
   'Warbler finch: thin, pointed beak; picks small insects off leaves',
@@ -47,15 +48,15 @@ const key = [
 <div class="exam-diagram">
   <svg viewBox="0 0 640 344" role="img" aria-labelledby="rad-t rad-d" xmlns="http://www.w3.org/2000/svg">
     <title id="rad-t">Adaptive radiation of Darwin's finches</title>
-    <desc id="rad-d">A branching tree with one ancestral finch at the base and seven living species at the tips. Each species has a differently shaped beak suited to a different food: insects from leaves, buds and fruit, insects from wood using a tool, cactus flowers, large hard seeds, medium seeds and small seeds.</desc>
+    <desc id="rad-d">A branching tree with one ancestral finch at the base and seven living species at the tips. The warbler finch branches off first, then the vegetarian finch; the rest split into the tree finches (here the woodpecker finch) and the ground finches (cactus, large, medium and small). Each species has a differently shaped beak suited to a different food: insects from leaves, buds and fruit, insects from wood using a tool, cactus flowers, large hard seeds, medium seeds and small seeds.</desc>
     <g class="tree">
       {lines.map(([x1, y1, x2, y2]) => <path d={`M${x1} ${y1} L${x2} ${y2}`} />)}
     </g>
     <circle class="anc" cx={nodes.root[0]} cy={nodes.root[1]} r="7" />
     <text class="anc-t" x={nodes.root[0]! - 150} y={nodes.root[1]! + 26}>common ancestor: one seed-eating finch</text>
     <text class="anc-t" x={nodes.root[0]! - 150} y={nodes.root[1]! + 45}>from mainland South America</text>
-    <text class="grp" x="232" y="188">tree finches</text>
-    <text class="grp" x="478" y="250" text-anchor="middle">ground finches</text>
+    <text class="grp" x="294" y="174">tree finches</text>
+    <text class="grp" x="476" y="228" text-anchor="middle">ground finches</text>
     {xs.map((x, i) => (
       <g class="bird" transform={`translate(${x} 70)`}>
         <path class="body" d="M-6 14 Q-34 22 -40 40 Q-14 34 4 22 Z" />

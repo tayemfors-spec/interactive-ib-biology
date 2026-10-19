@@ -68,7 +68,7 @@ visuals:
       Cells are drawn as circles and three representative chromosomes stand for each set (most are not drawn).
       First, a female horse (2n = 64) and a male donkey (2n = 62) produce a mule with 63 chromosomes; at meiosis
       the horse and donkey chromosomes cannot pair as homologues, so the mule is sterile. Then two diploid plant
-      species, A and B, each with 2n = 22, produce a hybrid with one set from each parent (AB). It is sterile for
+      species, A and B, each with 2n = 22, produce an AB hybrid with one set from each parent (22 chromosomes, 11 + 11). It is sterile for
       the same reason. When its chromosome number doubles, every chromosome gains an identical partner: the
       allotetraploid (AABB, 2n = 44) can carry out meiosis and make AB gametes, so it is fertile. Crossed with
       either parent it would give sterile triploid offspring, so it is reproductively isolated at once: a new
@@ -82,14 +82,14 @@ visuals:
         caption: Meiosis needs homologous chromosomes to pair up. Horse and donkey chromosomes differ in number and structure, so many cannot pair, and with 63 at least one is always left over. Gametes with complete, balanced sets are very rarely formed, so mules are almost always sterile and alleles do not pass from one species to the other.
       - id: plant-hybrid
         title: Two plant species hybridize
-        caption: Two related diploid plant species, A and B, each have 2n = 22. Pollen of one fertilizes an ovule of the other. The hybrid gets one set of chromosomes from each parent (AB, 2n = 22). It may grow well, but it is sterile because no chromosome has a homologous partner at meiosis.
+        caption: Two related diploid plant species, A and B, each have 2n = 22. Pollen of one fertilizes an ovule of the other. The hybrid gets one set of chromosomes from each parent, so it is an AB hybrid with 22 chromosomes (11 + 11). It may grow well, but it is sterile because no chromosome has a homologous partner at meiosis.
       - id: doubling
         title: The chromosome number doubles
-        caption: In a dividing cell of the hybrid, the chromosomes are copied but the cell does not divide, so the chromosome number doubles. The cell and the shoots and flowers that grow from it are allotetraploid (AABB, 2n = 44) — four sets of chromosomes, from two different species.
+        caption: In a dividing cell of the hybrid, the chromosomes are copied but the cell does not divide, so the chromosome number doubles. The cell and the shoots and flowers that grow from it are allotetraploid (AABB, 44 chromosomes, 2n = 4x = 44) — four sets of chromosomes, from two different species.
       - id: meiosis-works
         title: Meiosis now works
-        caption: Every chromosome now has an identical homologous partner, so pairs form normally at meiosis and the homologues separate into gametes. Each gamete gets one A set and one B set (AB, n = 22), so the allotetraploid is fertile.
+        caption: Every chromosome now has an identical homologous partner, so pairs form normally at meiosis. A chromosomes pair with A chromosomes and B with B, and the pairs line up either side of the equator.
       - id: new-species
         title: A new species in one step
-        caption: AB gametes fuse with each other to give fertile AABB offspring. Crossed with either parent species, the allotetraploid would give triploid offspring (for example AAB, 2n = 33), which are sterile. So it is reproductively isolated from both parents straight away — a new species. Persicaria maculosa (2n = 44) arose this way from two diploid Persicaria species.
+        caption: The homologues separate, so each gamete gets one A set and one B set (AB, n = 22), so the allotetraploid is fertile. AB gametes fuse with each other to give fertile AABB offspring. Crossed with either parent species, the allotetraploid would give triploid offspring (for example AAB, 33 chromosomes, 3n), which are sterile. So it is reproductively isolated from both parents straight away — a new species. Persicaria maculosa (2n = 44) arose this way from two diploid Persicaria species.
 

@@ -1,7 +1,7 @@
 ---
 /**
  * Exam-style drawing of a plant (leaf mesophyll) cell from an electron micrograph (A2.2.10, A2.2.11).
- * The cell wall is a thick double line (hatched); the plasma membrane is a single line pressed against it;
+ * The cell wall is a thick double line (two plain, unshaded lines); the plasma membrane is a single line pressed against it;
  * the large sap vacuole is pale and bounded by a single line (tonoplast); chloroplasts and mitochondria are
  * outlined twice; the nucleus has a double membrane with pores.
  */
@@ -81,13 +81,7 @@ const ell = (cx: number, cy: number, rx: number, ry: number) => `M${cx - rx} ${c
 <div class="exam-diagram">
   <svg viewBox="0 0 800 520" role="img" aria-labelledby="pem-title pem-desc" xmlns="http://www.w3.org/2000/svg">
     <title id="pem-title">Drawing of a plant leaf cell from an electron micrograph</title>
-    <desc id="pem-desc">A box-shaped cell surrounded by a thick, hatched cell wall crossed by plasmodesmata. The plasma membrane lies against the inside of the wall. A large pale sap vacuole bounded by the tonoplast fills the middle, so the cytoplasm forms a thin layer around it containing five chloroplasts with grana and starch grains, two mitochondria with cristae, a small Golgi apparatus and, in one corner, the nucleus with a double membrane, pores and a nucleolus.</desc>
-    <defs>
-      <pattern id="pem-hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-        <rect width="8" height="8" class="hatch-bg" />
-        <path d="M0 0 V8" class="hatch-line" />
-      </pattern>
-    </defs>
+    <desc id="pem-desc">A box-shaped cell surrounded by a thick cell wall drawn as two plain lines, crossed by plasmodesmata. The plasma membrane lies against the inside of the wall. A large pale sap vacuole bounded by the tonoplast fills the middle, so the cytoplasm forms a thin layer around it containing five chloroplasts with grana and starch grains, two mitochondria with cristae, a small Golgi apparatus and, in one corner, the nucleus with a double membrane, pores and a nucleolus.</desc>
     <!-- neighbouring cells share the wall -->
     <rect class="wall" x="392" y="12" width="16" height="40" />
     <rect class="wall" x="392" y="468" width="16" height="40" />
@@ -148,9 +142,7 @@ const ell = (cx: number, cy: number, rx: number, ry: number) => `M${cx - rx} ${c
 
 <style>
   .exam-diagram svg { font-family: var(--font-sans); }
-  .hatch-bg { fill: color-mix(in srgb, var(--bio-tail) 45%, var(--surface)); }
-  .hatch-line { stroke: color-mix(in srgb, var(--text) 35%, transparent); stroke-width: 1.2; }
-  .wall { fill: url(#pem-hatch); stroke: var(--text); stroke-width: 1.8; }
+  .wall { fill: var(--surface); stroke: var(--text); stroke-width: 1.8; }
   .cyto { fill: var(--surface); stroke: var(--text); stroke-width: 1.5; }
   .gap { fill: var(--surface); }
   .pm { fill: none; stroke: var(--bio-head); stroke-width: 2.4; }

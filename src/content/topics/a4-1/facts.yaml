@@ -72,10 +72,10 @@ facts:
     basis: Gray's Anatomy
     status: checked
   - id: f13
-    claim: Bat wing — long humerus and radius, reduced ulna fused to radius, greatly elongated metacarpals and phalanges of digits 2–5 supporting the patagium, short free clawed thumb.
+    claim: Bat wing — long humerus and radius, reduced ulna fused to radius, greatly elongated metacarpals and phalanges of digits 2–5 supporting the patagium, short free clawed thumb; phalangeal formula shown as 2-2-3-2-2 (third digit with three phalanges).
     where: ["sims/models/a4-1-limbs.ts (bat)"]
     confidence: high
-    basis: Kardong; Hill & Smith, Bats. Exact phalanx counts per digit vary between bat families, so the drawing shows two per digit schematically
+    basis: Kardong; Hill & Smith, Bats. A 2-2-3-2-2 formula is typical; exact counts (especially in digit 2) vary between bat families, and the sim says so
     status: checked
   - id: f14
     claim: Dolphin flipper — short flattened humerus, radius and ulna; immobile elbow and wrist; hyperphalangy in digits 2 and 3.
@@ -186,10 +186,10 @@ facts:
     basis: Lamichhaney et al. 2015 (Nature); Petren et al. 2005; Grant & Grant, 40 Years of Evolution. Dates and species counts vary between studies
     status: open
   - id: f32
-    claim: "Finch diets: warbler finch insects from leaves; vegetarian finch buds, leaves, fruit; woodpecker finch uses cactus spines or twigs as tools for larvae; cactus finch cactus flowers, nectar, pollen, seeds; large, medium, small ground finches seeds of matching size/hardness. Warbler finches are the earliest-branching lineage and tree and ground finches are sister groups."
+    claim: "Finch diets: warbler finch insects from leaves; vegetarian finch buds, leaves, fruit; woodpecker finch uses cactus spines or twigs as tools for larvae; cactus finch cactus flowers, nectar, pollen, seeds; large, medium, small ground finches seeds of matching size/hardness. Warbler finches are the earliest-branching lineage; the vegetarian finch (Platyspiza) is sister to tree finches plus ground finches, and tree and ground finches are sister groups; the woodpecker finch is a tree finch (Camarhynchus pallidus)."
     where: ["index.mdx#radiation", "src/diagrams/a4-1-radiation.astro"]
     confidence: high
-    basis: Grant & Grant 2008; Lamichhaney et al. 2015. Branching order within ground finches is simplified in the figure
+    basis: Grant & Grant 2008; Lamichhaney et al. 2015. Branching order within ground finches is simplified in the figure; only the woodpecker finch is bracketed as a tree finch
     status: checked
   - id: f33
     claim: Horse 2n = 64, donkey 2n = 62, mule 2n = 63; mule = male donkey × female horse; mules are almost always sterile because chromosomes cannot pair at meiosis.

@@ -63,6 +63,12 @@ describe('A2.2 magnification model', () => {
     expect(magFromScaleBar(20, 5)).toBeCloseTo(4000);
     expect(scaleBarWorking(10, 1000).text).toContain('10 mm');
     expect(readScaleBarWorking(20, 5).result).toBeCloseTo(4000);
+    // a label in nm gets an explicit conversion to µm before dividing
+    const nmW = readScaleBarWorking(25, 0.05, 'nm');
+    expect(nmW.result).toBeCloseTo(500000);
+    expect(nmW.steps.some((st) => st.includes('50 nm = 0.05 µm') && st.includes('1 µm = 1,000 nm'))).toBe(true);
+    expect(readScaleBarWorking(20, 5).steps.some((st) => st.includes('Convert the label'))).toBe(false);
+    expect(scaleBarWorking(0.1, 100000, 'nm').steps.some((st) => st.includes('100 nm = 0.1 µm'))).toBe(true);
     for (const M of [40, 400, 2500, 12000, 250000]) {
       const b = niceScaleBar(M);
       expect(b.barMm).toBeGreaterThanOrEqual(10);

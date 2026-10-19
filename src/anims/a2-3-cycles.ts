@@ -60,14 +60,15 @@ export function create(svg: SVGSVGElement) {
         op('vcirc', phase(t, 0.7, 0.95));
         break;
       case 2: // host machinery copies the viral DNA and makes viral proteins
-        op('chrom', 0.55);
+        // lambda does not break down the host chromosome (that is a T4 feature), so it stays at full colour
+        op('chrom', 1);
         op('vcirc', 1);
         op('copies', 1);
         for (let i = 0; i < 7; i++) op(`copy${i}`, phase(t, 0.05 + i * 0.07, 0.15 + i * 0.07));
         op('parts', phase(t, 0.55, 0.85));
         break;
       case 3: // assembly
-        op('chrom', 0.55);
+        op('chrom', 1);
         op('vcirc', 1 - phase(t, 0, 0.5));
         op('copies', 1 - phase(t, 0, 0.6));
         op('parts', 1 - phase(t, 0, 0.6));
@@ -79,7 +80,7 @@ export function create(svg: SVGSVGElement) {
         wall.style.strokeDasharray = u > 0 ? `${lerp(80, 16, u).toFixed(1)} ${lerp(1, 24, u).toFixed(1)}` : 'none';
         op('wall', 1 - 0.65 * u);
         op('pm', 1 - u);
-        op('chrom', lerp(0.55, 0.12, u));
+        op('chrom', 1);
         op('phage', 1 - u);
         op('phagesIn', 1);
         PHAGES_IN.forEach((p, i) => tr(`np${i}`, mix(p, PHAGES_OUT[i]!, ease(phase(t, 0.25, 0.9)))));

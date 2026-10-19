@@ -3,7 +3,8 @@ import { ease, lerp, phase } from '../lib/timeline';
 /*
  * Hershey–Chase driver. Steps: 0 label phage · 1 infect (DNA injected) · 2 blend · 3 centrifuge ·
  * 4 measure radioactivity · 5 conclusion. render() is absolute: every element is set on every call.
- * Readings are rounded values (about 80% of ³⁵S in the supernatant; about 70% of ³²P in the pellet).
+ * Readings are rounded values (about 80% of ³⁵S in the supernatant; about 70% of ³²P in the pellet); the
+ * minority fraction in each tube (`<p>-minor`) fades in with the readings so neither result looks like 100% / 0%.
  */
 const PH_X = [88, 168];
 const Y_FREE = 66;
@@ -47,6 +48,7 @@ export function create(svg: SVGSVGElement) {
       show(`${p}-cells`, cells);
       show(`${p}-tube`, tube);
       show(`${p}-pct`, pct);
+      show(`${p}-minor`, index >= 4 ? reading : 0);
       const f = FINAL[p];
       el(`${p}-sup`).textContent = `supernatant ≈ ${Math.round(f.sup * reading)}%`;
       el(`${p}-pel`).textContent = `pellet ≈ ${Math.round(f.pel * reading)}%`;

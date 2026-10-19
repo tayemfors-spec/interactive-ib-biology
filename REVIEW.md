@@ -44,6 +44,105 @@ Each topic's full list of checkable claims, with sources and confidence, is in `
 | B2.1-9 | 3D model proportions | Schematic | Heads and proteins are enlarged for visibility. Carbohydrate only on the outer face, peripheral proteins not in the core, and cholesterol –OH by the heads are all deliberately correct | checked |
 | B2.1-10 | Gated channels: "two ACh molecules bind" | Detail beyond the guide | Nicotinic receptors have two ACh binding sites (on α subunits) | checked (textbook) |
 
+
+### Theme A: claims for a teacher to confirm
+
+Generated from each topic's `facts.yaml` (status `open`). Everything else in those files is marked `checked` against textbook sources.
+
+**A1.1 Water**: 38 claims recorded, 9 open
+
+- f6: A hydrogen bond is an intermolecular attraction between a δ+ H (bonded to O) and a δ− O of another molecule, roughly one-twentieth the strength of an O–H covalent bond.
+- f7: Each water molecule can form up to four hydrogen bonds (two donated via its H atoms, two accepted at its lone pairs); in liquid water most molecules have three or four at any instant.
+- f8: Hydrogen bonds in liquid water last only around a picosecond (10⁻¹² s) before breaking and re-forming.
+- f23: Ringed seal (Pusa hispida) — Arctic seas; spends most time in water; hauls out on sea ice to rest, moult and give birth; keeps breathing holes open with its fore-flipper claws; pups born in snow lairs; thick blubber; body density close to seawater.
+- f24: Black-throated loon (Gavia arctica) — breeds on northern lakes, dives for fish propelled by feet set far back, needs a long take-off run, has dense waterproof plumage, less pneumatized bones than most birds, presses air from its plumage to dive, and in winter, when its breeding lakes freeze, migrates to coastal seas that stay ice-free because seawater's high specific heat capacity slows its cooling.
+- f27: Specific heat capacity of liquid methane near its boiling point is about 3.5 J g⁻¹ K⁻¹ (gaseous methane at 25 °C ≈2.2).
+- f29: Rocky planets formed inside the snow line (≈2.7 AU in the early Solar System), where it was too hot for water ice; water-rich (carbonaceous) asteroids from the outer belt are the leading hypothesis for delivering Earth's water.
+- f30: D/H ratios (× 10⁻⁴) — Earth's oceans 1.56; carbonaceous chondrites ≈1.4–1.8; most Oort-cloud comets ≈2.9–3.3; comet 67P ≈5.3 (Rosetta). A few comets (e.g. 103P/Hartley 2) have Earth-like values.
+- f34: The Sun's habitable (Goldilocks) zone is roughly 0.95–1.67 AU; boundaries depend on the climate model, and Mars lies near the outer edge.
+
+**A1.2 Nucleic acids**: 27 claims recorded, 6 open
+
+- f9: The minor groove lies on the side of the base pair where the two glycosidic bonds (sugars) are attached; the model separates paired sugars by 140° around the axis.
+- f15: DNA data storage experiments have reached about 200 million gigabytes (≈ 215 petabytes) per gram.
+- f21: PDB entry 1KX5 is a nucleosome core particle structure (1.9 Å) suitable for visualization.
+- f22: Hershey–Chase (1952) used ³⁵S to label protein (cysteine, methionine) and ³²P to label DNA; after infection, blending and centrifugation, most ³⁵S (about 80%) was in the supernatant and most ³²P (roughly 70%) stayed with the cells in the pellet; ³²P but almost no ³⁵S (<1%) appeared in progeny phage.
+- f23: Radioisotopes became widely available to biologists as research tools from the 1940s (e.g. reactor-produced isotopes after 1946).
+- f24: Chargaff base compositions (mol %) — human A 29.3 G 20.7 C 20.0 T 30.0; chicken 28.0/22.0/21.6/28.4; octopus 33.2/17.6/17.6/31.6; sea urchin 32.8/17.7/17.3/32.1; wheat 27.3/22.7/22.8/27.1; maize 26.8/22.8/23.2/27.2; yeast 31.3/18.7/17.1/32.9; E. coli 24.7/26.0/25.7/23.6; φX174 (single-stranded) 24.0/23.3/21.5/31.2.
+
+**A2.1 Origins of cells**: 43 claims recorded, 13 open
+
+- f2: Zircon crystals from Jack Hills, Western Australia, about 4.4 billion years old, have oxygen isotope ratios suggesting liquid water at the surface, so oceans may have existed by about 4.4 Ga.
+- f4: The young Sun was about 30% dimmer (about 70% of today's luminosity), and the greenhouse effect kept the early Earth warm despite this; whether the surface was warmer than today is debated.
+- f12: The water turned pink within a day and deep red (red-brown) by the end of the week.
+- f15: The early atmosphere is now thought to have been only weakly reducing or neutral, mainly CO₂ and N₂ with water vapour, and such mixtures give far fewer amino acids in spark experiments.
+- f18: Fatty acids have one hydrocarbon chain and a carboxyl group; above a critical concentration they form micelles, and at pH near the apparent pKa of the membrane-bound acid (near neutral to slightly alkaline, depending on chain length) they form bilayer vesicles.
+- f23: Lab-evolved polymerase ribozymes can copy RNA templates but none yet copies itself fully.
+- f28: LUCA probably had ribosomes, a membrane and a DNA genome.
+- f29: Three-domain tree rooted between Bacteria and Archaea+Eukaryotes (as drawn in the LUCA figure).
+- f32: ¹³C-depleted graphite in 3.7 Ga metasedimentary rocks from Isua, West Greenland, is evidence of life.
+- f33: A graphite inclusion in a 4.1 Ga Jack Hills zircon has a light carbon isotope signature; this is a single, disputed sample.
+- f34: Molecular-clock estimates for LUCA range roughly from 3.9 to 4.3 Ga; a large 2024 study estimated about 4.2 Ga (4.09–4.33 Ga).
+- f36: Eukaryotic microfossils are clearly present by about 1.6 Ga.
+- f41: Possible microfossils (haematite tubes and filaments) in hydrothermal vent precipitates of the Nuvvuagittuq belt, Quebec, at least 3.77 Ga and possibly 4.28 Ga; biological origin disputed.
+
+**A2.2 Cell structure**: 39 claims recorded, 7 open
+
+- f16: Mitochondrial ribosomes are bacterial-type but vary in size between groups (about 55S in mammals); IB calls them 70S.
+- f17: Typical sizes — bacteria 1–5 µm (Bacillus ≈ 3 µm long, ≈ 1 µm wide; Staphylococcus ≈ 1 µm); eukaryotic cells 10–100 µm; nucleus ≈ 5–10 µm; mitochondria ≈ 1–4 µm long (0.5–1 µm wide); chloroplasts ≈ 5 µm (2–10 µm); 80S ribosome ≈ 25–30 nm; red blood cell ≈ 7.5 µm; cheek cell ≈ 60 µm; lysosome ≈ 0.1–1 µm; Paramecium ≈ 200 µm.
+- f24: Ammonia (as well as CO₂) diffuses out of Paramecium as a nitrogenous waste.
+- f30: Skeletal muscle fibres form by fusion of myoblasts, are multinucleate (hundreds of nuclei) and can be several centimetres long.
+- f34: Endosymbiosis — all eukaryotes descend from a nucleated, sexually reproducing unicellular ancestor; mitochondria came from an aerobic (alpha-proteo)bacterium, and later, in the ancestor of green algae, red algae and plants, chloroplasts from a cyanobacterium (primary endosymbiosis; some other algae gained chloroplasts later by engulfing such algae, secondary endosymbiosis); most endosymbiont genes moved to the nucleus.
+- f36: The anim shows the outer organelle membrane deriving from the host vesicle membrane (the IB/textbook account). Some protein evidence suggests the mitochondrial outer membrane derives from the bacterial outer membrane instead; no quiz question depends on this.
+- f38: Multicellularity evolved independently many times (animals once, land plants once, several times in fungi and in brown, red and green algae; estimates of 25 or more origins); all plants and animals are multicellular; yeasts and Chlamydomonas are unicellular; advantages include larger size, cell specialization and longer life.
+
+**A2.3 Viruses**: 30 claims recorded, 4 open
+
+- f6: The lambda tail tube is built from 32 stacked hexameric rings of gpV.
+- f9: A lambda lytic cycle takes about an hour and releases about 100 phages per cell.
+- f19: The shared genetic code is taken as evidence that viruses arose after the code was established in cells, probably from cellular genetic material.
+- f21: RNA-dependent RNA polymerases and reverse transcriptase lack proofreading, giving mutation rates of roughly 10⁻⁶–10⁻⁴ per base per replication, compared with about 10⁻⁸–10⁻⁶ for DNA viruses.
+
+**A3.1 Diversity of organisms**: 37 claims recorded, 7 open
+
+- f9: Diploid chromosome numbers are even; odd numbers in body cells arise from aneuploidy or unpaired sex chromosomes (XO males in e.g. grasshoppers).
+- f12: Centromere indices are rounded cytogenetic values; metacentric 1, 3, 16, 19, 20; submetacentric 2, 4–12, 17, 18, X; acrocentric 13–15, 21, 22, Y.
+- f18: In the figure the positions of the fusion site (47% along chr2) and vestigial centromere (54.5%) are approximate, derived from GRCh38 coordinates (~114 Mb and ~132 Mb of 242 Mb); chimpanzee centromere positions are drawn to align with these and are schematic.
+- f22: Genome sizes used — Mycoplasma genitalium 0.58 Mb; E. coli 4.6 Mb; S. cerevisiae 12.1 Mb; C. elegans 100 Mb; Arabidopsis 135 Mb; Drosophila 175 Mb; rice 390 Mb; Takifugu rubripes 390 Mb; chicken 1.05 Gb; maize 2.3 Gb; mouse 2.7 Gb; human 3.1 Gb; onion 16 Gb; axolotl 32 Gb; Protopterus aethiopicus 130 Gb; Paris japonica 149 Gb; Tmesipteris oblanceolata 160 Gb.
+- f28: A human genome can now be sequenced in a day or two for a few hundred US dollars.
+- f31: Many dandelions (Taraxacum) reproduce by apomixis and hundreds of microspecies are named; bdelloid rotifers have no known males and appear to have been asexual for millions of years, with several hundred described species.
+- f37: The mule animation uses a simplified, hypothetical chromosome set (horse A, B, C, D; donkey A, B, CD) to illustrate failed pairing and unbalanced segregation; real horse–donkey karyotype differences involve several fusions and rearrangements, and in mules meiosis usually arrests.
+
+**A3.2 Classification and cladistics**: 26 claims recorded, 5 open
+
+- f1: About two million species have been named and described; estimates of the total number of species run to several million or more.
+- f5: Shared characteristics listed in the sim — vertebrates cranium and vertebrae (simple cartilage elements in lampreys); jawed vertebrates jaws and paired fins; bony vertebrates bone and lungs/swim bladder derived from lungs; tetrapods four limbs with digits; amniotes amniotic egg; mammals hair and mammary glands; reptiles beta-keratin scales (also in feathers); archosaurs four-chambered heart and gizzard.
+- f12: Human and chimpanzee genomes differ at about 1.2% of aligned bases; at about 1 × 10⁻⁹ substitutions per base per year per lineage this gives a split about 6 million years ago, consistent with fossils; slower pedigree-based rates give older dates.
+- f19: The old figwort family had several thousand species (about 5000 in about 275 genera) and fewer than half of the species remain in it.
+- f20: The similarities used to define the figwort family arose by convergent evolution or were shared with other families (ancestral traits), not exclusive common ancestry.
+
+**A4.1 Evolution and speciation**: 39 claims recorded, 6 open
+
+- f5: Approximate cytochrome c amino acid differences from humans: chimpanzee 0, rhesus monkey 1, dog 11, horse 12, chicken 13, tuna 21, baker's yeast about 45; human cytochrome c has 104 amino acids.
+- f14: Dolphin flipper — short flattened humerus, radius and ulna; immobile elbow and wrist; hyperphalangy in digits 2 and 3.
+- f25: The bonobo–chimpanzee split happened roughly 1–2 million years ago, probably when founders crossed the Congo during a dry period of low water.
+- f26: Absence of gorillas south of the Congo leaves more terrestrial plant food for bonobos, a likely selection pressure behind larger, more stable and less aggressive groups.
+- f31: Darwin's finches descend from one ancestral seed-eating finch (a tanager) from mainland South America, within the last roughly 1–3 million years, and now number about 15–18 species; up to about ten coexist on one island.
+- f37: Persicaria has over 100 species, many formed by hybridization and polyploidy; P. maculosa (2n = 44) is an allotetraploid from P. lapathifolia and P. foliosa, each 2n = 22.
+
+**A4.2 Conservation of biodiversity**: 31 claims recorded, 10 open
+
+- f2: About 2 million species have been described, with roughly 15,000–20,000 new species described each year.
+- f7: Probable triggers — End-Ordovician glaciation; Late Devonian uncertain (ocean anoxia, climate change, several pulses); End-Permian Siberian Traps volcanism; End-Triassic volcanism (Central Atlantic Magmatic Province) as Pangaea rifted; End-Cretaceous Chicxulub asteroid impact with Deccan Traps volcanism.
+- f8: About 1.5% of well-studied mammal and bird species are recorded as extinct since 1500, and about 26% of assessed mammals are threatened; even losing all threatened mammals would be below the 75% threshold, but the rate is far faster than in past events.
+- f9: North Island giant moa (Dinornis novaezealandiae) was one of nine moa species; flightless; females much larger than males (about 2 m at the back, well over 100 kg). Moa evolved with no land mammal predators; Haast's eagle, their only major predator, lived only on the South Island, so the North Island giant moa never met it.
+- f11: Moa reproduced slowly (took several years to mature, laid few eggs) and evolved without mammal predators; dogs and rats introduced by settlers may have taken eggs and chicks.
+- f14: Dipterocarpaceae has roughly 500–700 species depending on classification; mixed dipterocarp forest is the main lowland rainforest of Borneo, Sumatra and the Malay Peninsula, with emergent trees often over 50 m, very high species richness and mast fruiting every few years.
+- f18: Less than a few per cent (commonly cited as under 4%) of the original North American tallgrass prairie remains, lost to ploughing, fire suppression and removal of bison.
+- f20: IUCN Red List percentages of assessed species threatened: amphibians ~41%, sharks and rays ~37%, conifers ~34%, mammals ~26%, birds ~12% (2024 summary); reef-building corals ~44% (Global Coral Assessment, November 2024).
+- f30: IUCN categories and distinctiveness of EDGE explorer species: Attenborough's long-beaked echidna CR, monotreme (five living species); aye-aye EN, sole living species of Daubentoniidae; Chinese giant salamander CR, family Cryptobranchidae; platypus NT, sole living species of Ornithorhynchidae; tuatara LC (2019), sole living rhynchocephalian, lineage split from squamates over 200 Ma; mountain chicken frog CR, genus Leptodactylus with dozens of species; house sparrow LC. ED is shown only qualitatively; no scores are invented.
+- f31: The main threats listed for EDGE explorer species (echidna — hunting and forest loss; baiji — by-catch, dams, pollution, boat traffic; aye-aye — forest loss and killing; salamander — over-collection and genetic mixing from farm releases; tuatara — protected on predator-free islands).
+
 ## Examiner review log
 
 ### B2.1 (example page), 19 Oct 2026
@@ -55,3 +154,20 @@ An independent reviewer, acting as a strict IB examiner, read the page text, vis
 | Major | The flat active-transport line could suggest "a plateau rules out active transport" | Note added in the sim and the text: pumps can also saturate; the inhibitor test is decisive | ✓ |
 | Major | Saturation was attributed to channels only | "Channel or carrier proteins" in the text and slider | ✓ |
 | Minor ×15 | Wording and precision: "conformational change" added; K⁺ selectivity isn't size alone; bilayer "not covalently bonded"; active-transport definition covers the indirect route; cholesterol –OH wording; membrane area statement; flashcard c2 now covers water; K⁺ channel drawn with 4 subunits; diffusion steps show some molecules moving against the net direction; "bond dipoles cancel"; scale bar relabelled; CAMs drawn spanning the membrane; label 13 moved inside the frame | All applied | ✓ |
+
+### Theme A (A1.1–A4.2), 19 Oct 2026
+Three independent reviewers, each acting as a strict IB examiner, covered three topics apiece. They read all page text, visuals, quizzes, flashcards, simulation code and screenshots of every visual (each 3D scene, and each animation step's completed state). All 90 MCQ keys were confirmed correct.
+
+| Topic | Critical | Major | Minor | Key fixes |
+|---|---|---|---|---|
+| A1.1 Water | 0 | 0 | 6 | Loon migration reasoning; buoyancy readout at near-neutral density; consistent 3,450× figure |
+| A1.2 Nucleic acids | 0 | 0 | 5 | Unambiguous 5′→3′ backbone linkage; DNA-length arithmetic; Hershey–Chase legend and minority fractions |
+| A2.1 Origins of cells | 0 | 2 | 3 | Self-assembly no longer confused with abiotic synthesis; FeS minerals attributed to proposed Hadean vents, not Lost City |
+| A2.2 Cell structure | 0 | 1 | 7 | Quiz distractor value fixed (675,000 mm); plastid lineage (secondary endosymbiosis); unshaded exam drawing |
+| A2.3 Viruses | 0 | 1 | 5 | 3D tail-tip and tail-fibre labels re-anchored; slimmer lambda tail; host DNA no longer drawn as degraded |
+| A3.1 Diversity of organisms | 0 | 0 | 4 | eDNA primers are group-specific; "almost all the same genes" |
+| A3.2 Classification and cladistics | 0 | 1 | 4 | Parsimony counts recomputed and unit-tested (10 vs 12; root set by outgroup) |
+| A4.1 Evolution and speciation | 0 | 1 | 5 | Limb homology now described as divergent evolution (not adaptive radiation); ploidy notation; finch tree; bat phalanges |
+| A4.2 Conservation of biodiversity | **1** | 0 | 5 | **Haast's eagle lived only on the South Island**, so it was not a predator of the North Island giant moa |
+
+All findings were fixed, every gate was re-run (build, 168 unit tests, 234 browser tests, links, Lighthouse 99–100) and the changed visuals were re-checked from fresh screenshots.

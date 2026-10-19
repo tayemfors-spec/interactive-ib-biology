@@ -14,7 +14,7 @@ const R = 3.1; // head circumradius (head ≈ 60 nm across)
 const TAIL_TOP = HEAD_Y - R - 0.35; // below the portal
 const TAIL_LEN = 14; // ≈ 140–150 nm
 const RINGS = 32; // the tail tube is a stack of protein rings
-const TAIL_R = 0.9;
+const TAIL_R = 0.45; // tail ≈ 9 nm wide against a ≈ 60 nm head (same ratio as the 2D diagram)
 const MEM_Y = -12.75; // top surface of the outer membrane
 
 // The model is built with the tail axis along +y, then turned so it lies horizontally (head on the left),
@@ -150,7 +150,7 @@ const scene: SceneModule = {
 
     // conical tail tip
     const tipTop = tailAt(1);
-    const tip = new THREE.Mesh(ctx.track(new THREE.CylinderGeometry(TAIL_R * 0.95, 0.28, 1.6, 16)), mTail);
+    const tip = new THREE.Mesh(ctx.track(new THREE.CylinderGeometry(TAIL_R * 0.95, 0.2, 1.6, 16)), mTail);
     tip.position.set(tipTop.x, tipTop.y - 0.8, tipTop.z);
     root.add(tip);
 
@@ -218,9 +218,9 @@ const scene: SceneModule = {
       capsomere: { object: anchorAt(root, capsomereAt.x, capsomereAt.y, capsomereAt.z, 'capsomere'), highlight: [hexes, pents] },
       dna: { object: anchorAt(root, dnaSpot.x, dnaSpot.y, dnaSpot.z, 'dna'), highlight: [dna] },
       portal: { object: anchorAt(root, 0.2, portal.position.y, 0.9, 'portal'), highlight: [portal] },
-      tail: { object: anchorAt(root, tailMid.x + 0.3, tailMid.y, tailMid.z + TAIL_R, 'tail'), highlight: [rings] },
-      tip: { object: anchorAt(root, tip.position.x + 0.3, tip.position.y, tip.position.z + 0.6, 'tip'), highlight: [tip] },
-      fibre: { object: anchorAt(root, fibreMid.x + 0.1, fibreMid.y, fibreMid.z + 0.15, 'fibre'), highlight: [fibreGroup] },
+      tail: { object: anchorAt(root, tailMid.x, tailMid.y, tailMid.z + TAIL_R, 'tail'), highlight: [rings] },
+      tip: { object: anchorAt(root, tip.position.x, tip.position.y, tip.position.z + TAIL_R * 0.7, 'tip'), highlight: [tip] }, // on the tip's camera-facing surface
+      fibre: { object: anchorAt(root, fibreMid.x, fibreMid.y, fibreMid.z + 0.13, 'fibre'), highlight: [fibreGroup] }, // on the fibre itself, at its mid-point
       lamb: { object: anchorAt(root, lamb.position.x + 0.3, MEM_Y + 0.2, lamb.position.z + 0.9, 'lamb'), highlight: [lamb] },
       membrane: { object: anchorAt(root, -7, MEM_Y + 0.2, -4.5, 'membrane'), highlight: [membrane] },
     };

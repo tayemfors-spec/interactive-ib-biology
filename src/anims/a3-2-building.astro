@@ -67,8 +67,10 @@ const cellY = { Q: 216, R: 246, S: 276 } as Record<string, number>;
       <text x="440" y="258" text-anchor="middle">1</text>
       <text x="370" y="234" text-anchor="middle">2</text>
       <text x="420" y="290" text-anchor="middle">3</text>
-      <text class="total" x="290" y="332">Total: 10 base changes</text>
-      <text class="note" x="290" y="352">the most parsimonious tree</text>
+      <text class="total" x="300" y="332">Total: 10 base changes</text>
+      <text class="note" x="300" y="352">the most parsimonious tree</text>
+      <text class="note" x="300" y="374">root placed using S, the</text>
+      <text class="note" x="300" y="392">most different (outgroup)</text>
     </g>
   </g>
 
@@ -79,7 +81,9 @@ const cellY = { Q: 216, R: 246, S: 276 } as Record<string, number>;
     <text class="sp sm" x="176" y="354" dy="0.35em">R</text>
     <text class="sp sm" x="176" y="374" dy="0.35em">Q</text>
     <text class="sp sm" x="176" y="394" dy="0.35em">S</text>
-    <text class="bad" x="212" y="368">needs 12 changes</text>
+    <text class="bad" x="192" y="346">needs 12</text>
+    <text class="bad" x="192" y="364">changes</text>
+    <text class="bad sm" x="192" y="384">(P with S: 12)</text>
   </g>
 </svg>
 <style>
@@ -101,4 +105,5 @@ const cellY = { Q: 216, R: 246, S: 276 } as Record<string, number>;
   .chg .total { font-size: 15px; fill: var(--text); }
   .chg .note { font-weight: 400; }
   .bad { font-size: 14px; font-weight: 750; fill: var(--bad); }
+  .bad.sm { font-size: 12px; font-weight: 650; }
 </style>

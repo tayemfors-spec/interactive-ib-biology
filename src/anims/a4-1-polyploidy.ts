@@ -76,18 +76,21 @@ export function create(svg: SVGSVGElement) {
     show(q('pGamB'), s === 2 ? gam * (1 - ease(phase(t, 0.55, 0.8))) : 0);
     show(q('pGamLbl'), s === 2 ? gam * (1 - ease(phase(t, 0.55, 0.8))) : 0);
     show(q('pParents'), s === 2 ? 1 : s < 5 ? 0.35 : 0);
-    show(q('pCell'), s === 2 ? ease(phase(t, 0.6, 0.9)) : s === 4 ? 1 - 0.65 * ease(phase(t, 0.55, 1)) : s === 5 ? 0.35 : 1);
+    show(q('pCell'), s === 2 ? ease(phase(t, 0.6, 0.9)) : s === 5 ? 1 - 0.65 * ease(phase(t, 0.15, 0.45)) : 1);
     show(q('lHyb'), s === 2 ? ease(phase(t, 0.75, 1)) : 0);
     show(q('lTet'), s === 3 ? ease(phase(t, 0.5, 0.9)) : 0);
     show(q('lMei'), s === 4 ? ease(phase(t, 0, 0.3)) : 0);
-    show(q('lGam'), s === 4 ? ease(phase(t, 0.8, 1)) : s === 5 ? 1 : 0);
-    show(q('pG1'), s === 4 ? ease(phase(t, 0.5, 0.8)) : s === 5 ? 1 : 0);
-    show(q('pG2'), s === 4 ? ease(phase(t, 0.5, 0.8)) : s === 5 ? 1 : 0);
-    show(q('result'), s === 5 ? ease(phase(t, 0, 0.4)) : 0);
+    // homologous pairs (A with A, B with B) line up either side of the equator, then separate
+    show(q('lPairs'), s === 4 ? ease(phase(t, 0.35, 0.7)) : s === 5 ? 1 - ease(phase(t, 0, 0.12)) : 0);
+    show(q('lGam'), s === 5 ? ease(phase(t, 0.3, 0.5)) : 0);
+    show(q('pG1'), s === 5 ? ease(phase(t, 0.05, 0.3)) : 0);
+    show(q('pG2'), s === 5 ? ease(phase(t, 0.05, 0.3)) : 0);
+    show(q('result'), s === 5 ? ease(phase(t, 0.5, 0.85)) : 0);
 
     const dup = steps(s, t, 3, 0.1, 0.6);
-    const line = s === 4 ? ease(phase(t, 0, 0.45)) : s > 4 ? 1 : 0;
-    const split = s === 4 ? ease(phase(t, 0.5, 0.9)) : s > 4 ? 1 : 0;
+    const line = s === 4 ? ease(phase(t, 0.1, 0.7)) : s > 4 ? 1 : 0;
+    // step 5 ends with the pairs on the equator; they separate into gametes at the start of step 6
+    const split = s === 5 ? ease(phase(t, 0.1, 0.4)) : 0;
     (['A', 'B'] as const).forEach((set, si) => {
       const lens = set === 'A' ? LEN_A : LEN_B;
       const gam0 = set === 'A' ? G_A : G_B;

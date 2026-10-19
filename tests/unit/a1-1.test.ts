@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { describe, expect, it } from 'vitest';
 import {
-  AIR, METHANE, SEAWATER_DENSITY, WATER, WATER_SUB, buoyancy, conductiveFlux, heatReleasedPerLitre, liquidRange, ratio, sig,
+  AIR, METHANE, SEAWATER_DENSITY, WATER, WATER_SUB, buoyancy, buoyancyText, conductiveFlux, heatReleasedPerLitre, liquidRange, ratio, sig,
   stateAt, supportedFraction, volumetricRatio,
 } from '../../src/sims/models/a1-1-properties';
 import type { SceneContext, SceneModule } from '../../src/viewer3d/types';
@@ -18,7 +18,7 @@ describe('A1.1 water versus air', () => {
     expect(ratio('conductivity')).toBeGreaterThan(20);
     expect(ratio('conductivity')).toBeLessThan(26);
   });
-  it('specific heat capacity: about 4× per gram but about 3,500× per unit volume', () => {
+  it('specific heat capacity: about 4× per gram but about 3,450× per unit volume', () => {
     expect(ratio('specificHeat')).toBeCloseTo(4.16, 1);
     expect(volumetricRatio()).toBeGreaterThan(3300);
     expect(volumetricRatio()).toBeLessThan(3600);
@@ -40,6 +40,11 @@ describe('A1.1 water versus air', () => {
     expect(buoyancy(1080, SEAWATER_DENSITY)).toBe('sinks');
     expect(buoyancy(1025, SEAWATER_DENSITY)).toBe('neutral');
     expect(buoyancy(1000, AIR.density)).toBe('sinks');
+    // 1030 vs 1025 is ~0.5% denser: not neutral, but it sinks only very slowly
+    expect(buoyancy(1030, SEAWATER_DENSITY)).toBe('sinks');
+    expect(buoyancyText(1030, SEAWATER_DENSITY)).toMatch(/almost neutrally buoyant/);
+    expect(buoyancyText(1025, SEAWATER_DENSITY)).toMatch(/neither sinks nor floats/);
+    expect(buoyancyText(1080, SEAWATER_DENSITY)).toBe('it sinks');
   });
 });
 

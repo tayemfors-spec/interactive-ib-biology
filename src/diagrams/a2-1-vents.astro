@@ -1,20 +1,24 @@
 ---
-/** An alkaline hydrothermal vent and a close-up of one micropore in its chimney wall (A2.1.9). */
+/** A proposed early-Earth (Hadean) alkaline hydrothermal vent and a close-up of one micropore in its chimney wall (A2.1.9).
+ *  Not Lost City: modern carbonate chimneys contain little FeS; FeS walls are proposed for vents in the iron-rich Hadean ocean. */
 const pores = [[150, 280], [178, 262], [140, 236], [170, 212], [150, 186], [176, 160], [158, 132], [168, 106], [196, 236], [126, 262], [190, 188]];
 const hOut = [[372, 92], [410, 120], [380, 150], [432, 176], [366, 200], [404, 226], [440, 104], [430, 246], [376, 252]];
 const hIn = [[548, 130], [580, 220]];
 const fes = [96, 128, 160, 192, 224, 256];
 ---
 <svg viewBox="0 0 640 380" role="img" aria-labelledby="vent-t vent-d" xmlns="http://www.w3.org/2000/svg">
-  <title id="vent-t">An alkaline hydrothermal vent and one of its micropores</title>
-  <desc id="vent-d">Left: a porous chimney of carbonate minerals rises from the seafloor. Warm alkaline fluid rich in hydrogen and methane, produced where seawater reacts with rock below the seafloor, flows up through it into ocean water that is rich in carbon dioxide and more acidic. Right: a close-up of one micropore. A thin mineral wall containing iron–sulfur minerals separates acidic ocean water with many hydrogen ions and carbon dioxide from alkaline vent fluid with few hydrogen ions and hydrogen gas. Hydrogen ions tend to flow across the wall down this natural gradient, and the iron–sulfur minerals could catalyse reactions between hydrogen and carbon dioxide that make organic molecules. The pore itself is a natural compartment.</desc>
+  <title id="vent-t">A proposed early-Earth alkaline hydrothermal vent and one of its micropores</title>
+  <desc id="vent-d">A model of an alkaline vent as proposed for the Hadean ocean, which was rich in dissolved iron; it is not a picture of a modern vent such as Lost City, whose chimneys contain little iron sulfide. Left: a porous mineral chimney rises from the seafloor. Warm alkaline fluid rich in hydrogen and methane, produced where seawater reacts with rock below the seafloor, flows up through it into ocean water that is rich in carbon dioxide and more acidic. Right: a close-up of one micropore. A thin mineral wall, thought to have contained iron–sulfur minerals in these early vents, separates acidic ocean water with many hydrogen ions and carbon dioxide from alkaline vent fluid with few hydrogen ions and hydrogen gas. Hydrogen ions tend to flow across the wall down this natural gradient, and the iron–sulfur minerals could catalyse reactions between hydrogen and carbon dioxide that make organic molecules. The pore itself is a natural compartment.</desc>
 
   <!-- ocean and seafloor -->
   <rect class="ocean" x="0" y="0" width="330" height="320" />
   <rect class="rock" x="0" y="320" width="330" height="60" />
   <path class="crack" d="M130 338 L136 328 L142 320 M198 338 L192 328 L190 320" />
-  <text class="lbl" x="12" y="72">ocean: CO₂-rich,</text>
-  <text class="lbl" x="12" y="90">more acidic</text>
+  <text class="lbl strong" x="12" y="22">Proposed</text>
+  <text class="lbl strong" x="12" y="40">Hadean vent</text>
+  <text class="lbl" x="12" y="72">early ocean: CO₂-</text>
+  <text class="lbl" x="12" y="90">and iron-rich,</text>
+  <text class="lbl" x="12" y="108">more acidic</text>
   <text class="lbl" x="12" y="356">rock reacts with seawater</text>
   <text class="lbl" x="12" y="374">→ H₂ and warm alkaline fluid</text>
 
@@ -26,9 +30,8 @@ const fes = [96, 128, 160, 192, 224, 256];
   <path class="plume" d="M150 80 C140 60 152 44 140 24 M176 80 C186 60 176 44 188 24" />
   <path class="arrowhead" d="M134 32 L140 22 L146 34 M182 34 L188 22 L194 32" />
   <text class="lbl" x="240" y="150">porous</text>
-  <text class="lbl" x="240" y="168">chimney of</text>
-  <text class="lbl" x="240" y="186">carbonate</text>
-  <text class="lbl" x="240" y="204">minerals</text>
+  <text class="lbl" x="240" y="168">mineral</text>
+  <text class="lbl" x="240" y="186">chimney</text>
   <path class="lead" d="M236 162 L200 172" />
   <text class="lbl strong" x="200" y="24">warm alkaline</text>
   <text class="lbl strong" x="200" y="42">fluid: H₂, CH₄</text>

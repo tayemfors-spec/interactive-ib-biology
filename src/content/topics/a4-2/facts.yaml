@@ -48,13 +48,13 @@ facts:
     basis: IUCN Red List (roughly 85 extinct of ~6,500 mammals; ~160 extinct of ~11,000 birds); Barnosky et al. (2011) argument on rates
     status: open
   - id: f9
-    claim: North Island giant moa (Dinornis novaezealandiae) was one of nine moa species; flightless; females much larger than males (about 2 m at the back, well over 100 kg); its only significant predator was Haast's eagle.
+    claim: North Island giant moa (Dinornis novaezealandiae) was one of nine moa species; flightless; females much larger than males (about 2 m at the back, well over 100 kg). Moa evolved with no land mammal predators; Haast's eagle, their only major predator, lived only on the South Island, so the North Island giant moa never met it.
     where: [ "index.mdx#extinctions" ]
     confidence: medium
-    basis: NZ Birds Online (Te Papa) species account; Bunce et al. (2009) PNAS on moa phylogeny; body mass estimates for females vary (~80–250 kg)
+    basis: NZ Birds Online (Te Papa) species account; Bunce et al. (2009) PNAS on moa phylogeny; body mass estimates for females vary (~80–250 kg); Haast's eagle (Hieraaetus moorei) known only from South Island fossil sites (Bunce et al. 2005 PLoS Biol; NZ Birds Online)
     status: open
   - id: f10
-    claim: Polynesian settlers (ancestors of Māori) arrived in New Zealand around 1250–1300 CE; moa were hunted (and eggs taken) and all moa species were extinct within about 150–200 years, by about 1400–1450; Haast's eagle died out at about the same time.
+    claim: Polynesian settlers (ancestors of Māori) arrived in New Zealand around 1250–1300 CE; moa were hunted (and eggs taken) and all moa species were extinct within about 150–200 years, by about 1400–1450; Haast's eagle (South Island only) died out at about the same time.
     where: [ "index.mdx#extinctions", "index.mdx (mistakes)", "flashcards.yaml:c5", "quiz.yaml:q3", "visuals.yaml:causes exploit" ]
     confidence: high
     basis: Wilmshurst et al. (2011) PNAS 108 1815; Perry et al. (2014) Quaternary Science Reviews; Holdaway et al. (2014) Nature Communications 5 5436
@@ -162,7 +162,7 @@ facts:
     basis: NZ Department of Conservation Kākāpō Recovery Programme
     status: checked
   - id: f28
-    claim: "The EDGE of Existence programme was launched by the Zoological Society of London in 2007. The original EDGE score is ln(1 + ED) + GE × ln 2, with ED in millions of years and GE = 0 (LC), 1 (NT), 2 (VU), 3 (EN), 4 (CR); each Red List step is treated as doubling extinction risk. EDGE species have above-median ED and are threatened. An updated method (EDGE2) was published in 2023."
+    claim: "The EDGE of Existence programme was launched by the Zoological Society of London in 2007. The original EDGE score is ln(1 + ED) + GE × ln 2, with ED in millions of years (the length of the species' own terminal branch plus a share of each deeper branch it shares with relatives, divided among the species descended from it) and GE = 0 (LC), 1 (NT), 2 (VU), 3 (EN), 4 (CR); each Red List step is treated as doubling extinction risk. EDGE species have above-median ED and are threatened. An updated method (EDGE2) was published in 2023."
     where: [ "index.mdx#edge", "src/sims/models/a4-2-edge.ts", "visuals.yaml:edge", "flashcards.yaml:c17", "quiz.yaml:q10" ]
     confidence: high
     basis: Isaac et al. (2007) PLoS ONE 2 e296; Gumbs et al. (2023) PLoS Biology 21 e3001991 (EDGE2)

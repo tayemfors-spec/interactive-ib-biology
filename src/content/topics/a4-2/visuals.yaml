@@ -28,7 +28,7 @@ visuals:
     description: >-
       A flow diagram read from top to bottom. At the top is the underlying cause: growth of the human population
       together with rising use of resources per person. From it, five direct causes branch off, each with its effect
-      on wildlife: land-use change destroys and fragments habitat; over-exploitation kills individuals faster than they
+      on wildlife: deforestation, farming and urbanization destroy and fragment habitat; over-exploitation kills individuals faster than they
       are replaced; invasive alien species, pests and diseases bring predation, competition and disease; pollution
       poisons habitats or makes water eutrophic; and climate change alters conditions faster than species can adapt.
       All five feed into the outcome at the bottom: smaller, isolated populations with less genetic diversity, leading
@@ -38,8 +38,8 @@ visuals:
         title: The underlying cause
         caption: The human population roughly quadrupled between 1920 and 2020, from under 2 billion to nearly 8 billion, and passed 8 billion in 2022, and each person on average uses more land, food, water, timber and energy than before. This growth in total demand is the overarching cause behind all five direct causes that follow.
       - id: land
-        title: Land-use change
-        caption: Forests and grasslands are cleared for crops, livestock, plantations, towns and roads. Habitat is destroyed and the rest is split into fragments too small for many species. This is the biggest single driver on land — for example, the loss of lowland mixed dipterocarp forest in Southeast Asia to logging and oil palm plantations.
+        title: Deforestation, farming and urbanization
+        caption: Forests and grasslands are cleared for crops, livestock and plantations, and built over by towns, cities and roads. Habitat is destroyed and the rest is split into fragments too small for many species. This is the biggest single driver on land — for example, the loss of lowland mixed dipterocarp forest in Southeast Asia to logging and oil palm plantations.
       - id: exploit
         title: Over-exploitation
         caption: Hunting, fishing, logging and collecting remove individuals faster than reproduction can replace them. The North Island giant moa was hunted to extinction within about two centuries of people reaching New Zealand, and the Caribbean monk seal was killed for its oil until none were left.

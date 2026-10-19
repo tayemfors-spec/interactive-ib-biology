@@ -15,6 +15,8 @@ describe('A2.1 early-Earth timeline model', () => {
     expect(ga('goe')).toBeCloseTo(2.4, 1);
     expect(ga('stromatolites')).toBeGreaterThanOrEqual(3.4);
     expect(ga('stromatolites')).toBeLessThanOrEqual(3.5);
+    // Dresser Formation stromatolites, the older Pilbara date quoted on the page
+    expect(ga('stromatolites')).toBeCloseTo(3.48, 2);
   });
 
   it('keeps the biological order: LUCA before the oldest accepted fossils, which come before oxygenation and eukaryotes', () => {
@@ -52,6 +54,9 @@ describe('A2.1 early-Earth timeline model', () => {
     expect(lifeEvidence(3.9)).toBe('disputed');
     expect(lifeEvidence(3.6)).toBe('isotopic');
     expect(lifeEvidence(3.0)).toBe('fossil');
+    // fossil evidence starts with the 3.48 Ga Dresser stromatolites
+    expect(lifeEvidence(3.48)).toBe('fossil');
+    expect(lifeEvidence(3.5)).toBe('isotopic');
   });
 
   it('finds the most recent event by a given time', () => {

@@ -2,7 +2,7 @@ cards:
   - id: c1
     level: SL
     front: What is the genetic material of all living organisms, and what is the exception?
-    back: DNA. Some viruses (such as coronaviruses) use RNA instead, but viruses are not considered to be living.
+    back: DNA. Some viruses (such as coronaviruses) use RNA instead, but viruses are not classed as living organisms because they cannot carry out life processes outside a host cell.
   - id: c2
     level: SL
     front: Name the three parts of a nucleotide and how they are drawn.
@@ -10,7 +10,7 @@ cards:
   - id: c3
     level: SL
     front: What is the sugar–phosphate backbone?
-    back: The chain of alternating sugars and phosphates in each strand, linked by covalent bonds between the phosphate of one nucleotide and carbon 3′ of the next sugar. It is a continuous, strong chain of atoms.
+    back: The chain of alternating sugars and phosphates in each strand, linked by covalent bonds between the phosphate on carbon 5′ of one nucleotide and carbon 3′ of the sugar of the adjacent nucleotide. It is a continuous, strong chain of atoms.
   - id: c4
     level: SL
     front: Name the bases in DNA and in RNA.

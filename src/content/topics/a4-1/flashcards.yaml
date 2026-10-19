@@ -34,7 +34,7 @@ cards:
   - id: c9
     level: SL
     front: What are homologous structures and why are they evidence for evolution?
-    back: Structures with the same basic plan in different species, often with different functions (e.g. human arm, bat wing, whale flipper). The shared plan is best explained by inheritance from a common ancestor, modified by adaptive radiation.
+    back: Structures with the same basic plan in different species, often with different functions (e.g. human arm, bat wing, whale flipper). The shared plan is best explained by inheritance from a common ancestor, then modified by divergent evolution, as natural selection adapted it to a different function in each lineage.
   - id: c10
     level: SL
     front: What are analogous structures? Give an example.

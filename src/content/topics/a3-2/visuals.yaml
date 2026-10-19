@@ -48,7 +48,8 @@ visuals:
       into a table (P–Q 2, P–R 4, Q–R 4, P–S 8, Q–S 8, R–S 6). The cladogram is then built by grouping the
       most similar species first: P and Q join at a node, R joins them next, and S, the most different, joins
       last, nearest the root. Finally, parsimony is used to check the tree: it accounts for all the variation
-      with 10 base changes, whereas grouping P with R instead would need 12.
+      with 10 base changes, whereas grouping P with R, or P with S, would need 12. Parsimony compares
+      branching patterns only; the root is placed using S, the most different species, as the outgroup.
     steps:
       - id: align
         title: Align the sequences
@@ -70,4 +71,4 @@ visuals:
         caption: S differs from the others at 6 to 8 positions, so it branches off nearest the root. The root represents the common ancestor of all four species; S is the most distantly related.
       - id: parsimony
         title: Check with parsimony
-        caption: Mapping the base changes onto the branches shows that this tree explains all the differences with 10 changes. Grouping P with R instead would need 12. Parsimony selects the tree needing the fewest changes as the most probable hypothesis — it is not proof of how the species evolved.
+        caption: Mapping the base changes onto the branches shows that this tree explains all the differences with 10 changes. Grouping P with R, or P with S, would need 12. Joining R with S, with P and Q as a pair, also needs 10, because it is the same branching pattern with the root in a different place; parsimony does not decide where the root goes. The root is placed using S, the most different species, as the outgroup. Parsimony selects the tree needing the fewest changes as the most probable hypothesis — it is not proof of how the species evolved.

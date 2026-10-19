@@ -129,7 +129,7 @@ facts:
     claim: The peptidyl transferase centre of the large ribosomal subunit is made of rRNA; the ribosome is a ribozyme that catalyses peptide bond formation.
     where: [ "index.mdx#rna-world", "index.mdx (mustKnow, mistakes)", "src/diagrams/a2-1-rna-world.astro", "quiz.yaml:q7", "flashcards.yaml:c13" ]
     confidence: high
-    basis: Nissen et al. 2000 (Science 289); IB guide A2.1.6
+    basis: Nissen et al. 2000 (Science 289); IB guide A2.1.6 (page wording rephrased in own words after examiner review)
     status: checked
   - id: f23
     claim: Lab-evolved polymerase ribozymes can copy RNA templates but none yet copies itself fully.
@@ -177,7 +177,7 @@ facts:
     claim: Fossil stromatolites in the Pilbara, Western Australia (Strelley Pool about 3.43 Ga; Dresser Formation about 3.48 Ga), are the oldest widely accepted fossils.
     where: [ "index.mdx#dating", "src/sims/models/a2-1-timeline.ts (stromatolites)", "flashcards.yaml:c15" ]
     confidence: high
-    basis: Allwood et al. 2006 (Nature 441); Van Kranendonk et al. 2008; Djokic et al. 2017
+    basis: Allwood et al. 2006 (Nature 441); Van Kranendonk et al. 2008; Djokic et al. 2017. The timeline model plots the event at the older Dresser date (3.48 Ga) with a 3.48–3.43 Ga range, and fossil evidence starts at ≤3.48 Ga (unit tested)
     status: checked
   - id: f31
     claim: Organisms fix ¹²C slightly faster than ¹³C, so biologically fixed carbon has a low ¹³C/¹²C ratio; ¹³C is stable.
@@ -228,13 +228,13 @@ facts:
     basis: Arithmetic from the dates above (unit tested in tests/unit/a2-1.test.ts)
     status: checked
   - id: f39
-    claim: Black smokers vent acidic fluid at about 350–400 °C rich in metal sulfides; alkaline vents such as Lost City (Mid-Atlantic Ridge, discovered 2000) vent fluid at about 40–90 °C, pH 9–11, rich in H₂ and CH₄ from serpentinization, building porous carbonate chimneys.
+    claim: Black smokers vent acidic fluid at about 350–400 °C rich in metal sulfides; alkaline vents such as Lost City (Mid-Atlantic Ridge, discovered 2000) vent fluid at about 40–90 °C, pH 9–11, rich in H₂ and CH₄ from serpentinization, building porous carbonate chimneys that contain little FeS.
     where: [ "index.mdx#vents", "index.mdx (mustKnow, mistakes)", "src/diagrams/a2-1-vents.astro" ]
     confidence: high
     basis: Kelley et al. 2001 (Nature 412), 2005 (Science 307); Martin et al. 2008 (Nat. Rev. Microbiol. 6)
     status: checked
   - id: f40
-    claim: Alkaline vent hypothesis — micropores as compartments, FeS minerals as catalysts resembling enzyme Fe–S clusters, natural H⁺ gradient across thin walls between alkaline fluid and more acidic CO₂-rich ocean.
+    claim: Alkaline vent hypothesis — applies to proposed Hadean alkaline vents in an iron-rich ocean (not modern Lost City, whose carbonate chimneys have little FeS) — micropores as compartments, FeS minerals in the chimney walls as catalysts resembling enzyme Fe–S clusters, natural H⁺ gradient across thin walls between alkaline fluid and more acidic CO₂-rich ocean.
     where: [ "index.mdx#vents", "src/diagrams/a2-1-vents.astro", "flashcards.yaml:c16" ]
     confidence: medium
     basis: Russell & Hall 1997; Martin & Russell 2003; Lane & Martin 2012 (Cell 151). A hypothesis, not established fact; the page presents it as such

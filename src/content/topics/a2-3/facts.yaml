@@ -18,13 +18,13 @@ facts:
     basis: IB guide A2.3.1; standard virology
     status: checked
   - id: f4
-    claim: HIV particles carry reverse transcriptase and integrase (also protease); lambda relies on host enzymes (e.g. DNA polymerase III, RNA polymerase) to copy and express its genome.
+    claim: HIV particles carry reverse transcriptase and integrase (also protease); the lambda particle carries no enzymes and uses host DNA polymerase (III) and RNA polymerase to copy and express its genome, though its genome encodes a few proteins of its own such as integrase (and the O and P replication initiators).
     where: [ "index.mdx#shared-features", "visuals.yaml:viruses/hiv rt, integrase" ]
     confidence: high
     basis: Standard HIV virion composition; lambda uses host replication machinery with phage O and P initiators and host RNA polymerase
     status: checked
   - id: f5
-    claim: Bacteriophage lambda has an icosahedral head (≈ 60 nm) containing one linear dsDNA molecule of ≈ 48 500 bp, a flexible non-contractile tail (≈ 150 nm) of stacked rings, a conical tip and a single central tail fibre (gpJ); it is not enveloped.
+    claim: Bacteriophage lambda has an icosahedral head (≈ 60 nm) containing one linear dsDNA molecule of ≈ 48 500 bp, a flexible non-contractile tail (≈ 150 nm long, ≈ 9 nm wide) of stacked rings, a conical tip and a single central tail fibre (gpJ); it is not enveloped.
     where: [ "index.mdx#diversity", "visuals.yaml:viruses/lambda", "diagrams/a2-3-lambda", "flashcards.yaml:c4" ]
     confidence: high
     basis: Lambda genome 48 502 bp (Sanger et al. 1982); structural reviews of phage lambda (Casjens & Hendrix). Laboratory lambda lacks side tail fibres (stf frameshift); only the central fibre is drawn.
@@ -172,4 +172,10 @@ facts:
     where: [ "index.mdx#origins" ]
     confidence: high
     basis: Standard textbook example of analogous structures
+    status: checked
+  - id: f30
+    claim: Single-stranded DNA viruses include the parvoviruses (animals) and bacteriophage φX174 (infects E. coli), so viruses use all four combinations of single- or double-stranded DNA or RNA.
+    where: [ "index.mdx#diversity" ]
+    confidence: high
+    basis: Standard virology (Baltimore class II); φX174 genome 5386 nt circular ssDNA (Sanger et al. 1977)
     status: checked

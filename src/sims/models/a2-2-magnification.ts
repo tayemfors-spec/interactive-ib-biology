@@ -110,7 +110,14 @@ export function niceScaleBar(mag: number): { representsUm: number; barMm: number
   return { representsUm: sig(representsUm, 6), barMm: scaleBarMm(representsUm, mag) };
 }
 
-export function scaleBarWorking(representsUm: number, mag: number): Working {
+/** Conversion step for a scale-bar label that is not in µm, e.g. "50 nm = 0.05 µm (1 µm = 1,000 nm)". */
+function labelToUm(representsUm: number, labelUnit: Unit): string[] {
+  if (labelUnit === 'µm') return [];
+  const rule = labelUnit === 'nm' ? '1 µm = 1,000 nm' : '1 mm = 1,000 µm';
+  return [`Convert the label to µm: ${fmt(fromUm(representsUm, labelUnit))} ${labelUnit} = ${fmt(representsUm)} µm (${rule})`];
+}
+
+export function scaleBarWorking(representsUm: number, mag: number, labelUnit: Unit = 'µm'): Working {
   if (!positive(representsUm) || !positive(mag)) return bad('Enter a positive length and magnification.');
   const um = representsUm * mag;
   const mm = scaleBarMm(representsUm, mag);
@@ -118,19 +125,21 @@ export function scaleBarWorking(representsUm: number, mag: number): Working {
     ok: true, result: mm, text: `Draw the scale bar ${fmt(mm)} mm long`,
     steps: [
       'Length of scale bar = length it represents × magnification',
+      ...labelToUm(representsUm, labelUnit),
       `= ${fmt(representsUm)} µm × ${fmt(mag)} = ${fmt(um)} µm`,
       `Convert to mm to measure with a ruler: ${fmt(um)} µm ÷ 1,000 = ${fmt(mm)} mm`,
     ],
   };
 }
 
-export function readScaleBarWorking(barMm: number, representsUm: number): Working {
+export function readScaleBarWorking(barMm: number, representsUm: number, labelUnit: Unit = 'µm'): Working {
   if (!positive(barMm) || !positive(representsUm)) return bad('Enter a positive bar length and label.');
   const M = magFromScaleBar(barMm, representsUm);
   return {
     ok: true, result: M, text: `Magnification = ${fmtMag(M)}`,
     steps: [
       'Magnification = measured length of scale bar ÷ length it represents',
+      ...labelToUm(representsUm, labelUnit),
       `Same units: ${fmt(barMm)} mm = ${fmt(barMm * 1000)} µm`,
       `Magnification = ${fmt(barMm * 1000)} µm ÷ ${fmt(representsUm)} µm = ${fmtMag(M)}`,
     ],
@@ -188,7 +197,7 @@ export function makeQuestion(rand: () => number, kind?: QKind): Question {
   }
   const bar = niceScaleBar(M);
   const barUnit = bestUnit(bar.representsUm);
-  const w = readScaleBarWorking(bar.barMm, bar.representsUm);
+  const w = readScaleBarWorking(bar.barMm, bar.representsUm, barUnit);
   return { kind: k, text: `A scale bar on a micrograph is ${fmt(bar.barMm)} mm long and is labelled ${fmtLen(bar.representsUm, barUnit)}. Calculate the magnification of the micrograph.`, answer: sig(w.result), unit: '×', working: w.steps };
 }
 

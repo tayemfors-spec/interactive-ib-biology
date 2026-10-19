@@ -3,7 +3,7 @@
 const steps = [
   { title: '1  Sample the environment', lines: ['Collect water, soil or even air from the habitat.', 'It holds DNA shed by organisms: skin cells, mucus,', 'faeces, urine, pollen and gametes.'] },
   { title: '2  Extract the DNA', lines: ['Filter the sample, break open the cells and purify', 'the DNA. The result is a mixture of DNA from', 'many different species.'] },
-  { title: '3  Copy the barcode region by PCR', lines: ['Primers that bind to conserved sequences either side', 'of a barcode amplify it from every species at once,', 'e.g. COI (animals), 12S (fish), rbcL/matK (plants).'] },
+  { title: '3  Copy the barcode region by PCR', lines: ['Primers bind to conserved sequences either side of', 'a barcode and amplify it from every species in the', 'target group (for example all fish) at once, e.g.', 'COI (animals), 12S (fish), rbcL/matK (plants).'] },
   { title: '4  Sequence the copies', lines: ['High-throughput sequencing reads the base sequence', 'of thousands of barcode copies in one run.', 'Identical reads are grouped together.'] },
   { title: '5  Match to a reference database', lines: ['Each sequence is compared with barcodes from', 'identified specimens. A match names the species;', 'the result is a species list for the habitat.'] },
 ];
@@ -13,7 +13,7 @@ const dna = (x: number, y: number, cls: string) => `<path class="${cls}" d="M${x
 ---
 <svg viewBox="0 0 520 584" role="img" aria-labelledby="ed-t ed-d" xmlns="http://www.w3.org/2000/svg">
   <title id="ed-t">Identifying species from environmental DNA using barcodes</title>
-  <desc id="ed-d">A flow diagram in five stages. One: a water or soil sample is collected from a habitat; it contains DNA shed by organisms. Two: DNA is extracted, giving a mixture from many species. Three: PCR with primers that bind conserved sequences either side of a barcode region copies that region from all the species present. Four: the copies are sequenced. Five: each sequence is matched against a database of barcodes from identified specimens, giving a list of the species that were present.</desc>
+  <desc id="ed-d">A flow diagram in five stages. One: a water or soil sample is collected from a habitat; it contains DNA shed by organisms. Two: DNA is extracted, giving a mixture from many species. Three: PCR with primers that bind conserved sequences either side of a barcode region copies that region from every species in the target group, for example all the fish, at once. Four: the copies are sequenced. Five: each sequence is matched against a database of barcodes from identified specimens, giving a list of the species that were present.</desc>
   {steps.map((s, i) => (
     <g transform={`translate(0 ${top + i * H})`}>
       <rect class="box" x="10" y="0" width="112" height="92" rx="10" />

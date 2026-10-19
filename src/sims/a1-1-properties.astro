@@ -1,6 +1,6 @@
 ---
 import {
-  AIR, METHANE, SEAWATER_DENSITY, WATER, WATER_SUB, buoyancy, conductiveFlux, heatCapacityPerLitre, heatReleasedPerLitre, ratio, sig,
+  AIR, METHANE, SEAWATER_DENSITY, WATER, WATER_SUB, buoyancyText, conductiveFlux, heatCapacityPerLitre, heatReleasedPerLitre, ratio, sig,
   stateAt, supportedFraction, volumetricRatio, type Substance,
 } from './models/a1-1-properties';
 
@@ -8,8 +8,7 @@ const d = { body: 1030, dT: 30, cool: 5, temp: 20 };
 const pct = (x: number) => `${(x * 100).toFixed(x < 0.01 ? 2 : 1)}%`;
 const buoyText = (body: number) => {
   const sea = supportedFraction(body, SEAWATER_DENSITY), air = supportedFraction(body, AIR.density);
-  const b = buoyancy(body, SEAWATER_DENSITY);
-  const fate = b === 'floats' ? 'it floats' : b === 'neutral' ? 'it neither sinks nor floats' : 'it sinks only slowly';
+  const fate = buoyancyText(body, SEAWATER_DENSITY);
   return `A body of density ${body} kg m⁻³: seawater supports ${pct(sea)} of its weight (${fate}); air supports only ${pct(air)}.`;
 };
 const condText = (dT: number) => `With a ${dT} °C difference across a 1 cm still layer: water conducts ${sig(conductiveFlux(WATER, dT))} W m⁻², air only ${sig(conductiveFlux(AIR, dT))} W m⁻².`;
@@ -87,7 +86,7 @@ const bars = bars0.map((b) => ({ ...b, max: Math.max(b.w, b.extra?.v ?? 0) }));
             <p class="result" data-res="cool">{heatText(d.cool)}</p>
             <ul class="animals">
               <li><strong>Ringed seal:</strong> seawater changes temperature slowly, so its habitat is thermally stable: Arctic seawater stays close to its freezing point (about −1.8 °C) even when the air above the ice is far colder.</li>
-              <li><strong>Black-throated loon:</strong> air temperature swings widely between day and night and between seasons. In winter, loons leave frozen lakes for coastal seas that stay ice-free.</li>
+              <li><strong>Black-throated loon:</strong> air temperature swings widely between day and night and between seasons. In winter its breeding lakes freeze, so loons move to coastal seas, which cool so slowly (high specific heat capacity) that they stay ice-free.</li>
             </ul>
           </>
         )}
@@ -154,7 +153,7 @@ const bars = bars0.map((b) => ({ ...b, max: Math.max(b.w, b.extra?.v ?? 0) }));
 </div>
 
 <script>
-  import { AIR, METHANE, SEAWATER_DENSITY, WATER, WATER_SUB, buoyancy, conductiveFlux, heatReleasedPerLitre, sig, stateAt, supportedFraction } from './models/a1-1-properties';
+  import { AIR, METHANE, SEAWATER_DENSITY, WATER, WATER_SUB, buoyancyText, conductiveFlux, heatReleasedPerLitre, sig, stateAt, supportedFraction } from './models/a1-1-properties';
 
   const T0 = -200, T1 = 120, SW = 520, PADL = 74, PADR = 12;
   const tx = (t: number) => PADL + ((t - T0) / (T1 - T0)) * (SW - PADL - PADR);
@@ -171,8 +170,7 @@ const bars = bars0.map((b) => ({ ...b, max: Math.max(b.w, b.extra?.v ?? 0) }));
     const text: Record<string, () => string> = {
       body: () => {
         const body = Number(input('body').value);
-        const b = buoyancy(body, SEAWATER_DENSITY);
-        const fate = b === 'floats' ? 'it floats' : b === 'neutral' ? 'it neither sinks nor floats' : 'it sinks only slowly';
+        const fate = buoyancyText(body, SEAWATER_DENSITY);
         return `A body of density ${body} kg m⁻³: seawater supports ${pct(supportedFraction(body, SEAWATER_DENSITY))} of its weight (${fate}); air supports only ${pct(supportedFraction(body, AIR.density))}.`;
       },
       dT: () => {
@@ -209,14 +207,16 @@ const bars = bars0.map((b) => ({ ...b, max: Math.max(b.w, b.extra?.v ?? 0) }));
 </script>
 
 <style>
-  .props { container-type: inline-size; display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .props { container-type: inline-size; isolation: isolate; display: grid; gap: var(--space-3); font-size: var(--step--1); }
   .part { margin: var(--space-2) 0 0; font-weight: 800; color: var(--text); font-size: var(--step-0); }
   .intro { margin: 0; color: var(--text-muted); }
   .cards { display: grid; gap: var(--space-3); }
-  @container (min-width: 44rem) { .cards { grid-template-columns: 1fr 1fr; } }
-  .card { border: 1px solid var(--border); border-radius: var(--radius-m); padding: var(--space-3); background: var(--surface-2); display: grid; gap: var(--space-2); align-content: start; }
+  @container (min-width: 44rem) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .card { border: 1px solid var(--border); border-radius: var(--radius-m); padding: var(--space-3); background: var(--surface-2); display: grid; gap: var(--space-2); align-content: start; position: relative; min-width: 0; overflow-wrap: break-word; }
+  /* keep each card's content inside its own box so neighbouring cards never overlap */
+  .card > * { min-width: 0; }
   .pname { margin: 0; font-weight: 800; }
-  .bars { display: grid; grid-template-columns: auto minmax(4rem, 1fr) auto; gap: 0.3rem var(--space-2); align-items: center; }
+  .bars { display: grid; grid-template-columns: auto minmax(3rem, 1fr) auto; gap: 0.3rem var(--space-2); align-items: center; }
   .bl { font-weight: 650; }
   .bv { font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--text-muted); }
   .track { height: 0.85rem; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; overflow: hidden; }

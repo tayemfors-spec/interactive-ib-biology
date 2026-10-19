@@ -114,7 +114,7 @@ facts:
     basis: Taiz & Zeiger, Plant Physiology
     status: checked
   - id: f20
-    claim: Most enzymes catalyse reactions in aqueous solution (cytoplasm, mitochondrial matrix, chloroplast stroma); water is a reactant in hydrolysis and a product of condensation.
+    claim: Most enzyme-catalysed reactions take place in aqueous (water-based) solutions (cytoplasm, mitochondrial matrix, chloroplast stroma); water is a reactant in hydrolysis and a product of condensation.
     where: [ "index.mdx#solvent" ]
     confidence: high
     basis: Standard; IB guide A1.1.5
@@ -138,7 +138,7 @@ facts:
     basis: Standard natural history (NOAA Fisheries species profile; Kelly et al. 2010 status review). "Body density close to seawater" is a general statement about marine mammals and varies with blubber and lung volume.
     status: open
   - id: f24
-    claim: Black-throated loon (Gavia arctica) — breeds on northern lakes, dives for fish propelled by feet set far back, needs a long take-off run, has dense waterproof plumage, less pneumatized bones than most birds, presses air from its plumage to dive, and winters on ice-free coastal seas.
+    claim: Black-throated loon (Gavia arctica) — breeds on northern lakes, dives for fish propelled by feet set far back, needs a long take-off run, has dense waterproof plumage, less pneumatized bones than most birds, presses air from its plumage to dive, and in winter, when its breeding lakes freeze, migrates to coastal seas that stay ice-free because seawater's high specific heat capacity slows its cooling.
     where: [ "index.mdx#habitats", "src/sims/a1-1-properties.astro", "flashcards.yaml:c13", "flashcards.yaml:c14" ]
     confidence: medium
     basis: Standard ornithology of Gaviidae (BirdLife International; Birds of the World account). The bone claim is usually made for loons as a family; a teacher may wish to confirm it for G. arctica specifically.

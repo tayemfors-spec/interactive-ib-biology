@@ -42,7 +42,16 @@ export function supportedFraction(bodyDensity: number, fluidDensity: number): nu
 export type Buoyancy = 'floats' | 'neutral' | 'sinks';
 export function buoyancy(bodyDensity: number, fluidDensity: number): Buoyancy {
   const d = (bodyDensity - fluidDensity) / fluidDensity;
-  return Math.abs(d) < 0.005 ? 'neutral' : d < 0 ? 'floats' : 'sinks';
+  return Math.abs(d) < 0.002 ? 'neutral' : d < 0 ? 'floats' : 'sinks';
+}
+/** Plain-English fate of a fully immersed body (used by the sim readout). */
+export function buoyancyText(bodyDensity: number, fluidDensity: number): string {
+  const b = buoyancy(bodyDensity, fluidDensity);
+  if (b === 'neutral') return 'it is neutrally buoyant: it neither sinks nor floats';
+  if (b === 'floats') return 'it floats';
+  return (bodyDensity - fluidDensity) / fluidDensity < 0.03
+    ? 'it is almost neutrally buoyant and sinks very slowly'
+    : 'it sinks';
 }
 
 // ---------- water versus methane ----------

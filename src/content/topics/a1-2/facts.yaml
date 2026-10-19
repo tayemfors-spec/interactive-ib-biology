@@ -1,6 +1,6 @@
 facts:
   - id: f1
-    claim: All living organisms use DNA as their genetic material; some viruses (e.g. coronaviruses including SARS-CoV-2, influenza, HIV) use RNA, and viruses are not considered living.
+    claim: All living organisms use DNA as their genetic material; some viruses (e.g. coronaviruses including SARS-CoV-2, influenza, HIV) use RNA as their genetic material; viruses are not classed as living organisms because they cannot carry out life processes outside a host cell.
     where: [ "index.mdx#genetic-material", "flashcards.yaml:c1", "index.mdx (mistakes)" ]
     confidence: high
     basis: Standard virology (Alberts; Campbell); IB guide A1.2.1
@@ -78,10 +78,10 @@ facts:
     basis: Arithmetic (checked in unit test)
     status: checked
   - id: f14
-    claim: The human (haploid) genome is about 3 billion base pairs; a diploid human cell contains about 2 m of DNA; the longest human chromosome DNA is several centimetres long.
+    claim: The human (haploid) genome is about 3 billion base pairs; a diploid human cell holds about 6.4 billion base pairs, ≈ 2 m of DNA (6.4 × 10⁹ × 0.34 nm ≈ 2.2 m), packed into a nucleus about 6 µm across; the longest human chromosome DNA is several centimetres long.
     where: [ "index.mdx#information", "index.mdx#nucleosomes" ]
     confidence: high
-    basis: ~3.1 × 10⁹ bp haploid; 6.2 × 10⁹ bp × 0.34 nm ≈ 2.1 m; chromosome 1 ≈ 249 Mbp ≈ 8.5 cm
+    basis: ~3.1–3.2 × 10⁹ bp haploid, so ~6.2–6.4 × 10⁹ bp diploid; 6.4 × 10⁹ × 0.34 nm ≈ 2.2 m; human nuclei are typically ~5–10 µm in diameter (6 µm is a commonly quoted value); chromosome 1 ≈ 249 Mbp ≈ 8.5 cm
     status: checked
   - id: f15
     claim: DNA data storage experiments have reached about 200 million gigabytes (≈ 215 petabytes) per gram.

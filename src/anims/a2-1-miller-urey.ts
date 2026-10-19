@@ -10,7 +10,7 @@ export const FOCUS: [number, number, number, number][] = [
   [228, 104, 204, 48], // electrodes
   [302, 190, 56, 80], // condenser
   [196, 310, 146, 42], // trap
-  [104, 50, 138, 112], // results
+  [104, 132, 136, 104], // results
   [258, 46, 144, 144], // spark flask again (evaluation)
 ];
 

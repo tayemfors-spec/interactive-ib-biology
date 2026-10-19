@@ -115,4 +115,17 @@ describe('A3.2 sample sequence data', () => {
     expect(parsimonyScore([['P', 'S'], ['Q', 'R']])).toBe(12);
     expect(parsimonyScore([['P', 'Q'], ['R', 'S']])).toBe(10); // same unrooted tree, rooted elsewhere
   });
+  it('only the groupings P+R and P+S need 12; parsimony cannot place the root', () => {
+    const others = (x: string) => species.filter((s) => s !== 'P' && s !== x);
+    for (const partner of ['Q', 'R', 'S'] as const) {
+      const [c, d] = others(partner) as [typeof species[number], typeof species[number]];
+      const expected = partner === 'Q' ? 10 : 12;
+      // every rooting of the unrooted tree (P,partner | c,d) gives the same score
+      expect(parsimonyScore([['P', partner], [c, d]])).toBe(expected);
+      expect(parsimonyScore([[['P', partner], c], d])).toBe(expected);
+      expect(parsimonyScore([[['P', partner], d], c])).toBe(expected);
+      expect(parsimonyScore([[[c, d], 'P'], partner])).toBe(expected);
+      expect(parsimonyScore([[[c, d], partner], 'P'])).toBe(expected);
+    }
+  });
 });

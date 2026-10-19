@@ -72,19 +72,25 @@ const idx = [0, 1, 2];
       </>;
     }))}
     <g data-el="lHyb" style="opacity:0">
-      <text class="lbl" x="332" y="232">Hybrid AB: 2n = 22</text>
+      <text class="lbl" x="332" y="214">AB hybrid: 22</text>
+      <text class="sm" x="332" y="232">chromosomes (11 + 11)</text>
       <text class="bad" x="332" y="252">sterile: no chromosome</text>
       <text class="bad" x="332" y="270">has a homologous partner</text>
     </g>
     <g data-el="lTet" style="opacity:0">
       <text class="lbl" x="332" y="232">Chromosomes double:</text>
       <text class="lbl" x="332" y="252">allotetraploid AABB</text>
-      <text class="sm" x="332" y="270">2n = 44</text>
+      <text class="sm" x="332" y="270">44 chromosomes (2n = 4x)</text>
     </g>
     <g data-el="lMei" style="opacity:0">
       <text class="lbl" x="332" y="226">Meiosis works:</text>
       <text class="sm" x="332" y="246">each chromosome now</text>
       <text class="sm" x="332" y="264">has a homologous partner</text>
+    </g>
+    <g data-el="lPairs" style="opacity:0">
+      <line class="eq" x1="200" y1={HYB[1]} x2="320" y2={HYB[1]} />
+      <text class="pr" x="230" y={HYB[1] + 46} text-anchor="middle">AA pairs</text>
+      <text class="pr" x="290" y={HYB[1] + 46} text-anchor="middle">BB pairs</text>
     </g>
     <g data-el="lGam" style="opacity:0">
       <text class="sm" x={G1[0]} y="376" text-anchor="middle">gamete AB, n = 22</text>
@@ -93,7 +99,7 @@ const idx = [0, 1, 2];
     <g data-el="result" class="result" style="opacity:0">
       <rect class="box" x="20" y="8" width="480" height="148" rx="10" />
       <text class="good" x="36" y="34">AB gamete + AB gamete → AABB: fertile ✓</text>
-      <text class="bad" x="36" y="58">AB gamete + A gamete from species A → AAB, 2n = 33: sterile ✕</text>
+      <text class="bad" x="36" y="58">AB gamete + A gamete (parent A) → AAB, 3n: sterile ✕</text>
       <text class="sm" x="36" y="84">The allotetraploid cannot produce fertile offspring with either</text>
       <text class="sm" x="36" y="104">parent species, so it is a new species, formed in one generation.</text>
       <text class="lbl" x="36" y="134">Example: <tspan class="it">Persicaria maculosa</tspan> (2n = 44)</text>
@@ -116,6 +122,8 @@ const idx = [0, 1, 2];
   .bad { font-size: 13px; font-weight: 700; fill: var(--bad); }
   .good { font-size: 13px; font-weight: 700; fill: var(--good); }
   .it { font-style: italic; }
+  .eq { stroke: var(--text-muted); stroke-width: 1.2; stroke-dasharray: 4 3; }
+  .pr { font-size: 12px; font-weight: 700; fill: var(--text); }
   .x { stroke: var(--bad); stroke-width: 3; stroke-linecap: round; }
   .result .box { fill: var(--surface); stroke: var(--border-strong); }
 </style>

@@ -41,6 +41,12 @@ describe('pentadactyl limb model', () => {
     expect(b.blobs.filter((x) => x.bone === 'carpals')).toHaveLength(2);
   });
 
+  it('the bat wing has the typical 2-2-3-2-2 phalangeal formula, with the third digit longest', () => {
+    const b = byId('bat');
+    expect(b.phalanges).toEqual([2, 2, 3, 2, 2]);
+    expect(drawnPhalanges(b, 3)).toBe(3);
+  });
+
   it('the dolphin shows hyperphalangy in digits 2 and 3', () => {
     const d = byId('dolphin');
     expect(d.phalanges[1]!).toBeGreaterThan(3);

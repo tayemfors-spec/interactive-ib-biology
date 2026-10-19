@@ -180,7 +180,6 @@ const scene: SceneModule = {
       plasmodesmata: { object: anchorAt(root, pdTop[1]!, H + T / 2, 0.04, 'plasmodesmata'), highlight: [plasmodesmata] },
       golgi: { object: anchorAt(root, 3.9, -2.5, -0.55, 'golgi'), highlight: [gol.group] },
       starch: { object: anchorAt(root, starch.x, starch.y, starch.z + 0.2, 'starch'), highlight: cutParts.map((p) => p.starch) },
-      'no-centrioles': { object: anchorAt(root, -2.6, -2.45, -0.3, 'no-centrioles'), highlight: [] },
     };
     return { anchors, dispose() { root.removeFromParent(); } };
   },

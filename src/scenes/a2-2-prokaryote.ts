@@ -131,7 +131,7 @@ const scene: SceneModule = {
     // ---------- anchors ----------
     const dnaPoint = dna.curve.getPoint(0.18);
     const anchors = {
-      wall: { object: anchorAt(cell, -3.6, R - WALL / 2, 0.02, 'wall'), highlight: [wall] },
+      wall: { object: anchorAt(cell, -3.6, R - WALL * 0.75, 0.02, 'wall'), highlight: [wall] },
       membrane: { object: anchorAt(cell, -3.0, -(MEM[0] + MEM[1]) / 2, 0.02, 'membrane'), highlight: [membrane] },
       cytoplasm: { object: anchorAt(cell, -3.3, -0.55, -0.85, 'cytoplasm'), highlight: [cytoplasm] },
       nucleoid: { object: anchorAt(cell, dnaPoint.x, dnaPoint.y, dnaPoint.z + 0.05, 'nucleoid'), highlight: [nucleoid] },

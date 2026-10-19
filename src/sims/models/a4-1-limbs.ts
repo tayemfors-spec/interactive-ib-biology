@@ -101,12 +101,12 @@ const bat: Limb = {
     seg('ulna', 88, 92, 99, 126, 3.5),
     ...digit(1, 131, 186, -52, [9, 7, 6], [3.5, 3, 3]),
     ...digit(2, 132, 198, 38, [60, 14, 9], [3.5, 3, 2.5]),
-    ...digit(3, 129, 203, 62, [66, 29, 19], [3.5, 3, 2.5]),
+    ...digit(3, 129, 203, 62, [66, 25, 15, 9], [3.5, 3, 2.5, 2]),
     ...digit(4, 124, 205, 92, [58, 23, 15], [3.5, 3, 2.5]),
     ...digit(5, 118, 202, 122, [52, 20, 11], [3.5, 3, 2.5]),
   ],
   blobs: carp([[120, 194, 4], [128, 192, 4], [124, 200, 3.5]]),
-  phalanges: [2, 2, 2, 2, 2],
+  phalanges: [2, 2, 3, 2, 2],
   outline: 'M30 26 L120 186 L198 252 Q178 266 182 306 Q150 290 121 304 Q100 284 72 276 Q40 254 12 240 L12 52 Z',
   notes: {
     humerus: 'Long and slender, keeping the wing light.',
@@ -114,7 +114,7 @@ const bat: Limb = {
     ulna: 'Reduced to a thin splint fused to the radius.',
     carpals: 'A few small wrist bones that let the wing fold.',
     metacarpals: 'Digits 2–5 have extremely long metacarpals that spread the wing membrane.',
-    phalanges: 'Long phalanges in digits 2–5 stretch the skin membrane. The short, clawed thumb stays free for climbing.',
+    phalanges: 'Long phalanges in digits 2–5 stretch the skin membrane; the longest digit, the third, has three. The short, clawed thumb stays free for climbing. (Counts vary between bat families.)',
   },
 };
 

@@ -13,8 +13,8 @@ questions:
         text: 0.3 µm
         why: This comes from an error in converting units. 45 mm is 45,000 µm, not 4,500 µm.
       - id: c
-        text: 675 µm
-        why: This multiplies the measured length by the magnification and loses the units. To find the actual size you divide the image size by the magnification.
+        text: 675,000 mm
+        why: This multiplies the image size by the magnification instead of dividing.
       - id: d
         text: 3 mm
         why: The arithmetic 45 ÷ 15,000 has been done in mm, giving 0.003 mm, which is 3 µm, not 3 mm. A 3 mm mitochondrion would be visible to the naked eye.

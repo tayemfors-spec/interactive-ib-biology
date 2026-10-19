@@ -15,8 +15,8 @@ visuals:
       and smooth endoplasmic reticulum, a Golgi apparatus, vesicles, lysosomes, mitochondria with cristae, a pair of
       centrioles, microtubules of the cytoskeleton and free 80S ribosomes. The plant cell has a cellulose cell wall
       with plasmodesmata, a plasma membrane pressed against it, a large permanent vacuole surrounded by the
-      tonoplast, chloroplasts with grana and starch grains, mitochondria, a nucleus pushed to the side, and no
-      centrioles. The fungal hypha has a chitin wall, a septum with a central pore, several nuclei, large vacuoles in
+      tonoplast, chloroplasts with grana and starch grains, mitochondria, a nucleus pushed to the side; it has no
+      centrioles, because cells of flowering plants and conifers build their spindle of microtubules without them. The fungal hypha has a chitin wall, a septum with a central pore, several nuclei, large vacuoles in
       its older part, vesicles packed into its growing tip and glycogen granules, with a branching hypha of the
       mycelium behind it.
     scenes:
@@ -134,9 +134,6 @@ visuals:
           - id: starch
             name: Starch grain
             text: Plants store glucose made in photosynthesis as starch, in grains inside chloroplasts and in other plastids such as amyloplasts.
-          - id: no-centrioles
-            name: No centrioles
-            text: Cells of flowering plants and conifers have no centrioles. They still build a spindle of microtubules for cell division, but without centrioles to organise it.
       - id: fungal
         module: a2-2-fungal
         title: Fungal hypha
@@ -198,7 +195,7 @@ visuals:
       A diagram in six steps. An ancestral single-celled eukaryote, which already has a nucleus, takes in an aerobic
       bacterium by endocytosis. The bacterium is not digested but survives inside a vesicle, so it is surrounded by two
       membranes. It respires aerobically, supplying ATP, divides by binary fission and is passed to the host's
-      daughter cells, becoming a mitochondrion. Later, in the ancestor of algae and plants, a photosynthetic
+      daughter cells, becoming a mitochondrion. Later, in the ancestor of green algae, red algae and plants, a photosynthetic
       cyanobacterium is taken in the same way and becomes a chloroplast. The last step summarizes the evidence:
       double membranes, naked circular DNA, 70S ribosomes, division by binary fission and a size similar to bacteria.
     steps:
@@ -216,7 +213,7 @@ visuals:
         caption: When the host divides, each daughter cell receives some of the bacteria. Over many generations most of the bacterium's genes move to the host's nucleus, and it can no longer live independently. It has become a mitochondrion, found in almost all eukaryotes.
       - id: chloroplast
         title: A second event makes chloroplasts
-        caption: Later, in one lineage of these eukaryotes, a photosynthetic cyanobacterium is taken in by endocytosis and kept in the same way. It becomes the chloroplast. Its descendants, the algae and plants, have both mitochondria and chloroplasts; animals and fungi have only mitochondria.
+        caption: Later, in one lineage of these eukaryotes, a photosynthetic cyanobacterium is taken in by endocytosis and kept in the same way. It becomes the chloroplast. Its descendants include green and red algae and plants, which have both mitochondria and chloroplasts; some other algae gained chloroplasts later by engulfing such algae (secondary endosymbiosis). Animals and fungi have only mitochondria.
       - id: evidence
         title: The evidence today
         caption: Mitochondria and chloroplasts still resemble bacteria. Each has a double membrane, its own naked circular DNA, 70S ribosomes that make some of its proteins, and a size like a bacterium (about 1–10 µm). Neither can be made from scratch; new ones form only by binary fission of existing ones.

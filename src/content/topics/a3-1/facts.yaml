@@ -186,7 +186,7 @@ facts:
     basis: Richards 1973 / BSBI on Taraxacum microspecies; Mark Welch & Meselson 2000 (Science). Recent work suggests possible rare genetic exchange in bdelloids, hence "appear to".
     status: open
   - id: f32
-    claim: Horizontal gene transfer in bacteria by conjugation (via a pilus), transformation and transduction; spreads antibiotic resistance genes on plasmids between species; bacterial species are delimited at about 95% average nucleotide identity.
+    claim: Horizontal gene transfer in bacteria by conjugation (a pilus draws two cells together and a plasmid copy passes from donor to recipient), transformation and transduction; spreads antibiotic resistance genes on plasmids between species; bacterial species are delimited at about 95% average nucleotide identity.
     where: [ "index.mdx#asexual-bacteria", "quiz.yaml:q7", "flashcards.yaml:c14", "index.mdx (mustKnow)" ]
     confidence: high
     basis: Standard microbiology; Konstantinidis & Tiedje 2005; Jain et al. 2018 (Nat. Commun.)
@@ -210,7 +210,7 @@ facts:
     basis: Logic of a binary tree with n leaves; standard botany
     status: checked
   - id: f36
-    claim: Standard barcodes — COI (most animals), 12S rRNA (fish eDNA metabarcoding), rbcL and matK (plants); identification needs reference sequences (e.g. BOLD, GenBank); eDNA degrades in days to weeks in water; eDNA is used for great crested newt surveys in UK ponds.
+    claim: Standard barcodes — barcode PCR primers are specific to a target group (e.g. MiFish 12S primers amplify fish only), not to all species; COI (most animals), 12S rRNA (fish eDNA metabarcoding), rbcL and matK (plants); identification needs reference sequences (e.g. BOLD, GenBank); eDNA degrades in days to weeks in water; eDNA is used for great crested newt surveys in UK ponds.
     where: [ "index.mdx#edna", "src/diagrams/a3-1-edna.astro", "quiz.yaml:q10", "flashcards.yaml:c17" ]
     confidence: high
     basis: Hebert et al. 2003; CBOL Plant Working Group 2009; Miya et al. 2015 (MiFish); Biggs et al. 2015 and Natural England survey protocol; Dejean et al. 2011 (eDNA persistence)

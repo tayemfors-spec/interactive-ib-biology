@@ -29,7 +29,7 @@ mustKnow:
     definition: "Estimating how long ago two clades diverged from the number of differences in a gene or protein sequence, assuming the differences built up at a roughly constant, calibrated rate. It gives estimates only."
     level: AHL
   - term: Parsimony analysis
-    definition: "Choosing the cladogram that accounts for the observed sequence differences with the <strong>smallest number of changes</strong>; this is taken as the most probable hypothesis."
+    definition: "A way of deciding between possible cladograms: the branching pattern that needs the <strong>fewest base or amino acid changes</strong> to explain the data is preferred as the likeliest hypothesis."
     level: AHL
   - term: Domain
     definition: "The highest taxonomic level, above kingdom. All organisms belong to one of three domains, <strong>Bacteria</strong>, <strong>Archaea</strong> and <strong>Eukarya</strong>, distinguished by ribosomal RNA base sequences."
@@ -57,7 +57,7 @@ mistakes:
     right: "Ranks are arbitrary: divergence is gradual, so there is no objective point at which a group becomes different enough to be a family rather than a genus. Cladistics uses unranked clades instead."
     level: AHL
   - wrong: "Archaea are just an unusual kind of bacteria."
-    right: "rRNA base sequences show that archaea are as different from bacteria as they are from eukaryotes, so they form a separate <strong>domain</strong>. In fact Archaea and Eukarya share a more recent common ancestor with each other than either does with Bacteria."
+    right: "rRNA base sequences show that archaea are as different from bacteria as bacteria are from eukaryotes, so they form a separate <strong>domain</strong>. Archaea are actually closer to Eukarya: the two share a more recent common ancestor with each other than either does with Bacteria."
     level: AHL
   - wrong: "Domains are a lower level of classification than kingdoms."
     right: "Domains are the <strong>highest</strong> level, added above kingdoms in the three-domain system: each domain contains one or more kingdoms."
@@ -115,7 +115,7 @@ Fixed ranks are **arbitrary** because they impose steps on a pattern of gradual 
 
 <Section id="evolutionary" title="Classification based on evolutionary relationships" level="AHL" covers="A3.2.3">
 
-Most biologists agree that the ideal classification follows **evolutionary relationships**. Each group should then meet two conditions:
+Biologists now broadly aim for a classification that mirrors **evolutionary relationships**, so that each group is a real branch of the tree of life. For that, a group must pass two tests:
 
 1. **All** the species that evolved from the group's common ancestor are included in it.
 2. **Only** species that evolved from that common ancestor are included.
@@ -245,7 +245,7 @@ Base sequences of genes and amino acid sequences of proteins are the main data u
 
 ### Parsimony
 
-Many different trees could link the same species. **Parsimony analysis** selects the cladogram that accounts for all the observed sequence variation with the **smallest number of sequence changes**, on the reasoning that this is the most probable route. In the sample data, the tree that groups P with Q needs 10 base changes, while the alternatives need 12, so it is chosen. With real data sets of many species and thousands of bases, computer software compares the possible trees.
+The same species could be linked by several different branching patterns. **Parsimony analysis** compares them and prefers the one that needs the **fewest mutations** to explain every difference in the data, because a shorter route is judged more likely than a longer one. In the sample data, pairing P with Q (and so R with S) needs 10 base changes, whereas grouping P with R, or P with S, needs 12, so P and Q are paired. Parsimony compares branching patterns only: it does not say where the root goes. The root is placed using the most different species, S, as an **outgroup**. With real data sets of many species and thousands of bases, computer software compares the possible trees.
 
 <Callout type="note" title="Nature of science: criteria for judgement">
 
@@ -297,7 +297,7 @@ Scientific knowledge claims can be **falsified**. The old figwort family was sup
 
 Traditional classification divided organisms into two kinds of cell, **prokaryotes** and **eukaryotes**, and in the five-kingdom system all prokaryotes were placed in a single kingdom. In 1977 Carl Woese and George Fox compared the base sequences of **ribosomal RNA (rRNA)** from the small subunit of the ribosome in a wide range of organisms. They found that prokaryotes fall into **two groups that are as different from each other as either is from eukaryotes**. Methane-producing prokaryotes, now called archaea, were the first members of the second group to be recognised.
 
-This led to a revolutionary reclassification, with a new taxonomic level **above kingdoms**: all organisms are classified into three **domains**, **Bacteria**, **Archaea** and **Eukarya**. The names were formalised in 1990.
+Woese and Fox called these groups "urkingdoms". Their work overturned the old prokaryote–eukaryote split and, in 1990, Woese and colleagues proposed a new level **above kingdoms**, the **domain**: every organism belongs to one of three domains, **Bacteria**, **Archaea** and **Eukarya**.
 
 rRNA was a good choice because it is present in **all** cellular organisms, has the same essential function in protein synthesis, and changes **slowly**, so even very distantly related organisms can be aligned and compared.
 

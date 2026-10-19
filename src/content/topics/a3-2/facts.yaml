@@ -78,10 +78,10 @@ facts:
     basis: IB guide A3.2.5; Brown et al. 1979 on mtDNA rates; Campbell ch. 26
     status: checked
   - id: f14
-    claim: Sample sequences P–S give the difference matrix P–Q 2, P–R 4, Q–R 4, P–S 8, Q–S 8, R–S 6; 10 of 16 positions vary; tree ((P,Q),R),S needs 10 changes and each alternative 12.
+    claim: Sample sequences P–S give the difference matrix P–Q 2, P–R 4, Q–R 4, P–S 8, Q–S 8, R–S 6; 10 of 16 positions vary; trees pairing P with Q (and R with S), whether rooted as ((P,Q),R),S or ((P,Q),(R,S)), need 10 changes; trees grouping P with R or P with S need 12. Parsimony does not fix the root; it is placed using the most different species (S) as outgroup.
     where: [ "visuals.yaml:building", "index.mdx#constructing", "src/sims/models/a3-2-sequences.ts" ]
     confidence: high
-    basis: Made-up data; verified by Fitch parsimony in tests/unit/a3-2.test.ts
+    basis: Made-up data; verified by Fitch parsimony on every rooted 4-taxon tree in tests/unit/a3-2.test.ts
     status: checked
   - id: f15
     claim: Branch change counts in the animation (S 3, PQR stem 2, R 1, PQ stem 2, P 1, Q 1) are one valid placement of the 10 changes; the split of the 5 changes between S and the PQR stem depends on where the root is placed.
@@ -120,7 +120,7 @@ facts:
     basis: IB guide A3.2.8 NOS cites convergent evolution; botanists also attribute it to shared ancestral (plesiomorphic) floral features. Wording covers both.
     status: open
   - id: f21
-    claim: In 1977 Woese and Fox compared small-subunit (16S/18S) rRNA sequences and found two groups of prokaryotes as different from each other as from eukaryotes; methanogens were the first archaea recognised; the domain names Bacteria, Archaea and Eucarya were formalised in 1990.
+    claim: In 1977 Woese and Fox compared small-subunit (16S/18S) rRNA sequences and found two groups of prokaryotes as different from each other as from eukaryotes; they called the groups urkingdoms; methanogens were the first archaea recognised; the rank of domain and the names Bacteria, Archaea and Eucarya were formalised in 1990.
     where: [ "index.mdx#domains", "quiz.yaml:q10", "flashcards.yaml:c17" ]
     confidence: high
     basis: Woese & Fox 1977 PNAS 74:5088; Woese, Kandler & Wheelis 1990 PNAS 87:4576
