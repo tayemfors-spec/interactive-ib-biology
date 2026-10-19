@@ -43,6 +43,10 @@ for (const slug of process.argv.slice(2)) {
           const name = count > 1 ? `-${await scenes.nth(s).getAttribute('data-scene')}` : '';
           await page.waitForTimeout(600);
           await shot(`-3d${name}`);
+          // process scenes: also capture each step's completed state
+          const stepBtns = fig.locator('[data-process]:visible [data-p-steps] button');
+          const ns = await stepBtns.count();
+          for (let k = 1; k < ns; k++) { await stepBtns.nth(k).click(); await page.waitForTimeout(300); await shot(`-3d${name}-step${k + 1}`); }
         }
       } else if (await fig.getAttribute('data-anim') !== null) {
         await page.waitForFunction((el) => el.dataset.state === 'ready', await fig.elementHandle(), { timeout: 15000 }).catch(() => {});
