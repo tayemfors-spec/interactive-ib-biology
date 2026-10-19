@@ -1,0 +1,210 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: B4.2.2
+    stem: >-
+      A bacterium is grown in a tube of nutrient broth in which oxygen diffuses in only from the air at the top, so the
+      oxygen concentration falls to zero a short distance below the surface. After two days the bacteria are growing
+      only in the lower half of the tube, with none near the surface. What type of organism is it?
+    options:
+      - id: a
+        text: An obligate aerobe
+        why: An obligate aerobe needs oxygen, so it would grow only in the band near the surface where oxygen is present.
+      - id: b
+        text: An obligate anaerobe
+        why: Correct. It grows only where oxygen is absent, which shows that oxygen kills it or inhibits its growth.
+      - id: c
+        text: A facultative anaerobe
+        why: A facultative anaerobe can grow with or without oxygen, so it would grow throughout the tube, most densely near the top.
+      - id: d
+        text: A photoautotroph
+        why: This describes how it obtains carbon compounds, not its oxygen tolerance; nothing in the result is about light.
+    answer: b
+
+  - id: q2
+    level: SL
+    understanding: B4.2.4
+    stem: >-
+      In holozoic nutrition, which stage involves amino acids that have entered the blood being used by body cells to
+      make new proteins?
+    options:
+      - id: a
+        text: Absorption
+        why: Absorption is the movement of digested molecules across the gut wall into the blood. Using them to build proteins comes after this.
+      - id: b
+        text: Digestion
+        why: Digestion is the opposite process - hydrolysis of large molecules such as proteins into small ones such as amino acids.
+      - id: c
+        text: Egestion
+        why: Egestion is the removal of undigested material from the gut. The amino acids here have already been absorbed.
+      - id: d
+        text: Assimilation
+        why: Correct. Assimilation is the use of absorbed molecules to make the body's own macromolecules, so they become part of its tissues.
+    answer: d
+
+  - id: q3
+    level: SL
+    understanding: B4.2.5
+    stem: >-
+      Cultures of Euglena were set up in four conditions. They grew in light without organic nutrients, in darkness with
+      organic nutrients and in light with organic nutrients, but not in darkness without organic nutrients. What does
+      this show?
+    options:
+      - id: a
+        text: Euglena is a facultative mixotroph.
+        why: Correct. It grows using photosynthesis alone (light, no organic food) or heterotrophic nutrition alone (dark, organic food), so it can use either mode or both.
+      - id: b
+        text: Euglena is an obligate mixotroph.
+        why: An obligate mixotroph could not grow with only one mode available, but Euglena grew in light without organic food and in darkness with it.
+      - id: c
+        text: Euglena is an obligate autotroph.
+        why: An organism that could only feed autotrophically would not grow in darkness, even with organic nutrients.
+      - id: d
+        text: Euglena is a saprotroph.
+        why: A saprotroph digests dead matter externally and cannot photosynthesize, but Euglena grew in light with no organic food at all.
+    answer: a
+
+  - id: q4
+    level: SL
+    understanding: B4.2.6
+    stem: Which statement describes how a saprotrophic fungus obtains its food?
+    options:
+      - id: a
+        text: It ingests pieces of dead organic matter and digests them in vacuoles.
+        why: Fungi have cell walls, so they cannot take in particles of food by endocytosis or ingestion.
+      - id: b
+        text: It absorbs sugars from the phloem of a living host plant.
+        why: Taking food from a living host is parasitism. Saprotrophs feed on dead organic matter.
+      - id: c
+        text: It secretes enzymes into dead organic matter and absorbs the products of digestion.
+        why: Correct. Digestion is external; the small, soluble products are absorbed across the plasma membrane of the hyphae.
+      - id: d
+        text: It fixes carbon dioxide using energy from the oxidation of dead organic matter.
+        why: Fixing carbon dioxide is autotrophic nutrition. Saprotrophs are heterotrophs that obtain carbon compounds from the dead matter itself.
+    answer: c
+
+  - id: q5
+    level: SL
+    understanding: B4.2.8
+    stem: >-
+      A fossil hominid skull has very large, flat premolars and molars with thick enamel, small incisors and canines, a
+      sagittal crest and a deep, thick lower jaw. What diet is best supported by these features?
+    options:
+      - id: a
+        text: Mainly meat, killed and torn with the teeth
+        why: Meat-eating would be associated with blade-like teeth for slicing, not broad, flat grinding teeth, and the front teeth here are small.
+      - id: b
+        text: Tough or hard plant foods that need heavy grinding
+        why: Correct. These are the features of Paranthropus robustus - a large grinding surface, wear-resistant enamel and big chewing muscles indicate a herbivorous diet.
+      - id: c
+        text: Soft, cooked food prepared with tools
+        why: Soft food needs little chewing force, so it would be associated with small teeth, small chewing muscles and no crest, as in modern humans.
+      - id: d
+        text: A varied diet of plants and meat like that of modern humans
+        why: Modern humans have small cheek teeth with low cusps and no sagittal crest. These features indicate specialization for heavy chewing.
+    answer: b
+
+  - id: q6
+    level: SL
+    understanding: B4.2.12
+    stem: >-
+      On a rocky shore, adult barnacles of species X are found only on the upper shore, and species Y on the lower shore.
+      When species Y was removed from areas of the lower shore, species X began to live and grow there. What does this
+      show about species X?
+    options:
+      - id: a
+        text: Its fundamental niche is restricted to the upper shore.
+        why: X can live on the lower shore when Y is absent, so the lower shore is part of its fundamental niche.
+      - id: b
+        text: It cannot tolerate the abiotic conditions on the lower shore.
+        why: X survived on the lower shore once Y was removed, so the conditions there are within its tolerance limits.
+      - id: c
+        text: Its realized niche is larger than its fundamental niche.
+        why: The realized niche is the part of the fundamental niche actually occupied, so it can never be larger.
+      - id: d
+        text: Competition from species Y restricts its realized niche to part of its fundamental niche.
+        why: Correct. X's fundamental niche includes the lower shore, but competition from Y keeps it out of that zone.
+    answer: d
+
+  - id: q7
+    level: SL
+    understanding: B4.2.13
+    stem: >-
+      Two species of Paramecium each grew to a stable population when cultured alone. When cultured together in the same
+      tubes, with the same food, one species increased while the other declined and disappeared. Which conclusion is
+      best supported?
+    options:
+      - id: a
+        text: The species had niches that were too similar, and competition eliminated one of them.
+        why: Correct. This is competitive exclusion - with identical requirements, the better competitor eliminated the other.
+      - id: b
+        text: One species was a predator of the other.
+        why: Both species fed on the same food, and both grew when alone; the results fit competition for food, not predation.
+      - id: c
+        text: The species that disappeared could not tolerate the conditions in the tubes.
+        why: It grew to a stable population when cultured alone in the same conditions, so it could tolerate them.
+      - id: d
+        text: The species coexisted by restricting each other to part of their niches.
+        why: Coexistence would mean both species persist. Here one disappeared.
+    answer: a
+
+  - id: q8
+    level: SL
+    understanding: B4.2.9
+    stem: Aphids feed on phloem sap. Which mouthparts and food source match this way of feeding?
+    options:
+      - id: a
+        text: Toothed mandibles that bite off pieces of leaf
+        why: Chewing mandibles are used by leaf beetles and caterpillars to eat leaf tissue, not to reach phloem sap.
+      - id: b
+        text: A long tube for sucking nectar from the base of flowers
+        why: This describes the mouthparts of butterflies feeding on nectar, which is not phloem sap.
+      - id: c
+        text: A thin stylet that pierces plant tissue to reach sieve tubes
+        why: Correct. Aphids have piercing and sucking mouthparts; the stylet is pushed into a phloem sieve tube and the sap is sucked up.
+      - id: d
+        text: A stylet that reaches xylem vessels to absorb sugars
+        why: Sugars are carried in phloem sieve tubes. Xylem sap is mostly water and mineral ions.
+    answer: c
+
+  - id: q9
+    level: SL
+    understanding: B4.2.11
+    stem: >-
+      A forest plant germinates high on the branch of a tree, sends roots down the trunk into the soil, gradually
+      surrounds the trunk and grows its crown above that of the tree, which eventually dies. What is this plant?
+    options:
+      - id: a
+        text: A liana
+        why: A liana starts from the ground, rooted in the soil, and climbs up its support; it does not germinate on a branch or encircle the trunk.
+      - id: b
+        text: A strangler epiphyte
+        why: Correct. Strangler epiphytes, such as strangler figs, start as epiphytes, then root in the soil and overtop and shade the host tree.
+      - id: c
+        text: A shade-tolerant herb
+        why: Shade-tolerant herbs grow on the forest floor and absorb the little light that reaches them; they do not climb trees.
+      - id: d
+        text: A parasite of the host tree
+        why: A parasite takes food from the host's tissues. The strangler makes its own food by photosynthesis and kills the host by shading and encircling it.
+    answer: b
+
+  - id: q10
+    level: SL
+    understanding: B4.2.10
+    stem: >-
+      Cinnabar moth caterpillars feed on ragwort plants and store the toxic compounds from the plant in their bodies, which
+      makes them distasteful to birds. What type of adaptation is this?
+    options:
+      - id: a
+        text: A behavioural adaptation of a predator
+        why: The caterpillar is the prey here, and storing toxins is a chemical feature rather than a behaviour.
+      - id: b
+        text: A physical adaptation of a prey animal
+        why: Physical adaptations are structures such as spines, shells or camouflage. Stored toxins are chemicals.
+      - id: c
+        text: A chemical adaptation of a predator
+        why: The caterpillar is not catching prey; the toxins protect it from the birds that would eat it.
+      - id: d
+        text: A chemical adaptation of a prey animal
+        why: Correct. The stored toxins make the caterpillars unpleasant or harmful to eat, so they help prey avoid predation.
+    answer: d

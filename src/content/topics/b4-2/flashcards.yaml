@@ -1,0 +1,73 @@
+cards:
+  - id: c1
+    level: SL
+    front: What is an ecological niche?
+    back: The role of a species in its ecosystem - all the biotic and abiotic interactions (including how it obtains food) that affect its survival, growth and reproduction.
+  - id: c2
+    level: SL
+    front: Niche vs habitat
+    back: The habitat is where a species lives. The niche is its role there - its tolerances, food, enemies, competitors and partners as well as its location.
+  - id: c3
+    level: SL
+    front: Obligate aerobe vs obligate anaerobe vs facultative anaerobe
+    back: Obligate aerobes need a continuous supply of oxygen. Obligate anaerobes live only where oxygen is absent, because it kills or inhibits them. Facultative anaerobes use oxygen when present but can live without it.
+  - id: c4
+    level: SL
+    front: Give one example each of an obligate aerobe, an obligate anaerobe and a facultative anaerobe.
+    back: Obligate aerobe - humans (or Mycobacterium tuberculosis). Obligate anaerobe - Clostridium tetani (or methanogenic archaea). Facultative anaerobe - Escherichia coli (or yeast).
+  - id: c5
+    level: SL
+    front: Which groups of organisms feed by photosynthesis?
+    back: Plants, eukaryotic algae (seaweeds and unicellular algae) and several groups of prokaryotes, including cyanobacteria. No archaea photosynthesize using chlorophyll.
+  - id: c6
+    level: SL
+    front: List the five stages of holozoic nutrition in order.
+    back: Ingestion, digestion (internal), absorption, assimilation, egestion.
+  - id: c7
+    level: SL
+    front: Absorption vs assimilation
+    back: Absorption is the uptake of digested molecules across the gut wall into the blood. Assimilation is their use by body cells to build the body's own molecules, so they become part of its tissues.
+  - id: c8
+    level: SL
+    front: What is a mixotroph? Distinguish facultative and obligate mixotrophs.
+    back: An organism that can feed both autotrophically and heterotrophically. Facultative mixotrophs (such as Euglena) can grow using either mode alone; obligate mixotrophs need both to grow.
+  - id: c9
+    level: SL
+    front: How do saprotrophs feed, and why are they called decomposers?
+    back: They secrete enzymes into dead organic matter, digest it externally and absorb the small soluble products. Breaking down dead matter releases CO₂ and mineral nutrients back into the ecosystem.
+  - id: c10
+    level: SL
+    front: Name three sources of energy that archaea use for ATP production.
+    back: Oxidation of inorganic chemicals (such as H₂, H₂S, Fe²⁺ or ammonia), oxidation of carbon compounds from other organisms, and light absorbed by pigments that are not chlorophyll.
+  - id: c11
+    level: SL
+    front: Which skull features of Paranthropus robustus suggest a herbivorous diet?
+    back: Very large, flat molars and enlarged premolars with very thick enamel, small incisors and canines, a sagittal crest and wide cheekbones for large chewing muscles, and a deep, thick lower jaw.
+  - id: c12
+    level: SL
+    front: Why is inferring the diet of an extinct hominid from its teeth only indirect evidence?
+    back: The diet is deduced from a theory based on living mammals and cannot be observed. Similar teeth can suit different foods, so the inference is stronger when tooth wear, isotopes in enamel, or tools and butchered bones agree.
+  - id: c13
+    level: SL
+    front: Give two insect mouthpart adaptations for feeding on plants.
+    back: Toothed mandibles for biting off and chewing leaves (leaf beetles, caterpillars); a piercing stylet for sucking phloem sap from sieve tubes (aphids).
+  - id: c14
+    level: SL
+    front: How do plants resist herbivores, and how have some herbivores responded?
+    back: Physical defences (thorns, spines, stinging hairs) and toxic secondary compounds, often concentrated in seeds. Some herbivores have metabolic adaptations that detoxify them, such as koalas eating eucalyptus.
+  - id: c15
+    level: SL
+    front: Give one chemical, one physical and one behavioural adaptation of prey.
+    back: Chemical - toxic skin alkaloids of poison dart frogs. Physical - spines of hedgehogs, shells of tortoises, camouflage of stick insects. Behavioural - alarm calls of meerkats, schooling in fish.
+  - id: c16
+    level: SL
+    front: How do lianas, epiphytes and strangler epiphytes reach light in a forest?
+    back: Lianas root in the soil and climb trees for support. Epiphytes grow on high branches without rooting in soil. Strangler epiphytes start on a branch, root down to the soil, encircle the host and overtop its crown.
+  - id: c17
+    level: SL
+    front: Fundamental vs realized niche
+    back: The fundamental niche is the potential range set by a species' adaptations and tolerances. The realized niche is the part it actually occupies when it competes with other species.
+  - id: c18
+    level: SL
+    front: What are the two possible outcomes of competition between species with overlapping niches?
+    back: One species is eliminated from the ecosystem (competitive exclusion), or both are restricted to part of their fundamental niches, so their realized niches differ.

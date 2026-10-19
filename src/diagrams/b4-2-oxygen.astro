@@ -1,0 +1,59 @@
+---
+/** Oxygen tolerance (B4.2.2): where three kinds of microorganism grow in a tube of broth with an O₂ gradient. */
+let seed = 11;
+const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+const TOP = 62;
+const BOT = 262;
+const dots = (cx: number, n: number, from: number, to: number, bias = 0) =>
+  Array.from({ length: n }, () => {
+    const u = bias ? Math.pow(rand(), 1 + bias) : rand();
+    return { x: cx - 26 + rand() * 52, y: TOP + 8 + (from + u * (to - from)) * (BOT - TOP - 16) };
+  });
+const tubes = [
+  { cx: 110, name: 'Obligate aerobe', pts: dots(110, 40, 0, 0.16), lines: ['Must have O₂ for aerobic', 'respiration; grows only', 'where O₂ is present'], eg: ['e.g. most animals and plants;', 'Mycobacterium tuberculosis'] },
+  { cx: 320, name: 'Obligate anaerobe', pts: dots(320, 40, 0.52, 1), lines: ['Killed or inhibited by O₂;', 'grows only where O₂', 'is absent (anoxic)'], eg: ['e.g. Clostridium tetani;', 'methanogenic archaea'] },
+  { cx: 530, name: 'Facultative anaerobe', pts: dots(530, 60, 0, 1, 1.2), lines: ['Uses O₂ when present, but', 'survives and grows without', 'it (anaerobic respiration)'], eg: ['e.g. Escherichia coli;', 'yeast (Saccharomyces)'] },
+];
+---
+<svg viewBox="0 0 640 400" role="img" aria-labelledby="ox-t ox-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="ox-t">Where obligate aerobes, obligate anaerobes and facultative anaerobes grow in a tube with an oxygen gradient</title>
+  <desc id="ox-d">Three tubes of nutrient broth. Oxygen diffuses in from the air at the top, so oxygen concentration is high at the top and falls to zero lower down. Obligate aerobes grow only in a band at the top, where there is oxygen. Obligate anaerobes grow only in the lower part, where there is no oxygen. Facultative anaerobes grow throughout the tube, most densely at the top, because aerobic respiration releases more energy.</desc>
+  <defs>
+    <linearGradient id="ox-g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" class="o-hi" />
+      <stop offset="0.45" class="o-lo" />
+      <stop offset="1" class="o-lo" />
+    </linearGradient>
+    <marker id="ox-ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker>
+  </defs>
+  <text class="air" x="320" y="24" text-anchor="middle">air (O₂) above each tube</text>
+  <line class="grad" x1="20" y1={TOP + 6} x2="20" y2={BOT - 6} marker-end="url(#ox-ar)" />
+  <text class="gl" transform={`translate(14 ${(TOP + BOT) / 2}) rotate(-90)`} text-anchor="middle">O₂ falls</text>
+  {tubes.map((tb) => (
+    <g>
+      <path class="tube" d={`M${tb.cx - 34} ${TOP - 18} L${tb.cx - 34} ${BOT - 10} Q${tb.cx - 34} ${BOT + 16} ${tb.cx} ${BOT + 16} Q${tb.cx + 34} ${BOT + 16} ${tb.cx + 34} ${BOT - 10} L${tb.cx + 34} ${TOP - 18}`} />
+      <path class="broth" d={`M${tb.cx - 31} ${TOP} L${tb.cx - 31} ${BOT - 10} Q${tb.cx - 31} ${BOT + 13} ${tb.cx} ${BOT + 13} Q${tb.cx + 31} ${BOT + 13} ${tb.cx + 31} ${BOT - 10} L${tb.cx + 31} ${TOP} Z`} />
+      {tb.pts.map((p) => <circle class="cell" cx={p.x.toFixed(1)} cy={p.y.toFixed(1)} r="3" />)}
+      <text class="nm" x={tb.cx} y={BOT + 40} text-anchor="middle">{tb.name}</text>
+      {tb.lines.map((l, i) => <text class="ln" x={tb.cx} y={BOT + 60 + i * 16} text-anchor="middle">{l}</text>)}
+      {tb.eg.map((l, i) => <text class="eg" x={tb.cx} y={BOT + 112 + i * 15} text-anchor="middle">{l}</text>)}
+    </g>
+  ))}
+  <text class="key" x="630" y="24" text-anchor="end">dots = growth of the organism</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .o-hi { stop-color: color-mix(in srgb, var(--bio-water) 40%, var(--surface)); }
+  .o-lo { stop-color: var(--surface); }
+  .tube { fill: none; stroke: var(--text); stroke-width: 2.5; }
+  .broth { fill: url(#ox-g); }
+  .cell { fill: var(--bio-head); stroke: var(--text); stroke-width: 0.6; }
+  .air { font-size: 14px; font-weight: 650; fill: var(--text); }
+  .grad { stroke: var(--bio-water); stroke-width: 3; }
+  .ah { fill: var(--bio-water); }
+  .gl { font-size: 13px; fill: var(--text); }
+  .nm { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .ln { font-size: 13px; fill: var(--text); }
+  .eg { font-size: 13px; font-style: italic; fill: var(--text-muted); }
+  .key { font-size: 12px; fill: var(--text-muted); }
+</style>

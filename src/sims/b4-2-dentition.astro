@@ -1,0 +1,192 @@
+---
+/**
+ * B4.2.8 dentition and diet in the Hominidae: compare schematic skulls, highlight one feature at a time,
+ * then infer each diet. Geometry and notes live in models/b4-2-dentition.ts.
+ */
+import { OCC, defaultShown, featureFor, featureKeys, featureNames, hominids, summary, toothLayout, type Hominid } from './models/b4-2-dentition';
+
+const teeth = (h: Hominid) => {
+  const lay = toothLayout(h);
+  return lay.flatMap(({ tooth, x }, i) => {
+    if (tooth.kind === 'gap') return [];
+    const f = featureFor(tooth.kind)!;
+    const prevGap = lay[i - 1]?.tooth.kind === 'gap' ? lay[i - 1]!.tooth.w : 0;
+    const w = tooth.w - 1;
+    if (tooth.kind === 'canine') {
+      const top = OCC - 12;
+      const lx = x - prevGap;
+      return [
+        { f, d: `M${x} ${top} L${x + w} ${top} L${x + w * 0.75} ${top + tooth.h * 0.8} L${x + w / 2} ${top + tooth.h} L${x + w * 0.25} ${top + tooth.h * 0.8} Z`, cls: 'tooth up' },
+        { f, d: `M${lx} ${OCC + 13} L${lx + w} ${OCC + 13} L${lx + w * 0.75} ${OCC + 13 - tooth.h * 0.65} L${lx + w / 2} ${OCC + 13 - tooth.h * 0.8} L${lx + w * 0.25} ${OCC + 13 - tooth.h * 0.65} Z`, cls: 'tooth low' },
+      ];
+    }
+    const r = tooth.kind === 'incisor' ? 1.5 : 2.5;
+    return [
+      { f, d: `M${x} ${OCC - tooth.h} h${w} v${tooth.h - r} q0 ${r} ${-r} ${r} h${-(w - 2 * r)} q${-r} 0 ${-r} ${-r} Z`, cls: 'tooth up' },
+      { f, d: `M${x} ${OCC + 1 + tooth.h * 0.9} h${w} v${-(tooth.h * 0.9 - r)} q0 ${-r} ${-r} ${-r} h${-(w - 2 * r)} q${-r} 0 ${-r} ${r} Z`, cls: 'tooth low' },
+    ];
+  });
+};
+const initial = hominids.filter((h) => defaultShown.includes(h.id));
+---
+<div class="dent" data-dent>
+  <div class="controls">
+    <div class="ctrl">
+      <p class="ctrl-h" id="dent-pick-h">Compare these skulls</p>
+      <div class="chips" role="group" aria-labelledby="dent-pick-h">
+        {hominids.map((h) => <button type="button" class="btn chip" data-hom={h.id} aria-pressed={defaultShown.includes(h.id) ? 'true' : 'false'}>{h.latin}</button>)}
+      </div>
+    </div>
+    <div class="ctrl">
+      <p class="ctrl-h" id="dent-feat-h">Highlight a feature</p>
+      <div class="chips" role="radiogroup" aria-labelledby="dent-feat-h">
+        <button type="button" class="btn chip is-active" role="radio" aria-checked="true" tabindex="0" data-feat-btn="all">Whole skull</button>
+        {featureKeys.map((f) => <button type="button" class="btn chip" role="radio" aria-checked="false" tabindex="-1" data-feat-btn={f}>{featureNames[f]}</button>)}
+      </div>
+    </div>
+  </div>
+
+  <ul class="cards" role="list">
+    {hominids.map((h) => (
+      <li class="hcard" data-card={h.id} hidden={!defaultShown.includes(h.id)}>
+        <svg viewBox="0 0 260 200" role="img" aria-labelledby={`sk-${h.id}-t`} class="art">
+          <title id={`sk-${h.id}-t`}>{`Schematic side view of the skull of ${h.latin}, face to the left`}</title>
+          <path class="bone cran" data-part="jaw" d={h.cranium} />
+          <path class="bone mand" data-part="jaw" d={h.mandible} />
+          <path class="muscle" data-part="muscles" d={h.temporalis} />
+          <path class="zyg" data-part="muscles" d={h.zyg} />
+          {h.crest && <path class="bone crest" data-part="muscles" d={h.crest} />}
+          <ellipse class="orbit" cx={h.orbit[0]} cy={h.orbit[1]} rx={h.orbit[2]} ry={h.orbit[3]} />
+          {h.brow && <path class="brow" d={h.brow} />}
+          <circle class="ear" cx={h.ear[0]} cy={h.ear[1]} r="4" />
+          {teeth(h).map((x) => <path class={x.cls} data-part={x.f} d={x.d} />)}
+          {h.crest && <text class="tag" data-tag="muscles" x="164" y="16" text-anchor="middle">sagittal crest</text>}
+        </svg>
+        <h3 class="name"><i>{h.latin}</i>{h.living ? ' (living)' : ''}</h3>
+        <p class="where">{h.where}</p>
+        <p class="note" data-note hidden></p>
+        <div class="guess" role="group" aria-label={`Diet of ${h.latin}`}>
+          <span class="gq">Diet?</span>
+          <button type="button" class="btn chip" data-guess="herbivore">Mainly plants</button>
+          <button type="button" class="btn chip" data-guess="omnivore">Plants and meat</button>
+        </div>
+        <p class="verdict" data-verdict hidden></p>
+      </li>
+    ))}
+  </ul>
+  <p class="status" aria-live="polite" data-status>{summary(initial, 'all')}</p>
+
+  <div class="explain">
+    <p><strong>From living species to fossils (NOS):</strong> observing living mammals whose diets are known, such as gorillas and humans, led to theories linking teeth to diet. Large, broad molars, thick enamel and big chewing muscles go with tough plant food; small, unspecialized teeth go with a mixed diet. Deductions from these theories let us infer the diets of extinct species from their skulls.</p>
+    <p><strong>But it is indirect evidence.</strong> Nobody saw these species eat, and the same teeth can suit several foods. Inferences are stronger when other evidence agrees: microscopic wear marks on teeth, chemical isotopes in enamel, and tools or cut-marked bones found with the fossils.</p>
+  </div>
+  <p class="fine">Skulls are schematic and drawn the same size, so they are not to scale: the skull of <i>H. floresiensis</i> is far smaller than the others. Each tooth row shows one side of the upper and lower jaws (two incisors, one canine, two premolars, three molars).</p>
+</div>
+
+<script>
+  import { featureKeys, hominids, summary, type FeatureKey } from './models/b4-2-dentition';
+
+  document.querySelectorAll<HTMLElement>('[data-dent]').forEach((root) => {
+    const homBtns = [...root.querySelectorAll<HTMLButtonElement>('[data-hom]')];
+    const featBtns = [...root.querySelectorAll<HTMLButtonElement>('[data-feat-btn]')];
+    const cards = [...root.querySelectorAll<HTMLElement>('[data-card]')];
+    const status = root.querySelector<HTMLElement>('[data-status]')!;
+    let feat: FeatureKey | 'all' = 'all';
+    let timer = 0;
+
+    const shown = () => hominids.filter((h) => homBtns.find((b) => b.dataset.hom === h.id)?.getAttribute('aria-pressed') === 'true');
+    const update = () => {
+      const ids = new Set(shown().map((h) => h.id));
+      cards.forEach((card) => {
+        const h = hominids.find((x) => x.id === card.dataset.card)!;
+        card.hidden = !ids.has(h.id);
+        card.querySelectorAll<SVGElement>('[data-part]').forEach((el) => {
+          el.classList.toggle('dim', feat !== 'all' && el.dataset.part !== feat);
+          el.classList.toggle('lit', feat !== 'all' && el.dataset.part === feat);
+        });
+        card.querySelectorAll<SVGElement>('[data-tag]').forEach((el) => (el.style.display = feat === 'all' || feat === el.dataset.tag ? '' : 'none'));
+        const note = card.querySelector<HTMLElement>('[data-note]')!;
+        note.hidden = feat === 'all';
+        if (feat !== 'all') note.textContent = h.notes[feat];
+      });
+      clearTimeout(timer);
+      timer = window.setTimeout(() => { status.textContent = summary(shown(), feat); }, 250);
+    };
+
+    homBtns.forEach((b) => b.addEventListener('click', () => {
+      b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+      update();
+    }));
+    const choose = (btn: HTMLButtonElement, focus = false) => {
+      featBtns.forEach((x) => { const on = x === btn; x.setAttribute('aria-checked', String(on)); x.tabIndex = on ? 0 : -1; x.classList.toggle('is-active', on); });
+      if (focus) btn.focus();
+      const v = btn.dataset.featBtn!;
+      feat = (featureKeys as string[]).includes(v) ? (v as FeatureKey) : 'all';
+      update();
+    };
+    featBtns.forEach((b, i) => {
+      b.addEventListener('click', () => choose(b));
+      b.addEventListener('keydown', (e) => {
+        const d = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+        if (d) { e.preventDefault(); choose(featBtns[(i + d + featBtns.length) % featBtns.length]!, true); }
+      });
+    });
+    cards.forEach((card) => {
+      const h = hominids.find((x) => x.id === card.dataset.card)!;
+      const verdict = card.querySelector<HTMLElement>('[data-verdict]')!;
+      card.querySelectorAll<HTMLButtonElement>('[data-guess]').forEach((b) => b.addEventListener('click', () => {
+        const right = b.dataset.guess === h.diet;
+        card.querySelectorAll<HTMLButtonElement>('[data-guess]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        verdict.hidden = false;
+        verdict.className = `verdict ${right ? 'ok' : 'no'}`;
+        verdict.textContent = `${right ? 'Yes. ' : 'Look again. '}${h.verdict}`;
+      }));
+    });
+  });
+</script>
+
+<style>
+  .dent { container-type: inline-size; }
+  .controls { display: grid; gap: var(--space-3); margin-bottom: var(--space-3); }
+  @container (min-width: 44rem) { .controls { grid-template-columns: 1fr 1.3fr; } }
+  .ctrl-h { font-weight: 700; font-size: var(--step--1); margin: 0 0 var(--space-1); color: var(--text-muted); }
+  .chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .chip { min-height: 2.25rem; font-size: var(--step--1); padding-inline: 0.7rem; }
+  .chip[data-hom] { font-style: italic; }
+  .cards { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); grid-template-columns: minmax(0, 1fr); }
+  @container (min-width: 32rem) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .hcard { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-m); padding: var(--space-2) var(--space-3) var(--space-3); display: flex; flex-direction: column; }
+  .hcard[hidden] { display: none; }
+  .art { width: 100%; height: auto; display: block; font-family: var(--font-sans); }
+  .bone { fill: color-mix(in srgb, var(--bio-tail) 30%, var(--surface)); stroke: var(--text); stroke-width: 1.6; stroke-linejoin: round; }
+  .mand { fill: color-mix(in srgb, var(--bio-tail) 52%, var(--surface)); }
+  .crest { fill: color-mix(in srgb, var(--bio-head) 45%, var(--surface)); }
+  .muscle { fill: color-mix(in srgb, var(--bio-k) 18%, transparent); stroke: var(--bio-k); stroke-width: 1.2; stroke-dasharray: 4 3; }
+  .ear { fill: var(--surface-3); stroke: var(--text); stroke-width: 1.2; }
+  .zyg { fill: none; stroke: color-mix(in srgb, var(--bio-tail) 45%, var(--text)); stroke-width: 7; stroke-linecap: round; }
+  .orbit { fill: var(--surface-3); stroke: var(--text); stroke-width: 1.4; }
+  .brow { fill: none; stroke: var(--text); stroke-width: 5; stroke-linecap: round; }
+  .tooth { fill: var(--surface); stroke: var(--text); stroke-width: 1.2; stroke-linejoin: round; }
+  .tag { font-size: 12px; font-weight: 700; fill: var(--text); }
+  [data-part] { transition: opacity 0.2s; }
+  .dim { opacity: 0.18; }
+  .tooth.lit { fill: var(--bio-glucose); stroke-width: 1.8; }
+  .bone.lit { fill: color-mix(in srgb, var(--bio-carb) 45%, var(--surface)); }
+  .muscle.lit { fill: color-mix(in srgb, var(--bio-k) 50%, transparent); stroke-width: 2; }
+  .crest.lit { fill: var(--bio-head); }
+  .zyg.lit { stroke: var(--bio-head); }
+  @media (prefers-reduced-motion: reduce) { [data-part] { transition: none; } }
+  .name { font-size: var(--step--1); font-weight: 750; margin: var(--space-1) 0 0; }
+  .where { font-size: 0.82rem; color: var(--text-muted); margin: var(--space-1) 0 0; }
+  .note { font-size: 0.85rem; margin: var(--space-2) 0 0; padding-top: var(--space-2); border-top: 1px solid var(--border); }
+  .guess { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; margin-top: var(--space-2); }
+  .gq { font-weight: 700; font-size: var(--step--1); }
+  .verdict { font-size: 0.85rem; margin: var(--space-2) 0 0; padding: var(--space-2); border-radius: var(--radius-s); }
+  .verdict.ok { background: var(--good-soft); }
+  .verdict.no { background: var(--bad-soft); }
+  .status { font-size: var(--step--1); font-weight: 650; margin: var(--space-3) 0 var(--space-2); }
+  .explain { font-size: var(--step--1); padding: var(--space-3); background: var(--accent-soft); border-radius: var(--radius-m); }
+  .explain p { margin: 0 0 var(--space-2); }
+  .explain p:last-child { margin: 0; }
+  .fine { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>
