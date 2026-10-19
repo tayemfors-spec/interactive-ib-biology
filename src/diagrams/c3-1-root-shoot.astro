@@ -1,0 +1,70 @@
+---
+/** C3.1.22: auxin from shoot tips travels to the roots, cytokinin from root tips travels to the shoots. */
+const leaves = [[200, 150, -1], [200, 110, 1], [200, 76, -1]] as const;
+---
+<svg viewBox="0 0 640 380" role="img" aria-labelledby="rs-t rs-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="rs-t">Auxin and cytokinin coordinate shoot and root growth</title>
+  <desc id="rs-d">A young plant with its shoot above the soil and roots below. Auxin is made in the shoot tip and young leaves and is transported down the plant to the roots, where it promotes the formation of lateral roots; in the shoot it inhibits the growth of side buds. Cytokinin is made in the root tips and is carried up to the shoot in the xylem, where it promotes cell division and the growth of side buds. Because each organ system sends a signal that promotes growth of the other, the sizes of the root system and the shoot system stay matched.</desc>
+  <rect class="soil" x="40" y="200" width="250" height="172" />
+  <text class="s" x="48" y="218">soil</text>
+  <!-- shoot -->
+  <path class="stem" d="M200 200 V44" />
+  {leaves.map(([x, y, s]) => <path class="leaf" d={`M${x} ${y} C ${x + s * 22} ${y - 26}, ${x + s * 58} ${y - 18}, ${x + s * 66} ${y - 4} C ${x + s * 46} ${y + 8}, ${x + s * 20} ${y + 6}, ${x} ${y} Z`} />)}
+  <circle class="bud" cx="200" cy="40" r="7" />
+  <circle class="sbud" cx="206" cy="148" r="4" /><circle class="sbud" cx="194" cy="108" r="4" />
+  <!-- roots -->
+  <path class="root" d="M200 200 C 202 250, 196 300, 200 352 M200 236 C 180 250, 150 256, 120 276 M200 268 C 224 282, 250 292, 270 314 M199 300 C 180 314, 160 322, 140 340 M184 246 C 176 262, 168 280, 162 296" />
+  {[[200, 354], [118, 277], [272, 316], [138, 341], [161, 298]].map(([x, y]) => <circle class="rtip" cx={x} cy={y} r="4.5" />)}
+  <!-- signals -->
+  <path class="aux" d="M184 52 C 166 110, 166 190, 156 262" marker-end="url(#rs-a1)" />
+  <path class="cyt" d="M228 320 C 236 240, 234 150, 220 64" marker-end="url(#rs-a2)" />
+  <text class="ka" x="150" y="96" text-anchor="end">auxin</text>
+  <text class="kc" x="240" y="250">cytokinin</text>
+  <path class="lead" d="M193 36 L170 26" /><text class="s" x="166" y="26" text-anchor="end">shoot tip</text>
+  <path class="lead" d="M210 356 L262 366" /><text class="s" x="266" y="370">root tip</text>
+
+  <!-- explanation -->
+  <rect class="pa" x="310" y="8" width="322" height="112" rx="10" />
+  <text class="ha" x="322" y="30">Auxin</text>
+  <text class="s" x="322" y="50">made in shoot tips and young leaves</text>
+  <text class="s" x="322" y="68">transported down to the roots</text>
+  <text class="s" x="322" y="86">roots: promotes lateral root formation</text>
+  <text class="s" x="322" y="104">shoot: inhibits side buds (apical dominance)</text>
+  <rect class="pc" x="310" y="130" width="322" height="94" rx="10" />
+  <text class="hc" x="322" y="152">Cytokinin</text>
+  <text class="s" x="322" y="172">made in root tips</text>
+  <text class="s" x="322" y="190">carried up to the shoots in the xylem</text>
+  <text class="s" x="322" y="208">shoot: promotes cell division and side buds</text>
+  <rect class="pi" x="310" y="234" width="322" height="138" rx="10" />
+  <text class="h" x="322" y="256">Integration</text>
+  <text class="s" x="322" y="276">A large root system sends more cytokinin</text>
+  <text class="s" x="322" y="294">up, so the shoot grows more; a large shoot</text>
+  <text class="s" x="322" y="312">sends more auxin down, so more roots form.</text>
+  <text class="s" x="322" y="336">The balance (ratio) of the two hormones</text>
+  <text class="s" x="322" y="354">keeps root and shoot growth matched.</text>
+  <defs>
+    <marker id="rs-a1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="fa" /></marker>
+    <marker id="rs-a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="fc" /></marker>
+  </defs>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .soil { fill: color-mix(in srgb, var(--bio-head) 16%, var(--surface)); }
+  .stem { stroke: var(--bio-carb); stroke-width: 7; stroke-linecap: round; }
+  .leaf { fill: color-mix(in srgb, var(--bio-carb) 70%, var(--surface)); stroke: var(--bio-carb); }
+  .bud { fill: var(--bio-carb); stroke: var(--text); }
+  .sbud { fill: var(--bio-carb); stroke: var(--text); stroke-width: 0.8; }
+  .root { fill: none; stroke: color-mix(in srgb, var(--bio-head) 70%, var(--text)); stroke-width: 3.5; stroke-linecap: round; }
+  .rtip { fill: var(--bio-protein); }
+  .aux { fill: none; stroke: var(--bio-head); stroke-width: 4; stroke-dasharray: 10 5; }
+  .cyt { fill: none; stroke: var(--bio-protein); stroke-width: 4; }
+  .fa { fill: var(--bio-head); }
+  .fc { fill: var(--bio-protein); }
+  .ka, .kc { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .lead { stroke: var(--text-muted); stroke-width: 1; }
+  .s { font-size: 13px; fill: var(--text); }
+  .h, .ha, .hc { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .pa { fill: color-mix(in srgb, var(--bio-head) 12%, var(--surface)); stroke: var(--bio-head); }
+  .pc { fill: color-mix(in srgb, var(--bio-protein) 12%, var(--surface)); stroke: var(--bio-protein); }
+  .pi { fill: var(--accent-soft); stroke: var(--accent); }
+</style>

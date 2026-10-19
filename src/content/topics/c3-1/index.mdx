@@ -1,0 +1,478 @@
+---
+code: C3.1
+description: "IB Biology C3.1 revision: step through a pain reflex arc, simulate feedback control of heart and breathing rates, and see how auxin bends shoots."
+updated: 2026-10-19
+related: [C2.1, C2.2, D3.3, B3.2]
+mustKnow:
+  - term: System integration and emergent properties
+    definition: "Integration is the coordination of the parts of a system so that together they perform an overall function. Cells, tissues, organs and organ systems are nested subsystems, and their integration gives the organism <strong>emergent properties</strong> that no part has alone, such as a cheetah's ability to hunt at high speed."
+    level: SL
+  - term: Nervous vs endocrine signalling
+    definition: "The nervous system sends <strong>electrical impulses</strong> along neurons to specific target cells: fast and short-lived. The endocrine system secretes <strong>hormones</strong> into the blood, which reaches every tissue, but only cells with the right receptors respond: slower and often longer-lasting."
+    level: SL
+  - term: Sensory and motor neurons
+    definition: "A <strong>sensory neuron</strong> carries impulses from receptors to the central nervous system (spinal cord and brain). A <strong>motor neuron</strong> carries impulses from the central nervous system to an effector, such as a skeletal muscle, which it stimulates to contract."
+    level: SL
+  - term: Nerve
+    definition: "A bundle of nerve fibres (the axons of many neurons), usually of both sensory and motor neurons, surrounded by a protective sheath of connective tissue. It contains both <strong>myelinated</strong> and <strong>unmyelinated</strong> fibres."
+    level: SL
+  - term: Pain reflex arc
+    definition: "The pathway of a rapid, involuntary response: free nerve endings (pain receptors) → sensory neuron → relay neuron in the grey matter of the spinal cord → motor neuron → skeletal muscle (effector). The brain is informed but does not take part."
+    level: SL
+  - term: Baroreceptors and chemoreceptors
+    definition: "<strong>Baroreceptors</strong> in the walls of the aortic arch and carotid sinuses detect blood pressure. <strong>Chemoreceptors</strong> in the carotid and aortic bodies detect blood pH and concentrations of CO<sub>2</sub> and O<sub>2</sub>; chemoreceptors in the medulla (brainstem) detect pH changes caused by CO<sub>2</sub>."
+    level: SL
+  - term: Medulla oblongata
+    definition: "The lowest part of the brainstem. Its cardiovascular centre adjusts heart rate and stroke volume through sympathetic and vagus nerves, and its respiratory centre adjusts ventilation rate through nerves to the diaphragm and intercostal muscles."
+    level: SL
+  - term: Enteric nervous system (ENS)
+    definition: "A network of neurons in the wall of the gut that coordinates peristalsis involuntarily, without needing input from the brain. Only swallowing (at the start) and egestion (at the end) are under voluntary control by the CNS."
+    level: SL
+  - term: Auxin efflux carrier
+    definition: "A membrane protein (a PIN protein) that moves the charged form of auxin out of a cell. Auxin can diffuse into cells but cannot leave without these carriers, so placing them on the same side of every cell moves auxin in one direction through a tissue."
+    level: AHL
+  - term: Acid growth
+    definition: "Auxin stimulates proton pumps that secrete H<sup>+</sup> into the cell wall (apoplast). The low pH activates expansins, which loosen the cross-links between cellulose molecules, so turgor pressure can stretch the wall and the cell elongates."
+    level: AHL
+  - term: Positive feedback in fruit ripening
+    definition: "Ethylene (ethene) stimulates ripening, and ripening tissue produces more ethylene. Because the response amplifies the stimulus, ripening speeds up, and ethylene gas spreading between fruits makes them ripen together."
+    level: AHL
+mistakes:
+  - wrong: "Hormones travel along nerves to their target organs."
+    right: "Hormones are secreted by endocrine glands into the <strong>blood</strong> and carried all round the body. Nerves carry electrical impulses along neurons; the two systems use different routes."
+    level: SL
+  - wrong: "In a pain reflex the brain decides to move the hand away."
+    right: "The reflex is integrated in the <strong>grey matter of the spinal cord</strong> by a relay neuron. Signals reach the brain too, but pain is felt only after the muscle has already started to contract."
+    level: SL
+  - wrong: "The cell body of the sensory neuron is in the grey matter of the spinal cord."
+    right: "The sensory neuron's cell body is in the <strong>dorsal root ganglion</strong>, outside the grey matter. The cell bodies of relay neurons and motor neurons are in the grey matter, and the motor axon leaves through the <strong>ventral</strong> root."
+    level: SL
+  - wrong: "Baroreceptors detect carbon dioxide and chemoreceptors detect blood pressure."
+    right: "<strong>Baro</strong>receptors detect pressure (stretch of the artery wall); <strong>chemo</strong>receptors detect chemical changes: pH, CO<sub>2</sub> and O<sub>2</sub>."
+    level: SL
+  - wrong: "The vagus nerve speeds up the heart and the sympathetic nerve slows it down."
+    right: "It is the other way round: <strong>sympathetic</strong> (accelerator) nerves increase heart rate and the force of contraction; the <strong>vagus</strong> nerve (parasympathetic) decreases heart rate. Both act on the SA node."
+    level: SL
+  - wrong: "During exercise breathing speeds up because chemoreceptors detect that blood oxygen has fallen."
+    right: "The main stimulus is <strong>CO<sub>2</sub></strong>: more CO<sub>2</sub> from respiration forms carbonic acid, which releases H<sup>+</sup> and lowers blood pH. Chemoreceptors detect the fall in pH. Arterial O<sub>2</sub> changes little in normal exercise."
+    level: SL
+  - wrong: "Peristalsis is a voluntary action controlled by the brain."
+    right: "Peristalsis is <strong>involuntary</strong> and coordinated by the enteric nervous system in the gut wall. Only the start of swallowing and egestion are voluntary (CNS)."
+    level: SL
+  - wrong: "Light destroys auxin on the lit side of a shoot, or makes the lit side produce more auxin."
+    right: "Unilateral light causes auxin to be <strong>redistributed</strong> to the shaded side by auxin efflux carriers, so the shaded side has the higher concentration."
+    level: AHL
+  - wrong: "Auxin makes the cells on the shaded side divide faster."
+    right: "In phototropism auxin causes <strong>cell elongation</strong>, by acidifying the cell wall (acid growth), not faster cell division."
+    level: AHL
+  - wrong: "Ethylene production in ripening fruit is controlled by negative feedback."
+    right: "It is <strong>positive feedback</strong>: ripening increases ethylene production, which speeds ripening further, so ripening is rapid and synchronized."
+    level: AHL
+---
+
+<Section id="integration" title="Integration and the hierarchy of subsystems" level="SL" covers="C3.1.1 C3.1.2">
+
+Any system with many parts needs **integration**: the parts must be **coordinated** so that together they carry out an overall function. In a car, the engine, gears and brakes must work in step; in a multicellular organism, millions of cells, many tissues and several organ systems must do the same. Integration needs **communication** between the parts and a way to control what each part does.
+
+### A hierarchy of subsystems
+
+Multicellular organisms are organized as a **hierarchy** of nested subsystems:
+
+- **Cells** of the same type, such as muscle fibres, are grouped into **tissues**.
+- Different tissues are combined into **organs**, such as a muscle, which contains muscle tissue, connective tissue, blood vessels and nerves.
+- Organs that work together form **organ systems**, such as the musculoskeletal, nervous, circulatory and respiratory systems.
+- Organ systems together make up the **organism**.
+
+Each level is a system in its own right, and each is also a component of the level above.
+
+<Figure name="c3-1-hierarchy" caption="Levels of organization in a cheetah. Each level is a subsystem of the one above; speed emerges only when the systems are integrated." />
+
+### Emergent properties
+
+When subsystems are integrated, the whole has **emergent properties**: abilities that none of the parts has on its own. A **cheetah** is an effective predator because its body systems work together. Its brain integrates information from its eyes to track prey; its nervous system coordinates powerful contractions of its leg muscles, acting on a long, flexible skeleton; its lungs, heart and blood deliver oxygen and glucose to the muscles and remove CO₂ and heat. No muscle, bone or neuron can sprint at more than 90 km/h, but the integrated animal can.
+
+<Callout type="exam">
+
+When asked about emergent properties, name the **parts** and say what the **whole** can do that the parts cannot. "The whole is greater than the sum of its parts" is not enough on its own.
+
+</Callout>
+
+</Section>
+
+<Section id="signalling" title="Nerves, hormones and the blood" level="SL" covers="C3.1.3">
+
+Organs in animals are integrated in two ways: by **signals**, which coordinate what organs do, and by **transport** of materials and energy between them.
+
+### Two signalling systems
+
+| | Nervous system | Endocrine system |
+|---|---|---|
+| Signal | Electrical impulses along neurons (chemical at synapses) | Hormones (chemical messengers) |
+| Route | Along neurons to specific cells | Secreted by glands into the blood; carried all round the body |
+| Targets | Only the cells the neurons connect to | Only cells with receptors for that hormone |
+| Speed | Very fast (milliseconds) | Slower (seconds to hours) |
+| Duration of effect | Usually short-lived | Often longer-lasting |
+| Examples | Withdrawing the hand from a flame; contracting muscles to run | Melatonin and sleep; epinephrine in danger |
+
+The two systems work together. The hypothalamus, in the brain, controls much of the endocrine system, and some nerves stimulate glands directly: sympathetic nerves trigger the release of epinephrine from the adrenal glands. Nerves and hormones are covered in more detail in <TopicLink code="C2.2" /> and <TopicLink code="C2.1" />.
+
+### Transport by the blood
+
+The **blood system** links all organs. It carries materials from where they are absorbed or produced to where they are used or removed:
+
+- **oxygen** from the lungs to respiring tissues, and **CO₂** back to the lungs;
+- **glucose**, amino acids and other products of digestion from the small intestine to the liver and then to all tissues;
+- **urea** from the liver, where it is made, to the kidneys, where it is excreted;
+- **hormones** from endocrine glands to their target cells.
+
+Blood also distributes **energy**: chemical energy in glucose and fatty acids, and **heat** from active organs such as the liver and muscles to the skin, where it can be lost. See <TopicLink code="B3.2" /> for the structure of blood vessels.
+
+<Callout type="exam">
+
+To "distinguish" the two systems, give paired contrasts in one sentence each: impulses along neurons **vs** hormones in the blood; fast and short-lived **vs** slower and longer-lasting; specific cells **vs** any cell with the right receptor.
+
+</Callout>
+
+</Section>
+
+<Section id="cns" title="The brain, cerebellum and spinal cord" level="SL" covers="C3.1.4 C3.1.5 C3.1.10">
+
+The **central nervous system (CNS)** is the brain and spinal cord. It receives information from receptors, processes it and sends signals to effectors.
+
+<Figure name="c3-1-cns" caption="The brain cut down the middle (face to the left), the spinal cord and spinal nerves." />
+
+### The brain as an integrating organ
+
+The **cerebral hemispheres** (cerebrum) are the main centre for integrating information. They receive impulses from many sensory inputs at once and **combine** them. When you catch a ball, for example, information from your eyes about the ball's movement is combined with information about the position of your arm and hand and with memories of earlier catches, and the brain then sends a coordinated set of signals to your muscles. The brain also stores information as **memories**, and **learning** happens when experience changes the connections between neurons, so a later response can be different.
+
+### Conscious and unconscious processes
+
+- **Conscious** processes are ones we are aware of and can control, such as deciding to pick up a cup. They are coordinated in the cerebral hemispheres.
+- **Unconscious** processes happen without our awareness or decision, such as a withdrawal reflex, the knee-jerk reflex, or the control of heart rate.
+
+The **spinal cord** acts as an **integrating centre for unconscious processes**. Reflexes are processed in its **grey matter** (cell bodies and synapses of relay and motor neurons), while its outer **white matter** consists of myelinated axons carrying impulses up to and down from the brain.
+
+### The cerebellum
+
+The **cerebellum** is at the back of the brain, below the cerebral hemispheres. It **coordinates skeletal muscle contraction and balance**. It receives information about the movement the brain intends to make, together with feedback from stretch receptors in muscles and joints, from the balance organs of the inner ear and from the eyes. It compares what is happening with what was intended and fine-tunes the timing and force of muscle contractions, so movements are smooth and accurate and posture is maintained. Skills such as riding a bicycle become automatic as the cerebellum learns them. Damage to the cerebellum causes clumsy, jerky movements and an unsteady walk, although the muscles themselves are not weakened.
+
+<Callout type="tip">
+
+The **medulla oblongata** in the brainstem is also unconscious: it controls heart rate and ventilation rate (see the feedback sections below).
+
+</Callout>
+
+</Section>
+
+<Section id="neurons-nerves" title="Sensory neurons, motor neurons and nerves" level="SL" covers="C3.1.6 C3.1.7 C3.1.8">
+
+### Input: sensory neurons
+
+**Receptors** detect stimuli. Some are specialized receptor cells, such as the rods and cones of the eye; others are the endings of the sensory neurons themselves, such as the free nerve endings that detect pain. **Sensory neurons** carry nerve impulses from receptors **into the CNS**: through the dorsal roots of spinal nerves into the spinal cord, or through cranial nerves directly into the brain. From the spinal cord the information is relayed up to the **cerebral hemispheres**, where sensations are perceived. A sensory neuron's cell body lies in a **ganglion** just outside the CNS.
+
+### Output: motor neurons
+
+To make a voluntary movement, the cerebral hemispheres send impulses down the spinal cord, where they are passed to **motor neurons**. A motor neuron's cell body is in the grey matter of the spinal cord (or brainstem); its long axon runs out through a ventral root and a nerve to a skeletal muscle. At the **motor end plate** the motor neuron releases a neurotransmitter that **stimulates the muscle fibres to contract**.
+
+### Nerves
+
+A **nerve** is a bundle of many nerve fibres. Most nerves are **mixed**: they contain the fibres of both sensory neurons (carrying impulses towards the CNS) and motor neurons (carrying impulses away from it). In a **transverse section** you can see:
+
+- an outer **protective sheath** of connective tissue (the **epineurium**);
+- several **bundles** (fascicles) of fibres, each wrapped in its own sheath (the perineurium);
+- **myelinated fibres**: axons surrounded by a myelin sheath, which looks like a ring with a dark rim and a pale centre;
+- **unmyelinated fibres**: smaller axons, often grouped within a Schwann cell, with no myelin ring;
+- small **blood vessels** in the connective tissue.
+
+<Figure name="c3-1-nerve-ts" caption="Transverse section of a nerve: a protective sheath around bundles of myelinated and unmyelinated fibres." />
+
+Myelinated fibres conduct impulses much faster than unmyelinated ones (see <TopicLink code="C2.2" />).
+
+<Callout type="exam" title="Interpreting a transverse section of a nerve">
+
+Identify the **sheath** around the whole nerve, the **bundles** of fibres, and the two kinds of fibre: **myelinated** fibres as rings (a myelin sheath around a central axon) and **unmyelinated** fibres as small dots without a ring. Remember that you cannot tell sensory from motor fibres just by looking at them.
+
+</Callout>
+
+</Section>
+
+<Section id="reflex" title="The pain reflex arc" level="SL" covers="C3.1.9">
+
+A **reflex** is a rapid, automatic, **involuntary** response to a stimulus. The pathway the impulses follow is a **reflex arc**. The pain withdrawal reflex protects the body from damage, and the IB example has **skeletal muscle** as the effector.
+
+<Anim topic="c3-1" id="reflex" />
+
+### The five parts
+
+1. **Receptor**: **free nerve endings** of a sensory neuron in the skin of the hand act as pain receptors. Heat or pressure strong enough to damage tissue stimulates them, and nerve impulses begin.
+2. **Sensory neuron**: carries the impulses along its axon, in a spinal nerve, through the **dorsal root** into the spinal cord. Its cell body is in the **dorsal root ganglion**.
+3. **Relay neuron** (interneuron): lies entirely within the **grey matter** of the spinal cord. The sensory neuron synapses with it, and it synapses with the motor neuron. In this example there is a single relay neuron.
+4. **Motor neuron**: its cell body is in the ventral part of the grey matter; its axon leaves the cord through the **ventral root** and runs in the same spinal nerve back to the arm.
+5. **Effector**: the motor neuron stimulates a skeletal muscle, here the **biceps**, to contract. The arm bends at the elbow and the hand is pulled away.
+
+### Why it is fast and involuntary
+
+Only three neurons and **two synapses** in the spinal cord are involved, and the response does not wait for the brain. The sensory neuron also passes impulses to neurons that carry them up the white matter to the brain, so a moment later the pain is **felt**. The brain can then decide what to do next, and in some cases (for example holding on to a hot plate to avoid dropping it) can override the reflex.
+
+<Callout type="exam" title="Drawing a reflex arc: must include">
+
+- receptor (free nerve ending) and effector (skeletal muscle) labelled;
+- sensory neuron entering by the **dorsal** root, with its cell body in the **dorsal root ganglion**;
+- one relay neuron in the **grey matter**, with synapses at both ends;
+- motor neuron with its cell body in the grey matter, leaving by the **ventral** root;
+- arrows showing the direction of the impulses.
+
+</Callout>
+
+</Section>
+
+<Section id="hormones" title="Hormones: the hypothalamus, melatonin and epinephrine" level="SL" covers="C3.1.11 C3.1.12 C3.1.13">
+
+<Anim topic="c3-1" id="endocrine" />
+
+### The hypothalamus and pituitary gland
+
+The **hypothalamus**, at the base of the brain, links the nervous and endocrine systems. It receives impulses from other parts of the brain and monitors the blood, and it controls the **pituitary gland**, which hangs just below it. Some hormones are made by **neurosecretory cells** in the hypothalamus and released from the pituitary; others are made by the pituitary itself in response to **releasing hormones** from the hypothalamus. Many pituitary hormones control other endocrine glands: for example TSH stimulates the thyroid gland, and FSH and LH act on the ovaries and testes. When the hormone from the target gland rises, it inhibits the hypothalamus and pituitary: **negative feedback** keeps hormone levels stable. (You need only this general account, not the differences between the anterior and posterior pituitary.)
+
+### Melatonin and the sleep–wake cycle
+
+The **pineal gland** secretes **melatonin** in a **diurnal** (daily) pattern. Light detected by the retina inhibits secretion, through the **suprachiasmatic nucleus (SCN)** in the hypothalamus, which acts as the body's master clock. So melatonin concentration is low during the day, rises in the evening as it gets dark, peaks in the middle of the night and falls towards morning. High melatonin promotes **sleepiness** and lowers body temperature, helping to establish a regular **circadian rhythm** of sleeping and waking of about 24 hours. Jet lag happens because the melatonin rhythm takes several days to shift to a new time zone, and bright screens late in the evening can delay melatonin secretion.
+
+### Epinephrine and vigorous activity
+
+In danger, stress or intense exercise, sympathetic nerves stimulate the **adrenal glands**, on top of the kidneys, to secrete **epinephrine** (adrenaline) into the blood. It has **widespread effects**, which together prepare the body for **vigorous activity** ("fight or flight"):
+
+- heart rate and stroke volume increase, so more blood reaches the muscles;
+- bronchioles widen and ventilation rate increases, so more oxygen is absorbed;
+- the liver breaks down glycogen and releases **glucose** into the blood;
+- arterioles supplying skeletal muscles widen, while those supplying the gut and skin narrow;
+- pupils dilate and alertness increases.
+
+The result is a greater supply of **oxygen and glucose** to skeletal muscle, so it can respire faster and contract more intensely.
+
+<Callout type="exam">
+
+For epinephrine, link each effect to **intense muscle contraction**: for example "glycogen is broken down to glucose, providing more substrate for respiration in muscle".
+
+</Callout>
+
+</Section>
+
+<Section id="heart-rate" title="Feedback control of heart rate" level="SL" covers="C3.1.14">
+
+Heart rate is controlled by **negative feedback**: a change is detected and a response is made that reverses it. The **sinoatrial (SA) node** sets the heartbeat (see <TopicLink code="B3.2" />), but the **cardiovascular centre** in the **medulla oblongata** changes its rate.
+
+### The receptors and where they are
+
+- **Baroreceptors** detect **blood pressure** by the stretch of the artery wall. They are in the walls of the **aortic arch** and the **carotid sinuses** (swellings of the carotid arteries in the neck).
+- **Chemoreceptors** detect blood **pH** and the concentrations of **CO₂** and **O₂**. They are in the **carotid bodies** and **aortic bodies**, small structures close to the baroreceptors; there are also chemoreceptors in the medulla.
+
+### The response
+
+The medulla sends impulses along two kinds of nerve to the SA node:
+
+- **sympathetic** (cardiac accelerator) nerves **increase** heart rate and the force of contraction, so **stroke volume** rises;
+- the **vagus nerve** (parasympathetic) **decreases** heart rate.
+
+| Change detected | Signals from the medulla | Effect |
+|---|---|---|
+| Blood pressure rises | More vagus, less sympathetic | Heart rate and stroke volume fall; pressure falls back |
+| Blood pressure falls (e.g. standing up quickly) | More sympathetic, less vagus | Heart rate and stroke volume rise; pressure is restored |
+| CO₂ rises, pH falls (exercise) | More sympathetic, less vagus | Heart rate and stroke volume rise; blood flow to muscles increases |
+
+<Sim topic="c3-1" id="heart-rate" />
+
+<Callout type="exam">
+
+In a feedback answer, give the full chain: **receptor (and its location) → medulla → nerve → SA node → effect → original change reversed**. Naming the vagus nerve and the sympathetic nerve, and which speeds and which slows, earns marks.
+
+</Callout>
+
+</Section>
+
+<Section id="ventilation" title="Feedback control of ventilation rate" level="SL" covers="C3.1.15">
+
+### Why blood pH changes
+
+Blood pH is normally kept between about **7.35 and 7.45**. The main cause of change is **carbon dioxide**. CO₂ from cell respiration dissolves in the plasma and, mostly inside red blood cells (where carbonic anhydrase speeds up the reaction), reacts with water to form carbonic acid, which dissociates:
+
+CO₂ + H₂O ⇌ H₂CO₃ ⇌ H⁺ + HCO₃⁻
+
+So when respiration speeds up, for example during exercise, more CO₂ enters the blood, more H⁺ is released and **pH falls**. In very intense exercise, **lactic acid** from anaerobic respiration lowers pH further. When CO₂ is removed faster than it is produced, pH rises.
+
+### The control loop
+
+1. **Chemoreceptors** in the **brainstem** (medulla) detect the fall in pH; chemoreceptors in the carotid and aortic bodies detect pH, CO₂ and O₂ in arterial blood.
+2. They send impulses to the **respiratory centre** in the **medulla**.
+3. The respiratory centre sends impulses more often along nerves to the **diaphragm** (the phrenic nerves) and the **external intercostal muscles**, which contract more often and more strongly.
+4. **Ventilation rate** and **tidal volume** (depth) increase, so CO₂ is removed from the blood faster.
+5. Blood CO₂ falls and pH rises back towards normal. When pH returns to normal, impulses from the chemoreceptors decrease and ventilation slows: **negative feedback**.
+
+In the simulation above, tick the thought-experiment box to block the chemoreceptor signals. Ventilation can no longer rise, and in hard exercise CO₂ builds up and pH falls far outside the normal range: a dangerous **acidosis**.
+
+<Callout type="exam">
+
+State the **cause** of the pH change (CO₂ forming carbonic acid, releasing H⁺) before describing the response. Answers that say only "chemoreceptors detect CO₂" miss the link to pH.
+
+</Callout>
+
+</Section>
+
+<Section id="peristalsis" title="Nervous control of peristalsis" level="SL" covers="C3.1.16">
+
+**Peristalsis** is the wave of muscle contraction that moves food along the gut. The gut wall has two layers of **smooth muscle**: an inner **circular** layer and an outer **longitudinal** layer. Behind the bolus of food the circular muscle contracts, narrowing the gut and squeezing the food forwards; in front of it the circular muscle relaxes, so the gut is wider there.
+
+<Figure name="c3-1-peristalsis" caption="Swallowing and egestion are under voluntary control by the CNS; peristalsis in between is involuntary, coordinated by the enteric nervous system." />
+
+### Two levels of control
+
+- **Swallowing is started voluntarily.** The tongue (skeletal muscle under the control of the brain) pushes food to the back of the mouth. From there, swallowing continues automatically and the food enters the oesophagus.
+- **Peristalsis is involuntary.** From the oesophagus, through the stomach and the small and large intestines, waves of contraction are coordinated by the **enteric nervous system (ENS)**: networks of neurons within the gut wall, between and beneath the muscle layers. The ENS detects stretching of the gut wall by food and coordinates contraction behind the bolus and relaxation in front of it, so material passes along in the right direction and at a suitable rate. A section of gut removed from the body can still carry out peristalsis, showing the ENS can work without the brain (though the CNS can speed it up or slow it down).
+- **Egestion is under voluntary control.** Faeces collect in the rectum. The anus is closed by sphincter muscles, one of which is skeletal muscle that the CNS can keep contracted until it is convenient to egest. Babies do not yet have this control; it is learned in early childhood.
+
+<Callout type="note">
+
+Do not confuse the enteric nervous system with the autonomic nervous system: the ENS is located **in the gut wall** and can coordinate peristalsis on its own.
+
+</Callout>
+
+</Section>
+
+<Section id="tropisms" title="Phototropism and observing tropic responses" level="AHL" covers="C3.1.17 C3.1.18">
+
+Plants cannot move from place to place, but they can change their **direction of growth**. A **tropism** is a directional growth response to a stimulus that comes from one direction. In **positive phototropism**, shoots grow **towards** light coming from one side (lateral, or unilateral, light). This brings the leaves into brighter light for photosynthesis. Only phototropism of shoots is required.
+
+### Observing tropisms in seedlings
+
+Young seedlings, such as cress, radish or oat seedlings, respond within hours, so they are ideal for experiments. They can be grown in a light-proof box with a slit on one side, with a **control** group given light evenly from above.
+
+<Figure name="c3-1-tropism-measure" caption="Seedlings in unilateral light: setting up, recording qualitatively with drawings, and measuring the angle of curvature." level="AHL" />
+
+- **Qualitative data** are descriptions: careful, simple line drawings of the seedlings at the start and after a set time, with the light direction marked, and notes such as "all shoots bent towards the slit".
+- **Quantitative data** are measurements: the **angle of curvature**, between the vertical and the direction of the shoot tip, measured with a protractor, often on a photograph.
+
+### Precision, accuracy and reliability
+
+- **Precision** is limited by the measuring instrument and method: a protractor marked in 1° divisions can only be read to about ±1°, and it is hard to judge exactly where a curved shoot's tip points. Photographing seedlings against a grid and measuring with image software can improve precision.
+- **Accuracy** (closeness to the true value) can be improved by photographing from directly side-on, defining the measurement lines in the same way every time and calibrating against a known angle.
+- **Reliability** comes from **repeats**: measuring many seedlings, calculating a **mean** and a measure of spread, and keeping other variables (light intensity, distance from the lamp, temperature, seedling age) the same.
+
+<Callout type="exam">
+
+Qualitative = **descriptive** (drawings, words); quantitative = **numerical** (angles in degrees). Precision is about how finely you can measure and how close repeat readings are; accuracy is about how close the readings are to the true value.
+
+</Callout>
+
+</Section>
+
+<Section id="phytohormones" title="Phytohormones and auxin efflux carriers" level="AHL" covers="C3.1.19 C3.1.20">
+
+### Phytohormones
+
+Plants use a variety of chemicals as **phytohormones** (plant hormones). They are signalling molecules produced in one part of the plant that control **growth**, **development** and **responses to stimuli**, often in other parts of the plant, and they are effective at very low concentrations. Examples:
+
+| Phytohormone | Some effects |
+|---|---|
+| **Auxin** | Cell elongation in shoots; phototropism; apical dominance; lateral root formation |
+| **Cytokinins** | Cell division; growth of side buds |
+| **Gibberellins** | Stem elongation; seed germination |
+| **Abscisic acid** | Closing stomata in drought; seed dormancy |
+| **Ethylene (ethene)** | Fruit ripening; leaf fall |
+
+The effect of a phytohormone often depends on its concentration, on the tissue and on the other phytohormones present.
+
+### How auxin gradients are made
+
+The main natural auxin is indole-3-acetic acid (IAA). Its distribution in the plant is controlled by **auxin efflux carriers** (PIN proteins):
+
+1. The **cell wall** is acidic, so much of the auxin there is uncharged (IAAH). Uncharged auxin can **diffuse into** a cell across the plasma membrane.
+2. The **cytoplasm** is less acidic (about pH 7), so auxin loses H⁺ and becomes a negative ion (IAA⁻). Charged auxin cannot diffuse through the membrane, so it is **trapped**.
+3. IAA⁻ can leave the cell only through **auxin efflux carriers**, and a cell can place these on just **one side** of its plasma membrane.
+4. If every cell in a tissue places its carriers on the **same side**, auxin is passed from cell to cell in one direction and becomes **concentrated** in one part of the plant.
+
+<Figure name="c3-1-auxin-transport" caption="Polar transport of auxin: each cell has efflux carriers on the same side, so auxin moves from cell to cell in one direction." level="AHL" />
+
+The process depends on proton pumps, which use ATP to keep the cell wall acidic, so the whole transport system is active. Cells can **move** their efflux carriers to a different side of the cell, which redirects the flow of auxin — this is what happens when a shoot is lit from one side.
+
+</Section>
+
+<Section id="auxin-growth" title="How auxin makes cells elongate" level="AHL" covers="C3.1.21">
+
+Auxin promotes the **elongation** of shoot cells. A plant cell is surrounded by a cell wall of **cellulose microfibrils**, held together by cross-links with other wall polysaccharides. The cell can only grow larger if the wall is loosened.
+
+### Acid growth
+
+1. Auxin binds to receptors and stimulates **proton pumps** in the plasma membrane, which use ATP to pump **H⁺ ions** out of the cytoplasm into the cell wall (the **apoplast**).
+2. The cell wall becomes **acidic**.
+3. The low pH activates proteins called **expansins**, which **loosen the cross-links** between cellulose molecules.
+4. The cell's **turgor pressure** stretches the loosened wall, water enters by osmosis and the cell **elongates**.
+
+### From auxin gradients to phototropism
+
+When a shoot is lit from one side:
+
+1. **Phototropins** (photoreceptors) in the shoot tip detect the direction of the light.
+2. Auxin efflux carriers are moved to the sides of the cells facing **away from the light**, so auxin is transported to the **shaded side**.
+3. The shaded side has the higher auxin concentration, so its cells **elongate faster** than those on the lit side.
+4. Unequal elongation makes the shoot **bend towards the light**.
+
+<Anim topic="c3-1" id="phototropism" />
+
+<Callout type="exam">
+
+The examiners want the chain: **unilateral light → auxin moved to the shaded side by efflux carriers → H⁺ pumped into cell walls → walls loosened (expansins) → shaded-side cells elongate more → shoot bends towards light**. Phototropism is due to unequal **elongation**, not cell division.
+
+</Callout>
+
+</Section>
+
+<Section id="root-shoot" title="Auxin and cytokinin coordinate roots and shoots" level="AHL" covers="C3.1.22">
+
+A plant needs its **shoot system** (for photosynthesis) and its **root system** (for water and mineral ions) to stay in proportion. Two phytohormones, travelling in opposite directions, help to integrate their growth:
+
+- **Shoot tips** (and young leaves) produce **auxin**, which is transported **down** the plant to the **roots**. There it promotes the formation of **lateral roots**, extending the root system.
+- **Root tips** produce **cytokinin**, which is carried **up** to the **shoots** in the xylem. There it promotes **cell division** and the growth of side buds, extending the shoot system.
+
+<Figure name="c3-1-root-shoot" caption="Shoot tips send auxin to the roots and root tips send cytokinin to the shoots, so each promotes the growth of the other." level="AHL" />
+
+### How they interact
+
+- If the root system grows, more cytokinin reaches the shoot and the shoot grows more; a larger shoot sends more auxin to the roots, so more roots form. Growth of each part is therefore linked to the size of the other.
+- In the shoot the two hormones have opposite effects on side buds: auxin from the apical bud **inhibits** their growth (apical dominance), while cytokinin **promotes** it. The balance between them decides how bushy the shoot becomes.
+- In **plant tissue culture**, a high ratio of auxin to cytokinin makes a mass of cells form roots, and a high ratio of cytokinin to auxin makes it form shoots, which shows that the **ratio** of the hormones matters, not just their amounts.
+
+<Callout type="tip">
+
+Learn the directions as a pair: auxin **shoot → root**; cytokinin **root → shoot** (in the xylem).
+
+</Callout>
+
+</Section>
+
+<Section id="ripening" title="Ethylene and positive feedback in fruit ripening" level="AHL" covers="C3.1.23">
+
+**Ethylene** (IUPAC name **ethene**, C₂H₄) is a gaseous phytohormone. It triggers the changes of **ripening** in fruits such as tomatoes, bananas and apples:
+
+- starch is converted to **sugars**, so the fruit becomes sweeter;
+- enzymes break down cell walls, so the fruit **softens**;
+- chlorophyll is broken down and other pigments are made, so the **colour** changes;
+- scent compounds are released.
+
+<Figure name="c3-1-ripening" caption="Ethylene stimulates ripening and ripening stimulates ethylene production: positive feedback. Ethylene gas spreads to neighbouring fruits." level="AHL" />
+
+### Positive feedback
+
+Ripening tissue **produces more ethylene**, and more ethylene **speeds up ripening**. Because the response amplifies the original stimulus, this is **positive feedback** (compare the negative feedback that keeps heart rate and blood pH stable). The result:
+
+- **Rapid ripening**: once ripening starts, it accelerates and is completed quickly.
+- **Synchronized ripening**: ethylene is a gas, so it diffuses from a ripening fruit to the fruits around it and triggers their ripening too. All the fruits on a plant ripen at about the same time.
+
+This benefits the plant: a large crop of ripe, attractive fruit at once draws animals that eat the fruit and **disperse the seeds**. People use the same mechanism: bananas are picked unripe, transported, then ripened in rooms containing ethylene, and "one ripe apple in a bag" speeds the ripening of the others. Positive feedback is useful here because it drives a process to completion; for comparison with homeostasis see <TopicLink code="D3.3" />.
+
+<Callout type="exam">
+
+To explain positive feedback in ripening, state **both** directions (ethylene → ripening, and ripening → more ethylene) and the **benefit**: fast, synchronized ripening of the whole crop.
+
+</Callout>
+
+</Section>

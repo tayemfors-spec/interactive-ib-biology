@@ -1,0 +1,69 @@
+---
+/** C3.1.4, C3.1.5, C3.1.10: the brain (sagittal section, face to the left), spinal cord and spinal nerves. */
+const nerveY = [290, 322, 354];
+---
+<svg viewBox="0 0 640 400" role="img" aria-labelledby="cns-t cns-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="cns-t">The central nervous system: brain and spinal cord</title>
+  <desc id="cns-d">A side view of the brain cut down the middle, with the face to the left. The large cerebral hemispheres fill the top. The cerebellum is a smaller, folded structure at the back, below the hemispheres. The brainstem runs down from the centre of the brain; its lowest part, the medulla oblongata, continues into the spinal cord. The hypothalamus is at the base of the brain above the pituitary gland, and the pineal gland is near the centre. Spinal nerves branch from the spinal cord at intervals; each contains sensory and motor fibres.</desc>
+  <!-- cerebrum -->
+  <path class="cerebrum" d="M70 160 C 48 110, 82 42, 170 28 C 262 14, 342 52, 352 112 C 358 150, 344 172, 318 180 L 256 178 C 236 184, 212 186, 194 182 L 122 184 C 94 186, 76 176, 70 160 Z" />
+  <path class="gyri" d="M110 80 C 130 92, 150 70, 170 82 M200 56 C 220 70, 244 52, 262 66 M290 82 C 306 96, 322 86, 336 104 M100 130 C 124 120, 140 142, 164 128 M270 120 C 290 132, 306 118, 330 136 M180 120 C 196 104, 222 118, 238 104" />
+  <!-- cerebellum -->
+  <ellipse class="cerebellum" cx="300" cy="206" rx="46" ry="26" />
+  <path class="folia" d="M262 200 C 286 190, 316 190, 340 200 M266 212 C 290 204, 314 204, 338 214 M276 224 C 294 218, 312 218, 328 226" />
+  <!-- brainstem and spinal cord -->
+  <path class="stem" d="M214 170 C 212 210, 220 240, 222 262 L 244 262 C 246 240, 252 210, 254 170 Z" />
+  <rect class="stem" x="224" y="258" width="18" height="140" />
+  {nerveY.map((y) => <g><path class="nerve" d={`M242 ${y} C 262 ${y - 4}, 290 ${y + 6}, 320 ${y + 4}`} /><path class="nerve" d={`M224 ${y} C 208 ${y - 4}, 192 ${y + 6}, 176 ${y + 8}`} /></g>)}
+  <!-- glands -->
+  <ellipse class="hypo" cx="196" cy="168" rx="15" ry="9" />
+  <path class="stalkp" d="M192 176 L188 186" /><circle class="pit" cx="186" cy="194" r="8" />
+  <circle class="pineal" cx="262" cy="150" r="5.5" />
+
+  <!-- labels: right -->
+  <path class="lead" d="M376 60 L318 76" />
+  <text class="lbl" x="380" y="56">Cerebral hemispheres (cerebrum)</text>
+  <text class="fn" x="380" y="72">integrate information from many inputs;</text>
+  <text class="fn" x="380" y="86">conscious thought, learning, memory;</text>
+  <text class="fn" x="380" y="100">start voluntary movements</text>
+  <path class="lead" d="M376 140 L268 150" />
+  <text class="lbl" x="380" y="144">Pineal gland</text>
+  <path class="lead" d="M376 196 L346 204" />
+  <text class="lbl" x="380" y="186">Cerebellum</text>
+  <text class="fn" x="380" y="202">coordinates skeletal muscle contraction,</text>
+  <text class="fn" x="380" y="216">posture and balance</text>
+  <path class="lead" d="M376 248 L250 240" />
+  <text class="lbl" x="380" y="244">Medulla oblongata (brainstem)</text>
+  <text class="fn" x="380" y="260">heart rate, ventilation rate, swallowing</text>
+  <path class="lead" d="M376 300 L322 296" />
+  <text class="lbl" x="380" y="296">Spinal nerves</text>
+  <text class="fn" x="380" y="312">bundles of sensory and motor fibres</text>
+  <path class="lead" d="M376 352 L246 372" />
+  <text class="lbl" x="380" y="348">Spinal cord</text>
+  <text class="fn" x="380" y="364">integrates unconscious processes (reflexes);</text>
+  <text class="fn" x="380" y="378">carries signals to and from the brain</text>
+  <!-- labels: left -->
+  <path class="lead" d="M150 226 L190 174" />
+  <text class="lbl" x="146" y="232" text-anchor="end">Hypothalamus</text>
+  <text class="fn" x="146" y="248" text-anchor="end">links nervous and</text>
+  <text class="fn" x="146" y="262" text-anchor="end">endocrine systems</text>
+  <path class="lead" d="M150 290 L184 202" />
+  <text class="lbl" x="146" y="296" text-anchor="end">Pituitary gland</text>
+  <text class="fn" x="20" y="390">front of head ←</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .cerebrum { fill: color-mix(in srgb, var(--bio-chol) 20%, var(--surface)); stroke: var(--bio-chol); stroke-width: 2; }
+  .gyri, .folia { fill: none; stroke: color-mix(in srgb, var(--bio-chol) 70%, var(--surface)); stroke-width: 1.5; }
+  .cerebellum { fill: color-mix(in srgb, var(--bio-protein-2) 25%, var(--surface)); stroke: var(--bio-protein-2); stroke-width: 2; }
+  .folia { stroke: var(--bio-protein-2); }
+  .stem { fill: color-mix(in srgb, var(--bio-protein) 25%, var(--surface)); stroke: var(--bio-protein); stroke-width: 1.8; }
+  .nerve { fill: none; stroke: var(--bio-glucose); stroke-width: 4; stroke-linecap: round; }
+  .hypo { fill: var(--bio-carb); }
+  .pit { fill: var(--bio-head); }
+  .stalkp { stroke: var(--bio-head); stroke-width: 3; }
+  .pineal { fill: var(--bio-head); }
+  .lead { stroke: var(--text-muted); stroke-width: 1; fill: none; }
+  .lbl { font-size: 14px; font-weight: 750; fill: var(--text); }
+  .fn { font-size: 12.5px; fill: var(--text); }
+</style>

@@ -1,0 +1,125 @@
+---
+/**
+ * Positive phototropism (C3.1.18, C3.1.20, C3.1.21): unilateral light → lateral auxin transport by
+ * PIN efflux carriers to the shaded side → acid growth → faster elongation on the shaded side →
+ * bending towards the light. Left: a seedling; right: an inset of cells. Animated by c3-1-phototropism.ts.
+ */
+import { AUXIN_EVEN, COLS, CELL_W, INSET_DOTS, P0, cellRect, flank, shootPath } from './c3-1-phototropism';
+const cells = COLS.flatMap((_, col) => [0, 1, 2].map((row) => ({ col, row, ...cellRect(col, row, 0) })));
+const fibrils = [0, 1, 2, 3, 4, 5];
+const links = fibrils.slice(0, 5).flatMap((k) => [334, 352, 368].filter((_, j) => (j + k) % 2 === 0).map((x) => ({ x, y1: 96 + k * 34, y2: 130 + k * 34 })));
+const hplus = [[330, 112], [362, 150], [340, 196], [366, 232], [332, 262], [350, 82]];
+---
+<svg viewBox="0 0 560 370" xmlns="http://www.w3.org/2000/svg" class="photo">
+  <!-- light sources -->
+  <g data-el="sun">
+    <circle class="sunc" cx="120" cy="30" r="13" />
+    <path class="ray" d="M104 50 L108 96 M120 50 V96 M136 50 L132 96" marker-end="url(#ph-ah)" />
+    <text x="146" y="34">light from above</text>
+  </g>
+  <g data-el="lamp" style="opacity:0">
+    <path class="lampc" d="M268 118 L286 104 L286 196 L268 182 Z" />
+    <path class="ray" d="M262 124 L172 124 M262 150 L172 150 M262 176 L172 176" marker-end="url(#ph-ah)" />
+    <text x="232" y="96" text-anchor="middle">light from one side</text>
+  </g>
+
+  <!-- pot and seedling -->
+  <path class="pot" d="M70 292 L170 292 L160 346 L80 346 Z" />
+  <rect class="soil" x="70" y="286" width="100" height="8" rx="3" />
+  <path class="shoot" data-el="shoot" d={shootPath(0)} />
+  <path class="shoot-in" data-el="shoot-in" d={shootPath(0)} />
+  <g data-el="tip" transform={`translate(${P0[0]} ${P0[1] - 80}) rotate(0)`}>
+    <ellipse class="leaf" cx="-13" cy="-6" rx="14" ry="6" transform="rotate(-25 -13 -6)" />
+    <ellipse class="leaf" cx="13" cy="-6" rx="14" ry="6" transform="rotate(25 13 -6)" />
+  </g>
+  {AUXIN_EVEN.map(([s, side], i) => { const [x, y] = flank(0, s, side); return <circle class="aux" data-el={`ax${i}`} cx={x.toFixed(1)} cy={y.toFixed(1)} r="3.5" />; })}
+  <path class="lead" d="M66 112 L104 118" /><text x="4" y="108">shoot tip</text><text x="4" y="122" class="sm">makes auxin</text>
+  <g data-el="photo" style="opacity:0"><text x="4" y="146" class="sm">blue light</text><text x="4" y="159" class="sm">detected by</text><text x="4" y="172" class="sm">phototropins</text></g>
+  <g data-el="angle" style="opacity:0">
+    <path class="guide" d="M120 200 V108 M120 200 L182 134" />
+    <path class="arc" d="M120 168 A32 32 0 0 1 141.8 176.6" />
+    <path class="lead" d="M66 200 L122 182" />
+    <text x="4" y="196" class="sm">angle of</text>
+    <text x="4" y="209" class="sm">curvature</text>
+    <text x="4" y="224" class="bold">≈ 43°</text>
+  </g>
+  <g class="legend"><circle class="aux" cx="20" cy="358" r="4" /><text x="30" y="362">auxin</text></g>
+
+  <line class="sep" x1="300" y1="8" x2="300" y2="364" />
+
+  <!-- inset 1: tissue below the tip -->
+  <g data-el="tissue">
+    <text class="ttl" x="430" y="24" text-anchor="middle">Cells below the shoot tip</text>
+    {cells.map((c) => <rect class="cell" data-el={`cell-${c.col}-${c.row}`} x={c.x} y={c.y} width={c.w} height={c.h} rx="5" />)}
+    <g data-el="pins" style="opacity:0">
+      {cells.map((c) => <rect class="pin" data-el={`pin-${c.col}-${c.row}`} x={c.x - 1} y={c.y + c.h * 0.2} width="5" height={c.h * 0.6} rx="2" />)}
+    </g>
+    {INSET_DOTS.map(({ col, row }, i) => { const r = cellRect(col, row, 0); return <circle class="aux" data-el={`ix${i}`} cx={r.x + CELL_W / 2} cy={r.y + r.h / 2} r="5" />; })}
+    <g data-el="lateral" style="opacity:0">
+      <path class="ray" d="M530 50 L340 50" marker-end="url(#ph-ah)" />
+      <text x="430" y="44" text-anchor="middle" class="sm">auxin pumped towards the shaded side</text>
+    </g>
+    <g data-el="tissue-grow" style="opacity:0">
+      <text x="430" y="44" text-anchor="middle" class="sm">more auxin → more elongation</text>
+    </g>
+    <g data-el="side-lbls" style="opacity:0">
+      <text x="371" y="312" text-anchor="middle" class="bold">shaded side</text>
+      <text x="483" y="312" text-anchor="middle" class="bold">lit side</text>
+    </g>
+    <g class="legend"><rect class="pin" x="318" y="349" width="5" height="16" rx="2" /><text x="330" y="362">auxin efflux carrier (PIN protein)</text></g>
+  </g>
+
+  <!-- inset 2: acid growth in the cell wall -->
+  <g data-el="acid" style="opacity:0">
+    <text class="ttl" x="430" y="24" text-anchor="middle">Acid growth in a shaded-side cell</text>
+    <text x="348" y="58" text-anchor="middle" class="sm">cell wall</text>
+    <text x="460" y="58" text-anchor="middle" class="sm">cytoplasm</text>
+    <rect class="wall" x="318" y="68" width="60" height="226" rx="4" />
+    <path class="mem" d="M383 68 V294" />
+    {fibrils.map((k) => <line class="fib" data-fib={k} x1="320" x2="376" y1={96 + k * 34} y2={96 + k * 34} />)}
+    <g data-el="xlinks">{links.map((l) => <line class="xl" x1={l.x} x2={l.x} y1={l.y1} y2={l.y2} />)}</g>
+    <g data-el="expansin" style="opacity:0">{links.map((l) => <circle class="exp" cx={l.x} cy={(l.y1 + l.y2) / 2} r="4" />)}</g>
+    <g data-el="hplus" style="opacity:0">{hplus.map(([x, y]) => <text class="hp" x={x} y={y}>H⁺</text>)}</g>
+    <ellipse class="pump" cx="383" cy="180" rx="8" ry="16" />
+    <path class="ray" d="M424 180 L362 180" marker-end="url(#ph-ah)" />
+    <text x="430" y="176" class="sm">H⁺</text><text x="430" y="192" class="sm">ATP</text>
+    <text x="396" y="86" class="sm">1 Auxin activates</text><text x="396" y="100" class="sm">proton pumps</text>
+    <text x="396" y="128" class="sm">2 H⁺ pumped into the</text><text x="396" y="142" class="sm">wall, which becomes acidic</text>
+    <text x="396" y="214" class="sm">3 Low pH activates</text><text x="396" y="228" class="sm">expansins: cross-links</text><text x="396" y="242" class="sm">between cellulose loosen</text>
+    <text x="396" y="270" class="sm">4 Turgor stretches the</text><text x="396" y="284" class="sm">wall: the cell elongates</text>
+    <g data-el="elong" style="opacity:0"><path class="ray dbl" d="M308 84 V280" marker-start="url(#ph-ah)" marker-end="url(#ph-ah)" /></g>
+    <g class="legend"><line class="fib" x1="308" x2="326" y1="358" y2="358" /><text x="330" y="362" class="sm">cellulose</text><line class="xl" x1="398" x2="398" y1="350" y2="366" /><text x="404" y="362" class="sm">cross-link</text><circle class="exp" cx="476" cy="358" r="4" /><text x="484" y="362" class="sm">expansin</text></g>
+  </g>
+
+  <defs><marker id="ph-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker></defs>
+</svg>
+<style>
+  .photo { font-family: var(--font-sans); }
+  .photo text { font-size: 12.5px; fill: var(--text); }
+  .photo .sm { font-size: 11.5px; }
+  .photo .bold { font-weight: 750; }
+  .photo .ttl { font-size: 13.5px; font-weight: 750; }
+  .sunc { fill: var(--bio-glucose); stroke: var(--bio-head); stroke-width: 1.5; }
+  .lampc { fill: var(--bio-glucose); stroke: var(--bio-head); stroke-width: 1.5; }
+  .ray { stroke: var(--bio-head); stroke-width: 2; fill: none; }
+  .ah { fill: var(--bio-head); }
+  .pot { fill: color-mix(in srgb, var(--bio-head) 40%, var(--surface)); stroke: var(--bio-head); }
+  .soil { fill: color-mix(in srgb, var(--text-muted) 55%, var(--surface)); }
+  .shoot { fill: none; stroke: var(--bio-carb); stroke-width: 20; stroke-linecap: round; }
+  .shoot-in { fill: none; stroke: color-mix(in srgb, var(--bio-carb) 55%, var(--surface)); stroke-width: 8; stroke-linecap: round; }
+  .leaf { fill: var(--bio-carb); }
+  .aux { fill: var(--bio-head); stroke: var(--text); stroke-width: 1; }
+  .lead { stroke: var(--text-muted); stroke-width: 1; fill: none; }
+  .guide { stroke: var(--text); stroke-width: 1.4; stroke-dasharray: 5 4; fill: none; }
+  .arc { stroke: var(--bad); stroke-width: 2.2; fill: none; }
+  .sep { stroke: var(--border); stroke-width: 1.5; }
+  .cell { fill: color-mix(in srgb, var(--bio-carb) 14%, var(--surface)); stroke: var(--bio-carb); stroke-width: 2; }
+  .pin { fill: var(--bio-protein-2); }
+  .wall { fill: color-mix(in srgb, var(--bio-carb) 12%, var(--surface)); stroke: var(--bio-carb); stroke-width: 1.5; }
+  .mem { stroke: var(--bio-head); stroke-width: 4; stroke-dasharray: 3 2; }
+  .fib { stroke: var(--bio-carb); stroke-width: 3.5; stroke-linecap: round; }
+  .xl { stroke: var(--bio-glucose); stroke-width: 2.5; }
+  .exp { fill: var(--bio-protein-2); }
+  .photo .hp { font-size: 12px; font-weight: 800; fill: var(--bad); }
+  .pump { fill: var(--bio-protein); }
+</style>

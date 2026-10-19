@@ -1,0 +1,68 @@
+---
+/** C3.1.8: transverse section of a nerve — epineurium, fascicles with perineurium, myelinated and unmyelinated fibres. */
+let seed = 7;
+const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+const C = { x: 180, y: 182, r: 150 };
+const fascicles = [
+  { x: 130, y: 142, r: 55 }, { x: 235, y: 132, r: 48 }, { x: 150, y: 247, r: 50 }, { x: 246, y: 238, r: 45 },
+];
+const vessels = [{ x: 84, y: 214, r: 10 }, { x: 302, y: 184, r: 9 }];
+// fixed fibres used by the labels
+const keyMy = { x: 262, y: 246, r: 7 };
+const keyUn = { x: 228, y: 258, r: 6 };
+type F = { x: number; y: number; r: number; m: boolean };
+const fibres: F[] = [{ ...keyMy, m: true }, { ...keyUn, m: false }];
+for (const f of fascicles) {
+  for (let tries = 0; tries < 900; tries++) {
+    const m = rand() < 0.6;
+    const r = m ? 3.5 + rand() * 3 : 4.5;
+    const a = rand() * Math.PI * 2, d = Math.sqrt(rand()) * (f.r - r - 4);
+    const x = f.x + d * Math.cos(a), y = f.y + d * Math.sin(a);
+    if (fibres.every((o) => Math.hypot(o.x - x, o.y - y) > o.r + r + 1.6)) fibres.push({ x, y, r, m });
+  }
+}
+const tiny = (f: F) => [0, 1, 2, 3].map((k) => ({ x: f.x + 2.1 * Math.cos((k * Math.PI) / 2 + f.x), y: f.y + 2.1 * Math.sin((k * Math.PI) / 2 + f.x) }));
+---
+<svg viewBox="0 0 640 370" role="img" aria-labelledby="nts-t nts-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="nts-t">Transverse section of a nerve</title>
+  <desc id="nts-d">A round nerve cut across. An outer protective sheath of connective tissue (the epineurium) surrounds four bundles of nerve fibres, each wrapped in its own sheath (the perineurium). Small blood vessels run in the connective tissue between the bundles. Inside each bundle are many nerve fibres cut across: myelinated fibres look like rings, with a dark myelin sheath around a pale axon, and unmyelinated fibres are smaller axons grouped together inside Schwann cells without a myelin sheath. A nerve contains fibres of both sensory and motor neurons.</desc>
+  <circle class="epi" cx={C.x} cy={C.y} r={C.r} />
+  {vessels.map((v) => <g><circle class="vessel" cx={v.x} cy={v.y} r={v.r} /><circle class="rbc" cx={v.x} cy={v.y} r={v.r * 0.45} /></g>)}
+  {fascicles.map((f) => <circle class="fasc" cx={f.x} cy={f.y} r={f.r} />)}
+  {fibres.map((f) => f.m
+    ? <g><circle class="myelin" cx={f.x.toFixed(1)} cy={f.y.toFixed(1)} r={(f.r - 1.1).toFixed(1)} /><circle class="axon" cx={f.x.toFixed(1)} cy={f.y.toFixed(1)} r={(f.r * 0.45).toFixed(1)} /></g>
+    : <g><circle class="schwann" cx={f.x.toFixed(1)} cy={f.y.toFixed(1)} r={f.r} />{tiny(f).map((p) => <circle class="unmy" cx={p.x.toFixed(1)} cy={p.y.toFixed(1)} r="1.3" />)}</g>)}
+
+  <path class="lead" d="M366 52 L292 92" />
+  <text class="lbl" x="370" y="48">Epineurium</text>
+  <text class="fn" x="370" y="64">protective sheath of connective tissue</text>
+  <text class="fn" x="370" y="78">around the whole nerve</text>
+  <path class="lead" d="M366 116 L280 120" />
+  <text class="lbl" x="370" y="112">Perineurium</text>
+  <text class="fn" x="370" y="128">sheath around each bundle (fascicle)</text>
+  <path class="lead" d="M366 176 L312 184" />
+  <text class="lbl" x="370" y="180">Blood vessel</text>
+  <path class="lead" d="M366 236 L269 246" />
+  <text class="lbl" x="370" y="232">Myelinated fibre</text>
+  <text class="fn" x="370" y="248">axon (pale) in a myelin sheath (dark ring)</text>
+  <path class="lead" d="M366 290 L232 262" />
+  <text class="lbl" x="370" y="286">Unmyelinated fibres</text>
+  <text class="fn" x="370" y="302">small axons in a Schwann cell, no myelin</text>
+  <text class="note" x="370" y="340">Sensory and motor fibres run</text>
+  <text class="note" x="370" y="356">together in the same nerve.</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .epi { fill: color-mix(in srgb, var(--bio-head) 18%, var(--surface)); stroke: var(--bio-head); stroke-width: 4; }
+  .fasc { fill: color-mix(in srgb, var(--bio-tail) 22%, var(--surface)); stroke: var(--bio-protein-2); stroke-width: 2.5; }
+  .vessel { fill: color-mix(in srgb, var(--bio-chol) 25%, var(--surface)); stroke: var(--bio-chol); stroke-width: 2; }
+  .rbc { fill: var(--bio-chol); }
+  .myelin { fill: none; stroke: var(--text); stroke-width: 2.2; }
+  .axon { fill: color-mix(in srgb, var(--bio-protein) 35%, var(--surface)); }
+  .schwann { fill: color-mix(in srgb, var(--bio-carb) 30%, var(--surface)); stroke: var(--bio-carb); stroke-width: 0.8; }
+  .unmy { fill: var(--bio-protein); }
+  .lead { stroke: var(--text-muted); stroke-width: 1; fill: none; }
+  .lbl { font-size: 14px; font-weight: 750; fill: var(--text); }
+  .fn { font-size: 12.5px; fill: var(--text); }
+  .note { font-size: 13px; font-style: italic; fill: var(--text-muted); }
+</style>
