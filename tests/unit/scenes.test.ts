@@ -30,6 +30,8 @@ for (const dir of readdirSync(topicsDir)) {
             const mod = await loader!();
             const built = await mod.build(ctx());
             for (const l of s.labels) expect(built.anchors[l.id], `anchor for label "${l.id}"`).toBeDefined();
+            const stepIds = new Set(s.steps.map((x) => x.id));
+            for (const l of s.labels) for (const st of l.steps ?? []) expect(stepIds.has(st), `label "${l.id}" lists unknown step "${st}"`).toBe(true);
             if (s.steps.length) {
               expect(built.render, 'process scene has render()').toBeTypeOf('function');
               if (built.durations) expect(built.durations).toHaveLength(s.steps.length);

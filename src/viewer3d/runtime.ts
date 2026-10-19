@@ -65,6 +65,7 @@ export async function mountViewer(fig: HTMLElement, scenes: SceneDef[]): Promise
   let detachProcess: (() => void) | null = null;
   let labelEls: { def: LabelDef; el: HTMLButtonElement; pos: THREE.Vector3; dimmed: boolean }[] = [];
   let selected: string | null = null;
+  let stepId: string | null = null; // current process step, for labels limited to some steps
   let highlighted: { mesh: THREE.Mesh; original: THREE.Material | THREE.Material[] }[] = [];
   let labelsOn = true;
   let idleOn = false;
@@ -193,7 +194,8 @@ export async function mountViewer(fig: HTMLElement, scenes: SceneDef[]): Promise
       if (!a) continue;
       a.object.getWorldPosition(l.pos);
       v.copy(l.pos).project(camera);
-      const hidden = !labelsOn || v.z > 1 || Math.abs(v.x) > 1.05 || Math.abs(v.y) > 1.05;
+      const offStep = !!l.def.steps && !!stepId && !l.def.steps.includes(stepId);
+      const hidden = offStep || !labelsOn || v.z > 1 || Math.abs(v.x) > 1.05 || Math.abs(v.y) > 1.05;
       l.el.hidden = hidden && l.def.id !== selected;
       if (l.el.hidden) continue;
       items.push({ l, x: (v.x * 0.5 + 0.5) * w, y: (-v.y * 0.5 + 0.5) * h });
@@ -311,11 +313,12 @@ export async function mountViewer(fig: HTMLElement, scenes: SceneDef[]): Promise
     controls.maxDistance = c.maxDistance * 1.7;
     controls.update();
     controls.saveState();
+    stepId = null;
     buildLabels(def.labels);
     select(null);
     if (def.steps.length && built.render) {
       const render = built.render.bind(built);
-      detachProcess = wireProcess(processRoot, def.steps, (i, t) => { render(i, t); dirty = true; start(); }, { durations: built.durations, keyTarget: stage }).detach;
+      detachProcess = wireProcess(processRoot, def.steps, (i, t) => { stepId = def.steps[i]?.id ?? null; render(i, t); dirty = true; start(); }, { durations: built.durations, keyTarget: stage }).detach;
     }
     motionBtn.hidden = !built.idle;
     fig.querySelectorAll<HTMLButtonElement>('[data-scene]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.scene === def.id)));

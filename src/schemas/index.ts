@@ -109,6 +109,8 @@ export const labelSchema = z.object({
   name: z.string(),
   text: z.string().min(15).max(260),
   level: level.default('SL'),
+  /** Process scenes only: ids of the steps during which this label is shown (default: all steps). */
+  steps: z.array(z.string()).optional(),
 });
 export type LabelDef = z.infer<typeof labelSchema>;
 
