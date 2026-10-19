@@ -1,0 +1,249 @@
+---
+import {
+  AIR, METHANE, SEAWATER_DENSITY, WATER, WATER_SUB, buoyancy, conductiveFlux, heatCapacityPerLitre, heatReleasedPerLitre, ratio, sig,
+  stateAt, supportedFraction, volumetricRatio, type Substance,
+} from './models/a1-1-properties';
+
+const d = { body: 1030, dT: 30, cool: 5, temp: 20 };
+const pct = (x: number) => `${(x * 100).toFixed(x < 0.01 ? 2 : 1)}%`;
+const buoyText = (body: number) => {
+  const sea = supportedFraction(body, SEAWATER_DENSITY), air = supportedFraction(body, AIR.density);
+  const b = buoyancy(body, SEAWATER_DENSITY);
+  const fate = b === 'floats' ? 'it floats' : b === 'neutral' ? 'it neither sinks nor floats' : 'it sinks only slowly';
+  return `A body of density ${body} kg m⁻³: seawater supports ${pct(sea)} of its weight (${fate}); air supports only ${pct(air)}.`;
+};
+const condText = (dT: number) => `With a ${dT} °C difference across a 1 cm still layer: water conducts ${sig(conductiveFlux(WATER, dT))} W m⁻², air only ${sig(conductiveFlux(AIR, dT))} W m⁻².`;
+const heatText = (c: number) => `Cooling 1 litre by ${c} °C releases ${sig(heatReleasedPerLitre(WATER, c) / 1000)} kJ from water but only ${sig(heatReleasedPerLitre(AIR, c))} J from air.`;
+const states = (t: number) => {
+  const w = stateAt(WATER_SUB, t), m = stateAt(METHANE, t);
+  const name = { solid: 'solid', liquid: 'liquid', gas: 'a gas' };
+  return `At ${t} °C, water is ${w === 'gas' ? 'a gas (steam)' : w === 'solid' ? 'solid (ice)' : 'liquid'} and methane is ${name[m]}.`;
+};
+
+// temperature scale for part 2
+const T0 = -200, T1 = 120, SW = 520, PADL = 74, PADR = 12;
+const tx = (t: number) => PADL + ((t - T0) / (T1 - T0)) * (SW - PADL - PADR);
+const segs = (s: Substance) => [
+  { k: 'solid', a: T0, b: s.meltingPoint }, { k: 'liquid', a: s.meltingPoint, b: s.boilingPoint }, { k: 'gas', a: s.boilingPoint, b: T1 },
+];
+const ticks = [-200, -150, -100, -50, 0, 50, 100];
+const rows = [{ s: WATER_SUB, y: 22 }, { s: METHANE, y: 74 }];
+
+const bars0 = [
+  { id: 'buoy', name: 'Buoyancy (density)', unit: 'kg m⁻³', w: WATER.density, a: AIR.density, extra: { label: 'Seawater', v: SEAWATER_DENSITY }, ratio: ratio('density') },
+  { id: 'visc', name: 'Viscosity', unit: 'mPa s', w: WATER.viscosity * 1000, a: AIR.viscosity * 1000, ratio: ratio('viscosity') },
+  { id: 'cond', name: 'Thermal conductivity', unit: 'W m⁻¹ K⁻¹', w: WATER.conductivity, a: AIR.conductivity, ratio: ratio('conductivity') },
+  { id: 'heat', name: 'Specific heat capacity', unit: 'J g⁻¹ K⁻¹', w: WATER.specificHeat, a: AIR.specificHeat, ratio: ratio('specificHeat') },
+];
+const bars = bars0.map((b) => ({ ...b, max: Math.max(b.w, b.extra?.v ?? 0) }));
+---
+<div class="props" data-props>
+  <p class="part">1 · Water compared with air (20 °C, sea-level pressure)</p>
+  <div class="cards">
+    {bars.map((b) => (
+      <section class="card" aria-label={b.name}>
+        <p class="pname">{b.name}</p>
+        <div class="bars">
+          <span class="bl">Water</span><span class="track"><span class="bar water" style={`width:${((b.w / b.max) * 100).toFixed(1)}%`}></span></span><span class="bv">{sig(b.w, 4)} {b.unit}</span>
+          {b.extra && <><span class="bl">{b.extra.label}</span><span class="track"><span class="bar water" style={`width:${((b.extra.v / b.max) * 100).toFixed(1)}%`}></span></span><span class="bv">{sig(b.extra.v, 4)} {b.unit}</span></>}
+          <span class="bl">Air</span><span class="track"><span class="bar air" style={`width:${Math.max(0.4, (b.a / b.max) * 100).toFixed(2)}%`}></span></span><span class="bv">{sig(b.a, 4)} {b.unit}</span>
+        </div>
+        <p class="ratio">Water ≈ <strong>{sig(b.ratio, 2)}×</strong> air{b.id === 'heat' && <> per gram, but ≈ <strong>{sig(volumetricRatio(), 3)}×</strong> per litre ({sig(heatCapacityPerLitre(WATER) / 1000)} kJ vs {sig(heatCapacityPerLitre(AIR))} J per °C)</>}</p>
+        {b.id === 'buoy' && (
+          <>
+            <label class="slider">Body density of an animal: <output data-out="body">{d.body} kg m⁻³</output>
+              <input type="range" min="900" max="1100" step="5" value={d.body} data-param="body" />
+            </label>
+            <p class="result" data-res="body">{buoyText(d.body)}</p>
+            <ul class="animals">
+              <li><strong>Ringed seal:</strong> its body density is close to that of seawater, so the water supports almost all its weight and it can float at the surface with little effort.</li>
+              <li><strong>Black-throated loon:</strong> air gives almost no support, so in flight it must keep flapping to generate lift. It floats on water, and its bones are less air-filled than those of most birds, which helps it dive.</li>
+            </ul>
+          </>
+        )}
+        {b.id === 'visc' && (
+          <ul class="animals">
+            <li><strong>Ringed seal:</strong> water is far more viscous (and denser), so swimming meets much more resistance; a streamlined, torpedo-shaped body and smooth fur reduce drag.</li>
+            <li><strong>Black-throated loon:</strong> air offers little resistance, so it flies fast. Underwater it swims with powerful feet set far back on a streamlined body.</li>
+          </ul>
+        )}
+        {b.id === 'cond' && (
+          <>
+            <label class="slider">Body temperature minus surroundings: <output data-out="dT">{d.dT} °C</output>
+              <input type="range" min="0" max="40" step="1" value={d.dT} data-param="dT" />
+            </label>
+            <p class="result" data-res="dT">{condText(d.dT)}</p>
+            <ul class="animals">
+              <li><strong>Ringed seal:</strong> water draws heat from the body about 23 times faster than air at the same temperature, so the seal has a thick layer of blubber (fat), a poor conductor, under its skin.</li>
+              <li><strong>Black-throated loon:</strong> air conducts heat poorly. Air trapped in its dense, waterproof plumage insulates it in flight and on the water.</li>
+            </ul>
+          </>
+        )}
+        {b.id === 'heat' && (
+          <>
+            <label class="slider">Cool one litre by: <output data-out="cool">{d.cool} °C</output>
+              <input type="range" min="1" max="20" step="1" value={d.cool} data-param="cool" />
+            </label>
+            <p class="result" data-res="cool">{heatText(d.cool)}</p>
+            <ul class="animals">
+              <li><strong>Ringed seal:</strong> seawater changes temperature slowly, so its habitat is thermally stable: Arctic seawater stays close to its freezing point (about −1.8 °C) even when the air above the ice is far colder.</li>
+              <li><strong>Black-throated loon:</strong> air temperature swings widely between day and night and between seasons. In winter, loons leave frozen lakes for coastal seas that stay ice-free.</li>
+            </ul>
+          </>
+        )}
+      </section>
+    ))}
+  </div>
+
+  <p class="part">2 · Water compared with methane: why hydrogen bonds matter</p>
+  <p class="intro">Methane (CH₄) is a small molecule of similar mass to water (16 compared with 18 g mol⁻¹), but it is non-polar and forms no hydrogen bonds between its molecules.</p>
+  <div class="temps">
+    <svg viewBox={`0 0 ${SW} 132`} class="scale" role="img" aria-labelledby="pr-st pr-sd" data-scale>
+      <title id="pr-st">States of water and methane from −200 °C to 120 °C</title>
+      <desc id="pr-sd">Methane is solid below −182.5 °C, liquid between −182.5 °C and −161.5 °C, and a gas above. Water is solid below 0 °C, liquid from 0 °C to 100 °C, and a gas above 100 °C.</desc>
+      {rows.map((r) => (
+        <g>
+          <text class="rl" x="4" y={r.y + 15}>{r.s.name}</text>
+          {segs(r.s).map((sg) => (
+            <>
+              <rect class={`seg ${sg.k}`} x={tx(sg.a)} y={r.y} width={Math.max(0, tx(sg.b) - tx(sg.a))} height="24" />
+              {tx(sg.b) - tx(sg.a) > 44 && <text class="sl" x={(tx(sg.a) + tx(sg.b)) / 2} y={r.y + 16} text-anchor="middle">{sg.k}</text>}
+            </>
+          ))}
+        </g>
+      ))}
+      <text class="sl small" x={tx(-172)} y="112" text-anchor="middle">liquid</text>
+      <path class="lead" d={`M${tx(-172)} 101 L${tx(-172)} 98`} />
+      {ticks.map((t) => <><line class="tick" x1={tx(t)} x2={tx(t)} y1="98" y2="103" /><text class="tl" x={tx(t)} y="126" text-anchor="middle">{t}</text></>)}
+      <line class="now" data-now x1={tx(d.temp)} x2={tx(d.temp)} y1="14" y2="104" />
+    </svg>
+    <label class="slider">Temperature: <output data-out="temp">{d.temp} °C</output>
+      <input type="range" min="-200" max="120" step="1" value={d.temp} data-param="temp" />
+    </label>
+    <p class="result" data-res="temp">{states(d.temp)}</p>
+  </div>
+  <p class="readout" aria-live="polite" data-readout></p>
+
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <caption>Water and air at 20 °C</caption>
+      <thead><tr><th scope="col">Property</th><th scope="col">Water</th><th scope="col">Air</th><th scope="col">Water ÷ air</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Density (kg m⁻³)</th><td>{sig(WATER.density)}</td><td>{sig(AIR.density)}</td><td>{sig(ratio('density'))}</td></tr>
+        <tr><th scope="row">Viscosity (mPa s)</th><td>{sig(WATER.viscosity * 1000)}</td><td>{sig(AIR.viscosity * 1000)}</td><td>{sig(ratio('viscosity'))}</td></tr>
+        <tr><th scope="row">Thermal conductivity (W m⁻¹ K⁻¹)</th><td>{sig(WATER.conductivity)}</td><td>{sig(AIR.conductivity)}</td><td>{sig(ratio('conductivity'))}</td></tr>
+        <tr><th scope="row">Specific heat capacity (J g⁻¹ K⁻¹)</th><td>{sig(WATER.specificHeat)}</td><td>{sig(AIR.specificHeat)}</td><td>{sig(ratio('specificHeat'))}</td></tr>
+        <tr><th scope="row">Heat capacity per litre (J K⁻¹)</th><td>{sig(heatCapacityPerLitre(WATER))}</td><td>{sig(heatCapacityPerLitre(AIR))}</td><td>{sig(volumetricRatio())}</td></tr>
+      </tbody>
+    </table>
+    <table>
+      <caption>Water and methane (at 1 atm)</caption>
+      <thead><tr><th scope="col">Property</th><th scope="col">Water</th><th scope="col">Methane</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Molar mass (g mol⁻¹)</th><td>{WATER_SUB.molarMass}</td><td>{METHANE.molarMass}</td></tr>
+        <tr><th scope="row">Melting point (°C)</th><td>{WATER_SUB.meltingPoint}</td><td>{METHANE.meltingPoint}</td></tr>
+        <tr><th scope="row">Boiling point (°C)</th><td>{WATER_SUB.boilingPoint}</td><td>{METHANE.boilingPoint}</td></tr>
+        <tr><th scope="row">Latent heat of vaporization (J g⁻¹)</th><td>{sig(WATER_SUB.latentHeatVap)}</td><td>{sig(METHANE.latentHeatVap)}</td></tr>
+        <tr><th scope="row">Specific heat capacity of the liquid (J g⁻¹ K⁻¹)</th><td>{WATER_SUB.specificHeatLiquid}</td><td>≈ {METHANE.specificHeatLiquid}</td></tr>
+        <tr><th scope="row">Hydrogen bonds between molecules?</th><td>Yes</td><td>No</td></tr>
+      </tbody>
+    </table>
+  </details>
+  <p class="model-note">Reference values at 20 °C; heat flow uses conduction through a still layer only (real heat loss also involves convection, and the animals' insulation). Values are rounded.</p>
+</div>
+
+<script>
+  import { AIR, METHANE, SEAWATER_DENSITY, WATER, WATER_SUB, buoyancy, conductiveFlux, heatReleasedPerLitre, sig, stateAt, supportedFraction } from './models/a1-1-properties';
+
+  const T0 = -200, T1 = 120, SW = 520, PADL = 74, PADR = 12;
+  const tx = (t: number) => PADL + ((t - T0) / (T1 - T0)) * (SW - PADL - PADR);
+  const pct = (x: number) => `${(x * 100).toFixed(x < 0.01 ? 2 : 1)}%`;
+
+  document.querySelectorAll<HTMLElement>('[data-props]').forEach((root) => {
+    const input = (k: string) => root.querySelector<HTMLInputElement>(`[data-param="${k}"]`)!;
+    const out = (k: string, v: string) => (root.querySelector(`[data-out="${k}"]`)!.textContent = v);
+    const res = (k: string, v: string) => (root.querySelector(`[data-res="${k}"]`)!.textContent = v);
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    const now = root.querySelector<SVGLineElement>('[data-now]')!;
+    let timer = 0;
+
+    const text: Record<string, () => string> = {
+      body: () => {
+        const body = Number(input('body').value);
+        const b = buoyancy(body, SEAWATER_DENSITY);
+        const fate = b === 'floats' ? 'it floats' : b === 'neutral' ? 'it neither sinks nor floats' : 'it sinks only slowly';
+        return `A body of density ${body} kg m⁻³: seawater supports ${pct(supportedFraction(body, SEAWATER_DENSITY))} of its weight (${fate}); air supports only ${pct(supportedFraction(body, AIR.density))}.`;
+      },
+      dT: () => {
+        const dT = Number(input('dT').value);
+        return `With a ${dT} °C difference across a 1 cm still layer: water conducts ${sig(conductiveFlux(WATER, dT))} W m⁻², air only ${sig(conductiveFlux(AIR, dT))} W m⁻².`;
+      },
+      cool: () => {
+        const c = Number(input('cool').value);
+        return `Cooling 1 litre by ${c} °C releases ${sig(heatReleasedPerLitre(WATER, c) / 1000)} kJ from water but only ${sig(heatReleasedPerLitre(AIR, c))} J from air.`;
+      },
+      temp: () => {
+        const t = Number(input('temp').value);
+        const w = stateAt(WATER_SUB, t), m = stateAt(METHANE, t);
+        const name = { solid: 'solid', liquid: 'liquid', gas: 'a gas' };
+        return `At ${t} °C, water is ${w === 'gas' ? 'a gas (steam)' : w === 'solid' ? 'solid (ice)' : 'liquid'} and methane is ${name[m]}.`;
+      },
+    };
+    const units: Record<string, string> = { body: ' kg m⁻³', dT: ' °C', cool: ' °C', temp: ' °C' };
+
+    root.querySelectorAll<HTMLInputElement>('[data-param]').forEach((el) => el.addEventListener('input', () => {
+      const k = el.dataset.param!;
+      out(k, `${el.value}${units[k]}`);
+      const sentence = text[k]!();
+      res(k, sentence);
+      if (k === 'temp') { const x = tx(Number(el.value)).toFixed(1); now.setAttribute('x1', x); now.setAttribute('x2', x); }
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        const extra = k === 'temp' && stateAt(WATER_SUB, Number(el.value)) === 'liquid' && stateAt(METHANE, Number(el.value)) === 'gas'
+          ? ' Hydrogen bonds hold water molecules together, so much more energy is needed to separate them.' : '';
+        readout.textContent = sentence + extra;
+      }, 400);
+    }));
+  });
+</script>
+
+<style>
+  .props { container-type: inline-size; display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .part { margin: var(--space-2) 0 0; font-weight: 800; color: var(--text); font-size: var(--step-0); }
+  .intro { margin: 0; color: var(--text-muted); }
+  .cards { display: grid; gap: var(--space-3); }
+  @container (min-width: 44rem) { .cards { grid-template-columns: 1fr 1fr; } }
+  .card { border: 1px solid var(--border); border-radius: var(--radius-m); padding: var(--space-3); background: var(--surface-2); display: grid; gap: var(--space-2); align-content: start; }
+  .pname { margin: 0; font-weight: 800; }
+  .bars { display: grid; grid-template-columns: auto minmax(4rem, 1fr) auto; gap: 0.3rem var(--space-2); align-items: center; }
+  .bl { font-weight: 650; }
+  .bv { font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--text-muted); }
+  .track { height: 0.85rem; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; overflow: hidden; }
+  .bar { display: block; height: 100%; min-width: 2px; }
+  .bar.water { background: var(--bio-water); }
+  .bar.air { background: repeating-linear-gradient(135deg, var(--bio-glucose) 0 4px, transparent 4px 7px); border-right: 2px solid var(--bio-glucose); }
+  .ratio { margin: 0; }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .result { margin: 0; padding: var(--space-2) var(--space-3); background: var(--surface); border-radius: var(--radius-s); }
+  .animals { margin: 0; padding-left: 1.1rem; display: grid; gap: var(--space-1); }
+  .temps { display: grid; gap: var(--space-2); }
+  .scale { width: 100%; height: auto; font-family: var(--font-sans); background: var(--surface-2); border-radius: var(--radius-m); }
+  .rl { font-size: 14px; font-weight: 700; fill: var(--text); }
+  .seg.solid { fill: color-mix(in srgb, var(--bio-protein) 45%, var(--surface)); }
+  .seg.liquid { fill: color-mix(in srgb, var(--bio-water) 70%, var(--surface)); }
+  .seg.gas { fill: var(--surface); stroke: var(--border-strong); stroke-dasharray: 4 3; }
+  .sl { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .sl.small { font-size: 12px; }
+  .tick, .lead { stroke: var(--text-muted); }
+  .tl { font-size: 12px; fill: var(--text-muted); }
+  .now { stroke: var(--bio-k); stroke-width: 3; }
+  .readout { margin: 0; min-height: 1.2em; color: var(--text-muted); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; width: 100%; max-width: 36rem; }
+  caption { text-align: left; font-weight: 700; padding: var(--space-2) 0 var(--space-1); }
+  th, td { padding: 0.2rem 0.6rem; border-bottom: 1px solid var(--border); text-align: right; }
+  th[scope='row'] { text-align: left; font-weight: 600; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: 0; }
+</style>
