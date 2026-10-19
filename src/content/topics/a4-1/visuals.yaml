@@ -1,0 +1,95 @@
+# Visuals for A4.1. Step captions here are what readers see under each animation, so they are written to exam standard.
+visuals:
+  - id: limbs
+    kind: sim
+    module: a4-1-limbs
+    title: Pentadactyl limb comparator
+    alt: Forelimb skeletons of a human, bat, dolphin, bird, horse and mole with matching bones in matching colours, beside a boneless insect wing.
+    description: >-
+      Schematic forelimb skeletons of six vertebrates drawn side by side, shoulder at the top: a human arm,
+      a bat wing, a dolphin flipper, a bird wing, a horse foreleg and a mole forelimb. In every one the same
+      bones appear in the same order, and each bone group has the same colour: one humerus in the upper arm,
+      a radius and an ulna in the forearm, a group of carpals in the wrist, metacarpals in the palm and a
+      series of phalanges in each digit. The bones differ in length, thickness and number: the bat has very
+      long metacarpals and phalanges supporting a skin membrane; the dolphin has short, flat bones and extra
+      phalanges; the bird has only three digits, with metacarpals fused into a carpometacarpus; the horse
+      stands on one digit, with two thin splint bones left of digits 2 and 4; the mole has a very short, broad
+      humerus and a spade-like hand. An insect wing is included for contrast: it does the same job as the bird
+      and bat wings but has no bones at all, so it is an analogous structure. Buttons choose which limbs to
+      compare and which bone to highlight, and a note under each limb explains how that bone is adapted.
+
+  - id: speciation
+    kind: anim
+    module: a4-1-speciation
+    title: How one species becomes two
+    alt: Step-by-step map of an ancestral ape population split by the Congo River into chimpanzees and bonobos, then two examples of sympatric speciation.
+    description: >-
+      A map with the Congo River running across the middle, north at the top. Dots stand for apes and a bar
+      chart for each population shows the frequencies of two alleles in its gene pool. An ancestral population
+      north of the river interbreeds freely. During a dry period a small group crosses to the south bank; when
+      the river rises again the two populations are geographically isolated, so there is no gene flow. Chance
+      (genetic drift in the small founder group) and different selection pressures on each side change the
+      allele frequencies differently, until the northern population has become common chimpanzees and the
+      southern population bonobos. Two AHL steps show sympatric speciation, where there is no geographic barrier:
+      apple maggot flies that mate on the fruit of different host trees, and periodical cicadas with 13-year
+      and 17-year life cycles, which breed in the same place in different years.
+    steps:
+      - id: one-population
+        title: One population, one gene pool
+        caption: The ancestors of chimpanzees and bonobos lived north of the Congo River. They formed one population that interbred freely, so alleles flowed through a single shared gene pool and the population evolved as one unit.
+      - id: founders
+        title: A small group crosses
+        caption: The Congo is wide and deep, and apes cannot swim. During a long dry period the river was probably much lower, and a small group of apes reached the south bank. By chance, the allele frequencies of this small founder group differed from those of the main population.
+      - id: isolation
+        title: Geographical isolation
+        caption: When the water rose again, the river became a barrier between the two populations. They could no longer interbreed, so there was no gene flow between their gene pools. This is reproductive isolation by geographical separation.
+      - id: differential-selection
+        title: Different selection and drift
+        caption: The two areas differ. North of the river, chimpanzees share their forests with gorillas, which compete with them for plants on the forest floor; south of the river there are no gorillas, so this food is more plentiful and reliable. Natural selection favours different traits on each side, and genetic drift in the small southern population adds further random changes, so the allele frequencies of the two gene pools diverge.
+      - id: two-species
+        title: Two species
+        caption: Over roughly a million years or more, the populations have diverged so much in body form, behaviour and DNA that they are classified as two species — common chimpanzees north of the river and bonobos south of it. Their ranges still do not overlap, so their gene pools stay separate.
+      - id: sympatric-behavioural
+        title: "AHL: sympatric — behavioural isolation"
+        level: AHL
+        caption: "AHL — Speciation can also happen without a geographic barrier (sympatric speciation). Apple maggot flies first fed on hawthorn fruit; when apple trees were introduced to North America some flies started using apples. Flies mate on the fruit they prefer, and apples ripen earlier than haws, so the hawthorn and apple races rarely interbreed even in the same area."
+      - id: sympatric-temporal
+        title: "AHL: sympatric — temporal isolation"
+        level: AHL
+        caption: "AHL — Periodical cicadas spend 13 or 17 years underground, then all emerge together to breed. Populations with a 13-year and a 17-year cycle can live in the same area but breed in different years: they emerge together only once every 221 years. Breeding at different times (temporal isolation) keeps their gene pools apart. Polyploidy in plants, shown below, is another route to sympatric speciation."
+
+  - id: polyploidy
+    kind: anim
+    module: a4-1-polyploidy
+    level: AHL
+    title: Sterile hybrids and speciation by polyploidy
+    alt: A mule's mismatched chromosomes failing to pair, then a sterile plant hybrid doubling its chromosomes to become a fertile new species.
+    description: >-
+      Cells are drawn as circles and three representative chromosomes stand for each set (most are not drawn).
+      First, a female horse (2n = 64) and a male donkey (2n = 62) produce a mule with 63 chromosomes; at meiosis
+      the horse and donkey chromosomes cannot pair as homologues, so the mule is sterile. Then two diploid plant
+      species, A and B, each with 2n = 22, produce a hybrid with one set from each parent (AB). It is sterile for
+      the same reason. When its chromosome number doubles, every chromosome gains an identical partner: the
+      allotetraploid (AABB, 2n = 44) can carry out meiosis and make AB gametes, so it is fertile. Crossed with
+      either parent it would give sterile triploid offspring, so it is reproductively isolated at once: a new
+      species, such as the knotweed Persicaria maculosa.
+    steps:
+      - id: mule
+        title: A horse–donkey hybrid
+        caption: A female horse (2n = 64) is mated with a male donkey (2n = 62). The egg carries 32 horse chromosomes and the sperm 31 donkey chromosomes, so the mule has 63 chromosomes in its body cells. Mules grow normally because mitosis does not need chromosomes to pair.
+      - id: mule-meiosis
+        title: Meiosis fails, so the mule is sterile
+        caption: Meiosis needs homologous chromosomes to pair up. Horse and donkey chromosomes differ in number and structure, so many cannot pair, and with 63 at least one is always left over. Gametes with complete, balanced sets are very rarely formed, so mules are almost always sterile and alleles do not pass from one species to the other.
+      - id: plant-hybrid
+        title: Two plant species hybridize
+        caption: Two related diploid plant species, A and B, each have 2n = 22. Pollen of one fertilizes an ovule of the other. The hybrid gets one set of chromosomes from each parent (AB, 2n = 22). It may grow well, but it is sterile because no chromosome has a homologous partner at meiosis.
+      - id: doubling
+        title: The chromosome number doubles
+        caption: In a dividing cell of the hybrid, the chromosomes are copied but the cell does not divide, so the chromosome number doubles. The cell and the shoots and flowers that grow from it are allotetraploid (AABB, 2n = 44) — four sets of chromosomes, from two different species.
+      - id: meiosis-works
+        title: Meiosis now works
+        caption: Every chromosome now has an identical homologous partner, so pairs form normally at meiosis and the homologues separate into gametes. Each gamete gets one A set and one B set (AB, n = 22), so the allotetraploid is fertile.
+      - id: new-species
+        title: A new species in one step
+        caption: AB gametes fuse with each other to give fertile AABB offspring. Crossed with either parent species, the allotetraploid would give triploid offspring (for example AAB, 2n = 33), which are sterile. So it is reproductively isolated from both parents straight away — a new species. Persicaria maculosa (2n = 44) arose this way from two diploid Persicaria species.
+

@@ -1,0 +1,94 @@
+---
+/**
+ * A4.1.9: adaptive radiation of Darwin's finches (Galápagos). A simplified tree of seven species from
+ * one ancestral finch, with beak shapes matched to diet. Branching follows the main clades found in
+ * molecular studies (warbler finches branch off first; tree finches and ground finches are sister groups).
+ * Numbered markers keep it legible at phone width; the key gives names, beaks and diets in real text.
+ */
+const tipY = 116;
+const xs = [50, 135, 220, 305, 390, 475, 560];
+type Beak = { d: string; tool?: boolean };
+const beaks: Beak[] = [
+  { d: 'M18 -6 L46 0 L18 5 Z' }, // warbler: thin, pointed
+  { d: 'M17 -12 Q36 -12 36 4 Q30 0 17 12 Z' }, // vegetarian: short, deep, curved
+  { d: 'M18 -8 L48 0 L18 8 Z', tool: true }, // woodpecker: long, straight
+  { d: 'M17 -9 Q40 -8 50 6 L17 8 Z' }, // cactus: long, slightly down-curved
+  { d: 'M15 -18 Q46 -12 44 4 Q38 16 15 20 Z' }, // large ground: very deep and broad
+  { d: 'M16 -13 Q38 -8 38 4 Q32 12 16 14 Z' }, // medium ground
+  { d: 'M17 -8 Q31 -6 31 2 Q28 8 17 9 Z' }, // small ground
+];
+// tree: [x1, y1, x2, y2]
+const nodes = {
+  smallMed: [517, 152],
+  large: [470, 188],
+  ground: [420, 226],
+  tree: [178, 172],
+  split: [320, 262],
+  root: [190, 288],
+};
+const lines: [number, number, number, number][] = [
+  [nodes.smallMed[0]!, nodes.smallMed[1]!, xs[5]!, tipY], [nodes.smallMed[0]!, nodes.smallMed[1]!, xs[6]!, tipY],
+  [nodes.large[0]!, nodes.large[1]!, xs[4]!, tipY], [nodes.large[0]!, nodes.large[1]!, nodes.smallMed[0]!, nodes.smallMed[1]!],
+  [nodes.ground[0]!, nodes.ground[1]!, xs[3]!, tipY], [nodes.ground[0]!, nodes.ground[1]!, nodes.large[0]!, nodes.large[1]!],
+  [nodes.tree[0]!, nodes.tree[1]!, xs[1]!, tipY], [nodes.tree[0]!, nodes.tree[1]!, xs[2]!, tipY],
+  [nodes.split[0]!, nodes.split[1]!, nodes.tree[0]!, nodes.tree[1]!], [nodes.split[0]!, nodes.split[1]!, nodes.ground[0]!, nodes.ground[1]!],
+  [nodes.root[0]!, nodes.root[1]!, xs[0]!, tipY], [nodes.root[0]!, nodes.root[1]!, nodes.split[0]!, nodes.split[1]!],
+];
+const key = [
+  'Warbler finch: thin, pointed beak; picks small insects off leaves',
+  'Vegetarian finch: short, deep, curved beak; eats buds, leaves and fruit',
+  'Woodpecker finch: long, straight beak; uses a cactus spine or twig to pull insect larvae out of wood',
+  'Cactus finch: long, pointed beak; feeds on cactus flowers, nectar, pollen and seeds',
+  'Large ground finch: very deep, broad beak; cracks large, hard seeds',
+  'Medium ground finch: medium-sized beak; medium seeds',
+  'Small ground finch: small beak; small, soft seeds',
+];
+---
+<div class="exam-diagram">
+  <svg viewBox="0 0 640 344" role="img" aria-labelledby="rad-t rad-d" xmlns="http://www.w3.org/2000/svg">
+    <title id="rad-t">Adaptive radiation of Darwin's finches</title>
+    <desc id="rad-d">A branching tree with one ancestral finch at the base and seven living species at the tips. Each species has a differently shaped beak suited to a different food: insects from leaves, buds and fruit, insects from wood using a tool, cactus flowers, large hard seeds, medium seeds and small seeds.</desc>
+    <g class="tree">
+      {lines.map(([x1, y1, x2, y2]) => <path d={`M${x1} ${y1} L${x2} ${y2}`} />)}
+    </g>
+    <circle class="anc" cx={nodes.root[0]} cy={nodes.root[1]} r="7" />
+    <text class="anc-t" x={nodes.root[0]! - 150} y={nodes.root[1]! + 26}>common ancestor: one seed-eating finch</text>
+    <text class="anc-t" x={nodes.root[0]! - 150} y={nodes.root[1]! + 45}>from mainland South America</text>
+    <text class="grp" x="232" y="188">tree finches</text>
+    <text class="grp" x="478" y="250" text-anchor="middle">ground finches</text>
+    {xs.map((x, i) => (
+      <g class="bird" transform={`translate(${x} 70)`}>
+        <path class="body" d="M-6 14 Q-34 22 -40 40 Q-14 34 4 22 Z" />
+        <circle class="head" r="20" />
+        <circle class="eye" cx="6" cy="-5" r="3" />
+        <path class="beak" d={beaks[i]!.d} />
+        {beaks[i]!.tool && <path class="tool" d="M44 1 L60 7" />}
+        <g class="marker">
+          <circle cx="-26" cy="-26" r="12" />
+          <text x="-26" y="-26" dy="0.36em" text-anchor="middle">{i + 1}</text>
+        </g>
+      </g>
+    ))}
+  </svg>
+  <ol class="key">
+    {key.map((k) => <li>{k}</li>)}
+  </ol>
+</div>
+
+<style>
+  .exam-diagram svg { font-family: var(--font-sans); }
+  .tree path { stroke: var(--text-muted); stroke-width: 3; stroke-linecap: round; fill: none; }
+  .anc { fill: var(--accent); }
+  .anc-t { font-size: 15px; fill: var(--text); font-weight: 650; }
+  .grp { font-size: 14px; font-style: italic; fill: var(--text-muted); }
+  .body { fill: color-mix(in srgb, var(--text-muted) 55%, var(--surface)); }
+  .head { fill: color-mix(in srgb, var(--text-muted) 75%, var(--surface)); stroke: var(--text); stroke-width: 1.2; }
+  .eye { fill: var(--surface); }
+  .beak { fill: var(--bio-glucose); stroke: var(--text); stroke-width: 1.2; stroke-linejoin: round; }
+  .tool { stroke: var(--bio-carb); stroke-width: 3; stroke-linecap: round; }
+  .marker circle { fill: var(--surface); stroke: var(--text); stroke-width: 1.8; }
+  .marker text { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .key { columns: 2 17rem; column-gap: var(--space-5); margin: var(--space-3) 0 0; padding: 0; list-style: none; counter-reset: k; font-size: var(--step--1); }
+  .key li { break-inside: avoid; margin: 0 0 0.3rem; display: grid; grid-template-columns: 1.7rem 1fr; counter-increment: k; }
+  .key li::before { content: counter(k); font-weight: 800; display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; border: 1.5px solid var(--text); border-radius: 50%; font-size: 0.75rem; margin-top: 0.1rem; }
+</style>
