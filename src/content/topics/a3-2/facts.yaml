@@ -1,0 +1,157 @@
+facts:
+  - id: f1
+    claim: About two million species have been named and described; estimates of the total number of species run to several million or more.
+    where: [ "index.mdx#need" ]
+    confidence: medium
+    basis: Catalogue of Life (~2.1 million accepted species, 2020s); Mora et al. 2011 estimate ~8.7 million eukaryote species. Figures vary between sources.
+    status: open
+  - id: f2
+    claim: Traditional ranks are kingdom, phylum, class, order, family, genus, species, with domain added above kingdom; humans are Animalia, Chordata, Mammalia, Primates, Hominidae, Homo; grey wolf is Carnivora, Canidae, Canis lupus.
+    where: [ "index.mdx#hierarchy", "flashcards.yaml:c2" ]
+    confidence: high
+    basis: Standard taxonomy (Campbell Biology); IB guide A3.2.2
+    status: checked
+  - id: f3
+    claim: Crocodilians are more closely related to birds than to lizards; birds are nested within the reptiles (archosaurs = crocodilians + birds), so Reptilia excluding Aves is not a clade.
+    where: [ "index.mdx#hierarchy", "index.mdx#testing", "visuals.yaml:cladogram", "src/sims/models/a3-2-cladogram.ts" ]
+    confidence: high
+    basis: Morphological and molecular phylogenetics consensus (e.g. Green et al. 2014 Science; Campbell ch. 34)
+    status: checked
+  - id: f4
+    claim: Vertebrate tree used in the cladogram sim — (lamprey, (shark, (salmon, (frog, ((human, mouse), (lizard, (crocodile, pigeon))))))) — and its clade names (vertebrates, jawed vertebrates, bony vertebrates/Osteichthyes, tetrapods, amniotes, mammals, reptiles, archosaurs).
+    where: [ "visuals.yaml:cladogram", "src/sims/models/a3-2-cladogram.ts", "tests/unit/a3-2.test.ts" ]
+    confidence: high
+    basis: Well-supported vertebrate phylogeny (Campbell ch. 34; Tree of Life web project). Turtles deliberately omitted.
+    status: checked
+  - id: f5
+    claim: Shared characteristics listed in the sim — vertebrates cranium and vertebrae (simple cartilage elements in lampreys); jawed vertebrates jaws and paired fins; bony vertebrates bone and lungs/swim bladder derived from lungs; tetrapods four limbs with digits; amniotes amniotic egg; mammals hair and mammary glands; reptiles beta-keratin scales (also in feathers); archosaurs four-chambered heart and gizzard.
+    where: [ "src/sims/models/a3-2-cladogram.ts" ]
+    confidence: medium
+    basis: Campbell ch. 34; Kardong, Vertebrates. Swim bladder–lung homology and archosaur traits are standard but simplified.
+    status: open
+  - id: f6
+    claim: Paclitaxel (Taxol) was first isolated from the bark of the Pacific yew (Taxus brevifolia); a precursor (10-deacetylbaccatin III) from needles of the European yew (Taxus baccata) is used to make it semi-synthetically without felling trees.
+    where: [ "index.mdx#evolutionary" ]
+    confidence: high
+    basis: Wani et al. 1971 JACS; Denis et al. 1988 (semi-synthesis from 10-DAB)
+    status: checked
+  - id: f7
+    claim: Mammal characteristics predicted for a new species — hair, mammary glands, three middle-ear bones, diaphragm.
+    where: [ "index.mdx#evolutionary", "quiz.yaml:q2" ]
+    confidence: high
+    basis: Standard mammalian synapomorphies (Campbell ch. 34)
+    status: checked
+  - id: f8
+    claim: Base and amino acid sequences are the most objective evidence for clades; morphology can be used, especially for fossils, but can mislead because of convergent evolution.
+    where: [ "index.mdx#clades", "quiz.yaml:q3", "flashcards.yaml:c6", "flashcards.yaml:c7" ]
+    confidence: high
+    basis: IB guide A3.2.4; Campbell ch. 26
+    status: checked
+  - id: f9
+    claim: Ginkgo biloba is the only living species of a clade that was formerly diverse.
+    where: [ "index.mdx#clades" ]
+    confidence: high
+    basis: Ginkgoales fossil record (Zhou 2009); study guide also cites this
+    status: checked
+  - id: f10
+    claim: A node represents a hypothetical common ancestor; the root the common ancestor of all taxa on the cladogram; terminal branches lead to species or undivided groups; tip order and (unscaled) branch length carry no information; rotation does not change relationships.
+    where: [ "index.mdx#analysing", "visuals.yaml:cladogram", "quiz.yaml:q4", "quiz.yaml:q5", "flashcards.yaml:c8", "flashcards.yaml:c10" ]
+    confidence: high
+    basis: IB guide A3.2.7; Baum et al. 2005 Science "The tree-thinking challenge"
+    status: checked
+  - id: f11
+    claim: Molecular clock calibration example — 60 differences in 20 Myr gives 3 per Myr; 21 differences gives about 7 Myr. Each lineage changes at half the between-species rate.
+    where: [ "index.mdx#molecular-clock", "visuals.yaml:molecular-clock", "tests/unit/a3-2.test.ts" ]
+    confidence: high
+    basis: Arithmetic; standard molecular clock reasoning (Zuckerkandl & Pauling 1965)
+    status: checked
+  - id: f12
+    claim: Human and chimpanzee genomes differ at about 1.2% of aligned bases; at about 1 × 10⁻⁹ substitutions per base per year per lineage this gives a split about 6 million years ago, consistent with fossils; slower pedigree-based rates give older dates.
+    where: [ "index.mdx#molecular-clock" ]
+    confidence: medium
+    basis: Chimpanzee Sequencing and Analysis Consortium 2005 (1.23%); Scally & Durbin 2012 on mutation-rate debate. The study guide quotes a 4.5 Myr split, which is younger than most current estimates.
+    status: open
+  - id: f13
+    claim: Molecular clock rates vary with generation time, population size, intensity of selection and other factors (DNA repair, multiple hits at one site); conserved genes such as rRNA change slowly and animal mitochondrial DNA changes fast.
+    where: [ "index.mdx#molecular-clock", "visuals.yaml:molecular-clock", "quiz.yaml:q7", "flashcards.yaml:c13" ]
+    confidence: high
+    basis: IB guide A3.2.5; Brown et al. 1979 on mtDNA rates; Campbell ch. 26
+    status: checked
+  - id: f14
+    claim: Sample sequences P–S give the difference matrix P–Q 2, P–R 4, Q–R 4, P–S 8, Q–S 8, R–S 6; 10 of 16 positions vary; tree ((P,Q),R),S needs 10 changes and each alternative 12.
+    where: [ "visuals.yaml:building", "index.mdx#constructing", "src/sims/models/a3-2-sequences.ts" ]
+    confidence: high
+    basis: Made-up data; verified by Fitch parsimony in tests/unit/a3-2.test.ts
+    status: checked
+  - id: f15
+    claim: Branch change counts in the animation (S 3, PQR stem 2, R 1, PQ stem 2, P 1, Q 1) are one valid placement of the 10 changes; the split of the 5 changes between S and the PQR stem depends on where the root is placed.
+    where: [ "src/anims/a3-2-building.astro" ]
+    confidence: high
+    basis: Constructed from the ancestral sequence used to generate the data
+    status: checked
+  - id: f16
+    claim: Parsimony selects the tree with the fewest sequence changes as the most probable hypothesis; different criteria (e.g. likelihood methods, morphology, other genes) can give different trees.
+    where: [ "index.mdx#constructing", "flashcards.yaml:c15", "visuals.yaml:building" ]
+    confidence: high
+    basis: IB guide A3.2.6 NOS; Felsenstein, Inferring Phylogenies
+    status: checked
+  - id: f17
+    claim: The figwort family was defined mainly by flower structure (tubular, two-lipped, bilaterally symmetrical); from the 1990s chloroplast gene sequences (rbcL, ndhF, rps2) showed it to comprise several clades.
+    where: [ "index.mdx#testing", "quiz.yaml:q9", "flashcards.yaml:c16" ]
+    confidence: high
+    basis: Olmstead & Reeves 1995; Olmstead et al. 2001 Am. J. Bot. "Disintegration of the Scrophulariaceae"
+    status: checked
+  - id: f18
+    claim: Snapdragons (Antirrhinum), foxgloves (Digitalis) and speedwells (Veronica) moved to Plantaginaceae; hemiparasites such as Euphrasia and Rhinanthus to Orobanchaceae; Mimulus to Phrymaceae; new families (e.g. Calceolariaceae, Linderniaceae) created; Buddleja moved into Scrophulariaceae.
+    where: [ "index.mdx#testing", "quiz.yaml:q9" ]
+    confidence: high
+    basis: Olmstead et al. 2001; APG III/IV; Tank et al. 2006
+    status: checked
+  - id: f19
+    claim: The old figwort family had several thousand species (about 5000 in about 275 genera) and fewer than half of the species remain in it.
+    where: [ "index.mdx#testing" ]
+    confidence: medium
+    basis: Earlier Oxford IB Biology study guide; Olmstead et al. 2001. "Fewer than half" should be confirmed by a teacher.
+    status: open
+  - id: f20
+    claim: The similarities used to define the figwort family arose by convergent evolution or were shared with other families (ancestral traits), not exclusive common ancestry.
+    where: [ "index.mdx#testing", "quiz.yaml:q9", "flashcards.yaml:c16" ]
+    confidence: medium
+    basis: IB guide A3.2.8 NOS cites convergent evolution; botanists also attribute it to shared ancestral (plesiomorphic) floral features. Wording covers both.
+    status: open
+  - id: f21
+    claim: In 1977 Woese and Fox compared small-subunit (16S/18S) rRNA sequences and found two groups of prokaryotes as different from each other as from eukaryotes; methanogens were the first archaea recognised; the domain names Bacteria, Archaea and Eucarya were formalised in 1990.
+    where: [ "index.mdx#domains", "quiz.yaml:q10", "flashcards.yaml:c17" ]
+    confidence: high
+    basis: Woese & Fox 1977 PNAS 74:5088; Woese, Kandler & Wheelis 1990 PNAS 87:4576
+    status: checked
+  - id: f22
+    claim: Archaea and Eukarya share a more recent common ancestor than either does with Bacteria (root placed on the bacterial branch).
+    where: [ "index.mdx#domains", "src/diagrams/a3-2-domains.astro", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: Rooting by paralogous genes (Gogarten et al. 1989; Iwabe et al. 1989); Campbell ch. 27
+    status: checked
+  - id: f23
+    claim: Domain comparison table — peptidoglycan only in bacteria; ether-linked branched lipids in archaea; histones in many archaea and all eukaryotes; 70S ribosomes in bacteria and archaea, 80S in eukaryote cytoplasm; initiator amino acid formylmethionine in bacteria, methionine in archaea and eukaryotes.
+    where: [ "index.mdx#domains" ]
+    confidence: high
+    basis: Campbell Biology table 27.2; Madigan, Brock Biology of Microorganisms
+    status: checked
+  - id: f24
+    claim: Some genome evidence suggests eukaryotes arose from within the Archaea (Asgard-related lineage), giving a two-domain tree; this is debated.
+    where: [ "index.mdx#domains" ]
+    confidence: high
+    basis: Spang et al. 2015 Nature; Eme et al. 2023 Nature; Williams et al. 2020
+    status: checked
+  - id: f25
+    claim: The five-kingdom system (Whittaker 1969; Margulis) comprised Prokaryotae/Monera, Protoctista, Fungi, Plantae and Animalia, grouped by cell structure and nutrition.
+    where: [ "src/diagrams/a3-2-domains.astro" ]
+    confidence: high
+    basis: Whittaker 1969 Science; Margulis & Schwartz, Five Kingdoms
+    status: checked
+  - id: f26
+    claim: Many archaea live in extreme environments, but archaea are also abundant in soil, oceans and animal intestines.
+    where: [ "index.mdx#domains" ]
+    confidence: high
+    basis: Madigan, Brock Biology of Microorganisms; DeLong 1998
+    status: checked

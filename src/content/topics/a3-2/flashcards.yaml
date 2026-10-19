@@ -1,0 +1,69 @@
+cards:
+  - id: c1
+    level: AHL
+    front: Why is classification of organisms needed?
+    back: Because of the immense diversity of species (millions). Once species are classified, information about them can be stored and retrieved, unknown organisms can be identified, characteristics can be predicted, and hypotheses about evolutionary origins can be developed.
+  - id: c2
+    level: AHL
+    front: List the traditional ranks of taxa from highest to lowest.
+    back: (Domain), kingdom, phylum, class, order, family, genus, species.
+  - id: c3
+    level: AHL
+    front: Why is a fixed ranking of taxa arbitrary?
+    back: Species and groups diverge gradually, so there is no objective point at which a group is different enough to be a genus, a family or an order. Taxonomists can agree on a group but disagree on its rank.
+  - id: c4
+    level: AHL
+    front: Define a clade.
+    back: A group of organisms consisting of a common ancestor and all the species that have evolved from it, living or extinct. Members share characteristics inherited from that ancestor.
+  - id: c5
+    level: AHL
+    front: Give the advantage of a classification that corresponds to evolutionary relationships.
+    back: All members of each group evolved from a common ancestor and share inherited characteristics, so the characteristics of a newly found or little-studied member can be predicted from the others.
+  - id: c6
+    level: AHL
+    front: What is the most objective evidence for placing organisms in the same clade, and why?
+    back: Base sequences of genes and amino acid sequences of proteins. They provide many discrete characters that can be counted and compared with little personal judgement.
+  - id: c7
+    level: AHL
+    front: When is morphology still used to assign organisms to clades, and what is its main drawback?
+    back: When sequence data are unavailable, especially for extinct species known only from fossils. The drawback is that similar structures can arise by convergent evolution in unrelated groups.
+  - id: c8
+    level: AHL
+    front: What do the root, a node and a terminal branch represent on a cladogram?
+    back: Root — the common ancestor of all organisms on the cladogram. Node — a hypothetical common ancestor where one lineage split into two. Terminal branch — a lineage leading to a species (or an undivided group) at the tips.
+  - id: c9
+    level: AHL
+    front: How do you decide which of two species is more closely related to a third on a cladogram?
+    back: Trace the branches back from the tips. The pair whose branches meet at the node furthest from the root (the most recent common ancestor) are the most closely related. The order of names at the tips does not matter.
+  - id: c10
+    level: AHL
+    front: What happens to the relationships shown if a node on a cladogram is rotated?
+    back: Nothing. Rotating swaps the two branches at that node and changes the order of the tips, but every node still joins the same species, so the hypothesis is unchanged.
+  - id: c11
+    level: AHL
+    front: What is the molecular clock?
+    back: Using the number of differences in a base or amino acid sequence to estimate the time since two clades diverged from a common ancestor, assuming that differences accumulate gradually at a roughly constant rate.
+  - id: c12
+    level: AHL
+    front: How is a molecular clock calibrated and used?
+    back: Find the rate from a pair of species whose split is dated independently (usually by fossils), so rate = differences ÷ time. Then time since divergence for another pair = their differences ÷ rate, using the same gene.
+  - id: c13
+    level: AHL
+    front: Why does the molecular clock give only estimates?
+    back: The rate of change varies with generation time, population size, the intensity of selective pressure and other factors (such as DNA repair), and differs between genes. The calibration dates are also uncertain.
+  - id: c14
+    level: AHL
+    front: Outline how to construct a cladogram from sequence data.
+    back: Align the sequences; count the differences between each pair; join the most similar pair first at a node; add the next most similar species or group; the most different species branches off nearest the root. Use parsimony to choose between possible trees.
+  - id: c15
+    level: AHL
+    front: What is parsimony analysis?
+    back: Selecting the cladogram that accounts for the observed sequence variation with the smallest number of sequence changes. It gives the most probable hypothesis, not proof, because evolution does not always take the shortest path.
+  - id: c16
+    level: AHL
+    front: What did cladistics show about the figwort family (Scrophulariaceae)?
+    back: Gene sequences showed the family was made of several separate clades; similar flowers had arisen by convergent evolution or were shared with other families. Many species (e.g. snapdragons, foxgloves) were moved to other families, so the old classification was falsified.
+  - id: c17
+    level: AHL
+    front: What are the three domains, and what evidence established them?
+    back: Bacteria, Archaea and Eukarya. Base sequences of ribosomal RNA (1977, Woese and Fox) showed that prokaryotes form two groups as different from each other as from eukaryotes. Domains are a level above kingdoms.

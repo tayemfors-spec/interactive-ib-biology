@@ -1,0 +1,219 @@
+---
+/**
+ * A3.2.7 cladogram reader: select a node to highlight its clade and common ancestor, rotate nodes to
+ * show that the branching pattern (not the order of the tips) carries the information, and answer
+ * "which is more closely related?" questions. Tree logic: ./models/a3-2-cladogram.ts.
+ */
+import { cladeOf, find, layout, nodes, prompts, tips, vertebrates, type Node as CNode } from './models/a3-2-cladogram';
+
+const L = layout(vertebrates);
+const pct = (v: number, of: number) => `${((v / of) * 100).toFixed(3)}%`;
+const num = (id: string) => id.slice(1);
+const name = (id: string) => find(vertebrates, id)!.name;
+const start = 'n7';
+const inClade = new Set(nodes(find(vertebrates, start)!).map((n) => n.id));
+const cladeTips = new Set(cladeOf(vertebrates, start));
+const lamprey = L.branches.find((b) => b.id === 'lamprey')!;
+const p0 = prompts[0]!;
+const startNode = find(vertebrates, start) as CNode;
+---
+<div class="clado" data-clado>
+  <div class="layout">
+    <div class="stage" data-stage>
+      <svg viewBox={`0 0 ${L.w} ${L.h}`} role="img" aria-labelledby="clado-t clado-d" data-svg>
+        <title id="clado-t">Cladogram of nine vertebrates</title>
+        <desc id="clado-d">A rectangular cladogram with the root on the left. The lamprey branches off first, then the shark, then the salmon, then the frog. The remaining amniotes split into mammals (human and mouse) and reptiles; within the reptiles the lizard branches off first, leaving the crocodile and the pigeon as each other's closest relatives. Numbered circles mark the eight nodes.</desc>
+        <path class="br root" d={`M${L.root.x1} ${L.root.y}H${L.root.x2}`} data-root />
+        <g>
+          {L.nodes.map((n) => <path class:list={['br', { on: inClade.has(n.id) }]} data-v={n.id} d={`M${n.x} ${n.top}V${n.bottom}`} />)}
+          {L.branches.map((b) => <path class:list={['br', { on: inClade.has(b.parent) }]} data-b={b.id} d={`M${b.x1} ${b.y}H${b.x2}`} />)}
+        </g>
+        {L.tips.map((t) => <text class:list={['tip', { on: cladeTips.has(t.id) }]} data-tip={t.id} x={t.x + 8} y={t.y} dy="0.35em">{t.name}</text>)}
+        <text class="part" x="4" y={L.root.y + 30} data-root-label>root</text>
+        <text class="part" x={(lamprey.x1 + lamprey.x2) / 2 + 30} y={lamprey.y - 8} text-anchor="middle" data-tb-label>terminal branch</text>
+      </svg>
+      {L.nodes.map((n) => (
+        <button type="button" class="node" data-node={n.id} aria-pressed={n.id === start ? 'true' : 'false'} style={`left:${pct(n.x, L.w)};top:${pct(n.y, L.h)}`}>
+          <span class="visually-hidden">Node </span>{num(n.id)}
+        </button>
+      ))}
+    </div>
+
+    <div class="side">
+      <div class="info" aria-live="polite" data-info>
+        <p class="info-h"><strong>Node {num(start)}: {name(start)}</strong></p>
+        <p>This node represents the <strong>hypothetical common ancestor</strong> of the {cladeTips.size} species in its clade: {tips(startNode).map((t) => t.name).join(', ')}. Shared characteristics: {startNode.traits}.</p>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn" data-rotate><span>Rotate node <span data-rot-n>{num(start)}</span></span></button>
+        <button type="button" class="btn" data-reset>Reset tree</button>
+      </div>
+      <p class="rot-msg" aria-live="polite" data-rot-msg>Rotating swaps the two branches at a node, like turning a mobile hanging from a ceiling.</p>
+
+      <div class="practice" role="group" aria-labelledby="clado-q-h">
+        <p class="practice-h" id="clado-q-h">Practice</p>
+        <p class="q" data-q>Is the {name(p0.focal).toLowerCase()} more closely related to the {name(p0.options[0]).toLowerCase()} or to the {name(p0.options[1]).toLowerCase()}?</p>
+        <div class="opts">
+          <button type="button" class="btn" data-opt="0">{name(p0.options[0])}</button>
+          <button type="button" class="btn" data-opt="1">{name(p0.options[1])}</button>
+        </div>
+        <p class="fb" aria-live="polite" data-fb></p>
+        <button type="button" class="btn next" data-next>Next question</button>
+      </div>
+    </div>
+  </div>
+  <p class="key">Numbered circles are <strong>nodes</strong>; the line on the far left is the <strong>root</strong>; each line ending at a name is a <strong>terminal branch</strong>. Branch lengths here are not to scale. Highlighted lines show the selected clade.</p>
+</div>
+
+<script>
+  import { cladeOf, cladeSet, closerTo, find, layout, mrca, nodes, prompts, rotate, tips, vertebrates, type Layout, type Node as CNode, type Tree } from './models/a3-2-cladogram';
+  import { prefersReducedMotion } from '../lib/prefs';
+
+  const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+  const ease = (t: number) => (t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2);
+
+  document.querySelectorAll<HTMLElement>('[data-clado]').forEach((root) => {
+    const $ = <T extends Element>(s: string) => root.querySelector<T>(s)!;
+    const $$ = <T extends Element>(s: string) => [...root.querySelectorAll<T>(s)];
+    const original = cladeSet(vertebrates);
+    let tree: Tree = vertebrates;
+    let selected = 'n7';
+    let shown: Layout = layout(tree);
+    let frame = 0;
+    let qi = 0;
+    const nameOf = (id: string) => find(vertebrates, id)!.name;
+    const num = (id: string) => id.slice(1);
+
+    const draw = (L: Layout) => {
+      $('[data-root]').setAttribute('d', `M${L.root.x1} ${L.root.y.toFixed(1)}H${L.root.x2}`);
+      $('[data-root-label]').setAttribute('y', (L.root.y + 30).toFixed(1));
+      for (const n of L.nodes) {
+        root.querySelector(`[data-v="${n.id}"]`)!.setAttribute('d', `M${n.x} ${n.top.toFixed(1)}V${n.bottom.toFixed(1)}`);
+        const b = root.querySelector<HTMLElement>(`[data-node="${n.id}"]`)!;
+        b.style.left = `${((n.x / L.w) * 100).toFixed(3)}%`;
+        b.style.top = `${((n.y / L.h) * 100).toFixed(3)}%`;
+      }
+      for (const b of L.branches) root.querySelector(`[data-b="${b.id}"]`)!.setAttribute('d', `M${b.x1} ${b.y.toFixed(1)}H${b.x2}`);
+      for (const t of L.tips) root.querySelector(`[data-tip="${t.id}"]`)!.setAttribute('y', t.y.toFixed(1));
+      const lam = L.branches.find((b) => b.id === 'lamprey')!;
+      $('[data-tb-label]').setAttribute('y', (lam.y - 8).toFixed(1));
+    };
+
+    const mix = (a: Layout, b: Layout, t: number): Layout => {
+      const by = <T extends { id: string }>(arr: T[]) => new Map(arr.map((x) => [x.id, x]));
+      const an = by(a.nodes), ab = by(a.branches), at = by(a.tips);
+      return {
+        ...b,
+        root: { ...b.root, y: lerp(a.root.y, b.root.y, t) },
+        nodes: b.nodes.map((n) => { const o = an.get(n.id)!; return { ...n, y: lerp(o.y, n.y, t), top: lerp(o.top, n.top, t), bottom: lerp(o.bottom, n.bottom, t) }; }),
+        branches: b.branches.map((x) => ({ ...x, y: lerp(ab.get(x.id)!.y, x.y, t) })),
+        tips: b.tips.map((x) => ({ ...x, y: lerp(at.get(x.id)!.y, x.y, t) })),
+      };
+    };
+
+    const relayout = () => {
+      const target = layout(tree);
+      cancelAnimationFrame(frame);
+      if (prefersReducedMotion()) { shown = target; draw(target); return; }
+      const from = shown, t0 = performance.now();
+      const tick = (now: number) => {
+        const t = Math.min(1, (now - t0) / 450);
+        shown = mix(from, target, ease(t));
+        draw(shown);
+        if (t < 1) frame = requestAnimationFrame(tick);
+      };
+      frame = requestAnimationFrame(tick);
+    };
+
+    const select = (id: string) => {
+      selected = id;
+      const n = find(tree, id) as CNode;
+      const inside = new Set(nodes(n).map((x) => x.id));
+      const members = new Set(cladeOf(tree, id));
+      $$<HTMLButtonElement>('[data-node]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.node === id)));
+      $$<SVGPathElement>('[data-v]').forEach((p) => p.classList.toggle('on', inside.has(p.dataset.v!)));
+      for (const b of layout(tree).branches) root.querySelector(`[data-b="${b.id}"]`)!.classList.toggle('on', inside.has(b.parent));
+      $$<SVGTextElement>('[data-tip]').forEach((t) => t.classList.toggle('on', members.has(t.dataset.tip!)));
+      $('[data-rot-n]').textContent = num(id);
+      const list = tips(n).map((t) => t.name).join(', ');
+      $('[data-info]').innerHTML =
+        `<p class="info-h"><strong>Node ${num(id)}: ${n.name}</strong></p>` +
+        `<p>This node represents the <strong>hypothetical common ancestor</strong> of the ${members.size} species in its clade: ${list}. Shared characteristics: ${n.traits}.` +
+        (id === 'n1' ? ' The root, to its left, represents the ancestry of the whole group.' : '') + '</p>';
+    };
+
+    root.addEventListener('click', (e) => {
+      const btn = (e.target as Element).closest<HTMLButtonElement>('button');
+      if (!btn || !root.contains(btn)) return;
+      if (btn.dataset.node) select(btn.dataset.node);
+      else if ('rotate' in btn.dataset) {
+        tree = rotate(tree, selected);
+        relayout();
+        select(selected);
+        const now = cladeSet(tree);
+        const same = [...original].filter((k) => now.has(k)).length;
+        $('[data-rot-msg]').textContent =
+          `Node ${num(selected)} rotated: its two branches swapped sides, so the names are now in a different order (${tips(tree).map((t) => t.name).join(', ')}). ` +
+          `Every node still joins the same species — ${same} of ${original.size} clades match the original — so the relationships are unchanged.`;
+      } else if ('reset' in btn.dataset) {
+        tree = vertebrates;
+        relayout();
+        select(selected);
+        $('[data-rot-msg]').textContent = 'Tree reset to its original order.';
+      } else if (btn.dataset.opt) {
+        const p = prompts[qi]!;
+        const choice = p.options[Number(btn.dataset.opt)]!;
+        const answer = closerTo(tree, p.focal, ...p.options)!;
+        const other = p.options.find((o) => o !== answer)!;
+        const near = mrca(tree, [p.focal, answer]), far = mrca(tree, [p.focal, other]);
+        const f = nameOf(p.focal).toLowerCase(), a = nameOf(answer).toLowerCase(), o = nameOf(other).toLowerCase();
+        $('[data-fb]').textContent = `${choice === answer ? 'Correct.' : 'Not quite.'} The ${f} and the ${a} share a more recent common ancestor (node ${num(near.id)}) than the ${f} shares with the ${o} (node ${num(far.id)}). Follow the branches back from the tips until they meet.`;
+        $<HTMLElement>('[data-fb]').dataset.ok = String(choice === answer);
+        select(near.id);
+      } else if ('next' in btn.dataset) {
+        qi = (qi + 1) % prompts.length;
+        const p = prompts[qi]!;
+        $('[data-q]').textContent = `Is the ${nameOf(p.focal).toLowerCase()} more closely related to the ${nameOf(p.options[0]).toLowerCase()} or to the ${nameOf(p.options[1]).toLowerCase()}?`;
+        $$<HTMLButtonElement>('[data-opt]').forEach((b, i) => (b.textContent = nameOf(p.options[i]!)));
+        $('[data-fb]').textContent = '';
+        delete $<HTMLElement>('[data-fb]').dataset.ok;
+      }
+    });
+  });
+</script>
+
+<style>
+  .clado { container-type: inline-size; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 50rem) { .layout { grid-template-columns: minmax(0, 1.25fr) minmax(16rem, 1fr); align-items: start; } }
+  .stage { position: relative; max-width: 34rem; width: 100%; margin-inline: auto; background: var(--surface-2); border-radius: var(--radius-m); }
+  .stage svg { display: block; width: 100%; height: auto; font-family: var(--font-sans); }
+  .br { fill: none; stroke: var(--text-muted); stroke-width: 2.5; stroke-linecap: round; }
+  .br.on { stroke: var(--accent); stroke-width: 5; }
+  .tip { font-size: 17px; fill: var(--text); }
+  .tip.on { fill: var(--accent-strong); font-weight: 800; }
+  .part { font-size: 13px; font-style: italic; fill: var(--text-muted); }
+  .node {
+    position: absolute; transform: translate(-50%, -50%);
+    width: 24px; height: 24px; padding: 0; border-radius: 50%;
+    display: grid; place-items: center;
+    font: inherit; font-size: 0.75rem; font-weight: 800; line-height: 1;
+    color: var(--text); background: var(--surface); border: 2px solid var(--text-muted); cursor: pointer;
+  }
+  @container (min-width: 30rem) { .node { width: 30px; height: 30px; font-size: 0.85rem; } }
+  .node:hover { border-color: var(--accent); }
+  .node[aria-pressed='true'] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .side { display: grid; gap: var(--space-3); font-size: var(--step--1); align-content: start; }
+  .info { padding: var(--space-3); background: var(--accent-soft); border-radius: var(--radius-m); min-height: 7.5rem; }
+  .info :global(p) { margin: 0 0 var(--space-1); }
+  .actions, .opts { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .rot-msg { margin: 0; color: var(--text-muted); }
+  .practice { padding: var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-m); display: grid; gap: var(--space-2); }
+  .practice-h { margin: 0; font-weight: 800; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
+  .q { margin: 0; font-weight: 650; }
+  .fb { margin: 0; min-height: 1.2em; }
+  .fb[data-ok='true'] { color: var(--good); }
+  .fb[data-ok='false'] { color: var(--bad); }
+  .next { justify-self: start; }
+  .key { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-3) 0 0; }
+</style>

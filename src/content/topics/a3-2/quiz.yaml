@@ -1,0 +1,214 @@
+questions:
+  - id: q1
+    level: AHL
+    understanding: A3.2.2
+    stem: >-
+      Two taxonomists agree that a group of eight species all evolved from one common ancestor. One
+      classifies the group as a genus; the other classifies it as a family. What does this disagreement
+      best illustrate?
+    options:
+      - id: a
+        text: One of the taxonomists must have misidentified some of the species.
+        why: They agree on which species belong together, so identification is not the issue. The disagreement is only about the rank.
+      - id: b
+        text: Fixed ranks are arbitrary, because divergence is gradual and no objective criterion decides the rank of a group.
+        why: Correct. Lineages diverge gradually, so deciding whether a group is "different enough" to be a family rather than a genus is a matter of judgement.
+      - id: c
+        text: The species cannot form a clade, because clades must have the rank of family or higher.
+        why: Clades are unranked and can be of any size, from a few species to millions.
+      - id: d
+        text: The group must contain species from more than one kingdom.
+        why: Nothing suggests this, and species from different kingdoms could not be placed in the same genus or family.
+    answer: b
+
+  - id: q2
+    level: AHL
+    understanding: A3.2.3
+    stem: >-
+      A new species of bat is discovered. Before it has been studied in detail, biologists confidently
+      predict that it has hair and that females produce milk. Why are such predictions possible?
+    options:
+      - id: a
+        text: All flying animals have similar characteristics because they share the same environment.
+        why: Birds and insects also fly but have neither hair nor milk; similar environments can cause convergence, but this does not allow reliable prediction of these features.
+      - id: b
+        text: Bats were classified using these two features, so every bat must have them by definition.
+        why: The prediction comes from common ancestry, not from a definition. Bats are placed among mammals on many lines of evidence, including DNA.
+      - id: c
+        text: Hair and milk production are characteristics acquired during the life of each bat.
+        why: These are inherited characteristics, not acquired ones, which is why they are shared by the members of a clade.
+      - id: d
+        text: Bats are in the mammal clade, whose members share characteristics inherited from a common ancestor.
+        why: Correct. A classification that follows evolutionary relationships groups species that inherited the same traits, so the traits of a new member can be predicted.
+    answer: d
+
+  - id: q3
+    level: AHL
+    understanding: A3.2.4
+    stem: >-
+      Which type of evidence is considered the most objective for deciding whether a group of species
+      forms a clade?
+    options:
+      - id: a
+        text: The base sequences of genes and the amino acid sequences of proteins
+        why: Correct. Sequences give very many discrete characters that can be counted and compared with little personal judgement.
+      - id: b
+        text: The overall similarity of body shape
+        why: Body shape can be very similar in unrelated organisms because of convergent evolution, and judging it is subjective.
+      - id: c
+        text: Whether the species live in the same habitat
+        why: Species in the same habitat may be distantly related; habitat is not evidence of common ancestry.
+      - id: d
+        text: The number of chromosomes in each species
+        why: Chromosome number can change quickly and similar numbers occur in unrelated species, so it is weak evidence of relationship.
+    answer: a
+
+  - id: q4
+    level: AHL
+    understanding: A3.2.7
+    stem: >-
+      A cladogram has a root that divides into two branches. One branch is a terminal branch leading to
+      species W. The other branch reaches a node where species X branches off, and then a second node
+      where the branches to species Y and species Z separate. Which statement is supported by this
+      cladogram?
+    options:
+      - id: a
+        text: X is more closely related to W than to Y.
+        why: X and Y share the node after W has branched off, so X shares a more recent common ancestor with Y (and Z) than with W.
+      - id: b
+        text: W is the ancestor of X, Y and Z.
+        why: W is at the end of a terminal branch, so it is a living species, not an ancestor. The common ancestor of all four is represented by the root.
+      - id: c
+        text: Y and Z share a more recent common ancestor with each other than either does with X.
+        why: Correct. Y and Z are joined at the node furthest from the root, which represents their most recent common ancestor.
+      - id: d
+        text: X and Y form a clade that does not include Z.
+        why: Any clade containing X and Y must come from the node where X branches off, and that clade also includes Z.
+    answer: c
+
+  - id: q5
+    level: AHL
+    understanding: A3.2.7
+    stem: >-
+      Two textbooks show cladograms of the same five species. The names are listed in a different order
+      down the tips, but every node joins exactly the same species in both. What can be concluded?
+    options:
+      - id: a
+        text: The cladograms are based on different genes, so they show different hypotheses.
+        why: If every node joins the same species, the hypotheses are identical, whatever data they came from.
+      - id: b
+        text: They show the same evolutionary relationships; one is a rotated version of the other.
+        why: Correct. Rotating a node swaps its branches and changes the order of the tips, but the branching pattern, and so every relationship, is unchanged.
+      - id: c
+        text: Species listed next to each other are the most closely related, so at least one cladogram is wrong.
+        why: The order of the tips carries no information. Relationships are read from where branches join.
+      - id: d
+        text: The species at the top of each list evolved first.
+        why: The vertical order of tips is arbitrary and says nothing about which lineage arose first.
+    answer: b
+
+  - id: q6
+    level: AHL
+    understanding: A3.2.5
+    stem: >-
+      Fossils show that two species diverged 30 million years ago, and they differ at 45 bases in a
+      particular gene. Two other species differ at 12 bases in the same gene. Assuming a constant rate,
+      approximately how long ago did the second pair diverge?
+    options:
+      - id: a
+        text: 2.5 million years ago
+        why: This is 30 ÷ 12, which divides the calibration time by the new number of differences and has no meaning.
+      - id: b
+        text: 18 million years ago
+        why: This subtracts the differences from the time (30 − 12); the clock uses proportions, not subtraction.
+      - id: c
+        text: 360 million years ago
+        why: This multiplies 30 by 12 without using the rate. The rate is 45 ÷ 30 = 1.5 differences per million years.
+      - id: d
+        text: 8 million years ago
+        why: Correct. The rate is 45 ÷ 30 = 1.5 differences per million years, so 12 ÷ 1.5 = 8 million years.
+    answer: d
+
+  - id: q7
+    level: AHL
+    understanding: A3.2.5
+    stem: >-
+      Which of the following is a reason why the molecular clock can give only estimates of divergence
+      times?
+    options:
+      - id: a
+        text: The rate at which differences accumulate varies with generation time, population size and selection pressure.
+        why: Correct. The method assumes a constant rate, but these factors make the rate differ between lineages, genes and periods of time.
+      - id: b
+        text: Mutations only occur in genes that are under natural selection.
+        why: Mutations occur throughout the genome. Selection affects which ones persist, not whether they occur.
+      - id: c
+        text: Sequence differences between species decrease over time after they diverge.
+        why: Differences accumulate after divergence, which is the basis of the clock; they do not decrease.
+      - id: d
+        text: DNA sequences cannot be compared between species that live in different environments.
+        why: Homologous genes can be aligned and compared regardless of where the species live.
+    answer: a
+
+  - id: q8
+    level: AHL
+    understanding: A3.2.6
+    stem: >-
+      The numbers of amino acid differences in a protein were counted between four species: J–K 3, J–L 9,
+      K–L 8, J–M 10, K–M 10, L–M 4. Which cladogram best fits these data?
+    options:
+      - id: a
+        text: K branches off first; L branches off next; J and M are joined at the last node.
+        why: J and M differ at 10 positions, the largest number in the table, so they should not be grouped as closest relatives.
+      - id: b
+        text: All four species branch from a single node.
+        why: The data clearly separate two pairs (3 and 4 differences within them, 8–10 between them), so leaving the relationships unresolved does not fit the data and needs more changes.
+      - id: c
+        text: J and K form one clade, and L and M form a second clade; the two clades join at the root.
+        why: Correct. J–K (3) and L–M (4) are the most similar pairs, and all comparisons between the pairs are large (8–10), so this tree accounts for the data with the fewest changes (the most parsimonious tree).
+      - id: d
+        text: J and L form one clade, and K and M form a second clade.
+        why: J–L (9) and K–M (10) are among the largest differences, so this tree would need many more changes.
+    answer: c
+
+  - id: q9
+    level: AHL
+    understanding: A3.2.8
+    stem: >-
+      The figwort family (Scrophulariaceae) was traditionally defined by similar flower structure. What did
+      cladistic analysis of gene sequences show?
+    options:
+      - id: a
+        text: All the species in the family shared a single common ancestor, confirming the traditional classification.
+        why: This is the opposite of what was found. The family turned out to contain several separate clades.
+      - id: b
+        text: The family contained several separate clades, so many species were moved to other families and the old classification was falsified.
+        why: Correct. Similar flowers had evolved convergently or were shared with other families, so species such as snapdragons and foxgloves were moved, mainly to the plantain family.
+      - id: c
+        text: Flower structure is the most reliable evidence of relationship in flowering plants.
+        why: The case study shows the reverse — similar flowers misled taxonomists, because they did not reflect common ancestry.
+      - id: d
+        text: Plants with very different flowers can never belong to the same family.
+        why: Plantains, with tiny wind-pollinated flowers, are now in the same family as snapdragons and foxgloves, because DNA shows they share a common ancestor.
+    answer: b
+
+  - id: q10
+    level: AHL
+    understanding: A3.2.9
+    stem: >-
+      What evidence led to the proposal in 1977 that all organisms should be classified into three
+      domains?
+    options:
+      - id: a
+        text: Electron micrographs showing that some prokaryotes have a nucleus
+        why: No prokaryotes have a nucleus. The absence of a nucleus defined the old two-group (prokaryote–eukaryote) division.
+      - id: b
+        text: The fossil record of the earliest cells
+        why: Early fossil cells show too little detail to distinguish archaea from bacteria.
+      - id: c
+        text: Differences in the methods of nutrition of prokaryotes and eukaryotes
+        why: Nutrition was used in the five-kingdom system, but it was not the basis of the domains.
+      - id: d
+        text: Ribosomal RNA base sequences showing two groups of prokaryotes, each as different from the other as from eukaryotes
+        why: Correct. Comparison of rRNA sequences by Woese and Fox revealed the archaea as a separate group, giving three domains above the level of kingdom.
+    answer: d

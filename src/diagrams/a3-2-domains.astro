@@ -1,0 +1,54 @@
+---
+/** A3.2.9: the three domains (rooted as in most textbooks) compared with the older five-kingdom system. */
+---
+<svg viewBox="0 0 640 400" role="img" aria-labelledby="dom-t dom-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="dom-t">The three domains of life compared with the five-kingdom system</title>
+  <desc id="dom-d">Top: a tree based on ribosomal RNA base sequences. From the root, one branch leads to the Bacteria; the other branch splits again into the Archaea and the Eukarya, which therefore share a more recent common ancestor with each other than either does with the Bacteria. Bottom: the older five-kingdom system put all prokaryotes in one kingdom, Prokaryotae, which is now split between the domains Bacteria and Archaea; its four eukaryotic kingdoms, Protoctista, Fungi, Plantae and Animalia, all belong to the domain Eukarya.</desc>
+  <text class="h" x="16" y="22">Three domains, from rRNA base sequences</text>
+
+  <text class="dom" x="92" y="52" text-anchor="middle">Bacteria</text>
+  <text class="eg" x="92" y="70" text-anchor="middle">e.g. <tspan font-style="italic">E. coli</tspan>, cyanobacteria</text>
+  <text class="dom" x="296" y="52" text-anchor="middle">Archaea</text>
+  <text class="eg" x="296" y="70" text-anchor="middle">e.g. methanogens, halophiles</text>
+  <text class="dom" x="520" y="52" text-anchor="middle">Eukarya</text>
+  <text class="eg" x="520" y="70" text-anchor="middle">protists, fungi, plants, animals</text>
+
+  <path class="ln bac" d="M246 236L92 84" />
+  <path class="ln stem" d="M246 236L408 168" />
+  <path class="ln arc" d="M408 168L296 84" />
+  <path class="ln euk" d="M408 168L520 84" />
+  <path class="ln stem" d="M246 236V258" />
+  <circle class="nd" cx="408" cy="168" r="6" />
+  <circle class="nd" cx="246" cy="236" r="6" />
+  <text class="note" x="420" y="190">Archaea and Eukarya share a more</text>
+  <text class="note" x="420" y="207">recent common ancestor</text>
+  <text class="note" x="246" y="277" text-anchor="middle">root: the last universal common ancestor</text>
+
+  <text class="h" x="16" y="312">Older five-kingdom system (based on cell structure and nutrition)</text>
+  <rect class="box pro" x="16" y="324" width="300" height="66" rx="8" />
+  <text class="k" x="166" y="349" text-anchor="middle">Prokaryotae (Monera)</text>
+  <text class="eg" x="166" y="372" text-anchor="middle">now split between Bacteria and Archaea</text>
+  <rect class="group" x="330" y="320" width="300" height="74" rx="10" />
+  <rect class="box" x="338" y="326" width="140" height="28" rx="6" /><text class="k sm" x="408" y="345" text-anchor="middle">Protoctista</text>
+  <rect class="box" x="484" y="326" width="140" height="28" rx="6" /><text class="k sm" x="554" y="345" text-anchor="middle">Fungi</text>
+  <rect class="box" x="338" y="360" width="140" height="28" rx="6" /><text class="k sm" x="408" y="379" text-anchor="middle">Plantae</text>
+  <rect class="box" x="484" y="360" width="140" height="28" rx="6" /><text class="k sm" x="554" y="379" text-anchor="middle">Animalia</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .h { font-size: 15px; font-weight: 750; fill: var(--text-muted); }
+  .dom { font-size: 19px; font-weight: 800; fill: var(--text); }
+  .eg { font-size: 13px; fill: var(--text-muted); }
+  .ln { fill: none; stroke-width: 6; stroke-linecap: round; }
+  .bac { stroke: var(--bio-protein); }
+  .arc { stroke: var(--bio-head); stroke-dasharray: 14 6; }
+  .euk { stroke: var(--bio-carb); }
+  .stem { stroke: var(--text-muted); }
+  .nd { fill: var(--text); }
+  .note { font-size: 13px; font-style: italic; fill: var(--text); }
+  .box { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.5; }
+  .box.pro { stroke-dasharray: 6 4; }
+  .group { fill: color-mix(in srgb, var(--bio-carb) 16%, transparent); stroke: var(--bio-carb); stroke-width: 1.5; }
+  .k { font-size: 16px; font-weight: 750; fill: var(--text); }
+  .k.sm { font-size: 14px; }
+</style>
