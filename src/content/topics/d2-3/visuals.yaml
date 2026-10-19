@@ -1,0 +1,68 @@
+# Visuals for D2.3. Step captions here are what readers see in the animation and the text descriptions.
+visuals:
+  - id: tonicity
+    kind: anim
+    module: d2-3-tonicity
+    title: Cells with and without walls in different solutions
+    alt: A red blood cell and a plant cell in isotonic, hypotonic and hypertonic solutions, then a freshwater protist expelling water.
+    description: >-
+      Two cells side by side in the same solution: a red blood cell, which has a plasma membrane but no
+      cell wall, and a plant cell, which has a cell wall outside its plasma membrane and a large vacuole.
+      Yellow dots are solute particles; blue arrows show water crossing the membranes, with a thicker arrow
+      where more water molecules cross in that direction. In an isotonic solution nothing changes. In a
+      hypotonic solution both cells take in water: the red blood cell swells and then bursts, while the plant
+      cell becomes turgid and its wall stops it bursting. In a hypertonic solution both lose water: the red
+      blood cell shrinks and becomes crenated and the plant cell plasmolyses, its membrane pulling away from
+      the wall. The last two steps show a freshwater protist whose contractile vacuoles fill with water that
+      has entered by osmosis and then expel it.
+    steps:
+      - id: isotonic
+        title: Isotonic solution
+        caption: The solution has the same solute concentration as the cytoplasm. Water molecules still cross the membranes in both directions, but at equal rates, so there is no net movement (dynamic equilibrium). The red blood cell keeps its normal shape and the plant cell is flaccid, its protoplast just filling the wall with no turgor pressure.
+      - id: hypotonic
+        title: Hypotonic solution — water enters
+        caption: The solution has a lower solute concentration than the cells, so more water molecules enter than leave. The red blood cell swells. The plant cell's vacuole and cytoplasm expand and press against the cell wall, building up turgor pressure, so the cell becomes turgid.
+      - id: burst
+        title: The red blood cell bursts
+        caption: The red blood cell has no wall, and its plasma membrane is not strong enough to resist the increasing pressure, so it bursts and releases its haemoglobin (haemolysis). The plant cell does not burst. Its strong cell wall resists further expansion, and once the cell is fully turgid water enters and leaves at equal rates.
+      - id: hypertonic
+        title: Hypertonic solution — water leaves
+        caption: A new red blood cell and plant cell are placed in a solution with a higher solute concentration than their cytoplasm, so more water molecules leave than enter. The red blood cell shrinks; its membrane area stays the same, so it wrinkles into a spiky (crenated) shape. The plant cell loses turgor and then plasmolyses — the plasma membrane pulls away from the cell wall, and the gap fills with external solution because the wall is freely permeable.
+      - id: protist-fills
+        title: Freshwater protist — water floods in
+        caption: Pond water is hypotonic to the cytoplasm of a freshwater unicellular organism such as Paramecium, so water enters continuously by osmosis. With no cell wall it would swell and burst. Water collects in its contractile vacuoles, which swell as water drains into them from radiating canals.
+      - id: protist-expels
+        title: Contractile vacuoles expel water
+        caption: Each full contractile vacuole contracts and expels its water out of the cell through a pore in the plasma membrane. This uses energy from ATP. Repeating the cycle removes water as fast as it enters, so the cell keeps a constant volume.
+
+  - id: potato
+    kind: sim
+    module: d2-3-potato
+    title: Finding the isotonic concentration of plant tissue
+    alt: Graph of percentage change in mass of tissue against sucrose concentration, with error bars and a line of best fit to find the isotonic point.
+    description: >-
+      A simulated version of the potato-cylinder experiment. Samples of tissue of equal size are weighed
+      (or measured), bathed in sucrose solutions from 0.0 to 0.8 mol dm⁻³, then blotted and weighed again.
+      The graph plots the mean percentage change for each concentration, with each repeat shown as a small
+      dot and error bars of ± 1 standard error or ± 1 standard deviation. Tissue gains mass in hypotonic
+      solutions and loses mass in hypertonic ones. A straight line of best fit through the points either side
+      of zero crosses the x-axis at the concentration that would cause no change: the estimate of the
+      solution isotonic with the tissue. You can change the tissue, measure length instead of mass, change the
+      number of repeats and the variation between samples, repeat the experiment and reveal the true value.
+
+  - id: water-potential
+    kind: sim
+    module: d2-3-water-potential
+    level: AHL
+    title: Water potential of a plant cell and its surroundings
+    alt: Sliders set solute and pressure potentials of a plant cell and its surroundings; the cell's water potential and the direction of water movement are shown.
+    description: >-
+      A plant cell with its wall, protoplast and vacuole, either in a bathing solution or next to a xylem
+      vessel. Sliders set the cell's solute potential (always negative) and pressure potential (zero or
+      positive), and the surroundings' solute potential and, for xylem sap, a negative pressure potential
+      caused by tension. The cell's water potential is calculated as ψw = ψs + ψp and compared with the
+      surroundings, and an arrow shows the net movement of water from the higher (less negative) to the lower
+      (more negative) water potential. A button lets water move until the potentials are equal: water entering
+      raises the pressure potential until the cell is turgid (in pure water, fully turgid with ψw = 0); water
+      leaving lowers the pressure potential to zero (incipient plasmolysis) and then the protoplast shrinks
+      away from the wall (plasmolysis) as its solute potential falls. Values are shown in kPa and MPa.

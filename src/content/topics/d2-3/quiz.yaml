@@ -1,0 +1,207 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: D2.3.1
+    stem: >-
+      Which statement correctly describes how water molecules interact with the ions when sodium chloride
+      dissolves in water?
+    options:
+      - id: a
+        text: The hydrogen atoms of water are attracted to Na⁺ ions and the oxygen atoms to Cl⁻ ions.
+        why: This reverses the charges. Hydrogen atoms carry a slight positive charge, so they are attracted to the negative Cl⁻ ions, not to Na⁺.
+      - id: b
+        text: The oxygen atoms of water are attracted to Na⁺ ions and the hydrogen atoms to Cl⁻ ions.
+        why: Correct. Oxygen carries a slight negative charge (δ−) and hydrogens slight positive charges (δ+), so water molecules orient around each ion with opposite charges facing, forming a shell around it.
+      - id: c
+        text: Water molecules form covalent bonds with Na⁺ and Cl⁻ ions, breaking up the crystal.
+        why: Solvation involves attractions (and hydrogen bonds with polar molecules), not new covalent bonds. The ions keep their identity in solution.
+      - id: d
+        text: Water molecules are attracted only to Na⁺ ions, because water is a negatively charged molecule.
+        why: Water has no overall charge. It is polar, with partial charges at each end, so it attracts both positive and negative ions.
+    answer: b
+
+  - id: q2
+    level: SL
+    understanding: D2.3.3
+    stem: >-
+      Red blood cells are placed in a salt solution that is isotonic with their cytoplasm. Which describes the
+      movement of water after ten minutes?
+    options:
+      - id: a
+        text: Water molecules continue to enter and leave the cells at equal rates, so there is no net movement.
+        why: Correct. Water molecules move randomly and keep crossing the membrane in both directions. In an isotonic solution the rates are equal, a dynamic equilibrium.
+      - id: b
+        text: No water molecules cross the plasma membrane, because the solute concentrations are equal.
+        why: Movement does not stop. Equal solute concentrations make the two rates equal; they do not stop water molecules crossing.
+      - id: c
+        text: There is a net movement of water into the cells, because the cytoplasm contains proteins.
+        why: The solution is isotonic with the cytoplasm, which already takes all of its solutes, including proteins, into account. There is no net movement.
+      - id: d
+        text: There is a net movement of water out of the cells until the cells are crenated.
+        why: Crenation happens only in a hypertonic solution, where more water leaves than enters.
+    answer: a
+
+  - id: q3
+    level: SL
+    understanding: D2.3.4
+    stem: >-
+      Potato cylinders were placed in sucrose solutions for 24 hours. The mean percentage changes in mass were:
+      0.0 mol dm⁻³, +20 %; 0.2 mol dm⁻³, +9 %; 0.4 mol dm⁻³, −3 %; 0.6 mol dm⁻³, −12 %. What is the best estimate
+      of the sucrose concentration isotonic with the potato tissue?
+    options:
+      - id: a
+        text: 0.20 mol dm⁻³
+        why: At 0.2 mol dm⁻³ the tissue still gained 9 % in mass, so this solution was hypotonic to the tissue. The isotonic point is where the line crosses 0 %.
+      - id: b
+        text: 0.40 mol dm⁻³
+        why: This is the tested concentration with the smallest change, but the tissue still lost mass there. The line of best fit crosses 0 % below 0.4 mol dm⁻³.
+      - id: c
+        text: About 0.36 mol dm⁻³
+        why: Correct. A line of best fit through the points crosses 0 % change at about 0.36 mol dm⁻³; it lies much closer to 0.4 (−3 %) than to 0.2 (+9 %).
+      - id: d
+        text: 0.30 mol dm⁻³
+        why: This is simply the midpoint of 0.2 and 0.4. It ignores the sizes of the changes; the gain at 0.2 (+9 %) is three times the loss at 0.4 (−3 %), so the crossing point is nearer 0.4.
+    answer: c
+
+  - id: q4
+    level: SL
+    understanding: D2.3.4
+    stem: >-
+      A student increases the number of potato cylinders at each concentration from 3 to 12. What effect
+      would this be expected to have on the results?
+    options:
+      - id: a
+        text: The standard deviation of the % changes will fall to zero.
+        why: The standard deviation reflects real variation between samples, which does not disappear with more repeats. It settles near the true spread rather than falling to zero.
+      - id: b
+        text: The mean % change at every concentration will become zero.
+        why: More repeats do not change what happens to the tissue. Hypotonic solutions still cause gains and hypertonic ones losses.
+      - id: c
+        text: The error bars will become longer, because there are more results to vary.
+        why: Error bars of ± 1 SE become shorter with more repeats, because SE = SD ÷ √n.
+      - id: d
+        text: The standard error of each mean will decrease, so the means are more reliable.
+        why: Correct. SE = SD ÷ √n, so with four times as many repeats the SE is roughly halved, and the means estimate the true values more reliably.
+    answer: d
+
+  - id: q5
+    level: SL
+    understanding: D2.3.5
+    stem: Why does Paramecium, a unicellular organism living in fresh water, need contractile vacuoles?
+    options:
+      - id: a
+        text: Its cytoplasm is hypotonic to the pond water, so water would leave the cell and it would shrink.
+        why: This reverses the comparison. The cytoplasm has a higher solute concentration than pond water, so water enters, not leaves.
+      - id: b
+        text: Contractile vacuoles pump solutes into the cell to make the cytoplasm isotonic with pond water.
+        why: Contractile vacuoles remove water, not take in solutes. The cytoplasm stays hypertonic to pond water.
+      - id: c
+        text: Its cell wall is not strong enough to resist the turgor pressure that builds up.
+        why: Paramecium has no cell wall at all. That is exactly why water entering it must be removed.
+      - id: d
+        text: Its cytoplasm is hypertonic to the pond water, so water enters continuously by osmosis and must be expelled to stop the cell bursting.
+        why: Correct. With no wall to resist expansion, the water entering by osmosis is collected and expelled by contractile vacuoles, using energy from ATP.
+    answer: d
+
+  - id: q6
+    level: SL
+    understanding: D2.3.6
+    stem: >-
+      Onion epidermis cells are mounted in a concentrated sodium chloride solution and viewed with a microscope.
+      What is seen after a few minutes?
+    options:
+      - id: a
+        text: The plasma membrane and cytoplasm have pulled away from the cell wall, and the gap is filled with the external solution.
+        why: Correct. Water leaves the vacuole by osmosis, the protoplast shrinks (plasmolysis) and, because the wall is freely permeable, the salt solution fills the space between wall and membrane.
+      - id: b
+        text: The cell walls have shrunk and folded inwards along with the cytoplasm.
+        why: The wall is rigid and keeps roughly its shape. It is the protoplast that shrinks away from it.
+      - id: c
+        text: The cells have burst because water entered faster than it could leave.
+        why: The solution is hypertonic, so there is a net loss of water, not a gain. Plant cells also do not burst in hypotonic solutions, because of the wall.
+      - id: d
+        text: The vacuoles have become larger and press harder on the cell walls.
+        why: That would happen in a hypotonic solution, as cells become more turgid. In a concentrated salt solution the vacuoles shrink.
+    answer: a
+
+  - id: q7
+    level: SL
+    understanding: D2.3.7
+    stem: Why must fluid given to a patient by intravenous drip be isotonic with blood plasma?
+    options:
+      - id: a
+        text: So that solutes in the fluid can diffuse into the red blood cells and nourish them.
+        why: The reason is osmotic, not nutritional. Isotonic fluid is chosen so there is no net water movement into or out of cells.
+      - id: b
+        text: So that there is no net movement of water into or out of blood cells, which would otherwise swell and burst or shrink.
+        why: Correct. If the plasma became hypotonic, red blood cells would take in water and could burst; if hypertonic, they would lose water and crenate.
+      - id: c
+        text: So that the fluid has the same water content as pure water and cannot damage cells.
+        why: Pure water is hypotonic to blood cells and would cause them to swell and burst (haemolysis).
+      - id: d
+        text: So that water stops moving across the membranes of the blood cells.
+        why: Water keeps crossing in both directions in an isotonic solution; there is simply no net movement.
+    answer: b
+
+  - id: q8
+    level: AHL
+    understanding: D2.3.10
+    stem: >-
+      A plant cell has a solute potential of −750 kPa and a pressure potential of +300 kPa. It is placed in a
+      solution with a water potential of −600 kPa. What is the water potential of the cell, and what happens?
+    options:
+      - id: a
+        text: −1050 kPa; there is a net movement of water into the cell.
+        why: The pressure potential is positive, so it is added (−750 + 300), not subtracted. Subtracting it gives −1050 kPa.
+      - id: b
+        text: +450 kPa; there is a net movement of water out of the cell.
+        why: The sign is wrong. −750 + 300 = −450 kPa; cell water potentials are zero or negative.
+      - id: c
+        text: −450 kPa; there is a net movement of water out of the cell.
+        why: Correct. ψw = ψs + ψp = −750 + 300 = −450 kPa. This is higher than −600 kPa, so water moves from the cell into the solution.
+      - id: d
+        text: −450 kPa; there is a net movement of water into the cell.
+        why: The calculation is right but the direction is wrong. −450 kPa is higher than −600 kPa, and water moves from higher to lower water potential, so it leaves the cell.
+    answer: c
+
+  - id: q9
+    level: AHL
+    understanding: D2.3.9
+    stem: >-
+      Two adjacent plant cells have water potentials of −300 kPa (cell X) and −500 kPa (cell Y). Which statement
+      is correct?
+    options:
+      - id: a
+        text: Water moves from Y to X, because Y has the larger water potential.
+        why: −500 kPa is more negative, so Y has the lower water potential. Water moves towards Y, not out of it.
+      - id: b
+        text: Water moves from X to Y, because water moves to a region of lower potential energy.
+        why: Correct. −300 kPa is higher than −500 kPa. Water moves passively down the water potential gradient, from X to Y, until the potentials are equal.
+      - id: c
+        text: No water moves, because both cells have negative water potentials.
+        why: Most cells have negative water potentials. What matters is the difference between them, not whether they are negative.
+      - id: d
+        text: Water moves from X to Y by active transport, because it is moving against a gradient.
+        why: Water moves passively down the water potential gradient. No ATP is used.
+    answer: b
+
+  - id: q10
+    level: AHL
+    understanding: D2.3.11
+    stem: >-
+      Plant tissue is left in pure water until there is no further change in mass. Which describes the cells
+      at this point?
+    options:
+      - id: a
+        text: ψp = 0 and ψs = 0, because the cell sap has been diluted to pure water.
+        why: The solutes are still in the cells, so ψs stays negative. Dilution makes ψs only slightly less negative.
+      - id: b
+        text: ψw is positive, because water has entered until pressure built up.
+        why: Water stops entering when ψw of the cells equals that of pure water, which is 0. It cannot rise above the surroundings.
+      - id: c
+        text: ψp = 0 and ψw = ψs, because the cells are plasmolysed.
+        why: That describes cells in a hypertonic solution. In pure water the cells become turgid, with a positive ψp.
+      - id: d
+        text: ψw = 0, with a positive ψp equal in size to the negative ψs.
+        why: Correct. Water enters until the cells' ψw equals that of pure water (0). The negative ψs is balanced by an equally large positive ψp, so the cells are fully turgid.
+    answer: d

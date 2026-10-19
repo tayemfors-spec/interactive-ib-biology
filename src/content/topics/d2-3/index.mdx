@@ -1,0 +1,349 @@
+---
+code: D2.3
+description: "IB Biology D2.3 water potential revision: osmosis in animal and plant cells, the potato isotonic-point experiment, ψw = ψs + ψp, then self-test."
+updated: 2026-10-19
+related: [B2.1, B3.2, A1.1, D3.3]
+mustKnow:
+  - term: Solvation
+    definition: "Dissolving of a substance in water. Polar molecules form <strong>hydrogen bonds</strong> with water; positive ions attract the slightly negative (δ−) oxygen of water and negative ions attract its slightly positive (δ+) hydrogens, so each particle is surrounded by a shell of water molecules."
+    level: SL
+  - term: Hypotonic, hypertonic and isotonic
+    definition: "Terms that compare two solutions. A <strong>hypotonic</strong> solution has a lower solute concentration than the other, a <strong>hypertonic</strong> solution a higher one, and <strong>isotonic</strong> solutions have the same solute concentration."
+    level: SL
+  - term: Osmosis
+    definition: "Net movement of water across a partially permeable membrane from a lower to a higher solute concentration (from a hypotonic to a hypertonic solution). The membrane is impermeable to the solute, and water molecules cross it randomly in both directions."
+    level: SL
+  - term: Dynamic equilibrium (isotonic)
+    definition: "When a cell is in an isotonic solution, water molecules keep moving in and out of the cell, but at equal rates, so there is no <strong>net</strong> movement and the cell's volume stays the same."
+    level: SL
+  - term: Haemolysis and crenation
+    definition: "A red blood cell in a hypotonic solution takes in water, swells and bursts (<strong>haemolysis</strong>). In a hypertonic solution it loses water and shrinks; its membrane area stays the same, so it develops a spiky outline (<strong>crenation</strong>)."
+    level: SL
+  - term: Contractile vacuole
+    definition: "An organelle of freshwater unicellular organisms such as <em>Paramecium</em> that collects the water constantly entering by osmosis and expels it from the cell, using energy from ATP, so the cell does not swell and burst."
+    level: SL
+  - term: Turgor pressure
+    definition: "The pressure that builds up inside a walled cell when water enters by osmosis and the protoplast presses against the cell wall. The strong wall resists expansion, so the cell becomes <strong>turgid</strong> rather than bursting."
+    level: SL
+  - term: Plasmolysis
+    definition: "Loss of water from a walled cell in a hypertonic solution until the protoplast shrinks and the plasma membrane pulls away from the cell wall. The wall is freely permeable, so the gap fills with the external solution."
+    level: SL
+  - term: Standard deviation and standard error
+    definition: "<strong>Standard deviation (SD)</strong> measures how spread out repeat measurements are around their mean. <strong>Standard error (SE)</strong> = SD ÷ √n, where n is the number of repeats; it shows how reliably the sample mean estimates the true mean and is often plotted as error bars."
+    level: SL
+  - term: Water potential (ψ<sub>w</sub>)
+    definition: "The potential energy of water per unit volume, measured in kPa (or MPa). It is given relative to pure water at atmospheric pressure and 20 °C, which is defined as ψ<sub>w</sub> = 0. Water moves passively from a higher to a lower water potential."
+    level: AHL
+  - term: Solute potential (ψ<sub>s</sub>) and pressure potential (ψ<sub>p</sub>)
+    definition: "In walled cells ψ<sub>w</sub> = ψ<sub>s</sub> + ψ<sub>p</sub>. Solutes lower water potential, so ψ<sub>s</sub> is zero (pure water) or negative. Pressure above atmospheric raises it: ψ<sub>p</sub> is usually positive in plant cells but negative in xylem sap under tension."
+    level: AHL
+mistakes:
+  - wrong: "Water moves from a high water concentration to a low water concentration."
+    right: "Describe osmosis using <strong>solute</strong> concentration: net movement of water is from a lower solute concentration (hypotonic) to a higher solute concentration (hypertonic) across a membrane that is impermeable to the solute."
+    level: SL
+  - wrong: "In an isotonic solution water stops moving into and out of the cell."
+    right: "Water molecules keep crossing in both directions at equal rates. There is no <strong>net</strong> movement: a dynamic equilibrium."
+    level: SL
+  - wrong: "\"The cell is hypertonic\" with no comparison, or calling a solution hypertonic because it contains more water."
+    right: "Hypertonic, hypotonic and isotonic compare two solutions, for example \"the cytoplasm is hypertonic to pond water\". Hypertonic means a <strong>higher solute concentration</strong> than the other solution."
+    level: SL
+  - wrong: "The cell wall is partially permeable and controls the entry of water."
+    right: "The cell wall is <strong>freely permeable</strong> to water and solutes. The plasma membrane is the partially permeable barrier; the wall resists expansion and allows turgor pressure to build up."
+    level: SL
+  - wrong: "Plant cells burst in pure water, just like red blood cells."
+    right: "Plant cells become <strong>turgid</strong> but do not burst, because the strong cell wall resists expansion. Only cells without walls, such as red blood cells, swell and burst."
+    level: SL
+  - wrong: "In plasmolysis the cell wall shrinks and collapses."
+    right: "The <strong>protoplast</strong> (plasma membrane, cytoplasm and vacuole) shrinks and the membrane pulls away from the wall. The wall keeps roughly its shape, and the gap fills with external solution."
+    level: SL
+  - wrong: "The isotonic concentration is the concentration that gave the smallest mass change in the results."
+    right: "Plot % change against concentration, draw a line (or curve) of best fit through the points, and read off where it crosses 0 % change (the x-intercept). That concentration is usually between two of the concentrations tested."
+    level: SL
+  - wrong: "Standard error and standard deviation are the same thing, and more repeats always make the standard deviation smaller."
+    right: "SD describes the spread of the individual results; SE = SD ÷ √n describes how reliably the mean has been estimated. More repeats make the SE smaller, but the SD settles towards the true spread of the data."
+    level: SL
+  - wrong: "Water moves from −600 kPa to −200 kPa because 600 is bigger than 200."
+    right: "Water moves from a <strong>higher</strong> to a <strong>lower</strong> water potential. −200 kPa is higher (less negative) than −600 kPa, so water moves from −200 kPa to −600 kPa."
+    level: AHL
+  - wrong: "Solute potential can be positive, and pressure potential is always positive."
+    right: "ψ<sub>s</sub> is zero for pure water and negative for any solution. ψ<sub>p</sub> is usually positive in turgid cells, zero in flaccid or plasmolysed cells and negative in xylem sap under tension."
+    level: AHL
+---
+
+<Section id="solvation" title="Water as a solvent" level="SL" covers="D2.3.1">
+
+A **solvent** is a liquid that dissolves other substances, the **solutes**, to make a **solution**. Water dissolves more kinds of substance than any other common liquid, which is why the cytoplasm, blood plasma, xylem sap and phloem sap are all aqueous solutions. Dissolving in water is called **solvation**.
+
+Water can do this because its molecules are **polar**: the oxygen atom carries a slight negative charge (δ−) and the two hydrogen atoms slight positive charges (δ+). See <TopicLink code="A1.1" /> for how this polarity arises.
+
+- **Positive ions** such as Na⁺ and K⁺ attract the δ− oxygen ends of water molecules.
+- **Negative ions** such as Cl⁻ attract the δ+ hydrogen ends.
+- **Polar molecules** such as glucose and amino acids form **hydrogen bonds** with water through groups such as –OH and –NH₂.
+
+In each case the particle becomes surrounded by a shell of water molecules and is carried away from the others, so it dissolves. Substances that are attracted to water in this way are **hydrophilic**.
+
+**Non-polar** substances such as fats, oils and steroids have no charges or partial charges for water to attract. Water molecules form hydrogen bonds with each other instead, so non-polar molecules are pushed together and do not dissolve: they are **hydrophobic**. This is why lipids are transported in blood inside lipoproteins and why the hydrophobic core of a membrane is a barrier to ions.
+
+<Figure name="d2-3-solvation" caption="Solvation: water molecules orient with their δ− oxygen towards a positive ion and a δ+ hydrogen towards a negative ion, and form hydrogen bonds with the –OH groups of glucose. Around an oil droplet, water molecules hydrogen-bond only to each other, so the oil does not dissolve." />
+
+<Callout type="exam">
+
+To explain solvation of an ionic compound, mention **both** ions: positive ions attract the **oxygen** (δ−) of water and negative ions attract the **hydrogens** (δ+). For a polar molecule, say it forms **hydrogen bonds** with water.
+
+</Callout>
+
+</Section>
+
+<Section id="osmosis" title="Osmosis: water moves towards the higher solute concentration" level="SL" covers="D2.3.2 D2.3.3">
+
+### Comparing solutions
+
+Three terms compare the solute concentration of one solution with another:
+
+| Term | Solute concentration compared with the other solution |
+|---|---|
+| **Hypotonic** | lower |
+| **Hypertonic** | higher |
+| **Isotonic** | the same |
+
+The terms only make sense as a comparison. A 0.3 mol dm⁻³ sucrose solution is hypertonic to pure water but hypotonic to a 0.6 mol dm⁻³ solution.
+
+### Why water moves
+
+**Osmosis** is the net movement of water across a **partially permeable membrane**. As in <TopicLink code="B2.1" />, explain it with three ideas:
+
+1. Water molecules move **randomly** and cross the membrane in **both directions** all the time.
+2. The membrane is **impermeable to the solute**, so solute particles cannot move to even out their concentrations.
+3. Solute particles attract water molecules (solvation), so where there are more solutes, fewer water molecules are free to move across. More water molecules therefore cross from the hypotonic side into the hypertonic side than cross the other way.
+
+So the **net movement of water is from the less concentrated (hypotonic) solution to the more concentrated (hypertonic) solution**. It is passive: no energy from ATP is needed.
+
+### Predicting movement into and out of cells
+
+The cytoplasm of a cell is a solution, so the same rules apply across its plasma membrane:
+
+- **Hypotonic surroundings** (lower solute concentration than the cytoplasm): net movement of water **into** the cell.
+- **Hypertonic surroundings** (higher solute concentration): net movement of water **out of** the cell.
+- **Isotonic surroundings**: water molecules still move in and out, but at equal rates, so there is **no net movement**. This is a **dynamic equilibrium**, not an absence of movement.
+
+<Callout type="exam">
+
+State direction using **solute** concentration ("water moves from the hypotonic solution into the hypertonic cytoplasm"). Phrases such as "from high to low water concentration" do not earn the mark, and in an isotonic solution write "no **net** movement", never "no movement".
+
+</Callout>
+
+</Section>
+
+<Section id="no-wall" title="Cells without a cell wall" level="SL" covers="D2.3.5">
+
+Animal cells and many unicellular organisms have a plasma membrane but **no cell wall**, so nothing resists a change in volume. Osmosis can therefore damage them.
+
+### Red blood cells
+
+- In a **hypotonic** solution, such as pure water, water enters by osmosis. The cell swells, and because the plasma membrane is not strong enough to resist the rising pressure, it **bursts**. For red blood cells this is called **haemolysis**: the haemoglobin is released, leaving an empty membrane "ghost".
+- In a **hypertonic** solution, water leaves. The volume of cytoplasm falls but the area of plasma membrane does not, so the cell shrinks and its surface becomes wrinkled and spiky: it is **crenated**.
+- In an **isotonic** solution the cell keeps its normal biconcave shape.
+
+<Anim topic="d2-3" id="tonicity" />
+
+### Freshwater unicellular organisms
+
+Protists such as *Paramecium* and *Amoeba* that live in ponds, lakes and rivers have cytoplasm that is **hypertonic to the water around them**, so water enters continuously by osmosis. They remove it with **contractile vacuoles**. Water drains into the vacuole, often along radiating canals; the full vacuole then contracts and expels the water through a pore in the plasma membrane. This uses energy from **ATP**, and it must be repeated every few seconds to keep pace with the water entering.
+
+### Multicellular animals
+
+The cells of an animal's body are bathed in **tissue fluid** (and red blood cells in plasma). If this fluid became hypotonic or hypertonic, cells would swell or shrink and be damaged. Animals therefore keep their extracellular fluids **isotonic** with their cells. In humans the **kidneys** do this by regulating the water and solute content of the blood (**osmoregulation**, <TopicLink code="D3.3" />).
+
+<Callout type="exam">
+
+"Bursting" is only for cells **without** a wall. If a question asks why a red blood cell bursts but a plant cell does not, the key point is the **cell wall** resisting expansion, not a difference in membranes.
+
+</Callout>
+
+</Section>
+
+<Section id="walled" title="Cells with a cell wall: turgor and plasmolysis" level="SL" covers="D2.3.6">
+
+Plant cells, fungi and many bacteria have a **cell wall** outside the plasma membrane. In plants it is made largely of cellulose fibres, which are very strong. The wall is **freely permeable** to water and solutes; the partially permeable barrier is still the plasma membrane. In plant cells the large **vacuole** holds most of the cell's water and solutes.
+
+### In a hypotonic solution: turgor
+
+Water enters by osmosis, and the vacuole and cytoplasm expand. The protoplast (everything inside the wall) presses outwards on the wall, and the wall presses back. This builds up **turgor pressure** inside the cell, which becomes **turgid**. The wall stretches only slightly, so the cell does **not burst**. As the pressure rises it opposes further entry of water, and eventually water enters and leaves at equal rates.
+
+Turgor pressure matters to plants:
+
+- It keeps non-woody stems and leaves rigid and upright; without it the plant **wilts**.
+- It drives cell expansion during growth and powers movements such as the opening of stomata.
+
+### In a hypertonic solution: plasmolysis
+
+Water leaves the cell. First turgor pressure is lost and the cell becomes **flaccid** (soft, with no pressure on the wall). If water continues to leave, the protoplast shrinks, and the plasma membrane **pulls away from the cell wall**. This is **plasmolysis**. Because the wall is freely permeable, the space between the wall and the membrane fills with the **external solution**. The point at which the membrane is just starting to leave the wall is called **incipient plasmolysis**.
+
+Brief plasmolysis can be reversed if the cell is returned to water, but prolonged or severe plasmolysis damages the membrane and usually kills the cell.
+
+<Callout type="exam" title="Drawing a plasmolysed cell">
+
+Show the **cell wall** keeping its shape, the **plasma membrane** and cytoplasm pulled away from it (shrunken vacuole inside), and label the gap as **external solution**. Drawing the wall itself shrinking is wrong.
+
+</Callout>
+
+</Section>
+
+<Section id="tissue-experiment" title="Plant tissue in a range of solutions" level="SL" covers="D2.3.4">
+
+The water relations of a plant tissue can be investigated by bathing samples of it in solutions of different concentration. Mass and length change because of water entering or leaving the cells.
+
+### Method
+
+1. Make a range of solutions, for example sucrose or sodium chloride from 0.0 mol dm⁻³ upwards (a serial dilution of a stock solution works well).
+2. Cut cylinders or cubes of tissue (potato, sweet potato, carrot, beetroot) of the same size and shape, from the same source, with a cork borer and scalpel.
+3. Blot each sample dry, then measure its **mass** on an electronic balance and its **length** with a ruler marked in millimetres.
+4. Put several samples (repeats) into each solution at the same temperature, for the same time (typically from one hour up to a day).
+5. Remove, blot gently in the same way, and measure again.
+6. Calculate **% change = (final − initial) ÷ initial × 100**. Percentage change, not absolute change, is used because the samples' starting values differ slightly.
+
+### Results and the isotonic concentration
+
+In **hypotonic** solutions the tissue **gains** mass and becomes firm and turgid; in **hypertonic** solutions it **loses** mass and becomes soft and flaccid as its cells plasmolyse. Plot mean % change (y-axis) against concentration (x-axis), draw a **line of best fit**, and read off where it crosses **0 % change**: the **x-intercept**. At that concentration there would be no net movement of water, so it is the estimate of the solution **isotonic** with the tissue.
+
+<Sim topic="d2-3" id="potato" />
+
+### Reliability: standard deviation and standard error
+
+Repeats at each concentration let you judge how reliable the means are (the formulae do not need to be learned):
+
+- **Standard deviation (SD)** shows how spread out the repeat results are around their mean.
+- **Standard error of the mean (SE)** = SD ÷ √n, where n is the number of repeats. It shows how reliably the sample mean estimates the true mean, and gets smaller as n increases.
+
+Error bars of ± 1 SE drawn on each mean make reliability visible. Short bars mean the mean is well estimated; if the bars of two means overlap widely, the difference between them may not be significant. Comparing the SDs of mass and length data shows which measurement is more reliable: length changes are smaller and a ruler reads only to 1 mm.
+
+<Callout type="exam">
+
+Controlled variables to name: **temperature**, **time** in the solution, **size, shape and surface area** of the samples, the **source** of the tissue and the **method of blotting**. Give the isotonic concentration as a value read from the graph, with units (mol dm⁻³).
+
+</Callout>
+
+</Section>
+
+<Section id="medical" title="Isotonic solutions in medicine" level="SL" covers="D2.3.7">
+
+Human cells have no cell wall, so if they are exposed to a fluid that is not isotonic they swell and may burst, or shrink. Any fluid that comes into contact with living tissue during medical treatment must therefore be **isotonic** (or very close to it) with the cells.
+
+### Intravenous fluids
+
+Patients who are dehydrated, have lost blood or cannot drink are given fluids directly into a vein by **intravenous (IV) drip**. The fluid mixes with blood plasma, so it is made isotonic with the plasma: for example **normal saline**, a sterile solution of about 0.9 % sodium chloride.
+
+- If pure water were infused, the plasma would become hypotonic, and red blood cells would take in water, swell and burst (haemolysis).
+- A strongly hypertonic fluid would draw water out of red blood cells, which would shrink and crenate.
+
+### Organs for transplantation
+
+A kidney, liver or heart removed from a donor must be kept alive until it is transplanted. It is flushed through and bathed in a cold, sterile **preservation solution** that is isotonic with its cells, then packed in a bag surrounded by ice (often an isotonic slush) for transport. The isotonic solution stops the cells swelling or shrinking by osmosis, and the low temperature slows their metabolism so they use less oxygen and ATP.
+
+<Figure name="d2-3-medical" caption="Isotonic solutions in medicine: an intravenous drip of saline that is isotonic with blood plasma, so red blood cells keep their shape, and a donor kidney kept in cold isotonic preservation solution packed in ice until transplantation." />
+
+<Callout type="exam">
+
+Explain **why** the solution must be isotonic: there is then **no net movement of water** into or out of the cells by osmosis, so they neither **swell and burst** nor **shrink**. Name the example (IV fluids, or organs bathed before transplantation).
+
+</Callout>
+
+</Section>
+
+<Section id="water-potential" title="Water potential and its gradients" level="AHL" covers="D2.3.8 D2.3.9">
+
+### What water potential measures
+
+**Water potential** (symbol **ψ**, the Greek letter psi, or ψ<sub>w</sub>) is the **potential energy of water per unit volume**. Energy per unit volume has the same units as pressure, so water potential is given in **kilopascals (kPa)** or **megapascals (MPa)**: 1 MPa = 1000 kPa.
+
+It is impossible to measure the absolute amount of potential energy in water, so values are always **relative** to a standard. The reference point is **pure water at atmospheric pressure and 20 °C**, which is given a water potential of **zero**. Anything that lowers the potential energy of water gives a negative value; anything that raises it gives a positive one.
+
+### Water moves down water potential gradients
+
+Water moves passively from a region of **higher water potential** to a region of **lower water potential**. This is the same as any system moving towards lower potential energy, like a ball rolling downhill: the movement releases energy rather than needing it, so no ATP is used. The net movement continues until the water potentials are equal.
+
+Water potentials in living cells are almost always **zero or negative**, so take care with the comparison:
+
+- −200 kPa is **higher** than −800 kPa (less negative).
+- Water moves **from −200 kPa to −800 kPa**.
+
+Water potential explains osmosis more precisely than solute concentration, because it also includes the effect of pressure. That is essential in plants, where cell walls and xylem tension produce large pressures. Between neighbouring plant cells, water moves from the cell with the higher water potential to the one with the lower; for example, loading sucrose into phloem lowers the water potential there, so water follows from nearby cells and xylem (see <TopicLink code="B3.2" />).
+
+<Callout type="exam">
+
+When comparing water potentials, use "**higher**" and "**lower**" (or "less negative" and "more negative"), not "bigger" and "smaller". Water always moves from higher to lower ψ.
+
+</Callout>
+
+</Section>
+
+<Section id="components" title="Solute potential and pressure potential" level="AHL" covers="D2.3.10">
+
+In living systems two factors change the water potential. In cells with walls:
+
+**ψ<sub>w</sub> = ψ<sub>s</sub> + ψ<sub>p</sub>**
+
+### Solute potential (ψ<sub>s</sub>)
+
+When solutes dissolve, water molecules form hydrogen bonds with them or are attracted to their ions. Water molecules held around solute particles are less free to move, so the water has less potential energy. Dissolved solutes therefore always **lower** water potential. Pure water has ψ<sub>s</sub> = 0; any solution has a **negative** ψ<sub>s</sub>, and the more concentrated it is, the more negative ψ<sub>s</sub> becomes. Solute potential can never be positive.
+
+### Pressure potential (ψ<sub>p</sub>)
+
+Pressure above atmospheric pressure raises the potential energy of water, and pressure below it (tension) lowers it. Atmospheric pressure is defined as ψ<sub>p</sub> = 0.
+
+- In a **turgid** plant cell the wall pushes back on the protoplast, so ψ<sub>p</sub> is **positive**.
+- In a **flaccid** or **plasmolysed** cell, ψ<sub>p</sub> = **0**.
+- In **xylem vessels**, transpiration pulls the sap up the plant under **tension**, so ψ<sub>p</sub> is **negative**, and the water potential of xylem sap can be strongly negative even though it contains few solutes.
+
+<Sim topic="d2-3" id="water-potential" />
+
+### Worked example
+
+A leaf cell has ψ<sub>s</sub> = −900 kPa and ψ<sub>p</sub> = +350 kPa. Its water potential is −900 + 350 = **−550 kPa**. A neighbouring cell has ψ<sub>w</sub> = −700 kPa, which is lower, so water moves **from the first cell into the neighbouring cell**.
+
+| Cell condition | ψ<sub>p</sub> | ψ<sub>w</sub> |
+|---|---|---|
+| Fully turgid (in pure water) | positive, equal in size to ψ<sub>s</sub> | 0 |
+| Turgid | positive, smaller than the size of ψ<sub>s</sub> | negative |
+| Flaccid (incipient plasmolysis) | 0 | equal to ψ<sub>s</sub> |
+| Plasmolysed | 0 | equal to ψ<sub>s</sub> (more negative) |
+| Xylem sap under tension | negative | very negative |
+
+<Callout type="exam">
+
+Show your working: write ψ<sub>w</sub> = ψ<sub>s</sub> + ψ<sub>p</sub>, substitute with **signs**, give units, then state the direction of water movement **from higher to lower** water potential.
+
+</Callout>
+
+</Section>
+
+<Section id="tissue-potentials" title="Water potential and plant tissue in solutions" level="AHL" covers="D2.3.11">
+
+Solute and pressure potentials explain the changes seen when plant tissue is bathed in solutions. A bathing solution is open to the air, so its ψ<sub>p</sub> = 0 and its water potential equals its solute potential.
+
+### In pure water or a hypotonic solution
+
+The solution's water potential (0 for pure water) is **higher** than that of the cells, because the cells' ψ<sub>s</sub> is negative. Water moves into the cells. As it enters:
+
+- the protoplast presses on the wall, so **ψ<sub>p</sub> rises**;
+- the cell sap is diluted slightly, so ψ<sub>s</sub> becomes a little less negative.
+
+Both raise ψ<sub>w</sub> of the cell. Net uptake stops when the cell's ψ<sub>w</sub> equals that of the solution. In pure water this happens when ψ<sub>p</sub> has risen until it is equal in size to ψ<sub>s</sub> (so ψ<sub>w</sub> = 0): the cell is **fully turgid**. The tissue gains mass and becomes firm.
+
+If the tissue was already very turgid, its ψ<sub>w</sub> may be **higher** than that of a dilute solution. It then loses a little water, even though the solution has a lower solute concentration than the cell sap: pressure, not just solutes, decides the direction.
+
+### In a hypertonic solution
+
+The solution's water potential is **lower** than that of the cells, so water moves out. First **ψ<sub>p</sub> falls** until it reaches zero and the cells are flaccid (incipient plasmolysis). After that, the protoplast shrinks away from the wall and ψ<sub>p</sub> stays at zero; the cell sap becomes more concentrated, so **ψ<sub>s</sub> becomes more negative**. Net loss stops when ψ<sub>s</sub> of the cell has fallen to equal ψ<sub>w</sub> of the solution. The tissue loses mass and becomes soft and limp.
+
+### What the isotonic point tells you
+
+In the tissue experiment, the solution that causes no change in mass has the **same water potential as the tissue**. So the x-intercept of the graph measures the tissue's water potential. If the cells were turgid, this solution is slightly less concentrated than the cell sap itself, because the cells' positive ψ<sub>p</sub> is part of their water potential.
+
+<Callout type="exam">
+
+Answer in sequence: compare ψ<sub>w</sub> of tissue and solution → state the direction of water movement → say how **ψ<sub>p</sub>** (and ψ<sub>s</sub>) change → say when movement stops (**ψ<sub>w</sub> equal**) → describe the result (turgid, flaccid or plasmolysed; mass gained or lost).
+
+</Callout>
+
+</Section>

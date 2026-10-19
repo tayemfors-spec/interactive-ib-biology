@@ -1,0 +1,139 @@
+facts:
+  - id: f1
+    claim: In solvation, cations attract the δ− oxygen of water and anions the δ+ hydrogens; polar molecules such as glucose form hydrogen bonds with water; non-polar substances do not dissolve.
+    where: ["index.mdx#solvation", "quiz.yaml:q1", "flashcards.yaml:c1", "flashcards.yaml:c2"]
+    confidence: high
+    basis: Standard chemistry and cell biology (Campbell Biology ch. 3); IB guide D2.3.1
+    status: checked
+  - id: f2
+    claim: Hypotonic, hypertonic and isotonic compare solute concentrations of two solutions; net water movement by osmosis is from lower to higher solute concentration across a membrane impermeable to the solute.
+    where: ["index.mdx#osmosis", "flashcards.yaml:c3", "flashcards.yaml:c4"]
+    confidence: high
+    basis: IB guide D2.3.2; consistent with B2.1 osmosis wording
+    status: checked
+  - id: f3
+    claim: "Explanation of osmosis that solute particles attract (solvate) water molecules, so fewer are free to cross from the more concentrated side."
+    where: ["index.mdx#osmosis", "index.mdx#components"]
+    confidence: medium
+    basis: Common textbook simplification (Campbell; study guide). The full physical explanation involves entropy of mixing; a teacher may prefer to omit the solvation reason.
+    status: open
+  - id: f4
+    claim: In an isotonic solution water continues to move in both directions at equal rates (dynamic equilibrium).
+    where: ["index.mdx#osmosis", "quiz.yaml:q2", "flashcards.yaml:c5", "visuals.yaml:tonicity"]
+    confidence: high
+    basis: IB guide D2.3.3
+    status: checked
+  - id: f5
+    claim: Red blood cells in hypotonic solution swell and burst (haemolysis); in hypertonic solution they shrink and crenate because membrane area stays the same.
+    where: ["index.mdx#no-wall", "flashcards.yaml:c6", "visuals.yaml:tonicity"]
+    confidence: high
+    basis: Standard physiology; IB guide D2.3.5
+    status: checked
+  - id: f6
+    claim: Contractile vacuoles of freshwater protists (Paramecium, Amoeba) collect water entering by osmosis and expel it through a pore in the plasma membrane using ATP; in Paramecium they are fed by radiating canals and cycle every few seconds.
+    where: ["index.mdx#no-wall", "quiz.yaml:q5", "flashcards.yaml:c7", "visuals.yaml:tonicity"]
+    confidence: medium
+    basis: Campbell Biology (protists); Allen & Naitoh (2002) on Paramecium contractile vacuole complex. Cycle time varies with conditions (seconds to tens of seconds).
+    status: open
+  - id: f7
+    claim: Multicellular animals keep tissue fluid isotonic with cells; in humans the kidneys regulate solute concentration of blood (osmoregulation).
+    where: ["index.mdx#no-wall", "flashcards.yaml:c8"]
+    confidence: high
+    basis: IB guide D2.3.5, D3.3
+    status: checked
+  - id: f8
+    claim: Plant cell walls (cellulose) are freely permeable; in hypotonic solution turgor pressure develops and the wall prevents bursting; in hypertonic solution cells become flaccid then plasmolyse, with the gap filled by external solution.
+    where: ["index.mdx#walled", "quiz.yaml:q6", "flashcards.yaml:c9", "flashcards.yaml:c10", "visuals.yaml:tonicity"]
+    confidence: high
+    basis: Campbell Biology ch. 7 and 36; IB guide D2.3.6
+    status: checked
+  - id: f9
+    claim: A plant cell in a solution isotonic with its cell sap is flaccid (ψp ≈ 0), as shown in the animation's isotonic step.
+    where: ["visuals.yaml:tonicity"]
+    confidence: medium
+    basis: Campbell Biology fig. 7.12 shows the isotonic plant cell as flaccid; some study guides draw it as unchanged with no net movement.
+    status: open
+  - id: f10
+    claim: Brief plasmolysis can be reversed; prolonged or severe plasmolysis usually kills the cell.
+    where: ["index.mdx#walled"]
+    confidence: medium
+    basis: Plant physiology texts (Taiz & Zeiger); the study guide states plasmolysed cells do not usually recover. Recovery depends on species and duration.
+    status: open
+  - id: f11
+    claim: The isotonic concentration of a tissue is read from the x-intercept of a graph of % change in mass (or length) against solute concentration; % change = (final − initial) ÷ initial × 100.
+    where: ["index.mdx#tissue-experiment", "quiz.yaml:q3", "flashcards.yaml:c11", "visuals.yaml:potato"]
+    confidence: high
+    basis: IB guide D2.3.4 application of skills
+    status: checked
+  - id: f12
+    claim: "Quiz q3 data: line of best fit through (0,+20), (0.2,+9), (0.4,−3), (0.6,−12) crosses 0 % at about 0.36 mol dm⁻³ (least squares 0.365; linear interpolation between 0.2 and 0.4 gives 0.35)."
+    where: ["quiz.yaml:q3"]
+    confidence: high
+    basis: Calculation
+    status: checked
+  - id: f13
+    claim: SE = SD ÷ √n; more repeats reduce SE but not the underlying SD; overlapping SE bars suggest a difference may not be significant.
+    where: ["index.mdx#tissue-experiment", "quiz.yaml:q4", "flashcards.yaml:c12"]
+    confidence: high
+    basis: Standard statistics; IB guide D2.3.4 (formulae not required)
+    status: checked
+  - id: f14
+    claim: Simulated tissue isotonic concentrations (potato 0.30, mystery tissues 0.46 and 0.19 mol dm⁻³ sucrose) are illustrative. Real potato tissue is typically isotonic with roughly 0.25–0.35 mol dm⁻³ sucrose.
+    where: ["visuals.yaml:potato"]
+    confidence: medium
+    basis: Typical school practical results; varies with variety and storage. Labelled as simulated on screen.
+    status: open
+  - id: f15
+    claim: Normal saline used for intravenous drips is about 0.9 % (w/v) sodium chloride, close to isotonic with blood plasma.
+    where: ["index.mdx#medical", "flashcards.yaml:c13", "quiz.yaml:q7"]
+    confidence: high
+    basis: Standard clinical pharmacology (0.9 % NaCl ≈ 154 mmol dm⁻³ each of Na⁺ and Cl⁻)
+    status: checked
+  - id: f16
+    claim: Donor organs (kidney, liver, heart) are flushed and stored in cold isotonic preservation solution surrounded by ice slush; cooling slows metabolism.
+    where: ["index.mdx#medical", "flashcards.yaml:c13"]
+    confidence: high
+    basis: IB guide D2.3.7; static cold storage practice in transplantation (e.g. UW solution at about 4 °C)
+    status: checked
+  - id: f17
+    claim: Water potential is the potential energy of water per unit volume, in kPa; pure water at atmospheric pressure and 20 °C has ψ = 0; 1 MPa = 1000 kPa.
+    where: ["index.mdx#water-potential", "flashcards.yaml:c14", "visuals.yaml:water-potential"]
+    confidence: high
+    basis: IB guide D2.3.8 (specifies 20 °C)
+    status: checked
+  - id: f18
+    claim: Water moves passively from higher to lower water potential, towards lower potential energy, until potentials are equal.
+    where: ["index.mdx#water-potential", "quiz.yaml:q9", "flashcards.yaml:c15"]
+    confidence: high
+    basis: IB guide D2.3.9; Taiz & Zeiger, Plant Physiology
+    status: checked
+  - id: f19
+    claim: ψw = ψs + ψp in walled cells; ψs ≤ 0; ψp positive in turgid cells, zero in flaccid/plasmolysed cells, negative in xylem sap under tension.
+    where: ["index.mdx#components", "quiz.yaml:q8", "flashcards.yaml:c16", "visuals.yaml:water-potential"]
+    confidence: high
+    basis: IB guide D2.3.10; Taiz & Zeiger
+    status: checked
+  - id: f20
+    claim: Sucrose loading into phloem lowers its water potential so water enters from nearby cells and xylem.
+    where: ["index.mdx#water-potential"]
+    confidence: high
+    basis: Pressure-flow (Münch) model; Campbell ch. 36
+    status: checked
+  - id: f21
+    claim: Plant tissue in pure water reaches equilibrium when ψw = 0 (ψp equal in size to ψs, fully turgid); in hypertonic solution ψp falls to 0, then ψs falls until it equals the solution's ψw.
+    where: ["index.mdx#tissue-potentials", "quiz.yaml:q10", "flashcards.yaml:c17", "visuals.yaml:water-potential"]
+    confidence: high
+    basis: IB guide D2.3.11; Taiz & Zeiger (Höfler diagram)
+    status: checked
+  - id: f22
+    claim: The solution causing no mass change has the same water potential as the tissue; for turgid tissue it is slightly less concentrated than the cell sap.
+    where: ["index.mdx#tissue-potentials"]
+    confidence: medium
+    basis: Follows from ψw = ψs + ψp with ψp > 0 at the start; a teacher may wish to confirm this level of detail is wanted.
+    status: open
+  - id: f23
+    claim: Water potential sim model (ideal ψs ∝ 1/volume, linear wall elasticity ε = 8000 kPa, ψp = 0 below incipient plasmolysis) is a simplification for teaching.
+    where: ["visuals.yaml:water-potential"]
+    confidence: medium
+    basis: Höfler-diagram style model; real wall elasticity varies widely (about 1–50 MPa). Labelled as a simplified model on screen.
+    status: checked

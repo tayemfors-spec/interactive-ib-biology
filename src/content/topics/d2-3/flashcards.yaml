@@ -1,0 +1,69 @@
+cards:
+  - id: c1
+    level: SL
+    front: How does water dissolve ionic substances such as NaCl?
+    back: Water is polar. The slightly negative (δ−) oxygen atoms are attracted to positive ions (Na⁺) and the slightly positive (δ+) hydrogen atoms to negative ions (Cl⁻), so each ion is surrounded by a shell of water molecules and separated from the others.
+  - id: c2
+    level: SL
+    front: Why do polar molecules such as glucose dissolve in water, but oils do not?
+    back: Polar molecules form hydrogen bonds with water (glucose through its –OH groups), so they are hydrophilic. Oils are non-polar, so water molecules hydrogen-bond to each other instead and the oil molecules stay together (hydrophobic).
+  - id: c3
+    level: SL
+    front: Define hypotonic, hypertonic and isotonic.
+    back: Comparing two solutions — hypotonic has a lower solute concentration, hypertonic a higher solute concentration, and isotonic the same solute concentration.
+  - id: c4
+    level: SL
+    front: In which direction is the net movement of water by osmosis?
+    back: From the solution with the lower solute concentration (hypotonic) to the one with the higher solute concentration (hypertonic), across a partially permeable membrane that is impermeable to the solute.
+  - id: c5
+    level: SL
+    front: What happens to water movement when a cell is in an isotonic solution?
+    back: Water molecules keep entering and leaving at equal rates, so there is no net movement and the volume does not change — a dynamic equilibrium.
+  - id: c6
+    level: SL
+    front: Red blood cell in a hypotonic vs a hypertonic solution
+    back: Hypotonic — water enters, the cell swells and bursts (haemolysis), as it has no wall. Hypertonic — water leaves, the cell shrinks and becomes crenated (spiky), because its membrane area stays the same.
+  - id: c7
+    level: SL
+    front: What does a contractile vacuole do, and which organisms need one?
+    back: Freshwater unicellular organisms (such as Paramecium) take in water continuously by osmosis because their cytoplasm is hypertonic to the water. Contractile vacuoles collect this water and expel it from the cell, using ATP, to stop the cell bursting.
+  - id: c8
+    level: SL
+    front: Why do multicellular animals need isotonic tissue fluid?
+    back: Their cells have no walls, so in hypotonic fluid they would swell and could burst, and in hypertonic fluid they would shrink. Organs such as the kidneys keep body fluids isotonic with the cells.
+  - id: c9
+    level: SL
+    front: What is turgor pressure, and why doesn't a plant cell burst in pure water?
+    back: Water entering pushes the protoplast against the cell wall, and the pressure inside the cell rises (turgor pressure). The strong cellulose wall resists expansion, so the cell becomes turgid instead of bursting.
+  - id: c10
+    level: SL
+    front: Describe plasmolysis.
+    back: In a hypertonic solution a plant cell loses water, becomes flaccid, then its protoplast shrinks and the plasma membrane pulls away from the cell wall. The gap fills with external solution because the wall is freely permeable.
+  - id: c11
+    level: SL
+    front: How do you find the isotonic concentration of a plant tissue from experimental results?
+    back: Calculate % change in mass (or length) for each concentration, plot mean % change against concentration, draw a line of best fit and read where it crosses 0 % change (the x-intercept).
+  - id: c12
+    level: SL
+    front: Standard deviation vs standard error
+    back: SD measures the spread of individual results around the mean. SE = SD ÷ √n measures how reliably the mean has been estimated; it gets smaller with more repeats and is often shown as error bars.
+  - id: c13
+    level: SL
+    front: Give two medical uses of isotonic solutions.
+    back: Intravenous fluids (such as normal saline) given into a vein, and bathing donor organs (such as kidneys) in cold isotonic solution before transplantation. Both stop cells swelling and bursting or shrinking by osmosis.
+  - id: c14
+    level: AHL
+    front: Define water potential and give its reference point.
+    back: The potential energy of water per unit volume, in kPa or MPa. Pure water at atmospheric pressure and 20 °C is given ψw = 0; values are relative to this.
+  - id: c15
+    level: AHL
+    front: Water moves between a cell at −250 kPa and one at −650 kPa. Which way?
+    back: From −250 kPa to −650 kPa — from the higher (less negative) to the lower (more negative) water potential, towards lower potential energy.
+  - id: c16
+    level: AHL
+    front: State the equation for water potential in walled cells and the possible signs of each term.
+    back: ψw = ψs + ψp. ψs is zero (pure water) or negative. ψp is positive in turgid cells, zero in flaccid or plasmolysed cells and negative in xylem sap under tension.
+  - id: c17
+    level: AHL
+    front: Explain in terms of ψs and ψp what happens to plant tissue in a hypertonic solution.
+    back: ψw of the solution is lower than that of the cells, so water leaves. ψp falls to zero (flaccid); then the protoplast shrinks away from the wall (plasmolysis) and ψs becomes more negative until the cells' ψw equals the solution's.

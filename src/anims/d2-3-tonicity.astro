@@ -1,0 +1,122 @@
+---
+/** Cells in isotonic, hypotonic and hypertonic solutions; contractile vacuoles (D2.3.3, D2.3.5, D2.3.6). Animated by d2-3-tonicity.ts. */
+import { DOTS, PX, PY, PW, R0, RX, RY, hbDots, insideDots, outsideDots, plantShape, rbcPath } from './d2-3-tonicity';
+
+const s = plantShape(1);
+const f1 = (n: number) => n.toFixed(1);
+const arrowPath = 'M0 0 H26';
+const arrowHead = 'M24 -8 L38 0 L24 8 Z';
+// freshwater protist geometry
+const cvs = [[150, 166], [370, 166]] as const;
+const ell = (a: number) => [260 + 190 * Math.cos(a), 196 + 78 * Math.sin(a)] as const;
+const cilia = Array.from({ length: 44 }, (_, i) => (i / 44) * Math.PI * 2);
+const inArrows = [0, 0.7, 1.2, 1.94, 2.45, 3.14];
+---
+<svg viewBox="0 0 520 340" xmlns="http://www.w3.org/2000/svg" class="ton">
+  <rect class="soln" x="4" y="4" width="512" height="332" rx="12" />
+
+  <g data-el="cells">
+    <g data-el="head"><text class="hd" x="260" y="26" text-anchor="middle">Isotonic solution</text><text class="sub" x="260" y="46" text-anchor="middle">same solute concentration as the cells</text></g>
+    <g data-el="head" style="display:none"><text class="hd" x="260" y="26" text-anchor="middle">Hypotonic solution</text><text class="sub" x="260" y="46" text-anchor="middle">lower solute concentration than the cells (e.g. pure water)</text></g>
+    <g data-el="head" style="display:none"><text class="hd" x="260" y="26" text-anchor="middle">Hypertonic solution</text><text class="sub" x="260" y="46" text-anchor="middle">higher solute concentration than the cells</text></g>
+    <text class="col" x="130" y="72" text-anchor="middle">Red blood cell (no wall)</text>
+    <text class="col" x="390" y="72" text-anchor="middle">Plant cell (with wall)</text>
+    <line class="div" x1="260" x2="260" y1="60" y2="324" />
+
+    {outsideDots.map(([x, y], k) => <circle data-el="odot" class="solute" cx={f1(x)} cy={f1(y)} r="2.6" style={k < DOTS.iso ? undefined : 'display:none'} />)}
+
+    <!-- red blood cell -->
+    {hbDots.map(() => <circle data-el="hb" class="hb" cx={RX} cy={RY} r="3.2" style="opacity:0" />)}
+    <path data-el="rbc" class="rbc" d={rbcPath(R0, 0)} />
+    <circle data-el="pallor" class="pallor" cx={RX} cy={RY} r={f1(R0 * 0.42)} />
+    {insideDots.map(([dx, dy]) => <circle data-el="rdot" class="solute" cx={f1(RX + dx * R0 * 0.85)} cy={f1(RY + dy * R0 * 0.85)} r="2.6" />)}
+
+    <!-- plant cell -->
+    <path data-el="proto" class="proto" d={s.proto} />
+    <path data-el="vac" class="vac" d={s.vac} />
+    <circle data-el="nuc" class="nuc" cx={f1(s.nx)} cy={f1(s.ny)} r="6" />
+    {insideDots.map(([dx, dy]) => <circle data-el="pdot" class="solute" cx={f1(PX + 4 + dx * (s.w - 34) * 0.5)} cy={f1(PY + dy * (s.h - 28) * 0.5)} r="2.6" />)}
+    <path data-el="wall" class="wall" d={s.wall} />
+    <g data-el="gap" style="opacity:0">
+      {[[-58, -42], [56, -44], [-20, -46], [30, -40], [-60, 0], [-50, 26], [60, 8], [54, 30], [-62, -20], [62, -18]].map(([dx, dy]) => <circle class="solute" cx={PX + dx!} cy={PY + dy!} r="2.6" />)}
+      <text class="note sm" x={PX} y={PY + 47} text-anchor="middle">external solution in gap</text>
+    </g>
+
+    <!-- water arrows: thickness shows the amount of water crossing each way -->
+    {([
+      ['r-in', RX - R0 - 48, RY - 13, 0.9], ['r-out', RX - R0 - 8, RY + 13, -0.9],
+      ['p-in', PX - PW / 2 - 54, PY - 13, 0.9], ['p-out', PX - PW / 2 - 14, PY + 13, -0.9],
+    ] as const).map(([id, x, y, k]) => (
+      <g data-el={id} class="warrow" transform={`translate(${x} ${y}) scale(${k} 0.9)`}>
+        <path class="wline" d={arrowPath} /><path class="whead" d={arrowHead} />
+      </g>
+    ))}
+
+    <!-- state labels -->
+    <text data-el="rl" class="state" x="130" y="300" text-anchor="middle">normal: no net movement</text>
+    <text data-el="rl" class="state" x="130" y="300" text-anchor="middle" style="display:none">net water in: cell swells</text>
+    <text data-el="rl" class="state" x="130" y="300" text-anchor="middle" style="display:none">bursts (haemolysis)</text>
+    <text data-el="rl" class="state" x="130" y="300" text-anchor="middle" style="display:none">net water out: crenated</text>
+    <text data-el="pl" class="state" x="390" y="300" text-anchor="middle">flaccid: no turgor pressure</text>
+    <text data-el="pl" class="state" x="390" y="300" text-anchor="middle" style="display:none">net water in: turgid</text>
+    <text data-el="pl" class="state" x="390" y="300" text-anchor="middle" style="display:none">turgid: wall stops it bursting</text>
+    <text data-el="pl" class="state" x="390" y="300" text-anchor="middle" style="display:none">net water out: plasmolysed</text>
+    <g class="legend">
+      <circle class="solute" cx="190" cy="322" r="3" /><text x="198" y="322" dy="0.35em">solute particle</text>
+      <path class="wline small" d="M290 322 H312" /><path class="whead" d="M310 316 L320 322 L310 328 Z" /><text x="326" y="322" dy="0.35em">water movement</text>
+    </g>
+  </g>
+
+  <g data-el="protist" style="display:none">
+    <text class="hd" x="260" y="26" text-anchor="middle">Freshwater protist (such as Paramecium) in pond water</text>
+    <text class="sub" x="260" y="46" text-anchor="middle">pond water is hypotonic to the cytoplasm, so water keeps entering</text>
+    {cilia.map((a) => { const [x, y] = ell(a); return <line class="cil" x1={f1(x)} y1={f1(y)} x2={f1(x + 9 * Math.cos(a))} y2={f1(y + 9 * Math.sin(a) * 1.4)} />; })}
+    <ellipse class="cyto" cx="260" cy="196" rx="190" ry="78" />
+    <ellipse class="mac" cx="262" cy="206" rx="36" ry="20" />
+    <text class="note" x="262" y="210" text-anchor="middle">nucleus</text>
+    {cvs.map(([x, y]) => (
+      <g transform={`translate(${x} ${y})`}>
+        <g data-el="canals">{[0, 1, 2, 3, 4, 5].map((k) => { const a = (k / 6) * Math.PI * 2 + 0.5; return <line class="canal" x1={f1(14 * Math.cos(a))} y1={f1(14 * Math.sin(a))} x2={f1(40 * Math.cos(a))} y2={f1(40 * Math.sin(a) * 0.8)} />; })}</g>
+        <g data-el="cv" transform="scale(0.25)"><circle class="cvac" r="22" /></g>
+      </g>
+    ))}
+    {cvs.map(([x]) => <circle data-el="drop" class="drop" data-y0="128" cx={x} cy="128" r="4" style="opacity:0" />)}
+    {inArrows.map((a) => { const [x, y] = ell(a); const ix = 260 + 150 * Math.cos(a), iy = 196 + 52 * Math.sin(a); const ang = (Math.atan2(iy - y, ix - x) * 180) / Math.PI; return (
+      <g class="warrow" transform={`translate(${f1(x + 30 * Math.cos(a))} ${f1(y + 22 * Math.sin(a))}) rotate(${f1(ang)}) scale(0.75)`}><path class="wline" d={arrowPath} /><path class="whead" d={arrowHead} /></g>
+    ); })}
+    <path class="lead" d="M390 156 L458 84" /><text class="note" x="462" y="76" text-anchor="middle">contractile vacuole</text>
+    <text class="note" x="30" y="326">blue arrows: water enters by osmosis</text>
+    <text data-el="expel" class="note strong" x="260" y="74" text-anchor="middle" style="opacity:0">water expelled through a pore (uses ATP)</text>
+  </g>
+</svg>
+<style>
+  .ton { font-family: var(--font-sans); }
+  .soln { fill: color-mix(in srgb, var(--bio-water) 10%, var(--surface)); stroke: var(--border); }
+  .hd { font-size: 17px; font-weight: 800; fill: var(--text); }
+  .sub { font-size: 13px; fill: var(--text-muted); }
+  .col { font-size: 14px; font-weight: 700; fill: var(--text); }
+  .div { stroke: var(--border-strong); stroke-dasharray: 4 4; }
+  .solute { fill: var(--bio-glucose); }
+  .rbc { fill: var(--bio-k); stroke: color-mix(in srgb, var(--bio-k) 70%, var(--text)); stroke-width: 2.5; }
+  .pallor { fill: color-mix(in srgb, var(--bio-k) 45%, var(--surface)); }
+  .hb { fill: var(--bio-k); }
+  .wall { fill: none; stroke: var(--bio-carb); stroke-width: 9; stroke-linejoin: round; }
+  .proto { fill: color-mix(in srgb, var(--bio-carb) 30%, var(--surface)); stroke: var(--bio-protein); stroke-width: 2; }
+  .vac { fill: color-mix(in srgb, var(--bio-protein-2) 20%, var(--surface)); stroke: var(--bio-protein-2); stroke-width: 1.5; }
+  .nuc { fill: var(--bio-protein-2); }
+  .wline { stroke: var(--bio-water); stroke-width: 5; fill: none; stroke-linecap: round; }
+  .wline.small { stroke-width: 3; }
+  .whead { fill: var(--bio-water); }
+  .state { font-size: 14px; font-weight: 750; fill: var(--text); }
+  .legend text { font-size: 12px; fill: var(--text-muted); }
+  .note { font-size: 13px; fill: var(--text); }
+  .strong { font-weight: 800; }
+  .sm { font-size: 12px; font-style: italic; }
+  .lead { stroke: var(--text); stroke-width: 1.2; fill: none; }
+  .cyto { fill: color-mix(in srgb, var(--bio-carb) 22%, var(--surface)); stroke: var(--bio-protein); stroke-width: 2.5; }
+  .cil { stroke: var(--bio-protein); stroke-width: 1.4; }
+  .mac { fill: color-mix(in srgb, var(--bio-protein-2) 35%, var(--surface)); stroke: var(--bio-protein-2); }
+  .canal { stroke: var(--bio-water); stroke-width: 4; stroke-linecap: round; }
+  .cvac { fill: color-mix(in srgb, var(--bio-water) 55%, var(--surface)); stroke: var(--bio-water); stroke-width: 6; }
+  .drop { fill: var(--bio-water); }
+</style>
