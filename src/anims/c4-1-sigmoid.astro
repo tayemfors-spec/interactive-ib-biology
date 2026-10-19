@@ -1,0 +1,67 @@
+---
+/** Sigmoid population growth in five steps (C4.1.5–8), with per-capita birth and death rates. Animated by c4-1-sigmoid.ts. */
+import { BAR, BAR_Y, DROP, N, T_EXP, T_PL, X0, X1, Y0, YK, births, curvePath, deaths, xOf, yOf } from './c4-1-sigmoid';
+const top = 30;
+const xe = xOf(T_EXP), xp = xOf(T_PL);
+const n0 = N(0);
+const bH = births(n0) * BAR, dH = deaths(n0) * BAR;
+const xd = xOf(DROP);
+---
+<svg viewBox="0 0 520 312" xmlns="http://www.w3.org/2000/svg" class="sig">
+  <defs>
+    <marker id="c41s-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" class="head" />
+    </marker>
+  </defs>
+  <g data-el="band-exp" style="opacity:0"><rect class="band b-exp" x={X0} y={top} width={xe - X0} height={Y0 - top} /><text class="bt" x={X0 + 2} y="20">exponential</text></g>
+  <g data-el="band-tr" style="opacity:0"><rect class="band b-tr" x={xe} y={top} width={xp - xe} height={Y0 - top} /><text class="bt" x={(xe + xp) / 2 + 12} y="20" text-anchor="middle">transitional</text></g>
+  <g data-el="band-pl" style="opacity:0"><rect class="band b-pl" x={xp} y={top} width={X1 - xp} height={Y0 - top} /><text class="bt" x={(xp + X1) / 2} y="20" text-anchor="middle">plateau</text></g>
+
+  <line class="kline" x1={X0} x2={X1} y1={YK} y2={YK} />
+  <text class="kt" x={X0 - 8} y={YK} dy="0.35em" text-anchor="end">K</text>
+  <path class="axisline" d={`M${X0} ${top} L${X0} ${Y0} L${X1} ${Y0}`} />
+  <text class="axis" x={(X0 + X1) / 2} y="296" text-anchor="middle">Time →</text>
+  <text class="axis" transform={`translate(24 ${(top + Y0) / 2}) rotate(-90)`} text-anchor="middle">Population size →</text>
+
+  <path data-el="curve" class="curve" d={curvePath(0)} />
+  <circle data-el="dot" class="dot" cx={xOf(0)} cy={yOf(n0)} r="6" />
+
+  <g data-el="n0" class="note"><text x={xOf(1.5) + 12} y="244">a few founders</text></g>
+  <g data-el="n1" class="note" style="opacity:0"><text x={xOf(7) + 12} y="226">births far exceed deaths</text></g>
+  <g data-el="n2" class="note" style="opacity:0"><text x={xOf(10.5) + 10} y="182">growth slows:</text><text x={xOf(10.5) + 10} y="198">density-dependent factors</text></g>
+  <g data-el="n3" class="note" style="opacity:0"><text x={xOf(19.5)} y={YK - 10} text-anchor="middle">births = deaths</text></g>
+  <g data-el="n4" class="note" style="opacity:0">
+    <path class="arrow" d={`M${xd - 9} ${YK + 6} L${xd - 9} ${yOf(0.55) - 4}`} marker-end="url(#c41s-arrow)" />
+    <text x={xd - 16} y="200" text-anchor="end">frost kills 45%</text><text x={xd - 16} y="216" text-anchor="end">(density-</text><text x={xd - 16} y="232" text-anchor="end">independent)</text>
+  </g>
+
+  <text class="pt" x="455" y="40" text-anchor="middle">Per-capita</text>
+  <text class="pt" x="455" y="56" text-anchor="middle">rates</text>
+  <rect data-el="b-bar" class="bbar" x="414" y={BAR_Y - bH} width="36" height={bH} />
+  <rect data-el="d-bar" class="dbar" x="460" y={BAR_Y - dH} width="36" height={dH} />
+  <line class="axisline" x1="406" x2="504" y1={BAR_Y} y2={BAR_Y} />
+  <text class="bl" x="432" y="288" text-anchor="middle">births</text>
+  <text class="bl" x="478" y="288" text-anchor="middle">deaths</text>
+</svg>
+<style>
+  .sig { font-family: var(--font-sans); }
+  .band { stroke: none; }
+  .b-exp { fill: color-mix(in srgb, var(--bio-carb) 14%, transparent); }
+  .b-tr { fill: color-mix(in srgb, var(--bio-glucose) 16%, transparent); }
+  .b-pl { fill: color-mix(in srgb, var(--bio-protein) 14%, transparent); }
+  .bt { font-size: 13px; font-weight: 700; fill: var(--text-muted); }
+  .kline { stroke: var(--text-muted); stroke-width: 1.5; stroke-dasharray: 3 5; }
+  .kt { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .axisline { fill: none; stroke: var(--text-muted); stroke-width: 1.5; }
+  .axis { font-size: 14px; font-weight: 650; fill: var(--text); }
+  .curve { fill: none; stroke: var(--bio-carb); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+  .dot { fill: var(--bio-carb); stroke: var(--surface); stroke-width: 2; }
+  .note text { font-size: 13px; font-weight: 650; fill: var(--text); }
+  .note { transition: opacity 0.3s; }
+  .arrow { stroke: var(--bio-chol); stroke-width: 2.5; fill: none; }
+  .head { fill: var(--bio-chol); }
+  .pt { font-size: 13px; font-weight: 700; fill: var(--text-muted); }
+  .bbar { fill: var(--bio-carb); }
+  .dbar { fill: color-mix(in srgb, var(--bio-chol) 75%, var(--surface)); stroke: var(--bio-chol); stroke-width: 1.5; stroke-dasharray: 4 3; }
+  .bl { font-size: 13px; font-weight: 650; fill: var(--text); }
+</style>

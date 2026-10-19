@@ -1,0 +1,138 @@
+---
+import { fieldPx, fieldSvg, newField, runFrame, runSvg, statsText } from './c4-1-quadrat-view';
+const SEED = 1;
+const { plants, trueN } = newField(SEED, 'random');
+const rf = runFrame([], trueN, false);
+---
+<div class="sim-quadrat" data-sim-quadrat data-seed={SEED}>
+  <div class="layout">
+    <div class="field-wrap">
+      <svg class="field" viewBox={`0 0 ${fieldPx} ${fieldPx}`} role="img" aria-labelledby="c41q-t c41q-d">
+        <title id="c41q-t">A 20 m × 20 m field of plants with sample quadrats</title>
+        <desc id="c41q-d">Each dot is one plant. Squares are 1 m × 1 m quadrats placed at random coordinates; the most recent one is highlighted. Faint lines are every 5 m.</desc>
+        <g data-field set:html={fieldSvg(plants, [])} />
+      </svg>
+      <p class="scale">Field 20 m × 20 m = 400 m²; quadrat 1 m × 1 m</p>
+    </div>
+    <div class="controls">
+      <div class="choices" role="group" aria-label="How the plants are spread">
+        <span class="lbl">Distribution:</span>
+        <button type="button" class="btn chip" aria-pressed="true" data-pattern="random">Random</button>
+        <button type="button" class="btn chip" aria-pressed="false" data-pattern="clumped">Clumped</button>
+        <button type="button" class="btn chip" aria-pressed="false" data-pattern="even">Even</button>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" data-add="1">Place 1 quadrat</button>
+        <button type="button" class="btn" data-add="10">Place 10 quadrats</button>
+        <button type="button" class="btn" data-clear>Clear quadrats</button>
+        <button type="button" class="btn" data-new>New field</button>
+      </div>
+      <label class="check"><input type="checkbox" data-reveal /> Reveal the true population</label>
+      <p class="readout" aria-live="polite" data-readout>{statsText([], trueN, false)}</p>
+    </div>
+  </div>
+  <svg class="chart" viewBox={`0 0 ${rf.w} ${rf.h}`} role="img" aria-labelledby="c41qr-t">
+    <title id="c41qr-t">Population estimate after each quadrat; the line settles down as more quadrats are sampled</title>
+    <g data-run set:html={runSvg([], trueN, false)} />
+  </svg>
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <thead><tr><th scope="col">Quadrat</th><th scope="col">x / m</th><th scope="col">y / m</th><th scope="col">Plants counted</th></tr></thead>
+      <tbody data-tbody><tr><td colspan="4">No quadrats yet</td></tr></tbody>
+    </table>
+  </details>
+  <p class="model-note">Simulated field. Coordinates are random numbers to 0.1 m, so every part of the field has an equal chance of being sampled. A plant counts if it is rooted inside the quadrat. The standard deviation is calculated as on a calculator (n − 1).</p>
+</div>
+
+<script>
+  import { MAX_Q, fieldSvg, newField, runSvg, statsText } from './c4-1-quadrat-view';
+  import { placeQuadrats, type Pattern, type Quadrat } from './models/c4-1-quadrat';
+  import { mulberry32 } from './models/c4-1-rng';
+
+  document.querySelectorAll<HTMLElement>('[data-sim-quadrat]').forEach((root) => {
+    let seed = Number(root.dataset.seed);
+    let pattern: Pattern = 'random';
+    let field = newField(seed, pattern);
+    let quads: Quadrat[] = [];
+    let draws = 0; // how many sets of quadrats have been started on this field (seeds the coordinates)
+    let rng = mulberry32(seed * 977 + 1);
+    const fieldG = root.querySelector<SVGGElement>('[data-field]')!;
+    const runG = root.querySelector<SVGGElement>('[data-run]')!;
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    const tbody = root.querySelector<HTMLElement>('[data-tbody]')!;
+    const reveal = root.querySelector<HTMLInputElement>('[data-reveal]')!;
+    let timer = 0;
+
+    const draw = (redrawField: boolean) => {
+      const counts = quads.map((q) => q.count);
+      if (redrawField) fieldG.innerHTML = fieldSvg(field.plants, quads);
+      runG.innerHTML = runSvg(counts, field.trueN, reveal.checked);
+      tbody.innerHTML = quads.length
+        ? quads.map((q, i) => `<tr><th scope="row">${i + 1}</th><td>${q.x.toFixed(1)}</td><td>${q.y.toFixed(1)}</td><td>${q.count}</td></tr>`).join('')
+        : '<tr><td colspan="4">No quadrats yet</td></tr>';
+      clearTimeout(timer);
+      timer = window.setTimeout(() => (readout.textContent = statsText(counts, field.trueN, reveal.checked)), 250);
+    };
+    const reset = (newSeed: boolean) => {
+      if (newSeed) seed += 1;
+      field = newField(seed, pattern);
+      quads = [];
+      draws = 0;
+      rng = mulberry32(seed * 977 + 1);
+      draw(true);
+    };
+    root.querySelectorAll<HTMLButtonElement>('[data-pattern]').forEach((b) => b.addEventListener('click', () => {
+      pattern = b.dataset.pattern as Pattern;
+      root.querySelectorAll('[data-pattern]').forEach((o) => o.setAttribute('aria-pressed', String(o === b)));
+      reset(false);
+    }));
+    root.querySelectorAll<HTMLButtonElement>('[data-add]').forEach((b) => b.addEventListener('click', () => {
+      const k = Math.min(Number(b.dataset.add), MAX_Q - quads.length);
+      if (k > 0) quads = quads.concat(placeQuadrats(field.plants, rng, k));
+      draw(true);
+    }));
+    root.querySelector('[data-clear]')!.addEventListener('click', () => { quads = []; draws += 1; rng = mulberry32(seed * 977 + 1 + draws * 104729); draw(true); });
+    root.querySelector('[data-new]')!.addEventListener('click', () => reset(true));
+    reveal.addEventListener('change', () => draw(false));
+  });
+</script>
+
+<style>
+  .sim-quadrat { container-type: inline-size; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 44rem) { .layout { grid-template-columns: minmax(0, 1.1fr) minmax(15rem, 1fr); align-items: start; } }
+  .field { width: 100%; max-width: 30rem; height: auto; display: block; margin: 0 auto; }
+  .field :global(.ground) { fill: color-mix(in srgb, var(--bio-carb) 10%, var(--surface)); stroke: var(--border-strong); }
+  .field :global(.mgrid line) { stroke: var(--border); stroke-width: 1; }
+  .field :global(.plants circle) { fill: var(--bio-carb); }
+  .field :global(.q) { fill: color-mix(in srgb, var(--bio-glucose) 22%, transparent); stroke: var(--bio-head); stroke-width: 2; }
+  .field :global(.q.last) { stroke: var(--text); stroke-width: 3; }
+  .scale { text-align: center; font-size: 0.8rem; color: var(--text-muted); margin: var(--space-1) 0 0; }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); align-content: start; }
+  .choices, .actions { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .lbl { font-weight: 700; color: var(--text-muted); }
+  .chip { min-height: 2.1rem; padding: 0.3rem 0.65rem; }
+  .check { display: flex; gap: var(--space-2); align-items: center; font-weight: 600; min-height: 1.75rem; }
+  .readout { margin: 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); }
+  .chart { width: 100%; height: auto; margin-top: var(--space-3); font-family: var(--font-sans); }
+  .chart :global(.grid line) { stroke: var(--border); stroke-width: 1; }
+  .chart :global(.axisline) { fill: none; stroke: var(--text-muted); stroke-width: 1.4; }
+  .chart :global(.ticks text) { font-size: 15px; fill: var(--text-muted); }
+  .chart :global(.axis) { font-size: 16px; font-weight: 650; fill: var(--text); }
+  .chart :global(.line) { fill: none; stroke-width: 3; stroke-linejoin: round; }
+  .chart :global(.run) { stroke: var(--bio-head); }
+  .chart :global(.rp) { fill: var(--bio-head); }
+  .chart :global(.trueline) { stroke: var(--text); stroke-width: 1.6; stroke-dasharray: 8 6; }
+  .chart :global(.true-t) { font-size: 14px; font-weight: 700; fill: var(--text); }
+  .chart :global(.empty-t) { font-size: 15px; fill: var(--text-muted); font-style: italic; }
+  @container (max-width: 30rem) {
+    .chart :global(.ticks text), .chart :global(.axis) { font-size: 20px; }
+    .chart :global(.true-t), .chart :global(.empty-t) { font-size: 18px; }
+  }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  .table :global(th), .table :global(td) { padding: 0.2rem 0.7rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

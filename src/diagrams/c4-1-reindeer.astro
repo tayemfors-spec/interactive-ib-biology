@@ -1,0 +1,53 @@
+---
+/** St Matthew Island reindeer counts (Klein 1968) on a linear and a logarithmic vertical axis (C4.1.7). */
+const data = [
+  { year: 1944, n: 29 },
+  { year: 1957, n: 1350 },
+  { year: 1963, n: 6000 },
+  { year: 1966, n: 42 },
+];
+const P = { w: 260, h: 250, l: 58, r: 10, t: 30, b: 44 };
+const xs = (yr: number, ox: number) => ox + P.l + ((yr - 1940) / 30) * (P.w - P.l - P.r);
+const yLin = (n: number) => P.h - P.b - (n / 7000) * (P.h - P.t - P.b);
+const yLog = (n: number) => P.h - P.b - (Math.log10(n) / 4) * (P.h - P.t - P.b);
+const panels = [
+  { ox: 0, title: 'Linear scale', y: yLin, ticks: [0, 2000, 4000, 6000], lab: (v: number) => v.toLocaleString('en-GB') },
+  { ox: 290, title: 'Log scale', y: yLog, ticks: [1, 10, 100, 1000, 10000], lab: (v: number) => v.toLocaleString('en-GB') },
+];
+const growth = data.slice(0, 3);
+---
+<svg viewBox="0 0 560 262" role="img" aria-labelledby="c41r-t c41r-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="c41r-t">Reindeer on St Matthew Island, plotted on linear and logarithmic axes</title>
+  <desc id="c41r-d">Counts: 29 reindeer introduced in 1944, about 1350 in 1957, about 6000 in 1963, and 42 in 1966 after a crash. On the linear axis the rise curves upwards steeply. On the logarithmic axis the points from 1944 to 1963 lie close to a straight line, which is the sign of exponential growth; then numbers crash.</desc>
+  {panels.map((p) => (
+    <g>
+      <text class="h" x={p.ox + (P.l + P.w - P.r) / 2} y="16" text-anchor="middle">{p.title}</text>
+      {p.ticks.map((v) => (
+        <g>
+          <line class="grid" x1={p.ox + P.l} x2={p.ox + P.w - P.r} y1={p.y(v)} y2={p.y(v)} />
+          <text class="tk" x={p.ox + P.l - 6} y={p.y(v)} dy="0.35em" text-anchor="end">{p.lab(v)}</text>
+        </g>
+      ))}
+      <path class="axisline" d={`M${p.ox + P.l} ${P.t - 6} L${p.ox + P.l} ${P.h - P.b} L${p.ox + P.w - P.r} ${P.h - P.b}`} />
+      {[1940, 1950, 1960, 1970].map((yr) => <text class="tk" x={xs(yr, p.ox)} y={P.h - P.b + 18} text-anchor="middle">{yr}</text>)}
+      <text class="ax" x={p.ox + (P.l + P.w - P.r) / 2} y={P.h - 6} text-anchor="middle">Year</text>
+      <path class="fit" d={growth.map((d, i) => `${i ? 'L' : 'M'}${xs(d.year, p.ox).toFixed(1)} ${p.y(d.n).toFixed(1)}`).join(' ')} />
+      <path class="crash" d={`M${xs(1963, p.ox).toFixed(1)} ${p.y(6000).toFixed(1)} L${xs(1966, p.ox).toFixed(1)} ${p.y(42).toFixed(1)}`} />
+      {data.map((d) => <circle class="pt" cx={xs(d.year, p.ox)} cy={p.y(d.n)} r="5" />)}
+    </g>
+  ))}
+  <text class="ann" x={xs(1966, 290) + 8} y={yLog(42) + 4}>crash</text>
+  <text class="ann" x={xs(1946, 290)} y={yLog(8)}>≈ straight line</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .h { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .grid { stroke: var(--border); stroke-width: 1; }
+  .axisline { fill: none; stroke: var(--text-muted); stroke-width: 1.4; }
+  .tk { font-size: 12.5px; fill: var(--text-muted); }
+  .ax { font-size: 13px; font-weight: 650; fill: var(--text); }
+  .fit { fill: none; stroke: var(--bio-head); stroke-width: 2.6; }
+  .crash { fill: none; stroke: var(--bio-chol); stroke-width: 2; stroke-dasharray: 5 4; }
+  .pt { fill: var(--surface); stroke: var(--text); stroke-width: 2.2; }
+  .ann { font-size: 13px; font-weight: 700; fill: var(--text); }
+</style>

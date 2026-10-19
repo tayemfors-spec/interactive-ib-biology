@@ -1,0 +1,96 @@
+# Visuals for C4.1. Step captions here are what readers see in the animation and the text descriptions,
+# so they are written to exam standard.
+visuals:
+  - id: quadrat
+    kind: sim
+    module: c4-1-quadrat
+    title: Random quadrat sampling
+    alt: A field of plants in which 1 m quadrats are placed at random coordinates to estimate the population size.
+    description: >-
+      A square field 20 m by 20 m in which each dot is one plant. The plants can be spread at random, in clumps
+      or evenly. Each button press places quadrats measuring 1 m by 1 m at random coordinates and counts the
+      plants inside. The panel shows the number of quadrats, the mean count per quadrat, its standard deviation
+      and the population estimate (mean per quadrat × 400 m² ÷ 1 m²). A graph below plots the estimate after
+      each quadrat: it swings widely at first and settles as more quadrats are added. The true population can
+      be revealed to show the sampling error. Clumped plants give a standard deviation larger than the mean
+      and a less reliable estimate; evenly spread plants give a small standard deviation.
+
+  - id: capture
+    kind: sim
+    module: c4-1-capture
+    title: Capture–mark–release–recapture and the Lincoln index
+    alt: Simulated animals are caught, marked, released and recaptured to estimate population size with the Lincoln index.
+    description: >-
+      A habitat containing a population of motile animals. A survey catches and marks a first sample (M),
+      releases it, then catches a second sample (N) and counts how many of those are marked (R). The estimate
+      M × N ÷ R is compared with the true population size. Sliders set the true size and the two sample sizes.
+      Checkboxes break each assumption of the method: marks wearing off, marked animals being eaten more often,
+      marked animals not mixing back into the population, and unmarked animals migrating in. A dot plot collects
+      the estimates from repeated surveys so you can see how much they vary and whether they are too high or too low.
+
+  - id: sigmoid
+    kind: anim
+    module: c4-1-sigmoid
+    title: The phases of sigmoid population growth
+    alt: Step-by-step sigmoid growth curve with per-capita birth and death rate bars, from founders to the carrying capacity.
+    description: >-
+      A graph of population size against time builds up step by step into an S-shaped (sigmoid) curve that levels
+      off at the carrying capacity K, shown as a dashed line. Beside it, two bars show the per-capita birth rate
+      and death rate. The birth bar starts high and the death bar low; as the population grows, density-dependent
+      factors make births fall and deaths rise until the bars are equal at K. In the last step a hard frost kills
+      almost half of the population, and it grows back to K.
+    steps:
+      - id: founders
+        title: A few founders arrive
+        caption: A small number of individuals colonize a new habitat, for example duckweed in a pond or yeast in fresh medium. Resources are plentiful and there is little competition. There is no lag phase in the model; growth starts at once.
+      - id: exponential
+        title: Exponential phase
+        caption: Births far exceed deaths. The per-capita growth rate is constant, so each generation adds more individuals than the one before and the curve gets steeper. Numbers would double in equal times if this continued.
+      - id: transitional
+        title: Transitional phase
+        caption: Density-dependent factors start to act. Competition for food, space or light increases, predators find prey more easily and pathogens spread faster. The birth rate falls and the death rate rises, so the curve becomes less steep after its steepest point at K/2.
+      - id: plateau
+        title: Plateau at the carrying capacity
+        caption: The population has reached the carrying capacity (K), the maximum the environment can support. The birth rate equals the death rate, so numbers stay roughly constant.
+      - id: fluctuation
+        title: Negative feedback after a disturbance
+        caption: A density-independent event, such as a hard frost, kills 45% of the population regardless of density. With fewer individuals, competition, predation and disease ease, births exceed deaths again and the population returns to K. This is negative feedback.
+
+  - id: growth
+    kind: sim
+    module: c4-1-growth
+    title: Modelling population growth
+    alt: Graph of exponential and sigmoid growth models with adjustable r and K, overlaid on illustrative duckweed counts.
+    description: >-
+      A graph of number of duckweed fronds against time in days. The exponential model (dashed) rises ever more
+      steeply. The sigmoid (logistic) model (solid) follows it at first, then slows and levels off at the
+      carrying capacity K. Shaded bands mark the exponential, transitional and plateau phases. Sliders set the
+      growth rate r and K, and a button finds the values that best fit the illustrative duckweed counts. A
+      checkbox switches the vertical axis to a logarithmic scale, on which exponential growth is a straight line
+      and the sigmoid curve and the data bend away from it as they approach K.
+
+  - id: predator-prey
+    kind: sim
+    module: c4-1-predator-prey
+    title: Predator–prey cycles (lynx and snowshoe hare model)
+    alt: Model graph of snowshoe hare and Canada lynx numbers cycling over 60 years, with controls for food and predation.
+    description: >-
+      A Lotka–Volterra model of snowshoe hares (prey, solid line, left axis) and Canada lynx (predators, dashed
+      line, right axis) over 60 years. In the classic model both populations rise and fall in repeated cycles,
+      with each lynx peak coming after a hare peak. A food slider limits the hares' carrying capacity (bottom-up
+      control): limited food damps the cycles to a steady state, and very little food means the lynx die out.
+      A hunting-success slider changes how strongly lynx limit hares (top-down control). Removing the lynx lets
+      hares grow until food limits them.
+
+  - id: chi-squared
+    kind: sim
+    module: c4-1-chi-squared
+    title: Chi-squared test for association between two species
+    alt: A grid of quadrats with two species, a 2×2 contingency table, expected values and the chi-squared result.
+    description: >-
+      A grid of quadrats shows which contain species A, species B, both or neither. The observed frequencies
+      are entered in a 2 × 2 contingency table, which can be edited. Expected frequencies are calculated as row
+      total × column total ÷ grand total, then each (O − E)² ÷ E and their sum, χ². With one degree of freedom
+      the critical value at p = 0.05 is 3.84. The conclusion states whether the null hypothesis of independent
+      distribution is rejected and whether any association is positive or negative. Buttons load a worked example
+      and simulated surveys of non-interacting species, competing species and species that share a habitat.

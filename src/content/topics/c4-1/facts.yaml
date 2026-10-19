@@ -1,0 +1,157 @@
+facts:
+  - id: f1
+    claim: A population is a group of organisms of the same species in an area that normally interbreed; populations of a species are distinguished by reproductive isolation.
+    where: ["index.mdx#populations", "index.mdx (mustKnow)", "flashcards.yaml:c1"]
+    confidence: high
+    basis: IB guide C4.1.1; standard ecology texts (Begon, Townsend & Harper)
+    status: checked
+  - id: f2
+    claim: Sampling error is the difference between the estimate and the true population size; random sampling reduces but cannot eliminate it.
+    where: ["index.mdx#populations", "index.mdx (mustKnow)", "flashcards.yaml:c2", "visuals.yaml:quadrat"]
+    confidence: high
+    basis: IB guide C4.1.2 NOS statement
+    status: checked
+  - id: f3
+    claim: Quadrat estimate = mean per quadrat × site area ÷ quadrat area; e.g. 3.2 × 50 ÷ 0.25 = 640.
+    where: ["index.mdx#populations", "index.mdx (mistakes)", "quiz.yaml:q3", "flashcards.yaml:c3", "tests/unit/c4-1.test.ts"]
+    confidence: high
+    basis: Arithmetic; standard method
+    status: checked
+  - id: f4
+    claim: A standard deviation that is large relative to the mean indicates a clumped distribution and a less reliable estimate; a small SD indicates even spread.
+    where: ["index.mdx#populations", "quiz.yaml:q4", "flashcards.yaml:c4", "sim c4-1-quadrat readout"]
+    confidence: medium
+    basis: IB guide C4.1.3 (SD as measure of how evenly the population is spread). "SD > mean means clumped" is a rule of thumb related to the variance-to-mean ratio (> 1 indicates clumping), not a strict test.
+    status: open
+  - id: f5
+    claim: Lincoln index — population = M × N ÷ R with M first sample marked, N total in second sample, R marked in second sample; 40 × 50 ÷ 8 = 250; 60 × 45 ÷ 9 = 300.
+    where: ["index.mdx#capture-recapture", "quiz.yaml:q1", "flashcards.yaml:c5", "visuals.yaml:capture", "tests/unit/c4-1.test.ts"]
+    confidence: high
+    basis: IB guide C4.1.4 (formula and symbols); arithmetic
+    status: checked
+  - id: f6
+    claim: Assumptions — closed population (no births, deaths, migration), marks not lost, marking does not affect survival/behaviour, random mixing with equal recapture probability. Lost marks or extra deaths of marked animals → overestimate; marked animals over-represented in recapture → underestimate.
+    where: ["index.mdx#capture-recapture", "quiz.yaml:q2", "flashcards.yaml:c6", "sim c4-1-capture"]
+    confidence: high
+    basis: Standard mark–recapture theory (Krebs, Ecological Methodology); unit tests confirm direction of bias in the model
+    status: checked
+  - id: f7
+    claim: Carrying capacity is the maximum population an environment can support; examples of limiting resources (light, water, mineral ions for plants; food, water, territories/nest sites, dissolved oxygen for animals).
+    where: ["index.mdx#carrying-capacity", "index.mdx (mustKnow)", "flashcards.yaml:c7"]
+    confidence: high
+    basis: IB guide C4.1.5; standard ecology
+    status: checked
+  - id: f8
+    claim: Density-dependent factors (competition, predation, pathogens/pests) give negative feedback towards K; density-independent factors (floods, fire, frost) cause fluctuations.
+    where: ["index.mdx#carrying-capacity", "figure c4-1-feedback", "quiz.yaml:q5", "flashcards.yaml:c8", "visuals.yaml:sigmoid step fluctuation"]
+    confidence: high
+    basis: IB guide C4.1.6
+    status: checked
+  - id: f9
+    claim: Sigmoid curve has exponential, transitional and plateau phases; the IB model has no lag phase; at the plateau birth rate equals death rate.
+    where: ["index.mdx#growth-curves", "index.mdx (mistakes)", "visuals.yaml:sigmoid", "flashcards.yaml:c9"]
+    confidence: high
+    basis: IB guide C4.1.7 ("A lag phase is not expected")
+    status: checked
+  - id: f10
+    claim: In the logistic model the steepest point (inflection) is at K/2. On-page phase boundaries are drawn at 25% and 95% of K as a convention.
+    where: ["visuals.yaml:sigmoid step transitional", "sim c4-1-growth", "tests/unit/c4-1.test.ts"]
+    confidence: high
+    basis: Mathematics of the logistic equation; boundaries are a stated convention, not a biological fact
+    status: checked
+  - id: f11
+    claim: St Matthew Island — 29 reindeer introduced 1944; about 1350 in 1957; about 6000 in 1963; 42 in 1966 after lichen overgrazing and a severe winter (1963–64); no predators.
+    where: ["index.mdx#growth-curves", "figure c4-1-reindeer"]
+    confidence: medium
+    basis: Klein, D. R. (1968) Journal of Wildlife Management 32, 350–367. Figures as commonly cited; teacher to confirm against the paper.
+    status: open
+  - id: f12
+    claim: Exponential growth plots as a straight line on a log (vertical) vs linear (time) graph.
+    where: ["index.mdx#growth-curves", "quiz.yaml:q6", "flashcards.yaml:c10", "sim c4-1-growth", "tests/unit/c4-1.test.ts"]
+    confidence: high
+    basis: Mathematics; IB guide C4.1.7 skill
+    status: checked
+  - id: f13
+    claim: Duckweed (Lemna) counted as fronds in mineral-ion solution, and yeast counted with a haemocytometer, are suitable for modelling sigmoid growth. Duckweed data in the sim are invented and labelled illustrative.
+    where: ["index.mdx#growth-curves", "sim c4-1-growth"]
+    confidence: high
+    basis: IB guide C4.1.8 (yeast and duckweed recommended)
+    status: checked
+  - id: f14
+    claim: Intraspecific examples — plants competing for light (self-thinning), territorial European robins, red deer stags competing for hinds; cooperation in honeybees, meerkat sentinels, emperor penguin huddling, wolf pack hunting.
+    where: ["index.mdx#relationships", "flashcards.yaml:c11"]
+    confidence: high
+    basis: Standard behavioural ecology examples (Davies, Krebs & West)
+    status: checked
+  - id: f15
+    claim: Interspecific examples — snowshoe hares browsing willow/birch twigs (herbivory); lynx eating hares (predation); lions and spotted hyenas competing for prey; Rhizobium (mutualism); ticks on deer (parasitism); Batrachochytrium dendrobatidis in frogs (pathogenicity).
+    where: ["index.mdx#relationships", "flashcards.yaml:c12"]
+    confidence: high
+    basis: Standard ecology texts
+    status: checked
+  - id: f16
+    claim: Rhizobium in legume root nodules fixes N₂ to ammonium for the plant; the plant supplies carbon compounds and a low-oxygen environment (O₂ inactivates nitrogenase; leghaemoglobin keeps O₂ low).
+    where: ["index.mdx#mutualism-invasive", "figure c4-1-mutualism", "quiz.yaml:q7", "index.mdx (mistakes)"]
+    confidence: high
+    basis: Taiz & Zeiger, Plant Physiology; IB guide C4.1.12
+    status: checked
+  - id: f17
+    claim: Orchid mycorrhizal hyphae penetrate root cell walls but not plasma membranes, forming coils; fungus supplies water and mineral ions, and sugars to seedlings (tiny seeds with almost no reserves); adult green orchids supply photosynthetic sugars to the fungus.
+    where: ["index.mdx#mutualism-invasive", "figure c4-1-mutualism", "flashcards.yaml:c13"]
+    confidence: medium
+    basis: Smith & Read, Mycorrhizal Symbiosis; Cameron et al. (2006) New Phytologist 171, 405–416 (carbon transfer from adult Goodyera repens to fungus). Carbon flow to the fungus has been shown in only some species.
+    status: open
+  - id: f18
+    claim: Zooxanthellae (dinoflagellates, Symbiodiniaceae) live inside coral cells and pass most of their photosynthate (sugars, amino acids) and O₂ to the coral; the coral supplies CO₂, nitrogen and phosphorus compounds and shelter; heat stress causes bleaching.
+    where: ["index.mdx#mutualism-invasive", "figure c4-1-mutualism", "flashcards.yaml:c14"]
+    confidence: high
+    basis: Muscatine & Porter (1977); standard marine biology texts
+    status: checked
+  - id: f19
+    claim: Grey squirrels were introduced to Britain from North America in the late 19th century; they digest tannin-rich acorns more efficiently than red squirrels and take hazelnuts before ripening, outcompeting reds in broadleaved woodland; they also carry squirrelpox virus.
+    where: ["index.mdx#mutualism-invasive (local example callout)"]
+    confidence: medium
+    basis: Kenward & Holm (1993) Proc. R. Soc. B 251, 187–194 (acorn digestion); Gurnell et al. (2004). Flagged on the page as a local example to be replaced by the teacher's own.
+    status: open
+  - id: f20
+    claim: Gause's Paramecium experiments (one species excluded the other when grown together) and Connell's barnacle removal (Chthamalus survived lower on the shore when Balanus/Semibalanus was removed, Scotland) as tests of interspecific competition.
+    where: ["index.mdx#competition-tests"]
+    confidence: high
+    basis: Gause (1934) The Struggle for Existence; Connell (1961) Ecology 42, 710–723
+    status: checked
+  - id: f21
+    claim: Chi-squared test — expected = row total × column total ÷ grand total; df = (r − 1)(c − 1) = 1; critical value 3.84 at p = 0.05. Worked example (6, 19, 17, 8 of 50) gives expected 11.5, 13.5, 11.5, 13.5 and χ² = 9.74.
+    where: ["index.mdx#competition-tests", "quiz.yaml:q8", "flashcards.yaml:c15", "sim c4-1-chi-squared", "tests/unit/c4-1.test.ts"]
+    confidence: high
+    basis: Standard statistics tables (χ² 0.05, df 1 = 3.841); arithmetic verified in unit tests
+    status: checked
+  - id: f22
+    claim: Snowshoe hare and Canada lynx numbers cycle with a period of about 10 years, lynx lagging hares by about 1–2 years; evidence from Hudson's Bay Company fur records. Kluane (Yukon) experiments showed both predation and food limit hares; combining predator exclusion and food addition raised density far more than either alone.
+    where: ["index.mdx#predator-prey", "quiz.yaml:q10", "visuals.yaml:predator-prey"]
+    confidence: medium
+    basis: Elton & Nicholson (1942); Krebs et al. (1995) Science 269, 1112–1115 (reported about 2× with predator exclusion, 3× with food, about 11× combined — numbers not given on page)
+    status: open
+  - id: f23
+    claim: Sea otters control sea urchins, allowing kelp forests (top-down); phosphate limits phytoplankton in many lakes (bottom-up).
+    where: ["index.mdx#predator-prey", "figure c4-1-control", "flashcards.yaml:c16"]
+    confidence: high
+    basis: Estes & Palmisano (1974) Science 185, 1058–1060; Schindler (1974/1977) on phosphorus limitation in lakes
+    status: checked
+  - id: f24
+    claim: Black walnut (Juglans nigra) tissues contain hydrojuglone, which oxidizes to juglone in soil and inhibits growth of plants such as tomato and apple.
+    where: ["index.mdx#allelopathy", "flashcards.yaml:c17"]
+    confidence: high
+    basis: Willis (2000) Allelopathy Journal; extension-service literature on juglone sensitivity
+    status: checked
+  - id: f25
+    claim: Streptomyces griseus secretes streptomycin (discovered 1943, Schatz and Waksman); Penicillium secretes penicillin, which inhibits bacterial cell-wall (peptidoglycan) synthesis. Their role in reducing competition in nature is the standard textbook interpretation.
+    where: ["index.mdx#allelopathy", "flashcards.yaml:c17"]
+    confidence: medium
+    basis: Schatz, Bugie & Waksman (1944); the ecological role of antibiotics at natural concentrations is debated (some may act as signals)
+    status: open
+  - id: f26
+    claim: The predator–prey sim is a Lotka–Volterra model (arbitrary units) — classic form gives neutral cycles; a finite prey carrying capacity damps them; if K is below d/(e·b), predators die out.
+    where: ["sim c4-1-predator-prey", "tests/unit/c4-1.test.ts"]
+    confidence: high
+    basis: Standard theoretical ecology (Rosenzweig–MacArthur / logistic-prey LV analysis)
+    status: checked

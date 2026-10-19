@@ -1,0 +1,207 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: C4.1.4
+    stem: >-
+      To estimate a population of woodlice, 40 were caught, marked and released. Two days later 50 woodlice
+      were caught, of which 8 were marked. What is the estimated population size?
+    options:
+      - id: a
+        text: "6.4"
+        why: This is M × R ÷ N (40 × 8 ÷ 50), with N and R swapped. The estimate must be at least as large as the number caught.
+      - id: b
+        text: "10"
+        why: This is N × R ÷ M (50 × 8 ÷ 40). The Lincoln index multiplies the two sample sizes and divides by the number recaptured with marks.
+      - id: c
+        text: "250"
+        why: Correct. M × N ÷ R = 40 × 50 ÷ 8 = 250. One woodlouse in five of the second sample was marked, so the 40 marked are about one fifth of the population.
+      - id: d
+        text: "2000"
+        why: This is M × N without dividing by R, so it ignores how many animals in the second sample were already marked.
+    answer: c
+
+  - id: q2
+    level: SL
+    understanding: C4.1.4
+    stem: >-
+      In a capture–mark–release–recapture study of snails, the paint used to mark the shells washed off some
+      snails before the second sample was taken. How will this affect the population estimate?
+    options:
+      - id: a
+        text: It will be too high, because fewer marked snails are recognised in the second sample.
+        why: Correct. Lost marks make R smaller than it should be, and R is the divisor in M × N ÷ R, so the estimate is too large.
+      - id: b
+        text: It will be too low, because fewer marked snails are recognised in the second sample.
+        why: A smaller R increases M × N ÷ R. Dividing by a smaller number gives a larger answer, so the population is overestimated.
+      - id: c
+        text: It will not be affected, because the snails are still part of the population.
+        why: The snails are still there, but the method relies on recognising them as marked. Unrecognised marked snails are counted as unmarked, which biases R.
+      - id: d
+        text: It will be too high, because more snails will be caught in the second sample.
+        why: Losing marks does not change how many snails are caught (N); it changes how many of them are recognised as marked (R).
+    answer: a
+
+  - id: q3
+    level: SL
+    understanding: C4.1.3
+    stem: >-
+      Ten quadrats, each 0.25 m², were placed at random in a meadow with an area of 50 m². The mean number of
+      dandelions per quadrat was 3.2. What is the estimated number of dandelions in the meadow?
+    options:
+      - id: a
+        text: "12.8"
+        why: This is 3.2 ÷ 0.25, the density per m², without scaling up to the area of the meadow.
+      - id: b
+        text: "40"
+        why: This multiplies by the quadrat area instead of dividing (3.2 × 50 × 0.25).
+      - id: c
+        text: "160"
+        why: This is 3.2 × 50, which treats each quadrat as 1 m². The quadrats are only 0.25 m², so you must also divide by 0.25.
+      - id: d
+        text: "640"
+        why: Correct. Estimate = mean per quadrat × total area ÷ quadrat area = 3.2 × 50 ÷ 0.25 = 640.
+    answer: d
+
+  - id: q4
+    level: SL
+    understanding: C4.1.3
+    stem: >-
+      Two populations were sampled with 20 random quadrats each. Population X had a mean of 4.0 plants per
+      quadrat (standard deviation 0.8); population Y had a mean of 4.0 (standard deviation 5.1). What can be concluded?
+    options:
+      - id: a
+        text: Population Y is larger than population X.
+        why: The means are the same, so the estimated population sizes are the same (for equal areas). Standard deviation measures spread, not size.
+      - id: b
+        text: Population Y is more clumped, so its estimate is less reliable.
+        why: Correct. A standard deviation larger than the mean shows counts varied greatly between quadrats, typical of a clumped distribution, so the sampling error is likely to be larger.
+      - id: c
+        text: Population X is more clumped, because its counts are more consistent.
+        why: Consistent counts (small standard deviation) mean the plants are spread evenly, not clumped.
+      - id: d
+        text: The quadrats in population Y cannot have been placed at random.
+        why: Random placement in a clumped population naturally gives very variable counts. A large standard deviation reflects the distribution, not the sampling method.
+    answer: b
+
+  - id: q5
+    level: SL
+    understanding: C4.1.6
+    stem: Which of these is a density-independent factor affecting a population of field mice?
+    options:
+      - id: a
+        text: A flood that drowns mice in their burrows
+        why: Correct. A flood kills a similar proportion of mice however crowded the population is, so it is density-independent; it causes fluctuations rather than regulating numbers.
+      - id: b
+        text: Competition between mice for seeds in winter
+        why: Competition becomes more intense as density rises, so it is density-dependent.
+      - id: c
+        text: Predation by owls, which hunt where mice are most abundant
+        why: Predation increases when prey are more abundant and easier to find, so it is density-dependent.
+      - id: d
+        text: A viral disease that spreads between mice sharing nests
+        why: Pathogens spread more easily in dense populations, so disease is density-dependent.
+    answer: a
+
+  - id: q6
+    level: SL
+    understanding: C4.1.7
+    stem: >-
+      A student plots the number of yeast cells (on a logarithmic vertical axis) against time (on a linear
+      horizontal axis). For the first 8 hours the points lie on a straight line rising from left to right. What does this show?
+    options:
+      - id: a
+        text: The population increased by the same number of cells each hour.
+        why: A constant number added each hour is linear growth, which would be a straight line on a linear axis but a curve that flattens on a log axis.
+      - id: b
+        text: The population had reached its carrying capacity.
+        why: At carrying capacity the numbers would be constant, giving a horizontal line, not a rising one.
+      - id: c
+        text: There was a lag phase before growth began.
+        why: A lag phase would show as a flat start followed by a rise; the points here rise steadily from the start.
+      - id: d
+        text: The population grew exponentially, multiplying by the same factor each hour.
+        why: Correct. Exponential growth multiplies numbers by a constant factor in each equal time interval, which is a straight line when size is on a log scale.
+    answer: d
+
+  - id: q7
+    level: SL
+    understanding: C4.1.12
+    stem: In the mutualism between a legume plant and Rhizobium bacteria, what does each partner receive?
+    options:
+      - id: a
+        text: The plant receives nitrogen gas; the bacteria receive ammonium ions.
+        why: This reverses the nitrogen chemistry. The bacteria take in N₂ and fix it into ammonium, which the plant then uses.
+      - id: b
+        text: The plant receives ammonium ions; the bacteria receive carbon compounds such as sugars.
+        why: Correct. Rhizobium fixes N₂ into NH₄⁺ for the plant's amino acid synthesis, and the plant supplies products of photosynthesis and a low-oxygen nodule.
+      - id: c
+        text: The plant receives sugars; the bacteria receive nitrate ions.
+        why: The plant makes its own sugars by photosynthesis. In this mutualism the plant gives sugars and receives fixed nitrogen.
+      - id: d
+        text: The plant receives water and phosphate; the bacteria receive oxygen.
+        why: Supplying water and phosphate is the role of mycorrhizal fungi. Nodules give the bacteria a low-oxygen environment, because oxygen inactivates the nitrogen-fixing enzyme.
+    answer: b
+
+  - id: q8
+    level: SL
+    understanding: C4.1.15
+    stem: >-
+      In 60 random quadrats, species A was present in 30, species B in 20, and both together in 4. What is the
+      expected number of quadrats containing both species if they are distributed independently, and what does
+      the observed number suggest?
+    options:
+      - id: a
+        text: 10; the species occur together more often than expected (positive association).
+        why: The expected value is right, but 4 observed is fewer than 10 expected, so any association would be negative, not positive.
+      - id: b
+        text: 6.7; the species occur together less often than expected (negative association).
+        why: 6.7 is 20 × 20 ÷ 60. The expected value uses the row total for B (20) and the column total for A (30).
+      - id: c
+        text: 10; the species occur together less often than expected (negative association).
+        why: Correct. Expected = row total × column total ÷ grand total = 20 × 30 ÷ 60 = 10. Only 4 were observed, suggesting a negative association, to be tested with χ².
+      - id: d
+        text: 15; the species occur together less often than expected (negative association).
+        why: 15 is half of A's 30 quadrats. The expected value must use both species' totals and the grand total.
+    answer: c
+
+  - id: q9
+    level: SL
+    understanding: C4.1.14
+    stem: >-
+      Ecologists removed all plants of one grass species from some plots in a meadow and left control plots
+      untouched. A year later a second grass species had increased in the removal plots only. Which statement is correct?
+    options:
+      - id: a
+        text: This is an observational study, so it cannot test a hypothesis.
+        why: The scientists intervened by removing a species, so this is an experiment. In any case, observations can also test hypotheses.
+      - id: b
+        text: This proves that the two species have a mutualistic relationship.
+        why: The second species did better without the first, which suggests competition, the opposite of mutualism.
+      - id: c
+        text: This is a laboratory experiment, because conditions were controlled.
+        why: It took place in the field. Only the removal was controlled; temperature, rainfall and other variables were not.
+      - id: d
+        text: This is a field manipulation experiment, and it provides evidence of interspecific competition.
+        why: Correct. The scientists changed one variable (presence of the first species) and compared with controls; the second species' increase is evidence that the first was competing with it.
+    answer: d
+
+  - id: q10
+    level: SL
+    understanding: C4.1.16
+    stem: >-
+      Records of snowshoe hares and Canada lynx show cycles of about 10 years, with lynx numbers peaking one to
+      two years after hare numbers. What is the best explanation for this delay?
+    options:
+      - id: a
+        text: Lynx numbers rise only after hares become abundant, because more food lets more lynx survive and breed.
+        why: Correct. The predator population responds to the food supply after a delay, and the large lynx population then reduces hare numbers.
+      - id: b
+        text: Hares breed only when lynx numbers are low, so hare peaks always come first.
+        why: Hares breed whatever the lynx numbers. Hare numbers rise when births exceed deaths, which happens when predation (and food shortage) is low.
+      - id: c
+        text: Lynx numbers are controlled bottom-up by the plants that hares eat.
+        why: The plants affect lynx only indirectly, through the hares. This does not explain why lynx peaks come after hare peaks.
+      - id: d
+        text: Hare numbers rise because lynx numbers are high.
+        why: A large lynx population eats more hares, so hare numbers fall when lynx numbers are high, not rise.
+    answer: a

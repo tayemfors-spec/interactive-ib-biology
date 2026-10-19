@@ -1,0 +1,63 @@
+---
+/** Negative feedback by density-dependent factors keeps a population near its carrying capacity (C4.1.5–6). */
+const left = [
+  ['Population rises', 'above K'],
+  ['More competition for', 'resources; predators and', 'disease spread more easily'],
+  ['Birth rate falls,', 'death rate rises'],
+];
+const right = [
+  ['Population falls', 'below K'],
+  ['Less competition;', 'predation and disease', 'have less effect'],
+  ['Birth rate rises,', 'death rate falls'],
+];
+const ys = [96, 170, 258];
+const hs = [48, 66, 48];
+---
+<svg viewBox="0 0 560 392" role="img" aria-labelledby="c41f-t c41f-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="c41f-t">Negative feedback keeps a population near its carrying capacity</title>
+  <desc id="c41f-d">At the top, a population at carrying capacity K. On the left, if it rises above K, competition, predation and disease increase, the birth rate falls and the death rate rises, so numbers fall back towards K. On the right, if it falls below K, these factors weaken, the birth rate rises and the death rate falls, so numbers rise back towards K. A note at the bottom says density-independent factors such as floods or frost can change numbers whatever the density.</desc>
+  <defs>
+    <marker id="c41f-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="head" /></marker>
+  </defs>
+  <rect class="box k" x="150" y="8" width="260" height="52" rx="12" />
+  <text class="kt" x="280" y="30" text-anchor="middle">Population at its</text>
+  <text class="kt" x="280" y="50" text-anchor="middle">carrying capacity (K)</text>
+
+  {left.map((lines, i) => (
+    <g>
+      <rect class="box up" x="12" y={ys[i]} width="220" height={hs[i]} rx="9" />
+      {lines.map((t, k) => <text class="t" x="122" y={ys[i]! + 20 + k * 17} text-anchor="middle">{t}</text>)}
+    </g>
+  ))}
+  {right.map((lines, i) => (
+    <g>
+      <rect class="box down" x="328" y={ys[i]} width="220" height={hs[i]} rx="9" />
+      {lines.map((t, k) => <text class="t" x="438" y={ys[i]! + 20 + k * 17} text-anchor="middle">{t}</text>)}
+    </g>
+  ))}
+  <path class="arr" d="M200 60 L170 92" marker-end="url(#c41f-arr)" />
+  <path class="arr" d="M360 60 L390 92" marker-end="url(#c41f-arr)" />
+  <path class="arr" d="M122 146 L122 166" marker-end="url(#c41f-arr)" />
+  <path class="arr" d="M122 238 L122 254" marker-end="url(#c41f-arr)" />
+  <path class="arr" d="M438 146 L438 166" marker-end="url(#c41f-arr)" />
+  <path class="arr" d="M438 238 L438 254" marker-end="url(#c41f-arr)" />
+  <path class="arr ret" d="M232 282 C 268 282, 262 120, 252 64" marker-end="url(#c41f-arr)" />
+  <path class="arr ret" d="M328 282 C 292 282, 298 120, 308 64" marker-end="url(#c41f-arr)" />
+  <text class="rt" x="280" y="330" text-anchor="middle">numbers return towards K</text>
+  <text class="note" x="280" y="360" text-anchor="middle">Density-independent factors (floods, fire, a hard frost) change numbers</text>
+  <text class="note" x="280" y="378" text-anchor="middle">whatever the density, so populations fluctuate around K.</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .box { stroke-width: 1.6; }
+  .k { fill: color-mix(in srgb, var(--accent) 14%, var(--surface)); stroke: var(--accent); }
+  .up { fill: color-mix(in srgb, var(--bio-chol) 10%, var(--surface)); stroke: var(--bio-chol); }
+  .down { fill: color-mix(in srgb, var(--bio-carb) 12%, var(--surface)); stroke: var(--bio-carb); }
+  .kt { font-size: 15px; font-weight: 750; fill: var(--text); }
+  .t { font-size: 13.5px; fill: var(--text); }
+  .arr { stroke: var(--text-muted); stroke-width: 2; fill: none; }
+  .ret { stroke: var(--accent); stroke-width: 2.4; stroke-dasharray: 7 5; }
+  .rt { font-size: 13.5px; font-weight: 700; fill: var(--accent-strong); }
+  .note { font-size: 13px; fill: var(--text-muted); font-style: italic; }
+  .head { fill: var(--text-muted); }
+</style>

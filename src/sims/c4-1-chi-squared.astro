@@ -1,0 +1,111 @@
+---
+import { COLS, CELL, expectedRows, gridSvg, verdictText } from './c4-1-chi-view';
+import { WORKED as w, totals } from './models/c4-1-chi';
+const g = gridSvg(w, 1);
+const t = totals(w);
+---
+<div class="sim-chi" data-sim-chi>
+  <div class="choices" role="group" aria-label="Load a data set">
+    <button type="button" class="btn chip" aria-pressed="true" data-load="worked">Worked example</button>
+    <button type="button" class="btn chip" aria-pressed="false" data-load="independent">Survey: no interaction</button>
+    <button type="button" class="btn chip" aria-pressed="false" data-load="compete">Survey: competing species</button>
+    <button type="button" class="btn chip" aria-pressed="false" data-load="together">Survey: shared habitat</button>
+  </div>
+  <div class="layout">
+    <div>
+      <svg class="grid" viewBox={`0 0 ${COLS * CELL} ${g.h}`} role="img" aria-labelledby="c41x-t" data-grid-svg>
+        <title id="c41x-t" data-grid-title>{t.grand} quadrats, showing which contain species A (circle) and species B (square)</title>
+        <g data-grid set:html={g.svg} />
+      </svg>
+      <p class="hint">Each square is one quadrat placed at random. A = species A present; B = species B present.</p>
+    </div>
+    <div class="tables">
+      <table class="obs">
+        <caption>Observed frequencies (O): type to change them</caption>
+        <thead><tr><th scope="col"></th><th scope="col">A present</th><th scope="col">A absent</th><th scope="col">Row total</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">B present</th>
+            <td><input type="number" min="0" max="100" value={w.both} data-cell="both" aria-label="Quadrats with both A and B" /></td>
+            <td><input type="number" min="0" max="100" value={w.bOnly} data-cell="bOnly" aria-label="Quadrats with B only" /></td>
+            <td data-tot="bPresent">{t.bPresent}</td></tr>
+          <tr><th scope="row">B absent</th>
+            <td><input type="number" min="0" max="100" value={w.aOnly} data-cell="aOnly" aria-label="Quadrats with A only" /></td>
+            <td><input type="number" min="0" max="100" value={w.neither} data-cell="neither" aria-label="Quadrats with neither species" /></td>
+            <td data-tot="bAbsent">{t.bAbsent}</td></tr>
+          <tr class="tot"><th scope="row">Column total</th><td data-tot="aPresent">{t.aPresent}</td><td data-tot="aAbsent">{t.aAbsent}</td><td data-tot="grand">{t.grand}</td></tr>
+        </tbody>
+      </table>
+      <table class="exp">
+        <caption>Expected frequencies (E) = row total × column total ÷ grand total</caption>
+        <thead><tr><th scope="col"></th><th scope="col">A present</th><th scope="col">A absent</th><th scope="col">Row total</th></tr></thead>
+        <tbody data-exp set:html={expectedRows(w)} />
+      </table>
+    </div>
+  </div>
+  <p class="readout" aria-live="polite" data-readout>{verdictText(w)}</p>
+  <p class="model-note">H₀: the two species are distributed independently of each other. H₁: the species are associated. The surveys are simulated: in “competing species” B is less likely to be in a quadrat that contains A, and in “shared habitat” more likely. By chance, about 1 survey in 20 of non-interacting species still gives a significant result at p = 0.05.</p>
+</div>
+
+<script>
+  import { expectedRows, gridSvg, verdictText } from './c4-1-chi-view';
+  import { WORKED, survey, totals, type Scenario, type Table } from './models/c4-1-chi';
+
+  document.querySelectorAll<HTMLElement>('[data-sim-chi]').forEach((root) => {
+    const cells = [...root.querySelectorAll<HTMLInputElement>('[data-cell]')];
+    const svg = root.querySelector<SVGSVGElement>('[data-grid-svg]')!;
+    const gridG = root.querySelector<SVGGElement>('[data-grid]')!;
+    const title = root.querySelector<SVGTitleElement>('[data-grid-title]')!;
+    const expBody = root.querySelector<HTMLElement>('[data-exp]')!;
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    let seed = 1;
+    let timer = 0;
+    const read = (): Table => {
+      const v = (k: string) => Math.max(0, Math.min(100, Math.round(Number(cells.find((c) => c.dataset.cell === k)!.value) || 0)));
+      return { both: v('both'), aOnly: v('aOnly'), bOnly: v('bOnly'), neither: v('neither') };
+    };
+    const update = () => {
+      const o = read();
+      const t = totals(o);
+      for (const [k, val] of Object.entries(t)) { const el = root.querySelector(`[data-tot="${k}"]`); if (el) el.textContent = String(val); }
+      const g = gridSvg(o, seed);
+      svg.setAttribute('viewBox', `0 0 500 ${g.h}`);
+      gridG.innerHTML = g.svg;
+      title.textContent = `${t.grand} quadrats, showing which contain species A (circle) and species B (square)`;
+      expBody.innerHTML = expectedRows(o);
+      clearTimeout(timer);
+      timer = window.setTimeout(() => (readout.textContent = verdictText(o)), 300);
+    };
+    const load = (o: Table) => { for (const c of cells) c.value = String(o[c.dataset.cell as keyof Table]); update(); };
+    cells.forEach((c) => c.addEventListener('input', update));
+    root.querySelectorAll<HTMLButtonElement>('[data-load]').forEach((b) => b.addEventListener('click', () => {
+      root.querySelectorAll('[data-load]').forEach((o) => o.setAttribute('aria-pressed', String(o === b)));
+      const k = b.dataset.load!;
+      seed += 1;
+      load(k === 'worked' ? WORKED : survey(seed, k as Scenario, 50));
+    }));
+  });
+</script>
+
+<style>
+  .sim-chi { container-type: inline-size; }
+  .choices { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); }
+  .chip { min-height: 2.1rem; padding: 0.3rem 0.65rem; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 46rem) { .layout { grid-template-columns: minmax(0, 1fr) minmax(18rem, 1.1fr); align-items: start; } }
+  .grid { width: 100%; max-width: 26rem; height: auto; display: block; margin: 0 auto; font-family: var(--font-sans); }
+  .grid :global(.cell) { fill: color-mix(in srgb, var(--bio-carb) 8%, var(--surface)); stroke: var(--border-strong); }
+  .grid :global(.sa) { fill: var(--bio-carb); }
+  .grid :global(.sb) { fill: var(--bio-protein-2); }
+  .grid :global(.lt) { font-size: 13px; font-weight: 800; fill: var(--surface); }
+  .hint { font-size: 0.8rem; color: var(--text-muted); text-align: center; margin: var(--space-1) 0 0; }
+  .tables { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  caption { text-align: left; font-weight: 700; margin-bottom: var(--space-1); }
+  .tables :global(th), .tables :global(td) { padding: 0.25rem 0.45rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .tables :global(th[scope='row']) { text-align: left; }
+  .tables :global(.tot th), .tables :global(.tot td) { font-weight: 700; }
+  .tables :global(.contrib td) { text-align: left; font-size: 0.8rem; }
+  input[type='number'] { width: 4.2rem; min-height: 2rem; font: inherit; text-align: right; padding: 0.2rem 0.35rem; color: var(--text); background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-s); }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

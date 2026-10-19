@@ -1,0 +1,373 @@
+---
+code: C4.1
+description: "IB Biology C4.1 populations revision: quadrats, Lincoln index, sigmoid growth, predator–prey cycles and chi-squared simulations, then self-test."
+updated: 2026-10-19
+related: [C4.2, B4.2, D4.2, A4.2]
+mustKnow:
+  - term: Population
+    definition: "A group of organisms of the <strong>same species</strong> living in the same area at the same time, which normally interbreed. Populations of one species are separated by <strong>reproductive isolation</strong>, often a geographical barrier."
+    level: SL
+  - term: Community
+    definition: "All the populations of all the different species living and interacting in an area, including plants, animals, fungi and bacteria."
+    level: SL
+  - term: Sampling error
+    definition: "The difference between an estimate of population size made by sampling and the true size of the whole population. Random sampling with more samples reduces it but cannot remove it."
+    level: SL
+  - term: Lincoln index
+    definition: "Estimate of a motile population by capture–mark–release–recapture: population = <strong>M × N ÷ R</strong>, where M = number marked in the first sample, N = total caught in the second sample, R = marked individuals in the second sample."
+    level: SL
+  - term: Carrying capacity (K)
+    definition: "The maximum population size of a species that an environment can support indefinitely, set by the supply of whichever resource is limiting (such as food, water, light, mineral ions or nest sites)."
+    level: SL
+  - term: Density-dependent factor
+    definition: "A factor whose effect on birth or death rate gets stronger as the population becomes more crowded: competition for resources, predation and the spread of pathogens and pests. These factors give <strong>negative feedback</strong> towards K."
+    level: SL
+  - term: Sigmoid population growth
+    definition: "S-shaped growth: an <strong>exponential</strong> phase (resources plentiful), a <strong>transitional</strong> phase (density-dependent factors slow growth) and a <strong>plateau</strong> at the carrying capacity, where births equal deaths."
+    level: SL
+  - term: Mutualism
+    definition: "A close interspecific relationship in which <strong>both species benefit</strong>, for example legumes and <em>Rhizobium</em> in root nodules, orchids and mycorrhizal fungi, hard corals and zooxanthellae."
+    level: SL
+  - term: Invasive species
+    definition: "An alien species, introduced by humans to a region outside its native range, that spreads and becomes abundant, usually by outcompeting endemic species for resources."
+    level: SL
+  - term: Chi-squared test for association
+    definition: "A statistical test of whether two species are distributed independently, using a 2 × 2 table of presence/absence in quadrats. df = 1, so if χ² &gt; 3.84 the association is significant at p = 0.05."
+    level: SL
+  - term: Allelopathy
+    definition: "The release by a plant of chemicals into the environment (usually the soil) that inhibit the germination or growth of other plants, reducing competition. Secretion of antibiotics by microorganisms works in the same way."
+    level: SL
+mistakes:
+  - wrong: "Lincoln index: population = M × R ÷ N (or forgetting which sample N refers to)."
+    right: "Population = M × N ÷ R. M is the number marked in the first sample, N is the <strong>total</strong> caught in the second sample, and R is the number of those that were already marked."
+    level: SL
+  - wrong: "Population estimate from quadrats = mean number per quadrat × total area."
+    right: "Divide by the area of one quadrat as well: estimate = mean per quadrat × total area ÷ quadrat area. The two give the same answer only for a 1 m² quadrat with the area in m²."
+    level: SL
+  - wrong: "A large standard deviation means the quadrat counts were added up wrongly."
+    right: "Standard deviation measures spread. A large one (relative to the mean) shows the counts varied a lot between quadrats, usually because the organisms are clumped, so the estimate is less reliable."
+    level: SL
+  - wrong: "Sigmoid growth begins with a lag phase."
+    right: "In the IB population model there is no lag phase: growth is exponential from the start, when resources are plentiful. (Lag phases belong to microbial cultures adjusting to new medium.)"
+    level: SL
+  - wrong: "At the plateau, organisms stop reproducing."
+    right: "At the carrying capacity births continue, but the birth rate equals the death rate, so the population size stays roughly constant."
+    level: SL
+  - wrong: "A flood or hard frost is a density-dependent factor because it kills many individuals."
+    right: "Weather events kill a similar proportion whatever the population density, so they are <strong>density-independent</strong>. Density-dependent factors (competition, predation, disease) act more strongly in crowded populations."
+    level: SL
+  - wrong: "A significant chi-squared result proves the two species compete."
+    right: "It shows only an association. A negative association is <strong>consistent with</strong> competition but could be due to different habitat requirements. A removal experiment or a laboratory experiment can test competition more directly."
+    level: SL
+  - wrong: "In mutualism, Rhizobium gives the legume nitrogen gas."
+    right: "The plant cannot use N₂. <em>Rhizobium</em> <strong>fixes</strong> N₂ into ammonium (NH₄⁺), which the plant uses to make amino acids; in return the plant supplies carbon compounds from photosynthesis."
+    level: SL
+  - wrong: "Predator and prey numbers peak at the same time."
+    right: "Predator peaks lag behind prey peaks: predators increase only after prey are abundant, and prey decline only after predators have become numerous."
+    level: SL
+---
+
+<Section id="populations" title="Populations and estimating their size" level="SL" covers="C4.1.1 C4.1.2 C4.1.3">
+
+A **population** is a group of organisms of the same species living in the same area and interacting. Members of a population normally **interbreed** with each other. A species may consist of one population or many: populations of the same species are separated by **reproductive isolation**, most often a geographical barrier such as a mountain range or the sea between two islands, so individuals breed mostly within their own population.
+
+### Why we estimate rather than count
+
+The **population size** is the total number of individuals. Counting every one is usually impossible: the population may be spread over a large area, the organisms may be small, hidden or camouflaged, animals move around, and counting can damage the habitat. Instead, we count a **sample** and scale up to an **estimate**.
+
+- The sample must be **random**: every individual (or every part of the habitat) must have an equal chance of being sampled. Choosing "typical-looking" spots introduces bias. Random numbers from a table, calculator or app are used to pick sample positions.
+- Any estimate based on a sample differs from the true value. This difference is the **sampling error**. More samples reduce it, but it can never be eliminated without counting everyone.
+
+### Random quadrat sampling
+
+**Quadrats** are square frames of known area (for example 1 m × 1 m, or 0.5 m × 0.5 m = 0.25 m²). They suit **sessile** organisms, which stay in one place: plants such as daisies or dandelions, and sessile animals such as barnacles and mussels on rocky shores.
+
+1. Mark out the site and measure its area. Lay two measuring tapes at right angles along two edges as axes.
+2. Generate pairs of **random coordinates** and place a quadrat at each.
+3. Count the individuals rooted or attached inside each quadrat.
+4. Calculate the mean number per quadrat, then: **population estimate = mean per quadrat × total area ÷ area of one quadrat**.
+
+<Sim topic="c4-1" id="quadrat" />
+
+### Standard deviation of the mean
+
+Use a calculator to find the **standard deviation** (SD) of the counts per quadrat; you do not need to learn the formula. SD measures the **spread** of the counts around the mean:
+
+- **Small SD** (much less than the mean): counts are similar in every quadrat, so the organisms are **evenly spread** and the estimate is more reliable.
+- **Large SD** (close to or larger than the mean): counts vary a lot, so the organisms are **clumped** and a few quadrats can swing the estimate. More quadrats are needed.
+
+<Callout type="exam">
+
+Show the scaling step in full. For example: mean 3.2 per 0.25 m² quadrat, site 50 m² → 3.2 × 50 ÷ 0.25 = **640** plants. Forgetting to divide by the quadrat area is the commonest error.
+
+</Callout>
+
+</Section>
+
+<Section id="capture-recapture" title="Capture–mark–release–recapture" level="SL" covers="C4.1.4">
+
+**Motile** animals move between samples, so quadrats do not work for them. Instead, **capture–mark–release–recapture** is used, for example with snails, woodlice, ground beetles or small mammals.
+
+1. Capture as many individuals as possible in the area using nets, traps or careful searching. Count them: this is **M**.
+2. **Mark** each one harmlessly, for example a dot of non-toxic paint on the underside of a snail shell, where it does not make the snail more visible to birds.
+3. **Release** them where they were caught and leave time for them to mix back into the population.
+4. Capture a second sample. Count the **total** caught (**N**) and how many of these carry a mark (**R**).
+5. Use the **Lincoln index**: **population estimate = M × N ÷ R**.
+
+The logic is that the proportion of marked animals in the second sample (R/N) should equal the proportion of the whole population that was marked (M/population).
+
+**Worked example.** 60 ground beetles are caught and marked. A week later 45 are caught, of which 9 are marked. Estimate = 60 × 45 ÷ 9 = **300 beetles**.
+
+<Sim topic="c4-1" id="capture" />
+
+### Assumptions
+
+The estimate is valid only if, between the two samples:
+
+- the population is **closed**: no births, deaths, immigration or emigration;
+- **marks are not lost** and remain visible;
+- marking does **not affect** survival or behaviour (for example, does not make animals easier for predators to spot);
+- marked animals **mix randomly** back into the population, so every individual has the same chance of being caught in the second sample.
+
+If marks wear off or marked animals die, R is too small and the population is **overestimated**. If marked animals stay near the trap, or become "trap-happy", R is too large and the population is **underestimated**.
+
+<Callout type="exam">
+
+Write the formula with the letters defined, then substitute. Check your answer is larger than both M and N: the population cannot be smaller than the number you caught.
+
+</Callout>
+
+</Section>
+
+<Section id="carrying-capacity" title="Carrying capacity and negative feedback" level="SL" covers="C4.1.5 C4.1.6">
+
+Every population depends on resources that are in limited supply. If a population grows, there are more individuals sharing the same resources, so they **compete**. The **carrying capacity (K)** is the maximum population size that an environment can support. Usually one resource, the one in shortest supply, sets it.
+
+| Organisms | Resources that can limit carrying capacity |
+|---|---|
+| Plants | light, water, mineral ions in the soil (such as nitrate and phosphate), space to grow |
+| Animals | food, water, territories or nest sites for breeding, shelter, dissolved oxygen (for aquatic animals) |
+
+### Density-dependent and density-independent factors
+
+**Density-independent factors** affect a population whatever its density. A flood, a forest fire or a hard frost may kill a large proportion of a population, but roughly the same proportion whether the population is sparse or crowded. They make numbers **fluctuate**.
+
+**Density-dependent factors** have stronger effects in denser populations, so they push numbers back towards K:
+
+- **Competition** for limited resources: in a crowded population each individual gets less food, water or space, so fewer survive or breed.
+- **Predation**: predators find prey more easily, and more predators can be supported, when prey are abundant.
+- **Pathogens and pests** spread more easily between individuals living close together.
+
+This is **negative feedback**. Above K, birth rate falls and death rate rises, so numbers fall; below K, competition, predation and disease ease, so numbers rise.
+
+<Figure name="c4-1-feedback" caption="Density-dependent factors act as negative feedback, returning a population towards its carrying capacity after it rises above or falls below it." />
+
+<Callout type="exam">
+
+When asked for density-dependent factors, name **competition, predation and disease** and explain why each becomes stronger as density increases. Weather and natural disasters are density-independent.
+
+</Callout>
+
+</Section>
+
+<Section id="growth-curves" title="Population growth curves" level="SL" covers="C4.1.7 C4.1.8">
+
+When a few individuals colonize a new, favourable habitat, the population usually grows in an S-shaped or **sigmoid** curve. This curve is an **idealized model**: a simplification that helps us understand real populations, which rarely fit it exactly.
+
+<Anim topic="c4-1" id="sigmoid" />
+
+- **Exponential phase.** Resources are abundant and there is little competition, predation or disease, so births greatly exceed deaths. Each individual produces offspring at a constant rate, so the more individuals there are, the faster the population grows. The model has **no lag phase**: growth is exponential from the start.
+- **Transitional phase.** As numbers rise, density-dependent factors take effect. The birth rate falls and/or the death rate rises. The population still grows, but more slowly.
+- **Plateau phase.** The population reaches the carrying capacity. Births equal deaths, and numbers stay roughly constant, fluctuating around K.
+
+### Case study: reindeer on St Matthew Island
+
+In 1944, 29 reindeer were released on St Matthew Island in the Bering Sea, Alaska. The island had thick mats of lichen (their winter food) and no predators. Counts rose to about 1350 in 1957 and about 6000 in 1963, then the population **crashed** to 42 by 1966 after the lichen had been overgrazed and a very severe winter struck. The early growth was exponential because food was plentiful and there was nothing to kill the reindeer; the population then overshot the carrying capacity, so this case did not level off in a plateau.
+
+### Testing for exponential growth with a log scale
+
+To test whether growth was exponential, plot **population size on a logarithmic vertical axis** against **time on a normal (linear) axis**. Exponential growth multiplies numbers by the same factor in each equal time interval, so on a log scale it gives a **straight line**. If the points lie close to a straight line, growth was close to exponential; if they curve downwards, growth was slowing.
+
+<Figure name="c4-1-reindeer" caption="St Matthew Island reindeer counts (Klein, 1968). On a log scale the counts from 1944 to 1963 lie close to a straight line, showing near-exponential growth, before the crash." />
+
+### Modelling the sigmoid curve: duckweed and yeast
+
+Organisms that multiply quickly in the laboratory let you collect your own growth data:
+
+- **Duckweed** (*Lemna*) floats on water. Put a few plants in beakers of water containing mineral ions, in bright light and warmth, and count the **fronds** every two days for several weeks. Space on the water surface or mineral ions eventually limit growth.
+- **Yeast** (*Saccharomyces*) can be grown in sugar solution and counted under the microscope with a **haemocytometer**, or estimated from the cloudiness of the culture. Sugar runs out and ethanol builds up, so numbers level off (and later fall).
+
+Use several replicate beakers so the reliability of the results can be judged, and plot mean numbers against time.
+
+<Sim topic="c4-1" id="growth" />
+
+<Callout type="exam">
+
+To explain the shape of the curve, link each phase to **birth and death rates**: exponential (births ≫ deaths, resources plentiful), transitional (density-dependent factors reduce births and increase deaths), plateau (births = deaths at K).
+
+</Callout>
+
+</Section>
+
+<Section id="relationships" title="Relationships within and between species" level="SL" covers="C4.1.9 C4.1.10 C4.1.11">
+
+### Intraspecific competition and cooperation
+
+Members of the same species have the **same requirements**: the same food, the same nest sites, the same mates. When a resource is limited, they **compete** (intraspecific competition). Examples:
+
+- Trees and other plants of the same species growing close together compete for **light**, water and mineral ions; many seedlings die, and the survivors are spaced out (self-thinning).
+- European robins defend **territories** in which they feed and breed; birds without a territory usually do not breed.
+- Red deer stags compete, by roaring and fighting, for **access to females** in the breeding season.
+
+Members of a population also **cooperate** when working together raises the survival or reproduction of each:
+
+- Honeybee workers share the tasks of foraging, nursing larvae and defending the hive.
+- Meerkats take turns as **sentinels**, watching for predators while others feed.
+- Emperor penguins **huddle** in large groups through the Antarctic winter, reducing heat loss.
+- Wolves hunt in packs, so they can kill prey much larger than a single wolf.
+
+### Communities
+
+A **community** is all the interacting populations of the different species in an area: plants, animals, fungi, bacteria and other microorganisms. No population lives in isolation; each depends on others for food, pollination, nutrient cycling or shelter.
+
+### Interspecific relationships
+
+| Relationship | Effect on each species | Example |
+|---|---|---|
+| **Herbivory** | herbivore benefits; plant is harmed (but usually not killed) | snowshoe hares browsing willow and birch twigs in winter |
+| **Predation** | predator benefits; prey is killed and eaten | Canada lynx hunting snowshoe hares |
+| **Interspecific competition** | both are harmed, as they use the same limited resource | lions and spotted hyenas competing for the same prey |
+| **Mutualism** | both benefit | *Rhizobium* bacteria in legume root nodules |
+| **Parasitism** | parasite benefits; host is harmed, usually without being killed quickly | ticks feeding on the blood of deer |
+| **Pathogenicity** | pathogen benefits; host develops a disease | chytrid fungus (*Batrachochytrium dendrobatidis*) infecting the skin of frogs |
+
+<Callout type="exam">
+
+For each relationship, state the effect on **both** species and give a named example. Distinguish predation (the prey is killed) from herbivory (often only part of the plant is eaten) and parasitism (the host is usually kept alive).
+
+</Callout>
+
+</Section>
+
+<Section id="mutualism-invasive" title="Mutualism and invasive species" level="SL" covers="C4.1.12 C4.1.13">
+
+### Three mutualisms
+
+**Root nodules in Fabaceae (legumes).** Peas, beans, clover and other legumes form **root nodules** containing *Rhizobium* bacteria. The bacteria **fix nitrogen**: they convert N₂ from the air into ammonium (NH₄⁺), which the plant uses to make amino acids, so legumes thrive in nitrogen-poor soil. The plant supplies the bacteria with carbon compounds from photosynthesis, for respiration, and a protected, **low-oxygen** environment (oxygen would inactivate the enzyme that fixes nitrogen).
+
+**Mycorrhizae in Orchidaceae (orchids).** Fungal hyphae grow into the roots of orchids, entering root cells (through the cell wall, but not the plasma membrane) and forming coils. The hyphae also spread far through the soil and act as an extension of the root system, absorbing **water and mineral ions** (such as phosphate) and passing them to the orchid. Orchid seeds are tiny, with almost no food reserves, so seedlings depend on the fungus for **sugars** as well. Adult green orchids pass sugars made by photosynthesis to the fungus.
+
+**Zooxanthellae in hard corals.** Reef-building hard corals have single-celled photosynthetic algae (dinoflagellates called **zooxanthellae**) living inside their cells. The algae pass most of the sugars and other organic compounds (such as amino acids) they make by photosynthesis, and oxygen, to the coral. The coral provides the algae with **CO₂** from its respiration, nitrogen and phosphorus compounds from its wastes, and a protected position in the light. When corals are stressed by high temperatures, they expel the algae and lose their colour (**bleaching**).
+
+<Figure name="c4-1-mutualism" caption="What each partner gains in the three mutualisms you need to know." />
+
+### Invasive species and endemic species
+
+**Endemic** (native) species occur naturally in an area. **Alien** species have been introduced by humans, deliberately or by accident. An alien species becomes **invasive** when it spreads rapidly, often because its own predators, parasites and diseases were left behind, and it outcompetes endemic species for resources. Endemic species with an overlapping niche may decline or be excluded.
+
+<Callout type="note" title="Local example: replace with one from your own region">
+
+**Grey squirrels in Britain.** Grey squirrels (*Sciurus carolinensis*) were introduced from North America in the late 19th century. They compete with the endemic red squirrel (*Sciurus vulgaris*) for the same food, especially tree seeds and nuts. Grey squirrels digest **acorns**, which are rich in tannins, far more efficiently than reds do, and they eat hazelnuts before they are ripe, so in broadleaved woodland they take much of the food reds depend on and reach higher densities. Red squirrels have disappeared from most of England and Wales, surviving mainly in conifer forests where greys have less advantage. (Greys also carry squirrelpox virus, which kills reds, adding pathogenicity to competition.)
+
+</Callout>
+
+<Callout type="exam">
+
+For a mutualism, give the benefit to **each** partner with a specific substance (NH₄⁺, sugars, CO₂, mineral ions). For an invasive species, explain the **competitive advantage** in obtaining a named resource.
+
+</Callout>
+
+</Section>
+
+<Section id="competition-tests" title="Testing for interspecific competition" level="SL" covers="C4.1.14 C4.1.15">
+
+If one species does better when another species is absent, **interspecific competition is indicated, but not proven**: the two might simply prefer different conditions. Hypotheses about competition can be tested in several ways:
+
+- **Laboratory experiments.** Grow the species separately and together under controlled conditions. Gause grew two species of *Paramecium* on the same food: each thrived alone, but together one species outcompeted and eliminated the other.
+- **Field manipulation (removal experiments).** Remove one species from some areas and compare with control areas. On a Scottish rocky shore, Connell removed the barnacle *Balanus* (*Semibalanus*) from rocks, and the barnacle *Chthamalus* then survived lower on the shore than usual.
+- **Field observations by random sampling.** Record the presence or absence of each species in random quadrats and test whether they occur together more or less often than chance predicts (the chi-squared test below).
+
+**Experiments and observations.** In an experiment the scientist **intervenes**, changing one variable and controlling others. In an observational study the scientist records what happens naturally without changing anything. Both can test hypotheses, but observations show only correlation; manipulation gives stronger evidence of cause.
+
+### The chi-squared test for association
+
+1. State hypotheses. **H₀**: the two species are distributed independently. **H₁**: the species are associated.
+2. Record presence/absence in many random quadrats in a **2 × 2 contingency table** of observed frequencies (O), with row and column totals.
+3. Calculate each **expected frequency**: E = row total × column total ÷ grand total.
+4. Calculate **χ² = Σ (O − E)² ÷ E**.
+5. **Degrees of freedom** = (rows − 1)(columns − 1) = 1. The **critical value** at p = 0.05 is **3.84**.
+6. If χ² > 3.84, reject H₀: there is a significant association. Compare O with E for "both present" to find its direction.
+
+**Worked example.** In 50 quadrats, species A is present in 25 and species B in 23, but they occur together in only 6. Expected (both) = 23 × 25 ÷ 50 = 11.5. The four expected values are 11.5, 11.5, 13.5 and 13.5, and χ² = 9.74 > 3.84. The species are **negatively associated** (found together less often than expected), which may be due to competition or to different habitat requirements.
+
+<Sim topic="c4-1" id="chi-squared" />
+
+<Callout type="exam">
+
+Conclude in terms of the null hypothesis ("χ² = 9.74 > 3.84, so H₀ is rejected at p = 0.05") and then interpret: a **negative** association is consistent with competition, a **positive** one with shared habitat requirements or a mutual benefit. Never say the test "proves" competition.
+
+</Callout>
+
+</Section>
+
+<Section id="predator-prey" title="Predator–prey cycles and control of populations" level="SL" covers="C4.1.16 C4.1.17">
+
+Predation is a **density-dependent** factor, and in many communities predator and prey populations regulate each other. Four linked effects can produce cycles:
+
+1. More prey → more food for predators → predators survive and breed better → predator numbers rise.
+2. More predators → more prey eaten → prey numbers fall.
+3. Fewer prey → predators starve or fail to breed → predator numbers fall.
+4. Fewer predators → fewer prey eaten → prey numbers recover.
+
+### Case study: Canada lynx and snowshoe hare
+
+In the boreal forests of Canada, numbers of **snowshoe hares** rise and fall in cycles lasting about 10 years, and numbers of **Canada lynx**, which depend heavily on hares for food, follow with a delay of one or two years. The evidence comes from the numbers of pelts traded by trappers to the Hudson's Bay Company over more than 100 years, and from later field counts. Field experiments in the Yukon showed that hares are limited by **both** predators and winter food: excluding predators or adding food each raised hare numbers, and doing both raised them far more.
+
+<Sim topic="c4-1" id="predator-prey" />
+
+### Top-down and bottom-up control
+
+- **Top-down control**: a population is limited by organisms at the trophic level **above** it (its predators or herbivores). Example: sea otters eat sea urchins; where otters are present, urchins are kept scarce and kelp forests flourish, but where otters were hunted out, urchins multiplied and grazed the kelp away.
+- **Bottom-up control**: a population is limited by the trophic level **below** it, ultimately by resources such as mineral nutrients. Example: in many lakes the supply of phosphate limits phytoplankton, which in turn limits the zooplankton and fish that depend on them.
+
+Both kinds of control operate in most communities, but one is usually **dominant** in a particular community.
+
+<Figure name="c4-1-control" caption="Bottom-up control in a lake (resources limit each level from below) and top-down control in a kelp forest (sea otters limit sea urchins, which protects the kelp)." />
+
+<Callout type="exam">
+
+When describing a predator–prey graph, say that the **predator peaks lag behind the prey peaks**, and explain each rise and fall with the density-dependent effects of food supply and predation.
+
+</Callout>
+
+</Section>
+
+<Section id="allelopathy" title="Allelopathy and antibiotics" level="SL" covers="C4.1.18">
+
+Some organisms reduce competition chemically: they **release substances into the environment** that harm or deter potential competitors. Both allelopathic chemicals and antibiotics are **secondary metabolites**, made by pathways found only in certain groups of organisms and not needed for basic growth.
+
+### Allelopathy
+
+**Allelopathy** is the release of chemicals by a plant, through its roots, leaves or decaying litter, that inhibit the germination or growth of other plants nearby, so the plant faces less competition for water, light and mineral ions.
+
+**Example: black walnut** (*Juglans nigra*). Its roots, leaves and nut husks contain a compound that is converted in the soil into **juglone**, which inhibits the growth of many other plants, such as tomatoes and apple trees, under and around the tree.
+
+### Antibiotic secretion
+
+**Antibiotics** are chemicals secreted by microorganisms that kill or inhibit the growth of other microorganisms, especially bacteria, competing for the same food.
+
+**Example: *Streptomyces*** bacteria in soil secrete many antibiotics, including **streptomycin** (from *Streptomyces griseus*), which inhibit other soil bacteria. Similarly, the fungus *Penicillium* secretes **penicillin**, which stops bacteria building their cell walls, reducing competition for the nutrients the fungus is digesting.
+
+<Callout type="tip">
+
+The guide asks for one specific example of each, ideally a **local** one. If an allelopathic plant grows near you (for example eucalyptus, sunflower or tree of heaven), learn that instead, with the name of the chemical if you can.
+
+</Callout>
+
+<Callout type="note" title="Links">
+
+Population sizes depend on energy flow and nutrient cycling (<TopicLink code="C4.2" />), and the niches over which species compete are covered in <TopicLink code="B4.2" />. How communities stay stable, or change over time, is in <TopicLink code="D4.2" />, and the threats invasive species pose to biodiversity are in <TopicLink code="A4.2" />.
+
+</Callout>
+
+</Section>

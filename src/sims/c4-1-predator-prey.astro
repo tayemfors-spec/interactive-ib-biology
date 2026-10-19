@@ -1,0 +1,94 @@
+---
+import { DEFAULT_PP as d, FOOD_MAX, foodLabel, ppSvg, ppText, run, tableRows } from './c4-1-pp-view';
+const series = run(d);
+---
+<div class="sim-pp" data-sim-pp>
+  <div class="layout">
+    <svg class="chart" viewBox="0 0 640 360" role="img" aria-labelledby="c41p-t c41p-d">
+      <title id="c41p-t">Model numbers of snowshoe hares and Canada lynx over 60 years</title>
+      <desc id="c41p-d">Hares on the left axis (solid line) and lynx on the right axis (dashed line). In the classic model both rise and fall in repeated cycles, with lynx peaks following hare peaks.</desc>
+      <g data-chart set:html={ppSvg(series, d)} />
+    </svg>
+    <div class="controls">
+      <ul class="keys" aria-hidden="true">
+        <li><span class="key hare"></span> Snowshoe hare (prey)</li>
+        <li><span class="key lynx"></span> Canada lynx (predator)</li>
+      </ul>
+      <label class="slider">Food for hares (bottom-up): <output data-out="food">{foodLabel(d.food)}</output>
+        <input type="range" min="1" max={FOOD_MAX} step="1" value={d.food} data-param="food" />
+      </label>
+      <label class="slider">Lynx hunting success (top-down): <output data-out="b">{d.b.toFixed(3)}</output>
+        <input type="range" min="0.012" max="0.036" step="0.002" value={d.b} data-param="b" />
+      </label>
+      <label class="check"><input type="checkbox" data-nopred /> Remove the lynx</label>
+    </div>
+  </div>
+  <p class="readout" aria-live="polite" data-readout>{ppText(series, d)}</p>
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <thead><tr><th scope="col">Year</th><th scope="col">Hares</th><th scope="col">Lynx</th></tr></thead>
+      <tbody data-tbody>{tableRows(series, d).map((r) => <tr><th scope="row">{r.y}</th><td>{r.H}</td><td>{r.L}</td></tr>)}</tbody>
+    </table>
+  </details>
+  <p class="model-note">Qualitative model (Lotka–Volterra, with an optional food limit for the hares), in arbitrary units. Real hare–lynx cycles last about 10 years, but they are also driven by the hares' winter food, by other predators and by the weather, so real data are far less regular than this.</p>
+</div>
+
+<script>
+  import { foodLabel, ppSvg, ppText, run, tableRows, type PPUi } from './c4-1-pp-view';
+
+  document.querySelectorAll<HTMLElement>('[data-sim-pp]').forEach((root) => {
+    const num = (k: string) => Number(root.querySelector<HTMLInputElement>(`[data-param="${k}"]`)!.value);
+    const chart = root.querySelector<SVGGElement>('[data-chart]')!;
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    const tbody = root.querySelector<HTMLElement>('[data-tbody]')!;
+    const noPred = root.querySelector<HTMLInputElement>('[data-nopred]')!;
+    let timer = 0;
+    const update = () => {
+      const u: PPUi = { food: num('food'), b: num('b'), predators: !noPred.checked };
+      root.querySelector('[data-out="food"]')!.textContent = foodLabel(u.food);
+      root.querySelector('[data-out="b"]')!.textContent = u.b.toFixed(3);
+      const s = run(u);
+      chart.innerHTML = ppSvg(s, u);
+      tbody.innerHTML = tableRows(s, u).map((r) => `<tr><th scope="row">${r.y}</th><td>${r.H}</td><td>${r.L}</td></tr>`).join('');
+      clearTimeout(timer);
+      timer = window.setTimeout(() => (readout.textContent = ppText(s, u)), 300);
+    };
+    root.querySelectorAll('[data-param]').forEach((el) => el.addEventListener('input', update));
+    noPred.addEventListener('change', update);
+  });
+</script>
+
+<style>
+  .sim-pp { container-type: inline-size; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 46rem) { .layout { grid-template-columns: minmax(0, 1.6fr) minmax(15rem, 1fr); align-items: start; } }
+  .chart { width: 100%; height: auto; font-family: var(--font-sans); }
+  .chart :global(.grid line) { stroke: var(--border); stroke-width: 1; }
+  .chart :global(.axisline) { fill: none; stroke: var(--text-muted); stroke-width: 1.4; }
+  .chart :global(.ticks text) { font-size: 15px; fill: var(--text-muted); }
+  .chart :global(.ticks .r-lynx) { fill: var(--bio-protein-2); }
+  .chart :global(.axis) { font-size: 16px; font-weight: 650; fill: var(--text); }
+  .chart :global(.axis.r-lynx) { fill: var(--bio-protein-2); }
+  .chart :global(.line) { fill: none; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+  .chart :global(.hare) { stroke: var(--bio-head); }
+  .chart :global(.lynx) { stroke: var(--bio-protein-2); stroke-dasharray: 10 6; }
+  @container (max-width: 30rem) {
+    .chart :global(.ticks text), .chart :global(.axis) { font-size: 20px; }
+  }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); align-content: start; }
+  .keys { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-1); font-weight: 600; }
+  .keys li { display: flex; align-items: center; gap: var(--space-2); }
+  .key { display: inline-block; width: 2rem; height: 0; border-top: 3.5px solid; }
+  .key.hare { border-color: var(--bio-head); }
+  .key.lynx { border-color: var(--bio-protein-2); border-top-style: dashed; }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  .check { display: flex; gap: var(--space-2); align-items: center; font-weight: 600; min-height: 1.75rem; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  .table :global(th), .table :global(td) { padding: 0.2rem 0.7rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>
