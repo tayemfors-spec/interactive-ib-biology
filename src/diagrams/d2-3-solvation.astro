@@ -1,0 +1,80 @@
+---
+/** Solvation (D2.3.1): water around ions and a polar molecule, but not a non-polar one. */
+const D = Math.PI / 180;
+const f1 = (n: number) => n.toFixed(1);
+/** A water molecule: O at (x, y); the two H atoms 104.5° apart around direction `dir` (degrees). */
+const water = (x: number, y: number, dir: number) => {
+  const h = [dir - 52.25, dir + 52.25].map((a) => [x + 11 * Math.cos(a * D), y + 11 * Math.sin(a * D)] as const);
+  return { o: [x, y] as const, h };
+};
+const ring = (cx: number, cy: number, r: number, n: number, start: number, mode: 'o-in' | 'h-in') =>
+  Array.from({ length: n }, (_, i) => {
+    const a = start + (360 / n) * i;
+    const x = cx + r * Math.cos(a * D), y = cy + r * Math.sin(a * D);
+    // O facing the ion: H atoms point away. H facing the ion: one O–H bond points straight at it.
+    const dir = mode === 'o-in' ? a : a + 180 - 52.25;
+    return water(x, y, dir);
+  });
+const na = ring(105, 120, 40, 6, 0, 'o-in');
+const cl = ring(105, 230, 46, 6, 30, 'h-in');
+// polar molecule: a glucose ring with –OH groups hydrogen-bonded to water
+const gx = 320, gy = 170;
+const hex = Array.from({ length: 6 }, (_, k) => [gx + 34 * Math.cos((60 * k - 30) * D), gy + 34 * Math.sin((60 * k - 30) * D)] as const);
+const oh = [0, 1, 3, 4].map((k) => { const [x, y] = hex[k]!; const a = (60 * k - 30) * D; return { c: [x, y], o: [x + 20 * Math.cos(a), y + 20 * Math.sin(a)] as const, a }; });
+const gw = oh.map(({ o, a }) => { const b = a + 0.35; const x = o[0] + 34 * Math.cos(b), y = o[1] + 34 * Math.sin(b); const hx = [o[0] + 10 * Math.cos(b), o[1] + 10 * Math.sin(b)] as const; return { w: water(x, y, b / D), o, hx, to: [x, y] as const }; });
+// oil droplet with water molecules bonded to one another around it
+const oilW = Array.from({ length: 9 }, (_, i) => { const a = (i / 9) * 360 + 10; return water(540 + 66 * Math.cos(a * D), 180 + 66 * Math.sin(a * D), a + 90); });
+const short = (a: readonly [number, number], b: readonly [number, number], s0: number, s1: number) => {
+  const d = Math.hypot(b[0] - a[0], b[1] - a[1]); const ux = (b[0] - a[0]) / d, uy = (b[1] - a[1]) / d;
+  return `M${f1(a[0] + ux * s0)} ${f1(a[1] + uy * s0)} L${f1(b[0] - ux * s1)} ${f1(b[1] - uy * s1)}`;
+};
+---
+<svg viewBox="0 0 640 330" role="img" aria-labelledby="sv-t sv-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="sv-t">Hydrophilic and hydrophobic substances in water</title>
+  <desc id="sv-d">Left: a sodium ion surrounded by water molecules with their slightly negative oxygen atoms facing it, and a chloride ion surrounded by water molecules with a slightly positive hydrogen atom facing it. Centre: a glucose molecule whose hydroxyl groups form hydrogen bonds with water molecules. Right: an oil droplet; the water molecules around it form hydrogen bonds with one another but not with the oil, so the oil does not dissolve.</desc>
+  <text class="hd" x="105" y="26" text-anchor="middle">Ions</text>
+  <text class="hd" x="320" y="26" text-anchor="middle">Polar molecule</text>
+  <text class="hd" x="540" y="26" text-anchor="middle">Non-polar molecule</text>
+  <line class="div" x1="212" x2="212" y1="12" y2="300" /><line class="div" x1="430" x2="430" y1="12" y2="300" />
+
+  {[...na, ...cl].map((w) => <g><line class="cov" x1={w.o[0]} y1={w.o[1]} x2={f1(w.h[0]![0])} y2={f1(w.h[0]![1])} /><line class="cov" x1={w.o[0]} y1={w.o[1]} x2={f1(w.h[1]![0])} y2={f1(w.h[1]![1])} /><circle class="o" cx={f1(w.o[0])} cy={f1(w.o[1])} r="7" />{w.h.map(([x, y]) => <circle class="h" cx={f1(x)} cy={f1(y)} r="4" />)}</g>)}
+  <circle class="na" cx="105" cy="120" r="17" /><text class="ion" x="105" y="120" dy="0.35em" text-anchor="middle">Na⁺</text>
+  <circle class="cl" cx="105" cy="230" r="22" /><text class="ion" x="105" y="230" dy="0.35em" text-anchor="middle">Cl⁻</text>
+  <text class="sm" x="105" y="62" text-anchor="middle">δ− oxygens face the + ion</text>
+  <text class="sm" x="105" y="294" text-anchor="middle">δ+ hydrogens face the − ion</text>
+
+  <path class="ringp" d={`M${hex.map(([x, y]) => `${f1(x)} ${f1(y)}`).join(' L')} Z`} />
+  {oh.map(({ c, o }) => <g><line class="cov" x1={f1(c[0]!)} y1={f1(c[1]!)} x2={f1(o[0])} y2={f1(o[1])} /><circle class="o" cx={f1(o[0])} cy={f1(o[1])} r="6.5" /></g>)}
+  <text class="sm" x={gx} y={gy} dy="0.35em" text-anchor="middle">glucose</text>
+  {gw.map(({ w, o, hx, to }) => <g><line class="cov" x1={f1(o[0])} y1={f1(o[1])} x2={f1(hx[0])} y2={f1(hx[1])} /><circle class="h" cx={f1(hx[0])} cy={f1(hx[1])} r="4" /><path class="hb" d={short(hx, to, 5, 8)} /><line class="cov" x1={f1(w.o[0])} y1={f1(w.o[1])} x2={f1(w.h[0]![0])} y2={f1(w.h[0]![1])} /><line class="cov" x1={f1(w.o[0])} y1={f1(w.o[1])} x2={f1(w.h[1]![0])} y2={f1(w.h[1]![1])} /><circle class="o" cx={f1(w.o[0])} cy={f1(w.o[1])} r="7" />{w.h.map(([x, y]) => <circle class="h" cx={f1(x)} cy={f1(y)} r="4" />)}</g>)}
+  <text class="sm" x="320" y="276" text-anchor="middle">–OH groups form hydrogen</text>
+  <text class="sm" x="320" y="294" text-anchor="middle">bonds with water (- - -)</text>
+
+  <ellipse class="oil" cx="540" cy="180" rx="40" ry="36" /><text class="sm" x="540" y="180" dy="0.35em" text-anchor="middle">oil</text>
+  {oilW.map((w, i) => { const n = oilW[(i + 1) % oilW.length]!; return <path class="hb" d={short(w.h[1]!, n.o, 3, 8)} />; })}
+  {oilW.map((w) => <g><line class="cov" x1={f1(w.o[0])} y1={f1(w.o[1])} x2={f1(w.h[0]![0])} y2={f1(w.h[0]![1])} /><line class="cov" x1={f1(w.o[0])} y1={f1(w.o[1])} x2={f1(w.h[1]![0])} y2={f1(w.h[1]![1])} /><circle class="o" cx={f1(w.o[0])} cy={f1(w.o[1])} r="7" />{w.h.map(([x, y]) => <circle class="h" cx={f1(x)} cy={f1(y)} r="4" />)}</g>)}
+  <text class="sm" x="540" y="276" text-anchor="middle">water bonds to water, not to</text>
+  <text class="sm" x="540" y="294" text-anchor="middle">oil, so oil does not dissolve</text>
+
+  <g class="key" transform="translate(170 318)">
+    <circle class="o" cx="0" cy="0" r="6" /><text x="10" y="0" dy="0.35em">O (δ−)</text>
+    <circle class="h" cx="78" cy="0" r="4" /><text x="86" y="0" dy="0.35em">H (δ+)</text>
+    <path class="hb" d="M150 0 H180" /><text x="186" y="0" dy="0.35em">hydrogen bond / attraction</text>
+  </g>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .hd { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .sm { font-size: 13px; fill: var(--text); }
+  .div { stroke: var(--border-strong); stroke-dasharray: 4 4; }
+  .o { fill: var(--bio-k); }
+  .h { fill: var(--surface); stroke: var(--text-muted); stroke-width: 1.2; }
+  .cov { stroke: var(--text-muted); stroke-width: 2.5; }
+  .na { fill: color-mix(in srgb, var(--bio-na) 35%, var(--surface)); stroke: var(--bio-na); stroke-width: 2.5; }
+  .cl { fill: color-mix(in srgb, var(--bio-carb) 35%, var(--surface)); stroke: var(--bio-carb); stroke-width: 2.5; }
+  .ion { font-size: 13px; font-weight: 800; fill: var(--text); }
+  .ringp { fill: color-mix(in srgb, var(--bio-glucose) 25%, var(--surface)); stroke: var(--bio-glucose); stroke-width: 2.5; }
+  .hb { stroke: var(--text); stroke-width: 1.6; stroke-dasharray: 3 3; fill: none; }
+  .oil { fill: color-mix(in srgb, var(--bio-tail) 70%, var(--surface)); stroke: var(--bio-head); stroke-width: 2; }
+  .key text { font-size: 12px; fill: var(--text-muted); }
+</style>

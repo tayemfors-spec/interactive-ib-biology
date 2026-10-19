@@ -1,0 +1,66 @@
+---
+/**
+ * Conserved sequences (D1.3.10): an illustrative alignment where the amino acids are identical but some
+ * third bases differ, and the two hypotheses that could explain conservation. Amino acids are computed by
+ * the sim model so the codons are guaranteed to be synonymous.
+ */
+import { codonsOf, transcribe, translate } from '../sims/models/d1-3-mutations';
+
+const rows = [
+  { name: 'Human', seq: 'TCCGGCCGCGGCAAGGGCGGAAAG' },
+  { name: 'Cow', seq: 'TCCGGTCGCGGAAAGGGCGGGAAA' },
+  { name: 'Pea', seq: 'TCAGGACGTGGTAAAGGAGGTAAG' },
+].map((r) => ({ ...r, codons: codonsOf(r.seq), aas: translate(transcribe(r.seq)).aminoAcids }));
+const ref = rows[0]!;
+const X0 = 110;
+const CW = 62;
+---
+<svg viewBox="0 0 640 400" role="img" aria-labelledby="d13c-t d13c-d" xmlns="http://www.w3.org/2000/svg" class="cons">
+  <title id="d13c-t">A conserved sequence and two hypotheses to explain it</title>
+  <desc id="d13c-d">An illustrative alignment of the DNA coding for the first eight amino acids of histone H4 in a human, a cow and a pea. The amino acid sequence, Ser Gly Arg Gly Lys Gly Gly Lys, is identical in all three. Some third bases of codons differ, but each change gives a codon for the same amino acid. Two hypotheses are shown. Functional requirement: mutations happen, but any that change an amino acid stop the protein working and are removed by natural selection, so only synonymous changes remain. Slower mutation rate: fewer mutations arise in this part of the genome, so all positions, including third bases, change less.</desc>
+  <text class="h" x="16" y="24">Illustrative alignment: start of the histone H4 gene</text>
+  <text class="rowname" x="16" y="56">Amino acid</text>
+  {ref.aas.map((a, k) => <text class="aa" x={X0 + k * CW + 26} y="56" text-anchor="middle">{a}</text>)}
+  {rows.map((r, ri) => (
+    <g>
+      <text class="rowname" x="16" y={88 + ri * 30}>{r.name}</text>
+      {r.codons.map((c, k) => [...c].map((b, j) => (
+        <text class={`b ${b !== ref.codons[k]![j] ? 'diff' : ''}`} x={X0 + k * CW + 12 + j * 14} y={88 + ri * 30} text-anchor="middle">{b}</text>
+      )))}
+    </g>
+  ))}
+  <text class="note" x="16" y="172">All three code for the same amino acids. Red bases differ from the human sequence:</text>
+  <text class="note" x="16" y="190">every difference is in a third base and is synonymous (same-sense).</text>
+
+  <rect class="box h1" x="16" y="208" width="296" height="180" rx="8" />
+  <text class="bh" x="30" y="232">1. Functional requirement</text>
+  <text class="lbl" x="30" y="256">Mutations arise at the normal rate,</text>
+  <text class="lbl" x="30" y="276">but any that change the product stop</text>
+  <text class="lbl" x="30" y="296">it working, so natural selection</text>
+  <text class="lbl" x="30" y="316">removes them.</text>
+  <text class="lbl i" x="30" y="344">Predicts: synonymous changes build</text>
+  <text class="lbl i" x="30" y="364">up; amino acid changes do not.</text>
+
+  <rect class="box h2" x="328" y="208" width="296" height="180" rx="8" />
+  <text class="bh" x="342" y="232">2. Slower rate of mutation</text>
+  <text class="lbl" x="342" y="256">Fewer mutations arise in this part</text>
+  <text class="lbl" x="342" y="276">of the genome in the first place, so</text>
+  <text class="lbl" x="342" y="296">its sequence changes less.</text>
+  <text class="lbl i" x="342" y="344">Predicts: all positions, including</text>
+  <text class="lbl i" x="342" y="364">third bases, change slowly.</text>
+</svg>
+<style>
+  .cons { font-family: var(--font-sans); }
+  .h { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .rowname { font-size: 14px; font-weight: 700; fill: var(--text-muted); }
+  .aa { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .b { font: 800 15px var(--font-mono, ui-monospace, monospace); fill: var(--text); }
+  .b.diff { fill: var(--bad); text-decoration: underline; }
+  .note { font-size: 13.5px; fill: var(--text-muted); }
+  .box { fill: var(--surface); stroke-width: 1.5; }
+  .box.h1 { stroke: var(--bio-protein); }
+  .box.h2 { stroke: var(--bio-chol); }
+  .bh { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .lbl { font-size: 14px; fill: var(--text); }
+  .lbl.i { font-style: italic; fill: var(--text-muted); }
+</style>

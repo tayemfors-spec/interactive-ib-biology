@@ -1,0 +1,380 @@
+---
+code: D2.2
+description: "IB Biology D2.2 gene expression (HL): transcription factors, mRNA lifetime, epigenetic tags, imprinting, twin studies and the lac genes, with self-test."
+updated: 2026-10-19
+related: [D1.2, A1.2, B2.3, D3.2]
+mustKnow:
+  - term: Gene expression
+    definition: "The process by which the information in a gene affects the phenotype, usually by <strong>transcription</strong> to mRNA, <strong>translation</strong> to a polypeptide and the protein then carrying out its function, often as an enzyme."
+    level: AHL
+  - term: Promoter
+    definition: "A base sequence just upstream (on the 5′ side) of a gene where transcription factors and RNA polymerase bind so that transcription can start in the right place and direction."
+    level: AHL
+  - term: Transcription factor
+    definition: "A protein that binds a specific base sequence in DNA, such as part of a promoter or an enhancer, and so controls whether, and how fast, a gene is transcribed. <strong>Activators</strong> raise the rate; <strong>repressors</strong> lower it."
+    level: AHL
+  - term: Enhancer
+    definition: "A base sequence that can be far upstream or downstream of a gene; when activator proteins bind it, the rate of transcription of the gene increases."
+    level: AHL
+  - term: Epigenesis
+    definition: "The development of patterns of differentiation in the cells of a multicellular organism, by switching particular genes on and off. The base sequence of the DNA is not changed, so the phenotype changes but the genotype does not."
+    level: AHL
+  - term: Genome, transcriptome and proteome
+    definition: "<strong>Genome</strong>: all the genetic information of a cell or organism, coding and non-coding. <strong>Transcriptome</strong>: all the RNA molecules (especially mRNAs) a cell is making at a given time. <strong>Proteome</strong>: all the proteins a cell produces."
+    level: AHL
+  - term: Epigenetic tag
+    definition: "A reversible chemical change to DNA or its histone proteins, such as methylation of cytosine or of amino acids in histone tails, that changes gene expression without changing the base sequence."
+    level: AHL
+  - term: Epigenetic inheritance
+    definition: "Passing on a pattern of gene expression to daughter cells (through mitosis) or to offspring (through meiosis and gametes) because epigenetic tags stay in place, without any change in the base sequence."
+    level: AHL
+  - term: Genomic imprinting
+    definition: "Epigenetic tags added to certain genes during egg or sperm formation that survive into the embryo, so the copy of the gene inherited from one parent is expressed differently from the copy inherited from the other."
+    level: AHL
+  - term: Monozygotic twins
+    definition: "Twins formed when one early embryo (from one egg and one sperm) splits in two. They share the same genome, so differences between them in gene expression are caused by the environment or chance."
+    level: AHL
+mistakes:
+  - wrong: "Epigenetic changes are mutations in the DNA."
+    right: "Epigenetic changes do not alter the base sequence. They add or remove tags such as methyl groups, which change gene expression, so the <strong>phenotype</strong> changes but the <strong>genotype</strong> does not."
+    level: AHL
+  - wrong: "Methylation always switches genes off."
+    right: "Methylation of cytosine in a promoter represses transcription, but methylation of histones can either <strong>repress or activate</strong> transcription, depending on which amino acid is methylated."
+    level: AHL
+  - wrong: "Every cell in the body expresses all of its genes, but in different amounts."
+    right: "No cell expresses all of its genes. Cells have the same genome but different transcriptomes and proteomes, and this pattern of expression is what makes each cell type differentiate."
+    level: AHL
+  - wrong: "RNA polymerase finds and binds the promoter by itself."
+    right: "RNA polymerase needs <strong>transcription factors</strong> bound to the promoter before it can bind in the correct position and start transcription."
+    level: AHL
+  - wrong: "An enhancer is a protein that speeds up transcription."
+    right: "An enhancer is a <strong>base sequence</strong> in the DNA. The proteins that bind it and raise the rate of transcription are activators (a type of transcription factor)."
+    level: AHL
+  - wrong: "The amount of a protein in a cell is fixed by how fast its gene is transcribed."
+    right: "It also depends on how long the mRNA survives before nucleases break it down (minutes to days in human cells) and on how often it is translated, so protein amounts are not simply proportional to transcription."
+    level: AHL
+  - wrong: "All epigenetic tags are wiped clean in the sperm and egg, so the zygote starts with a blank slate."
+    right: "Most, but not all, tags are removed. Imprinted genes and a few other sequences keep tags from the parent, which is why ligers and tigons differ in size."
+    level: AHL
+  - wrong: "Differences between identical twins must be due to differences in their genes."
+    right: "Monozygotic twins share the same genome. Differences in their gene expression come from their environments (and chance), which is why twin studies are used to investigate environmental effects."
+    level: AHL
+  - wrong: "Lactose makes the lac repressor bind the DNA, which switches the genes on."
+    right: "Without lactose the repressor is bound to the operator and the genes are off. Lactose (as allolactose) binds the repressor and makes it <strong>leave</strong> the operator, so RNA polymerase can transcribe the genes."
+    level: AHL
+---
+
+<Section id="expression" title="Gene expression links genes to phenotype" level="AHL" covers="D2.2.1">
+
+An organism's **genotype** is its genetic information; its **phenotype** is all its observable structural and functional characteristics. **Gene expression** is the process by which the information in a gene has an effect on the phenotype.
+
+For most genes this happens in three stages:
+
+1. **Transcription**: the base sequence of the gene is copied into mRNA (see <TopicLink code="D1.2" />).
+2. **Translation**: ribosomes use the mRNA base sequence to make a polypeptide with a specific amino acid sequence.
+3. **Function of the protein**: the protein folds and does its job. Many proteins are **enzymes**, so they affect the phenotype by catalysing a particular reaction; others act as structural proteins, transporters, receptors or hormones.
+
+<Figure name="d2-2-flow" caption="Gene expression for the lactase gene. The gene is transcribed, the mRNA is translated, and the enzyme lactase catalyses the hydrolysis of lactose, giving the phenotype of being able to digest milk sugar." level="AHL" />
+
+Every cell in an organism has (almost) the same genes, yet a nerve cell and a liver cell look and behave very differently. The difference lies in **which genes are expressed, when, and how strongly**. Cells control this at several points:
+
+- whether, and how fast, a gene is **transcribed** (the rest of this page, and the main point of control);
+- how long the **mRNA survives** before it is broken down;
+- how often each mRNA is **translated**.
+
+Some genes code for RNA that is not translated, such as the tRNA and rRNA used in translation; expressing these genes means transcribing them.
+
+<Callout type="exam">
+
+If asked to outline gene expression, name all three stages in order (transcription, translation, protein function) and give an example of a protein that affects phenotype, such as an enzyme.
+
+</Callout>
+
+</Section>
+
+<Section id="transcription" title="Proteins that bind DNA control transcription" level="AHL" covers="D2.2.2">
+
+Cells transcribe only some of their genes, and each at its own rate. This **selective transcription** is controlled by proteins that recognise and bind **specific base sequences** in the DNA.
+
+### The promoter
+
+Every gene has a **promoter**, a base sequence just **upstream** of the gene (on the 5′ side of the coding strand). Promoters share some common sequences, but **RNA polymerase cannot start transcription by itself**. First, **transcription factors** bind the promoter; RNA polymerase then binds to them, so it is placed at the start of the gene, facing the right way to transcribe 5′ → 3′.
+
+### Transcription factors
+
+Transcription factors are proteins with a DNA-binding site whose shape and charge fit one particular base sequence. There are many different types, each recognising a different sequence, so:
+
+- a cell can control **which** genes are transcribed by controlling **which transcription factors it makes**;
+- genes whose promoters or enhancers share a binding sequence can be switched on or off **together** by one transcription factor.
+
+### Enhancers, activators and repressors
+
+**Enhancers** are base sequences that can be thousands of base pairs upstream or downstream of the gene. Transcription factors called **activators** bind them; the DNA bends so that the bound activator contacts the proteins at the promoter, and the **rate of transcription increases**. Other proteins, **repressors**, bind sequences called silencers or block activators, so the rate falls.
+
+<Anim topic="d2-2" id="regulation" />
+
+Signals reaching a cell work through these proteins. A steroid hormone such as testosterone, for example, binds a receptor that is itself a transcription factor (see <a href="#external">external factors</a> below).
+
+<Callout type="exam">
+
+Keep the terms straight: a **promoter** and an **enhancer** are base sequences in DNA; **transcription factors** (activators and repressors) and **RNA polymerase** are proteins that bind them.
+
+</Callout>
+
+</Section>
+
+<Section id="mrna" title="mRNA breakdown controls translation" level="AHL" covers="D2.2.3">
+
+Transcription is not the only control point. Once an mRNA reaches the cytoplasm, ribosomes translate it **repeatedly**, so a single mRNA can produce many polypeptides. Translation continues until enzymes called **nucleases** break the mRNA down into nucleotides. How long an mRNA survives therefore controls **how much protein** is made from it, and for how long.
+
+- In human cells, an mRNA may persist for anything from **a few minutes to several days** before it is broken down.
+- mRNAs for proteins needed only briefly, such as signalling proteins that start cell division, are typically short-lived, so production stops soon after transcription stops.
+- mRNAs for proteins made in large amounts over long periods are stable. β-globin mRNA in developing red blood cells, for example, is so stable that young red blood cells keep making haemoglobin even after they have lost their nucleus.
+
+### The poly-A tail
+
+In eukaryotes, a **poly-A tail** (a chain of adenine nucleotides) is added to the 3′ end of the mRNA during processing (see <TopicLink code="D1.2" />). After the mRNA reaches the cytoplasm, the tail is gradually **shortened**. Once it is short, the mRNA is translated less and is quickly **degraded** by nucleases. Different mRNAs lose their tails at very different rates, which is one way their lifetimes are controlled.
+
+Cells can also target particular mRNAs: small RNA molecules called **microRNAs** bind complementary sequences in specific mRNAs and block their translation or speed up their breakdown.
+
+<Callout type="note" title="Scope">
+
+You need the idea that controlling mRNA breakdown regulates translation, and the range of mRNA lifetimes (minutes to days in human cells). MicroRNAs are extra context, not required detail.
+
+</Callout>
+
+</Section>
+
+<Section id="epigenesis" title="Epigenesis and differentiation" level="AHL" covers="D2.2.4">
+
+A multicellular organism develops from a single cell, the zygote. As its cells divide by mitosis, they **differentiate**: they become specialized, and structures and functions appear that were not present at the start. **Epigenesis** is this development of **patterns of differentiation** in the cells of a multicellular organism. (Historically, the word described the idea that an organism forms gradually from an unstructured egg, rather than being pre-formed in miniature.)
+
+Differentiation happens because different cells **express different genes**. Some genes are activated and others are silenced, and these states are set up and held in place by chemical modifications to the DNA and to the histone proteins it is wrapped around. These modifications are called **epigenetic tags**.
+
+<Figure name="d2-2-epigenesis" caption="Epigenesis. Cells descended from one zygote have the same genes, but each type of differentiated cell transcribes a different set and keeps the others silenced by epigenetic tags." level="AHL" />
+
+### Phenotype changes, genotype does not
+
+The key point about epigenetic changes is that **the base sequence of the DNA is not altered**.
+
+| | Mutation | Epigenetic change |
+|---|---|---|
+| Base sequence | changed | **unchanged** |
+| Genotype | changed | unchanged |
+| Phenotype | may change | changes (gene expression altered) |
+| Reversible? | rarely (only by another random mutation) | yes, tags can be added and removed |
+
+So a muscle cell and a neuron from the same person have the same **genotype** but different **phenotypes**. Epigenetic tags are also how cells remember their identity: once a stem cell has become a skin cell, its descendants stay skin cells (see <TopicLink code="B2.3" /> for stem cells and differentiation).
+
+<Callout type="exam">
+
+When asked how cells with the same DNA can differ, say that the **base sequence is the same** but the **pattern of gene expression** differs, controlled by epigenetic tags. Use the words "phenotype but not genotype".
+
+</Callout>
+
+</Section>
+
+<Section id="omes" title="Genome, transcriptome and proteome" level="AHL" covers="D2.2.5">
+
+Three terms describe a cell's genetic information at different stages of expression:
+
+- **Genome**: the whole of the genetic information of a cell, including every gene and the non-coding sequences. With a few exceptions (such as red blood cells, which lose their nucleus, and gametes, which are haploid), all the body cells of one person have the **same genome**.
+- **Transcriptome**: all the RNA molecules being transcribed in a cell, above all its mRNAs. No cell transcribes all its genes, so the transcriptome contains copies of only some of them. It **differs between cell types**, and in any one cell it **changes over time** as conditions and signals change.
+- **Proteome**: all the proteins a cell produces. It depends on the transcriptome, because proteins are made by translating mRNA, but the amount of each protein is **not simply proportional** to the amount of its mRNA, because mRNA lifetime and the rate of translation are also controlled.
+
+<Figure name="d2-2-omes" caption="Three cells from one person share the same genome. A β cell transcribes the insulin gene, a developing red blood cell the β-globin gene, and a liver cell the albumin gene, while all three express housekeeping genes such as those for ATP synthase." level="AHL" />
+
+The human genome has about 20 000 protein-coding genes. Some, called **housekeeping genes**, are expressed in nearly every cell, for example genes for the enzymes of respiration. Others are expressed in only one cell type, such as the insulin gene in pancreatic β cells.
+
+**No cell expresses all of its genes**, and the **pattern of gene expression in a cell determines how it differentiates**. Changes to the transcriptome over time allow a cell to respond to its surroundings, for example making more of a particular enzyme when its substrate becomes available.
+
+<Callout type="exam">
+
+A common question asks which "-ome" is the same in two cells from one organism. The answer is the **genome**; the transcriptome and proteome differ between cell types and over time.
+
+</Callout>
+
+</Section>
+
+<Section id="tags" title="Methylation of promoters and histones" level="AHL" covers="D2.2.6">
+
+**Methylation** means adding a **methyl group (–CH₃)** to a molecule in place of a hydrogen atom. Two kinds of methylation are important epigenetic tags.
+
+### 1. Methylation of cytosine in the promoter
+
+In the DNA of a promoter, the base most often methylated is **cytosine**, usually where it is followed by guanine (a **CG** site, also written CpG). Methylated cytosine still pairs with guanine, so the base sequence is unchanged, but the methyl groups project into the grooves of the double helix and **prevent some transcription factors binding**. RNA polymerase then cannot start transcription, so:
+
+> Methylation of cytosine in a promoter **represses transcription** and so **expression of the gene downstream**.
+
+### 2. Methylation of histones in nucleosomes
+
+In a **nucleosome**, DNA is wound around eight histone proteins (see <TopicLink code="A1.2" />). Each histone has a **tail** of amino acids that projects from the nucleosome. Amino acids in these tails, such as lysine, can be methylated. Depending on **which amino acid** is methylated, this can make the chromatin more or less tightly packed and so make the DNA more or less accessible to transcription factors:
+
+- some histone methylation **represses** transcription (for example, on lysine 9 of histone H3, linked to condensed **heterochromatin**);
+- other histone methylation **activates** transcription (for example, on lysine 4 of histone H3, found at the promoters of active genes in open **euchromatin**).
+
+You do not need to know how this is achieved.
+
+<Sim topic="d2-2" id="chromatin" />
+
+Histone tails can carry other tags too. **Acetylation** of histones, shown in the simulation, generally loosens nucleosome packing and activates transcription. The combination of all the tags near a gene determines whether it is expressed.
+
+<Callout type="exam">
+
+Be precise about direction: methylated cytosine in a **promoter represses**; methylated **histones** can **repress or activate**, depending on which amino acid is tagged. Writing "methylation switches genes off" without this distinction loses marks.
+
+</Callout>
+
+</Section>
+
+<Section id="inheritance" title="Epigenetic inheritance" level="AHL" covers="D2.2.7">
+
+Epigenetic tags affect phenotype, and they can be **passed on** without any change to the nucleotide sequence of the DNA. This is **epigenetic inheritance**. It can happen in two ways.
+
+### To daughter cells, through mitosis
+
+When a cell replicates its DNA before mitosis, each new double helix has one old strand and one new strand. Methyl tags on cytosines in CG sites are on **both** strands, so after replication the old strand still carries its tags. An enzyme recognises these half-methylated sites and adds methyl groups to the matching cytosines of the new strand. Histone tags are also largely re-established on the new nucleosomes. As a result, **daughter cells inherit the same pattern of gene expression**: the descendants of a liver cell remain liver cells, and changes a cell makes in response to its environment can be kept by its descendants.
+
+<Figure name="d2-2-inheritance" caption="CG sites are methylated on both strands. After semi-conservative replication, the methyl groups on each old strand guide the addition of methyl groups to the new strand, so both daughter cells keep the parent cell's pattern." level="AHL" />
+
+### To offspring, through meiosis and gametes
+
+It was long assumed that all tags were wiped from gametes, so every zygote would start with a "blank slate". There is now good evidence that **some tags survive meiosis and gamete formation** and remain in the zygote. When a phenotypic change caused by epigenetic tags is passed from parents to offspring in this way, it is called **transgenerational epigenetic inheritance**. It could allow the environment experienced by one generation to affect gene expression in the next.
+
+Unlike changes to the base sequence, which happen only through random mutation, epigenetic tags can be added and removed relatively easily, so this kind of inheritance can be reversed in later generations.
+
+<Callout type="exam">
+
+State the condition: inheritance of a phenotype without a change in base sequence happens **if epigenetic tags, such as DNA methylation or histone modification, remain in place during mitosis or meiosis**.
+
+</Callout>
+
+</Section>
+
+<Section id="environment" title="The environment changes gene expression" level="AHL" covers="D2.2.8">
+
+The pattern of tags in a cell is not fixed. It changes during the cell's life, partly in response to the cell's **environment**, and so the environment can change gene expression in cells and whole organisms.
+
+### Air pollution and DNA methylation (required example)
+
+Polluted air contains **fine particulates** (such as PM2.5), **nitrogen oxides**, **ozone** and **polycyclic aromatic hydrocarbons** (PAHs) from traffic, industry and burning. Studies comparing people exposed to different levels of pollution have found that:
+
+- exposure is linked to a **loss of methyl tags across the genome** (lower overall DNA methylation) in blood cells and airway cells;
+- the methylation of particular genes also changes; at some promoters methylation **rises** and at others it falls;
+- the expression of genes involved in **inflammation and the immune system** changes, often increasing.
+
+These changes are associated with higher rates of **asthma**, inflammation and **cardiovascular disease** in people living with polluted air. Because altered tags can be copied when cells divide, effects can persist after the exposure.
+
+<Figure name="d2-2-pollution" caption="Air pollutants that reach the lungs are linked to altered DNA methylation in airway and blood cells, changing the expression of genes such as those for inflammation and immune responses, without any change to the base sequence." level="AHL" />
+
+### Other examples
+
+- **Diet**: in agouti mice, a pregnant mother's diet rich in methyl-group donors (such as folate) increases methylation of a gene that affects coat colour and body mass in her pups.
+- **Famine**: people conceived during the Dutch Hunger Winter famine of 1944–45 still had altered methylation of a growth gene (*IGF2*) about 60 years later.
+
+<Callout type="exam">
+
+For the required example, link **pollutant → change in methyl tags → change in expression → effect on health**, and state that the base sequence of the DNA is not changed.
+
+</Callout>
+
+</Section>
+
+<Section id="gametes" title="Tags kept in eggs and sperm: ligers and tigons" level="AHL" covers="D2.2.9">
+
+During the development of eggs and sperm in mammals, **most epigenetic tags are removed**, and a second wave of removal happens in the early embryo. This resets most genes so the zygote can become **totipotent**. But removal is **not complete**:
+
+- New tags are added to a small group of genes during **egg or sperm formation**, and these differ between eggs and sperm. They are not removed in the early embryo.
+- So for these genes the offspring's cells "remember" which parent each copy came from: the copy from one parent is expressed and the copy from the other is silenced or reduced. This is **genomic imprinting**.
+
+One consequence is that a dominant allele can be silenced by an imprint, so a heterozygous individual may show the phenotype of the recessive allele. Another is that hybrids from **reciprocal crosses** (where the species of the father and mother are swapped) can differ.
+
+### Ligers and tigons
+
+| | Father | Mother | Typical size |
+|---|---|---|---|
+| **Liger** | lion | tiger | very large, bigger than both parent species |
+| **Tigon** | tiger | lion | about the size of the parents or smaller |
+
+Both hybrids have one set of lion chromosomes and one set of tiger chromosomes, so they have the same nuclear genes (only their mitochondrial DNA, inherited from the mother, differs). The size difference cannot be explained by which genes they have. The usual explanation is imprinting of genes that control growth:
+
+- In **lions**, the imprinted genes from the father strongly **promote growth**, and the imprinted genes from the mother strongly **limit growth**; in a lion cub the two balance out.
+- In **tigers**, both effects are weaker.
+- A **liger** inherits strong growth-promoting imprints from its lion father but only weak growth-limiting imprints from its tiger mother, so growth is not held back.
+- A **tigon** inherits weak growth-promoting imprints from its tiger father and strong growth-limiting imprints from its lion mother, so it is no larger than its parents.
+
+<Figure name="d2-2-hybrids" caption="Reciprocal hybrids of lions and tigers. Which parent each imprinted growth gene comes from, not which genes are present, explains why ligers grow very large and tigons do not." level="AHL" />
+
+<Callout type="exam">
+
+Explain liger and tigon differences in terms of **tags that are not removed from the sperm and egg** (imprinting) and the **sex of the parent** each species provides. Ligers and tigons have the same genes, so a genetic difference in base sequence is not the explanation.
+
+</Callout>
+
+</Section>
+
+<Section id="twins" title="Monozygotic twin studies" level="AHL" covers="D2.2.10">
+
+There are two types of twins:
+
+- **Dizygotic (fraternal) twins** develop from two eggs fertilized by two different sperm. They are no more alike genetically than other brothers and sisters.
+- **Monozygotic (identical) twins** develop from one zygote: the early embryo splits into two parts, each of which grows into a separate individual. Apart from rare new mutations, they have **the same genome**.
+
+Because monozygotic twins share their genes, any difference in gene expression or phenotype between them must be caused by **the environment** or by chance. This makes them very useful for investigating **the effects of the environment on gene expression**.
+
+<Figure name="d2-2-twins" caption="Monozygotic twins share their genome. In studies of DNA methylation, young twin pairs have very similar epigenetic tags, while older pairs differ more, especially if they have lived apart or had different lifestyles. The graph shows the trend, not real data." level="AHL" />
+
+### What twin studies have shown
+
+In one well-known study (Fraga and colleagues, 2005), DNA methylation and histone acetylation were compared in monozygotic twin pairs aged from 3 to 74 years:
+
+- young twins (for example 3-year-olds) had almost identical patterns of tags;
+- older twins (for example 50-year-olds) showed much larger differences, with different genes being expressed;
+- differences were greatest in twins who had spent less of their lives together or had different lifestyles, such as diet, smoking and physical activity.
+
+This supports the idea that epigenetic tags change during life in response to the environment, a process sometimes called **epigenetic drift**.
+
+### Nature of science
+
+Twin studies are a **natural experiment**: the genome is a controlled variable, so environmental effects can be separated from genetic ones. But environments are not controlled, sample sizes are often small, and some differences arise by **chance** rather than from the environment, so results show **correlation** and must be interpreted carefully.
+
+<Callout type="note" title="Scope">
+
+Limit your answers to how monozygotic twins are used to investigate the effect of the environment on gene expression. You do not need heritability calculations.
+
+</Callout>
+
+</Section>
+
+<Section id="external" title="External factors that change gene expression" level="AHL" covers="D2.2.11">
+
+Signals from outside a cell can change its pattern of gene expression. You need one example of a **hormone** and one of a **biochemical** acting in bacteria.
+
+### A biochemical: lactose and the lac genes of *E. coli*
+
+*E. coli* can use the sugar lactose, but only by making three proteins, coded for by three neighbouring genes (*lacZ*, *lacY* and *lacA*) that are transcribed together as one mRNA. *lacZ* codes for **β-galactosidase**, the enzyme that hydrolyses lactose into glucose and galactose; *lacY* codes for a permease that takes lactose into the cell.
+
+- **Lactose absent**: a **repressor protein**, coded for by a separate gene (*lacI*), binds a base sequence called the **operator**, next to the promoter. RNA polymerase is blocked and the genes are hardly transcribed, so the cell does not waste energy making enzymes it cannot use.
+- **Lactose present**: lactose that enters the cell is converted into a form (allolactose) that **binds the repressor**. The repressor changes shape and **can no longer bind the operator**, so RNA polymerase transcribes the genes and the enzymes are made.
+- When the lactose has been used up, the repressor is free again and rebinds the operator, so transcription stops.
+
+<Sim topic="d2-2" id="environment" />
+
+### A hormone: testosterone
+
+From puberty, **Leydig cells** in the testes secrete **testosterone**, which acts on nearby **Sertoli cells** to support sperm production (see <TopicLink code="D3.2" />).
+
+1. Testosterone is a **steroid**, so it is lipid-soluble and diffuses through the plasma membrane.
+2. In the cytoplasm it binds an **androgen receptor** protein.
+3. The hormone–receptor complex moves into the **nucleus**.
+4. It binds specific base sequences (**androgen response elements**) in the DNA and acts as a **transcription factor**, increasing transcription of some genes and decreasing transcription of others.
+
+<Figure name="d2-2-testosterone" caption="Testosterone diffuses into a Sertoli cell and binds an androgen receptor. The complex enters the nucleus, binds androgen response elements in the DNA and changes the transcription of target genes." level="AHL" />
+
+<Callout type="exam">
+
+For the lac genes, say exactly what binds what: the **repressor binds the operator** when lactose is absent; **lactose (allolactose) binds the repressor** when lactose is present, so the repressor is released and the genes are transcribed.
+
+</Callout>
+
+</Section>

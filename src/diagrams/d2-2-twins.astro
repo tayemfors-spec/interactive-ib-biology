@@ -1,0 +1,65 @@
+---
+/**
+ * D2.2.10 monozygotic twin studies: identical genomes, so differences in epigenetic tags and gene
+ * expression come from the environment (and chance). Schematic trend after Fraga et al. 2005 (PNAS).
+ */
+const gx = (age: number) => 380 + (age / 70) * 250;
+const gy = (d: number) => 250 - d * 190;
+const together = [[3, 0.06], [20, 0.16], [35, 0.27], [50, 0.38], [70, 0.52]];
+const apart = [[3, 0.06], [20, 0.2], [35, 0.38], [50, 0.56], [70, 0.78]];
+const line = (pts: number[][]) => pts.map(([a, d], i) => `${i ? 'L' : 'M'}${gx(a!).toFixed(1)} ${gy(d!).toFixed(1)}`).join(' ');
+---
+<svg viewBox="0 0 660 320" role="img" aria-labelledby="d22t-t d22t-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="d22t-t">Monozygotic twins and epigenetic differences with age</title>
+  <desc id="d22t-d">Left: monozygotic twins form when one embryo, from one egg and one sperm, splits in two, so the twins have the same genome. Dizygotic twins come from two eggs fertilized by two sperm and are no more alike genetically than other siblings. Right: a schematic graph. The difference in DNA methylation pattern between monozygotic twins is small in young twins and larger in older twins, and larger still in twins who lived apart or had different lifestyles.</desc>
+  <defs><marker id="d22t-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" class="head" /></marker></defs>
+  <text class="h" x="150" y="24" text-anchor="middle">Monozygotic (identical) twins</text>
+  <circle class="egg" cx="60" cy="80" r="22" /><text class="small" x="60" y="118" text-anchor="middle">1 egg + 1 sperm</text>
+  <path class="arrow" d="M88 80 L124 80" marker-end="url(#d22t-a)" />
+  {[[150, 72], [166, 72], [150, 88], [166, 88]].map(([x, y]) => <circle class="emb" cx={x} cy={y} r="8" />)}
+  <text class="small" x="158" y="118" text-anchor="middle">embryo splits</text>
+  <path class="arrow" d="M184 74 L222 56" marker-end="url(#d22t-a)" />
+  <path class="arrow" d="M184 86 L222 104" marker-end="url(#d22t-a)" />
+  <circle class="emb" cx="236" cy="52" r="12" /><circle class="emb" cx="236" cy="108" r="12" />
+  <text class="lbl b" x="236" y="140" text-anchor="middle">same genome</text>
+  <text class="h" x="150" y="160" text-anchor="middle">Dizygotic (fraternal) twins</text>
+  <circle class="egg" cx="60" cy="200" r="16" /><circle class="egg" cx="60" cy="244" r="16" />
+  <text class="small" x="60" y="282" text-anchor="middle">2 eggs + 2 sperm</text>
+  <path class="arrow" d="M82 200 L218 200" marker-end="url(#d22t-a)" />
+  <path class="arrow" d="M82 244 L218 244" marker-end="url(#d22t-a)" />
+  <circle class="emb dz" cx="236" cy="200" r="12" /><circle class="emb dz2" cx="236" cy="244" r="12" />
+  <text class="lbl" x="160" y="304" text-anchor="middle">genetically like ordinary siblings</text>
+  <line class="div" x1="320" x2="320" y1="10" y2="300" />
+  <!-- schematic graph -->
+  <line class="ax" x1="380" y1="250" x2="640" y2="250" />
+  <line class="ax" x1="380" y1="250" x2="380" y2="40" />
+  {[0, 20, 40, 60].map((a) => <text class="small" x={gx(a)} y="268" text-anchor="middle">{a}</text>)}
+  <text class="lbl" x="510" y="290" text-anchor="middle">Age of twin pair / years →</text>
+  <text class="lbl" transform="translate(352 150) rotate(-90)" text-anchor="middle">Difference in methylation →</text>
+  <path class="l apart" d={line(apart)} />
+  <path class="l together" d={line(together)} />
+  {together.map(([a, d]) => <circle class="pt" cx={gx(a!)} cy={gy(d!)} r="4" />)}
+  <text class="lbl" x={gx(70) - 4} y={gy(0.78) - 10} text-anchor="end">lived apart / different lifestyles</text>
+  <text class="lbl" x={gx(70)} y={gy(0.52) + 50} text-anchor="end">similar lifestyles</text>
+  <text class="small i" x="510" y="310" text-anchor="middle">Schematic trend, after Fraga et al. (2005)</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .h { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .lbl { font-size: 12px; fill: var(--text); }
+  .b { font-weight: 800; }
+  .small { font-size: 12px; fill: var(--text-muted); }
+  .i { font-style: italic; }
+  .egg { fill: color-mix(in srgb, var(--bio-k) 16%, var(--surface)); stroke: var(--bio-k); stroke-width: 2; }
+  .emb { fill: color-mix(in srgb, var(--bio-protein) 30%, var(--surface)); stroke: var(--bio-protein); stroke-width: 2; }
+  .emb.dz { fill: color-mix(in srgb, var(--bio-carb) 30%, var(--surface)); stroke: var(--bio-carb); }
+  .emb.dz2 { fill: color-mix(in srgb, var(--bio-glucose) 30%, var(--surface)); stroke: var(--bio-glucose); }
+  .arrow { stroke: var(--text); stroke-width: 1.6; fill: none; }
+  .head { fill: var(--text); }
+  .div { stroke: var(--border); }
+  .ax { stroke: var(--text); stroke-width: 1.5; }
+  .l { fill: none; stroke-width: 3; }
+  .together { stroke: var(--bio-protein); }
+  .apart { stroke: var(--bad); stroke-dasharray: 7 5; }
+  .pt { fill: var(--bio-protein); }
+</style>

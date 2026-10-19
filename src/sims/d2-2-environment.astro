@@ -1,0 +1,186 @@
+---
+/**
+ * D2.2.11 a biochemical in the environment changes gene expression: lactose and the lac genes of E. coli.
+ * Maths in models/d2-2-lac.ts.
+ */
+import { LACTOSE_LEVELS, describeLac, lacExpression, operatorBlocked } from './models/d2-2-lac';
+
+const blockedText = (b: number) => (b > 0.9 ? 'nearly always' : b > 0.5 ? 'most of the time' : b > 0.2 ? 'some of the time' : 'rarely');
+const L0 = 0;
+const e0 = lacExpression(L0);
+const hex = (x: number, y: number, r = 8) =>
+  Array.from({ length: 6 }, (_, j) => { const a = (Math.PI / 3) * j + Math.PI / 6; return `${(x + r * Math.cos(a)).toFixed(1)},${(y + r * Math.sin(a)).toFixed(1)}`; }).join(' ');
+// lactose = two linked sugar rings
+const lactoseAt = [[330, 46], [384, 36], [436, 48], [482, 36]];
+const genes = [
+  { id: 'lacI', x: 20, w: 56, cls: 'reg', name: 'lacI' },
+  { id: 'P', x: 112, w: 52, cls: 'prom', name: 'P' },
+  { id: 'O', x: 164, w: 40, cls: 'op', name: 'O' },
+  { id: 'lacZ', x: 204, w: 120, cls: 'struct', name: 'lacZ' },
+  { id: 'lacY', x: 324, w: 90, cls: 'struct', name: 'lacY' },
+  { id: 'lacA', x: 414, w: 86, cls: 'struct', name: 'lacA' },
+];
+const proteins = [
+  { x: 230, name: 'β-galactosidase' },
+  { x: 360, name: 'permease' },
+  { x: 460, name: 'transacetylase' },
+];
+---
+<div class="lac" data-lac>
+  <div class="grid">
+    <div>
+      <svg viewBox="0 0 520 300" class="art" role="img" aria-labelledby="lac-t lac-d" data-art>
+        <title id="lac-t">The lac genes of E. coli with and without lactose</title>
+        <desc id="lac-d">A stretch of bacterial DNA: the lacI gene that codes for the repressor, then the promoter, the operator and three genes for lactose use (lacZ, lacY and lacA). Without lactose the repressor sits on the operator and RNA polymerase is blocked. With lactose, allolactose binds the repressor so it leaves the operator, RNA polymerase transcribes the three genes as one mRNA, and the proteins are made.</desc>
+        <text class="panel" x="320" y="18">Lactose in the medium</text>
+        <g data-lactose>
+          {lactoseAt.map(([x, y], i) => (
+            <g class="sugar" data-sugar={i} style="opacity:0"><polygon points={hex(x!, y!)} /><polygon points={hex(x! + 15, y!)} /></g>
+          ))}
+        </g>
+        <path class="dna" d="M10 112 L510 112" />
+        {genes.map((g) => (
+          <g>
+            <rect class={`gbox ${g.cls}`} x={g.x} y="101" width={g.w} height="22" rx="3" />
+            <text class={`gname ${g.cls === 'struct' || g.cls === 'reg' ? 'it' : ''}`} x={g.x + g.w / 2} y="116" text-anchor="middle">{g.name}</text>
+          </g>
+        ))}
+        <text class="small" x="138" y="140" text-anchor="middle">promoter</text>
+        <text class="small" x="184" y="154" text-anchor="middle">operator</text>
+        <text class="small" x="48" y="140" text-anchor="middle">repressor gene</text>
+        <g class="pol" data-pol transform="translate(134 84)"><ellipse rx="27" ry="15" /><text text-anchor="middle" dy="0.36em">RNA pol</text></g>
+        <g class="rep" data-rep transform="translate(184 86)">
+          <path d="M-20 12 L-20 -8 Q-20 -16 -12 -16 L12 -16 Q20 -16 20 -8 L20 12 L8 12 L8 2 L-8 2 L-8 12 Z" />
+          <text text-anchor="middle" y="-3">R</text>
+          <g class="allo" data-allo style="opacity:0"><polygon points={hex(0, -22, 7)} /></g>
+        </g>
+        <g class="rep free" data-rep2 transform="translate(60 72)">
+          <path d="M-20 12 L-20 -8 Q-20 -16 -12 -16 L12 -16 Q20 -16 20 -8 L20 12 L8 12 L8 2 L-8 2 L-8 12 Z" />
+          <text text-anchor="middle" y="-3">R</text>
+          <g class="allo" data-allo2 style="opacity:0"><polygon points={hex(0, -22, 7)} /></g>
+        </g>
+        <path class="mrna" data-mrna d="M210 176 q14 -7 28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0" style={`opacity:${e0 > 0.1 ? 1 : 0}`} />
+        <text class="small" x="12" y="180" data-mrna-lbl>{e0 > 0.1 ? 'one mRNA for all three genes' : 'no lac mRNA'}</text>
+        <line class="divider" x1="10" x2="510" y1="196" y2="196" />
+        <text class="panel" x="12" y="216">Proteins made</text>
+        {proteins.map((p, i) => (
+          <g data-prot={i}>
+            {[0, 1, 2].map((k) => <circle class={`prot p${i}`} data-pk={k} cx={p.x - 22 + k * 22} cy="244" r="9" style={`opacity:${k === 0 ? 0.25 : 0}`} />)}
+            <text class="small" x={p.x} y="276" text-anchor="middle">{p.name}</text>
+          </g>
+        ))}
+      </svg>
+      <div class="meter" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow={Math.round(e0 * 100)} aria-label="Rate of transcription of the lac genes" data-meter>
+        <span class="mlabel">Rate of transcription of the lac genes</span>
+        <span class="bar"><span class="fill" data-fill style={`width:${(e0 * 100).toFixed(0)}%`}></span></span>
+        <span class="ends"><span>basal (very low)</span><span>high</span></span>
+      </div>
+    </div>
+    <div class="controls">
+      <label class="slider">Lactose in the medium: <output data-out="L">{LACTOSE_LEVELS[L0]}</output>
+        <input type="range" min="0" max="4" step="1" value={L0} data-param="L" />
+      </label>
+      <p class="state" aria-live="polite" data-state>{describeLac(L0)}</p>
+      <div class="presets">
+        <span>Try:</span>
+        <button class="btn" type="button" data-preset="0">No lactose</button>
+        <button class="btn" type="button" data-preset="4">Plenty of lactose</button>
+      </div>
+      <details class="table">
+        <summary>Show data table</summary>
+        <table>
+          <thead><tr><th scope="col">Lactose</th><th scope="col">Repressor on operator</th><th scope="col">Relative transcription rate</th></tr></thead>
+          <tbody>
+            {LACTOSE_LEVELS.map((name, i) => <tr data-row={i}><td>{name}</td><td>{blockedText(operatorBlocked(i))}</td><td>{Math.round(lacExpression(i) * 100)}%</td></tr>)}
+          </tbody>
+        </table>
+      </details>
+    </div>
+  </div>
+  <p class="model-note">Qualitative model of E. coli growing without glucose: it shows the direction of the effect, not real measurements. Glucose, if present, keeps lac expression low even when lactose is available.</p>
+</div>
+
+<script>
+  import { LACTOSE_LEVELS, describeLac, lacExpression, repressorInactive } from './models/d2-2-lac';
+
+  document.querySelectorAll<HTMLElement>('[data-lac]').forEach((root) => {
+    const slider = root.querySelector<HTMLInputElement>('[data-param="L"]')!;
+    const stateEl = root.querySelector<HTMLElement>('[data-state]')!;
+    let timer = 0;
+    const update = () => {
+      const L = Number(slider.value);
+      const inact = repressorInactive(L);
+      const e = lacExpression(L);
+      const free = inact >= 0.5;
+      root.querySelector('[data-out="L"]')!.textContent = LACTOSE_LEVELS[L]!;
+      root.querySelectorAll<SVGGElement>('[data-sugar]').forEach((g) => { g.style.opacity = Number(g.dataset.sugar) < L ? '1' : '0'; });
+      const rep = root.querySelector<SVGGElement>('[data-rep]')!;
+      rep.setAttribute('transform', free ? 'translate(262 60) rotate(-18)' : 'translate(184 86)');
+      root.querySelector<SVGGElement>('[data-allo]')!.style.opacity = free ? '1' : '0';
+      root.querySelector<SVGGElement>('[data-allo2]')!.style.opacity = L > 0 ? '1' : '0';
+      root.querySelector<SVGGElement>('[data-rep2]')!.setAttribute('transform', L > 0 ? 'translate(60 72) rotate(-18)' : 'translate(60 72)');
+      root.querySelector<SVGGElement>('[data-pol]')!.setAttribute('transform', free ? 'translate(300 84)' : 'translate(134 84)');
+      root.querySelector<SVGPathElement>('[data-mrna]')!.style.opacity = e > 0.1 ? '1' : '0';
+      root.querySelector('[data-mrna-lbl]')!.textContent = e > 0.1 ? 'one mRNA for all three genes' : 'no lac mRNA';
+      const n = e < 0.1 ? 0 : Math.max(1, Math.round(e * 3));
+      root.querySelectorAll<SVGCircleElement>('[data-pk]').forEach((c) => {
+        const k = Number(c.dataset.pk);
+        c.style.opacity = n === 0 ? (k === 0 ? '0.25' : '0') : k < n ? '1' : '0';
+      });
+      root.querySelector<HTMLElement>('[data-fill]')!.style.width = `${(e * 100).toFixed(0)}%`;
+      root.querySelector('[data-meter]')!.setAttribute('aria-valuenow', String(Math.round(e * 100)));
+      root.querySelectorAll<HTMLTableRowElement>('[data-row]').forEach((r) => r.classList.toggle('on', Number(r.dataset.row) === L));
+      clearTimeout(timer);
+      timer = window.setTimeout(() => { stateEl.textContent = describeLac(L); }, 250);
+    };
+    slider.addEventListener('input', update);
+    root.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach((b) => b.addEventListener('click', () => { slider.value = b.dataset.preset!; update(); }));
+    update();
+  });
+</script>
+
+<style>
+  .lac { container-type: inline-size; }
+  .grid { display: grid; gap: var(--space-4); }
+  @container (min-width: 44rem) { .grid { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: start; } }
+  .art { width: 100%; height: auto; background: var(--surface-2); border-radius: var(--radius-m); font-family: var(--font-sans); }
+  .panel { font-size: 13px; font-weight: 700; fill: var(--text-muted); }
+  .small { font-size: 12px; fill: var(--text-muted); }
+  .divider { stroke: var(--border-strong); stroke-dasharray: 4 4; }
+  .dna { stroke: var(--bio-head); stroke-width: 4; }
+  .gbox { stroke-width: 1.5; }
+  .gbox.reg { fill: color-mix(in srgb, var(--bio-protein) 22%, var(--surface)); stroke: var(--bio-protein); }
+  .gbox.prom { fill: color-mix(in srgb, var(--bio-glucose) 30%, var(--surface)); stroke: var(--bio-glucose); }
+  .gbox.op { fill: color-mix(in srgb, var(--bad) 18%, var(--surface)); stroke: var(--bad); }
+  .gbox.struct { fill: color-mix(in srgb, var(--bio-carb) 22%, var(--surface)); stroke: var(--bio-carb); }
+  .gname { font-size: 12px; font-weight: 800; fill: var(--text); }
+  .gname.it { font-style: italic; }
+  .sugar polygon { fill: var(--bio-glucose); stroke: color-mix(in srgb, var(--bio-glucose) 60%, black); transition: opacity 0.3s; }
+  .rep path { fill: var(--bio-protein); }
+  .rep text { font-size: 12px; font-weight: 800; fill: var(--surface); }
+  .allo polygon { fill: var(--bio-glucose); stroke: color-mix(in srgb, var(--bio-glucose) 60%, black); }
+  .rep, .pol { transition: transform 0.4s ease; }
+  .pol ellipse { fill: var(--bio-protein-2); }
+  .pol text { font-size: 12px; font-weight: 800; fill: var(--surface); }
+  .mrna { stroke: var(--bio-k); stroke-width: 3; fill: none; transition: opacity 0.3s; }
+  .prot { transition: opacity 0.3s; }
+  .prot.p0 { fill: var(--bio-carb); }
+  .prot.p1 { fill: var(--bio-water); }
+  .prot.p2 { fill: var(--bio-protein-2); }
+  @media (prefers-reduced-motion: reduce) { .rep, .pol, .sugar polygon, .mrna, .prot { transition: none; } }
+  .meter { margin-top: var(--space-3); }
+  .mlabel { display: block; font-size: var(--step--1); font-weight: 700; margin-bottom: 0.2rem; }
+  .bar { display: block; height: 0.8rem; border-radius: 999px; background: var(--surface-3); overflow: hidden; }
+  .fill { display: block; height: 100%; background: var(--accent); transition: width 0.3s ease; }
+  .ends { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .state { margin: 0; padding: var(--space-3); border-radius: var(--radius-m); background: var(--surface-2); }
+  .presets { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; width: 100%; margin-top: var(--space-2); }
+  th, td { border: 1px solid var(--border); padding: 0.25rem 0.4rem; text-align: left; }
+  tr.on td { background: var(--accent-soft); font-weight: 700; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

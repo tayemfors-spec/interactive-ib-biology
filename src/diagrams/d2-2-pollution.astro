@@ -1,0 +1,53 @@
+---
+/** D2.2.8 the required example: air pollution alters methyl tags on DNA. */
+const pollutants = ['particulates (PM2.5)', 'nitrogen oxides (NOₓ)', 'ozone (O₃)', 'polycyclic aromatic hydrocarbons'];
+const boxes = [
+  { x: 228, y: 40, w: 196, h: 92, title: 'Inhaled into the lungs', lines: ['reach airway cells and', 'white blood cells'] },
+  { x: 228, y: 168, w: 196, h: 112, title: 'Methyl tags change', lines: ['overall: methyl groups lost', 'from many sites in the genome', 'some promoters gain methyl tags'] },
+  { x: 456, y: 168, w: 196, h: 112, title: 'Gene expression changes', lines: ['e.g. more expression of', 'genes for inflammation and', 'immune responses'] },
+  { x: 456, y: 40, w: 196, h: 92, title: 'Possible health effects', lines: ['asthma, inflammation,', 'heart and blood vessel disease'] },
+];
+---
+<svg viewBox="0 0 660 330" role="img" aria-labelledby="d22p-t d22p-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="d22p-t">How air pollution can alter DNA methylation and gene expression</title>
+  <desc id="d22p-d">A flow chart. Air pollutants such as fine particulates, nitrogen oxides, ozone and polycyclic aromatic hydrocarbons are inhaled into the lungs. In airway cells and white blood cells the pattern of DNA methylation changes: overall many methyl tags are lost across the genome, while some promoters gain methyl tags. Expression of genes, for example those involved in inflammation and immune responses, changes. This is linked with asthma, inflammation and cardiovascular disease. The base sequence is not changed, and altered tags can be passed to daughter cells by mitosis.</desc>
+  <defs><marker id="d22p-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" class="head" /></marker></defs>
+  <rect class="src" x="8" y="40" width="190" height="240" rx="10" />
+  <text class="t" x="103" y="66" text-anchor="middle">Air pollutants</text>
+  <text class="small" x="103" y="84" text-anchor="middle">from traffic, industry, burning</text>
+  {pollutants.map((p, i) => (
+    <g>
+      {[0, 1, 2].map((k) => <circle class="part" cx={26 + k * 9 + (i % 2) * 4} cy={112 + i * 44 + (k % 2) * 6} r="3.5" />)}
+      <text class="lbl" x="58" y={116 + i * 44}>{i === 3 ? 'polycyclic aromatic' : p}</text>
+      {i === 3 && <text class="lbl" x="58" y={132 + i * 44}>hydrocarbons (PAHs)</text>}
+    </g>
+  ))}
+  {boxes.map((b, i) => (
+    <g>
+      <rect class={`box b${i}`} x={b.x} y={b.y} width={b.w} height={b.h} rx="10" />
+      <text class="t" x={b.x + b.w / 2} y={b.y + 24} text-anchor="middle">{b.title}</text>
+      {b.lines.map((l, k) => <text class="lbl" x={b.x + b.w / 2} y={b.y + 46 + k * 18} text-anchor="middle">{l}</text>)}
+    </g>
+  ))}
+  <path class="arrow" d="M200 86 L224 86" marker-end="url(#d22p-a)" />
+  <path class="arrow" d="M326 134 L326 164" marker-end="url(#d22p-a)" />
+  <path class="arrow" d="M426 224 L452 224" marker-end="url(#d22p-a)" />
+  <path class="arrow" d="M554 166 L554 136" marker-end="url(#d22p-a)" />
+  <text class="note" x="330" y="310" text-anchor="middle">Base sequence unchanged; altered tags can pass to daughter cells by mitosis.</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .src { fill: var(--surface-3); stroke: var(--border-strong); }
+  .part { fill: var(--text-muted); }
+  .box { stroke-width: 2; fill: var(--surface); }
+  .b0 { stroke: var(--bio-water); }
+  .b1 { stroke: var(--bad); }
+  .b2 { stroke: var(--bio-protein); }
+  .b3 { stroke: var(--warn); }
+  .t { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .lbl { font-size: 12px; fill: var(--text); }
+  .small { font-size: 12px; fill: var(--text-muted); }
+  .arrow { stroke: var(--text); stroke-width: 2; fill: none; }
+  .head { fill: var(--text); }
+  .note { font-size: 12px; fill: var(--text-muted); font-style: italic; }
+</style>

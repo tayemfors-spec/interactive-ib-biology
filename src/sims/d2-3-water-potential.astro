@@ -1,0 +1,209 @@
+---
+import { wpDiagram, type WpView } from './d2-3-wp-draw';
+import { cellAt, cellFromPotentials, condition, surroundings } from './models/d2-3-water-potential';
+
+const d = { cellS: -800, cellP: 300, outS: -200, outP: 0 };
+const c0 = cellFromPotentials(d.cellS, d.cellP);
+const s0 = cellAt(c0.psiS1, c0.v);
+const view: WpView = { mode: 'solution', ...s0, outS: d.outS, outP: d.outP, out: surroundings(d.outS, d.outP), condition: condition(s0) };
+const presets = [
+  { id: 'pure', label: 'Pure water' },
+  { id: 'hypo', label: 'Hypotonic solution' },
+  { id: 'hyper', label: 'Hypertonic solution' },
+  { id: 'xylem', label: 'Xylem under tension' },
+];
+---
+<div class="sim-wp" data-wp>
+  <div class="layout">
+    <div>
+      <svg class="dia" viewBox="0 0 520 320" role="img" aria-labelledby="wp-t wp-d">
+        <title id="wp-t">A plant cell and its surroundings, with water potentials</title>
+        <desc id="wp-d">A plant cell with a cell wall, protoplast and vacuole, surrounded by a bathing solution or next to a xylem vessel. The water potential of each is shown, with an arrow for the direction of net water movement from higher to lower water potential.</desc>
+        <g data-dia set:html={wpDiagram(view)} />
+      </svg>
+      <div class="chips presets" role="group" aria-label="Presets">
+        {presets.map((p) => <button type="button" class="btn chip" data-preset={p.id}>{p.label}</button>)}
+      </div>
+    </div>
+    <div class="controls">
+      <fieldset class="group">
+        <legend>Plant cell</legend>
+        <label class="slider">Solute potential, ψs: <output data-out="cellS">−800 kPa</output>
+          <input type="range" min="-2000" max="-100" step="50" value={d.cellS} data-param="cellS" />
+        </label>
+        <label class="slider">Pressure potential, ψp: <output data-out="cellP">+300 kPa</output>
+          <input type="range" min="0" max="2000" step="50" value={d.cellP} data-param="cellP" />
+        </label>
+      </fieldset>
+      <fieldset class="group">
+        <legend>Surroundings</legend>
+        <div class="chips">
+          <button type="button" class="btn chip" data-mode="solution" aria-pressed="true">Bathing solution</button>
+          <button type="button" class="btn chip" data-mode="xylem" aria-pressed="false">Xylem sap</button>
+        </div>
+        <label class="slider">Solute potential, ψs: <output data-out="outS">−200 kPa</output>
+          <input type="range" min="-2000" max="0" step="50" value={d.outS} data-param="outS" />
+        </label>
+        <label class="slider">Pressure potential, ψp: <output data-out="outP">0 kPa</output>
+          <input type="range" min="-2000" max="0" step="50" value={d.outP} data-param="outP" disabled />
+        </label>
+        <p class="hint" data-hint>An open solution is at atmospheric pressure, so its ψp is 0. Choose xylem sap to give it a negative pressure potential (tension).</p>
+      </fieldset>
+      <button type="button" class="btn btn-primary" data-go>Let water move to equilibrium</button>
+    </div>
+  </div>
+  <p class="readout" aria-live="polite" data-readout>
+    Cell ψ = −800 + 300 = −500 kPa; solution ψ = −200 kPa. The solution has the higher (less negative) water potential, so there is a net movement of water into the cell.
+  </p>
+  <p class="model-note">Simplified model: values are relative to pure water at atmospheric pressure and 20 °C (ψ = 0). The surroundings are large, so their ψ does not change. Cell swelling and shrinking are exaggerated in the drawing. 1000 kPa = 1 MPa.</p>
+</div>
+
+<script>
+  import { conditionText, wpDiagram, type Mode } from './d2-3-wp-draw';
+  import {
+    cellAt, cellFromPotentials, clampCell, condition, equilibrate, fmtKPa, fmtMPa, netMovement, surroundings,
+  } from './models/d2-3-water-potential';
+  import { ease } from '../lib/timeline';
+  import { prefersReducedMotion } from '../lib/prefs';
+
+  document.querySelectorAll<HTMLElement>('[data-wp]').forEach((root) => {
+    const dia = root.querySelector<SVGGElement>('[data-dia]')!;
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    const hint = root.querySelector<HTMLElement>('[data-hint]')!;
+    const input = (k: string) => root.querySelector<HTMLInputElement>(`[data-param="${k}"]`)!;
+    const out = (k: string, v: number) => (root.querySelector(`[data-out="${k}"]`)!.textContent = `${fmtKPa(v)} (${fmtMPa(v)})`);
+    let mode: Mode = 'solution';
+    let timer = 0, raf = 0;
+    // the cell is held as its solute content (ψs at v = 1) and relative volume, so that a plasmolysed
+    // cell stays plasmolysed while the surroundings are changed
+    let cell = cellFromPotentials(Number(input('cellS').value), Number(input('cellP').value));
+
+    const setMode = (m: Mode) => {
+      mode = m;
+      root.querySelectorAll<HTMLButtonElement>('[data-mode]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
+      input('outP').disabled = m === 'solution';
+      if (m === 'solution') input('outP').value = '0';
+      hint.textContent = m === 'solution'
+        ? 'An open solution is at atmospheric pressure, so its ψp is 0. Choose xylem sap to give it a negative pressure potential (tension).'
+        : 'Xylem sap is almost pure water (ψs close to 0), but it is pulled up the plant under tension, so its ψp is negative.';
+    };
+
+    /** Draw the current slider state (optionally a cell part-way through moving water). */
+    const draw = (announce: boolean, fromCellSliders = false) => {
+      const c = clampCell(Number(input('cellS').value), Number(input('cellP').value));
+      if (c.clamped) input('cellP').value = String(c.psiP);
+      if (fromCellSliders) cell = cellFromPotentials(c.psiS, c.psiP);
+      const outS = Number(input('outS').value), outP = mode === 'solution' ? 0 : Number(input('outP').value);
+      const s = cellAt(cell.psiS1, cell.v);
+      const o = surroundings(outS, outP);
+      out('cellS', s.psiS); out('cellP', s.psiP); out('outS', outS); out('outP', outP);
+      dia.innerHTML = wpDiagram({ mode, ...s, outS, outP, out: o, condition: condition(s) });
+      if (!announce) return;
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        const where = mode === 'solution' ? 'solution' : 'xylem sap';
+        const dir = netMovement(s.psi, o);
+        const move = dir === 'none'
+          ? 'The water potentials are equal, so there is no net movement: water molecules still cross in both directions at equal rates (dynamic equilibrium).'
+          : dir === 'into-cell'
+            ? `The ${where} has the higher (less negative) water potential, so there is a net movement of water into the cell.`
+            : `The cell has the higher (less negative) water potential, so there is a net movement of water out of the cell into the ${where}.`;
+        const clamp = c.clamped ? ' ψp was limited so that the cell’s ψ is not above 0, the water potential of pure water.' : '';
+        readout.textContent = `Cell ψ = ψs + ψp = ${fmtKPa(s.psiS)} + ${fmtKPa(s.psiP).replace('+', '')} = ${fmtKPa(s.psi)}; ${where} ψ = ${fmtKPa(o)}. ${move}${clamp}`;
+      }, 300);
+    };
+
+    const equilibrateNow = () => {
+      cancelAnimationFrame(raf);
+      const outS = Number(input('outS').value), outP = mode === 'solution' ? 0 : Number(input('outP').value);
+      const o = surroundings(outS, outP);
+      const rec = cell;
+      const end = equilibrate(rec.psiS1, o);
+      const finish = () => {
+        input('cellS').value = String(Math.round(end.psiS));
+        input('cellP').value = String(Math.round(end.psiP));
+        cell = { psiS1: rec.psiS1, v: end.v };
+        // draw the exact equilibrium state (slider steps would round it)
+        const s = end;
+        out('cellS', s.psiS); out('cellP', s.psiP);
+        dia.innerHTML = wpDiagram({ mode, ...s, outS, outP, out: o, condition: condition(s) });
+        clearTimeout(timer);
+        const was = rec.v;
+        const change = Math.abs(end.v - was) < 1e-4 ? 'No water moved: the cell was already in equilibrium with its surroundings.'
+          : end.v > was ? 'Water entered the cell: the vacuole and protoplast swelled, diluting the cell sap (ψs rose) and pressing harder on the wall (ψp rose).'
+          : end.psiP === 0 ? 'Water left the cell: turgor pressure fell to zero, then the protoplast shrank away from the wall as the cell sap became more concentrated (ψs fell).'
+          : 'Water left the cell: the protoplast pressed less on the wall (ψp fell) and the cell sap became slightly more concentrated (ψs fell).';
+        readout.textContent = `Equilibrium: cell ψ = ${fmtKPa(end.psiS)} + ${fmtKPa(end.psiP).replace('+', '')} = ${fmtKPa(end.psi)}, equal to the surroundings (${fmtKPa(o)}). The cell is now ${conditionText[condition(end)]}. ${change}`;
+      };
+      if (prefersReducedMotion()) { finish(); return; }
+      const t0 = performance.now(), dur = 1200;
+      const step = (now: number) => {
+        const u = ease(Math.min(1, (now - t0) / dur));
+        const v = rec.v + (end.v - rec.v) * u;
+        const s = cellAt(rec.psiS1, v);
+        out('cellS', s.psiS); out('cellP', s.psiP);
+        dia.innerHTML = wpDiagram({ mode, ...s, outS, outP, out: o, condition: condition(s) });
+        if (u < 1) raf = requestAnimationFrame(step); else finish();
+      };
+      raf = requestAnimationFrame(step);
+    };
+
+    const presets: Record<string, () => void> = {
+      pure: () => { setMode('solution'); input('outS').value = '0'; },
+      hypo: () => { setMode('solution'); input('outS').value = '-300'; },
+      hyper: () => { setMode('solution'); input('outS').value = '-1400'; },
+      xylem: () => { setMode('xylem'); input('outS').value = '-50'; input('outP').value = '-300'; },
+    };
+    root.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach((b) => b.addEventListener('click', () => {
+      cancelAnimationFrame(raf);
+      input('cellS').value = '-800'; input('cellP').value = '300';
+      presets[b.dataset.preset!]!();
+      draw(true, true);
+    }));
+    root.querySelectorAll<HTMLButtonElement>('[data-mode]').forEach((b) => b.addEventListener('click', () => {
+      cancelAnimationFrame(raf);
+      setMode(b.dataset.mode as Mode);
+      if (mode === 'xylem' && input('outP').value === '0') input('outP').value = '-800';
+      draw(true);
+    }));
+    root.querySelectorAll<HTMLInputElement>('[data-param]').forEach((el) => el.addEventListener('input', () => {
+      cancelAnimationFrame(raf);
+      draw(true, el.dataset.param === 'cellS' || el.dataset.param === 'cellP');
+    }));
+    root.querySelector('[data-go]')!.addEventListener('click', equilibrateNow);
+    draw(false);
+  });
+</script>
+
+<style>
+  .sim-wp { container-type: inline-size; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 46rem) { .layout { grid-template-columns: minmax(0, 1.5fr) minmax(15rem, 1fr); align-items: start; } }
+  .dia { width: 100%; height: auto; font-family: var(--font-sans); }
+  .dia :global(.sol) { fill: color-mix(in srgb, var(--bio-water) 14%, var(--surface)); stroke: var(--border-strong); }
+  .dia :global(.tissue) { fill: var(--surface); stroke: var(--border-strong); }
+  .dia :global(.xylem) { fill: color-mix(in srgb, var(--bio-head) 45%, var(--surface)); }
+  .dia :global(.lignin) { fill: var(--bio-head); }
+  .dia :global(.sap) { fill: color-mix(in srgb, var(--bio-water) 22%, var(--surface)); }
+  .dia :global(.wall) { fill: color-mix(in srgb, var(--bio-water) 14%, var(--surface)); stroke: var(--bio-carb); stroke-width: 7; stroke-linejoin: round; }
+  .dia :global(.proto) { fill: color-mix(in srgb, var(--bio-carb) 22%, var(--surface)); stroke: var(--bio-protein); stroke-width: 2; }
+  .dia :global(.vac) { fill: color-mix(in srgb, var(--bio-protein-2) 18%, var(--surface)); stroke: var(--bio-protein-2); stroke-width: 1.5; }
+  .dia :global(.hd) { font-size: 17px; font-weight: 750; fill: var(--text); }
+  .dia :global(.lbl) { font-size: 15px; fill: var(--text-muted); }
+  .dia :global(.gap) { font-style: italic; }
+  .dia :global(.val) { font-size: 16px; fill: var(--text); }
+  .dia :global(.strong) { font-weight: 800; }
+  .dia :global(.arrow) { stroke: var(--bio-water); fill: none; }
+  .dia :global(.arrowhead) { fill: var(--bio-water); }
+  .dia :global(.eq) { stroke: var(--text-muted); stroke-width: 2.5; fill: none; stroke-linejoin: round; }
+  .presets { margin-top: var(--space-2); }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .group { border: 1px solid var(--border); border-radius: var(--radius-m); padding: var(--space-2) var(--space-3) var(--space-3); margin: 0; display: grid; gap: var(--space-2); }
+  .group legend { font-weight: 750; padding: 0 var(--space-1); }
+  .chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .hint { margin: 0; font-size: 0.8rem; color: var(--text-muted); }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

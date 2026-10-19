@@ -1,0 +1,61 @@
+visuals:
+  - id: regulation
+    kind: anim
+    module: d2-2-regulation
+    level: AHL
+    title: Controlling transcription and mRNA lifetime
+    alt: Step-by-step diagram of proteins binding a promoter, enhancer and silencer, then mRNA being translated and broken down.
+    description: >-
+      The upper part shows DNA in the nucleus with, from the 5′ end, an enhancer, a silencer, the promoter and
+      the gene. RNA polymerase cannot start transcription by itself. General transcription factors bind the
+      promoter and RNA polymerase joins them, giving a low rate of transcription. An activator binding the
+      enhancer raises the rate; a repressor binding the silencer lowers it. The lower part shows one mRNA in the
+      cytoplasm being translated repeatedly by ribosomes while its poly-A tail shortens, until nucleases break it
+      down and no more polypeptide is made from it.
+    steps:
+      - id: promoter
+        title: The promoter alone is not enough
+        caption: Every gene has a promoter, a base sequence just upstream (on the 5′ side) of the gene. RNA polymerase cannot bind it and start transcription on its own, so nothing is transcribed.
+      - id: basal
+        title: Transcription factors bind the promoter
+        caption: Transcription factors are proteins that bind specific base sequences in the promoter. RNA polymerase then binds to them in the correct position and starts transcribing the gene 5′ → 3′, but only at a low rate.
+      - id: activator
+        title: An activator binds the enhancer
+        caption: An activator, a transcription factor with a binding site for the enhancer sequence, binds it. The DNA bends so the activator contacts the proteins at the promoter, and the rate of transcription rises. Enhancers can be far upstream or downstream of the gene.
+      - id: repressor
+        title: A repressor binds the silencer
+        caption: A repressor protein binds a different specific sequence (a silencer). It blocks the effect of the activator, so transcription falls to a very low rate. Which genes a cell transcribes depends on which of these proteins it has.
+      - id: translation
+        title: mRNA is translated repeatedly
+        caption: In the cytoplasm one mRNA is translated by several ribosomes, again and again, making many polypeptides. This continues even though transcription of the gene has now almost stopped. Meanwhile its poly-A tail slowly gets shorter.
+      - id: degradation
+        title: Nucleases break the mRNA down
+        caption: When the tail has become too short, nucleases break the mRNA down to nucleotides and translation stops. In human cells an mRNA may last from minutes to days, so controlling how long it survives controls how much protein is made.
+
+  - id: chromatin
+    kind: sim
+    module: d2-2-chromatin
+    level: AHL
+    title: Epigenetic tags and chromatin
+    alt: Controls add methyl tags to promoter cytosines and acetyl or methyl tags to histones, changing chromatin packing and transcription rate.
+    description: >-
+      Five nucleosomes are shown above the promoter and start of one gene, with a meter for the rate of
+      transcription. Methylating cytosines in the CG sites of the promoter stops transcription factors and RNA
+      polymerase binding, so the gene is repressed. Acetylating the histone tails loosens the nucleosomes into
+      open euchromatin, so transcription rises. Histone methylation can work either way, depending on which amino
+      acid is methylated: methylation of lysine 4 of histone H3 is linked to active genes, and methylation of
+      lysine 9 to condensed, repressed heterochromatin. The model is qualitative.
+
+  - id: environment
+    kind: sim
+    module: d2-2-environment
+    level: AHL
+    title: Lactose switches on the lac genes of E. coli
+    alt: A slider adds lactose to E. coli, freeing the operator from the repressor so the lac genes are transcribed.
+    description: >-
+      A stretch of E. coli DNA with the repressor gene (lacI), the promoter, the operator and three genes needed
+      to use lactose (lacZ for β-galactosidase, lacY for a permease that takes lactose into the cell, and lacA).
+      With no lactose the repressor protein binds the operator and blocks RNA polymerase, so the genes are
+      hardly transcribed. As lactose is added, allolactose made from it binds the repressor and changes its
+      shape so it leaves the operator; RNA polymerase transcribes the three genes as one mRNA and the enzymes
+      are made. The model is qualitative and assumes there is no glucose.

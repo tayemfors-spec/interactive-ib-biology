@@ -1,0 +1,83 @@
+# Visuals for D1.3. Step captions here are what readers see under each animation and in the text
+# descriptions, so they are written to exam standard.
+visuals:
+  - id: mutations
+    kind: sim
+    module: d1-3-mutations
+    title: Mutation explorer — edit a gene and see the effect
+    alt: Editable start of the β-globin gene showing coding DNA, mRNA and amino acids, with each mutation classified.
+    description: >-
+      The start of the human β-globin gene is shown as codons. For each codon there are three rows: the
+      coding strand of the DNA (5′ to 3′), the mRNA, which has the same sequence with uracil in place of
+      thymine, and the amino acid it codes for, using the standard genetic code. You select a base and then
+      substitute it, insert a base after it or delete it. The polypeptide is translated again at once and the
+      change is classified as silent (same-sense), missense, nonsense (premature stop codon), in-frame insertion
+      or deletion, or frameshift. Example buttons show the sickle-cell substitution (GAG to GTG in codon 6,
+      glutamic acid to valine), the haemoglobin C substitution (GAG to AAG, glutamic acid to lysine), a silent
+      third-base change, a nonsense change, and insertions and deletions of one or three bases. A table of the
+      full genetic code can be opened below the editor.
+
+  - id: causes
+    kind: anim
+    module: d1-3-causes
+    title: What causes mutations, and where they matter
+    alt: Five panels — replication errors, chemical mutagens, radiation, random mutation and germ-line versus somatic mutation.
+    description: >-
+      A sequence of five diagrams. The first shows DNA polymerase building a new strand and placing T opposite
+      G; if this is not corrected, the next replication gives one normal and one mutant DNA molecule. The second
+      shows a chemical from tobacco smoke bonding to a guanine, which leads to a base substitution when the DNA is
+      copied. The third shows UV radiation joining two adjacent thymines and X-rays or gamma rays breaking both
+      DNA strands. The fourth shows two cells in which mutations have occurred at different, random places in the
+      genome, with one hotspot. The fifth compares a mutation in a body cell, which is passed only to that cell's
+      descendants and may lead to cancer, with a mutation in a germ-line cell, which can be passed to every cell
+      of an offspring.
+    steps:
+      - id: replication
+        title: Errors in DNA replication
+        caption: DNA polymerase very occasionally adds a base that is not complementary — here T opposite G. Proofreading and repair enzymes correct almost all such errors. If one is missed, the next replication gives one normal DNA molecule and one with an A–T pair where there was a G–C pair — a base substitution. Errors like this cause a low background rate of mutation.
+      - id: chemical
+        title: Chemical mutagens
+        caption: A mutagen is an agent that increases the mutation rate. Tobacco smoke contains chemical mutagens such as benzo[a]pyrene and nitrosamines. Benzo[a]pyrene (after it is processed in the body) bonds to guanine and changes its shape, so when the DNA is copied the wrong base can be paired with it, giving a substitution. Mustard gas is another chemical mutagen.
+      - id: radiation
+        title: Mutagenic radiation
+        caption: Ultraviolet radiation (UVB and UVC) is absorbed by DNA bases and can join two adjacent pyrimidines, such as two thymines, into a dimer that causes errors when the DNA is copied or repaired. Ionizing radiation — X-rays, gamma rays, and alpha and beta particles from radioactive isotopes — can break one or both DNA strands and damage bases; faulty repair can delete or insert bases.
+      - id: random
+        title: Mutation is random
+        caption: Mutations can occur at any base in the genome, in genes and between them, and different cells get different mutations. Some sites are more likely to mutate than others (hotspots), such as cytosines next to guanine. But no natural mechanism directs a mutation to a particular base in order to produce a useful trait.
+      - id: germ-somatic
+        title: Somatic cells and germ cells
+        caption: A mutation in a somatic (body) cell is passed by mitosis only to that cell's descendants, so it is not inherited by offspring. If it affects genes that control the cell cycle, the cells may divide uncontrollably and form a tumour (cancer). A mutation in a germ-line cell in a testis or ovary can be passed to a gamete and then to the zygote, so every cell of the offspring carries it.
+
+  - id: crispr
+    kind: anim
+    module: d1-3-crispr
+    level: AHL
+    title: Gene editing with CRISPR–Cas9
+    alt: Cas9 and a guide RNA find a target sequence next to a PAM, cut both DNA strands, and the cut is repaired by NHEJ or HDR.
+    description: >-
+      A DNA double helix is shown with a 20-base target sequence followed, on the upper strand, by a short PAM
+      sequence (5′-NGG-3′). The Cas9 enzyme carries a guide RNA whose spacer is complementary to the target.
+      Cas9 binds where it finds a PAM, separates the DNA strands, and the spacer base-pairs with the target strand.
+      Cas9 then cuts both strands three bases from the PAM. The break can be repaired by non-homologous end joining,
+      which often inserts or deletes a few bases and so knocks the gene out, or by homology-directed repair, which
+      copies a supplied DNA template to make a precise change. The last step shows exa-cel (Casgevy), a CRISPR–Cas9
+      treatment for sickle-cell disease approved in 2023.
+    steps:
+      - id: complex
+        title: Guide RNA and Cas9
+        caption: Cas9 is an endonuclease (an enzyme that cuts DNA). It is guided by a guide RNA (gRNA) designed in the laboratory. The 5′ end of the gRNA, the spacer, is about 20 bases long and complementary to the target sequence in the gene to be edited; the rest of the gRNA folds into loops that bind it to Cas9.
+      - id: bind
+        title: Finding the target
+        caption: The Cas9–gRNA complex moves along the DNA and binds where it finds a PAM (protospacer adjacent motif, 5′-NGG-3′ for the commonly used Cas9). It separates the two DNA strands next to the PAM, and if the spacer is complementary to the target strand, it base-pairs with it.
+      - id: cut
+        title: A double-strand cut
+        caption: When the spacer has paired with the target, Cas9 cuts both strands of the DNA, about 3 base pairs from the PAM. The result is a double-strand break at a precisely chosen position in the genome.
+      - id: nhej
+        title: Repair by NHEJ — a knockout
+        caption: Cas9 is released and the cell repairs the break. Non-homologous end joining (NHEJ) simply joins the cut ends together. It is error-prone and often inserts or deletes a few bases. In a coding sequence this usually causes a frameshift, so the gene is knocked out (made inoperative).
+      - id: hdr
+        title: Repair by HDR — a precise edit
+        caption: If a DNA template is supplied whose ends match the DNA on each side of the cut, the cell can repair the break by homology-directed repair (HDR), copying the template. Whatever sequence is in the middle of the template — for example a corrected base — is written into the gene, so the edit is precise.
+      - id: application
+        title: Example — exa-cel for sickle-cell disease
+        caption: Exa-cel (Casgevy) was approved in the UK and the USA in 2023. The patient's own blood stem cells are edited outside the body to disrupt an enhancer of the BCL11A gene, then returned after chemotherapy. With less BCL11A, developing red blood cells switch fetal haemoglobin (HbF) back on, which reduces sickling. Only somatic cells are edited, so the change is not inherited.

@@ -1,0 +1,143 @@
+---
+/**
+ * CRISPR–Cas9 gene editing (D1.3.9): guide RNA + Cas9, PAM recognition and base pairing, double-strand
+ * cut, repair by NHEJ (knockout) or HDR (precise edit), and the exa-cel example. Animated by d1-3-crispr.ts.
+ */
+import { BOT_Y, CUT, PAM_END, RUNGS, SPACER_Y, T0, T1, TOP_Y, UNDOCK, X0, X1, strandPath } from './d1-3-crispr';
+const leftRungs = RUNGS.filter((x) => x < CUT);
+const rightRungs = RUNGS.filter((x) => x >= CUT);
+const donorRungs = Array.from({ length: 21 }, (_, i) => 240 + i * 8);
+const boxes = [
+  { x: 14, y: 62, lines: ['1. The patient’s own blood stem', 'cells (haematopoietic stem cells)', 'are collected.'] },
+  { x: 270, y: 62, lines: ['2. Outside the body, Cas9 and a', 'guide RNA cut the DNA of an', 'enhancer of the BCL11A gene;', 'NHEJ repair disrupts it.'] },
+  { x: 270, y: 196, lines: ['3. Chemotherapy clears the old', 'bone marrow cells, then the', 'edited stem cells are infused', 'back into the patient.'] },
+  { x: 14, y: 196, lines: ['4. With less BCL11A, developing', 'red blood cells make fetal', 'haemoglobin (HbF), which', 'reduces sickling.'] },
+];
+---
+<svg viewBox="0 0 520 340" xmlns="http://www.w3.org/2000/svg" class="cr">
+  <defs>
+    <marker id="d13r-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" class="head" />
+    </marker>
+  </defs>
+
+  <g data-el="dna">
+    <rect class="target-band" x={T0} y={TOP_Y - 30} width={T1 - T0} height={BOT_Y - TOP_Y + 42} rx="4" />
+    <text class="end" x="14" y={TOP_Y + 5} text-anchor="middle">5′</text>
+    <text class="end" x="14" y={BOT_Y + 5} text-anchor="middle">3′</text>
+    <text class="end" x="506" y={TOP_Y + 5} text-anchor="middle">3′</text>
+    <text class="end" x="506" y={BOT_Y + 5} text-anchor="middle">5′</text>
+    <g data-el="left">
+      {leftRungs.map((x) => <line class="rung" data-rung={x} x1={x} y1={TOP_Y} x2={x} y2={BOT_Y} />)}
+      <path data-el="lt" class="strand" d={strandPath(X0, CUT, 0, true)} />
+      <path data-el="lb" class="strand" d={strandPath(X0, CUT, 0, false)} />
+    </g>
+    <g data-el="right">
+      {rightRungs.map((x) => <line class="rung" data-rung={x} x1={x} y1={TOP_Y} x2={x} y2={BOT_Y} />)}
+      <rect class="pam" x={T1} y={TOP_Y - 6} width={PAM_END - T1} height="12" rx="3" />
+      <path data-el="rt" class="strand" d={strandPath(CUT, X1, 0, true)} />
+      <path data-el="rb" class="strand" d={strandPath(CUT, X1, 0, false)} />
+    </g>
+    <path class="bracket" d={`M${T0} 254 v6 H${T1} v-6`} />
+    <text class="lbl" x={(T0 + T1) / 2} y="276" text-anchor="middle">target sequence (20 bases)</text>
+  </g>
+
+  <g data-el="indel" style="opacity:0">
+    <rect class="indel" x={CUT - 4} y={TOP_Y - 7} width="8" height="14" rx="2" />
+    <rect class="indel" x={CUT - 4} y={BOT_Y - 7} width="8" height="14" rx="2" />
+    <text class="lbl bad" x={CUT} y="300" text-anchor="middle">a few bases inserted or deleted at the cut (indel)</text>
+  </g>
+  <g data-el="edit" style="opacity:0">
+    <rect class="edit" x="296" y={TOP_Y - 6} width="40" height="12" rx="3" />
+    <rect class="edit" x="296" y={BOT_Y - 6} width="40" height="12" rx="3" />
+    <text class="lbl good" x="316" y="300" text-anchor="middle">new sequence copied from the template</text>
+  </g>
+
+  <g data-el="complex" transform={`translate(0 ${UNDOCK})`}>
+    <path class="cas9" d="M172 150 C160 118 232 116 272 128 C312 100 404 104 434 140 C458 172 448 250 402 258 C342 270 222 268 182 252 C150 238 162 190 172 150 Z" />
+    <text class="lbl b" x="190" y="150">Cas9</text>
+    <text class="lbl b" x="404" y="136" text-anchor="middle">guide RNA</text>
+    <path class="rna" d={`M${T0} ${SPACER_Y} H${T1}`} />
+    <path class="rna" d="M340 218 C352 216 358 206 360 194 V168 A9 9 0 1 1 378 168 V194 C380 204 388 210 398 208 C406 206 410 200 410 192 V178 A8 8 0 1 1 426 178 V206 C426 214 420 220 410 222" />
+    {[174, 182, 190].map((y) => <line class="rna-rung" x1="361" y1={y} x2="377" y2={y} />)}
+    {[184, 192, 200].map((y) => <line class="rna-rung" x1="411" y1={y} x2="425" y2={y} />)}
+    <text class="end small" x={T0 - 10} y={SPACER_Y + 4} text-anchor="middle">5′</text>
+    <g data-el="spacer-lbl" style="opacity:0">
+      <text class="lbl" x={T0} y={SPACER_Y + 22}>spacer: 20 bases complementary to the target</text>
+    </g>
+  </g>
+
+  <g data-el="pam-lbl">
+    <text class="lbl b" x="496" y="264" text-anchor="end">PAM (5′-NGG-3′)</text>
+    <text class="lbl muted" x="496" y="280" text-anchor="end">on the upper strand</text>
+  </g>
+
+  <g data-el="cut" style="opacity:0">
+    <path class="cutmark" d={`M${CUT} ${TOP_Y - 14} v28 M${CUT} ${BOT_Y - 14} v28`} />
+    <text class="lbl bad" x={CUT} y="300" text-anchor="middle">both strands cut, 3 bases from the PAM</text>
+    <text class="lbl bad" x={CUT} y="318" text-anchor="middle">(a double-strand break)</text>
+  </g>
+
+  <g data-el="nhej" style="opacity:0">
+    <rect class="box" x="14" y="14" width="492" height="96" rx="8" />
+    <text class="lbl b" x="26" y="36">Repair by non-homologous end joining (NHEJ)</text>
+    <text class="lbl" x="26" y="58">The cell joins the cut ends back together. This is error-prone: a few</text>
+    <text class="lbl" x="26" y="77">bases are often inserted or deleted, causing a frameshift, so the</text>
+    <text class="lbl" x="26" y="96">gene is knocked out (made inactive).</text>
+  </g>
+  <g data-el="hdr" style="opacity:0">
+    <rect class="box" x="14" y="14" width="492" height="96" rx="8" />
+    <text class="lbl b" x="26" y="36">Repair by homology-directed repair (HDR)</text>
+    <text class="lbl" x="26" y="58">A DNA template is supplied with the desired sequence between ends</text>
+    <text class="lbl" x="26" y="77">that match the DNA on each side of the cut. The cell copies it, so</text>
+    <text class="lbl" x="26" y="96">the change is precise, for example correcting a single base.</text>
+  </g>
+  <g data-el="donor" style="opacity:0">
+    {donorRungs.map((x) => <line class="rung" x1={x} y1="138" x2={x} y2="156" />)}
+    <path class="strand thin" d="M236 138 H404 M236 156 H404" />
+    <rect class="edit" x="296" y="133" width="40" height="10" rx="3" />
+    <rect class="edit" x="296" y="151" width="40" height="10" rx="3" />
+    <text class="lbl" x="412" y="152">repair template</text>
+  </g>
+
+  <g data-el="app" style="opacity:0">
+    <text class="h" x="14" y="26">A successful application: exa-cel (Casgevy)</text>
+    <text class="lbl muted" x="14" y="46">Approved in the UK and the USA in 2023 to treat sickle-cell disease.</text>
+    {boxes.map((b) => (
+      <g data-box>
+        <rect class="box" x={b.x} y={b.y} width="236" height="108" rx="8" />
+        {b.lines.map((l, i) => <text class={i === 0 ? 'lbl b' : 'lbl'} x={b.x + 12} y={b.y + 24 + i * 20}>{l}</text>)}
+      </g>
+    ))}
+    <path class="arrow" d="M252 116 H266" marker-end="url(#d13r-arrow)" />
+    <path class="arrow" d="M388 172 V192" marker-end="url(#d13r-arrow)" />
+    <path class="arrow" d="M268 250 H254" marker-end="url(#d13r-arrow)" />
+    <text class="lbl b" x="260" y="328" text-anchor="middle">Somatic editing: the change is not passed on to the patient’s children.</text>
+  </g>
+</svg>
+<style>
+  .cr { font-family: var(--font-sans); }
+  .h { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .lbl { font-size: 12.5px; fill: var(--text); }
+  .lbl.b { font-weight: 750; }
+  .lbl.bad { fill: var(--bad); font-weight: 700; }
+  .lbl.good { fill: var(--good); font-weight: 700; }
+  .lbl.muted { fill: var(--text-muted); }
+  .end { font-size: 13px; font-weight: 800; fill: var(--text); }
+  .end.small { font-size: 12px; }
+  .strand { fill: none; stroke: var(--bio-head); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+  .strand.thin { stroke-width: 4; }
+  .rung { stroke: var(--text-muted); stroke-width: 2; }
+  .target-band { fill: color-mix(in srgb, var(--bio-carb) 16%, transparent); }
+  .pam { fill: color-mix(in srgb, var(--bio-chol) 55%, var(--surface)); stroke: var(--bio-chol); stroke-width: 1.5; }
+  .bracket { fill: none; stroke: var(--text); stroke-width: 1.4; }
+  .cas9 { fill: color-mix(in srgb, var(--bio-protein) 22%, transparent); stroke: var(--bio-protein); stroke-width: 2; }
+  .rna { fill: none; stroke: var(--bio-protein-2); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 9 3; }
+  .rna-rung { stroke: var(--bio-protein-2); stroke-width: 1.5; }
+  .cutmark { stroke: var(--bad); stroke-width: 3; stroke-dasharray: 4 3; }
+  .indel { fill: var(--bad); }
+  .edit { fill: color-mix(in srgb, var(--good) 60%, var(--surface)); stroke: var(--good); stroke-width: 1.5; }
+  .box { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.2; }
+  .arrow { fill: none; stroke: var(--text); stroke-width: 1.8; }
+  .head { fill: var(--text); }
+</style>

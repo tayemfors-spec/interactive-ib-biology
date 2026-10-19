@@ -1,0 +1,48 @@
+---
+/** D2.2.1 gene expression links genotype to phenotype: the lactase gene as an example. */
+const boxes = [
+  { x: 8, w: 128, title: 'Gene (DNA)', sub: 'LCT gene', cls: 'dna' },
+  { x: 176, w: 112, title: 'mRNA', sub: 'lactase mRNA', cls: 'rna' },
+  { x: 328, w: 128, title: 'Protein', sub: 'enzyme lactase', cls: 'prot' },
+  { x: 496, w: 136, title: 'Phenotype', sub: 'digests lactose', cls: 'phen' },
+];
+const arrows = [
+  { x1: 136, x2: 176, label: 'transcription' },
+  { x1: 288, x2: 328, label: 'translation' },
+  { x1: 456, x2: 496, label: 'protein acts' },
+];
+---
+<svg viewBox="0 0 640 150" role="img" aria-labelledby="d22f-t d22f-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="d22f-t">Gene expression from genotype to phenotype</title>
+  <desc id="d22f-d">Four boxes joined by arrows. The lactase gene in DNA is transcribed to mRNA; the mRNA is translated into the enzyme lactase; the enzyme catalyses the hydrolysis of lactose, so the phenotype is the ability to digest lactose.</desc>
+  <defs><marker id="d22f-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" class="head" /></marker></defs>
+  {boxes.map((b) => (
+    <g>
+      <rect class={`box ${b.cls}`} x={b.x} y="40" width={b.w} height="56" rx="10" />
+      <text class="t" x={b.x + b.w / 2} y="64" text-anchor="middle">{b.title}</text>
+      <text class={`s ${b.cls === 'dna' ? 'it' : ''}`} x={b.x + b.w / 2} y="84" text-anchor="middle">{b.sub}</text>
+    </g>
+  ))}
+  {arrows.map((a, i) => (
+    <g>
+      <path class="arrow" d={`M${a.x1 + 3} 68 L${a.x2 - 3} 68`} marker-end="url(#d22f-a)" />
+      <text class="lbl" x={(a.x1 + a.x2) / 2} y={i % 2 ? 126 : 28} text-anchor="middle">{a.label}</text>
+    </g>
+  ))}
+  <text class="note" x="320" y="144" text-anchor="middle">Genotype → phenotype. Many proteins are enzymes, so they affect phenotype by catalysing a reaction.</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .box { stroke-width: 2; }
+  .dna { fill: color-mix(in srgb, var(--bio-head) 20%, var(--surface)); stroke: var(--bio-head); }
+  .rna { fill: color-mix(in srgb, var(--bio-k) 16%, var(--surface)); stroke: var(--bio-k); }
+  .prot { fill: color-mix(in srgb, var(--bio-protein) 18%, var(--surface)); stroke: var(--bio-protein); }
+  .phen { fill: color-mix(in srgb, var(--bio-carb) 18%, var(--surface)); stroke: var(--bio-carb); }
+  .t { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .s { font-size: 13px; fill: var(--text); }
+  .it { font-style: italic; }
+  .arrow { stroke: var(--text); stroke-width: 2; }
+  .head { fill: var(--text); }
+  .lbl { font-size: 13px; font-weight: 700; fill: var(--text-muted); }
+  .note { font-size: 12px; fill: var(--text-muted); font-style: italic; }
+</style>

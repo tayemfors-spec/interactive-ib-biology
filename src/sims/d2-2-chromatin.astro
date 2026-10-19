@@ -1,0 +1,212 @@
+---
+/**
+ * D2.2.6 epigenetic tags: promoter CpG methylation, histone acetylation and histone methylation
+ * change how open the chromatin is, whether transcription factors and RNA polymerase can bind,
+ * and so the rate of transcription. Maths in models/d2-2-chromatin.ts.
+ */
+import { CPG_SITES, access, describe, nucleosomeLayout, openness, transcriptionRate, type ChromatinParams } from './models/d2-2-chromatin';
+
+const d: ChromatinParams = { promoterMethyl: 0, acetylated: false, histoneMethyl: 'none' };
+const o = openness(d);
+const a = access(d);
+const r = transcriptionRate(d);
+const nucs = nucleosomeLayout(o);
+const linker = (pts: [number, number][]) => `M14 84 ${pts.map(([x, y]) => `L${x.toFixed(1)} ${y.toFixed(1)}`).join(' ')} L506 84`;
+const cpgX = Array.from({ length: CPG_SITES }, (_, k) => 84 + k * 30);
+const mrna = [0, 1, 2, 3, 4];
+const presets = [
+  { label: 'Actively expressed gene', p: { promoterMethyl: 0, acetylated: true, histoneMethyl: 'activating' } },
+  { label: 'Silenced gene', p: { promoterMethyl: 1, acetylated: false, histoneMethyl: 'repressive' } },
+  { label: 'Methylated promoter only', p: { promoterMethyl: 1, acetylated: true, histoneMethyl: 'none' } },
+];
+---
+<div class="chrom" data-chrom>
+  <div class="grid">
+    <div>
+      <svg viewBox="0 0 520 290" class="art" role="img" aria-labelledby="chr-t chr-d" data-art>
+        <title id="chr-t">Chromatin, promoter and transcription of one gene</title>
+        <desc id="chr-d">Top: five nucleosomes, histone proteins with DNA wrapped round them, that pack closely when chromatin is condensed and spread apart when it is open. Histone tails can carry acetyl or methyl tags. Bottom: the promoter of a gene with six CpG sites whose cytosines can be methylated, the binding of a transcription factor and RNA polymerase, and mRNA being made.</desc>
+        <text class="panel" x="10" y="170">Chromatin (nucleosomes)</text>
+        <text class="state-lbl" x="510" y="170" text-anchor="end" data-chr-state>Partly condensed</text>
+        <path class="dna" d={linker(nucs)} data-linker />
+        {nucs.map(([x, y], i) => (
+          <g class="nuc" data-nuc={i} transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`}>
+            <circle class="histone" r="19" />
+            <circle class="wrap" r="22" />
+          </g>
+        ))}
+        {nucs.map(([x, y], i) => {
+          const s = i % 2 ? 1 : -1; // tails point away from the zig-zag so tags stay visible
+          return (
+            <g class="nuc" data-tags={i} transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`}>
+              <path class="tail" d={`M-9 ${17 * s} L-18 ${32 * s}`} />
+              <path class="tail" d={`M9 ${17 * s} L18 ${32 * s}`} />
+              <g class="tag ac" data-tag="ac" transform={`translate(-22 ${40 * s})`} style="opacity:0"><circle r="12" /><text text-anchor="middle" dy="0.36em">Ac</text></g>
+              <g class="tag me" data-tag="me" transform={`translate(22 ${40 * s})`} style="opacity:0"><circle r="12" /><text text-anchor="middle" dy="0.36em">Me</text></g>
+            </g>
+          );
+        })}
+        <line class="divider" x1="10" x2="510" y1="180" y2="180" />
+        <text class="panel" x="10" y="198">Promoter and start of the gene</text>
+        <path class="dna" d="M14 256 L506 256" />
+        <rect class="promoter" x="64" y="246" width="230" height="20" rx="4" />
+        <text class="small" x="70" y="284">promoter</text>
+        <rect class="gene" x="300" y="246" width="200" height="20" rx="4" />
+        <text class="small" x="306" y="284">gene → (transcribed)</text>
+        {cpgX.map((x, k) => (
+          <g data-cpg={k}>
+            <text class="cg" x={x} y="261" text-anchor="middle">CG</text>
+            <g class="methyl" data-methyl={k} style="opacity:0"><path d={`M${x - 4} 246 L${x - 4} 232`} /><text x={x - 4} y="228" text-anchor="middle">CH₃</text></g>
+          </g>
+        ))}
+        <g class="tf" data-tf transform="translate(266 222)" style={`opacity:${(0.2 + 0.8 * a).toFixed(2)}`}><rect x="-20" y="-14" width="40" height="28" rx="10" /><text text-anchor="middle" dy="0.36em">TF</text></g>
+        <g class="pol" data-pol transform="translate(330 220)" style={`opacity:${(0.2 + 0.8 * a).toFixed(2)}`}><ellipse rx="30" ry="18" /><text text-anchor="middle" dy="0.36em">RNA pol</text></g>
+        {mrna.map((k) => <path class="mrna" data-mrna={k} d={`M376 ${236 - k * 9} q10 -5 20 0 t20 0 t20 0 t20 0`} style={`opacity:${k < Math.round(r * 5) ? 1 : 0}`} />)}
+        <text class="small" x="462" y="222" data-mrna-lbl>mRNA</text>
+      </svg>
+      <div class="meter" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow={Math.round(r * 100)} aria-label="Transcription rate" data-meter>
+        <span class="mlabel">Transcription rate</span>
+        <span class="bar"><span class="fill" data-fill style={`width:${(r * 100).toFixed(0)}%`}></span></span>
+        <span class="ends"><span>silenced</span><span>high</span></span>
+      </div>
+    </div>
+    <div class="controls">
+      <label class="slider">Methylated cytosines in the promoter: <output data-out="m">0 of {CPG_SITES}</output>
+        <input type="range" min="0" max={CPG_SITES} step="1" value="0" data-param="m" />
+      </label>
+      <div class="toggle-row">
+        <span class="tl">Histone acetylation:</span>
+        <button type="button" class="btn" aria-pressed="false" data-acetyl>Acetyl tags: off</button>
+      </div>
+      <fieldset class="hm">
+        <legend>Histone methylation</legend>
+        <label><input type="radio" name="d22-hm" value="none" checked data-hm /> None</label>
+        <label><input type="radio" name="d22-hm" value="activating" data-hm /> On H3 lysine 4 (activating)</label>
+        <label><input type="radio" name="d22-hm" value="repressive" data-hm /> On H3 lysine 9 (repressive)</label>
+      </fieldset>
+      <p class="state" aria-live="polite" data-state>{describe(d)}</p>
+      <div class="presets">
+        <span>Try:</span>
+        {presets.map((x) => <button class="btn" type="button" data-preset={JSON.stringify(x.p)}>{x.label}</button>)}
+      </div>
+    </div>
+  </div>
+  <p class="model-note">Qualitative model: it shows the direction of each effect, not real measurements. Which amino acid is methylated decides whether histone methylation activates or represses; you do not need the mechanism.</p>
+</div>
+
+<script>
+  import { CPG_ORDER, CPG_SITES, access, chromatinState, describe, nucleosomeLayout, openness, transcriptionRate, type ChromatinParams, type HistoneMethyl } from './models/d2-2-chromatin';
+
+  document.querySelectorAll<HTMLElement>('[data-chrom]').forEach((root) => {
+    const slider = root.querySelector<HTMLInputElement>('[data-param="m"]')!;
+    const acBtn = root.querySelector<HTMLButtonElement>('[data-acetyl]')!;
+    const radios = [...root.querySelectorAll<HTMLInputElement>('[data-hm]')];
+    const stateEl = root.querySelector<HTMLElement>('[data-state]')!;
+    let timer = 0;
+
+    const read = (): ChromatinParams => ({
+      promoterMethyl: Number(slider.value) / CPG_SITES,
+      acetylated: acBtn.getAttribute('aria-pressed') === 'true',
+      histoneMethyl: (radios.find((r) => r.checked)?.value ?? 'none') as HistoneMethyl,
+    });
+
+    const update = () => {
+      const p = read();
+      const o = openness(p), a = access(p), r = transcriptionRate(p);
+      const pts = nucleosomeLayout(o);
+      root.querySelectorAll<SVGGElement>('[data-nuc]').forEach((g, i) => {
+        const [x, y] = pts[i]!;
+        g.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)})`);
+      });
+      root.querySelectorAll<SVGGElement>('[data-tags]').forEach((g, i) => {
+        const [x, y] = pts[i]!;
+        g.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)})`);
+        g.querySelector<SVGGElement>('[data-tag="ac"]')!.style.opacity = p.acetylated ? '1' : '0';
+        const me = g.querySelector<SVGGElement>('[data-tag="me"]')!;
+        me.style.opacity = p.histoneMethyl === 'none' ? '0' : '1';
+        me.classList.toggle('rep', p.histoneMethyl === 'repressive');
+      });
+      root.querySelector('[data-linker]')!.setAttribute('d', `M14 84 ${pts.map(([x, y]) => `L${x.toFixed(1)} ${y.toFixed(1)}`).join(' ')} L506 84`);
+      const n = Number(slider.value);
+      const on = new Set(CPG_ORDER.slice(0, n));
+      root.querySelectorAll<SVGGElement>('[data-methyl]').forEach((g) => { g.style.opacity = on.has(Number(g.dataset.methyl)) ? '1' : '0'; });
+      root.querySelector('[data-out="m"]')!.textContent = `${n} of ${CPG_SITES}`;
+      const tf = root.querySelector<SVGGElement>('[data-tf]')!;
+      const pol = root.querySelector<SVGGElement>('[data-pol]')!;
+      tf.style.opacity = (0.2 + 0.8 * a).toFixed(2);
+      tf.setAttribute('transform', `translate(266 ${(222 - (1 - a) * 18).toFixed(1)})`);
+      pol.style.opacity = (0.2 + 0.8 * a).toFixed(2);
+      pol.setAttribute('transform', `translate(330 ${(220 - (1 - a) * 14).toFixed(1)})`);
+      const k = Math.round(r * 5);
+      root.querySelectorAll<SVGPathElement>('[data-mrna]').forEach((m) => { m.style.opacity = Number(m.dataset.mrna) < k ? '1' : '0'; });
+      root.querySelector<SVGTextElement>('[data-mrna-lbl]')!.textContent = k ? 'mRNA' : 'no mRNA';
+      const st = chromatinState(o);
+      root.querySelector('[data-chr-state]')!.textContent = st === 'euchromatin' ? 'Euchromatin: open' : st === 'heterochromatin' ? 'Heterochromatin: condensed' : 'Partly condensed';
+      root.querySelector<HTMLElement>('[data-fill]')!.style.width = `${(r * 100).toFixed(0)}%`;
+      root.querySelector('[data-meter]')!.setAttribute('aria-valuenow', String(Math.round(r * 100)));
+      acBtn.textContent = p.acetylated ? 'Acetyl tags: on' : 'Acetyl tags: off';
+      clearTimeout(timer);
+      timer = window.setTimeout(() => { stateEl.textContent = describe(p); }, 250);
+    };
+
+    slider.addEventListener('input', update);
+    radios.forEach((r) => r.addEventListener('change', update));
+    acBtn.addEventListener('click', () => { acBtn.setAttribute('aria-pressed', acBtn.getAttribute('aria-pressed') === 'true' ? 'false' : 'true'); update(); });
+    root.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach((b) => b.addEventListener('click', () => {
+      const p = JSON.parse(b.dataset.preset!) as ChromatinParams;
+      slider.value = String(Math.round(p.promoterMethyl * CPG_SITES));
+      acBtn.setAttribute('aria-pressed', String(p.acetylated));
+      radios.forEach((r) => { r.checked = r.value === p.histoneMethyl; });
+      update();
+    }));
+    update();
+  });
+</script>
+
+<style>
+  .chrom { container-type: inline-size; }
+  .grid { display: grid; gap: var(--space-4); }
+  @container (min-width: 44rem) { .grid { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: start; } }
+  .art { width: 100%; height: auto; background: var(--surface-2); border-radius: var(--radius-m); font-family: var(--font-sans); }
+  .panel { font-size: 13px; font-weight: 700; fill: var(--text-muted); }
+  .state-lbl { font-size: 13px; font-weight: 800; fill: var(--accent-strong); }
+  .small { font-size: 12px; fill: var(--text-muted); }
+  .divider { stroke: var(--border-strong); stroke-dasharray: 4 4; }
+  .dna { stroke: var(--bio-head); stroke-width: 4; fill: none; stroke-linejoin: round; }
+  .nuc { transition: transform 0.35s ease; }
+  .histone { fill: var(--bio-protein-2); }
+  .wrap { fill: none; stroke: var(--bio-head); stroke-width: 4; stroke-dasharray: 26 6; }
+  .tail { stroke: var(--bio-protein-2); stroke-width: 3; fill: none; }
+  .tag text, .tf text, .pol text { font-size: 12px; font-weight: 800; fill: var(--surface); }
+  .tag.ac circle { fill: var(--good); }
+  .tag.me circle { fill: var(--bio-protein); }
+  .tag.me.rep circle { fill: var(--bad); }
+  .promoter { fill: color-mix(in srgb, var(--bio-glucose) 30%, var(--surface)); stroke: var(--bio-glucose); }
+  .gene { fill: color-mix(in srgb, var(--bio-carb) 25%, var(--surface)); stroke: var(--bio-carb); }
+  .cg { font-size: 12px; font-weight: 800; fill: var(--text); }
+  .methyl path { stroke: var(--bad); stroke-width: 2; }
+  .methyl text { font-size: 12px; font-weight: 800; fill: var(--bad); }
+  .tf rect { fill: var(--bio-carb); }
+  .tf text { fill: #000; }
+  .pol ellipse { fill: var(--bio-protein); }
+  .tf, .pol { transition: transform 0.35s ease, opacity 0.35s ease; }
+  .mrna { stroke: var(--bio-k); stroke-width: 3; fill: none; }
+  @media (prefers-reduced-motion: reduce) { .nuc, .tf, .pol { transition: none; } }
+  :global(html[data-motion='reduce']) .nuc, :global(html[data-motion='reduce']) .tf, :global(html[data-motion='reduce']) .pol { transition: none; }
+  .meter { margin-top: var(--space-3); }
+  .mlabel { display: block; font-size: var(--step--1); font-weight: 700; margin-bottom: 0.2rem; }
+  .bar { display: block; height: 0.8rem; border-radius: 999px; background: var(--surface-3); position: relative; overflow: hidden; }
+  .fill { display: block; height: 100%; background: var(--accent); transition: width 0.3s ease; }
+  .ends { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .toggle-row { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; font-weight: 600; }
+  .hm { border: 1px solid var(--border); border-radius: var(--radius-m); padding: var(--space-2) var(--space-3); display: grid; gap: var(--space-1); margin: 0; }
+  .hm legend { font-weight: 700; padding: 0 0.3em; }
+  .hm label { display: flex; gap: 0.5em; align-items: center; min-height: 24px; }
+  .hm input { width: 1.1rem; height: 1.1rem; }
+  .state { margin: 0; padding: var(--space-3); border-radius: var(--radius-m); background: var(--surface-2); }
+  .presets { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

@@ -1,0 +1,157 @@
+facts:
+  - id: f1
+    claim: The standard genetic code has 64 codons; 61 code for the 20 amino acids and UAA, UAG and UGA are stop codons; AUG codes for methionine and is the start codon.
+    where: [ "index.mdx#substitutions", "src/sims/models/d1-3-mutations.ts", "tests/unit/d1-3.test.ts" ]
+    confidence: high
+    basis: Standard genetic code (Crick et al.; any textbook table); full table checked codon by codon in unit tests
+    status: checked
+  - id: f2
+    claim: The HBB coding sequence begins ATG GTG CAC CTG ACT CCT GAG GAG AAG TCT GCC GTT (Met-Val-His-Leu-Thr-Pro-Glu-Glu-Lys-Ser-Ala-Val), and codons are conventionally numbered from Val (the initiator Met is removed).
+    where: [ "src/sims/models/d1-3-mutations.ts", "visuals.yaml:mutations", "src/diagrams/d1-3-types.astro" ]
+    confidence: high
+    basis: Human HBB reference sequence (NM_000518); HbVar numbering convention
+    status: checked
+  - id: f3
+    claim: Sickle-cell disease (HbS) is caused by an A→T substitution in codon 6 of HBB (GAG→GTG; mRNA GAG→GUG), replacing glutamic acid with valine.
+    where: [ "index.mdx#substitutions", "quiz.yaml:q2", "flashcards.yaml:c6", "index.mdx (mistakes)", "visuals.yaml:mutations" ]
+    confidence: high
+    basis: Ingram (1957); standard genetics texts
+    status: checked
+  - id: f4
+    claim: Haemoglobin C results from GAG→AAG at codon 6 of HBB (Glu6Lys).
+    where: [ "index.mdx#substitutions", "visuals.yaml:mutations" ]
+    confidence: high
+    basis: HbVar database; haematology texts
+    status: checked
+  - id: f5
+    claim: Transitions (purine↔purine, pyrimidine↔pyrimidine) are more frequent than transversions.
+    where: [ "index.mdx#mutation-types", "index.mdx#randomness" ]
+    confidence: high
+    basis: Molecular evolution texts; observed Ts/Tv ratio ≈ 2 in human SNPs
+    status: checked
+  - id: f6
+    claim: Two unrelated humans differ at roughly one base in every thousand (about 0.1%), millions of SNPs per genome.
+    where: [ "index.mdx#substitutions" ]
+    confidence: medium
+    basis: 1000 Genomes Project (2015) — a typical genome differs from the reference at ~4–5 million sites
+    status: checked
+  - id: f7
+    claim: Each human is born with roughly 60–70 de novo mutations (single-base changes) not present in either parent.
+    where: [ "index.mdx#causes" ]
+    confidence: medium
+    basis: Trio sequencing studies (e.g. Kong et al. 2012; Jónsson et al. 2017) — mutation rate ≈1.2 × 10⁻⁸ per base per generation; estimates range ~45–75
+    status: open
+  - id: f8
+    claim: Benzo[a]pyrene in tobacco smoke is metabolically activated to a diol epoxide that forms adducts with guanine, typically leading to G→T transversions; nitrosamines in tobacco are also mutagens.
+    where: [ "index.mdx#causes", "visuals.yaml:causes/chemical", "flashcards.yaml:c9" ]
+    confidence: high
+    basis: IARC monographs; Denissenko et al. (1996) Science on BPDE adducts in TP53
+    status: checked
+  - id: f9
+    claim: Mustard gas (sulfur mustard) is an alkylating chemical mutagen that can cross-link DNA strands.
+    where: [ "index.mdx#causes", "visuals.yaml:causes/chemical" ]
+    confidence: high
+    basis: Auerbach & Robson (1940s) first chemical mutagen; toxicology texts
+    status: checked
+  - id: f10
+    claim: UVB and UVC are absorbed by DNA bases and form pyrimidine dimers (e.g. thymine dimers) between adjacent pyrimidines; UV in sunlight is the main cause of skin cancer.
+    where: [ "index.mdx#causes", "visuals.yaml:causes/radiation", "quiz.yaml:q4", "quiz.yaml:q6" ]
+    confidence: high
+    basis: Standard DNA damage biology (Alberts); WHO on UV and skin cancer
+    status: checked
+  - id: f11
+    claim: Ionizing radiation (X-rays, gamma rays, alpha and beta particles) causes single- and double-strand breaks and base damage; faulty repair can insert or delete bases.
+    where: [ "index.mdx#causes", "visuals.yaml:causes/radiation" ]
+    confidence: high
+    basis: Radiation biology texts. Note that gamma rays are electromagnetic radiation, not particles.
+    status: checked
+  - id: f12
+    claim: Methylated cytosines at CpG sites deaminate to thymine, making C→T transitions at CpG sites at least ~10 times more frequent than other substitutions.
+    where: [ "index.mdx#randomness", "visuals.yaml:causes/random" ]
+    confidence: medium
+    basis: Molecular evolution literature; CpG transition rate estimated ~10–50× other sites
+    status: checked
+  - id: f13
+    claim: Luria–Delbrück (1943) and Lederberg replica plating (1952) showed that resistance mutations arise before exposure to the selective agent.
+    where: [ "index.mdx#randomness", "quiz.yaml:q5" ]
+    confidence: high
+    basis: History of genetics; Luria & Delbrück 1943, Lederberg & Lederberg 1952
+    status: checked
+  - id: f14
+    claim: Heterozygotes for the sickle-cell allele have partial protection against falciparum malaria, so the allele is more common where malaria is endemic.
+    where: [ "index.mdx#variation" ]
+    confidence: high
+    basis: Allison (1954) and later studies
+    status: checked
+  - id: f15
+    claim: Mice lacking functional p53 (Trp53 knockout) are viable but develop tumours early (most by about 6 months).
+    where: [ "index.mdx#knockout", "src/diagrams/d1-3-knockout.astro" ]
+    confidence: high
+    basis: Donehower et al. (1992) Nature 356, 215–221
+    status: checked
+  - id: f16
+    claim: The International Mouse Phenotyping Consortium aims to produce and phenotype a knockout of every protein-coding mouse gene (~20 000); the yeast deletion collection showed that roughly a fifth (~1100 of ~6000) of yeast genes are essential.
+    where: [ "index.mdx#knockout" ]
+    confidence: high
+    basis: IMPC (Dickinson et al. 2016); Giaever et al. (2002) Nature
+    status: checked
+  - id: f17
+    claim: CRISPR–Cas9 genome editing was developed in 2012 (Jinek, Charpentier, Doudna et al.); SpCas9 requires a 5′-NGG-3′ PAM on the non-target strand immediately 3′ of the 20-nt protospacer and makes a blunt double-strand cut ~3 bp upstream of the PAM.
+    where: [ "index.mdx#crispr", "visuals.yaml:crispr", "flashcards.yaml:c15", "quiz.yaml:q9" ]
+    confidence: high
+    basis: Jinek et al. (2012) Science 337, 816–821
+    status: checked
+  - id: f18
+    claim: NHEJ repair of Cas9 cuts often creates small insertions or deletions (knockout); HDR with a homologous donor template allows precise edits.
+    where: [ "index.mdx#crispr", "visuals.yaml:crispr" ]
+    confidence: high
+    basis: Standard genome-editing reviews (e.g. Doudna & Charpentier 2014, Science)
+    status: checked
+  - id: f19
+    claim: Exa-cel (Casgevy) was approved by the UK MHRA in November 2023 and the US FDA in December 2023 for sickle-cell disease; autologous CD34+ stem cells are edited ex vivo to disrupt the erythroid-specific enhancer of BCL11A, raising fetal haemoglobin, and are returned after busulfan conditioning.
+    where: [ "index.mdx#crispr", "visuals.yaml:crispr/application", "flashcards.yaml:c16" ]
+    confidence: high
+    basis: MHRA press release 16 Nov 2023; FDA approval 8 Dec 2023; Frangoul et al. (2021) NEJM
+    status: checked
+  - id: f20
+    claim: A CRISPR-edited high-GABA tomato (Sicilian Rouge High GABA) went on sale in Japan in 2021; the edit increases the activity of glutamate decarboxylase (GAD), which makes GABA.
+    where: [ "index.mdx#crispr" ]
+    confidence: medium
+    basis: Nonaka et al. (2017) Sci Rep (GAD autoinhibitory domain truncation); Sanatech Seed launch 2021. The study guide describes this differently — check.
+    status: open
+  - id: f21
+    claim: In 2018 He Jiankui announced the birth of twins from CCR5-edited embryos; this was widely condemned and he was sentenced to three years in prison in 2019; WHO issued governance recommendations in 2021.
+    where: [ "index.mdx#crispr" ]
+    confidence: high
+    basis: News reports (Nature, Science 2018–2019); WHO 2021 governance framework
+    status: checked
+  - id: f22
+    claim: Histone H4 of cow and pea differs at only 2 of 102 amino acids.
+    where: [ "index.mdx#conserved", "src/diagrams/d1-3-conserved.astro" ]
+    confidence: high
+    basis: DeLange et al. (1969) J Biol Chem; classic textbook example
+    status: checked
+  - id: f23
+    claim: The first eight amino acids of histone H4 are Ser-Gly-Arg-Gly-Lys-Gly-Gly-Lys; the codons in the conserved-sequence figure are invented for illustration.
+    where: [ "src/diagrams/d1-3-conserved.astro" ]
+    confidence: high
+    basis: UniProt P62805 (human H4); figure labelled illustrative
+    status: checked
+  - id: f24
+    claim: 481 ultra-conserved elements (≥200 bp) are identical in human, mouse and rat genomes.
+    where: [ "index.mdx#conserved" ]
+    confidence: high
+    basis: Bejerano et al. (2004) Science 304, 1321–1325
+    status: checked
+  - id: f25
+    claim: Plant and animal lineages diverged well over a billion years ago.
+    where: [ "index.mdx#conserved" ]
+    confidence: medium
+    basis: Molecular clock estimates ~1.0–1.6 billion years
+    status: open
+  - id: f26
+    claim: Direct-to-consumer genetic tests report SNP-based risk variants such as BRCA1/BRCA2 and APOE ε4; results indicate risk, not diagnosis, and benefit from expert interpretation.
+    where: [ "index.mdx#variation" ]
+    confidence: high
+    basis: FDA authorizations of DTC tests (2017–2018); genetic counselling guidance
+    status: checked

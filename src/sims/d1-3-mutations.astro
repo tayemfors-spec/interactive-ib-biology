@@ -1,0 +1,287 @@
+---
+import { AMINO_ACIDS, CODON_TABLE, EFFECT_LABEL, HBB_START, RNA_BASES, STOP, codonLabel, describe, transcribe, translate } from './models/d1-3-mutations';
+
+const seq = HBB_START;
+const tr = translate(transcribe(seq));
+const verdict = EFFECT_LABEL.none;
+const explain = describe(seq, seq);
+const presets = [
+  { id: 'sickle', label: 'Sickle-cell (A→T)' },
+  { id: 'hbc', label: 'HbC (G→A)' },
+  { id: 'silent', label: 'Silent (G→A, 3rd base)' },
+  { id: 'nonsense', label: 'Nonsense (G→T)' },
+  { id: 'del1', label: 'Delete 1 base' },
+  { id: 'del3', label: 'Delete 3 bases' },
+  { id: 'ins1', label: 'Insert 1 base' },
+  { id: 'ins3', label: 'Insert 3 bases' },
+];
+const aaName = (aa: string) => (aa === STOP ? 'stop' : AMINO_ACIDS[aa]!.name);
+---
+<div class="mut" data-mut>
+  <div class="presets" role="group" aria-label="Example mutations">
+    <span class="group-name">Examples:</span>
+    {presets.map((p) => <button type="button" class="btn" data-preset={p.id}>{p.label}</button>)}
+    <button type="button" class="btn" data-reset>Reset gene</button>
+  </div>
+
+  <p class="hint">Start of the human <strong>β-globin</strong> gene (<em>HBB</em>), read 5′→3′ from left to right. Tap a base on the coding strand to select it, then substitute, insert or delete.</p>
+
+  <div class="gene" data-gene>
+    <div class="codon names" aria-hidden="true">
+      <span class="num">Codon</span>
+      <span class="row-name">DNA coding strand</span>
+      <span class="row-name">mRNA</span>
+      <span class="row-name">Amino acid</span>
+    </div>
+    {tr.codons.map((c, k) => (
+      <div class="codon">
+        <span class="num">{codonLabel(k)}</span>
+        <span class="dna">{[0, 1, 2].map((j) => <button type="button" class={`base b${seq[k * 3 + j]}`} data-i={k * 3 + j} aria-pressed="false" aria-label={`${seq[k * 3 + j]}, base ${k * 3 + j + 1}`}>{seq[k * 3 + j]}</button>)}</span>
+        <span class="rna">{c}</span>
+        <span class="aa" title={aaName(tr.aminoAcids[k]!)}>{tr.aminoAcids[k]}</span>
+      </div>
+    ))}
+  </div>
+
+  <div class="tools" data-tools>
+    <p class="sel" data-sel>No base selected.</p>
+    <div class="tool-row" role="group" aria-label="Substitute the selected base">
+      <span class="group-name">Substitute with</span>
+      {['A', 'T', 'G', 'C'].map((b) => <button type="button" class={`btn key k${b}`} data-sub={b} disabled>{b}</button>)}
+    </div>
+    <div class="tool-row" role="group" aria-label="Insert a base after the selected base">
+      <span class="group-name">Insert after it</span>
+      {['A', 'T', 'G', 'C'].map((b) => <button type="button" class={`btn key k${b}`} data-ins={b} disabled>+ {b}</button>)}
+    </div>
+    <div class="tool-row">
+      <button type="button" class="btn" data-del disabled>Delete this base</button>
+    </div>
+  </div>
+
+  <div class="result">
+    <p class="verdict" data-verdict data-effect="none">{verdict}</p>
+    <p class="explain" data-explain>{explain}</p>
+    <dl class="chains">
+      <div><dt>Original polypeptide</dt><dd data-orig>{tr.aminoAcids.join('–')} …</dd></div>
+      <div><dt>After mutation</dt><dd data-new>{tr.aminoAcids.join('–')} …</dd></div>
+    </dl>
+    <p class="sr-only" aria-live="polite" data-live></p>
+  </div>
+
+  <details class="table-box">
+    <summary>Show the genetic code (mRNA codons)</summary>
+    <div class="table-scroll">
+      <table class="code">
+        <caption>The standard genetic code: first base (row group), second base (column), third base (row)</caption>
+        <thead><tr><th scope="col">1st</th>{RNA_BASES.map((b) => <th scope="col">2nd {b}</th>)}<th scope="col">3rd</th></tr></thead>
+        <tbody>
+          {RNA_BASES.map((f) => RNA_BASES.map((t, ti) => (
+            <tr class={ti === 3 ? 'grp-end' : ''}>
+              {ti === 0 && <th scope="rowgroup" rowspan="4" class="first">{f}</th>}
+              {RNA_BASES.map((s) => { const aa = CODON_TABLE[f + s + t]!; return <td class={aa === STOP ? 'stop' : aa === 'Met' ? 'met' : ''}><code>{f + s + t}</code> {aa}</td>; })}
+              <th scope="row" class="third">{t}</th>
+            </tr>
+          )))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">AUG codes for methionine and is also the start codon. UAA, UAG and UGA are stop codons. Most amino acids have more than one codon: the code is <strong>degenerate</strong>.</p>
+  </details>
+  <p class="model-note">Only the start of the gene is shown, so a frameshift may reach a stop codon further on. Codons are numbered from the first amino acid of mature β-globin; the initial methionine is removed after translation.</p>
+</div>
+
+<script>
+  import {
+    AMINO_ACIDS, EFFECT_LABEL, HBB_START, MAX_LENGTH, STOP, classify, codonLabel, codonsOf, describe, insert, namedVariant,
+    remove, substitute, transcribe, translate, type DnaBase,
+  } from './models/d1-3-mutations';
+
+  type Mark = 'sub' | 'ins' | 'del' | null;
+
+  document.querySelectorAll<HTMLElement>('[data-mut]').forEach((root) => {
+    const gene = root.querySelector<HTMLElement>('[data-gene]')!;
+    const selText = root.querySelector<HTMLElement>('[data-sel]')!;
+    const verdict = root.querySelector<HTMLElement>('[data-verdict]')!;
+    const explain = root.querySelector<HTMLElement>('[data-explain]')!;
+    const live = root.querySelector<HTMLElement>('[data-live]')!;
+    const newChain = root.querySelector<HTMLElement>('[data-new]')!;
+    const tools = [...root.querySelectorAll<HTMLButtonElement>('[data-sub], [data-ins], [data-del]')];
+    const names = gene.querySelector('.names')!.outerHTML;
+    const orig = translate(transcribe(HBB_START));
+
+    let seq = HBB_START;
+    let marks: Mark[] = Array(seq.length).fill(null);
+    let sel = -1;
+    let timer = 0;
+
+    const aaName = (aa: string) => (aa === STOP ? 'stop' : AMINO_ACIDS[aa]?.name ?? '');
+    const draw = () => {
+      const tr = translate(transcribe(seq));
+      const c = classify(HBB_START, seq);
+      const changed = new Set(c.changedCodons);
+      const groups = codonsOf(seq);
+      const rest = seq.length % 3;
+      const html: string[] = [];
+      const block = (k: number, bases: string, codon: string, aa: string, cls: string, was: string) => {
+        const btns = [...bases].map((b, j) => {
+          const i = k * 3 + j;
+          const m = marks[i];
+          return `<button type="button" class="base b${b}${m ? ` m-${m}` : ''}${i === sel ? ' is-sel' : ''}" data-i="${i}" aria-pressed="${i === sel}" aria-label="${b}, base ${i + 1}${m === 'sub' ? ', substituted' : m === 'ins' ? ', inserted' : m === 'del' ? ', after a deletion' : ''}">${b}</button>`;
+        }).join('');
+        return `<div class="codon ${cls}"><span class="num">${codonLabel(k)}</span><span class="dna">${btns}</span><span class="rna">${codon}</span><span class="aa" title="${aaName(aa)}">${aa || '–'}</span>${was ? `<span class="was">was ${was}</span>` : ''}</div>`;
+      };
+      groups.forEach((codon, k) => {
+        const aa = tr.aminoAcids[k] ?? '';
+        const after = tr.stopAt >= 0 && k > tr.stopAt;
+        const cls = [aa === STOP ? 'is-stop' : '', after ? 'is-after' : '', changed.has(k) && !after ? 'is-changed' : ''].join(' ');
+        const wasAa = changed.has(k) && !after ? (orig.aminoAcids[k] ?? '—') : '';
+        html.push(block(k, codon, transcribe(codon), after ? '' : aa, cls, wasAa));
+      });
+      if (rest) {
+        const k = groups.length;
+        const bases = seq.slice(k * 3);
+        html.push(block(k, bases, transcribe(bases), '', 'is-partial', ''));
+      }
+      gene.innerHTML = names + html.join('');
+
+      const label = EFFECT_LABEL[c.effect];
+      verdict.textContent = label;
+      verdict.dataset.effect = c.effect;
+      let text = describe(HBB_START, seq, c);
+      const v = namedVariant(HBB_START, seq);
+      if (v === 'HbS') text += ' This is the sickle-cell mutation: it produces haemoglobin S (HbS).';
+      if (v === 'HbC') text += ' This substitution produces haemoglobin C (HbC), another inherited haemoglobin variant.';
+      explain.textContent = text;
+      const chain = tr.aminoAcids.join('–') + (tr.stopAt >= 0 ? '' : ' …');
+      newChain.textContent = chain;
+
+      const has = sel >= 0 && sel < seq.length;
+      selText.textContent = has ? `Selected: base ${sel + 1} (${seq[sel]}), in codon ${codonLabel(Math.floor(sel / 3))}.` : 'No base selected.';
+      tools.forEach((b) => {
+        const isSame = b.dataset.sub !== undefined && b.dataset.sub === seq[sel];
+        const full = b.dataset.ins !== undefined && seq.length >= MAX_LENGTH;
+        b.disabled = !has || isSame || full;
+      });
+      clearTimeout(timer);
+      timer = window.setTimeout(() => { live.textContent = `${label}. ${text}`; }, 400);
+    };
+
+    const focusBase = (i: number) => gene.querySelector<HTMLButtonElement>(`[data-i="${i}"]`)?.focus();
+    gene.addEventListener('click', (e) => {
+      const b = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-i]');
+      if (!b) return;
+      const i = Number(b.dataset.i);
+      sel = sel === i ? -1 : i;
+      draw();
+      focusBase(i);
+    });
+    root.querySelectorAll<HTMLButtonElement>('[data-sub]').forEach((b) => b.addEventListener('click', () => {
+      if (sel < 0) return;
+      seq = substitute(seq, sel, b.dataset.sub as DnaBase);
+      marks[sel] = 'sub';
+      draw();
+    }));
+    root.querySelectorAll<HTMLButtonElement>('[data-ins]').forEach((b) => b.addEventListener('click', () => {
+      if (sel < 0 || seq.length >= MAX_LENGTH) return;
+      seq = insert(seq, sel + 1, b.dataset.ins!);
+      marks.splice(sel + 1, 0, 'ins');
+      marks = marks.slice(0, seq.length);
+      sel += 1;
+      draw();
+    }));
+    root.querySelector('[data-del]')!.addEventListener('click', () => {
+      if (sel < 0) return;
+      seq = remove(seq, sel);
+      marks.splice(sel, 1);
+      if (sel < seq.length) marks[sel] = 'del';
+      sel = Math.min(sel, seq.length - 1);
+      draw();
+    });
+
+    const apply = (id: string) => {
+      seq = HBB_START;
+      marks = Array(seq.length).fill(null);
+      const sub = (i: number, b: DnaBase) => { seq = substitute(seq, i, b); marks[i] = 'sub'; sel = i; };
+      const ins = (i: number, bases: string) => { seq = insert(seq, i, bases); marks.splice(i, 0, ...Array(bases.length).fill('ins')); sel = i + bases.length - 1; };
+      const del = (i: number, n: number) => { seq = remove(seq, i, n); marks.splice(i, n); marks[i] = 'del'; sel = i; };
+      switch (id) {
+        case 'sickle': sub(19, 'T'); break;
+        case 'hbc': sub(18, 'A'); break;
+        case 'silent': sub(20, 'A'); break;
+        case 'nonsense': sub(18, 'T'); break;
+        case 'del1': del(19, 1); break;
+        case 'del3': del(18, 3); break;
+        case 'ins1': ins(19, 'C'); break;
+        case 'ins3': ins(18, 'AAA'); break;
+      }
+      draw();
+    };
+    root.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach((b) => b.addEventListener('click', () => apply(b.dataset.preset!)));
+    root.querySelector('[data-reset]')!.addEventListener('click', () => { seq = HBB_START; marks = Array(seq.length).fill(null); sel = -1; draw(); });
+    draw();
+  });
+</script>
+
+<style>
+  .mut { container-type: inline-size; display: grid; gap: var(--space-3); }
+  .presets, .tool-row { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .group-name { font-size: var(--step--1); font-weight: 700; color: var(--text-muted); }
+  .hint { margin: 0; font-size: var(--step--1); }
+  .gene { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-1); padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-family: var(--font-mono, ui-monospace, monospace); }
+  .gene :global(.codon) { display: grid; grid-template-rows: 1.1rem 1.9rem 1.5rem 1.5rem auto; justify-items: center; align-items: center; padding: 2px 3px 4px; border-radius: 6px; border: 1.5px solid transparent; min-width: 5.1rem; }
+  .gene :global(.codon.names) { min-width: 0; justify-items: end; font-family: var(--font-sans); padding-right: 0.3rem; }
+  .gene :global(.row-name) { font-size: 0.74rem; font-weight: 650; color: var(--text-muted); white-space: nowrap; }
+  .gene :global(.num) { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); font-family: var(--font-sans); }
+  .gene :global(.dna) { display: flex; gap: 2px; }
+  .gene :global(.base) { width: 1.6rem; height: 1.8rem; display: grid; place-items: center; padding: 0; border: 1.5px solid var(--border-strong); border-radius: 4px; font: 800 0.95rem/1 var(--font-mono, ui-monospace, monospace); color: var(--text); background: var(--surface); cursor: pointer; }
+  .gene :global(.base:hover) { border-color: var(--accent); }
+  .gene :global(.base:focus-visible) { outline: 3px solid var(--focus, var(--accent)); outline-offset: 1px; }
+  .gene :global(.bA) { background: color-mix(in srgb, var(--bio-protein) 22%, var(--surface)); border-color: var(--bio-protein); }
+  .gene :global(.bT) { background: color-mix(in srgb, var(--bio-head) 22%, var(--surface)); border-color: var(--bio-head); }
+  .gene :global(.bG) { background: color-mix(in srgb, var(--bio-carb) 22%, var(--surface)); border-color: var(--bio-carb); }
+  .gene :global(.bC) { background: color-mix(in srgb, var(--bio-protein-2) 22%, var(--surface)); border-color: var(--bio-protein-2); }
+  .gene :global(.base.is-sel) { outline: 3px solid var(--accent); outline-offset: 1px; transform: translateY(-2px); }
+  .gene :global(.base.m-sub) { text-decoration: underline 2px; text-underline-offset: 3px; box-shadow: inset 0 0 0 2px var(--text); }
+  .gene :global(.base.m-ins) { border-style: dashed; box-shadow: inset 0 0 0 2px var(--text); }
+  .gene :global(.base.m-del) { border-left: 4px solid var(--bad); }
+  .gene :global(.rna) { font-weight: 700; font-size: 0.92rem; letter-spacing: 0.08em; color: var(--text); }
+  .gene :global(.aa) { font-family: var(--font-sans); font-weight: 800; font-size: 0.92rem; color: var(--text); }
+  .gene :global(.was) { font-family: var(--font-sans); font-size: 0.7rem; color: var(--text-muted); }
+  .gene :global(.codon.is-changed) { border-color: var(--bad); background: var(--bad-soft); }
+  .gene :global(.codon.is-changed .aa) { text-decoration: underline wavy var(--bad); text-underline-offset: 3px; }
+  .gene :global(.codon.is-stop) { border-color: var(--bad); border-style: dashed; background: var(--bad-soft); }
+  .gene :global(.codon.is-stop .aa) { color: var(--bad); text-transform: uppercase; letter-spacing: 0.04em; }
+  .gene :global(.codon.is-after) { opacity: 0.55; }
+  .gene :global(.codon.is-after .rna) { text-decoration: line-through; }
+  .tools { display: grid; gap: var(--space-2); padding: var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-m); }
+  .sel { margin: 0; font-weight: 700; font-size: var(--step--1); }
+  .key { font-weight: 800; min-width: 2.8rem; }
+  .kA { border-color: var(--bio-protein); }
+  .kT { border-color: var(--bio-head); }
+  .kG { border-color: var(--bio-carb); }
+  .kC { border-color: var(--bio-protein-2); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .result { padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); display: grid; gap: var(--space-2); }
+  .verdict { margin: 0; font-weight: 800; font-size: var(--step-1); color: var(--accent-strong); }
+  .verdict[data-effect='silent'], .verdict[data-effect='none'] { color: var(--good); }
+  .verdict[data-effect='nonsense'], .verdict[data-effect='frameshift'], .verdict[data-effect='start-lost'] { color: var(--bad); }
+  .explain { margin: 0; font-size: var(--step--1); }
+  .chains { margin: 0; display: grid; gap: var(--space-1); font-size: var(--step--1); }
+  .chains dt { font-weight: 700; color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  .chains dd { margin: 0; font-family: var(--font-mono, ui-monospace, monospace); font-weight: 700; overflow-wrap: anywhere; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .table-box summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); font-size: var(--step--1); }
+  .table-scroll { overflow-x: auto; margin-top: var(--space-2); }
+  .code { border-collapse: collapse; font-size: 0.8rem; width: 100%; min-width: 30rem; }
+  .code caption { text-align: left; font-size: 0.78rem; color: var(--text-muted); padding-bottom: var(--space-1); }
+  .code th, .code td { border: 1px solid var(--border); padding: 2px 6px; text-align: left; }
+  .code th { background: var(--surface-2); font-weight: 750; }
+  .code .first, .code .third { text-align: center; }
+  .code tr.grp-end td, .code tr.grp-end th { border-bottom: 2px solid var(--border-strong); }
+  .code td code { font-weight: 700; letter-spacing: 0.04em; }
+  .code td.stop { background: var(--bad-soft); font-weight: 700; }
+  .code td.met { background: var(--good-soft); font-weight: 700; }
+  .note, .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+  .model-note { margin: 0; }
+  @container (min-width: 40rem) { .chains { grid-template-columns: 1fr 1fr; } }
+</style>

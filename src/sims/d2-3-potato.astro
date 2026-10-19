@@ -1,0 +1,161 @@
+---
+import { potatoChart, potatoFrame, potatoTable } from './d2-3-potato-draw';
+import { TISSUES, isotonicFit, runExperiment, type RunParams } from './models/d2-3-potato';
+
+const tissueLabel: Record<string, string> = { potato: 'Potato', 'mystery-a': 'Mystery tissue A', 'mystery-b': 'Mystery tissue B' };
+const p0: RunParams = { cIso: TISSUES[0]!.cIso, repeats: 3, variability: 3, measure: 'mass', seed: 1 };
+const rows = runExperiment(p0);
+const fit = isotonicFit(rows);
+const frame = potatoFrame('mass');
+const chart = potatoChart(rows, fit, 'mass', { bars: 'se', truth: null });
+const table = potatoTable(rows, 'mass');
+---
+<div class="sim-potato" data-potato>
+  <div class="layout">
+    <div>
+      <svg class="chart" viewBox={`0 0 ${frame.w} ${frame.h}`} role="img" aria-labelledby="pt-t pt-d">
+        <title id="pt-t">Percentage change against sucrose concentration</title>
+        <desc id="pt-d">Mean percentage change for each sucrose concentration, with error bars and the individual repeats beside each mean. A straight line of best fit through the points either side of zero crosses the x-axis at the estimated isotonic concentration.</desc>
+        <g data-chart set:html={chart} />
+      </svg>
+      <p class="legend-line" aria-hidden="true"><span class="k-pt"></span> mean <span class="k-rep"></span> individual repeats <span class="k-fit"></span> line of best fit <span class="k-bar"></span> error bar</p>
+    </div>
+    <div class="controls">
+      <fieldset class="group">
+        <legend>Tissue</legend>
+        <div class="chips">
+          {TISSUES.map((t, i) => <button type="button" class="btn chip" data-tissue={t.id} aria-pressed={i === 0 ? 'true' : 'false'}>{tissueLabel[t.id]}</button>)}
+        </div>
+      </fieldset>
+      <fieldset class="group">
+        <legend>Measure</legend>
+        <div class="chips">
+          <button type="button" class="btn chip" data-measure="mass" aria-pressed="true">Mass (balance, 0.01 g)</button>
+          <button type="button" class="btn chip" data-measure="length" aria-pressed="false">Length (ruler, 1 mm)</button>
+        </div>
+      </fieldset>
+      <label class="slider">Repeats at each concentration: <output data-out="repeats">{p0.repeats}</output>
+        <input type="range" min="1" max="6" step="1" value={p0.repeats} data-param="repeats" />
+      </label>
+      <label class="slider">Variation between samples (SD of % mass change): <output data-out="variability">{p0.variability} %</output>
+        <input type="range" min="0" max="8" step="1" value={p0.variability} data-param="variability" />
+      </label>
+      <fieldset class="group">
+        <legend>Error bars</legend>
+        <div class="chips">
+          <button type="button" class="btn chip" data-bars="se" aria-pressed="true">Mean ± SE</button>
+          <button type="button" class="btn chip" data-bars="sd" aria-pressed="false">Mean ± SD</button>
+        </div>
+      </fieldset>
+      <div class="chips">
+        <button type="button" class="btn" data-rerun>Repeat the experiment</button>
+        <button type="button" class="btn" data-reveal aria-pressed="false">Show true value</button>
+      </div>
+    </div>
+  </div>
+  <p class="readout" aria-live="polite" data-readout>
+    Estimated isotonic concentration: {fit ? fit.xIntercept.toFixed(2) : '—'} mol dm⁻³ (where the line of best fit crosses 0 % change). With 3 repeats per concentration the error bars show ± 1 standard error of the mean.
+  </p>
+  <details class="table">
+    <summary>Show data table</summary>
+    <p class="cap">Each cell: initial → final value, then % change = (final − initial) ÷ initial × 100.</p>
+    <div class="scroll" tabindex="0" role="region" aria-label="Results table">
+      <table>
+        <thead data-thead set:html={table.head} />
+        <tbody data-tbody set:html={table.body} />
+      </table>
+    </div>
+  </details>
+  <p class="model-note">Simulated data from a qualitative model: the tissues and their values are illustrative, not real measurements. Controlled variables in the simulation: temperature, time in solution (24 hours), size and shape of the cylinders, the same tissue source and blotting before weighing.</p>
+</div>
+
+<script>
+  import { potatoChart, potatoTable } from './d2-3-potato-draw';
+  import { TISSUES, isotonicFit, runExperiment, type Measure } from './models/d2-3-potato';
+
+  document.querySelectorAll<HTMLElement>('[data-potato]').forEach((root) => {
+    const chart = root.querySelector<SVGGElement>('[data-chart]')!;
+    const thead = root.querySelector<HTMLElement>('[data-thead]')!;
+    const tbody = root.querySelector<HTMLElement>('[data-tbody]')!;
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    const reveal = root.querySelector<HTMLButtonElement>('[data-reveal]')!;
+    const val = (k: string) => Number(root.querySelector<HTMLInputElement>(`[data-param="${k}"]`)!.value);
+    const out = (k: string, v: string) => (root.querySelector(`[data-out="${k}"]`)!.textContent = v);
+    const st = { tissue: TISSUES[0]!.id, measure: 'mass' as Measure, bars: 'se' as 'se' | 'sd', seed: 1, truth: false };
+    let timer = 0;
+
+    const press = (attr: string, value: string) =>
+      root.querySelectorAll<HTMLButtonElement>(`[${attr}]`).forEach((b) => b.setAttribute('aria-pressed', String(b.getAttribute(attr) === value)));
+
+    const update = () => {
+      const repeats = val('repeats'), variability = val('variability');
+      out('repeats', String(repeats)); out('variability', `${variability} %`);
+      const cIso = TISSUES.find((t) => t.id === st.tissue)!.cIso;
+      const rows = runExperiment({ cIso, repeats, variability, measure: st.measure, seed: st.seed });
+      const fit = isotonicFit(rows);
+      chart.innerHTML = potatoChart(rows, fit, st.measure, { bars: st.bars, truth: st.truth ? cIso : null });
+      const t = potatoTable(rows, st.measure);
+      thead.innerHTML = t.head; tbody.innerHTML = t.body;
+      reveal.setAttribute('aria-pressed', String(st.truth));
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        const est = fit && fit.xIntercept >= 0 && fit.xIntercept <= 0.8 ? `${fit.xIntercept.toFixed(2)} mol dm⁻³` : 'cannot be read (the line does not cross zero in this range)';
+        const bars = repeats < 2
+          ? 'With only one sample per concentration there is no standard deviation or standard error, so no error bars, and an anomalous result cannot be spotted.'
+          : `With ${repeats} repeats per concentration the error bars show ± 1 ${st.bars === 'se' ? 'standard error of the mean' : 'standard deviation'}.`;
+        const truth = st.truth ? ` The true isotonic concentration in this simulation is ${cIso.toFixed(2)} mol dm⁻³.` : '';
+        const len = st.measure === 'length' ? ' Length changes are smaller than mass changes and the ruler only reads to 1 mm, so the length data are less precise.' : '';
+        readout.textContent = `Estimated isotonic concentration: ${est} (where the line of best fit crosses 0 % change). ${bars}${len}${truth}`;
+      }, 300);
+    };
+
+    root.querySelectorAll('[data-param]').forEach((el) => el.addEventListener('input', update));
+    root.querySelectorAll<HTMLButtonElement>('[data-tissue]').forEach((b) => b.addEventListener('click', () => { st.tissue = b.dataset.tissue!; st.truth = false; press('data-tissue', st.tissue); update(); }));
+    root.querySelectorAll<HTMLButtonElement>('[data-measure]').forEach((b) => b.addEventListener('click', () => { st.measure = b.dataset.measure as Measure; press('data-measure', st.measure); update(); }));
+    root.querySelectorAll<HTMLButtonElement>('[data-bars]').forEach((b) => b.addEventListener('click', () => { st.bars = b.dataset.bars as 'se' | 'sd'; press('data-bars', st.bars); update(); }));
+    root.querySelector('[data-rerun]')!.addEventListener('click', () => { st.seed += 1; update(); });
+    reveal.addEventListener('click', () => { st.truth = !st.truth; update(); });
+  });
+</script>
+
+<style>
+  .sim-potato { container-type: inline-size; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 46rem) { .layout { grid-template-columns: minmax(0, 1.6fr) minmax(15rem, 1fr); align-items: start; } }
+  .chart { width: 100%; height: auto; font-family: var(--font-sans); }
+  .chart :global(.grid line) { stroke: var(--border); stroke-width: 1; }
+  .chart :global(.zero) { stroke: var(--text-muted); stroke-width: 1.6; }
+  .chart :global(.ticks text) { font-size: 15px; fill: var(--text-muted); }
+  .chart :global(.axis) { font-size: 16px; font-weight: 650; fill: var(--text); }
+  .chart :global(.note) { font-size: 13px; fill: var(--text-muted); font-style: italic; }
+  .chart :global(.pt) { fill: var(--bio-water); stroke: var(--surface); stroke-width: 1.5; }
+  .chart :global(.rep) { fill: var(--text-muted); opacity: 0.8; }
+  .chart :global(.bar) { stroke: var(--text); stroke-width: 1.6; fill: none; }
+  .chart :global(.fit) { stroke: var(--bio-head); stroke-width: 3; stroke-dasharray: 10 6; stroke-linecap: round; }
+  .chart :global(.drop) { stroke: var(--bio-head); stroke-width: 1.4; stroke-dasharray: 3 3; }
+  .chart :global(.xi) { fill: none; stroke: var(--bio-head); stroke-width: 2.5; }
+  .chart :global(.xi-t) { font-size: 14px; font-weight: 700; fill: var(--text); }
+  .chart :global(.truth) { stroke: var(--good); stroke-width: 2; stroke-dasharray: 2 4; }
+  .chart :global(.truth-t) { font-size: 13px; font-weight: 700; fill: var(--good); }
+  .legend-line { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.6rem; font-size: 0.8rem; color: var(--text-muted); margin: var(--space-1) 0 0; }
+  .k-pt, .k-rep { display: inline-block; border-radius: 50%; }
+  .k-pt { width: 11px; height: 11px; background: var(--bio-water); }
+  .k-rep { width: 6px; height: 6px; background: var(--text-muted); }
+  .k-fit { display: inline-block; width: 1.8rem; border-top: 3px dashed var(--bio-head); }
+  .k-bar { display: inline-block; width: 10px; height: 14px; border: 1.6px solid var(--text); border-left: 0; border-right: 0; background: linear-gradient(var(--text), var(--text)) center / 1.6px 100% no-repeat; }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .group { border: 0; padding: 0; margin: 0; }
+  .group legend { font-weight: 700; color: var(--text-muted); margin-bottom: var(--space-1); }
+  .chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  .cap { margin: var(--space-2) 0; color: var(--text-muted); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  table :global(th), table :global(td) { padding: 0.25rem 0.55rem; border-bottom: 1px solid var(--border); text-align: right; white-space: nowrap; vertical-align: top; }
+  table :global(.pc) { font-weight: 700; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

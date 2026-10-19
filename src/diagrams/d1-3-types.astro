@@ -1,0 +1,66 @@
+---
+/** The three types of gene mutation (D1.3.1) applied to the start of the β-globin gene. Sequences are computed by the sim model. */
+import { HBB_START, codonsOf, insert, remove, substitute, transcribe, translate } from '../sims/models/d1-3-mutations';
+
+const SHOW = 8;
+const rows = [
+  { name: 'Original', sub: 'no mutation', seq: HBB_START, marks: [] as number[], kind: 'none' },
+  { name: 'Substitution', sub: 'A → T in codon 6', seq: substitute(HBB_START, 19, 'T'), marks: [19], kind: 'sub' },
+  { name: 'Insertion', sub: '+1 base (C)', seq: insert(HBB_START, 19, 'C'), marks: [19], kind: 'ins' },
+  { name: 'Deletion', sub: '−1 base (A)', seq: remove(HBB_START, 19), marks: [] as number[], kind: 'del' },
+].map((r) => {
+  const tr = translate(transcribe(r.seq));
+  return { ...r, codons: codonsOf(r.seq).slice(0, SHOW), aas: tr.aminoAcids.slice(0, SHOW) };
+});
+const orig = rows[0]!.aas;
+const X0 = 168;
+const CW = 58;
+const RH = 70;
+const Y0 = 52;
+---
+<svg viewBox="0 0 640 352" role="img" aria-labelledby="d13t-t d13t-d" xmlns="http://www.w3.org/2000/svg" class="types">
+  <title id="d13t-t">Substitution, insertion and deletion compared</title>
+  <desc id="d13t-d">The first eight codons of the β-globin gene, coding strand, with the amino acids they code for. Original: ATG GTG CAC CTG ACT CCT GAG GAG coding Met Val His Leu Thr Pro Glu Glu. A substitution of T for A in codon 6 changes GAG to GTG, so only one amino acid changes, glutamic acid to valine. Inserting one base or deleting one base in codon 6 shifts the reading frame, so every codon from that point on is different and the amino acids after it change.</desc>
+  <text class="hd" x={X0 - 14} y="24" text-anchor="end">codon</text>
+  {['start', '1', '2', '3', '4', '5', '6', '7'].map((n, k) => <text class="num" x={X0 + k * CW + CW / 2} y="24" text-anchor="middle">{n}</text>)}
+  {rows.map((r, ri) => {
+    const y = Y0 + ri * RH;
+    return (
+      <g>
+        <rect class={`band ${ri % 2 ? 'alt' : ''}`} x="6" y={y - 22} width="628" height={RH - 6} rx="6" />
+        <text class="name" x="16" y={y}>{r.name}</text>
+        <text class="sub" x="16" y={y + 20}>{r.sub}</text>
+        {r.codons.map((c, k) => (
+          <g>
+            {[...c].map((b, j) => {
+              const i = k * 3 + j;
+              const hit = r.marks.includes(i);
+              return <text class={`b ${hit ? 'hit' : ''}`} x={X0 + k * CW + 12 + j * 14} y={y} text-anchor="middle">{b}</text>;
+            })}
+            <text class={`aa ${r.aas[k] !== orig[k] ? 'chg' : ''}`} x={X0 + k * CW + 26} y={y + 22} text-anchor="middle">{r.aas[k]}</text>
+          </g>
+        ))}
+        {r.kind === 'del' && <path class="delmark" d={`M${X0 + 6 * CW + 19} ${y - 18} v22`} />}
+        {r.kind === 'sub' && <rect class="hitbox" x={X0 + 6 * CW + 19} y={y - 15} width="14" height="20" rx="3" />}
+        {r.kind === 'ins' && <rect class="hitbox" x={X0 + 6 * CW + 19} y={y - 15} width="14" height="20" rx="3" />}
+      </g>
+    );
+  })}
+  <text class="note" x="16" y="326">Red, underlined amino acids differ from the original. A substitution changes one codon;</text>
+  <text class="note" x="16" y="345">inserting or deleting one base shifts the reading frame, changing every codon after it.</text>
+</svg>
+<style>
+  .types { font-family: var(--font-sans); }
+  .hd, .num { font-size: 13px; fill: var(--text-muted); font-weight: 650; }
+  .band { fill: var(--surface); stroke: var(--border); }
+  .band.alt { fill: color-mix(in srgb, var(--surface-3) 50%, var(--surface)); }
+  .name { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .sub { font-size: 13px; fill: var(--text-muted); }
+  .b { font: 800 15px var(--font-mono, ui-monospace, monospace); fill: var(--text); }
+  .b.hit { fill: var(--bad); }
+  .hitbox { fill: none; stroke: var(--bad); stroke-width: 2; }
+  .delmark { stroke: var(--bad); stroke-width: 3; }
+  .aa { font-size: 13.5px; font-weight: 700; fill: var(--text-muted); }
+  .aa.chg { fill: var(--bad); font-weight: 800; text-decoration: underline; }
+  .note { font-size: 13px; fill: var(--text-muted); }
+</style>

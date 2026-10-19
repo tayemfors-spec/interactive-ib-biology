@@ -1,0 +1,73 @@
+cards:
+  - id: c1
+    level: SL
+    front: What is a gene mutation?
+    back: A change to the base sequence of a gene — a structural change to DNA at the molecular level. It is copied when the DNA replicates, so it is passed to daughter cells.
+  - id: c2
+    level: SL
+    front: Distinguish substitutions, insertions and deletions.
+    back: A substitution replaces one base with a different base (the length is unchanged). An insertion adds one or more nucleotides. A deletion removes one or more nucleotides.
+  - id: c3
+    level: SL
+    front: What is a single-nucleotide polymorphism (SNP)?
+    back: A position in the genome where individuals of a species have different bases. SNPs are the result of base substitution mutations that have spread through a population.
+  - id: c4
+    level: SL
+    front: Why might a base substitution have no effect on the polypeptide?
+    back: The genetic code is degenerate — most amino acids have more than one codon. If the new codon codes for the same amino acid (often a change to the third base, e.g. GAG → GAA, both glutamic acid), the mutation is silent (same-sense).
+  - id: c5
+    level: SL
+    front: Missense vs nonsense mutation
+    back: A missense substitution changes a codon into one for a different amino acid, so one amino acid in the polypeptide changes. A nonsense substitution changes a codon into a stop codon (UAA, UAG or UGA), so translation ends early and the polypeptide is shortened.
+  - id: c6
+    level: SL
+    front: What base substitution causes sickle-cell disease?
+    back: In codon 6 of the β-globin gene, A is replaced by T on the coding strand — GAG becomes GTG (mRNA GAG → GUG) — so glutamic acid is replaced by valine, giving haemoglobin S.
+  - id: c7
+    level: SL
+    front: What is a frameshift mutation?
+    back: An insertion or deletion of a number of bases that is not a multiple of 3. Every codon after it is read in a different set of three, so the amino acids after it change and a stop codon is often reached early.
+  - id: c8
+    level: SL
+    front: What happens if 3 (or 6, 9…) bases are inserted or deleted?
+    back: Whole codons are added or removed, so the reading frame is kept. The polypeptide gains or loses amino acids at that point; the rest is read normally, though it may still not function.
+  - id: c9
+    level: SL
+    front: What is a mutagen? Give examples of each type.
+    back: An agent that increases the mutation rate. Chemical — benzo[a]pyrene and nitrosamines in tobacco smoke, mustard gas. Radiation — UV (UVB, UVC), X-rays, gamma rays, and alpha and beta particles from radioactive isotopes.
+  - id: c10
+    level: SL
+    front: Apart from mutagens, what causes gene mutations?
+    back: Errors in DNA replication (DNA polymerase adding a non-complementary base) and errors in DNA repair. Proofreading and repair catch most, but not all, so there is always a low background rate of mutation.
+  - id: c11
+    level: SL
+    front: In what sense are mutations random?
+    back: They can occur at any base in the genome, and no natural mechanism directs a change to a particular base to produce a useful trait. Some bases are more likely to mutate (hotspots), but which mutations occur is still a matter of chance.
+  - id: c12
+    level: SL
+    front: Germ-line vs somatic mutations
+    back: A germ-line mutation (in cells of the testes or ovaries that give rise to gametes) can be passed to offspring, and is then in every cell of the offspring. A somatic mutation is only in the descendants of one body cell; it is not inherited but can cause cancer.
+  - id: c13
+    level: SL
+    front: Why is mutation essential for evolution even though most mutations are neutral or harmful?
+    back: Mutation is the original source of all genetic variation — it creates new alleles. Natural selection can only act on variation, so the rare beneficial mutations allow species to adapt over many generations.
+  - id: c14
+    level: AHL
+    front: How is gene knockout used to investigate gene function?
+    back: A gene is deliberately made inoperative in a model organism, and the phenotype is compared with wild-type organisms raised in the same conditions. Any difference shows what the gene product normally does. Libraries of knockout strains exist for mice, yeast, Arabidopsis and others.
+  - id: c15
+    level: AHL
+    front: Outline how CRISPR–Cas9 edits a gene.
+    back: A guide RNA with a ~20-base spacer complementary to the target binds Cas9. Cas9 binds next to a PAM (5′-NGG-3′), the spacer base-pairs with the target and Cas9 cuts both strands. Repair by NHEJ gives small indels (knockout); repair by HDR copies a supplied template (precise edit).
+  - id: c16
+    level: AHL
+    front: Give a successful application of CRISPR–Cas9.
+    back: Exa-cel (Casgevy), approved in 2023 for sickle-cell disease. A patient's blood stem cells are edited outside the body to disrupt a BCL11A enhancer, so their red blood cells make fetal haemoglobin, which reduces sickling.
+  - id: c17
+    level: AHL
+    front: Why does germ-line gene editing raise more ethical concern than somatic editing?
+    back: Germ-line changes are inherited by all future generations, who cannot consent; off-target edits could harm them; and it could be used for enhancement rather than treatment. Rules differ between countries, so there are international efforts to harmonize regulation.
+  - id: c18
+    level: AHL
+    front: Two hypotheses for highly conserved sequences
+    back: (1) Functional requirement — the gene product is so important that almost any change stops it working, so natural selection removes mutations. (2) Slower mutation rate — fewer mutations arise in that region of the genome in the first place.

@@ -1,0 +1,69 @@
+cards:
+  - id: c1
+    level: AHL
+    front: What are the usual stages of gene expression?
+    back: Transcription of the gene to mRNA, translation of the mRNA to a polypeptide, and the protein carrying out its function (often as an enzyme catalysing a reaction), which affects the phenotype.
+  - id: c2
+    level: AHL
+    front: Why can RNA polymerase not transcribe a gene by itself?
+    back: It cannot bind the promoter alone. Transcription factors must first bind specific base sequences in the promoter; RNA polymerase then binds to them, correctly placed to transcribe the gene 5′ → 3′.
+  - id: c3
+    level: AHL
+    front: Promoter vs enhancer
+    back: Both are base sequences in DNA. The promoter is just upstream of the gene and is where transcription starts. An enhancer can be far upstream or downstream; activators binding it increase the rate of transcription.
+  - id: c4
+    level: AHL
+    front: Activator vs repressor
+    back: Both are transcription factors that bind specific DNA sequences. Activators (for example at enhancers) increase the rate of transcription; repressors (for example at silencers) reduce it.
+  - id: c5
+    level: AHL
+    front: How does mRNA breakdown regulate translation?
+    back: Each mRNA is translated repeatedly until nucleases break it down. The longer it survives (minutes to days in human cells), the more protein is made from it. Shortening of the poly-A tail leads to breakdown.
+  - id: c6
+    level: AHL
+    front: Define epigenesis.
+    back: The development of patterns of differentiation in the cells of a multicellular organism, by activating some genes and silencing others. The base sequence is unchanged, so phenotype changes but genotype does not.
+  - id: c7
+    level: AHL
+    front: Genome, transcriptome, proteome
+    back: Genome — all the genetic information of a cell (same in all body cells). Transcriptome — all the RNA (mRNA) being made at a given time. Proteome — all the proteins produced. Transcriptome and proteome differ between cells and over time.
+  - id: c8
+    level: AHL
+    front: Why do cells with the same genome differ?
+    back: No cell expresses all of its genes. Each cell type transcribes a different set, and this pattern of gene expression determines how the cell differentiates.
+  - id: c9
+    level: AHL
+    front: Effect of methylating cytosine in a promoter
+    back: The methyl groups stop some transcription factors binding, so RNA polymerase does not transcribe the gene downstream. Transcription is repressed; the base sequence is unchanged.
+  - id: c10
+    level: AHL
+    front: Effect of methylating histones
+    back: It can repress or activate transcription, depending on which amino acid in the histone tail is methylated, because it makes the DNA less or more accessible to transcription factors. (Mechanism not required.)
+  - id: c11
+    level: AHL
+    front: How is a methylation pattern passed to daughter cells?
+    back: CG sites are methylated on both strands. After replication each double helix has one methylated old strand; an enzyme adds methyl groups to the matching cytosines of the new strand, so both daughter cells keep the pattern.
+  - id: c12
+    level: AHL
+    front: What is transgenerational epigenetic inheritance?
+    back: A phenotype caused by epigenetic tags passed from parent to offspring because some tags are not removed during meiosis and gamete formation, with no change in the DNA base sequence.
+  - id: c13
+    level: AHL
+    front: Required example of the environment changing gene expression
+    back: Air pollution (particulates, nitrogen oxides, ozone, PAHs) is linked to altered DNA methylation, especially loss of methyl tags across the genome, changing expression of genes such as those for inflammation and immunity.
+  - id: c14
+    level: AHL
+    front: Why are ligers larger than tigons?
+    back: Not all tags are removed from sperm and eggs (imprinting). A lion father passes strong growth-promoting imprints and a tiger mother only weak growth-limiting ones, so ligers overgrow; tigons get the opposite combination.
+  - id: c15
+    level: AHL
+    front: Why are monozygotic twins useful in studying gene expression?
+    back: They share the same genome, so differences in their epigenetic tags or gene expression must be due to the environment (or chance). Differences increase with age, and more in twins who live apart.
+  - id: c16
+    level: AHL
+    front: How does lactose switch on the lac genes of E. coli?
+    back: Without lactose a repressor binds the operator and blocks RNA polymerase. Lactose (as allolactose) binds the repressor, which changes shape and leaves the operator, so lacZ, lacY and lacA are transcribed.
+  - id: c17
+    level: AHL
+    front: How does testosterone change gene expression?
+    back: The steroid diffuses into target cells (such as Sertoli cells), binds an androgen receptor, and the complex enters the nucleus and binds androgen response elements in DNA, acting as a transcription factor that raises or lowers transcription of specific genes.

@@ -1,0 +1,214 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: D1.3.1
+    stem: >-
+      Part of the coding strand of a gene reads 5′-ATG CCA GTT AAC-3′. After a mutation the same region reads
+      5′-ATG CAG TTA AC-3′. Which type of gene mutation has occurred?
+    options:
+      - id: a
+        text: A base substitution in the second codon
+        why: A substitution keeps the number of bases the same. Here the sequence is one base shorter, and the codons after the change are all altered, not just one.
+      - id: b
+        text: An insertion of one base
+        why: An insertion would make the sequence longer. The mutated sequence has 11 bases instead of 12.
+      - id: c
+        text: A deletion of one base
+        why: Correct. One C has been removed from the second codon (CCA becomes CA…), so every following base moves back one place and each later codon is read in a different set of three.
+      - id: d
+        text: A deletion of a whole codon
+        why: Removing a whole codon would remove three bases and leave the following codons unchanged. Only one base is missing here.
+    answer: c
+
+  - id: q2
+    level: SL
+    understanding: D1.3.2
+    stem: >-
+      In the sickle-cell mutation, codon 6 of the coding strand of the β-globin gene changes from GAG to GTG.
+      In the genetic code, GAG codes for glutamic acid and GUG for valine. What are the mRNA codon and the amino
+      acid at this position in the mutated polypeptide?
+    options:
+      - id: a
+        text: GUG, coding for valine
+        why: Correct. mRNA has the same sequence as the coding strand with U instead of T, so GTG becomes GUG, which codes for valine. One amino acid is replaced (a missense mutation).
+      - id: b
+        text: CAC, coding for histidine
+        why: CAC is complementary to the coding strand, which would be the template strand read as DNA. mRNA is complementary to the template strand, so it matches the coding strand.
+      - id: c
+        text: GTG, coding for valine
+        why: The amino acid is right, but mRNA contains uracil, not thymine, so the codon is GUG.
+      - id: d
+        text: GAG, coding for glutamic acid, because the code is degenerate
+        why: Degeneracy means some substitutions are silent, but not this one. The codon really has changed, and GUG codes for a different amino acid.
+    answer: a
+
+  - id: q3
+    level: SL
+    understanding: D1.3.3
+    stem: >-
+      Four mutations occur near the start of the coding sequence of the same gene. Which is most likely to leave
+      the rest of the polypeptide after the mutation unchanged?
+    options:
+      - id: a
+        text: Deletion of one base
+        why: Deleting one base shifts the reading frame, so every codon after the deletion is read differently.
+      - id: b
+        text: Deletion of three adjacent bases that form one codon
+        why: Correct. A whole codon is removed, so one amino acid is missing, but the reading frame is kept and the codons after it are read normally.
+      - id: c
+        text: Insertion of two bases
+        why: Two is not a multiple of 3, so this is a frameshift. The amino acids after the insertion are almost all different, and a stop codon is often reached early.
+      - id: d
+        text: Insertion of four bases
+        why: Four is not a multiple of 3, so this is also a frameshift, even though it adds a whole codon's worth of bases and one more.
+    answer: b
+
+  - id: q4
+    level: SL
+    understanding: D1.3.4
+    stem: >-
+      Equal samples of yeast cells were exposed to UV radiation for 0, 10, 20 or 30 seconds and then grown. The
+      number of colonies with a new mutant phenotype per million cells was 2, 15, 31 and 44. Which conclusion is
+      best supported by these data?
+    options:
+      - id: a
+        text: UV radiation produces the particular mutation that the yeast needs to survive the UV.
+        why: Mutagens increase the rate of random mutation; they do not produce particular useful mutations. The data show only that more mutant colonies appeared.
+      - id: b
+        text: UV radiation is a mutagen that increases the frequency of mutation.
+        why: Correct. The number of mutants rises steadily with the length of exposure, which is what is expected of a mutagen.
+      - id: c
+        text: Without UV radiation, no mutations would occur.
+        why: Two mutants per million appeared with no UV at all. There is a background mutation rate, mainly from errors in DNA replication.
+      - id: d
+        text: UV radiation causes mutations only in genes that are being transcribed.
+        why: These data give no information about which genes were mutated. UV can damage any DNA it reaches.
+    answer: b
+
+  - id: q5
+    level: SL
+    understanding: D1.3.5
+    stem: >-
+      A population of bacteria that had never been exposed to an antibiotic was divided in two. Antibiotic-resistant
+      mutants were found in the untreated half as well as the half later grown with the antibiotic. Which statement
+      is consistent with mutation being random?
+    options:
+      - id: a
+        text: The antibiotic caused the bacteria to mutate the gene needed for resistance.
+        why: No natural mechanism directs a mutation to a gene where it would be useful. Resistant mutants were present even without the antibiotic.
+      - id: b
+        text: Each bacterium mutated in response to the antibiotic, so all the treated bacteria became resistant.
+        why: Mutation is not a response to need, and mutation rates are far too low for every cell to mutate in the same gene.
+      - id: c
+        text: Resistance mutations can only occur in a few bases of the bacterial genome.
+        why: Mutations can occur at any base. Resistance happens to depend on particular genes, but mutations occur all over the genome.
+      - id: d
+        text: Resistance mutations arose by chance before exposure, and the antibiotic then killed the bacteria without them.
+        why: Correct. The mutations arose randomly whether or not they were useful; the antibiotic only selected the resistant bacteria that were already there.
+    answer: d
+
+  - id: q6
+    level: SL
+    understanding: D1.3.6
+    stem: >-
+      A man develops melanoma, a skin cancer, after a mutation caused by UV radiation in a skin cell. Which
+      statement about this mutation is correct?
+    options:
+      - id: a
+        text: It is a somatic mutation, so it cannot be passed on to his children.
+        why: Correct. Skin cells are somatic cells. The mutation is passed by mitosis to the cell's descendants, which may form a tumour, but not to gametes.
+      - id: b
+        text: His children will inherit it, because all his cells contain the same DNA.
+        why: The mutation happened in one skin cell after he was born. His gametes come from germ cells in the testes, which do not carry it.
+      - id: c
+        text: It will be present in every cell of his body.
+        why: Only the mutated skin cell and the cells produced from it by mitosis carry the mutation.
+      - id: d
+        text: It must have happened in a germ cell, because only germ-line mutations can cause cancer.
+        why: Most cancers are caused by mutations in somatic cells, in genes that control the cell cycle.
+    answer: a
+
+  - id: q7
+    level: SL
+    understanding: D1.3.7
+    stem: >-
+      Most gene mutations are either neutral or harmful to the organism in which they occur. Why is gene mutation
+      nevertheless essential for evolution by natural selection?
+    options:
+      - id: a
+        text: Mutations happen when the environment changes, so they produce the alleles that are needed.
+        why: Mutations are random. They are not produced because the environment changes or because a new allele would be useful.
+      - id: b
+        text: Meiosis and fertilization produce new alleles only after a mutation has started them.
+        why: Meiosis and fertilization produce new combinations of existing alleles; they do not make new alleles at all.
+      - id: c
+        text: Mutation is the original source of new alleles, so it provides the genetic variation on which natural selection acts.
+        why: Correct. Without mutation there would be no new alleles. The rare beneficial ones can increase in frequency by natural selection over many generations.
+      - id: d
+        text: Natural selection turns harmful mutations into beneficial ones.
+        why: Natural selection changes allele frequencies; it does not change the alleles themselves. Harmful alleles tend to be removed.
+    answer: c
+
+  - id: q8
+    level: AHL
+    understanding: D1.3.8
+    stem: >-
+      Mice in which gene Z has been knocked out are raised alongside wild-type mice in the same conditions. The
+      knockout mice have normal growth but cannot maintain their body temperature in the cold. What is the best
+      conclusion?
+    options:
+      - id: a
+        text: Gene Z is the only gene involved in controlling body temperature.
+        why: Knocking out one gene shows that it is needed, not that it works alone. Many genes contribute to temperature control.
+      - id: b
+        text: The product of gene Z is needed for keeping body temperature up in the cold.
+        why: Correct. The only difference between the groups is the inactive gene Z, so the phenotype shows what its product normally does.
+      - id: c
+        text: Gene Z codes for the hormones that control growth.
+        why: Growth was normal in the knockout mice, so these data suggest gene Z is not needed for growth.
+      - id: d
+        text: No conclusion is possible, because knockout genes are different from natural mutations.
+        why: Making a gene inoperative and comparing the phenotype with wild-type controls is exactly how gene function is inferred, which is why libraries of knockout strains are kept.
+    answer: b
+
+  - id: q9
+    level: AHL
+    understanding: D1.3.9
+    stem: >-
+      In CRISPR–Cas9 gene editing, what determines the position in the genome where the DNA is cut?
+    options:
+      - id: a
+        text: The active site of Cas9, which is specific to one gene's base sequence
+        why: Cas9 can cut almost anywhere. Its active site cuts DNA but does not recognise a particular gene; that is the job of the guide RNA.
+      - id: b
+        text: A palindromic restriction site that Cas9 recognizes
+        why: That describes restriction enzymes. Cas9 is directed by a guide RNA, not by a fixed recognition sequence of its own.
+      - id: c
+        text: The PAM alone, so Cas9 cuts at every PAM in the genome
+        why: Cas9 needs a PAM to bind, but PAMs occur very often. It only cuts where the sequence next to a PAM is complementary to the guide RNA.
+      - id: d
+        text: The spacer of the guide RNA, which base-pairs with the complementary target sequence next to a PAM
+        why: Correct. The 20-base spacer is designed to be complementary to the target, so Cas9 cuts both strands only at that site.
+    answer: d
+
+  - id: q10
+    level: AHL
+    understanding: D1.3.10
+    stem: >-
+      A gene is compared in 40 species of mammal. Bases that would change an amino acid if mutated are almost
+      identical in all the species, but third bases of codons that do not change the amino acid differ as often as
+      bases in nearby non-coding DNA. Which hypothesis do these data support?
+    options:
+      - id: a
+        text: The gene is conserved because its whole region has a very low mutation rate.
+        why: A low mutation rate would make all positions change slowly, including synonymous third bases. These change at the normal rate.
+      - id: b
+        text: The gene is conserved because mutations cannot occur in coding DNA.
+        why: Mutations occur in coding DNA; the synonymous changes in this very gene show that they do.
+      - id: c
+        text: The species are too closely related for any differences to have arisen.
+        why: Differences have arisen, at the same rate as in non-coding DNA. They are just not seen at positions that would change the protein.
+      - id: d
+        text: Changes to the amino acid sequence stop the protein working, so natural selection removes them.
+        why: Correct. Mutations happen at the normal rate, but only those that leave the protein unchanged persist. This is the functional-requirement hypothesis.
+    answer: d

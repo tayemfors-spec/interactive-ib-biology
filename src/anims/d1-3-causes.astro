@@ -1,0 +1,290 @@
+---
+/**
+ * Causes and consequences of gene mutation (D1.3.4–D1.3.6), five panels shown one per step:
+ * replication errors, chemical mutagens, radiation, randomness, somatic vs germ-line cells.
+ * Animated by d1-3-causes.ts.
+ */
+import { BOX, DX, MAIN_X, PITCH, RAD_X, SM, SMP, Y_BOT, Y_TOP } from './d1-3-causes';
+
+const pair = (x: number, top: string, bot: string) => ({ x, top, bot });
+const row = (x0: number, pitch: number, top: string, bot: string) => [...top].map((t, i) => pair(x0 + i * pitch, t, bot[i]!));
+// Panel 0: replication error (template G, T wrongly added opposite it at index 4)
+const p0 = row(MAIN_X, PITCH, 'ATCGGACTA', 'TAGCTTGAT');
+const p0a = row(DX[0], SMP, 'ATCGGACTA', 'TAGCCTGAT');
+const p0b = row(DX[1], SMP, 'ATCGAACTA', 'TAGCTTGAT');
+// Panel 1: chemical mutagen bound to the G at index 2 of the lower strand
+const p1 = row(MAIN_X, PITCH, 'TACGATCGA', 'ATGCTAGCT');
+const p1a = row(DX[0], SMP, 'TAAGATCGA', 'ATTCTAGCT');
+// Panel 2: radiation
+const p2 = row(RAD_X, 32, 'GATTCAGCTGAGCA', 'CTAAGTCGACTCGT');
+// Panel 3: genomes
+const genes = [[90, 140], [180, 250], [285, 330], [380, 430], [455, 495]];
+const marks1 = [120, 215, 262, 302, 350, 470];
+const marks2 = [96, 160, 298, 306, 410, 440];
+const star = (cx: number, cy: number, r = 6) => {
+  const pts: string[] = [];
+  for (let k = 0; k < 10; k++) { const a = -Math.PI / 2 + (k * Math.PI) / 5; const rr = k % 2 ? r * 0.45 : r; pts.push(`${(cx + rr * Math.cos(a)).toFixed(1)},${(cy + rr * Math.sin(a)).toFixed(1)}`); }
+  return pts.join(' ');
+};
+const clone = [[140, 86], [170, 86], [140, 116], [170, 116], [200, 101]];
+const kids = [-1, 0, 1].flatMap((i) => [-1, 0, 1].map((j) => [440 + i * 22, 200 + j * 22]));
+const hexes = [[0, 0], [10.4, 6], [20.8, 0], [10.4, -12], [31.2, 6]];
+const hex = (cx: number, cy: number, r = 6) => Array.from({ length: 6 }, (_, k) => { const a = Math.PI / 6 + (k * Math.PI) / 3; return `${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`; }).join(' ');
+---
+<svg viewBox="0 0 520 340" xmlns="http://www.w3.org/2000/svg" class="cz">
+  <defs>
+    <marker id="d13c-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" class="head" />
+    </marker>
+  </defs>
+
+  <!-- ===== Panel 0: errors in replication ===== -->
+  <g data-el="p0">
+    <text class="h" x="14" y="24">Errors in DNA replication</text>
+    <text class="sname" x="10" y="87">template strand</text>
+    <text class="sname" x="10" y="117">new strand</text>
+    <text class="end" x="128" y="87" text-anchor="end">3′</text>
+    <text class="end" x="128" y="117" text-anchor="end">5′</text>
+    <text class="end" x="438" y="87">5′</text>
+    <text class="end" x="438" y="117">3′</text>
+    <line class="bb" x1={MAIN_X - 4} y1="66" x2={MAIN_X + 8 * PITCH + BOX + 4} y2="66" />
+    <line class="bb" data-el="p0-bb" x1={MAIN_X - 4} y1="128" x2={MAIN_X - 4} y2="128" />
+    {p0.map((p, i) => (
+      <g>
+        <rect class={`nb b${p.top}`} x={p.x} y={Y_TOP} width={BOX} height="24" rx="4" />
+        <text class="nt" x={p.x + BOX / 2} y={Y_TOP + 17}>{p.top}</text>
+        <g data-el={`p0-n${i}`} style="opacity:0">
+          <rect class={`nb b${p.bot}${i === 4 ? ' mis' : ''}`} x={p.x} y={Y_BOT + (i === 4 ? 5 : 0)} width={BOX} height="24" rx="4" />
+          <text class="nt" x={p.x + BOX / 2} y={Y_BOT + 17 + (i === 4 ? 5 : 0)}>{p.bot}</text>
+        </g>
+      </g>
+    ))}
+    <g data-el="p0-pol" transform={`translate(${MAIN_X} 112)`}>
+      <ellipse class="pol" rx="22" ry="18" />
+      <text class="pol-t" y="38">DNA polymerase</text>
+    </g>
+    <g data-el="p0-mis" style="opacity:0">
+      <text class="lbl bad" x={MAIN_X + 4 * PITCH + BOX / 2} y="148" text-anchor="middle">T mispaired with G</text>
+    </g>
+    <g data-el="p0-next" style="opacity:0">
+      <text class="lbl" x="260" y="176" text-anchor="middle">Proofreading and repair correct almost all errors. If one is missed,</text>
+      <text class="lbl" x="260" y="193" text-anchor="middle">the next replication gives two different DNA molecules:</text>
+      {p0a.map((p) => <g><rect class={`sb b${p.top}`} x={p.x} y="208" width={SM} height={SM} rx="3" /><text class="st" x={p.x + SM / 2} y="222">{p.top}</text><rect class={`sb b${p.bot}`} x={p.x} y="230" width={SM} height={SM} rx="3" /><text class="st" x={p.x + SM / 2} y="244">{p.bot}</text></g>)}
+      {p0b.map((p, i) => <g><rect class={`sb b${p.top}${i === 4 ? ' hit' : ''}`} x={p.x} y="208" width={SM} height={SM} rx="3" /><text class="st" x={p.x + SM / 2} y="222">{p.top}</text><rect class={`sb b${p.bot}${i === 4 ? ' hit' : ''}`} x={p.x} y="230" width={SM} height={SM} rx="3" /><text class="st" x={p.x + SM / 2} y="244">{p.bot}</text></g>)}
+      <text class="lbl" x={DX[0] + 4 * SMP + SM / 2} y="272" text-anchor="middle">original sequence (G–C)</text>
+      <text class="lbl bad" x={DX[1] + 4 * SMP + SM / 2} y="272" text-anchor="middle">G–C replaced by A–T:</text>
+      <text class="lbl bad" x={DX[1] + 4 * SMP + SM / 2} y="289" text-anchor="middle">a base substitution</text>
+      <text class="lbl muted" x="260" y="322" text-anchor="middle">Errors like this give a low background rate of mutation in every cell.</text>
+    </g>
+  </g>
+
+  <!-- ===== Panel 1: chemical mutagens ===== -->
+  <g data-el="p1" style="opacity:0">
+    <text class="h" x="14" y="24">Chemical mutagens</text>
+    <line class="bb" x1={MAIN_X - 4} y1="66" x2={MAIN_X + 8 * PITCH + BOX + 4} y2="66" />
+    <line class="bb" x1={MAIN_X - 4} y1="128" x2={MAIN_X + 8 * PITCH + BOX + 4} y2="128" />
+    {p1.map((p, i) => (
+      <g>
+        <rect class={`nb b${p.top}`} x={p.x} y={Y_TOP} width={BOX} height="24" rx="4" />
+        <text class="nt" x={p.x + BOX / 2} y={Y_TOP + 17}>{p.top}</text>
+        <rect class={`nb b${p.bot}${i === 2 ? ' tgt' : ''}`} data-el={i === 2 ? 'p1-g' : undefined} x={p.x} y={Y_BOT} width={BOX} height="24" rx="4" />
+        <text class="nt" x={p.x + BOX / 2} y={Y_BOT + 17}>{p.bot}</text>
+      </g>
+    ))}
+    <g class="cig" transform="translate(14 150)">
+      <rect class="cig-paper" x="0" y="0" width="78" height="14" rx="2" />
+      <rect class="cig-tip" x="-0.5" y="0" width="24" height="14" rx="2" />
+      <rect class="cig-ember" x="78" y="0" width="10" height="14" rx="2" />
+      <text class="lbl" x="44" y="32" text-anchor="middle">tobacco smoke</text>
+    </g>
+    {[0, 1, 2, 3, 4].map((k) => <circle data-el={`p1-s${k}`} class="smoke" r={4 + k} cx="104" cy="150" style="opacity:0" />)}
+    <g data-el="p1-bap" transform="translate(98 150)">
+      {hexes.map(([x, y]) => <polygon class="bap" points={hex(x!, y!)} />)}
+    </g>
+    <g data-el="p1-lbl" style="opacity:0">
+      <text class="lbl" x="240" y="150">benzo[a]pyrene from smoke bonds to</text>
+      <text class="lbl" x="240" y="166">guanine, changing its shape</text>
+    </g>
+    <g data-el="p1-next" style="opacity:0">
+      <text class="lbl" x={DX[0]} y="214">When the damaged strand is copied, the</text>
+      <text class="lbl" x={DX[0]} y="230">wrong base can be paired with it:</text>
+      {p1a.map((p, i) => <g><rect class={`sb b${p.top}${i === 2 ? ' hit' : ''}`} x={p.x} y="242" width={SM} height={SM} rx="3" /><text class="st" x={p.x + SM / 2} y="256">{p.top}</text><rect class={`sb b${p.bot}${i === 2 ? ' hit' : ''}`} x={p.x} y="264" width={SM} height={SM} rx="3" /><text class="st" x={p.x + SM / 2} y="278">{p.bot}</text></g>)}
+      <text class="lbl bad" x={DX[0]} y="306">C–G pair replaced by A–T (substitution)</text>
+      <rect class="box" x="290" y="200" width="218" height="112" rx="8" />
+      <text class="lbl b" x="302" y="222">Other chemical mutagens</text>
+      <text class="lbl" x="302" y="244">• nitrosamines (in tobacco)</text>
+      <text class="lbl" x="302" y="264">• mustard gas</text>
+      <text class="lbl" x="302" y="284">Most alter bases so that they</text>
+      <text class="lbl" x="302" y="300">pair with the wrong partner.</text>
+    </g>
+  </g>
+
+  <!-- ===== Panel 2: radiation ===== -->
+  <g data-el="p2" style="opacity:0">
+    <text class="h" x="14" y="24">Mutagenic radiation</text>
+    <text class="lbl b" x="152" y="42">UV radiation</text>
+    <text class="lbl b" x="372" y="42" text-anchor="end">X-rays, gamma rays</text>
+    <path class="bb" d={`M${RAD_X - 4} 66 H${RAD_X + 10 * 32 + 25} M${RAD_X + 10 * 32 + 29} 66 H${RAD_X + 13 * 32 + 26}`} />
+    <path class="bb" d={`M${RAD_X - 4} 128 H${RAD_X + 10 * 32 + 25} M${RAD_X + 10 * 32 + 29} 128 H${RAD_X + 13 * 32 + 26}`} />
+    <g data-el="p2-bridge"><line class="bb" x1={RAD_X + 10 * 32 + 24} y1="66" x2={RAD_X + 10 * 32 + 30} y2="66" /><line class="bb" x1={RAD_X + 10 * 32 + 24} y1="128" x2={RAD_X + 10 * 32 + 30} y2="128" /></g>
+    {p2.map((p) => (
+      <g>
+        <rect class={`nb b${p.top}`} x={p.x} y={Y_TOP} width={BOX} height="24" rx="4" />
+        <text class="nt" x={p.x + BOX / 2} y={Y_TOP + 17}>{p.top}</text>
+        <rect class={`nb b${p.bot}`} x={p.x} y={Y_BOT} width={BOX} height="24" rx="4" />
+        <text class="nt" x={p.x + BOX / 2} y={Y_BOT + 17}>{p.bot}</text>
+      </g>
+    ))}
+    <g data-el="p2-uv">
+      {[0, 1, 2].map((k) => <path class="uv" d={`M${104 + k * 16} 32 q4 4 0 7 q-4 4 0 7 q4 4 0 7 v4`} marker-end="url(#d13c-arrow)" />)}
+    </g>
+    <g data-el="p2-dimer" style="opacity:0">
+      <path class="dimer" d={`M${RAD_X + 2 * 32 + BOX / 2} 70 V60 H${RAD_X + 3 * 32 + BOX / 2} V70`} />
+      <text class="lbl bad" x={RAD_X + 2.5 * 32 + BOX / 2} y="150" text-anchor="middle">adjacent thymines joined</text>
+      <text class="lbl bad" x={RAD_X + 2.5 * 32 + BOX / 2} y="166" text-anchor="middle">(thymine dimer)</text>
+    </g>
+    <g data-el="p2-ion">
+      {[0, 1].map((k) => <path class="ion" d={`M${386 + k * 22} 30 l-6 7 l8 4 l-6 7 l4 2 v4`} marker-end="url(#d13c-arrow)" />)}
+    </g>
+    <g data-el="p2-break" style="opacity:0">
+      <path class="zap" d={`M${RAD_X + 10 * 32 + 27} 54 l-5 8 l7 2 l-5 8`} />
+      <path class="zap" d={`M${RAD_X + 10 * 32 + 27} 134 l-5 8 l7 2 l-5 8`} />
+      <text class="lbl bad" x={RAD_X + 10 * 32 + 27} y="166" text-anchor="middle">both strands broken</text>
+    </g>
+    <g data-el="p2-notes" style="opacity:0">
+      <rect class="box" x="14" y="188" width="240" height="132" rx="8" />
+      <text class="lbl b" x="26" y="210">UV (UVB and UVC)</text>
+      <text class="lbl" x="26" y="232">Short-wavelength part of sunlight.</text>
+      <text class="lbl" x="26" y="250">Absorbed by bases; links adjacent</text>
+      <text class="lbl" x="26" y="268">pyrimidines (T–T dimers), so</text>
+      <text class="lbl" x="26" y="286">wrong bases are added when the</text>
+      <text class="lbl" x="26" y="304">DNA is copied or repaired.</text>
+      <rect class="box" x="266" y="188" width="240" height="132" rx="8" />
+      <text class="lbl b" x="278" y="210">Ionizing radiation</text>
+      <text class="lbl" x="278" y="232">X-rays, gamma rays, and alpha</text>
+      <text class="lbl" x="278" y="250">and beta particles from radioactive</text>
+      <text class="lbl" x="278" y="268">isotopes. Breaks DNA strands and</text>
+      <text class="lbl" x="278" y="286">damages bases; faulty repair can</text>
+      <text class="lbl" x="278" y="304">insert or delete bases.</text>
+    </g>
+  </g>
+
+  <!-- ===== Panel 3: randomness ===== -->
+  <g data-el="p3" style="opacity:0">
+    <text class="h" x="14" y="24">Mutation is random</text>
+    {[90, 170].map((y, r) => (
+      <g>
+        <text class="sname b" x="14" y={y + 5}>Cell {r + 1}</text>
+        <line class="chrom" x1="64" y1={y} x2="505" y2={y} />
+        {genes.map(([a, b]) => <rect class="gene" x={a} y={y - 8} width={b! - a!} height="16" rx="3" />)}
+      </g>
+    ))}
+    <text class="lbl muted" x="165" y="120" text-anchor="middle">genes (coding sequences) shaded</text>
+    {marks1.map((x, k) => <polygon data-el={`p3-a${k}`} class="mark" points={`${x - 6},${66} ${x + 6},${66} ${x},${78}`} style="opacity:0" />)}
+    {marks2.map((x, k) => <polygon data-el={`p3-b${k}`} class="mark" points={`${x - 6},${146} ${x + 6},${146} ${x},${158}`} style="opacity:0" />)}
+    <g data-el="p3-hot" style="opacity:0">
+      <rect class="hot" x="288" y="40" width="28" height="140" rx="6" />
+      <text class="lbl b" x="302" y="34" text-anchor="middle">hotspot</text>
+    </g>
+    <g data-el="p3-note" style="opacity:0">
+      <text class="lbl" x="260" y="206" text-anchor="middle">Each cell gets different mutations (▼), in genes and between them.</text>
+      <text class="lbl" x="260" y="224" text-anchor="middle">Some bases, such as C in a CG pair, mutate more often than others.</text>
+      <rect class="box" x="30" y="244" width="460" height="78" rx="8" />
+      <text class="lbl b" x="260" y="266" text-anchor="middle">No natural mechanism directs a mutation to a particular base</text>
+      <text class="lbl b" x="260" y="285" text-anchor="middle">to produce a useful trait: mutations do not arise because</text>
+      <text class="lbl b" x="260" y="304" text-anchor="middle">an organism needs them.</text>
+    </g>
+  </g>
+
+  <!-- ===== Panel 4: somatic vs germ-line ===== -->
+  <g data-el="p4" style="opacity:0">
+    <text class="h" x="14" y="24">Somatic cells and germ cells</text>
+    <line class="div" x1="260" y1="40" x2="260" y2="330" />
+    <text class="lbl b" x="130" y="56" text-anchor="middle">Somatic (body) cell</text>
+    <text class="lbl b" x="392" y="56" text-anchor="middle">Germ-line cell (testis or ovary)</text>
+    <g data-el="p4-s1">
+      <circle class="cell" cx="50" cy="101" r="22" /><circle class="nuc" cx="50" cy="101" r="9" /><polygon class="star" points={star(50, 101)} />
+      <text class="lbl" x="50" y="140" text-anchor="middle">mutation</text>
+    </g>
+    <g data-el="p4-s2" style="opacity:0">
+      <path class="arrow" d="M76 101 H116" marker-end="url(#d13c-arrow)" />
+      <text class="lbl" x="96" y="90" text-anchor="middle">mitosis</text>
+      {clone.map(([x, y]) => <g><circle class="cell" cx={x} cy={y} r="13" /><polygon class="star" points={star(x!, y!, 5)} /></g>)}
+      <text class="lbl" x="170" y="146" text-anchor="middle">a clone of mutant cells</text>
+    </g>
+    <g data-el="p4-s3" style="opacity:0">
+      <text class="lbl" x="130" y="182" text-anchor="middle">If genes that control the cell cycle</text>
+      <text class="lbl" x="130" y="199" text-anchor="middle">are mutated, cells may divide out</text>
+      <text class="lbl" x="130" y="216" text-anchor="middle">of control: a tumour (cancer).</text>
+      <text class="lbl bad b" x="130" y="262" text-anchor="middle">✕ Not passed to offspring</text>
+      <text class="lbl muted" x="130" y="282" text-anchor="middle">Only the individual is affected.</text>
+    </g>
+    <g data-el="p4-g1">
+      <circle class="cell germ" cx="290" cy="101" r="18" /><polygon class="star" points={star(290, 101)} />
+    </g>
+    <g data-el="p4-g2" style="opacity:0">
+      <path class="arrow" d="M310 101 H340" marker-end="url(#d13c-arrow)" />
+      <text class="lbl" x="325" y="86" text-anchor="middle">meiosis</text>
+      <circle class="cell germ" cx="356" cy="101" r="10" /><polygon class="star" points={star(356, 101, 5)} />
+      <text class="lbl" x="356" y="130" text-anchor="middle">gamete</text>
+      <path class="arrow" d="M370 101 H418" marker-end="url(#d13c-arrow)" />
+      <text class="lbl" x="396" y="86" text-anchor="middle">fertilization</text>
+    </g>
+    <g data-el="p4-g3" style="opacity:0">
+      <circle class="cell germ" cx="440" cy="101" r="18" /><polygon class="star" points={star(440, 101)} />
+      <text class="lbl" x="476" y="105">zygote</text>
+      <path class="arrow" d="M440 122 V170" marker-end="url(#d13c-arrow)" />
+      <text class="lbl" x="448" y="152">mitosis</text>
+    </g>
+    <g data-el="p4-g4" style="opacity:0">
+      {kids.map(([x, y]) => <g><circle class="cell" cx={x} cy={y! + 6} r="10" /><polygon class="star" points={star(x!, y! + 6, 4)} /></g>)}
+      <text class="lbl" x="392" y="262" text-anchor="middle">Every cell of the offspring</text>
+      <text class="lbl" x="392" y="279" text-anchor="middle">carries the mutation.</text>
+      <text class="lbl good b" x="392" y="304" text-anchor="middle">✓ Can be inherited</text>
+    </g>
+  </g>
+</svg>
+<style>
+  .cz { font-family: var(--font-sans); }
+  .h { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .lbl { font-size: 12.5px; fill: var(--text); }
+  .lbl.b { font-weight: 750; }
+  .lbl.bad { fill: var(--bad); font-weight: 700; }
+  .lbl.good { fill: var(--good); }
+  .lbl.muted { fill: var(--text-muted); }
+  .sname { font-size: 12.5px; fill: var(--text-muted); font-weight: 650; }
+  .sname.b { fill: var(--text); font-weight: 750; }
+  .end { font-size: 13px; font-weight: 800; fill: var(--text); }
+  .bb { stroke: var(--text-muted); stroke-width: 4; stroke-linecap: round; fill: none; }
+  .nb, .sb { stroke-width: 1.5; }
+  .nt { font: 800 13px var(--font-mono, ui-monospace, monospace); fill: var(--text); text-anchor: middle; }
+  .st { font: 800 12px var(--font-mono, ui-monospace, monospace); fill: var(--text); text-anchor: middle; }
+  .bA { fill: color-mix(in srgb, var(--bio-protein) 24%, var(--surface)); stroke: var(--bio-protein); }
+  .bT { fill: color-mix(in srgb, var(--bio-head) 24%, var(--surface)); stroke: var(--bio-head); }
+  .bG { fill: color-mix(in srgb, var(--bio-carb) 24%, var(--surface)); stroke: var(--bio-carb); }
+  .bC { fill: color-mix(in srgb, var(--bio-protein-2) 24%, var(--surface)); stroke: var(--bio-protein-2); }
+  .mis, .hit, .tgt { stroke: var(--bad); stroke-width: 3; }
+  .pol { fill: color-mix(in srgb, var(--bio-chol) 45%, var(--surface)); stroke: var(--bio-chol); stroke-width: 1.5; opacity: 0.92; }
+  .pol-t { font-size: 12.5px; font-weight: 700; fill: var(--text); text-anchor: middle; }
+  .cig-paper { fill: var(--surface); stroke: var(--border-strong); }
+  .cig-tip { fill: color-mix(in srgb, var(--bio-carb) 55%, var(--surface)); stroke: var(--border-strong); }
+  .cig-ember { fill: var(--bad); }
+  .smoke { fill: var(--text-muted); opacity: 0.35; }
+  .bap { fill: color-mix(in srgb, var(--bad) 30%, var(--surface)); stroke: var(--bad); stroke-width: 1.5; }
+  .box { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.2; }
+  .uv { fill: none; stroke: var(--bio-chol); stroke-width: 2.5; }
+  .ion { fill: none; stroke: var(--bio-protein-2); stroke-width: 2.5; }
+  .head { fill: var(--text); }
+  .dimer { fill: none; stroke: var(--bad); stroke-width: 4; stroke-linejoin: round; }
+  .zap { fill: none; stroke: var(--bad); stroke-width: 2.5; }
+  .chrom { stroke: var(--text-muted); stroke-width: 4; stroke-linecap: round; }
+  .gene { fill: color-mix(in srgb, var(--bio-protein) 30%, var(--surface)); stroke: var(--bio-protein); }
+  .mark { fill: var(--bad); }
+  .hot { fill: color-mix(in srgb, var(--bio-chol) 18%, transparent); stroke: var(--bio-chol); stroke-dasharray: 4 3; }
+  .div { stroke: var(--border-strong); stroke-dasharray: 5 4; }
+  .cell { fill: color-mix(in srgb, var(--bio-water) 22%, var(--surface)); stroke: var(--bio-water); stroke-width: 1.5; }
+  .cell.germ { fill: color-mix(in srgb, var(--bio-head) 20%, var(--surface)); stroke: var(--bio-head); }
+  .nuc { fill: color-mix(in srgb, var(--bio-water) 40%, var(--surface)); stroke: var(--bio-water); }
+  .star { fill: var(--bad); }
+  .arrow { fill: none; stroke: var(--text); stroke-width: 1.6; }
+</style>
