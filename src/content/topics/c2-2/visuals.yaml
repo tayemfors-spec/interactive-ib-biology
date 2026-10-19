@@ -1,0 +1,204 @@
+# Visuals for C2.2. Label/step text here is what readers see in the 3D viewer and the text descriptions,
+# so it is written to exam standard. Label ids must match anchors in the scene modules (src/scenes).
+visuals:
+  - id: neuron
+    kind: viewer3d
+    title: A motor neuron and a synapse in 3D
+    alt: A 3D motor neuron with dendrites, cell body, myelinated axon and axon terminals, and a cholinergic synapse shown step by step.
+    description: >-
+      The first model is a motor neuron lying left to right, with the axon drawn much shorter than it really is.
+      Many short, branched dendrites project from the cell body, which contains the nucleus. The cell body narrows
+      into a cone, the axon hillock, where the single long axon begins. Most of the axon is wrapped in a myelin
+      sheath made by a row of Schwann cells; one sheath is cut open to show that it is made of many layers of
+      membrane wrapped round the axon, and each Schwann cell has a nucleus on its outer surface. Short gaps
+      between Schwann cells, where the axon membrane is exposed, are nodes of Ranvier. At the far end the axon
+      branches into terminals ending in synaptic knobs that touch a striated muscle fibre (neuromuscular
+      junctions). An arrow shows that impulses travel from the dendrites and cell body, along the axon, to the
+      terminals. The second model is a synapse, with the presynaptic knob (cut open) above, the postsynaptic
+      membrane below and the synaptic cleft between. Six steps show transmission using acetylcholine.
+    scenes:
+      - id: neuron
+        module: c2-2-neuron
+        title: Motor neuron
+        labels:
+          - id: dendrites
+            name: Dendrites
+            text: Many short, branched fibres that receive signals from other neurons at synapses and conduct impulses towards the cell body.
+          - id: cell-body
+            name: Cell body
+            text: The part of the neuron containing the nucleus and most of the cytoplasm, where proteins such as enzymes for making neurotransmitter are synthesised. In a motor neuron it lies in the spinal cord or brain.
+          - id: nucleus
+            name: Nucleus
+            text: Holds the neuron's DNA. Mature neurons do not divide, so the nucleus serves gene expression for the rest of the cell's life.
+          - id: hillock
+            name: Axon hillock
+            text: The cone-shaped region where the axon leaves the cell body. Inputs from all the dendrites are summed here, and an action potential begins if the membrane reaches the threshold potential.
+          - id: axon
+            name: Axon
+            text: A single long fibre that conducts impulses away from the cell body. Motor neuron axons can be about a metre long (shown much shortened here).
+          - id: myelin
+            name: Myelin sheath
+            text: Many layers of Schwann cell membrane wrapped tightly round the axon (see the cut-open sheath). Myelin is rich in lipid and insulates the axon, so ions cannot cross the membrane where it is covered.
+          - id: schwann
+            name: Schwann cell nucleus
+            text: Each section of myelin is one Schwann cell that has grown round and round the axon. Its nucleus and cytoplasm are squeezed to the outside.
+          - id: node
+            name: Node of Ranvier
+            text: A short gap (about 1 µm) between neighbouring Schwann cells where the axon membrane is exposed. Voltage-gated channels are concentrated here, so action potentials jump from node to node (saltatory conduction, AHL).
+          - id: terminals
+            name: Axon terminals
+            text: The end of the axon divides into branches, so one motor neuron can stimulate several muscle fibres.
+          - id: knob
+            name: Synaptic knob
+            text: The swollen tip of each terminal branch. It contains vesicles of the neurotransmitter acetylcholine and forms a synapse with the muscle fibre (a neuromuscular junction).
+          - id: muscle
+            name: Muscle fibre (effector)
+            text: A striated muscle fibre. When acetylcholine from the motor neuron depolarises its membrane, the fibre contracts. Muscles and glands are effectors.
+          - id: impulse
+            name: Direction of the impulse
+            text: Impulses travel one way through the neuron, from dendrites and cell body along the axon to the terminals, because synapses only pass signals in one direction.
+      - id: synapse
+        module: c2-2-synapse
+        title: Synapse (acetylcholine)
+        labels:
+          - id: presynaptic
+            name: Presynaptic knob
+            text: The end of the presynaptic neuron, cut open to show the inside. Its membrane facing the cleft is the presynaptic membrane.
+          - id: impulse
+            name: Action potential arriving
+            text: The nerve impulse travels along the axon and depolarises the membrane of the presynaptic knob.
+            steps: [arrive]
+          - id: ca-channel
+            name: Voltage-gated Ca²⁺ channel
+            text: A channel protein in the presynaptic membrane that opens when the membrane is depolarised. Ca²⁺ is much more concentrated outside the neuron, so it diffuses in.
+            steps: [arrive, calcium]
+          - id: calcium
+            name: Calcium ions (Ca²⁺)
+            text: Ca²⁺ entering the knob acts as a signal inside the neuron. It triggers vesicles of neurotransmitter to move to the presynaptic membrane and fuse with it.
+            steps: [calcium, release]
+          - id: vesicle
+            name: Vesicle of acetylcholine
+            text: A small sac of membrane filled with thousands of molecules of the neurotransmitter acetylcholine (ACh), made in the knob.
+            steps: [arrive, calcium, release]
+          - id: mitochondrion
+            name: Mitochondrion
+            text: Supplies ATP for synthesising acetylcholine, loading it into vesicles, and pumping ions to restore gradients.
+          - id: ach
+            name: Acetylcholine (ACh)
+            text: The neurotransmitter, released into the cleft by exocytosis. It diffuses across the cleft (about 20 nm wide at most synapses).
+            steps: [release, bind]
+          - id: cleft
+            name: Synaptic cleft
+            text: The narrow fluid-filled gap between the presynaptic and postsynaptic membranes. The signal crosses it chemically, by diffusion of neurotransmitter.
+          - id: receptor
+            name: ACh receptor (ligand-gated channel)
+            text: A transmembrane protein of five subunits round a pore. When two ACh molecules bind, it changes shape and the pore opens, letting Na⁺ in.
+            steps: [bind, epsp, breakdown]
+          - id: sodium
+            name: Na⁺ entering → EPSP
+            text: Na⁺ diffuses into the postsynaptic cell down its concentration gradient, making the inside less negative. This local depolarisation is an excitatory postsynaptic potential.
+            steps: [epsp]
+          - id: postsynaptic
+            name: Postsynaptic membrane
+            text: The membrane of the receiving cell (here a muscle fibre or another neuron). It contains receptors for the neurotransmitter; the presynaptic membrane does not, so signals pass in one direction only.
+          - id: ache
+            name: Acetylcholinesterase
+            text: An enzyme in the cleft, on the postsynaptic side, that hydrolyses acetylcholine into choline and acetate (ethanoate), so the signal stops quickly.
+            steps: [bind, breakdown]
+          - id: transporter
+            name: Choline transporter
+            text: A membrane protein that takes choline back into the presynaptic knob, where it is combined with an acetyl group to remake acetylcholine.
+            steps: [breakdown]
+          - id: choline
+            name: Choline (reabsorbed)
+            text: Choline released by acetylcholinesterase is reabsorbed into the presynaptic knob and recycled; the acetate diffuses away.
+            steps: [breakdown]
+        steps:
+          - id: arrive
+            title: An action potential arrives
+            caption: A nerve impulse (action potential) travels along the axon to the presynaptic knob and depolarises the presynaptic membrane (shown glowing). Voltage-gated calcium channels in this membrane start to open.
+          - id: calcium
+            title: Ca²⁺ diffuses into the knob
+            caption: The voltage-gated Ca²⁺ channels are open. Calcium ions are far more concentrated outside the neuron, so they diffuse into the knob (green spheres). Inside, Ca²⁺ acts as a signal for neurotransmitter release.
+          - id: release
+            title: Exocytosis of acetylcholine
+            caption: The rise in Ca²⁺ makes vesicles of acetylcholine move to the presynaptic membrane and fuse with it. Their contents are released into the synaptic cleft by exocytosis, and the vesicle membrane becomes part of the presynaptic membrane.
+          - id: bind
+            title: ACh diffuses and binds to receptors
+            caption: Acetylcholine diffuses across the cleft and binds to the receptor sites of transmembrane receptor proteins in the postsynaptic membrane (two ACh per receptor). Binding changes the shape of each receptor and opens its ion channel.
+          - id: epsp
+            title: Na⁺ enters and depolarises the membrane
+            caption: Na⁺ diffuses into the postsynaptic cell through the open receptor channels, down its concentration gradient. The membrane potential becomes less negative (depolarised, shown purple). This is an excitatory postsynaptic potential (EPSP); if it reaches threshold, an action potential starts.
+          - id: breakdown
+            title: Acetylcholinesterase stops the signal
+            caption: Acetylcholinesterase in the cleft hydrolyses acetylcholine into choline and acetate. The receptors close and the postsynaptic membrane repolarises. Choline is reabsorbed into the presynaptic knob through transporters and used to make more acetylcholine.
+
+  - id: action-potential
+    kind: anim
+    module: c2-2-action-potential
+    title: An action potential, region by region
+    alt: Animated section of axon membrane with Na⁺ and K⁺ channels, and an oscilloscope trace of membrane potential drawn in step with it.
+    description: >-
+      The top half shows part of an axon membrane, with the extracellular fluid above and the cytoplasm of the axon
+      below, divided into three regions. Region 1 contains a sodium–potassium pump and a potassium leak channel;
+      regions 2 and 3 each contain a voltage-gated sodium channel and a voltage-gated potassium channel. Plus and
+      minus signs show which side of the membrane is positive. A recording electrode in region 2 is connected to
+      an oscilloscope, whose trace of membrane potential (millivolts) against time (milliseconds) is drawn in
+      the bottom half as the steps play. A dashed second trace shows region 3, which fires slightly later. Steps
+      marked AHL add the detail needed at higher level.
+    steps:
+      - id: resting
+        title: Resting potential
+        caption: The Na⁺/K⁺ pump uses ATP to pump 3 Na⁺ out for every 2 K⁺ in, so Na⁺ is concentrated outside and K⁺ inside. K⁺ leaks out through open K⁺ channels faster than Na⁺ leaks in. The inside is negative, about −70 mV, and the voltage-gated channels are closed.
+      - id: threshold
+        title: Threshold reached (AHL)
+        level: AHL
+        caption: Higher level. A stimulus (or local currents from an active region next door) makes region 2 less negative. When it reaches the threshold potential, about −50 mV, its voltage-gated Na⁺ channels open. Below threshold they stay shut and no action potential occurs.
+      - id: depolarise
+        title: Depolarisation — Na⁺ in
+        caption: Na⁺ diffuses into the axon through the open Na⁺ channels, down its concentration gradient. Positive charge entering reverses the membrane potential, so the inside becomes positive, up to about +30 to +40 mV.
+      - id: local-currents
+        title: Local currents (AHL)
+        level: AHL
+        caption: Higher level. Na⁺ that entered region 2 diffuses along the inside of the axon to region 3, and on the outside Na⁺ diffuses from region 3 towards region 2. These local currents make region 3 less negative until it reaches threshold, so its Na⁺ channels open.
+      - id: repolarise
+        title: Repolarisation — K⁺ out
+        caption: In region 2 the Na⁺ channels close and the voltage-gated K⁺ channels open. K⁺ diffuses out, down its concentration gradient, so the inside becomes negative again. Region 3 is now depolarised, so the action potential has moved along the axon.
+      - id: refractory
+        title: Hyperpolarisation and refractory period (AHL)
+        level: AHL
+        caption: Higher level. The K⁺ channels close slowly, so extra K⁺ leaves and region 2 overshoots to about −80 mV (hyperpolarisation). Its Na⁺ channels cannot reopen yet — this refractory period stops the impulse travelling backwards, so it continues only towards region 3 and beyond.
+      - id: recover
+        title: Resting potential restored
+        caption: The K⁺ channels close and region 2 returns to −70 mV, ready to fire again. Only a tiny fraction of the ions moved, and the Na⁺/K⁺ pumps keep restoring the concentration gradients. The trace shows one complete action potential, lasting a few milliseconds.
+
+  - id: conduction
+    kind: sim
+    module: c2-2-conduction
+    level: AHL
+    title: Saltatory vs continuous conduction race
+    alt: Two axons race an impulse over one metre; set each axon's diameter and whether it is myelinated to compare conduction speeds.
+    description: >-
+      Two lanes, each with an axon one metre long. For each lane you can choose whether the axon is myelinated and
+      set its diameter with a slider from 0.2 µm to 1 mm. Pressing Race sends an impulse along both axons, slowed down
+      so the movement can be seen, and shows the real time each impulse takes. In an unmyelinated axon the impulse
+      moves continuously; in a myelinated axon it jumps from node of Ranvier to node of Ranvier. Speed rises with
+      diameter in both, but much faster with myelin: a thin unmyelinated fibre conducts at about 1 m s⁻¹, the squid
+      giant axon (about 0.5 mm wide, unmyelinated) at about 25 m s⁻¹, and a large myelinated fibre only 15–20 µm
+      wide at about 100 m s⁻¹. Preset buttons load these examples. The model is qualitative.
+
+  - id: summation
+    kind: sim
+    module: c2-2-summation
+    level: AHL
+    title: Summation at the axon hillock
+    alt: Combine excitatory and inhibitory synaptic inputs and see whether the postsynaptic membrane potential reaches threshold and fires.
+    description: >-
+      A postsynaptic neuron receives synapses from several excitatory neurons (which release a neurotransmitter
+      such as acetylcholine or glutamate, causing EPSPs) and inhibitory neurons (which release GABA, opening
+      chloride channels and causing IPSPs). Sliders set how many excitatory neurons fire together (spatial
+      summation), how many impulses one excitatory neuron sends and how close together they are (temporal
+      summation), and how many inhibitory neurons fire. A graph shows the membrane potential at the axon hillock
+      over 50 ms. One EPSP alone does not reach the threshold of −50 mV, but several together can; IPSPs push the
+      potential down. If threshold is reached, a full-sized action potential fires (all or nothing). The model is
+      qualitative.

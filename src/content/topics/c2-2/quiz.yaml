@@ -1,0 +1,206 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: C2.2.1
+    stem: >-
+      Which statement correctly describes the structure of a motor neuron?
+    options:
+      - id: a
+        text: It has one long dendrite and many short axons projecting from the cell body.
+        why: This swaps the two fibre types. A neuron has many short dendrites and a single long axon.
+      - id: b
+        text: Its nucleus is in the cell body, and impulses are conducted along both its dendrites and its single long axon.
+        why: Correct. The cell body contains the nucleus and most of the cytoplasm, and impulses are conducted along all of its nerve fibres, the dendrites and the axon.
+      - id: c
+        text: Its nucleus is in the axon terminals, where neurotransmitter is made.
+        why: The nucleus is in the cell body. Synaptic knobs contain vesicles and mitochondria but no nucleus.
+      - id: d
+        text: Its axon conducts impulses towards the cell body.
+        why: Dendrites conduct impulses towards the cell body; the axon conducts them away from it, towards the terminals.
+    answer: b
+
+  - id: q2
+    level: SL
+    understanding: C2.2.2
+    stem: >-
+      Which is the main reason why the inside of a resting neuron is negative relative to the outside?
+    options:
+      - id: a
+        text: Sodium–potassium pumps move 3 K⁺ into the neuron for every 2 Na⁺ moved out.
+        why: The ratio and the ions are reversed. The pump moves 3 Na⁺ out and 2 K⁺ in per ATP.
+      - id: b
+        text: Electrons accumulate on the inner surface of the membrane.
+        why: Membrane potentials are due to the distribution of ions, not free electrons.
+      - id: c
+        text: The membrane is more permeable to K⁺ than to Na⁺, so more positive charge diffuses out than in.
+        why: Correct. Open K⁺ channels let K⁺ diffuse out down the concentration gradient set up by the pumps, leaving the inside negative; unequal pumping and negatively charged proteins also contribute.
+      - id: d
+        text: Na⁺ ions diffuse into the neuron through open sodium channels.
+        why: Na⁺ entering would make the inside more positive. At rest few Na⁺ channels are open; Na⁺ entry is what depolarises the membrane during an action potential.
+    answer: c
+
+  - id: q3
+    level: SL
+    understanding: C2.2.4
+    stem: >-
+      A student measured conduction speed and axon diameter for 20 unmyelinated axons from different invertebrates.
+      She calculated r = 0.80 for the correlation between diameter and speed. Which conclusion is valid?
+    options:
+      - id: a
+        text: There is a strong positive correlation, and 64% of the variation in speed is explained by variation in diameter.
+        why: Correct. r = 0.80 is a strong positive correlation, and R² = 0.80² = 0.64, so 64% of the variation in speed is accounted for by diameter.
+      - id: b
+        text: 80% of the variation in speed is explained by variation in diameter.
+        why: The proportion explained is given by R², not r. R² = 0.64, so 64%.
+      - id: c
+        text: The data prove that a wider axon causes a higher speed.
+        why: A correlation alone cannot prove causation. The physical explanation (lower resistance to local currents) comes from other evidence.
+      - id: d
+        text: There is a negative correlation because r is less than 1.
+        why: The sign of r gives the direction. Any positive r is a positive correlation; r = 1 would be a perfect positive correlation.
+    answer: a
+
+  - id: q4
+    level: SL
+    understanding: C2.2.6
+    stem: >-
+      A toxin blocks the voltage-gated calcium channels in presynaptic membranes. What would be the immediate effect
+      when an action potential reaches a presynaptic knob?
+    options:
+      - id: a
+        text: The action potential would be unable to depolarise the presynaptic membrane.
+        why: Depolarisation of the knob is caused by Na⁺ channels and local currents, not by Ca²⁺ channels, so it still occurs.
+      - id: b
+        text: Neurotransmitter would be released but could not bind to receptors.
+        why: Binding depends on the postsynaptic receptors, which the toxin does not affect. The problem is earlier, at release.
+      - id: c
+        text: Acetylcholinesterase would stop breaking down neurotransmitter.
+        why: The enzyme in the cleft is unaffected by blocking calcium channels in the presynaptic membrane.
+      - id: d
+        text: Vesicles would not fuse with the presynaptic membrane, so little or no neurotransmitter would be released.
+        why: Correct. Ca²⁺ entering through these channels is the internal signal that triggers exocytosis. Without it, vesicles do not fuse.
+    answer: d
+
+  - id: q5
+    level: SL
+    understanding: C2.2.7
+    stem: >-
+      At a neuromuscular junction, which sequence of events follows the release of acetylcholine into the synaptic cleft?
+    options:
+      - id: a
+        text: Acetylcholine is actively transported across the cleft → binds to receptors → K⁺ enters the muscle fibre → depolarisation.
+        why: Acetylcholine crosses the cleft by diffusion, not active transport, and it is Na⁺ that enters.
+      - id: b
+        text: Acetylcholine diffuses across the cleft → binds to receptors → Na⁺ enters the muscle fibre → depolarisation → acetylcholine is broken down.
+        why: Correct. Binding opens the receptor's ion channel, Na⁺ diffuses in and depolarises the postsynaptic membrane, then acetylcholinesterase breaks acetylcholine down.
+      - id: c
+        text: Acetylcholine diffuses across the cleft → enters the muscle fibre → opens Na⁺ channels from inside → depolarisation.
+        why: Acetylcholine does not enter the postsynaptic cell. It binds to transmembrane receptors on the outer surface.
+      - id: d
+        text: Acetylcholine diffuses across the cleft → binds to receptors → Ca²⁺ enters the muscle fibre → acetylcholine is reabsorbed whole.
+        why: Ca²⁺ entry triggers release in the presynaptic knob. Acetylcholine is hydrolysed in the cleft, and only choline is reabsorbed.
+    answer: b
+
+  - id: q6
+    level: AHL
+    understanding: C2.2.10
+    stem: >-
+      An oscilloscope trace from a sensory neuron shows identical action potentials. The time from the peak of
+      one action potential to the peak of the next is 25 ms. What is the impulse frequency?
+    options:
+      - id: a
+        text: 25 impulses per second
+        why: This uses the interval itself rather than its reciprocal. One impulse every 25 ms means 1 ÷ 0.025 s.
+      - id: b
+        text: 0.04 impulses per second
+        why: This is 1 ÷ 25, treating the interval as 25 s instead of 25 ms. Convert ms to s first.
+      - id: c
+        text: 40 impulses per second
+        why: Correct. 25 ms = 0.025 s, and 1 ÷ 0.025 s = 40 impulses per second.
+      - id: d
+        text: 400 impulses per second
+        why: This is a factor-of-ten error in converting milliseconds to seconds (25 ms is 0.025 s, not 0.0025 s).
+    answer: c
+
+  - id: q7
+    level: AHL
+    understanding: C2.2.8
+    stem: >-
+      A stimulus depolarises an axon from −70 mV to −58 mV, and the membrane then returns to −70 mV. A second,
+      stronger stimulus depolarises it to −45 mV. What happens after the second stimulus?
+    options:
+      - id: a
+        text: Threshold is passed, voltage-gated Na⁺ channels open, and a full-sized action potential occurs.
+        why: Correct. −45 mV is beyond the threshold of about −50 mV, so Na⁺ channels open and positive feedback produces a complete action potential.
+      - id: b
+        text: An action potential occurs that is larger than normal, because the stimulus was stronger.
+        why: Action potentials are all or nothing. A stronger stimulus can increase their frequency but not their size.
+      - id: c
+        text: Voltage-gated K⁺ channels open first, so the membrane hyperpolarises.
+        why: The K⁺ channels open after the Na⁺ channels, during repolarisation; they do not open first.
+      - id: d
+        text: No action potential occurs, because the first stimulus caused a refractory period.
+        why: The first stimulus did not reach threshold, so no action potential occurred and there is no refractory period.
+    answer: a
+
+  - id: q8
+    level: AHL
+    understanding: C2.2.11
+    stem: >-
+      Which explains why impulses travel faster in myelinated fibres than in unmyelinated fibres of the same diameter?
+    options:
+      - id: a
+        text: Myelin contains more Na⁺ channels, so depolarisation happens faster.
+        why: Myelin is an insulator made of Schwann cell membranes; the channels are in the axon membrane at the nodes.
+      - id: b
+        text: The impulse travels along the myelin sheath, which conducts better than the axon membrane.
+        why: Myelin insulates; ions do not cross the membrane under it. The impulse is not conducted through the myelin.
+      - id: c
+        text: Myelinated fibres have more neurotransmitter, so signals cross synapses faster.
+        why: Synaptic transmission is not involved in conduction along a single fibre.
+      - id: d
+        text: Action potentials occur only at nodes of Ranvier, where channels are concentrated, so the impulse jumps from node to node.
+        why: Correct. This is saltatory conduction. Local currents flow under the myelin to the next node, so fewer regions of membrane have to depolarise.
+    answer: d
+
+  - id: q9
+    level: AHL
+    understanding: C2.2.12
+    stem: >-
+      Cocaine produces its effects at dopamine synapses in the brain. How does it act?
+    options:
+      - id: a
+        text: It binds irreversibly to dopamine receptors on the postsynaptic membrane, blocking them.
+        why: This is closer to how neonicotinoids act on acetylcholine receptors in insects. Cocaine acts presynaptically on transporters.
+      - id: b
+        text: It blocks dopamine reuptake transporters, so dopamine stays in the synaptic cleft and keeps stimulating the postsynaptic neuron.
+        why: Correct. With reuptake blocked, dopamine accumulates in the cleft and its effect on the postsynaptic neuron is prolonged.
+      - id: c
+        text: It inhibits the enzyme that breaks down acetylcholine, so acetylcholine accumulates.
+        why: Cocaine does not act on acetylcholinesterase. Its main target is the dopamine transporter.
+      - id: d
+        text: It opens calcium channels in the presynaptic membrane, increasing dopamine release.
+        why: Cocaine does not act on calcium channels. Dopamine builds up because it is not removed, not because more is released.
+    answer: b
+
+  - id: q10
+    level: AHL
+    understanding: C2.2.14
+    stem: >-
+      A postsynaptic neuron receives one EPSP from neuron X and, at the same moment, one EPSP from neuron Y. Neither
+      alone reaches threshold, but together they trigger an action potential. When an inhibitory neuron Z also fires
+      at the same moment, no action potential occurs. Which explanation is correct?
+    options:
+      - id: a
+        text: Temporal summation of the EPSPs; Z blocks the release of neurotransmitter from X and Y.
+        why: Inputs from different neurons at the same time is spatial, not temporal, summation, and Z acts on the postsynaptic membrane.
+      - id: b
+        text: Spatial summation of the EPSPs; Z releases acetylcholine, which depolarises the membrane further.
+        why: An inhibitory neuron does not depolarise the membrane. Its neurotransmitter (such as GABA) hyperpolarises it.
+      - id: c
+        text: Spatial summation of the EPSPs; Z releases a neurotransmitter such as GABA that hyperpolarises the membrane, so the net depolarisation stays below threshold.
+        why: Correct. EPSPs from different neurons add (spatial summation), and the IPSP subtracts, so the axon hillock does not reach threshold.
+      - id: d
+        text: Temporal summation of the EPSPs; Z makes the action potential smaller than usual.
+        why: This is spatial summation, and action potentials are all or nothing, so they are never made smaller.
+    answer: c

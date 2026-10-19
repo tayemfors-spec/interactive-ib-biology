@@ -1,0 +1,163 @@
+facts:
+  - id: f1
+    claim: A neuron has a cell body containing the nucleus and most of the cytoplasm, many short branched dendrites and a single long axon; dendrites conduct towards the cell body and the axon away from it.
+    where: [ "index.mdx#neurons", "visuals.yaml:neuron", "quiz.yaml:q1", "flashcards.yaml:c1" ]
+    confidence: high
+    basis: Standard neurobiology (Kandel, Principles of Neural Science; Campbell Biology); IB guide C2.2.1
+    status: checked
+  - id: f2
+    claim: The human brain contains roughly 86 billion neurons and on the order of 10¹⁴ (a hundred trillion) synapses.
+    where: [ "index.mdx#neurons", "index.mdx#pain-consciousness" ]
+    confidence: medium
+    basis: Azevedo et al. 2009 (86 billion by isotropic fractionation); synapse count is an order-of-magnitude estimate
+    status: open
+  - id: f3
+    claim: Motor neuron axons that supply the foot can be about 1 m long.
+    where: [ "index.mdx#neurons", "visuals.yaml:neuron (axon label)" ]
+    confidence: high
+    basis: Standard (sciatic motor axons from lumbar/sacral cord to foot muscles)
+    status: checked
+  - id: f4
+    claim: Myelin in the peripheral nervous system is formed by Schwann cells, each wrapping many layers of membrane round one segment of axon, with its nucleus on the outside; nodes of Ranvier are gaps about 1 µm long between adjacent Schwann cells; internodes are typically about 100 × fibre diameter (~1 mm).
+    where: [ "visuals.yaml:neuron", "index.mdx#saltatory", "src/sims/models/c2-2-conduction.ts" ]
+    confidence: high
+    basis: Kandel; Alberts. Internode ≈ 100 × diameter is a standard approximation
+    status: checked
+  - id: f5
+    claim: Resting potential of a neuron is about −70 mV, inside negative; threshold about −50 mV; peak about +30 to +40 mV; undershoot about −80 mV. Matches B2.1.
+    where: [ "index.mdx", "visuals.yaml:action-potential", "src/sims/models/c2-2-action-potential.ts", "src/diagrams/c2-2-trace.astro" ]
+    confidence: high
+    basis: Typical textbook values (Campbell; IB study guide); exact values vary between neurons
+    status: checked
+  - id: f6
+    claim: The Na⁺/K⁺ pump moves 3 Na⁺ out and 2 K⁺ in per ATP; the resting membrane is much more permeable to K⁺ than Na⁺ so K⁺ leakage is the largest contributor to the negative resting potential; the pump's direct electrogenic contribution is small; fixed anions (proteins) inside also contribute.
+    where: [ "index.mdx#resting-potential", "quiz.yaml:q2", "flashcards.yaml:c3", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: Kandel (Goldman equation; pump contributes a few mV); IB guide C2.2.2 asks for reasons the potential is negative
+    status: checked
+  - id: f7
+    claim: During an action potential Na⁺ enters and K⁺ leaves by facilitated diffusion through voltage-gated channels; only a tiny fraction of the ions cross in one impulse; pumps restore gradients.
+    where: [ "index.mdx#action-potentials", "visuals.yaml:action-potential" ]
+    confidence: high
+    basis: Standard (Hodgkin & Huxley; Kandel)
+    status: checked
+  - id: f8
+    claim: Squid giant axon is unmyelinated, about 0.5 mm in diameter (up to ~1 mm), conducts at about 25 m s⁻¹, and mediates the jet-propulsion escape response.
+    where: [ "index.mdx#speed", "visuals.yaml:conduction", "src/sims/models/c2-2-conduction.ts", "flashcards.yaml:c6" ]
+    confidence: high
+    basis: Hodgkin & Huxley 1952 (≈ 21 m s⁻¹ at 18.5 °C for ~0.5 mm axons); standard texts give ~25 m s⁻¹
+    status: checked
+  - id: f9
+    claim: Thin unmyelinated fibres (~1 µm, e.g. C fibres) conduct at about 0.5–2 m s⁻¹; large myelinated mammalian fibres (15–20 µm) at about 80–120 m s⁻¹; myelinated speed ≈ 6 m s⁻¹ per µm (Hursh factor); unmyelinated speed ∝ √diameter.
+    where: [ "index.mdx#speed", "index.mdx#saltatory", "src/sims/models/c2-2-conduction.ts", "visuals.yaml:conduction" ]
+    confidence: high
+    basis: Hursh 1939; Rushton 1951; Kandel table of fibre classes
+    status: checked
+  - id: f10
+    claim: The correlation figure uses illustrative (invented) data around 6 m s⁻¹ per µm, giving r ≈ 0.98 and R² ≈ 0.97; this is labelled as illustrative on the page.
+    where: [ "src/diagrams/c2-2-correlation.astro", "index.mdx#speed" ]
+    confidence: high
+    basis: Computed in src/sims/models/c2-2-correlation.ts (unit-tested r function)
+    status: checked
+  - id: f11
+    claim: r ranges from −1 to +1 (sign = direction, magnitude = strength of linear correlation); R² = r² is the proportion of variation in the dependent variable explained by the independent variable; correlation does not establish causation.
+    where: [ "index.mdx#speed", "quiz.yaml:q3", "flashcards.yaml:c7" ]
+    confidence: high
+    basis: Standard statistics; IB guide C2.2.4 application of skills
+    status: checked
+  - id: f12
+    claim: Chemical synapses transmit in one direction because only the presynaptic side has vesicles and only the postsynaptic membrane has receptors; the cleft is about 20 nm wide at most synapses (wider, ~50 nm, at neuromuscular junctions).
+    where: [ "index.mdx#synapses", "visuals.yaml:neuron (cleft, ach labels)", "flashcards.yaml:c8" ]
+    confidence: high
+    basis: Kandel; IB guide C2.2.5
+    status: checked
+  - id: f13
+    claim: Depolarisation of the presynaptic membrane opens voltage-gated Ca²⁺ channels; Ca²⁺ (higher outside) diffuses in and triggers vesicle fusion and exocytosis; Ca²⁺ is then pumped out.
+    where: [ "index.mdx#synapses", "visuals.yaml:neuron (synapse steps)", "quiz.yaml:q4", "flashcards.yaml:c9" ]
+    confidence: high
+    basis: Katz & Miledi; Kandel; IB guide C2.2.6
+    status: checked
+  - id: f14
+    claim: Acetylcholine is the transmitter at all vertebrate skeletal neuromuscular junctions and at many brain and autonomic synapses; the nicotinic receptor is a pentameric ligand-gated cation channel that opens when two ACh bind, letting mainly Na⁺ in; one impulse at the NMJ normally triggers a muscle action potential.
+    where: [ "index.mdx#epsp", "visuals.yaml:neuron (receptor label)", "quiz.yaml:q5", "flashcards.yaml:c10" ]
+    confidence: high
+    basis: Kandel; Alberts; consistent with B2.1 gated-channels content
+    status: checked
+  - id: f15
+    claim: Acetylcholinesterase in the cleft hydrolyses ACh into choline and acetate (ethanoate); choline is taken back into the presynaptic knob by a choline transporter and reused to make ACh.
+    where: [ "index.mdx#epsp", "visuals.yaml:neuron (breakdown step, ache/transporter/choline labels)" ]
+    confidence: high
+    basis: Standard (Kandel; Alberts)
+    status: checked
+  - id: f16
+    claim: Threshold triggers positive feedback (Na⁺ entry opens more Na⁺ channels), making action potentials all or nothing; Na⁺ channels inactivate at the peak; K⁺ channels open more slowly and close slowly, causing hyperpolarisation; the refractory period prevents backward propagation.
+    where: [ "index.mdx#depol-repol", "index.mdx#local-currents", "visuals.yaml:action-potential", "quiz.yaml:q7", "flashcards.yaml:c11" ]
+    confidence: high
+    basis: Hodgkin–Huxley model; Kandel
+    status: checked
+  - id: f17
+    claim: Local currents — Na⁺ diffuses along the inside from the depolarised region to the adjacent resting region, and along the outside towards the depolarised region, bringing the adjacent region to threshold.
+    where: [ "index.mdx#local-currents", "visuals.yaml:action-potential (local-currents step)", "flashcards.yaml:c12" ]
+    confidence: high
+    basis: IB guide C2.2.9 wording (diffusion of Na⁺ inside and outside); cable theory
+    status: checked
+  - id: f18
+    claim: Stimulus strength is coded by impulse frequency, not amplitude; frequency = number of impulses ÷ time in seconds (5 in 50 ms = 100 s⁻¹; one every 25 ms = 40 s⁻¹).
+    where: [ "index.mdx#oscilloscope", "src/diagrams/c2-2-trace.astro", "quiz.yaml:q6", "flashcards.yaml:c13" ]
+    confidence: high
+    basis: Standard; arithmetic checked in unit tests
+    status: checked
+  - id: f19
+    claim: In myelinated fibres voltage-gated channels and Na⁺/K⁺ pumps are concentrated at nodes of Ranvier; action potentials occur only at nodes (saltatory conduction), which is faster and uses less ATP; demyelination (e.g. multiple sclerosis, CNS) slows or blocks conduction.
+    where: [ "index.mdx#saltatory", "quiz.yaml:q8", "flashcards.yaml:c14" ]
+    confidence: high
+    basis: Kandel; IB guide C2.2.11
+    status: checked
+  - id: f20
+    claim: Neonicotinoids (e.g. imidacloprid) are nicotine-like insecticides that bind nicotinic ACh receptors, much more strongly in insects than mammals; acetylcholinesterase does not break them down, so binding is effectively irreversible, causing overstimulation then blocked transmission, paralysis and death.
+    where: [ "index.mdx#exogenous", "src/diagrams/c2-2-drugs.astro", "flashcards.yaml:c15", "index.mdx (mistakes)" ]
+    confidence: medium
+    basis: Tomizawa & Casida 2005 (selective toxicity); "irreversible" follows IB teaching texts — pharmacologically they are agonists with very slow dissociation
+    status: open
+  - id: f21
+    claim: The EU banned outdoor use of imidacloprid, clothianidin and thiamethoxam in 2018 because of risks to bees.
+    where: [ "index.mdx#exogenous" ]
+    confidence: high
+    basis: European Commission implementing regulations 2018/783, 2018/784, 2018/785
+    status: open
+  - id: f22
+    claim: Cocaine binds to and blocks the dopamine reuptake transporter (also serotonin and noradrenaline transporters), so dopamine accumulates in the cleft and prolongs stimulation in reward pathways; long-term use reduces dopamine receptor numbers, contributing to addiction.
+    where: [ "index.mdx#exogenous", "src/diagrams/c2-2-drugs.astro", "quiz.yaml:q9", "flashcards.yaml:c15" ]
+    confidence: high
+    basis: Kandel; Volkow et al. (reduced D2 receptor availability in cocaine users)
+    status: checked
+  - id: f23
+    claim: GABA is the main inhibitory transmitter in the brain; GABA-A receptors are Cl⁻ channels; Cl⁻ entry hyperpolarises the membrane (IPSP) in mature neurons.
+    where: [ "index.mdx#summation", "visuals.yaml:summation", "flashcards.yaml:c16", "quiz.yaml:q10" ]
+    confidence: high
+    basis: Kandel; IB guide C2.2.13 (postsynaptic membrane hyperpolarised)
+    status: checked
+  - id: f24
+    claim: Spatial summation (several neurons at once) and temporal summation (repeated impulses from one neuron) combine EPSPs and IPSPs at the axon hillock; firing is all or nothing. The sim scales single PSPs up (+9/−5 mV) for clarity; real single EPSPs are often < 1 mV.
+    where: [ "index.mdx#summation", "src/sims/models/c2-2-summation.ts", "visuals.yaml:summation", "flashcards.yaml:c17" ]
+    confidence: high
+    basis: Kandel; model note on page states qualitative scaling
+    status: checked
+  - id: f25
+    claim: Free nerve endings in the epidermis detect pain; TRPV1 is a non-selective cation channel (Na⁺, Ca²⁺) opened by heat above about 43 °C, low pH and capsaicin; impulses travel to the spinal cord and brain, where pain is perceived.
+    where: [ "index.mdx#pain-consciousness", "src/diagrams/c2-2-pain.astro", "flashcards.yaml:c18" ]
+    confidence: high
+    basis: Caterina et al. 1997 (TRPV1 cloning; heat threshold ~43 °C); IB guide C2.2.15
+    status: checked
+  - id: f26
+    claim: Consciousness is an emergent property arising from interactions of many neurons; no single neuron is conscious.
+    where: [ "index.mdx#pain-consciousness", "flashcards.yaml:c18" ]
+    confidence: high
+    basis: IB guide C2.2.16 framing
+    status: checked
+  - id: f27
+    claim: The synapse 3D model shows two ACh binding per nicotinic receptor and five subunits per receptor; Ca²⁺ shown green, Na⁺ purple (consistent with B2.1 palette).
+    where: [ "src/scenes/c2-2-synapse.ts", "visuals.yaml:neuron" ]
+    confidence: high
+    basis: Nicotinic receptor structure (α2βγδ / α2βεδ at NMJ, two ACh sites)
+    status: checked
