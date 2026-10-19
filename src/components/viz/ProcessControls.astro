@@ -1,0 +1,40 @@
+---
+import Icon from '../Icon.astro';
+/** Play / pause / step / speed controls. Wired up at runtime by src/lib/process-ui.ts. */
+---
+<div class="process" data-process hidden>
+  <div class="process-buttons" role="group" aria-label="Animation controls">
+    <button class="btn btn-icon" type="button" data-p-prev><Icon name="prev" /><span class="visually-hidden">Previous step</span></button>
+    <button class="btn btn-primary btn-play" type="button" data-p-play><span data-p-play-icon><Icon name="play" /></span><span data-p-play-label>Play</span></button>
+    <button class="btn btn-icon" type="button" data-p-next><Icon name="next" /><span class="visually-hidden">Next step</span></button>
+    <label class="speed">Speed
+      <select data-p-speed>
+        <option value="0.25">0.25×</option>
+        <option value="0.5">0.5×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.5">1.5×</option>
+        <option value="2">2×</option>
+      </select>
+    </label>
+  </div>
+  <ol class="process-steps" data-p-steps aria-label="Steps"></ol>
+  <div class="caption" data-p-caption aria-live="polite"></div>
+  <p class="reduced-note" data-p-reduced hidden>Reduced motion is on: use the arrows to step through. Change this in Display settings.</p>
+</div>
+<style>
+  .process { margin-top: var(--space-3); }
+  .process-buttons { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .btn-play { min-width: 6.2rem; justify-content: center; }
+  .speed { display: inline-flex; gap: var(--space-2); align-items: center; font-size: var(--step--1); font-weight: 600; margin-left: auto; }
+  .process-steps { display: flex; flex-wrap: wrap; gap: var(--space-1); list-style: none; padding: 0; margin: var(--space-3) 0 0; }
+  .process-steps :global(li) { margin: 0; }
+  .process-steps :global(button) {
+    font: inherit; font-size: 0.78rem; font-weight: 650; padding: 0.2rem 0.55rem; border-radius: 999px; cursor: pointer;
+    border: 1px solid var(--border-strong); background: var(--surface); color: var(--text-muted); min-height: 1.9rem;
+  }
+  .process-steps :global(button[aria-current='step']) { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .caption { margin-top: var(--space-3); padding: var(--space-3) var(--space-4); border-radius: var(--radius-m); background: var(--surface-2); min-height: 4.5rem; }
+  .caption :global(.cap-title) { display: block; font-weight: 750; margin-bottom: 0.15rem; }
+  .caption :global(p) { margin: 0; }
+  .reduced-note { font-size: var(--step--1); color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

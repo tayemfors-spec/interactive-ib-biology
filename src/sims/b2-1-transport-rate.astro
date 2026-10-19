@@ -1,0 +1,150 @@
+---
+import { linePath, range, sx, sy, type Frame } from './chart';
+import { activeRate, facilitatedRate, simpleRate } from './models/transport';
+
+const frame: Frame = {
+  w: 640, h: 380, left: 58, right: 18, top: 16, bottom: 52,
+  x: { min: -5, max: 10, ticks: range(-4, 10, 2), label: 'Concentration difference (outside − inside)' },
+  y: { min: -5, max: 10, ticks: range(-4, 10, 2), label: 'Rate into cell' },
+};
+const defaults = { channels: 5, pumps: 4, oxygen: 100 };
+const atp = (o2: number) => 0.15 + 0.85 * (o2 / 100);
+const paths = {
+  simple: linePath(frame, simpleRate),
+  facilitated: linePath(frame, (x) => facilitatedRate(x, defaults.channels)),
+  active: linePath(frame, (x) => activeRate(x, defaults.pumps, atp(defaults.oxygen))),
+};
+const table = range(-4, 10, 2).map((x) => ({
+  x,
+  s: simpleRate(x),
+  f: facilitatedRate(x, defaults.channels),
+  a: activeRate(x, defaults.pumps, atp(defaults.oxygen)),
+}));
+---
+<div class="sim-rate" data-sim-rate data-frame={JSON.stringify(frame)}>
+  <div class="layout">
+    <svg class="chart" viewBox={`0 0 ${frame.w} ${frame.h}`} role="img" aria-labelledby="tr-t" data-chart>
+      <title id="tr-t">Rate of movement into the cell against concentration difference</title>
+      <g class="grid">
+        {frame.x.ticks.map((t) => <line x1={sx(frame, t)} x2={sx(frame, t)} y1={frame.top} y2={frame.h - frame.bottom} />)}
+        {frame.y.ticks.map((t) => <line x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, t)} y2={sy(frame, t)} />)}
+      </g>
+      <line class="zero" x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, 0)} y2={sy(frame, 0)} />
+      <line class="zero" x1={sx(frame, 0)} x2={sx(frame, 0)} y1={frame.top} y2={frame.h - frame.bottom} />
+      <g class="ticks">
+        {frame.x.ticks.map((t) => <text x={sx(frame, t)} y={frame.h - frame.bottom + 18} text-anchor="middle">{t}</text>)}
+        {frame.y.ticks.map((t) => <text x={frame.left - 8} y={sy(frame, t)} dy="0.35em" text-anchor="end">{t}</text>)}
+      </g>
+      <text class="axis" x={(frame.left + frame.w - frame.right) / 2} y={frame.h - 10} text-anchor="middle">{frame.x.label} →</text>
+      <text class="axis" transform={`translate(16 ${(frame.top + frame.h - frame.bottom) / 2}) rotate(-90)`} text-anchor="middle">{frame.y.label} →</text>
+      <text class="note" x={sx(frame, -4.8)} y={sy(frame, -4.3)}>net movement out</text>
+      <path class="line simple" d={paths.simple} data-line="simple" />
+      <path class="line facilitated" d={paths.facilitated} data-line="facilitated" />
+      <path class="line active" d={paths.active} data-line="active" />
+      <line class="marker" data-marker x1={sx(frame, 4)} x2={sx(frame, 4)} y1={frame.top} y2={frame.h - frame.bottom} />
+    </svg>
+    <div class="controls">
+      <fieldset class="legend">
+        <legend>Show</legend>
+        <label><input type="checkbox" data-show="simple" checked /> <span class="key simple"></span> Simple diffusion</label>
+        <label><input type="checkbox" data-show="facilitated" checked /> <span class="key facilitated"></span> Facilitated diffusion</label>
+        <label><input type="checkbox" data-show="active" checked /> <span class="key active"></span> Active transport</label>
+      </fieldset>
+      <label class="slider">Channel / carrier proteins: <output data-out="channels">{defaults.channels}</output>
+        <input type="range" min="0" max="10" step="1" value={defaults.channels} data-param="channels" />
+      </label>
+      <label class="slider">Pump proteins: <output data-out="pumps">{defaults.pumps}</output>
+        <input type="range" min="0" max="10" step="1" value={defaults.pumps} data-param="pumps" />
+      </label>
+      <label class="slider">Oxygen for respiration (ATP supply): <output data-out="oxygen">{defaults.oxygen}%</output>
+        <input type="range" min="0" max="100" step="5" value={defaults.oxygen} data-param="oxygen" />
+      </label>
+      <label class="slider">Read the graph at a concentration difference of: <output data-out="at">4</output>
+        <input type="range" min="-5" max="10" step="0.5" value="4" data-param="at" />
+      </label>
+    </div>
+  </div>
+  <p class="readout" aria-live="polite" data-readout>
+    At a difference of 4: simple diffusion {simpleRate(4).toFixed(1)}, facilitated diffusion {facilitatedRate(4, 5).toFixed(1)}, active transport {activeRate(4, 4, 1).toFixed(1)} (arbitrary units).
+  </p>
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <thead><tr><th scope="col">Difference</th><th scope="col">Simple</th><th scope="col">Facilitated</th><th scope="col">Active</th></tr></thead>
+      <tbody data-tbody>{table.map((r) => <tr><th scope="row">{r.x}</th><td>{r.s.toFixed(1)}</td><td>{r.f.toFixed(1)}</td><td>{r.a.toFixed(1)}</td></tr>)}</tbody>
+    </table>
+  </details>
+  <p class="model-note">Qualitative model with arbitrary units: it shows the shapes of the relationships, not real measurements. The flat active-transport line shows only that pumps do not depend on the direction of the gradient; real pumps also level off (saturate) as substrate concentration rises.</p>
+</div>
+
+<script>
+  import { linePath, range, sx, type Frame } from './chart';
+  import { activeRate, facilitatedRate, simpleRate } from './models/transport';
+
+  document.querySelectorAll<HTMLElement>('[data-sim-rate]').forEach((root) => {
+    const frame = JSON.parse(root.dataset.frame!) as Frame;
+    const get = (k: string) => Number(root.querySelector<HTMLInputElement>(`[data-param="${k}"]`)!.value);
+    const out = (k: string, v: string) => (root.querySelector(`[data-out="${k}"]`)!.textContent = v);
+    const atp = (o2: number) => 0.15 + 0.85 * (o2 / 100);
+    const line = (k: string) => root.querySelector<SVGPathElement>(`[data-line="${k}"]`)!;
+    const marker = root.querySelector<SVGLineElement>('[data-marker]')!;
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    const tbody = root.querySelector<HTMLElement>('[data-tbody]')!;
+    let timer = 0;
+
+    const update = () => {
+      const c = get('channels'), p = get('pumps'), o = get('oxygen'), at = get('at');
+      out('channels', String(c)); out('pumps', String(p)); out('oxygen', `${o}%`); out('at', String(at));
+      line('facilitated').setAttribute('d', linePath(frame, (x) => facilitatedRate(x, c)));
+      line('active').setAttribute('d', linePath(frame, (x) => activeRate(x, p, atp(o))));
+      const mx = sx(frame, at).toFixed(1);
+      marker.setAttribute('x1', mx); marker.setAttribute('x2', mx);
+      tbody.innerHTML = range(-4, 10, 2)
+        .map((x) => `<tr><th scope="row">${x}</th><td>${simpleRate(x).toFixed(1)}</td><td>${facilitatedRate(x, c).toFixed(1)}</td><td>${activeRate(x, p, atp(o)).toFixed(1)}</td></tr>`)
+        .join('');
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        const s = simpleRate(at), f = facilitatedRate(at, c), a = activeRate(at, p, atp(o));
+        const dir = (r: number) => (r < -0.05 ? ' (net movement out)' : '');
+        readout.textContent = `At a difference of ${at}: simple diffusion ${s.toFixed(1)}${dir(s)}, facilitated diffusion ${f.toFixed(1)}${dir(f)}, active transport ${a.toFixed(1)} (arbitrary units).` +
+          (o < 20 ? ' With little oxygen, aerobic respiration makes little ATP, so active transport slows almost to a stop while diffusion is unaffected.' : '') +
+          (c === 0 ? ' With no channel or carrier proteins, facilitated diffusion cannot happen.' : '');
+      }, 350);
+    };
+    root.querySelectorAll('[data-param]').forEach((el) => el.addEventListener('input', update));
+    root.querySelectorAll<HTMLInputElement>('[data-show]').forEach((cb) => cb.addEventListener('change', () => (line(cb.dataset.show!).style.display = cb.checked ? '' : 'none')));
+  });
+</script>
+
+<style>
+  .sim-rate { container-type: inline-size; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 46rem) { .layout { grid-template-columns: minmax(0, 1.6fr) minmax(15rem, 1fr); align-items: start; } }
+  .chart { width: 100%; height: auto; font-family: var(--font-sans); }
+  .grid line { stroke: var(--border); stroke-width: 1; }
+  .zero { stroke: var(--text-muted); stroke-width: 1.4; }
+  .ticks text { font-size: 15px; fill: var(--text-muted); }
+  .axis { font-size: 16px; font-weight: 650; fill: var(--text); }
+  .note { font-size: 14px; fill: var(--text-muted); font-style: italic; }
+  .line { fill: none; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+  .simple { stroke: var(--bio-water); }
+  .facilitated { stroke: var(--bio-protein-2); stroke-dasharray: 12 7; }
+  .active { stroke: var(--bio-head); stroke-dasharray: 2 7; }
+  .marker { stroke: var(--text); stroke-width: 1.2; stroke-dasharray: 3 3; }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .legend { border: 0; padding: 0; margin: 0; display: grid; gap: var(--space-1); }
+  .legend legend { font-weight: 700; color: var(--text-muted); margin-bottom: var(--space-1); }
+  .legend label { display: flex; align-items: center; gap: var(--space-2); }
+  .key { display: inline-block; width: 2rem; height: 0; border-top: 3.5px solid; }
+  .key.simple { border-color: var(--bio-water); }
+  .key.facilitated { border-color: var(--bio-protein-2); border-top-style: dashed; }
+  .key.active { border-color: var(--bio-head); border-top-style: dotted; }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  th, td { padding: 0.2rem 0.7rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

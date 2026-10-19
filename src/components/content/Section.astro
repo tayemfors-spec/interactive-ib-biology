@@ -1,0 +1,33 @@
+---
+/**
+ * One block of a topic page, tied to the syllabus understandings it covers.
+ * AHL sections get a distinct frame and are hidden when the reader picks "SL only".
+ * The id/title/level/covers attributes are also read at build time by src/lib/integrity.ts,
+ * so write them as plain string attributes.
+ */
+interface Props { id: string; title: string; level?: 'SL' | 'AHL'; covers: string }
+const { id, title, level = 'SL', covers } = Astro.props;
+const codes = covers.split(/[\s,]+/).filter(Boolean);
+---
+<section class:list={['section', { ahl: level === 'AHL' }]} aria-labelledby={id} data-level-block={level}>
+  <div class="section-head">
+    <h2 id={id}>{title}</h2>
+    <p class="meta">
+      {level === 'AHL' ? <span class="badge badge-ahl">AHL</span> : <span class="badge badge-sl">SL &amp; HL</span>}
+      <span class="codes"><span class="visually-hidden">Syllabus understandings: </span>{codes.join(' · ')}</span>
+    </p>
+  </div>
+  <slot />
+</section>
+<style>
+  .section { margin-top: var(--space-7); }
+  .section-head h2 { margin: 0 0 var(--space-1); scroll-margin-top: calc(var(--header-h) + 1rem); }
+  .meta { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; margin: 0 0 var(--space-4); }
+  .codes { font-size: 0.8rem; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+  .ahl {
+    position: relative; padding: var(--space-4) var(--space-4) var(--space-2);
+    border: 1px solid color-mix(in srgb, var(--ahl) 35%, var(--border)); border-left: 5px solid var(--ahl);
+    border-radius: var(--radius-m); background: color-mix(in srgb, var(--ahl-soft) 45%, var(--surface));
+  }
+  @media (min-width: 40rem) { .ahl { padding: var(--space-5) var(--space-5) var(--space-3); } }
+</style>

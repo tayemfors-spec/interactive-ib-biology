@@ -1,0 +1,233 @@
+# Visuals for B2.1. Label/step text here is what readers see in the 3D viewer and the text descriptions,
+# so it is written to exam standard. Label ids must match anchors in the scene modules (src/scenes).
+visuals:
+  - id: membrane
+    kind: viewer3d
+    title: The fluid mosaic model in 3D
+    alt: A patch of cell membrane showing the phospholipid bilayer with proteins, cholesterol and carbohydrate chains.
+    description: >-
+      A rectangular patch of plasma membrane seen at an angle, with the outside of the cell at the top.
+      It is a bilayer of phospholipids: two layers of molecules whose hydrophilic phosphate heads face the
+      watery fluid on each side and whose hydrophobic fatty acid tails meet in the middle, forming a
+      hydrophobic core. Some tails are bent where there is a cis double bond (unsaturated fatty acids).
+      Cholesterol molecules sit between the tails with their small hydroxyl group level with the heads.
+      Proteins are scattered through the bilayer like tiles in a mosaic: integral proteins span it, a
+      channel protein has a central pore, an aquaporin is built from four subunits, a pump protein has a
+      large part projecting into the cytoplasm, and a peripheral protein rests on the inner surface.
+      Carbohydrate chains are attached to a glycoprotein and a glycolipid, and they project from the
+      outer (extracellular) surface only. A second model shows four ways substances cross the membrane.
+    scenes:
+      - id: structure
+        module: b2-1-membrane
+        title: Membrane structure
+        labels:
+          - id: head
+            name: Phosphate head (hydrophilic)
+            text: The phosphate group is polar, so it is attracted to water. The heads form the two outer surfaces of the bilayer, facing the cytoplasm on one side and the extracellular fluid on the other.
+          - id: tails
+            name: Fatty acid tails (hydrophobic)
+            text: Two non-polar hydrocarbon chains per phospholipid. They are repelled by water, so in water they point inwards and form the hydrophobic core, which blocks ions and polar molecules.
+          - id: kink
+            name: Kinked (unsaturated) tail
+            level: AHL
+            text: A cis double bond bends the hydrocarbon chain. Bent tails cannot pack tightly, which lowers the melting point and keeps the membrane fluid at the temperatures the cell experiences.
+          - id: cholesterol
+            name: Cholesterol
+            text: A steroid lipid found in animal cell membranes. Most of it is hydrophobic and sits among the fatty acid tails; its small –OH group lies next to the phospholipid heads. (Its role in fluidity is AHL.)
+          - id: integral
+            name: Integral protein
+            text: Embedded in the bilayer. This one is transmembrane (it spans both layers). Its hydrophobic middle region is in contact with the fatty acid tails and its hydrophilic ends project into the water on each side.
+          - id: channel
+            name: Channel protein
+            text: An integral protein with a narrow pore lined with hydrophilic amino acids. When open it lets specific ions diffuse through, down their concentration gradient (facilitated diffusion). It does not use ATP.
+          - id: aquaporin
+            name: Aquaporin
+            text: A channel protein for water. Each of its four subunits has a pore so narrow that water molecules pass in single file, greatly increasing the membrane's permeability to water. Ions cannot get through.
+          - id: pump
+            name: Pump protein
+            text: An integral protein that uses energy from ATP to move specific particles across the membrane against their concentration gradient (active transport). The large part in the cytoplasm is where ATP binds.
+          - id: peripheral
+            name: Peripheral protein
+            text: Attached to one surface of the membrane (here the inner, cytoplasmic surface), often bound to an integral protein. It does not enter the hydrophobic core.
+          - id: glycoprotein
+            name: Glycoprotein
+            text: A membrane protein with a carbohydrate chain attached. Glycoproteins help cells recognise each other (for example, self versus non-self) and stick together to form tissues.
+          - id: carbohydrate
+            name: Carbohydrate chains
+            text: Short, often branched chains of sugar units attached to proteins and lipids. They are found only on the outer (extracellular) surface of the plasma membrane.
+          - id: glycolipid
+            name: Glycolipid
+            text: A lipid in the outer layer with a carbohydrate chain attached. Like glycoproteins, glycolipids are involved in cell recognition and cell adhesion.
+          - id: outside
+            name: Extracellular side
+            text: The outside of the cell. Carbohydrate chains of glycoproteins and glycolipids face this side.
+          - id: cytoplasm
+            name: Cytoplasmic side
+            text: The inside of the cell. Peripheral proteins and the ATP-binding parts of pumps are found on this face.
+      - id: transport
+        module: b2-1-transport
+        title: How substances cross
+        labels:
+          - id: bilayer
+            name: Phospholipid bilayer
+            text: Small non-polar molecules such as O₂ and CO₂ pass straight between the phospholipids by simple diffusion. No membrane protein is needed.
+          - id: aquaporin
+            name: Aquaporin
+            text: Water crosses in single file through aquaporins far faster than through the bilayer itself.
+          - id: channel
+            name: Channel protein
+            text: A K⁺ channel lets potassium ions diffuse out of the cell, down their concentration gradient. Its selectivity filter lets K⁺ through but not Na⁺, even though Na⁺ is smaller.
+          - id: pump
+            name: Na⁺/K⁺ pump
+            text: Uses one ATP per cycle to move 3 Na⁺ out of the cell and 2 K⁺ in, both against their concentration gradients.
+          - id: outside
+            name: Outside the cell
+            text: The extracellular fluid.
+          - id: cytoplasm
+            name: Cytoplasm
+            text: The inside of the cell.
+        steps:
+          - id: simple-diffusion
+            title: Simple diffusion
+            caption: Oxygen is more concentrated outside the cell. O₂ molecules are small and non-polar, so they slip between the phospholipids, and more move in than out (net movement down the concentration gradient). Carbon dioxide leaves a respiring cell the same way. No protein and no ATP are involved.
+          - id: osmosis
+            title: Osmosis through aquaporins
+            caption: The cytoplasm has a higher solute concentration (yellow solute particles) than the fluid outside, and the solutes cannot cross. Water molecules move randomly in both directions through the aquaporins, but more move into the cell than out — a net movement of water towards the higher solute concentration.
+          - id: facilitated-diffusion
+            title: Facilitated diffusion through a channel
+            caption: Potassium ions are charged, so they cannot cross the hydrophobic core. They are more concentrated inside the cell, and when the K⁺ channel is open they diffuse out through its pore. This is passive — no ATP — and the channel only lets K⁺ through, so it is selective.
+          - id: active-transport
+            title: Active transport by a pump
+            caption: Energy from ATP causes a conformational change (change in shape) in the pump. In one cycle it moves three Na⁺ out of the cell, where Na⁺ is already more concentrated, and two K⁺ in, where K⁺ is already more concentrated. Moving particles against their concentration gradient needs energy.
+
+  - id: transport-rate
+    kind: sim
+    module: b2-1-transport-rate
+    title: Rate of movement vs concentration difference
+    alt: Graph of rate of transport against concentration difference for simple diffusion, facilitated diffusion and active transport.
+    description: >-
+      A line graph with concentration difference across the membrane on the x-axis and rate of movement
+      into the cell on the y-axis. Simple diffusion is a straight line through the origin: the rate is
+      proportional to the concentration difference. Facilitated diffusion rises steeply at first and then
+      levels off because all the channel proteins are in use; adding channel proteins raises the plateau.
+      Active transport continues even when the concentration difference is zero or negative, and its rate is
+      set by the number of pump proteins and the supply of ATP; when respiration is stopped, active transport
+      stops. Sliders change the number of channel and pump proteins and the oxygen (ATP) supply.
+
+  - id: permeability
+    kind: sim
+    module: b2-1-permeability
+    title: Which molecules can cross the bilayer?
+    alt: Choose a particle to see whether it can cross the phospholipid bilayer and which route it takes.
+    description: >-
+      A tester in which you pick a particle — oxygen, carbon dioxide, a steroid hormone, water, glucose,
+      a sodium ion or a protein — and see whether it can pass straight through the phospholipid bilayer.
+      Small non-polar molecules cross easily by simple diffusion. Water crosses slowly through the bilayer and
+      much faster through aquaporins. Glucose and ions need membrane proteins. Proteins are too large and are
+      taken in or released by vesicles (endocytosis and exocytosis).
+
+  - id: fluidity
+    kind: sim
+    module: b2-1-fluidity
+    level: AHL
+    title: Membrane fluidity explorer
+    alt: Sliders for temperature, unsaturated fatty acids and cholesterol change how tightly phospholipids pack.
+    description: >-
+      A view of phospholipid tails from the side with a fluidity meter. Raising the temperature makes the tails
+      move more and the membrane more fluid. Increasing the proportion of unsaturated fatty acids adds kinks
+      that stop the tails packing tightly, so the membrane stays fluid at lower temperatures. Cholesterol acts as
+      a buffer: at high temperatures it restrains phospholipid movement, so the membrane is less fluid and less
+      leaky; at low temperatures it stops the tails packing into a stiff solid. The model is qualitative.
+
+  - id: gated-channels
+    kind: sim
+    module: b2-1-gated-channels
+    level: AHL
+    title: Gated ion channels in a neuron
+    alt: Buttons and a slider open and close a ligand-gated acetylcholine receptor and voltage-gated Na⁺ and K⁺ channels.
+    description: >-
+      Two kinds of gated channel in neuron membranes. On the left, a nicotinic acetylcholine receptor:
+      when acetylcholine binds, the protein changes shape and opens a pore that lets Na⁺ (and other cations)
+      in. On the right, a membrane potential slider from −80 to +50 mV: at the resting potential both voltage-gated
+      channels are closed; above about −50 mV (threshold) the Na⁺ channel opens and Na⁺ diffuses in; at around
+      +30 to +40 mV the Na⁺ channel inactivates and the slower K⁺ channel opens, letting K⁺ out.
+
+  - id: na-k-pump
+    kind: anim
+    module: b2-1-na-k-pump
+    level: AHL
+    title: The sodium–potassium pump cycle
+    alt: Step-by-step diagram of the Na⁺/K⁺ pump moving three sodium ions out and two potassium ions in using one ATP.
+    description: >-
+      A diagram of the sodium–potassium pump in a cell membrane, cytoplasm below and outside above, shown
+      in six steps. Counters record the sodium ions moved out, potassium ions moved in and ATP molecules used.
+    steps:
+      - id: na-bind
+        title: 3 Na⁺ bind
+        caption: The pump is open to the cytoplasm. Three sodium ions from inside the cell bind to their binding sites.
+      - id: phosphorylate
+        title: ATP phosphorylates the pump
+        caption: ATP is hydrolysed. A phosphate group attaches to the pump (phosphorylation) and ADP is released.
+      - id: open-out
+        title: Shape change releases Na⁺
+        caption: Phosphorylation changes the pump's shape so that it opens to the outside. Its affinity for Na⁺ falls and the three Na⁺ are released outside, where Na⁺ is already more concentrated.
+      - id: k-bind
+        title: 2 K⁺ bind
+        caption: Two potassium ions from the extracellular fluid bind to sites on the pump.
+      - id: dephosphorylate
+        title: Phosphate released
+        caption: K⁺ binding causes the phosphate group to be released. Without it, the pump returns to its original shape, open to the cytoplasm.
+      - id: k-release
+        title: K⁺ released inside
+        caption: The two K⁺ are released into the cytoplasm, where K⁺ is already more concentrated. The pump can bind Na⁺ again. Net result per cycle — 3 Na⁺ out, 2 K⁺ in, 1 ATP used — which also leaves the inside negative relative to the outside.
+
+  - id: sglt
+    kind: anim
+    module: b2-1-sglt
+    level: AHL
+    title: Sodium–glucose cotransport (indirect active transport)
+    alt: An intestinal epithelial cell absorbing glucose with sodium ions, powered by a sodium gradient made by Na⁺/K⁺ pumps.
+    description: >-
+      An epithelial cell lining the small intestine, with the lumen on the left and the blood on the right.
+      A Na⁺/K⁺ pump on the blood side keeps the Na⁺ concentration inside the cell low. A sodium–glucose
+      cotransporter on the lumen side lets Na⁺ diffuse in down its gradient and uses that energy to carry glucose
+      in against its gradient. Glucose then leaves the cell into the blood by facilitated diffusion through glucose
+      transporter proteins.
+    steps:
+      - id: gradient
+        title: Pumps keep cell Na⁺ low
+        caption: Na⁺/K⁺ pumps on the blood side of the cell use ATP to pump Na⁺ out. This keeps the Na⁺ concentration inside the cell low, so there is a steep Na⁺ gradient from the lumen into the cell.
+      - id: bind
+        title: Na⁺ and glucose bind
+        caption: On the lumen side, two Na⁺ and one glucose molecule bind to the cotransporter. (Glucose is already more concentrated inside the cell.)
+      - id: cotransport
+        title: Both move into the cell
+        caption: The cotransporter changes shape. Na⁺ diffuses in down its concentration gradient, and the energy released carries glucose in against its concentration gradient. No ATP is used by the cotransporter itself.
+      - id: exit
+        title: Glucose leaves into the blood
+        caption: Glucose leaves the cell on the blood side by facilitated diffusion through glucose transporter proteins (GLUT2), down its concentration gradient. A similar sodium-dependent cotransporter reabsorbs glucose from the filtrate in the proximal convoluted tubule of the nephron.
+
+  - id: vesicles
+    kind: anim
+    module: b2-1-vesicles
+    level: AHL
+    title: Endocytosis and exocytosis
+    alt: Animation of a vesicle forming from the plasma membrane by endocytosis and another fusing with it by exocytosis.
+    description: >-
+      Part of a cell surface shown in four steps. In endocytosis the plasma membrane folds inwards around
+      material from outside and pinches off to form a vesicle in the cytoplasm. In exocytosis a vesicle carrying
+      proteins from the Golgi apparatus moves to the plasma membrane, fuses with it and releases its contents
+      outside. Both depend on the fluidity of the membrane, which stays continuous throughout; membrane removed by endocytosis can be added back by exocytosis.
+    steps:
+      - id: invaginate
+        title: Membrane folds in
+        caption: Endocytosis — a region of plasma membrane sinks inwards around material outside the cell, such as a large particle or droplet of fluid.
+      - id: pinch
+        title: Vesicle pinches off
+        caption: The edges of the fold meet and fuse, so a vesicle containing the material separates from the plasma membrane into the cytoplasm. This is possible because the membrane is fluid.
+      - id: approach
+        title: A vesicle moves to the surface
+        caption: Exocytosis — a vesicle carrying proteins made on the rough ER and processed in the Golgi apparatus (for example digestive enzymes) moves to the plasma membrane.
+      - id: fuse
+        title: Fusion and release
+        caption: The vesicle membrane fuses with the plasma membrane and its contents are released outside the cell. The vesicle's membrane becomes part of the plasma membrane.

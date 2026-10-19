@@ -1,0 +1,29 @@
+---
+/** Endocytosis (left) and exocytosis (right), B2.1.13. Animated by b2-1-vesicles.ts. */
+import { R, Y0 } from './b2-1-vesicles';
+const cargo = [[-12, -8], [10, -12], [0, 10], [14, 8], [-14, 10]];
+const flat = `M0 ${Y0} L520 ${Y0}`;
+---
+<svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" class="ves">
+  <text class="side" x="10" y="22">Outside the cell</text>
+  <text class="side" x="10" y="292">Cytoplasm</text>
+  <text class="title" x="140" y="270" text-anchor="middle">Endocytosis</text>
+  <text class="title" x="390" y="40" text-anchor="middle" dy="0">Exocytosis</text>
+  <path data-mem class="mem-outer" d={flat} />
+  <path data-mem class="mem-inner" d={flat} />
+  <circle data-el="food" class="food" cx="140" cy="48" r="16" />
+  <g data-el="ves1" style="opacity:0"><circle class="ves-o" r={R} /><circle class="ves-i" r={R} /></g>
+  <g data-el="ves2" transform="translate(390 250)"><circle class="ves-o" r={R} /><circle class="ves-i" r={R} /></g>
+  {cargo.map(([bx, by]) => <circle data-cargo data-bx={bx} data-by={by} class="cargo" cx={390 + bx!} cy={250 + by!} r="5" style="opacity:0" />)}
+  <text class="lbl" x="452" y="264">vesicle from the Golgi</text>
+</svg>
+<style>
+  .ves { font-family: var(--font-sans); }
+  .side { font-size: 13px; font-weight: 700; fill: var(--text-muted); }
+  .title { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .mem-outer, .ves-o { fill: none; stroke: var(--bio-head); stroke-width: 14; stroke-linejoin: round; }
+  .mem-inner, .ves-i { fill: none; stroke: var(--bio-tail); stroke-width: 5; stroke-linejoin: round; }
+  .food { fill: var(--bio-carb); }
+  .cargo { fill: var(--bio-protein-2); }
+  .lbl { font-size: 12px; fill: var(--text-muted); text-anchor: middle; }
+</style>

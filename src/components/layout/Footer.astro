@@ -1,0 +1,25 @@
+---
+import { SITE_NAME, TRADEMARK_NOTICE } from '../../lib/site';
+import { withBase } from '../../lib/url';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="inner">
+    <nav aria-label="Footer">
+      <a href={withBase('/')}>Home</a>
+      <a href={withBase('progress')}>My progress</a>
+      <a href={withBase('about')}>About &amp; accuracy</a>
+      <a href={withBase('about') + '#report-an-error'}>Report an error</a>
+    </nav>
+    <p class="tm">{TRADEMARK_NOTICE}</p>
+    <p class="small">© {year} {SITE_NAME}. Written independently for revision; always check against your teacher and the official guide. 3D models are generated in code (no third-party models).</p>
+  </div>
+</footer>
+<style>
+  .site-footer { border-top: 1px solid var(--border); background: var(--surface); color: var(--text-muted); font-size: var(--step--1); }
+  .inner { max-width: 72rem; margin: 0 auto; padding: var(--space-6) var(--space-4); }
+  nav { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); margin-bottom: var(--space-4); }
+  nav a { font-weight: 600; }
+  .tm { margin-bottom: var(--space-2); }
+  .small { font-size: 0.82rem; margin: 0; }
+</style>

@@ -1,0 +1,97 @@
+---
+import Icon from '../Icon.astro';
+import { SITE_NAME } from '../../lib/site';
+import { withBase } from '../../lib/url';
+---
+<header class="site-header">
+  <button class="btn btn-icon menu-btn" type="button" aria-controls="syllabus-nav" aria-expanded="false" data-menu-toggle>
+    <Icon name="menu" /><span class="visually-hidden">Syllabus menu</span>
+  </button>
+  <a class="brand" href={withBase('/')}>
+    <svg class="logo" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+      <path d="M10 3c0 7 12 7 12 13S10 22 10 29M22 3c0 7-12 7-12 13s12 6 12 13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+      <path d="M12 8h8M11 13h10M11 19h10M12 24h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".55" />
+    </svg>
+    <span>{SITE_NAME}</span>
+  </a>
+  <div class="actions">
+    <button class="btn search-btn" type="button" data-search-open aria-keyshortcuts="/ Control+K Meta+K">
+      <Icon name="search" /><span class="search-label">Search</span><kbd class="kbd">/</kbd>
+    </button>
+    <button class="btn btn-icon" type="button" popovertarget="prefs-panel" aria-label="Display settings">
+      <Icon name="settings" />
+    </button>
+  </div>
+  <div id="prefs-panel" class="prefs" popover>
+    <h2 class="prefs-title">Display settings</h2>
+    <fieldset>
+      <legend>Content level</legend>
+      <label><input type="radio" name="pref-level" value="SL+AHL" /> SL + AHL (Higher Level)</label>
+      <label><input type="radio" name="pref-level" value="SL" /> SL only (hide AHL sections)</label>
+    </fieldset>
+    <fieldset>
+      <legend>Theme</legend>
+      <label><input type="radio" name="pref-theme" value="system" /> Match my device</label>
+      <label><input type="radio" name="pref-theme" value="light" /> Light</label>
+      <label><input type="radio" name="pref-theme" value="dark" /> Dark</label>
+    </fieldset>
+    <fieldset>
+      <legend>Motion</legend>
+      <label><input type="radio" name="pref-motion" value="system" /> Match my device</label>
+      <label><input type="radio" name="pref-motion" value="reduce" /> Reduce motion (step through animations)</label>
+      <label><input type="radio" name="pref-motion" value="full" /> Full motion</label>
+    </fieldset>
+    <p class="prefs-note" data-storage-note hidden>Your browser is blocking storage, so these settings and your quiz progress will reset when you leave.</p>
+  </div>
+</header>
+
+<script>
+  import { getPrefs, setPrefs, type Prefs } from '../../lib/prefs';
+  import { storageAvailable } from '../../lib/storage';
+
+  const prefs = getPrefs();
+  for (const key of ['level', 'theme', 'motion'] as const) {
+    document.querySelectorAll<HTMLInputElement>(`input[name="pref-${key}"]`).forEach((input) => {
+      input.checked = input.value === prefs[key];
+      input.addEventListener('change', () => setPrefs({ [key]: input.value } as Partial<Prefs>));
+    });
+  }
+  if (!storageAvailable()) document.querySelector<HTMLElement>('[data-storage-note]')!.hidden = false;
+</script>
+
+<style>
+  .site-header {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; gap: var(--space-3);
+    height: var(--header-h); padding: 0 var(--space-4);
+    background: color-mix(in srgb, var(--surface) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .brand { display: flex; align-items: center; gap: var(--space-2); color: var(--text); font-weight: 750; text-decoration: none; font-size: 1.02rem; white-space: nowrap; }
+  .brand:hover { color: var(--accent-strong); }
+  .logo { width: 1.7rem; height: 1.7rem; color: var(--accent); flex: none; }
+  .actions { margin-left: auto; display: flex; gap: var(--space-2); }
+  .kbd { font: 600 0.75rem var(--font-mono); border: 1px solid var(--border-strong); border-radius: 4px; padding: 0 0.35em; color: var(--text-muted); }
+  @media (max-width: 40rem) {
+    .kbd { display: none; }
+    /* keep the text for screen readers; only hide it visually */
+    .search-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .search-btn { width: 2.5rem; padding: 0; justify-content: center; }
+    .brand span { font-size: 0.95rem; }
+  }
+  @media (max-width: 22rem) { .brand span { display: none; } }
+  @media (min-width: 64rem) { .menu-btn { display: none; } }
+
+  .prefs {
+    position: fixed; inset: auto var(--space-3) auto auto; top: calc(var(--header-h) + 0.25rem); margin: 0;
+    width: min(22rem, calc(100vw - 1.5rem)); padding: var(--space-4);
+    color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-m); box-shadow: var(--shadow);
+  }
+  .prefs-title { font-size: var(--step-0); margin: 0 0 var(--space-3); }
+  fieldset { border: 0; margin: 0 0 var(--space-3); padding: 0; }
+  legend { font-weight: 700; font-size: var(--step--1); color: var(--text-muted); margin-bottom: var(--space-1); }
+  label { display: flex; gap: var(--space-2); align-items: center; padding: 0.2rem 0; font-size: var(--step--1); cursor: pointer; }
+  input[type='radio'] { accent-color: var(--accent); width: 1.05rem; height: 1.05rem; }
+  .prefs-note { font-size: var(--step--1); color: var(--warn); margin: 0; }
+</style>

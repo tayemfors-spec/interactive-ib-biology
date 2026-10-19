@@ -1,0 +1,52 @@
+---
+import { getCollection, render } from 'astro:content';
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Section from '../../components/content/Section.astro';
+import Callout from '../../components/content/Callout.astro';
+import TopicLink from '../../components/content/TopicLink.astro';
+import Viewer3D from '../../components/viz/Viewer3D.astro';
+import Anim from '../../components/viz/Anim.astro';
+import Sim from '../../components/viz/Sim.astro';
+import Figure from '../../components/viz/Figure.astro';
+import { checkTopic } from '../../lib/integrity';
+import { idOf, topics as syllabusTopics } from '../../lib/syllabus';
+
+export async function getStaticPaths() {
+  const [topics, quizzes, cards, visuals, facts] = await Promise.all([
+    getCollection('topics'),
+    getCollection('quizzes'),
+    getCollection('flashcards'),
+    getCollection('visuals'),
+    getCollection('facts'),
+  ]);
+  const find = <T extends { id: string }>(list: T[], id: string) => list.find((x) => x.id === id);
+  const problems: string[] = [];
+  const paths = topics.map((topic) => {
+    const syllabus = syllabusTopics.find((t) => idOf(t.code) === topic.id);
+    if (!syllabus) {
+      problems.push(`src/content/topics/${topic.id}: folder has no matching topic in syllabus.json`);
+      return null;
+    }
+    const bundle = {
+      topic,
+      syllabus,
+      quiz: find(quizzes, topic.id),
+      cards: find(cards, topic.id),
+      visuals: find(visuals, topic.id),
+      facts: find(facts, topic.id),
+    };
+    problems.push(...checkTopic(bundle));
+    return { params: { slug: syllabus.slug }, props: bundle };
+  });
+  if (problems.length) {
+    throw new Error(`Content integrity check failed:\n  - ${problems.join('\n  - ')}`);
+  }
+  return paths.filter((p) => p !== null);
+}
+
+const { topic, syllabus, quiz, cards } = Astro.props;
+const { Content } = await render(topic);
+---
+<TopicLayout topic={topic} syllabus={syllabus} quiz={quiz!.data} cards={cards!.data}>
+  <Content components={{ Section, Callout, TopicLink, Viewer3D, Anim, Sim, Figure }} />
+</TopicLayout>

@@ -1,0 +1,355 @@
+facts:
+  - id: f1
+    claim: Phospholipids are amphipathic and form continuous bilayers spontaneously
+      in water, with heads facing the water and tails forming a hydrophobic
+      core.
+    where: [ "index.mdx#bilayer", "flashcards.yaml:c1", "visuals.yaml:membrane" ]
+    confidence: high
+    basis: Standard cell biology (Alberts, Molecular Biology of the Cell); IB guide
+      B2.1.1
+    status: checked
+  - id: f2
+    claim: The hydrophobic core has low permeability to ions, polar molecules and
+      large molecules; small non-polar molecules (O₂, CO₂) and steroid hormones
+      cross readily.
+    where:
+      [
+        "index.mdx#bilayer",
+        "quiz.yaml:q1",
+        "flashcards.yaml:c2",
+        "visuals.yaml:permeability"
+      ]
+    confidence: high
+    basis: Standard membrane permeability series (Alberts); IB guide B2.1.2
+    status: checked
+  - id: f3
+    claim: Water crosses a pure phospholipid bilayer, but slowly, and aquaporins
+      increase the rate greatly.
+    where:
+      [
+        "index.mdx#diffusion-osmosis",
+        "index.mdx (mistakes)",
+        "quiz.yaml:q1",
+        "visuals.yaml:membrane/transport aquaporin",
+        "visuals.yaml:permeability"
+      ]
+    confidence: high
+    basis: Alberts; Agre's work on aquaporin permeability
+    status: checked
+  - id: f4
+    claim: Aquaporins are tetramers; each of the four subunits has its own pore
+      through which water passes in single file, and ions are excluded.
+    where:
+      [
+        "index.mdx#diffusion-osmosis",
+        "flashcards.yaml:c6",
+        "visuals.yaml:membrane structure aquaporin"
+      ]
+    confidence: high
+    basis: Structural biology of aquaporin-1 (Murata et al. 2000); Alberts
+    status: checked
+  - id: f5
+    claim: Collecting duct cells of the kidney and plant root cells have many
+      aquaporins.
+    where: [ "index.mdx#diffusion-osmosis" ]
+    confidence: high
+    basis: Standard physiology (AQP2 in collecting duct; plant PIPs/TIPs in roots)
+    status: checked
+  - id: f6
+    claim: The plasma membrane is about 7–10 nm thick including its proteins.
+    where: [ "index.mdx#fluid-mosaic" ]
+    confidence: medium
+    basis: Textbook values vary (often 7–8 nm for the bilayer, up to ~10 nm with
+      proteins); brief specified 7–10 nm
+    status: open
+  - id: f7
+    claim: Carbohydrate chains of glycoproteins and glycolipids are only on the
+      extracellular face of the plasma membrane; roles in cell recognition and
+      adhesion.
+    where:
+      [
+        "index.mdx#fluid-mosaic",
+        "quiz.yaml:q5",
+        "visuals.yaml:membrane carbohydrate/glycoprotein/glycolipid"
+      ]
+    confidence: high
+    basis: Alberts; IB guide B2.1.9
+    status: checked
+  - id: f8
+    claim: ABO blood group antigens on red blood cells are carbohydrate chains on
+      glycolipids and glycoproteins (an example of cell recognition).
+    where: [ "index.mdx#fluid-mosaic" ]
+    confidence: high
+    basis: Standard haematology/immunology textbooks
+    status: checked
+  - id: f9
+    claim: Osmosis explained via random movement of water in both directions, a
+      membrane impermeable to solutes, and a difference in solute concentration
+      giving net movement towards the higher solute concentration (mechanism
+      deferred to water potential, D2.3).
+    where:
+      [
+        "index.mdx#diffusion-osmosis",
+        "quiz.yaml:q2",
+        "flashcards.yaml:c5",
+        "visuals.yaml:membrane/transport osmosis step"
+      ]
+    confidence: high
+    basis: Matches the IB guidance for B2.1.5 (random movement, impermeability to
+      solutes, solute concentration difference). The earlier bound-water
+      explanation was removed as contested.
+    status: open
+  - id: f10
+    claim: O₂ diffuses into respiring cells and CO₂ diffuses out by simple diffusion
+      between phospholipids, because respiration keeps internal O₂ low and CO₂
+      high.
+    where:
+      [
+        "index.mdx#diffusion-osmosis",
+        "visuals.yaml:membrane/transport simple-diffusion step"
+      ]
+    confidence: high
+    basis: Standard; IB guide B2.1.3
+    status: checked
+  - id: f11
+    claim: Channel proteins allow passive facilitated diffusion of specific ions
+      down their gradient only when open; no ATP. K⁺ channels admit K⁺ but not
+      Na⁺.
+    where:
+      [
+        "index.mdx#facilitated-active",
+        "quiz.yaml:q3",
+        "flashcards.yaml:c7",
+        "visuals.yaml:membrane channel labels and facilitated-diffusion step"
+      ]
+    confidence: high
+    basis: Alberts; KcsA selectivity filter structure (Doyle et al. 1998); IB guide
+      B2.1.6
+    status: checked
+  - id: f12
+    claim: Pump proteins use ATP to move specific particles against their
+      concentration gradient in one direction; active transport stops when
+      respiration is inhibited.
+    where:
+      [
+        "index.mdx#facilitated-active",
+        "quiz.yaml:q4",
+        "flashcards.yaml:c8",
+        "visuals.yaml:transport-rate"
+      ]
+    confidence: high
+    basis: Standard; IB guide B2.1.7
+    status: checked
+  - id: f13
+    claim: Rate patterns — simple diffusion proportional to concentration
+      difference; facilitated diffusion plateaus when transport proteins are
+      saturated; active transport continues without a gradient and depends on
+      pump number and ATP supply.
+    where:
+      [
+        "index.mdx#facilitated-active",
+        "quiz.yaml:q3",
+        "visuals.yaml:transport-rate"
+      ]
+    confidence: high
+    basis: Standard textbook transport kinetics (idealized)
+    status: checked
+  - id: f14
+    claim: Root cells accumulate K⁺ well above soil concentration by active
+      transport, and uptake falls when oxygen is removed.
+    where: [ "quiz.yaml:q4" ]
+    confidence: high
+    basis: Classic plant physiology (ion uptake depends on aerobic respiration;
+      Hoagland/Epstein experiments)
+    status: checked
+  - id: f15
+    claim: Membrane enzymes occur in the inner mitochondrial membrane and in the
+      microvilli of intestinal epithelial cells (brush-border enzymes).
+    where: [ "index.mdx#proteins" ]
+    confidence: high
+    basis: Standard biochemistry/physiology
+    status: checked
+  - id: f16
+    claim: Saturated fatty acids have higher melting points than unsaturated ones;
+      cis double bonds kink chains and prevent tight packing. Stearic acid
+      (18:0) melts at about 69 °C and oleic acid (18:1 cis) at about 13 °C.
+    where:
+      [
+        "index.mdx#fluidity",
+        "flashcards.yaml:c10",
+        "visuals.yaml:membrane kink",
+        "visuals.yaml:fluidity"
+      ]
+    confidence: high
+    basis: CRC Handbook values (stearic 69.3 °C; oleic 13–14 °C); IB guide B2.1.11
+    status: checked
+  - id: f17
+    claim: Fish from polar seas have a higher proportion of unsaturated fatty acids
+      in membrane phospholipids than tropical fish; goldfish acclimatized to
+      cold increase membrane unsaturation (homeoviscous adaptation).
+    where: [ "index.mdx#fluidity", "quiz.yaml:q6", "flashcards.yaml:c11" ]
+    confidence: high
+    basis: Cossins & Prosser 1978 (PNAS) and later homeoviscous adaptation
+      literature; Hazel 1995 review
+    status: open
+  - id: f18
+    claim: Cholesterol sits among the fatty acid tails with its –OH next to the
+      phospholipid heads; it reduces fluidity at higher temperatures and
+      prevents stiffening at lower temperatures.
+    where:
+      [
+        "index.mdx#fluidity",
+        "quiz.yaml:q7",
+        "flashcards.yaml:c12",
+        "visuals.yaml:membrane cholesterol",
+        "visuals.yaml:fluidity"
+      ]
+    confidence: high
+    basis: Alberts; IB guide B2.1.12
+    status: checked
+  - id: f19
+    claim: Endocytosis and exocytosis depend on membrane fluidity and both require
+      energy (ATP).
+    where: [ "index.mdx#vesicles", "flashcards.yaml:c13", "visuals.yaml:vesicles" ]
+    confidence: high
+    basis: Standard cell biology; IB guide B2.1.13
+    status: checked
+  - id: f20
+    claim: Examples — phagocytosis of bacteria by macrophages and neutrophils
+      (vesicles then fuse with lysosomes); food uptake by Amoeba; placental
+      uptake of maternal antibodies; exocytosis of digestive enzymes by
+      pancreatic acinar cells, insulin by β cells, neurotransmitter at synapses.
+    where:
+      [
+        "index.mdx#vesicles",
+        "flashcards.yaml:c13",
+        "visuals.yaml:vesicles approach step"
+      ]
+    confidence: high
+    basis: Standard textbook examples (placental IgG transfer is receptor-mediated
+      transcytosis via FcRn)
+    status: checked
+  - id: f21
+    claim: Nicotinic acetylcholine receptor is a pentameric ligand-gated cation
+      channel; acetylcholine binding opens the pore and mainly Na⁺ enters,
+      depolarizing the membrane; nicotine also binds it; it is found at the
+      neuromuscular junction.
+    where:
+      [
+        "index.mdx#gated-channels",
+        "quiz.yaml:q8",
+        "flashcards.yaml:c14",
+        "visuals.yaml:gated-channels"
+      ]
+    confidence: high
+    basis: Alberts; Unwin's nAChR structures; IB guide B2.1.14
+    status: checked
+  - id: f22
+    claim: Resting potential about −70 mV; threshold about −50 mV at which
+      voltage-gated Na⁺ channels open.
+    where:
+      [
+        "index.mdx#gated-channels",
+        "index.mdx#na-k-pump",
+        "flashcards.yaml:c14",
+        "visuals.yaml:gated-channels"
+      ]
+    confidence: high
+    basis: Standard IB/textbook values (threshold often quoted −55 to −50 mV)
+    status: checked
+  - id: f23
+    claim: At about +30 to +40 mV Na⁺ channels inactivate and the slower
+      voltage-gated K⁺ channels are open, letting K⁺ out (repolarization).
+    where: [ "index.mdx#gated-channels", "visuals.yaml:gated-channels" ]
+    confidence: medium
+    basis: IB-level simplification. In reality delayed-rectifier K⁺ channels begin
+      opening during depolarization with slower kinetics, so they are
+      substantially open near the peak rather than opening at a fixed voltage.
+      Text says "are open" to avoid implying a fixed trigger.
+    status: open
+  - id: f24
+    claim: Na⁺/K⁺ pump moves 3 Na⁺ out and 2 K⁺ in per ATP, both against their
+      gradients (Na⁺ higher outside, K⁺ higher inside).
+    where:
+      [
+        "index.mdx#na-k-pump",
+        "index.mdx (mustKnow, mistakes)",
+        "quiz.yaml:q9",
+        "flashcards.yaml:c15",
+        "visuals.yaml:membrane/transport pump",
+        "visuals.yaml:na-k-pump"
+      ]
+    confidence: high
+    basis: Standard biochemistry (Alberts; Skou); IB guide B2.1.15
+    status: checked
+  - id: f25
+    claim: Pump cycle stages — 3 Na⁺ bind from cytoplasm; ATP phosphorylates the
+      pump, ADP released; shape change opens pump outwards and lowers Na⁺
+      affinity, Na⁺ released; 2 K⁺ bind from outside; dephosphorylation returns
+      shape; K⁺ released inside.
+    where: [ "index.mdx#na-k-pump", "visuals.yaml:na-k-pump" ]
+    confidence: high
+    basis: Post-Albers (E1/E2) cycle, simplified
+    status: checked
+  - id: f26
+    claim: The pump is electrogenic and directly makes the inside slightly more
+      negative; the resting potential mainly results from K⁺ diffusing out
+      through leak channels down the gradient the pump creates, as the resting
+      membrane is more permeable to K⁺ than Na⁺.
+    where: [ "index.mdx#na-k-pump", "flashcards.yaml:c15" ]
+    confidence: high
+    basis: Standard neurophysiology (Purves, Neuroscience)
+    status: checked
+  - id: f27
+    claim: Intestinal SGLT1 carries 2 Na⁺ per glucose; glucose leaves the epithelial
+      cell to the blood by facilitated diffusion through GLUT2; Na⁺/K⁺ pumps are
+      on the blood (basolateral) side.
+    where: [ "index.mdx#cotransport", "quiz.yaml:q10", "visuals.yaml:sglt" ]
+    confidence: high
+    basis: Wright, Loo & Hirayama 2011 (Physiol Rev); standard physiology
+    status: checked
+  - id: f28
+    claim: Glucose is reabsorbed in the proximal convoluted tubule by
+      sodium-dependent cotransporters, mainly SGLT2, so normally no glucose
+      appears in urine.
+    where:
+      [
+        "index.mdx#cotransport",
+        "flashcards.yaml:c16",
+        "visuals.yaml:sglt exit step"
+      ]
+    confidence: high
+    basis: Standard renal physiology (SGLT2 in early PCT reabsorbs most filtered
+      glucose; SGLT1 the rest)
+    status: checked
+  - id: f29
+    claim: The sodium–glucose cotransporter does not use ATP itself; blocking Na⁺/K⁺
+      pumps abolishes the Na⁺ gradient and so glucose uptake (indirect active
+      transport).
+    where:
+      [
+        "index.mdx#cotransport",
+        "index.mdx (mustKnow, mistakes)",
+        "quiz.yaml:q10",
+        "flashcards.yaml:c16",
+        "visuals.yaml:sglt"
+      ]
+    confidence: high
+    basis: Standard; ouabain inhibition experiments; IB guide B2.1.16
+    status: checked
+  - id: f30
+    claim: CAMs are membrane proteins whose extracellular parts bind CAMs on
+      adjacent cells; intracellular parts are often linked to the cytoskeleton;
+      cells of the same type tend to share CAM types; different CAMs are used
+      for different junction types.
+    where: [ "index.mdx#adhesion", "index.mdx (mustKnow)" ]
+    confidence: high
+    basis: Alberts (cadherins, homophilic binding, cell sorting); IB guide B2.1.17
+    status: checked
+  - id: f31
+    claim: Proteins make up a large share of membrane mass, and peripheral proteins
+      are more easily removed from the membrane than integral proteins.
+    where: [ "index.mdx#proteins" ]
+    confidence: high
+    basis: Alberts (proteins roughly 50% of plasma membrane mass, varying by membrane)
+    status: checked

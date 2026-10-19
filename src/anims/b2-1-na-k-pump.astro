@@ -1,0 +1,49 @@
+---
+/** Na⁺/K⁺ pump (B2.1.15). Drawn in the step-1 starting state; animated by b2-1-na-k-pump.ts. */
+const naStart = [[190, 296], [260, 306], [330, 292]];
+const kStart = [[214, 48], [306, 48]];
+const bgNaOut = [[60, 50], [110, 80], [150, 40], [350, 76], [30, 90], [176, 92], [90, 30]];
+const bgKIn = [[50, 300], [110, 270], [420, 290], [470, 260], [150, 310], [340, 305], [30, 262], [490, 312]];
+---
+<svg viewBox="0 0 520 340" xmlns="http://www.w3.org/2000/svg" class="nak">
+  <text class="side" x="12" y="22">Outside the cell — Na⁺ high, K⁺ low</text>
+  <text class="side" x="12" y="334">Cytoplasm — K⁺ high, Na⁺ low</text>
+  <rect class="mem" x="0" y="122" width="520" height="96" />
+  <g class="bg">
+    {bgNaOut.map(([x, y]) => <circle class="na faint" cx={x} cy={y} r="9" />)}
+    {bgKIn.map(([x, y]) => <circle class="k faint" cx={x} cy={y} r="10" />)}
+  </g>
+  <g class="pump">
+    <rect data-el="left" transform="rotate(8 223 171)" class="half" x="198" y="104" width="50" height="134" rx="18" />
+    <rect data-el="right" transform="rotate(-8 297 171)" class="half" x="272" y="104" width="50" height="134" rx="18" />
+    <rect data-el="gateTop" class="gate" x="238" y="100" width="44" height="16" rx="6" />
+    <rect data-el="gateBot" style="opacity:0.12" class="gate" x="238" y="226" width="44" height="16" rx="6" />
+  </g>
+  {[1, 2, 3].map((n) => <g data-el={`na${n}`} class="ion" transform={`translate(${naStart[n - 1]![0]} ${naStart[n - 1]![1]})`}><circle class="na" r="12" /><text text-anchor="middle" dy="0.35em">Na⁺</text></g>)}
+  {[1, 2].map((n) => <g data-el={`k${n}`} class="ion" transform={`translate(${kStart[n - 1]![0]} ${kStart[n - 1]![1]})`}><circle class="k" r="13" /><text text-anchor="middle" dy="0.35em">K⁺</text></g>)}
+  <g data-el="atp" class="ion" transform="translate(440 290)"><rect class="atp" x="-22" y="-12" width="44" height="24" rx="12" /><text text-anchor="middle" dy="0.35em">ATP</text></g>
+  <g data-el="adp" class="ion" style="opacity:0"><rect class="atp" x="-22" y="-12" width="44" height="24" rx="12" /><text text-anchor="middle" dy="0.35em">ADP</text></g>
+  <g data-el="pi" class="ion" style="opacity:0"><circle class="pi" r="11" /><text text-anchor="middle" dy="0.35em">P</text></g>
+  <g class="counters">
+    <rect x="366" y="32" width="148" height="76" rx="8" />
+    <text x="376" y="54" data-el="cNa">Na⁺ moved out: 0</text>
+    <text x="376" y="76" data-el="cK">K⁺ moved in: 0</text>
+    <text x="376" y="98" data-el="cATP">ATP used: 0</text>
+  </g>
+</svg>
+<style>
+  .nak { font-family: var(--font-sans); }
+  .side { font-size: 14px; font-weight: 700; fill: var(--text-muted); }
+  .mem { fill: color-mix(in srgb, var(--bio-tail) 40%, transparent); stroke: var(--bio-head); stroke-width: 10; stroke-dasharray: 2 4; }
+  .half { fill: var(--bio-protein); stroke: color-mix(in srgb, var(--bio-protein) 60%, black); stroke-width: 1.5; }
+  .gate { fill: var(--bio-protein); stroke: color-mix(in srgb, var(--bio-protein) 60%, black); stroke-width: 1.5; transition: opacity 0.2s; }
+  .na { fill: var(--bio-na); }
+  .k { fill: var(--bio-k); }
+  .faint { opacity: 0.35; }
+  .atp { fill: var(--bio-head); }
+  .pi { fill: var(--bio-glucose); }
+  .ion text { font-size: 11px; font-weight: 800; fill: #fff; }
+  .ion .pi + text { fill: #000; }
+  .counters rect { fill: var(--surface); stroke: var(--border-strong); }
+  .counters text { font-size: 13px; font-weight: 700; fill: var(--text); }
+</style>

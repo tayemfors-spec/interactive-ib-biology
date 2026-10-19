@@ -1,0 +1,179 @@
+---
+/**
+ * Exam-style 2D fluid mosaic model (B2.1.10). Numbered markers keep it legible at phone width;
+ * the key below gives the names in real text. Positions are computed so lipids never overlap proteins.
+ */
+const W = 800;
+const outerHead = 150; // y of outer-leaflet head centres
+const innerHead = 300; // y of inner-leaflet head centres
+const r = 9;
+const tailLen = 62;
+const slots = Array.from({ length: 34 }, (_, i) => 26 + i * 22.4);
+
+// x-ranges taken by structures that span or sit in a leaflet
+const blocks = {
+  integral: [168, 236],
+  channel: [392, 476],
+  glyco: [596, 664],
+};
+const cholOuter = [530, 718];
+const cholInner = [566];
+const glycolipidX = slots[4]!;
+const inBlock = (x: number) => Object.values(blocks).some(([a, b]) => x > a! - 8 && x < b! + 8);
+const nearChol = (x: number, list: number[]) => list.some((c) => Math.abs(x - c) < 11);
+// a deterministic pattern of unsaturated (kinked) tails
+const kinked = new Set([2, 7, 11, 16, 20, 23, 27, 31]);
+
+const outer = slots.filter((x) => !inBlock(x) && !nearChol(x, cholOuter));
+const inner = slots.filter((x) => !inBlock(x) && !nearChol(x, cholInner));
+
+const tailPath = (x: number, dir: 1 | -1, off: number, kink: boolean) => {
+  const x0 = x + off;
+  const y0 = (dir === 1 ? outerHead : innerHead) + dir * r;
+  const y1 = y0 + dir * tailLen;
+  if (!kink) return `M${x0} ${y0} L${x0} ${y1}`;
+  const ym = y0 + dir * tailLen * 0.45;
+  return `M${x0} ${y0} L${x0} ${ym} L${x0 + 7} ${y1}`;
+};
+const chol = (x: number, dir: 1 | -1) => {
+  const yOH = dir === 1 ? outerHead + 4 : innerHead - 4;
+  const y0 = yOH + dir * 10;
+  const rings = [0, 1, 2].map((k) => {
+    const cy = y0 + dir * (7 + k * 12);
+    const pts = Array.from({ length: 6 }, (_, j) => {
+      const a = (Math.PI / 3) * j + Math.PI / 6;
+      return `${(x + Math.cos(a) * 7).toFixed(1)},${(cy + Math.sin(a) * 7).toFixed(1)}`;
+    }).join(' ');
+    return pts;
+  });
+  const tail = `M${x} ${y0 + dir * 38} L${x} ${y0 + dir * 52}`;
+  return { yOH, rings, tail };
+};
+const sugars = (pts: [number, number][]) => pts;
+const glycoproteinCarb = sugars([[630, 104], [630, 88], [622, 74], [640, 74], [614, 60], [646, 60]]);
+const glycolipidCarb = sugars([[glycolipidX, 132], [glycolipidX, 117], [glycolipidX - 8, 103], [glycolipidX + 8, 103]]);
+
+const markers: { n: number; x: number; y: number; to: [number, number] }[] = [
+  { n: 1, x: 40, y: 92, to: [slots[1]!, outerHead - 6] },
+  { n: 2, x: 40, y: 222, to: [slots[1]! + 2, 196] },
+  { n: 3, x: glycolipidX - 34, y: 66, to: [glycolipidX - 3, 104] },
+  { n: 4, x: 202, y: 70, to: [202, 112] },
+  { n: 5, x: 286, y: 368, to: [300, 336] },
+  { n: 6, x: 434, y: 70, to: [434, 112] },
+  { n: 7, x: 500, y: 96, to: [527, 168] },
+  { n: 8, x: 676, y: 46, to: [646, 60] },
+  { n: 9, x: 700, y: 92, to: [664, 140] },
+  { n: 10, x: 556, y: 372, to: [566, 268] },
+];
+const key = [
+  'Hydrophilic phosphate head of a phospholipid (faces the water)',
+  'Hydrophobic fatty acid tails (hydrocarbon chains) form the core',
+  'Glycolipid: carbohydrate chain attached to a lipid',
+  'Integral protein spanning the bilayer (transmembrane)',
+  'Peripheral protein attached to the inner surface',
+  'Channel protein with a pore for specific ions',
+  'Cholesterol among the tails, –OH group beside the heads',
+  'Carbohydrate chain of a glycoprotein (outer face only)',
+  'Glycoprotein (integral protein with carbohydrate attached)',
+  'Cholesterol in the inner layer',
+];
+---
+<div class="exam-diagram">
+  <svg viewBox={`0 0 ${W} 400`} role="img" aria-labelledby="fm-title fm-desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="fm-title">Fluid mosaic model of a cell membrane</title>
+    <desc id="fm-desc">A phospholipid bilayer with heads facing outwards and tails inwards. Integral proteins span the bilayer; a channel protein has a central pore; a peripheral protein sits on the inner surface; cholesterol lies between the tails; glycoproteins and glycolipids carry carbohydrate chains on the outer surface only.</desc>
+    <text class="side" x="400" y="28" text-anchor="middle">Outside the cell (extracellular fluid)</text>
+    <text class="side" x="400" y="392" text-anchor="middle">Cytoplasm</text>
+
+    <!-- tails first so heads draw on top -->
+    <g class="tail">
+      {outer.map((x, i) => <><path d={tailPath(x, 1, -3, false)} /><path d={tailPath(x, 1, 3, kinked.has(i))} /></>)}
+      {inner.map((x, i) => <><path d={tailPath(x, -1, -3, kinked.has(i + 3))} /><path d={tailPath(x, -1, 3, false)} /></>)}
+    </g>
+    <g class="head">
+      {outer.map((x) => <circle cx={x} cy={outerHead} r={r} />)}
+      {inner.map((x) => <circle cx={x} cy={innerHead} r={r} />)}
+    </g>
+
+    <!-- glycolipid carbohydrate -->
+    <g class="carb">
+      <path d={`M${glycolipidX} ${outerHead - r} L${glycolipidX} 117 L${glycolipidX - 8} 103 M${glycolipidX} 117 L${glycolipidX + 8} 103`} class="carb-link" />
+      {glycolipidCarb.map(([x, y]) => <circle cx={x} cy={y} r="5.5" />)}
+    </g>
+
+    <!-- cholesterol -->
+    {[...cholOuter.map((x) => chol(x, 1)), ...cholInner.map((x) => chol(x, -1))].map((c, i) => {
+      const x = i < cholOuter.length ? cholOuter[i]! : cholInner[i - cholOuter.length]!;
+      return (
+        <g class="chol">
+          {c.rings.map((p) => <polygon points={p} />)}
+          <path d={c.tail} />
+          <circle class="oh" cx={x} cy={c.yOH} r="4" />
+        </g>
+      );
+    })}
+
+    <!-- integral (transmembrane) protein -->
+    <path class="protein" d="M172 128 C168 106, 236 100, 234 126 L238 300 C242 334, 166 336, 168 304 Z" />
+    <!-- channel protein: two halves around a pore -->
+    <path class="protein p2" d="M394 124 C392 104, 430 104, 428 124 L428 306 C430 326, 392 326, 394 306 Z" />
+    <path class="protein p2" d="M440 124 C438 104, 476 104, 474 124 L474 306 C476 326, 438 326, 440 306 Z" />
+    <path class="pore" d="M434 116 L434 316" />
+    <!-- glycoprotein -->
+    <path class="protein" d="M600 130 C596 104, 664 104, 662 128 L664 296 C668 330, 594 330, 598 298 Z" />
+    <g class="carb">
+      <path class="carb-link" d="M630 106 L630 88 L622 74 L614 60 M630 88 L640 74 L646 60" />
+      {glycoproteinCarb.map(([x, y]) => <circle cx={x} cy={y} r="5.5" />)}
+    </g>
+    <!-- peripheral protein on the cytoplasmic face -->
+    <ellipse class="protein p2" cx="330" cy="326" rx="40" ry="16" />
+
+    <!-- regions -->
+    <g class="region">
+      <path d="M780 138 h8 v26 h-8 M780 172 h8 v114 h-8 M780 288 h8 v24 h-8" />
+    </g>
+    <text class="region-t" x="772" y="234" text-anchor="end">hydrophobic</text>
+    <text class="region-t" x="772" y="128" text-anchor="end">hydrophilic</text>
+    <text class="region-t" x="772" y="330" text-anchor="end">hydrophilic</text>
+    <g class="scale">
+      <path d="M12 140 V310 M8 140 h8 M8 310 h8" />
+      <text x="14" y="232" transform="rotate(-90 14 232)" text-anchor="middle" dy="-6">bilayer ≈ 4–5 nm</text>
+    </g>
+
+    <g class="markers">
+      {markers.map((m) => (
+        <g>
+          <path class="lead" d={`M${m.x} ${m.y} L${m.to[0]} ${m.to[1]}`} />
+          <circle cx={m.x} cy={m.y} r="13" />
+          <text x={m.x} y={m.y} dy="0.36em" text-anchor="middle">{m.n}</text>
+        </g>
+      ))}
+    </g>
+  </svg>
+  <ol class="key">
+    {key.map((k) => <li>{k}</li>)}
+  </ol>
+</div>
+
+<style>
+  .exam-diagram svg { font-family: var(--font-sans); }
+  .side { font-size: 17px; font-weight: 700; fill: var(--text-muted); }
+  .tail path { stroke: var(--bio-tail); stroke-width: 2.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .head circle { fill: var(--bio-head); stroke: color-mix(in srgb, var(--bio-head) 60%, black); stroke-width: 1; }
+  .carb circle { fill: var(--bio-carb); }
+  .carb-link { stroke: var(--bio-carb); stroke-width: 2.4; fill: none; }
+  .chol polygon { fill: none; stroke: var(--bio-chol); stroke-width: 2.2; }
+  .chol path { stroke: var(--bio-chol); stroke-width: 2.2; }
+  .chol .oh { fill: var(--bio-chol); }
+  .protein { fill: color-mix(in srgb, var(--bio-protein) 85%, transparent); stroke: color-mix(in srgb, var(--bio-protein) 60%, black); stroke-width: 1.4; }
+  .protein.p2 { fill: color-mix(in srgb, var(--bio-protein-2) 85%, transparent); stroke: color-mix(in srgb, var(--bio-protein-2) 60%, black); }
+  .pore { stroke: var(--bio-water); stroke-width: 2; stroke-dasharray: 4 5; }
+  .region path, .scale path { stroke: var(--text-muted); stroke-width: 1.6; fill: none; }
+  .region-t, .scale text { font-size: 14px; fill: var(--text-muted); font-style: italic; }
+  .markers circle { fill: var(--surface); stroke: var(--text); stroke-width: 1.8; }
+  .markers text { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .lead { stroke: var(--text); stroke-width: 1.4; }
+  .key { columns: 2 17rem; column-gap: var(--space-5); margin: var(--space-3) 0 0; padding: 0; list-style: none; counter-reset: k; font-size: var(--step--1); }
+  .key li { break-inside: avoid; margin: 0 0 0.3rem; display: grid; grid-template-columns: 1.7rem 1fr; counter-increment: k; }
+  .key li::before { content: counter(k); font-weight: 800; display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; border: 1.5px solid var(--text); border-radius: 50%; font-size: 0.75rem; margin-top: 0.1rem; }
+</style>

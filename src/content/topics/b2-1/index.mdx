@@ -1,0 +1,422 @@
+---
+code: B2.1
+description: "IB Biology B2.1 membranes revision: explore an interactive 3D fluid mosaic model, see diffusion, osmosis and active transport, then self-test."
+updated: 2026-10-19
+related: [B1.1, B2.2, C2.2, D2.3, D3.3]
+mustKnow:
+  - term: Phospholipid bilayer (amphipathic lipids)
+    definition: "A phospholipid is <strong>amphipathic</strong>: it has a hydrophilic phosphate head and two hydrophobic fatty acid tails. In water, phospholipids arrange themselves spontaneously into a continuous double layer with the heads facing the water on both sides and the tails forming a hydrophobic core."
+    level: SL
+  - term: Simple diffusion
+    definition: "The net movement of particles from a higher to a lower concentration, caused by their random motion, passing directly between the phospholipids of the membrane without the help of a protein and without ATP."
+    level: SL
+  - term: Osmosis
+    definition: "The net movement of water across a partially permeable membrane, from a region of lower solute concentration to a region of higher solute concentration. It is passive and happens because the solutes cannot cross the membrane while water can."
+    level: SL
+  - term: Aquaporin
+    definition: "An integral channel protein that lets water molecules pass through the membrane in single file, greatly increasing the membrane's permeability to water. Ions cannot pass through it."
+    level: SL
+  - term: Facilitated diffusion
+    definition: "Passive net movement of specific particles down their concentration gradient through membrane proteins (such as channel proteins), used by ions and polar molecules that cannot cross the hydrophobic core. No ATP is used."
+    level: SL
+  - term: Active transport
+    definition: "Movement of specific particles across a membrane against their concentration gradient (from lower to higher concentration), using energy from ATP — either directly, by pump proteins, or indirectly, via a gradient set up by pumps."
+    level: SL
+  - term: Integral and peripheral proteins
+    definition: "<strong>Integral</strong> proteins are embedded in one or both layers of the bilayer (transmembrane proteins span it); <strong>peripheral</strong> proteins are attached to one surface only, often to an integral protein, and do not enter the hydrophobic core."
+    level: SL
+  - term: Fluid mosaic model
+    definition: "The accepted model of membrane structure: a phospholipid bilayer in which the molecules move freely sideways (fluid), with many different proteins, plus cholesterol and glycolipids, scattered through it like tiles in a mosaic."
+    level: SL
+  - term: Exchange transporter
+    definition: "A membrane transport protein that moves two different substances in opposite directions across the membrane in each cycle, such as the Na<sup>+</sup>/K<sup>+</sup> pump (3 Na<sup>+</sup> out, 2 K<sup>+</sup> in per ATP)."
+    level: AHL
+  - term: Indirect (secondary) active transport
+    definition: "Movement of a substance against its concentration gradient powered by the diffusion of another substance down its gradient, rather than by ATP directly. The gradient used, for example of Na<sup>+</sup>, was set up by a pump that does use ATP."
+    level: AHL
+  - term: Cell-adhesion molecule (CAM)
+    definition: "A membrane protein whose extracellular part binds to molecules on an adjacent cell (or the extracellular matrix), holding cells together in tissues. Different CAMs are used in different types of cell–cell junction."
+    level: AHL
+mistakes:
+  - wrong: "Osmosis is water moving from a high water concentration to a low water concentration."
+    right: "Osmosis is the net movement of water across a partially permeable membrane from a lower solute concentration to a higher solute concentration, because the membrane is impermeable to the solutes and water molecules move randomly in both directions."
+    level: SL
+  - wrong: "Phospholipids are hydrophobic molecules."
+    right: "Phospholipids are <strong>amphipathic</strong>: the phosphate head is hydrophilic and the fatty acid tails are hydrophobic. This is why they form bilayers in water."
+    level: SL
+  - wrong: "Drawing glycoproteins or carbohydrate chains on both faces of the plasma membrane, or on the cytoplasmic face."
+    right: "Carbohydrate chains of glycoproteins and glycolipids are only on the extracellular (outer) face, where they function in cell recognition and adhesion."
+    level: SL
+  - wrong: "Channel proteins pump ions across the membrane."
+    right: "Channel proteins allow facilitated diffusion: specific ions diffuse passively through the open pore, down their concentration gradient. Pumping (against a gradient, using ATP) is done by pump proteins."
+    level: SL
+  - wrong: "Facilitated diffusion uses ATP because it involves a protein."
+    right: "Facilitated diffusion is passive: it uses no ATP and moves particles only down their concentration gradient. Using a protein does not make a process active."
+    level: SL
+  - wrong: "Water can only cross a membrane through aquaporins."
+    right: "Water can cross the phospholipid bilayer slowly by itself; aquaporins greatly increase the rate, which is why cells that move a lot of water have many of them."
+    level: SL
+  - wrong: "Drawing a peripheral protein buried in the middle of the bilayer, among the fatty acid tails."
+    right: "Draw peripheral proteins on one surface only (touching the heads or an integral protein). Only integral proteins are embedded in the hydrophobic core."
+    level: SL
+  - wrong: "The sodium–potassium pump moves 3 K<sup>+</sup> in and 2 Na<sup>+</sup> out (or moves the ions down their gradients)."
+    right: "Each cycle moves 3 Na<sup>+</sup> out and 2 K<sup>+</sup> in, using one ATP, and both ions move against their concentration gradients."
+    level: AHL
+  - wrong: "Cholesterol makes membranes more fluid."
+    right: "Cholesterol modulates fluidity: it restrains phospholipid movement and so reduces fluidity at higher temperatures, but stops the tails packing into a rigid gel and so prevents stiffening at lower temperatures."
+    level: AHL
+  - wrong: "The sodium–glucose cotransporter hydrolyses ATP to move glucose into the cell."
+    right: "The cotransporter uses no ATP itself. Na<sup>+</sup> diffusing in down its gradient provides the energy; ATP is used by Na<sup>+</sup>/K<sup>+</sup> pumps elsewhere in the cell to maintain that gradient (indirect active transport)."
+    level: AHL
+---
+
+<Section id="bilayer" title="Lipid bilayers form membranes" level="SL" covers="B2.1.1 B2.1.2">
+
+<Viewer3D topic="b2-1" id="membrane" />
+
+Every cell membrane is built on a **phospholipid bilayer**. A phospholipid has a glycerol linked to a phosphate-containing head and two fatty acid tails, so it is **amphipathic**: part of the molecule is **hydrophilic** and part is **hydrophobic**.
+
+- The **phosphate head** is polar, so it forms hydrogen bonds with water and is attracted to it.
+- The two **hydrocarbon tails** are non-polar, so they cannot interact favourably with water.
+
+### Why bilayers form by themselves
+
+When phospholipids are mixed with water, the arrangement with the lowest energy is one in which the tails are kept away from water and the heads are in contact with it. Two layers form, tails pointing inwards and heads facing the water on either side. No energy input or enzyme is needed: the bilayer assembles **spontaneously**. Free edges would expose tails to water, so bilayers tend to close up into **continuous** sheets and enclosed compartments. Other amphipathic lipids, such as glycolipids, fit into the same structure.
+
+### The hydrophobic core as a barrier
+
+The middle of the bilayer is a layer of hydrocarbon chains, the **hydrophobic core**. Particles have to dissolve in it to cross, so its permeability depends on size and polarity:
+
+- **Ions** (Na⁺, K⁺, Cl⁻) are charged and surrounded by a shell of water molecules: they are almost completely blocked.
+- **Polar molecules** such as glucose and amino acids cross very slowly, if at all.
+- **Large molecules** such as proteins and polysaccharides cannot cross.
+- **Small non-polar molecules** (O₂, CO₂) and lipid-soluble molecules such as steroid hormones pass through easily.
+
+This makes the membrane an effective barrier between two watery solutions, the cytoplasm and the extracellular fluid, so the cell can keep their compositions different. Substances the cell needs that cannot cross the core move through **membrane proteins** instead (see below).
+
+<Callout type="tip" title="Using the 3D model">
+
+Rotate the membrane and click labels to read about each part. Switch the model to **How substances cross** to step through simple diffusion, osmosis, facilitated diffusion and active transport, and use the **Exam diagram** view to see the 2D drawing you are expected to produce.
+
+</Callout>
+
+</Section>
+
+<Section id="proteins" title="Integral and peripheral proteins" level="SL" covers="B2.1.4">
+
+Proteins make up a large share of the mass of most membranes, and they are what give each membrane its particular functions. They vary in **structure**, **location** and **function**.
+
+### Location
+
+- **Integral proteins** are embedded in the bilayer, in one or both layers. Many are **transmembrane**: they span the whole bilayer, with a hydrophobic middle region in contact with the fatty acid tails and hydrophilic regions projecting into the water on each side.
+- **Peripheral proteins** are attached to one surface only, the inner or the outer face, usually bound to the phosphate heads or to an integral protein. They do not enter the hydrophobic core and are more easily removed from the membrane.
+
+### Functions
+
+Membrane proteins can be classified by what they do:
+
+- **Channel proteins**: integral proteins with a hydrophilic pore that lets specific ions or water (aquaporins) diffuse through.
+- **Pump proteins**: integral proteins that use ATP to move specific particles against their concentration gradient.
+- **Carrier (transporter) proteins**: bind a particle such as glucose and change shape to move it across.
+- **Receptors**: bind a signalling molecule such as a peptide hormone or neurotransmitter on the outside and pass a signal into the cell.
+- **Enzymes**: some are fixed in membranes so that the reactions they catalyse happen in a particular place, for example in the inner mitochondrial membrane or the microvilli of intestinal cells.
+- **Recognition proteins**: glycoproteins that identify the cell, for example as self in the immune system.
+- **Adhesion proteins**: bind adjacent cells together or attach the cell to its surroundings.
+- **Electron carriers**: in the membranes of mitochondria and chloroplasts.
+
+Peripheral proteins often act as enzymes, as parts of signalling pathways or as anchors for the cytoskeleton on the inner face.
+
+<Callout type="exam">
+
+When asked to "distinguish" integral and peripheral proteins, give a matched pair: integral proteins are **embedded in** the hydrophobic core (one or both layers); peripheral proteins are **on the surface** and do not penetrate the core.
+
+</Callout>
+
+</Section>
+
+<Section id="fluid-mosaic" title="The fluid mosaic model" level="SL" covers="B2.1.9 B2.1.10">
+
+### Glycoproteins and glycolipids
+
+Some membrane proteins and lipids have short, often branched **carbohydrate chains** covalently attached. A protein with a carbohydrate chain is a **glycoprotein**; a lipid with one is a **glycolipid**. In the plasma membrane the carbohydrate chains are found **only on the extracellular (outer) side**, projecting into the fluid around the cell. They have two roles:
+
+- **Cell recognition**: the pattern of carbohydrates acts as an identity tag. The ABO blood group antigens on red blood cells are an example, and immune cells use cell-surface markers to tell self from non-self.
+- **Cell adhesion**: carbohydrate chains help cells bind to one another and to their surroundings, so they can form tissues.
+
+### Why "fluid" and why "mosaic"?
+
+The **fluid mosaic model** describes the membrane as:
+
+- **Fluid**: phospholipids are not covalently bonded to each other (the bilayer is held together by hydrophobic interactions), so they move sideways within their layer, and many proteins also drift laterally. The membrane behaves like a viscous liquid rather than a rigid solid, which lets it bend, flex and reseal.
+- **Mosaic**: many different proteins are scattered through the bilayer, like tiles of different shapes and colours in a mosaic.
+
+The membrane is about 7–10 nm thick including its proteins. In animal cells, **cholesterol** molecules are found among the phospholipid tails.
+
+<Callout type="exam" title="Drawing the fluid mosaic model">
+
+A 2D drawing for the exam should show and label:
+
+- **phospholipids** in two layers, heads outwards and tails inwards (draw both tails for each);
+- **cholesterol** among the tails of the bilayer, its hydroxyl (–OH) group level with the phosphate heads;
+- an **integral protein** spanning or embedded in the bilayer;
+- a **peripheral protein** on one surface only;
+- a **glycoprotein** with its carbohydrate chain on the **outer** surface only;
+- the **hydrophilic** regions (heads) and the **hydrophobic** region (tails) marked.
+
+Labelling the outside and inside of the cell makes the position of the carbohydrate unambiguous. Compare your drawing with the **Exam diagram** view of the 3D model.
+
+</Callout>
+
+</Section>
+
+<Section id="diffusion-osmosis" title="Simple diffusion and osmosis" level="SL" covers="B2.1.3 B2.1.5">
+
+### Simple diffusion
+
+Particles in liquids and gases are in constant **random motion**. Where there are more particles on one side of a membrane than the other, more cross in one direction than the other, so there is a **net movement** down the **concentration gradient** until the concentrations are equal. This is **diffusion**. It is **passive**: the energy comes from the particles' own kinetic energy, not from ATP.
+
+In **simple diffusion** the particles pass directly between the phospholipids, with no membrane protein involved. Only particles that can dissolve in the hydrophobic core do this well:
+
+- **Oxygen** is used in aerobic respiration, so its concentration inside a respiring cell stays lower than outside. O₂ is small and non-polar, so it diffuses into the cell between the phospholipids.
+- **Carbon dioxide** is produced by respiration, so its concentration is higher inside. It diffuses out the same way.
+
+The rate of simple diffusion increases with a steeper concentration gradient, a larger surface area and a shorter diffusion distance.
+
+### Osmosis
+
+**Osmosis** is the net movement of **water** across a membrane that is permeable to water but not to the solutes dissolved in it (a **partially permeable** membrane). To explain it, use three ideas:
+
+1. Water molecules move **randomly** and cross the membrane in **both directions** all the time.
+2. The membrane is **impermeable to the solutes**, so solute particles cannot move to even out their concentration.
+3. The **solute concentrations differ** on the two sides. In any period of time, more water molecules cross from the side with the lower solute concentration into the side with the higher solute concentration than cross the other way. (In <TopicLink code="D2.3" /> you will describe this more precisely using **water potential**.)
+
+The result is a net movement of water from the **lower solute concentration** to the **higher solute concentration**. Solutions with the same solute concentration are **isotonic**, and there is no net movement between them.
+
+### Aquaporins
+
+Water is polar, so it crosses the bilayer only slowly. **Aquaporins** are integral channel proteins made of four subunits, each with its own narrow pore through which water molecules pass in single file. They increase the permeability of the membrane to water many times without letting ions through. Cells that move large volumes of water, such as cells in the collecting ducts of the kidney and in plant roots, have many aquaporins.
+
+<Callout type="exam">
+
+Always describe osmosis in terms of **solute concentration**, and say the membrane is **impermeable to the solute**. "From high to low water concentration" usually does not earn the mark.
+
+</Callout>
+
+</Section>
+
+<Section id="facilitated-active" title="Facilitated diffusion, active transport and selectivity" level="SL" covers="B2.1.6 B2.1.7 B2.1.8">
+
+### Channel proteins and facilitated diffusion
+
+Ions and polar molecules cannot cross the hydrophobic core, so they need a protein. A **channel protein** is an integral protein with a pore through the middle. In many channels the size of the pore and the charges of the amino acids lining it allow only one type of ion through: a K⁺ channel lets K⁺ pass but not Na⁺, even though Na⁺ is smaller. Many channels can be **open** or **closed**: ions diffuse through only when the channel is open. Movement through a channel is **facilitated diffusion**:
+
+- it is **passive** (no ATP);
+- it moves particles only **down** their concentration gradient;
+- it is **specific**, so it makes the membrane **selectively permeable**.
+
+### Pump proteins and active transport
+
+**Pump proteins** use energy from **ATP** to move specific particles across the membrane. ATP binds to the pump, often on a part projecting into the cytoplasm, and the energy released when it is hydrolysed causes a **conformational change** (change in shape) in the pump. Because energy is supplied, pumps can move particles **against** their concentration gradient, from lower to higher concentration. This is **active transport**. Each pump moves particles in **one direction** only, for example Na⁺ out of the cell. If respiration stops, ATP runs out and active transport stops.
+
+### Selectivity
+
+**Simple diffusion is not selective**: whether a particle crosses depends only on its size and whether it is hydrophilic or hydrophobic. The cell cannot choose to let one small non-polar molecule in and keep another out. **Facilitated diffusion and active transport are selective**, because each channel or pump only binds or admits particular particles, and the cell controls which proteins are in each membrane and when channels open.
+
+| | Simple diffusion | Facilitated diffusion | Active transport |
+|---|---|---|---|
+| Membrane protein needed? | No | Yes (channel or carrier) | Yes (pump) |
+| ATP used? | No | No | Yes |
+| Direction relative to gradient | Down | Down | Can be against |
+| Selective? | No (size and polarity only) | Yes | Yes |
+| Example | O₂ into, CO₂ out of a respiring cell | K⁺ out through K⁺ channels | Na⁺ out and K⁺ in by the Na⁺/K⁺ pump |
+
+<Sim topic="b2-1" id="transport-rate" />
+
+The rate graph shows the key data-analysis patterns. Simple diffusion is **proportional** to the concentration difference. Facilitated diffusion **levels off** when all the channel or carrier proteins are in use, so the plateau rises if more are added. Active transport continues even with no gradient, and depends on the number of pumps and the supply of ATP. (Pumps can also saturate as substrate concentration rises, so a plateau on its own does not rule out active transport — the inhibitor test below is the decisive one.)
+
+<Sim topic="b2-1" id="permeability" />
+
+<Callout type="exam">
+
+If a respiratory inhibitor (or lack of oxygen) reduces uptake of a substance, conclude that uptake is by **active transport**. If uptake levels off at high concentrations but is unaffected by the inhibitor, conclude **facilitated diffusion**.
+
+</Callout>
+
+</Section>
+
+<Section id="fluidity" title="Fatty acids, cholesterol and membrane fluidity" level="AHL" covers="B2.1.11 B2.1.12">
+
+### Saturated and unsaturated fatty acids
+
+A membrane must be **fluid** enough to be flexible, let proteins move and allow vesicles to form, but **strong** enough not to break or leak. The fatty acid tails control this.
+
+- **Saturated** fatty acids have no C=C double bonds. Their chains are straight, so they pack tightly together. They have **higher melting points** and make membranes stronger and less fluid at higher temperatures.
+- **Unsaturated** fatty acids have one or more C=C double bonds. In membranes these are mostly **cis** double bonds, which put a **kink** in the chain. Kinked chains cannot pack closely, so they have **lower melting points**, and membranes rich in them stay fluid and flexible at the temperatures the cell experiences.
+
+For example, stearic acid (18 carbons, saturated) melts at about 69 °C, while oleic acid (18 carbons, one cis double bond) melts at about 13 °C.
+
+### Adaptation to habitat
+
+Organisms whose body temperature follows their surroundings adjust membrane composition to match. **Fish living in polar seas**, at temperatures close to 0 °C, have a higher proportion of unsaturated fatty acids in their membrane phospholipids than fish from warm tropical waters. This keeps their membranes fluid in the cold, whereas tropical fish have more saturated fatty acids, keeping membranes stable at higher temperatures. Even within one species, such as the goldfish, individuals acclimatized to cold water increase the unsaturated fraction of their membranes. Keeping fluidity roughly constant in this way is called **homeoviscous adaptation**.
+
+### Cholesterol
+
+**Cholesterol** is a steroid found in animal plasma membranes. Most of the molecule is hydrophobic and lies among the fatty acid tails; its small hydroxyl (–OH) group is hydrophilic and sits next to the phosphate heads. Its rigid ring structure acts as a **modulator** (buffer) of fluidity:
+
+- **At higher temperatures** it restrains the movement of the phospholipid tails, so the membrane is **less fluid** and less permeable to ions and small polar molecules.
+- **At lower temperatures** it gets between the tails and stops them packing into a regular, solid arrangement, so it **prevents the membrane stiffening**.
+
+<Sim topic="b2-1" id="fluidity" />
+
+<Callout type="exam">
+
+"Cholesterol reduces fluidity" is only half the answer. State both effects with their temperatures: it **stabilizes** the membrane when warm and **prevents stiffening** when cold.
+
+</Callout>
+
+</Section>
+
+<Section id="vesicles" title="Vesicles: endocytosis and exocytosis" level="AHL" covers="B2.1.13">
+
+A **vesicle** is a small sac of membrane surrounding a droplet of fluid. Vesicles can form from a membrane and fuse with one because the membrane is **fluid**: phospholipids are not covalently bonded to each other (they are held together by hydrophobic interactions), so the bilayer can bend, pinch off and reseal without tearing. The hydrophobic tails always stay away from water, so the membrane remains continuous at every stage. Large molecules and particles that cannot pass through membrane proteins are moved in this way. Both processes use energy from ATP.
+
+### Endocytosis
+
+In **endocytosis** part of the plasma membrane folds inwards around material outside the cell. The edges meet and fuse, so a vesicle containing the material separates into the cytoplasm.
+
+- **Phagocytosis**: white blood cells such as macrophages and neutrophils engulf bacteria in large vesicles, which later fuse with lysosomes so the bacteria are digested.
+- Unicellular organisms such as *Amoeba* take in food particles in the same way.
+- Cells in the placenta take up proteins, including antibodies, from the mother's blood by endocytosis.
+
+### Exocytosis
+
+In **exocytosis** a vesicle moves to the plasma membrane and fuses with it, releasing the vesicle's contents outside the cell. The vesicle membrane becomes part of the plasma membrane.
+
+- **Secretion of proteins**: exocrine (acinar) cells of the pancreas release digestive enzymes, and β cells in the pancreatic islets release insulin, from vesicles made by the Golgi apparatus.
+- **Neurotransmitter release**: at a synapse, vesicles of neurotransmitter fuse with the presynaptic membrane.
+
+<Anim topic="b2-1" id="vesicles" />
+
+Endocytosis removes area from the plasma membrane and exocytosis adds it, so a cell that grows can enlarge its plasma membrane by exocytosis of vesicles carrying new phospholipids.
+
+<Callout type="exam">
+
+Name the process **and** give a specific example with the substance and cell type, for example "exocytosis of insulin from β cells of the pancreas". A general statement such as "cells release proteins" is rarely enough.
+
+</Callout>
+
+</Section>
+
+<Section id="gated-channels" title="Gated ion channels in neurons" level="AHL" covers="B2.1.14">
+
+Neurons control the movement of ions using **gated channels**: channel proteins that open only in response to a particular stimulus, letting a pulse of ions diffuse through before they close again. The two kinds required are neurotransmitter-gated and voltage-gated channels.
+
+### A neurotransmitter-gated channel: the nicotinic acetylcholine receptor
+
+The **nicotinic acetylcholine receptor** is in the postsynaptic membrane at many synapses, including those between motor neurons and muscle. It is both a **receptor** and an **ion channel**: five protein subunits surround a central pore. (It is named "nicotinic" because nicotine also binds to it.)
+
+1. **Acetylcholine** released from the presynaptic neuron binds to the receptor sites on the outer surface.
+2. Binding causes a **conformational change** (change in shape) that opens the pore.
+3. Positively charged ions, mainly **Na⁺**, diffuse through. Na⁺ moves into the cell down its concentration gradient and makes the inside less negative (**depolarization**).
+4. Binding is reversible. When acetylcholine leaves the receptor (and is broken down), the pore closes.
+
+### Voltage-gated sodium and potassium channels
+
+**Voltage-gated channels** open and close in response to changes in the **membrane potential** (the voltage across the membrane). They are responsible for nerve impulses.
+
+- At the resting potential, about −70 mV, both channels are closed.
+- If the membrane is depolarized to about **−50 mV** (the threshold), **voltage-gated Na⁺ channels** open and Na⁺ diffuses in, making the inside positive.
+- At about **+30 to +40 mV** the Na⁺ channels close (inactivate), and **voltage-gated K⁺ channels**, which respond more slowly, are open. K⁺ diffuses out, returning the inside to a negative potential.
+
+<Sim topic="b2-1" id="gated-channels" />
+
+Both kinds are channels, so ions always move by **facilitated diffusion**, down their gradients. The gradients themselves are created by sodium–potassium pumps (next section). For how these channels produce action potentials and synaptic transmission, see <TopicLink code="C2.2" />.
+
+<Callout type="exam">
+
+Say what **opens** each channel: a ligand (acetylcholine) binding for the nicotinic receptor; a change in membrane potential for the voltage-gated Na⁺ and K⁺ channels.
+
+</Callout>
+
+</Section>
+
+<Section id="na-k-pump" title="The sodium–potassium pump" level="AHL" covers="B2.1.15">
+
+The **sodium–potassium pump** is an integral protein found in the plasma membranes of animal cells. It is an **exchange transporter**: in each cycle it moves two different ions in opposite directions, **three Na⁺ out** of the cell and **two K⁺ into** it, using **one ATP**. Both ions move **against** their concentration gradients, as Na⁺ is more concentrated outside and K⁺ is more concentrated inside.
+
+### The six stages
+
+1. The pump is open to the cytoplasm. **Three Na⁺** from inside the cell bind to it.
+2. **ATP** is hydrolysed; a **phosphate group** attaches to the pump (phosphorylation) and ADP is released.
+3. Phosphorylation causes a **conformational change** (change in shape), so the pump opens to the outside. Its affinity for Na⁺ falls, and the three Na⁺ are released outside.
+4. **Two K⁺** from the extracellular fluid bind to the pump.
+5. K⁺ binding causes the **phosphate to be released**, and the pump returns to its original shape, open to the cytoplasm.
+6. The two K⁺ are **released into the cytoplasm**, and the pump can bind Na⁺ again.
+
+<Anim topic="b2-1" id="na-k-pump" />
+
+### Importance in generating membrane potentials
+
+The pump builds up and maintains **concentration gradients** of Na⁺ (high outside) and K⁺ (high inside) across the membrane. These gradients are the store of potential energy used by neurons:
+
+- Each cycle moves **three positive charges out for every two in**, so the pump itself makes the inside slightly more negative.
+- More importantly, the membrane at rest is more permeable to K⁺ than to Na⁺, so K⁺ diffuses out down its gradient. This leaves the inside **negative** relative to the outside, giving the **resting potential** of about −70 mV.
+- During a nerve impulse, Na⁺ and K⁺ diffuse through voltage-gated channels down the gradients the pump created. The pump then restores them.
+
+The same Na⁺ gradient also powers other transport, such as glucose cotransport.
+
+<Callout type="exam">
+
+Learn the numbers as a set: **3 Na⁺ out, 2 K⁺ in, 1 ATP**, both against their gradients. Reversing the ions or the ratio is one of the most common ways to lose marks on this topic.
+
+</Callout>
+
+</Section>
+
+<Section id="cotransport" title="Sodium-dependent glucose cotransport" level="AHL" covers="B2.1.16">
+
+Glucose is polar, so it needs a membrane protein to cross. In the cells lining the small intestine and the kidney tubule, glucose is moved **into** the cell even when its concentration inside is already higher. The energy comes not from ATP directly but from a **sodium gradient**. This is **indirect (secondary) active transport**.
+
+### How it works
+
+1. **Na⁺/K⁺ pumps** in the membrane facing the blood use ATP to pump Na⁺ out of the cell. This keeps the Na⁺ concentration inside the cell low, so there is a steep Na⁺ gradient from the lumen into the cell.
+2. A **sodium–glucose cotransporter** in the membrane facing the lumen binds Na⁺ and glucose together. In the small intestine this protein (SGLT1) binds **two Na⁺** with each glucose.
+3. The cotransporter undergoes a **conformational change**. Na⁺ moves into the cell **down** its concentration gradient, and the energy released carries glucose in **against** its gradient. The cotransporter does not use ATP itself; both substances move in the same direction, so it is a **cotransporter**.
+4. Glucose leaves the cell on the blood side by **facilitated diffusion** through glucose transporter proteins (**GLUT2**), down its concentration gradient.
+
+<Anim topic="b2-1" id="sglt" />
+
+### Where it matters
+
+- **Small intestine**: epithelial cells of the villi absorb glucose from digested food, even when little glucose remains in the lumen, so almost none is lost in faeces.
+- **Nephron**: cells of the **proximal convoluted tubule** reabsorb glucose from the filtrate using similar sodium-dependent cotransporters (mainly SGLT2), so normally no glucose appears in the urine. See <TopicLink code="D3.3" /> for the structure of the nephron.
+
+If the Na⁺/K⁺ pumps stop, for example when respiration is inhibited, Na⁺ builds up inside the cell, the gradient is lost and glucose uptake stops, even though the cotransporter itself is unaffected.
+
+<Callout type="exam">
+
+Use the word **indirect** and explain both steps: ATP is used by the Na⁺/K⁺ pump to make the Na⁺ gradient, and the cotransporter uses that gradient to move glucose against its own gradient.
+
+</Callout>
+
+</Section>
+
+<Section id="adhesion" title="Cell adhesion molecules" level="AHL" covers="B2.1.17">
+
+In multicellular animals, cells are held together to form **tissues**. The binding is done by **cell-adhesion molecules (CAMs)**: proteins in the plasma membrane with a part that projects into the extracellular space.
+
+- The extracellular part of a CAM on one cell binds to a CAM on an adjacent cell. Many of these bonds together hold the cells firmly in place, forming a **cell–cell junction**.
+- The intracellular part is often linked to the cytoskeleton, so the force is spread through the cell rather than tearing the membrane.
+- Cells of the same type usually carry the same types of CAM, so they recognise and stick to each other, which helps sort cells into the correct tissues during development.
+
+There are **different forms of CAM for different types of cell–cell junction**. Some junctions hold cells tightly together to resist mechanical stress, as in skin and heart muscle; others seal the gaps between epithelial cells so that substances cannot leak between them. CAMs work together with the carbohydrate chains of glycoproteins and glycolipids, which also contribute to cell adhesion and recognition.
+
+<Figure name="b2-1-cams" caption="Cell-adhesion molecules in the plasma membranes of two neighbouring cells bind to each other across the gap between the cells, forming a junction that holds the cells together in a tissue." />
+
+<Callout type="note" title="Scope">
+
+You need the term **cell-adhesion molecule (CAM)** and the idea that different CAMs are used for different types of junction. You do not need to learn the names of particular CAMs or the detailed structure of particular junctions.
+
+</Callout>
+
+</Section>

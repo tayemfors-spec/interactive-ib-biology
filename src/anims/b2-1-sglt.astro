@@ -1,0 +1,53 @@
+---
+/** Sodium-dependent glucose cotransport in a small-intestine epithelial cell (B2.1.16). */
+const bgNaLumen = [[30, 70], [70, 110], [40, 210], [80, 250], [26, 160], [92, 182], [56, 290], [86, 60]];
+const bgNaBlood = [[480, 60], [520, 100], [500, 270], [540, 230], [470, 300]];
+const bgGluCell: [number, number][] = [[230, 230], [300, 250], [360, 205], [260, 280], [330, 290]];
+const bgNaCell = [[290, 90]];
+const hex = (x: number, y: number, r = 10) =>
+  Array.from({ length: 6 }, (_, j) => { const a = (Math.PI / 3) * j; return `${(x + r * Math.cos(a)).toFixed(1)},${(y + r * Math.sin(a)).toFixed(1)}`; }).join(' ');
+const villi = Array.from({ length: 7 }, (_, i) => 30 + i * 40);
+---
+<svg viewBox="0 0 560 330" xmlns="http://www.w3.org/2000/svg" class="sglt">
+  <text class="side" x="8" y="20">Lumen of small intestine</text>
+  <text class="side" x="190" y="20">Epithelial cell</text>
+  <text class="side" x="456" y="20">Blood side</text>
+  <rect class="cell" x="122" y="30" width="318" height="290" rx="6" />
+  <g class="villi">{villi.map((y) => <rect x="104" y={y} width="22" height="22" rx="10" />)}</g>
+  <path class="mem" d="M122 30 V320 M440 30 V320" />
+  <g class="bg">
+    {bgNaLumen.map(([x, y]) => <circle class="na faint" cx={x} cy={y} r="8" />)}
+    {bgNaBlood.map(([x, y]) => <circle class="na faint" cx={x} cy={y} r="8" />)}
+    {bgNaCell.map(([x, y]) => <circle class="na faint" cx={x} cy={y} r="8" />)}
+    {bgGluCell.map(([x, y]) => <polygon class="glu faint" points={hex(x, y)} />)}
+  </g>
+  <rect class="sglt-p" x="110" y="128" width="26" height="58" rx="9" />
+  <text class="lbl" x="150" y="122">Na⁺–glucose cotransporter</text>
+  <rect class="pump" x="428" y="78" width="26" height="58" rx="9" />
+  <text class="lbl" x="420" y="72" text-anchor="end">Na⁺/K⁺ pump</text>
+  <rect class="glut" x="428" y="208" width="26" height="50" rx="9" />
+  <text class="lbl" x="420" y="276" text-anchor="end">GLUT2 transporter</text>
+  <g data-el="atp" class="ion" style="opacity:0"><rect class="atp" x="-20" y="-11" width="40" height="22" rx="11" /><text text-anchor="middle" dy="0.35em">ATP</text></g>
+  {[1, 2, 3].map((n) => <g data-el={`p${n}`} class="ion" transform={`translate(${380 + n * 8} ${96 + n * 10})`}><circle class="na" r="10" /><text text-anchor="middle" dy="0.35em">Na⁺</text></g>)}
+  {[1, 2].map((n) => <g data-el={`n${n}`} class="ion" transform={`translate(${40 + n * 18} ${140 + n * 18})`}><circle class="na" r="10" /><text text-anchor="middle" dy="0.35em">Na⁺</text></g>)}
+  <g data-el="g1" class="ion" transform="translate(66 128)"><polygon class="glu" points={hex(0, 0, 13)} /><text text-anchor="middle" dy="0.35em" class="dark">Glc</text></g>
+  <text class="note" x="281" y="160" text-anchor="middle" data-el="note">Na⁺ low inside the cell</text>
+</svg>
+<style>
+  .sglt { font-family: var(--font-sans); }
+  .side { font-size: 13px; font-weight: 700; fill: var(--text-muted); }
+  .cell { fill: color-mix(in srgb, var(--accent-soft) 60%, transparent); }
+  .villi rect { fill: color-mix(in srgb, var(--accent-soft) 60%, transparent); stroke: var(--bio-head); stroke-width: 3; }
+  .mem { stroke: var(--bio-head); stroke-width: 6; fill: none; stroke-dasharray: 3 3; }
+  .sglt-p { fill: var(--bio-protein-2); }
+  .pump { fill: var(--bio-protein); }
+  .glut { fill: var(--bio-water); }
+  .lbl { font-size: 12px; font-weight: 700; fill: var(--text); }
+  .na { fill: var(--bio-na); }
+  .glu { fill: var(--bio-glucose); stroke: color-mix(in srgb, var(--bio-glucose) 60%, black); }
+  .faint { opacity: 0.35; }
+  .atp { fill: var(--bio-head); }
+  .ion text { font-size: 10px; font-weight: 800; fill: #fff; }
+  .ion text.dark { fill: #000; }
+  .note { font-size: 13px; font-style: italic; fill: var(--text-muted); }
+</style>

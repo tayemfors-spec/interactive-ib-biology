@@ -1,0 +1,69 @@
+/* Design tokens. Every colour has a light and a dark value; the active pair is chosen by
+   color-scheme, which follows the OS unless the user picks a theme (data-theme on <html>). */
+:root {
+  color-scheme: light dark;
+
+  --bg: light-dark(#f6f8f7, #0e1412);
+  --surface: light-dark(#ffffff, #141c19);
+  --surface-2: light-dark(#edf2ef, #1b2521);
+  --surface-3: light-dark(#e1e9e5, #24302b);
+  --text: light-dark(#14201b, #e5ece8);
+  --text-muted: light-dark(#46554e, #a6b5ae);
+  --border: light-dark(#cfd9d4, #2c3a34);
+  --border-strong: light-dark(#9fb0a8, #4a5c54);
+
+  --accent: light-dark(#0b6b5c, #52d0b4);
+  --accent-strong: light-dark(#084f44, #8ae3cf);
+  --accent-soft: light-dark(#dcf0ea, #12332d);
+  --on-accent: light-dark(#ffffff, #06221c);
+
+  --ahl: light-dark(#6a3ba0, #c9a7f2);
+  --ahl-soft: light-dark(#f2ebfa, #261d38);
+  --warn: light-dark(#8f4300, #ffb26b);
+  --warn-soft: light-dark(#fff1e3, #34230f);
+  --good: light-dark(#1d6b2c, #7fd88f);
+  --good-soft: light-dark(#e3f4e5, #15301a);
+  --bad: light-dark(#a32020, #ff8f8f);
+  --bad-soft: light-dark(#fde8e8, #3a1515);
+  --focus: light-dark(#1556c9, #8cb6ff);
+
+  /* Biology colour code used consistently in diagrams and 3D scenes */
+  --bio-head: light-dark(#d9822b, #f0a457);      /* phospholipid heads */
+  --bio-tail: light-dark(#e7c66a, #c9ab55);      /* fatty-acid tails */
+  --bio-protein: light-dark(#3f7fbf, #6aa6e0);   /* proteins */
+  --bio-protein-2: light-dark(#7a5bb5, #a58ae0);
+  --bio-carb: light-dark(#3a9d5d, #6cc98b);      /* carbohydrate chains */
+  --bio-chol: light-dark(#b0494f, #e07c82);      /* cholesterol */
+  --bio-na: light-dark(#7b4bc4, #b48df0);        /* Na+ */
+  --bio-k: light-dark(#d1495b, #f07f8f);         /* K+ */
+  --bio-water: light-dark(#2b7bd6, #6fb0f5);
+  --bio-glucose: light-dark(#c98a00, #f2c14e);
+
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  --step--1: clamp(0.84rem, 0.82rem + 0.1vw, 0.9rem);
+  --step-0: clamp(1rem, 0.97rem + 0.15vw, 1.075rem);
+  --step-1: clamp(1.15rem, 1.1rem + 0.3vw, 1.3rem);
+  --step-2: clamp(1.35rem, 1.25rem + 0.55vw, 1.65rem);
+  --step-3: clamp(1.65rem, 1.45rem + 1vw, 2.2rem);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+
+  --radius-s: 6px;
+  --radius-m: 10px;
+  --radius-l: 16px;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 4px 16px rgb(0 0 0 / 0.06);
+  --header-h: 3.5rem;
+  --sidebar-w: 18rem;
+  --measure: 46rem;
+}
+
+:root[data-theme='light'] { color-scheme: light; }
+:root[data-theme='dark'] { color-scheme: dark; }

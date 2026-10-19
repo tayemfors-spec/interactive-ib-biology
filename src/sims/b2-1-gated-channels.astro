@@ -1,0 +1,183 @@
+---
+/**
+ * B2.1.14: a neurotransmitter-gated channel (nicotinic acetylcholine receptor) and voltage-gated
+ * Na⁺ and K⁺ channels. Channel states follow the simplified sequence used at IB level:
+ * below threshold (≈ −50 mV) both closed; above threshold Na⁺ open; near the peak (≈ +30 to +40 mV)
+ * Na⁺ inactivated and K⁺ open; K⁺ channels close again after the undershoot.
+ */
+const ions = Array.from({ length: 4 }, (_, i) => i);
+---
+<div class="gated" data-gated>
+  <div class="panels">
+    <section class="panel" aria-labelledby="ach-h">
+      <h3 id="ach-h">Neurotransmitter-gated: nicotinic ACh receptor</h3>
+      <svg viewBox="0 0 260 230" aria-hidden="true" class="art" data-ach-art>
+        <text class="side" x="6" y="16">synaptic cleft</text>
+        <text class="side" x="6" y="224">inside postsynaptic neuron</text>
+        <rect class="mem" x="0" y="80" width="260" height="62" />
+        <g class="half left" data-ach-left><path d="M78 60 h44 v124 h-44 z" rx="8" /></g>
+        <g class="half right" data-ach-right><path d="M138 60 h44 v124 h-44 z" /></g>
+        <g class="ach" data-ach-ligands>
+          <circle cx="100" cy="46" r="7" /><circle cx="160" cy="46" r="7" />
+        </g>
+        <g class="na-flow" data-ach-flow>{ions.map((i) => <circle class="na" cx="130" cy={30 + i * 10} r="6" style={`--d:${i * 0.35}s`} />)}</g>
+      </svg>
+      <button class="btn btn-primary" type="button" data-ach-btn aria-pressed="false">Release acetylcholine</button>
+      <p class="status" aria-live="polite" data-ach-status>No acetylcholine bound: the channel is closed.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="vg-h">
+      <h3 id="vg-h">Voltage-gated Na⁺ and K⁺ channels</h3>
+      <svg viewBox="0 0 260 230" aria-hidden="true" class="art">
+        <text class="side" x="6" y="16">outside</text>
+        <text class="side" x="6" y="224">inside axon</text>
+        <rect class="mem" x="0" y="80" width="260" height="62" />
+        <text class="ch-l" x="72" y="74" text-anchor="middle">Na⁺</text>
+        <text class="ch-l" x="190" y="74" text-anchor="middle">K⁺</text>
+        <g data-na-ch>
+          <path class="vg na-c" data-a d="M46 82 h20 v58 h-20 z" />
+          <path class="vg na-c" data-b d="M78 82 h20 v58 h-20 z" />
+          <circle class="inact" data-inact cx="72" cy="160" r="9" />
+        </g>
+        <g data-k-ch>
+          <path class="vg k-c" data-a d="M164 82 h20 v58 h-20 z" />
+          <path class="vg k-c" data-b d="M196 82 h20 v58 h-20 z" />
+        </g>
+        <g class="na-flow" data-na-flow>{ions.map((i) => <circle class="na" cx="72" cy={30 + i * 10} r="6" style={`--d:${i * 0.35}s`} />)}</g>
+        <g class="k-flow" data-k-flow>{ions.map((i) => <circle class="k" cx="190" cy={190 - i * 10} r="7" style={`--d:${i * 0.35}s`} />)}</g>
+      </svg>
+      <label class="slider">Membrane potential: <output data-v-out>−70 mV</output>
+        <input type="range" min="-80" max="50" step="1" value="-70" data-v aria-describedby="vg-hint" />
+      </label>
+      <p id="vg-hint" class="hint">The slider shows the channel states as the voltage <em>rises</em>. Use “Fire an action potential” to see the full sequence, including repolarisation.</p>
+      <button class="btn" type="button" data-run>Fire an action potential</button>
+      <p class="status" aria-live="polite" data-vg-status>Resting potential: both voltage-gated channels are closed.</p>
+    </section>
+  </div>
+</div>
+
+<script>
+  import { prefersReducedMotion } from '../lib/prefs';
+
+  type NaState = 'closed' | 'open' | 'inactivated';
+  document.querySelectorAll<HTMLElement>('[data-gated]').forEach((root) => {
+    // ---------- ACh receptor ----------
+    const achBtn = root.querySelector<HTMLButtonElement>('[data-ach-btn]')!;
+    let bound = false;
+    const renderAch = () => {
+      root.querySelector<SVGGElement>('[data-ach-left]')!.style.transform = bound ? 'translateX(-12px)' : '';
+      root.querySelector<SVGGElement>('[data-ach-right]')!.style.transform = bound ? 'translateX(12px)' : '';
+      root.querySelector<SVGGElement>('[data-ach-ligands]')!.classList.toggle('bound', bound);
+      root.querySelector<SVGGElement>('[data-ach-flow]')!.classList.toggle('on', bound);
+      achBtn.textContent = bound ? 'Remove acetylcholine (acetylcholinesterase)' : 'Release acetylcholine';
+      achBtn.setAttribute('aria-pressed', String(bound));
+      root.querySelector('[data-ach-status]')!.textContent = bound
+        ? 'Two acetylcholine molecules have bound. The receptor changes shape and its pore opens: Na⁺ diffuses into the neuron, depolarising it.'
+        : 'No acetylcholine bound: the channel is closed.';
+    };
+    achBtn.addEventListener('click', () => { bound = !bound; renderAch(); });
+
+    // ---------- voltage-gated channels ----------
+    const slider = root.querySelector<HTMLInputElement>('[data-v]')!;
+    const out = root.querySelector<HTMLElement>('[data-v-out]')!;
+    const status = root.querySelector<HTMLElement>('[data-vg-status]')!;
+    const runBtn = root.querySelector<HTMLButtonElement>('[data-run]')!;
+    const fmt = (v: number) => `${v < 0 ? '−' : v > 0 ? '+' : ''}${Math.abs(v)} mV`;
+
+    const renderVG = (v: number, na: NaState, kOpen: boolean, note?: string) => {
+      out.textContent = fmt(Math.round(v));
+      const naG = root.querySelector<SVGGElement>('[data-na-ch]')!;
+      const kG = root.querySelector<SVGGElement>('[data-k-ch]')!;
+      naG.querySelector<SVGPathElement>('[data-a]')!.style.transform = na === 'closed' ? '' : 'translateX(-8px)';
+      naG.querySelector<SVGPathElement>('[data-b]')!.style.transform = na === 'closed' ? '' : 'translateX(8px)';
+      root.querySelector<SVGCircleElement>('[data-inact]')!.classList.toggle('on', na === 'inactivated');
+      kG.querySelector<SVGPathElement>('[data-a]')!.style.transform = kOpen ? 'translateX(-8px)' : '';
+      kG.querySelector<SVGPathElement>('[data-b]')!.style.transform = kOpen ? 'translateX(8px)' : '';
+      root.querySelector('[data-na-flow]')!.classList.toggle('on', na === 'open');
+      root.querySelector('[data-k-flow]')!.classList.toggle('on', kOpen);
+      const naText = { closed: 'Na⁺ channels closed', open: 'Na⁺ channels open: Na⁺ diffuses in', inactivated: 'Na⁺ channels inactivated (blocked)' }[na];
+      status.textContent = `${fmt(Math.round(v))}. ${naText}; K⁺ channels ${kOpen ? 'open: K⁺ diffuses out' : 'closed'}.` + (note ? ` ${note}` : '');
+    };
+    // Steady-state rule used for the slider (a simplification: real channel states also depend on time).
+    const fromSlider = () => {
+      const v = Number(slider.value);
+      if (v < -50) renderVG(v, 'closed', false, v <= -71 ? 'This is more negative than the resting potential.' : 'Below the threshold of about −50 mV.');
+      else if (v < 30) renderVG(v, 'open', false, 'Above threshold, so Na⁺ channels open and the inside becomes less negative (depolarisation).');
+      else renderVG(v, 'inactivated', true, 'Near the peak, Na⁺ channels inactivate and the slower K⁺ channels open (repolarisation follows).');
+    };
+    slider.addEventListener('input', fromSlider);
+
+    // A full action potential: [time ms, voltage, Na state, K open, note]
+    const seq: [number, number, NaState, boolean, string][] = [
+      [0, -70, 'closed', false, 'Resting potential.'],
+      [400, -50, 'closed', false, 'A stimulus depolarises the membrane to threshold.'],
+      [700, 40, 'open', false, 'Na⁺ channels open; Na⁺ floods in and the inside becomes positive (depolarisation).'],
+      [1100, 40, 'inactivated', true, 'At the peak, Na⁺ channels inactivate and K⁺ channels open.'],
+      [1700, -80, 'inactivated', true, 'K⁺ diffuses out, so the membrane repolarises and briefly overshoots (hyperpolarisation).'],
+      [2300, -70, 'closed', false, 'K⁺ channels close and Na⁺ channels reset, so the membrane returns to its resting potential. Na⁺/K⁺ pumps keep the concentration gradients that make the next impulse possible.'],
+    ];
+    let raf = 0;
+    runBtn.addEventListener('click', () => {
+      cancelAnimationFrame(raf);
+      if (prefersReducedMotion()) {
+        // Step through the stages on each press instead of animating.
+        const i = Number(runBtn.dataset.i ?? -1) + 1;
+        const s = seq[i % seq.length]!;
+        runBtn.dataset.i = String(i % seq.length);
+        slider.value = String(s[1]);
+        renderVG(s[1], s[2], s[3], s[4]);
+        runBtn.textContent = 'Next stage of the action potential';
+        return;
+      }
+      const t0 = performance.now();
+      const frame = (now: number) => {
+        const t = now - t0;
+        let k = seq.findIndex((s) => s[0] > t) - 1;
+        if (k < 0) k = seq.length - 1;
+        const a = seq[k]!, b = seq[Math.min(k + 1, seq.length - 1)]!;
+        const u = b[0] === a[0] ? 1 : Math.min(1, (t - a[0]) / (b[0] - a[0]));
+        const v = a[1] + (b[1] - a[1]) * u;
+        slider.value = String(Math.round(v));
+        // show the states of the stage being moved towards (cause before effect)
+        renderVG(v, b[2], b[3], b[4]);
+        if (t < seq[seq.length - 1]![0]) raf = requestAnimationFrame(frame);
+        else renderVG(-70, 'closed', false, seq[seq.length - 1]![4]);
+      };
+      raf = requestAnimationFrame(frame);
+    });
+    renderAch();
+    fromSlider();
+  });
+</script>
+
+<style>
+  .panels { display: grid; gap: var(--space-4); }
+  .gated { container-type: inline-size; }
+  @container (min-width: 36rem) { .panels { grid-template-columns: 1fr 1fr; } }
+  .panel { display: grid; gap: var(--space-2); align-content: start; }
+  .panel h3 { font-size: var(--step-0); margin: 0; }
+  .art { width: 100%; height: auto; background: var(--surface-2); border-radius: var(--radius-m); font-family: var(--font-sans); }
+  .side { font-size: 12px; fill: var(--text-muted); font-weight: 600; }
+  .ch-l { font-size: 13px; font-weight: 800; fill: var(--text); }
+  .mem { fill: color-mix(in srgb, var(--bio-tail) 45%, transparent); stroke: var(--bio-head); stroke-width: 6; stroke-dasharray: 2 3; }
+  .half path { fill: var(--bio-protein-2); }
+  .half, .vg { transition: transform 0.35s ease; transform-box: fill-box; }
+  .vg.na-c { fill: var(--bio-protein); }
+  .vg.k-c { fill: var(--bio-protein-2); }
+  .ach circle { fill: var(--bio-carb); opacity: 0.25; transition: opacity 0.3s, transform 0.3s; }
+  .ach.bound circle { opacity: 1; transform: translateY(14px); }
+  .inact { fill: var(--bad); opacity: 0; transition: opacity 0.3s, transform 0.3s; transform-box: fill-box; }
+  .inact.on { opacity: 1; transform: translateY(-14px); }
+  .na { fill: var(--bio-na); }
+  .k { fill: var(--bio-k); }
+  .na-flow circle, .k-flow circle { opacity: 0; }
+  .na-flow.on circle { opacity: 1; animation: down 1.4s linear infinite; animation-delay: var(--d); }
+  .k-flow.on circle { opacity: 1; animation: up 1.4s linear infinite; animation-delay: var(--d); }
+  @keyframes down { from { transform: translateY(0); } to { transform: translateY(170px); opacity: 0.2; } }
+  @keyframes up { from { transform: translateY(0); } to { transform: translateY(-170px); opacity: 0.2; } }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; font-size: var(--step--1); }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .hint { font-size: 0.8rem; color: var(--text-muted); margin: 0; }
+  .status { margin: 0; padding: var(--space-3); border-radius: var(--radius-m); background: var(--surface-2); font-size: var(--step--1); min-height: 4.5rem; }
+  .panel .btn { justify-self: start; }
+</style>

@@ -1,0 +1,134 @@
+---
+import { classify, fluidity, stateText } from './models/fluidity';
+const d = { temp: 20, unsat: 40, chol: 0 };
+const f = fluidity(d);
+const lipids = Array.from({ length: 16 }, (_, i) => i);
+---
+<div class="fluid" data-fluid>
+  <div class="grid">
+    <div>
+      <svg viewBox="0 0 480 220" class="art" aria-hidden="true" data-art>
+        <text class="side" x="8" y="18">outer layer</text>
+        <text class="side" x="8" y="214">inner layer</text>
+        {[0, 1].map((row) => (
+          <g data-row={row}>
+            {lipids.map((i) => (
+              <g class="lipid" data-i={i} transform={`translate(${18 + i * 28} ${row === 0 ? 40 : 180})`}>
+                <circle r="9" class="h" />
+                <path class="t" d={row === 0 ? 'M-3 9 L-3 60' : 'M-3 -9 L-3 -60'} />
+                <path class="t t2" d={row === 0 ? 'M3 9 L3 60' : 'M3 -9 L3 -60'} />
+              </g>
+            ))}
+          </g>
+        ))}
+        <g data-chol></g>
+      </svg>
+      <div class="meter" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow={Math.round(f * 100)} aria-label="Membrane fluidity" data-meter>
+        <span class="bar"><span class="fill" data-fill style={`width:${(f * 100).toFixed(0)}%`}></span></span>
+        <span class="ends"><span>rigid</span><span>fluid</span><span>leaky</span></span>
+      </div>
+    </div>
+    <div class="controls">
+      <label class="slider">Temperature: <output data-out="temp">{d.temp} °C</output>
+        <input type="range" min="-5" max="45" step="1" value={d.temp} data-param="temp" />
+      </label>
+      <label class="slider">Unsaturated fatty acids: <output data-out="unsat">{d.unsat}%</output>
+        <input type="range" min="0" max="100" step="5" value={d.unsat} data-param="unsat" />
+      </label>
+      <label class="slider">Cholesterol (animal cells): <output data-out="chol">{d.chol}% of lipids</output>
+        <input type="range" min="0" max="40" step="5" value={d.chol} data-param="chol" />
+      </label>
+      <p class="state" aria-live="polite" data-state>{stateText[classify(f)]}</p>
+      <div class="presets">
+        <span>Try:</span>
+        <button class="btn" type="button" data-preset='{"temp":2,"unsat":75,"chol":0}'>Cold-water fish</button>
+        <button class="btn" type="button" data-preset='{"temp":37,"unsat":40,"chol":30}'>Human cell, 37 °C</button>
+        <button class="btn" type="button" data-preset='{"temp":2,"unsat":10,"chol":0}'>Saturated tails in the cold</button>
+      </div>
+    </div>
+  </div>
+  <p class="model-note">Qualitative model: it shows the direction of each effect, not real measurements.</p>
+</div>
+
+<script>
+  import { classify, fluidity, stateText } from './models/fluidity';
+  import { prefersReducedMotion } from '../lib/prefs';
+
+  const NS = 'http://www.w3.org/2000/svg';
+  document.querySelectorAll<HTMLElement>('[data-fluid]').forEach((root) => {
+    const inputs = Object.fromEntries([...root.querySelectorAll<HTMLInputElement>('[data-param]')].map((i) => [i.dataset.param!, i]));
+    const lipids = [...root.querySelectorAll<SVGGElement>('.lipid')];
+    const cholLayer = root.querySelector<SVGGElement>('[data-chol]')!;
+    let f = 0.5;
+    let raf = 0;
+    let visible = false;
+    const val = (k: string) => Number(inputs[k]!.value);
+
+    const draw = (time = 0) => {
+      const unsat = val('unsat') / 100;
+      const amp = prefersReducedMotion() ? 0 : 2 + f * 7;
+      lipids.forEach((g, n) => {
+        const row = n < 16 ? 0 : 1;
+        const i = n % 16;
+        const spread = 26 + f * 4;
+        const jx = amp * Math.sin(time / 260 + n * 1.7);
+        const jy = amp * 0.4 * Math.cos(time / 330 + n);
+        g.setAttribute('transform', `translate(${(18 + i * spread + jx).toFixed(1)} ${(row === 0 ? 40 : 180) + jy})`);
+        const kinked = ((i * 7 + row * 3) % 10) / 10 < unsat;
+        const t2 = g.querySelector<SVGPathElement>('.t2')!;
+        t2.setAttribute('d', row === 0 ? (kinked ? 'M3 9 L3 32 L13 60' : 'M3 9 L3 60') : (kinked ? 'M3 -9 L3 -32 L13 -60' : 'M3 -9 L3 -60'));
+      });
+    };
+    const loop = (t: number) => { draw(t); raf = visible && !prefersReducedMotion() ? requestAnimationFrame(loop) : 0; };
+    const update = () => {
+      const p = { temp: val('temp'), unsat: val('unsat'), chol: val('chol') };
+      f = fluidity(p);
+      root.querySelector('[data-out="temp"]')!.textContent = `${p.temp} °C`;
+      root.querySelector('[data-out="unsat"]')!.textContent = `${p.unsat}%`;
+      root.querySelector('[data-out="chol"]')!.textContent = `${p.chol}% of lipids`;
+      root.querySelector<HTMLElement>('[data-fill]')!.style.width = `${(f * 100).toFixed(0)}%`;
+      root.querySelector('[data-meter]')!.setAttribute('aria-valuenow', String(Math.round(f * 100)));
+      const st = classify(f);
+      const extra = p.chol > 0 ? ' Cholesterol is pulling fluidity towards the middle of the range.' : '';
+      root.querySelector('[data-state]')!.textContent = stateText[st] + extra;
+      const n = Math.round((p.chol / 40) * 7);
+      cholLayer.replaceChildren(...Array.from({ length: n }, (_, k) => {
+        const e = document.createElementNS(NS, 'rect');
+        e.setAttribute('x', String(32 + k * 62)); e.setAttribute('y', k % 2 ? '138' : '52');
+        e.setAttribute('width', '9'); e.setAttribute('height', '30'); e.setAttribute('rx', '3'); e.setAttribute('class', 'c');
+        return e;
+      }));
+      if (!raf) draw(performance.now());
+    };
+    Object.values(inputs).forEach((i) => i.addEventListener('input', update));
+    root.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach((b) => b.addEventListener('click', () => {
+      const p = JSON.parse(b.dataset.preset!) as Record<string, number>;
+      for (const [k, v] of Object.entries(p)) inputs[k]!.value = String(v);
+      update();
+    }));
+    new IntersectionObserver(([e]) => { visible = !!e?.isIntersecting; if (visible && !raf) raf = requestAnimationFrame(loop); }).observe(root);
+    window.addEventListener('ibbio:prefs', () => { if (!raf) draw(); });
+    update();
+  });
+</script>
+
+<style>
+  .fluid { container-type: inline-size; }
+  .grid { display: grid; gap: var(--space-4); }
+  @container (min-width: 40rem) { .grid { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); align-items: start; } }
+  .art { width: 100%; height: auto; background: var(--surface-2); border-radius: var(--radius-m); font-family: var(--font-sans); }
+  .side { font-size: 12px; fill: var(--text-muted); font-weight: 600; }
+  .h { fill: var(--bio-head); }
+  .t { stroke: var(--bio-tail); stroke-width: 3; fill: none; stroke-linejoin: round; }
+  .art :global(.c) { fill: var(--bio-chol); }
+  .meter { margin-top: var(--space-3); }
+  .bar { display: block; height: 0.8rem; border-radius: 999px; background: linear-gradient(90deg, var(--bio-protein), var(--good), var(--bad)); position: relative; overflow: hidden; }
+  .fill { display: block; height: 100%; border-right: 3px solid var(--text); background: transparent; }
+  .ends { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .state { margin: 0; padding: var(--space-3); border-radius: var(--radius-m); background: var(--surface-2); }
+  .presets { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

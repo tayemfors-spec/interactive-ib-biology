@@ -17,3 +17,6 @@ coverage/
 .env
 .env.*
 !.env.example
+
+# Review screenshots (regenerate with scripts/screenshots.mjs)
+screenshots/

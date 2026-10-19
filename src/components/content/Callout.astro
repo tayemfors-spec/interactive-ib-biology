@@ -1,0 +1,18 @@
+---
+interface Props { type?: 'tip' | 'exam' | 'note'; title?: string }
+const { type = 'note', title } = Astro.props;
+const heading = title ?? { tip: 'Tip', exam: 'Exam tip', note: 'Note' }[type];
+---
+<aside class:list={['callout', type]} aria-label={heading}>
+  <p class="title">{heading}</p>
+  <slot />
+</aside>
+<style>
+  .callout { margin: var(--space-5) 0; padding: var(--space-3) var(--space-4); border-radius: var(--radius-m); border: 1px solid var(--border); background: var(--surface); }
+  .callout :global(p:last-child), .callout :global(ul:last-child) { margin-bottom: 0; }
+  .title { font-weight: 750; margin-bottom: var(--space-1); }
+  .exam { border-color: color-mix(in srgb, var(--warn) 40%, var(--border)); background: var(--warn-soft); }
+  .exam .title { color: var(--warn); }
+  .tip { border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); background: var(--accent-soft); }
+  .tip .title { color: var(--accent-strong); }
+</style>

@@ -1,0 +1,38 @@
+---
+/** Two neighbouring animal cells held together by cell-adhesion molecules (CAMs) at a junction. */
+const cams = [70, 130, 190, 250, 310];
+---
+<svg viewBox="0 0 640 300" role="img" aria-labelledby="cam-t cam-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="cam-t">Cell-adhesion molecules joining two cells</title>
+  <desc id="cam-d">The plasma membranes of two adjacent cells run side by side with a narrow gap between them. Cell-adhesion molecules are integral proteins in each membrane; their outer parts reach across the gap and bind to the matching molecules on the other cell, holding the cells together in a tissue.</desc>
+  <text class="cell" x="120" y="30">Cell 1 (cytoplasm)</text>
+  <text class="cell" x="400" y="30">Cell 2 (cytoplasm)</text>
+  <rect class="mem" x="250" y="40" width="34" height="240" rx="6" />
+  <rect class="mem" x="356" y="40" width="34" height="240" rx="6" />
+  <text class="gap" x="320" y="292" text-anchor="middle">gap between cells</text>
+  {cams.map((y) => (
+    <g>
+      <rect class="cam1" x="232" y={y - 9} width="46" height="18" rx="6" />
+      <path class="cam1" d={`M278 ${y} h18`} />
+      <circle class="cam1" cx="304" cy={y} r="8" />
+      <circle class="cam1" cx="318" cy={y} r="7" />
+      <rect class="cam2" x="362" y={y - 9} width="46" height="18" rx="6" />
+      <path class="cam2" d={`M362 ${y} h-18`} />
+      <circle class="cam2" cx="336" cy={y} r="8" />
+      <circle class="cam2" cx="322" cy={y} r="7" />
+    </g>
+  ))}
+  <path class="lead" d="M200 130 L234 130" /><text class="gap" x="160" y="292" text-anchor="middle">part in cytoplasm links to cytoskeleton</text><text class="lbl" x="196" y="126" text-anchor="end">CAM: integral protein</text><text class="lbl" x="196" y="146" text-anchor="end">spanning the membrane</text>
+  <path class="lead" d="M440 190 L326 190" /><text class="lbl" x="446" y="186">extracellular parts of CAMs</text><text class="lbl" x="446" y="206">bind across the gap</text>
+  <path class="lead" d="M440 80 L390 70" /><text class="lbl" x="446" y="76">plasma membranes</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .cell { font-size: 16px; font-weight: 700; fill: var(--text-muted); }
+  .mem { fill: color-mix(in srgb, var(--bio-head) 35%, var(--surface)); stroke: var(--bio-head); stroke-width: 1.5; }
+  .cam1 { fill: var(--bio-protein); stroke: var(--bio-protein); stroke-width: 3; }
+  .cam2 { fill: var(--bio-protein-2); stroke: var(--bio-protein-2); stroke-width: 3; }
+  .lead { stroke: var(--text); stroke-width: 1.3; }
+  .lbl { font-size: 15px; fill: var(--text); }
+  .gap { font-size: 14px; fill: var(--text-muted); font-style: italic; }
+</style>

@@ -1,0 +1,65 @@
+cards:
+  - id: c1
+    level: SL
+    front: Why do phospholipids form a bilayer spontaneously in water?
+    back: They are amphipathic. The hydrophilic phosphate heads are attracted to water and the hydrophobic tails are not, so the lowest-energy arrangement is two layers with heads facing the water on both sides and tails together in the middle. No energy input is needed.
+  - id: c2
+    level: SL
+    front: Which particles does the hydrophobic core of the membrane block?
+    back: Ions, polar molecules (such as glucose and amino acids) and large molecules (such as proteins). Small non-polar molecules such as O₂ and CO₂ pass through easily; small polar molecules such as water cross slowly.
+  - id: c3
+    level: SL
+    front: Integral vs peripheral protein
+    back: Integral proteins are embedded in one or both layers of the bilayer (transmembrane ones span it). Peripheral proteins are attached to one surface only and do not enter the hydrophobic core.
+  - id: c4
+    level: SL
+    front: Give four functions of membrane proteins.
+    back: Any four of — channels, pumps, carriers, receptors for hormones or neurotransmitters, enzymes, cell recognition, cell adhesion, electron carriers.
+  - id: c5
+    level: SL
+    front: Explain osmosis in terms of solute concentration.
+    back: Water molecules move randomly in both directions across a membrane that solutes cannot cross. More water moves from the lower solute concentration to the higher solute concentration than the other way, giving a net movement towards the higher solute concentration.
+  - id: c6
+    level: SL
+    front: What is an aquaporin and why does it matter?
+    back: An integral channel protein (four subunits, each with a narrow pore) through which water passes in single file. It greatly increases the membrane's permeability to water but does not let ions through.
+  - id: c7
+    level: SL
+    front: How does a channel protein make a membrane selectively permeable?
+    back: The size of its pore and the charges lining it let only a specific ion through, and many channels can open or close, so ions diffuse through only when the channel is open. Movement is passive (facilitated diffusion).
+  - id: c8
+    level: SL
+    front: Why can pump proteins move particles against a concentration gradient?
+    back: They use energy from ATP hydrolysis to change shape and transfer specific particles across the membrane in one direction (active transport).
+  - id: c9
+    level: SL
+    front: List what must be labelled on a 2D fluid mosaic model drawing.
+    back: Phospholipid bilayer, cholesterol, integral protein, peripheral protein, glycoprotein with carbohydrate on the outer face only, hydrophilic heads and the hydrophobic region (tails).
+  - id: c10
+    level: AHL
+    front: How do unsaturated fatty acids affect membrane fluidity?
+    back: Cis double bonds put kinks in the chains, so they cannot pack tightly. This lowers their melting point, keeping membranes fluid and flexible at the temperatures the cell experiences. Saturated fatty acids pack tightly and make membranes stronger at higher temperatures.
+  - id: c11
+    level: AHL
+    front: Give an example of membrane composition adapted to habitat.
+    back: Fish from polar seas (near 0 °C) have a higher proportion of unsaturated fatty acids in their membrane phospholipids than tropical fish, so their membranes stay fluid in the cold (homeoviscous adaptation).
+  - id: c12
+    level: AHL
+    front: Where is cholesterol in a membrane and what does it do?
+    back: Among the fatty acid tails, with its –OH group next to the phosphate heads. It modulates fluidity — it restrains phospholipid movement at high temperatures (stabilizing the membrane) and prevents the tails packing into a rigid solid at low temperatures.
+  - id: c13
+    level: AHL
+    front: Why does membrane fluidity allow endocytosis and exocytosis? Give an example of each.
+    back: The phospholipids are not covalently bonded to each other (they are held by hydrophobic interactions), so the bilayer can bend, pinch off and fuse without tearing. Endocytosis — phagocytosis of bacteria by white blood cells. Exocytosis — secretion of insulin from pancreatic β cells, or release of neurotransmitter at a synapse.
+  - id: c14
+    level: AHL
+    front: Contrast the nicotinic acetylcholine receptor with voltage-gated Na⁺ channels.
+    back: The nicotinic receptor is neurotransmitter-gated — acetylcholine binding opens a pore for cations (mainly Na⁺ in). Voltage-gated Na⁺ channels open when the membrane potential rises to the threshold (about −50 mV). Both allow facilitated diffusion.
+  - id: c15
+    level: AHL
+    front: Sodium–potassium pump — what does one cycle do, and why is it important?
+    back: An exchange transporter that uses 1 ATP to move 3 Na⁺ out and 2 K⁺ in, both against their gradients. The gradients it creates (with K⁺ leaking out) generate the resting membrane potential, inside negative, and are used in nerve impulses.
+  - id: c16
+    level: AHL
+    front: Why is sodium-dependent glucose cotransport called indirect active transport?
+    back: The cotransporter uses no ATP. Na⁺ diffusing in down its gradient carries glucose in against its gradient, but that Na⁺ gradient is maintained by Na⁺/K⁺ pumps using ATP. It is used to absorb glucose in the small intestine and reabsorb it in the proximal convoluted tubule.

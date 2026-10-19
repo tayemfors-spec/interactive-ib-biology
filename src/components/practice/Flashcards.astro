@@ -1,0 +1,113 @@
+---
+import type { Flashcards } from '../../schemas';
+import Icon from '../Icon.astro';
+import { hash } from '../../lib/hash';
+interface Props { code: string; cards: Flashcards }
+const { code, cards } = Astro.props;
+const rev = hash(JSON.stringify(cards.cards.map((c) => [c.id, c.front])));
+---
+<div class="cards" data-cards data-code={code} data-rev={rev}>
+  <h3>Flashcards</h3>
+  <p class="cards-help">Say the answer to yourself, then reveal it. Mark <strong>Got it</strong> or <strong>Again</strong>; cards you've got move to the back of the deck.</p>
+  <div class="deck">
+    {cards.cards.map((c, n) => (
+      <div class="card" data-card={c.id} data-level-block={c.level} hidden={n !== 0}>
+        <p class="card-count" aria-hidden="true"></p>
+        <div class="face front">
+          <span class="face-label">Prompt {c.level === 'AHL' && <span class="badge badge-ahl">AHL</span>}</span>
+          <p set:html={c.front} />
+        </div>
+        <div class="face back" hidden>
+          <span class="face-label">Answer</span>
+          <p set:html={c.back} />
+        </div>
+      </div>
+    ))}
+  </div>
+  <div class="card-actions">
+    <button class="btn btn-primary" type="button" data-reveal aria-expanded="false"><Icon name="flip" /> Reveal answer</button>
+    <button class="btn" type="button" data-again hidden><Icon name="x" /> Again</button>
+    <button class="btn" type="button" data-know hidden><Icon name="check" /> Got it</button>
+    <button class="btn" type="button" data-shuffle>Shuffle</button>
+    <button class="btn" type="button" data-reset-cards>Reset</button>
+  </div>
+  <p class="card-status" role="status" aria-live="polite" data-card-status></p>
+</div>
+
+<script>
+  import { getProgress, updateTopic } from '../../lib/progress';
+
+  document.querySelectorAll<HTMLElement>('[data-cards]').forEach((root) => {
+    const code = root.dataset.code!;
+    const rev = root.dataset.rev!;
+    const all = [...root.querySelectorAll<HTMLElement>('.card')];
+    const reveal = root.querySelector<HTMLButtonElement>('[data-reveal]')!;
+    const again = root.querySelector<HTMLButtonElement>('[data-again]')!;
+    const know = root.querySelector<HTMLButtonElement>('[data-know]')!;
+    const status = root.querySelector<HTMLElement>('[data-card-status]')!;
+    const levelOk = (c: HTMLElement) => document.documentElement.dataset.level !== 'SL' || c.dataset.levelBlock !== 'AHL';
+
+    const saved = getProgress().topics[code]?.cards;
+    let known = new Set(saved && saved.rev === rev ? saved.known : []);
+    let order = all.map((c) => c.dataset.card!);
+    let pos = 0;
+
+    const deck = () => order.map((id) => all.find((c) => c.dataset.card === id)!).filter(levelOk);
+    const save = () => updateTopic(code, (t) => ({ ...t, cards: { rev, known: [...known] } }));
+    const show = () => {
+      const d = deck();
+      if (pos >= d.length) pos = 0;
+      all.forEach((c) => (c.hidden = true));
+      const card = d[pos];
+      if (!card) return;
+      card.hidden = false;
+      card.querySelector<HTMLElement>('.back')!.hidden = true;
+      card.querySelector<HTMLElement>('.card-count')!.textContent = `Card ${pos + 1} of ${d.length}`;
+      reveal.hidden = false; reveal.setAttribute('aria-expanded', 'false');
+      again.hidden = know.hidden = true;
+      const nKnown = d.filter((c) => known.has(c.dataset.card!)).length;
+      status.textContent = `Card ${pos + 1} of ${d.length}. You know ${nKnown} of ${d.length}.` + (known.has(card.dataset.card!) ? ' (Marked as known.)' : '');
+    };
+    const advance = (mark?: boolean) => {
+      const card = deck()[pos]!;
+      const id = card.dataset.card!;
+      if (mark === true) known.add(id);
+      if (mark === false) known.delete(id);
+      save();
+      if (mark === true) { order = order.filter((x) => x !== id).concat(id); } else pos++;
+      show();
+      reveal.focus();
+    };
+
+    reveal.addEventListener('click', () => {
+      const card = deck()[pos]!;
+      card.querySelector<HTMLElement>('.back')!.hidden = false;
+      reveal.hidden = true; reveal.setAttribute('aria-expanded', 'true');
+      again.hidden = know.hidden = false;
+      know.focus();
+    });
+    again.addEventListener('click', () => advance(false));
+    know.addEventListener('click', () => advance(true));
+    root.querySelector('[data-shuffle]')!.addEventListener('click', () => {
+      for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [order[i], order[j]] = [order[j]!, order[i]!]; }
+      pos = 0; show();
+    });
+    root.querySelector('[data-reset-cards]')!.addEventListener('click', () => { known = new Set(); save(); order = all.map((c) => c.dataset.card!); pos = 0; show(); });
+    window.addEventListener('ibbio:prefs', () => { pos = 0; show(); });
+    show();
+  });
+</script>
+
+<style>
+  .cards { margin-top: var(--space-6); }
+  .cards-help { font-size: var(--step--1); color: var(--text-muted); }
+  .card { min-height: 12rem; padding: var(--space-4) var(--space-5); border: 1px solid var(--border); border-radius: var(--radius-l); background: var(--surface); box-shadow: var(--shadow); display: grid; align-content: start; gap: var(--space-3); }
+  .card[hidden] { display: none; }
+  .card-count { margin: 0; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .face p { margin: var(--space-1) 0 0; font-size: var(--step-1); }
+  .back { border-top: 1px dashed var(--border-strong); padding-top: var(--space-3); }
+  .back p { font-size: var(--step-0); }
+  .face-label { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-strong); display: flex; gap: var(--space-2); align-items: center; }
+  .card-actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+  .card-status { font-size: var(--step--1); color: var(--text-muted); margin-top: var(--space-2); }
+</style>

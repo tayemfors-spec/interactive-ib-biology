@@ -84,7 +84,7 @@ Priority: **H** = 3D model or animated process (hard to picture or happens over 
 | D4.2 | Stability and change | SL + AHL 12–15 | M | Succession timeline; eutrophication; biomagnification |
 | D4.3 | Climate change | SL + AHL 9–12 | L | Feedback loops; phenology-mismatch simulation |
 
-**Totals:** 24 high, 12 medium, 4 low. Six topics are AHL only (A2.1, A2.3, A3.2, B3.3, C2.1, D2.2), and nine are SL only.
+**Totals:** 24 high, 12 medium, 4 low. Six topics are AHL only (A2.1, A2.3, A3.2, B3.3, C2.1, D2.2), and seven are SL only (A4.2, B1.1, B4.1, B4.2, C3.2, C4.1, C4.2).
 
 Named examples the guide expects (e.g. ringed seal and black-throated loon, λ phage, Hinewai Reserve, *Vibrio fischeri*) are recorded per topic in `syllabus.json` and must appear on the pages.
 

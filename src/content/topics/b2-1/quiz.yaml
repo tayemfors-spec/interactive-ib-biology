@@ -1,0 +1,205 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: B2.1.3
+    stem: >-
+      Four substances are added at the same concentration to one side of an artificial phospholipid bilayer
+      that contains no proteins. Which one will show the fastest net movement across the bilayer?
+    options:
+      - id: a
+        text: Sodium ions (Na⁺)
+        why: Ions are charged and surrounded by a shell of water molecules, so they are almost completely blocked by the hydrophobic core.
+      - id: b
+        text: Glucose
+        why: Glucose is polar and fairly large, so it crosses a pure bilayer extremely slowly. Cells use transport proteins for it.
+      - id: c
+        text: Oxygen (O₂)
+        why: Correct. O₂ is small and non-polar, so it dissolves in the hydrophobic core and diffuses rapidly between the phospholipids.
+      - id: d
+        text: Water
+        why: Water is small enough to cross a bilayer, but it is polar, so it crosses much more slowly than O₂ unless aquaporins are present.
+    answer: c
+
+  - id: q2
+    level: SL
+    understanding: B2.1.5
+    stem: >-
+      A bag of dialysis tubing, which is permeable to water but not to sucrose, contains 0.5 mol dm⁻³ sucrose
+      solution. It is placed in a beaker of 0.1 mol dm⁻³ sucrose solution. Which describes what happens?
+    options:
+      - id: a
+        text: Sucrose diffuses out of the bag until the concentrations inside and outside are equal.
+        why: The tubing is impermeable to sucrose, so sucrose cannot move. That impermeability is why osmosis occurs.
+      - id: b
+        text: Water molecules move into the bag but none move out of it.
+        why: Water molecules move randomly in both directions all the time. Osmosis is a net movement, not one-way traffic.
+      - id: c
+        text: There is a net movement of water out of the bag, towards the lower solute concentration.
+        why: This reverses the direction. Net water movement in osmosis is towards the higher solute concentration.
+      - id: d
+        text: There is a net movement of water into the bag, so the bag gains mass.
+        why: Correct. The solute concentration is higher inside and the sucrose cannot leave, so more water enters than leaves.
+    answer: d
+
+  - id: q3
+    level: SL
+    understanding: B2.1.6
+    stem: >-
+      The rate of uptake of a polar substance into cells was measured at increasing external concentrations.
+      The rate rose steeply at low concentrations and then levelled off at a maximum. Adding cyanide, a
+      respiratory inhibitor, had no effect on the rate. Which mechanism best explains these results?
+    options:
+      - id: a
+        text: Simple diffusion through the phospholipid bilayer
+        why: Simple diffusion would give a rate proportional to the concentration difference, with no plateau, and polar substances cross the bilayer poorly.
+      - id: b
+        text: Facilitated diffusion through a limited number of membrane proteins
+        why: Correct. It needs no ATP, so cyanide has no effect, and the rate levels off when all the transport proteins are in use.
+      - id: c
+        text: Active transport by pump proteins
+        why: Pumps need ATP from respiration, so a respiratory inhibitor would have reduced the rate.
+      - id: d
+        text: Endocytosis, limited by the rate of vesicle formation
+        why: Endocytosis requires energy from ATP, so cyanide would reduce it. It is also used for large particles, not single polar molecules.
+    answer: b
+
+  - id: q4
+    level: SL
+    understanding: B2.1.7
+    stem: >-
+      Root cells accumulate potassium ions to a concentration many times higher than in the soil water. When
+      the oxygen supply to the roots is removed, K⁺ uptake falls almost to zero. What can be concluded?
+    options:
+      - id: a
+        text: K⁺ is taken up by pump proteins that use ATP from aerobic respiration to move it against its concentration gradient.
+        why: Correct. Uptake against a gradient that stops when respiration stops is the signature of active transport.
+      - id: b
+        text: K⁺ enters by simple diffusion, which needs oxygen to provide energy.
+        why: Simple diffusion is passive and cannot move ions, which are blocked by the hydrophobic core. It also cannot work against a gradient.
+      - id: c
+        text: K⁺ enters by facilitated diffusion through channels, which need ATP to stay open.
+        why: Channels allow passive movement down a gradient only and do not use ATP; they could not accumulate K⁺ above the soil concentration.
+      - id: d
+        text: Without oxygen the aquaporins close, so K⁺ cannot follow water into the cells.
+        why: Aquaporins carry water, not ions, and K⁺ does not cross membranes by being carried along with water.
+    answer: a
+
+  - id: q5
+    level: SL
+    understanding: B2.1.9
+    stem: Which statement about the carbohydrate chains of glycoproteins and glycolipids in the plasma membrane is correct?
+    options:
+      - id: a
+        text: They are found on both faces of the membrane, so the cell can recognise substances inside and outside.
+        why: A common drawing error. The carbohydrate chains are only on the extracellular face.
+      - id: b
+        text: They lie in the hydrophobic core, where they stabilize membrane fluidity.
+        why: Carbohydrates are hydrophilic and could not sit among the fatty acid tails. Fluidity is modulated by cholesterol and fatty acid type.
+      - id: c
+        text: They project from the outer surface and function in cell recognition and cell adhesion.
+        why: Correct. Carbohydrate is attached to proteins or lipids, faces outwards and functions in recognition and adhesion.
+      - id: d
+        text: They are attached to peripheral proteins on the cytoplasmic face, where they bind ATP for pumps.
+        why: Carbohydrate chains face outwards, and ATP binds to the pump protein itself, not to carbohydrate.
+    answer: c
+
+  - id: q6
+    level: AHL
+    understanding: B2.1.11
+    stem: >-
+      The membranes of a fish species from Antarctic seas (about 0 °C) are compared with those of a tropical fish
+      species (about 26 °C). Which difference would you expect, and why?
+    options:
+      - id: a
+        text: The Antarctic fish has more saturated fatty acids, which make the membrane stronger in the cold.
+        why: Saturated fatty acids have high melting points; in the cold they would make the membrane stiff, not usefully stronger.
+      - id: b
+        text: The Antarctic fish has more unsaturated fatty acids, whose kinks lower the melting point so the membrane stays fluid.
+        why: Correct. Kinked cis-unsaturated chains pack loosely, keeping membranes fluid and flexible at low temperature.
+      - id: c
+        text: The tropical fish has more unsaturated fatty acids, because unsaturated fatty acids are more stable at high temperatures.
+        why: This is reversed. Saturated fatty acids, with higher melting points, make membranes stronger at higher temperatures.
+      - id: d
+        text: The Antarctic fish has longer, straighter fatty acid tails that pack tightly to keep heat in.
+        why: Tight packing reduces fluidity, the opposite of what is needed in the cold. Membrane lipids are not an insulating layer.
+    answer: b
+
+  - id: q7
+    level: AHL
+    understanding: B2.1.12
+    stem: Which describes both the position of cholesterol in an animal plasma membrane and its effect on fluidity?
+    options:
+      - id: a
+        text: It lies among the phosphate heads on the outer surface and increases fluidity at all temperatures.
+        why: Cholesterol is mostly hydrophobic and lies among the tails, and its effect depends on temperature.
+      - id: b
+        text: It lies entirely within the hydrophobic core and decreases fluidity at all temperatures.
+        why: Its –OH group sits next to the heads, and at low temperature it prevents stiffening rather than reducing fluidity further.
+      - id: c
+        text: It is attached to carbohydrate chains on the outer surface and acts as a recognition marker.
+        why: That describes glycolipids and glycoproteins. Cholesterol is a steroid among the fatty acid tails.
+      - id: d
+        text: It lies among the fatty acid tails with its –OH group by the heads, reducing fluidity when warm and preventing stiffening when cold.
+        why: Correct. Cholesterol acts as a modulator of fluidity, buffering against both high and low temperatures.
+    answer: d
+
+  - id: q8
+    level: AHL
+    understanding: B2.1.14
+    stem: What happens immediately after acetylcholine binds to a nicotinic acetylcholine receptor in a postsynaptic membrane?
+    options:
+      - id: a
+        text: The receptor changes shape, opening a pore through which cations, mainly Na⁺, diffuse into the cell.
+        why: Correct. It is a neurotransmitter-gated channel; Na⁺ entry down its gradient depolarizes the membrane.
+      - id: b
+        text: The receptor hydrolyses ATP and pumps Na⁺ into the cell.
+        why: The receptor is a channel, not a pump. Ions move through it passively by facilitated diffusion.
+      - id: c
+        text: Voltage-gated K⁺ channels open first and K⁺ leaves the cell.
+        why: The first event is opening of the ligand-gated pore. Voltage-gated channels respond later to a change in membrane potential.
+      - id: d
+        text: Acetylcholine passes through the channel into the postsynaptic cell, where it acts.
+        why: Acetylcholine binds to the outside of the receptor and does not enter; it is later broken down outside the cell.
+    answer: a
+
+  - id: q9
+    level: AHL
+    understanding: B2.1.15
+    stem: >-
+      In an experiment, the sodium–potassium pumps in a patch of neuron membrane hydrolyse 600 molecules of ATP.
+      Which is the expected result?
+    options:
+      - id: a
+        text: 1200 Na⁺ pumped out and 1800 K⁺ pumped in; the inside becomes more positive.
+        why: This reverses the ratio. The pump moves 3 Na⁺ out and 2 K⁺ in for each ATP.
+      - id: b
+        text: 1800 Na⁺ moved in and 1200 K⁺ moved out, down their concentration gradients.
+        why: Wrong direction. The pump moves Na⁺ out and K⁺ in, against their gradients; that is why it needs ATP.
+      - id: c
+        text: 1800 Na⁺ pumped out and 1200 K⁺ pumped in; the inside becomes more negative.
+        why: Correct. 3 Na⁺ out and 2 K⁺ in per ATP, so 600 more positive charges leave than enter.
+      - id: d
+        text: 1800 Na⁺ pumped out and 1200 K⁺ pumped in; there is no change in charge because both ions are positive.
+        why: The numbers are right, but more positive ions leave than enter, so there is a net loss of positive charge from the cell.
+    answer: c
+
+  - id: q10
+    level: AHL
+    understanding: B2.1.16
+    stem: >-
+      A drug inhibits the Na⁺/K⁺ pumps of intestinal epithelial cells but has no effect on the sodium–glucose
+      cotransporter protein. Glucose absorption from the lumen falls sharply. What is the best explanation?
+    options:
+      - id: a
+        text: The cotransporter needs ATP, and the Na⁺/K⁺ pump is what produces ATP in the cell.
+        why: The cotransporter uses no ATP itself, and pumps use ATP rather than producing it.
+      - id: b
+        text: Glucose normally enters by simple diffusion, which depends on the pumps opening the membrane.
+        why: Glucose is polar and cannot cross the bilayer by simple diffusion; it enters through the cotransporter.
+      - id: c
+        text: GLUT2 proteins on the blood side need ATP from the pumps to move glucose out.
+        why: GLUT2 allows facilitated diffusion, which is passive. The problem is entry from the lumen, not exit.
+      - id: d
+        text: Na⁺ builds up inside the cell, so the Na⁺ gradient that drives glucose in against its gradient is lost.
+        why: Correct. This is indirect active transport; the energy comes from the Na⁺ gradient that the pumps maintain using ATP.
+    answer: d

@@ -1,0 +1,32 @@
+---
+import { getEntry } from 'astro:content';
+
+/** Slider-driven simulation. The interactive body lives in src/sims/<module>.astro. */
+interface Props { topic: string; id: string }
+const { topic, id } = Astro.props;
+const entry = await getEntry('visuals', topic);
+const visual = entry?.data.visuals.find((v) => v.id === id);
+if (!visual || visual.kind !== 'sim') throw new Error(`Sim: no sim visual "${id}" in ${topic}/visuals.yaml`);
+const sims = import.meta.glob<{ default: any }>('../../sims/*.astro', { eager: true });
+const Body = sims[`../../sims/${visual.module}.astro`]?.default;
+if (!Body) throw new Error(`Sim: missing src/sims/${visual.module}.astro`);
+const uid = `s-${topic}-${id}`;
+---
+<figure class="viz sim" id={uid} data-level-block={visual.level} aria-labelledby={`${uid}-title`}>
+  <figcaption id={`${uid}-title`} class="viz-title">
+    <span class="kind">Simulation</span> {visual.title}{visual.level === 'AHL' && <span class="badge badge-ahl">AHL</span>}
+  </figcaption>
+  <Body />
+  <details class="desc">
+    <summary>Text description of this simulation</summary>
+    <p>{visual.description}</p>
+  </details>
+</figure>
+<style>
+  .viz { margin: var(--space-5) 0 var(--space-6); padding: var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-l); background: var(--surface); }
+  @media (min-width: 40rem) { .viz { padding: var(--space-4); } }
+  .viz-title { font-weight: 750; display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; margin-bottom: var(--space-3); }
+  .kind { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-strong); background: var(--accent-soft); padding: 0.1em 0.5em; border-radius: 4px; }
+  .desc { margin-top: var(--space-3); font-size: var(--step--1); }
+  .desc summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+</style>

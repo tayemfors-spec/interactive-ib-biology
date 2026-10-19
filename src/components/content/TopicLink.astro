@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+import { idOf, topicByCode } from '../../lib/syllabus';
+import { withBase } from '../../lib/url';
+
+/** Link to another topic by code; renders plain text if that page isn't published yet. */
+interface Props { code: string }
+const { code } = Astro.props;
+const t = topicByCode(code);
+const published = (await getCollection('topics')).some((x) => x.id === idOf(code));
+const label = `${t.code} ${t.title}`;
+---
+{published ? <a href={withBase(t.slug)}>{label}</a> : <span class="pending" title="Page coming soon">{label}</span>}
+<style>.pending { font-weight: 600; border-bottom: 1px dashed var(--border-strong); }</style>

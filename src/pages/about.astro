@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_NAME, TRADEMARK_NOTICE } from '../lib/site';
+import { withBase } from '../lib/url';
+const repo = import.meta.env.PUBLIC_REPO_URL as string | undefined;
+---
+<BaseLayout title="About and accuracy" description="How this free IB Biology revision site is written and checked, what its interactive models show, and how to report a mistake.">
+  <article class="about" data-pagefind-body>
+    <h1>About {SITE_NAME}</h1>
+    <p class="lead">A free revision site for the IB Diploma Biology course (first assessment 2025), made by a student for their class. It aims to make the hardest-to-picture parts of the course visible and to give quick, honest self-tests.</p>
+
+    <h2>How the content is checked</h2>
+    <ul>
+      <li>Topics follow the official IB guide's structure: Themes A–D, four levels of organisation, topics A1.1–D4.3, with SL and AHL (Higher Level) content marked separately. The wording is our own; no text from the IB guide, textbooks or past papers is reproduced.</li>
+      <li>Every page is written against the syllabus understandings and standard textbook biology, then re-read by a separate reviewer acting as a strict IB examiner.</li>
+      <li>Anything uncertain is listed in a review log for checking with a teacher.</li>
+      <li>Models and simulations are <strong>simplified on purpose</strong>. Where a simulation shows the shape of a relationship rather than real data, it says "qualitative model".</li>
+    </ul>
+
+    <h2>The 3D models and animations</h2>
+    <p>All 3D models are generated in code (with three.js), so their proportions are schematic rather than exact. Each one has an exam-style 2D diagram view, a full text description and keyboard controls. Animations never start by themselves; if you turn on <em>Reduce motion</em> in Display settings, they become step-by-step.</p>
+
+    <h2>Your data</h2>
+    <p>There are no accounts, adverts or tracking. Quiz scores, flashcards and display settings are stored only in your own browser (localStorage). You can export or reset them on the <a href={withBase('progress')}>My progress</a> page.</p>
+
+    <h2 id="report-an-error">Report an error</h2>
+    {repo
+      ? <p>Spotted a mistake? Please <a href={`${repo}/issues/new`}>open an issue</a> with the topic code, what's wrong and, if you can, a source. Corrections are made as quickly as possible.</p>
+      : <p>Spotted a mistake? Please tell the person who shared this site with you, quoting the topic code and what's wrong. Corrections are made as quickly as possible.</p>}
+
+    <h2>Trademark notice</h2>
+    <p>{TRADEMARK_NOTICE}</p>
+  </article>
+</BaseLayout>
+<style>
+  .about { max-width: var(--measure); margin: 0 auto; }
+  .lead { font-size: var(--step-1); color: var(--text-muted); }
+</style>

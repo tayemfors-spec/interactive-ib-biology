@@ -1,0 +1,97 @@
+---
+import '../styles/global.css';
+import Header from '../components/layout/Header.astro';
+import Sidebar from '../components/layout/Sidebar.astro';
+import Footer from '../components/layout/Footer.astro';
+import SearchDialog from '../components/layout/SearchDialog.astro';
+import { SITE_NAME } from '../lib/site';
+import { withBase } from '../lib/url';
+
+interface Props {
+  /** Page-specific part of the title; the site name is appended. */
+  title: string;
+  description: string;
+  ogType?: 'website' | 'article';
+  /** One or more schema.org objects; combined into a single @graph. */
+  jsonLd?: Record<string, unknown>[];
+  currentCode?: string;
+  noindex?: boolean;
+  /** Theme id ("a"–"d") used to pick the social preview image. */
+  ogTheme?: string;
+}
+const { title, description, ogType = 'website', jsonLd = [], currentCode, noindex = false, ogTheme } = Astro.props;
+const fullTitle = title === SITE_NAME ? title : `${title} – ${SITE_NAME}`;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(withBase(`og/${ogTheme ?? 'default'}.png`), Astro.site).href;
+const graph = jsonLd.length ? JSON.stringify({ '@context': 'https://schema.org', '@graph': jsonLd }) : null;
+---
+<!doctype html>
+<html lang="en-GB" data-level="SL+AHL">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f6f8f7" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0e1412" />
+    <link rel="icon" href={withBase('favicon.svg')} type="image/svg+xml" />
+    <link rel="sitemap" href={withBase('sitemap-index.xml')} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_GB" />
+    <meta name="twitter:card" content="summary_large_image" />
+    {import.meta.env.PUBLIC_GSC_VERIFICATION && (
+      <meta name="google-site-verification" content={import.meta.env.PUBLIC_GSC_VERIFICATION} />
+    )}
+    <!-- Apply saved theme / motion / level preferences before first paint (no flash). -->
+    <script is:inline>
+      (function () {
+        try {
+          var p = JSON.parse(localStorage.getItem('ibbio.prefs') || '{}');
+          var r = document.documentElement;
+          if (p.theme === 'light' || p.theme === 'dark') r.dataset.theme = p.theme;
+          if (p.motion === 'reduce' || p.motion === 'full') r.dataset.motion = p.motion;
+          if (p.level === 'SL') r.dataset.level = 'SL';
+        } catch (e) {}
+      })();
+    </script>
+    {graph && <script type="application/ld+json" set:html={graph} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <div class="shell">
+      <Sidebar currentCode={currentCode} />
+      <main id="main" tabindex="-1">
+        <slot />
+      </main>
+    </div>
+    <Footer />
+    <SearchDialog />
+  </body>
+</html>
+
+<style>
+  .shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    min-height: calc(100vh - var(--header-h));
+  }
+  main {
+    min-width: 0;
+    padding: var(--space-5) var(--space-4) var(--space-7);
+    outline: none;
+  }
+  @media (min-width: 64rem) {
+    .shell { grid-template-columns: var(--sidebar-w) minmax(0, 1fr); }
+    main { padding: var(--space-6) clamp(var(--space-5), 4vw, var(--space-7)) var(--space-7); }
+  }
+</style>

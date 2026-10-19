@@ -26,7 +26,32 @@ Sources used: the official *Biology guide, first assessment 2025* (May 2023 upda
 | S12 | all | Shared phrasing with the guide | After rewriting, the remaining 7+ word overlaps are lists of technical terms, ratios (9:3:3:1), species names or standard definitions (e.g. the reference conditions for water potential) | Kept: these are facts and term lists, not creative wording | checked |
 
 ## Topic content
-_(Rows are added per topic as pages are written; the examiner review log for each theme follows.)_
+
+Each topic's full list of checkable claims, with sources and confidence, is in `src/content/topics/<id>/facts.yaml`. The rows below are the ones worth a teacher's eye.
+
+### B2.1 Membranes and membrane transport
+
+| # | Item | Why it's here | What the site says | Status |
+|---|---|---|---|---|
+| B2.1-1 | Membrane thickness | Textbook values vary | Text: "about 7–10 nm including its proteins". Exam diagram scale bar: "bilayer ≈ 4–5 nm" | open |
+| B2.1-2 | Osmosis explanation | The molecular mechanism is often taught with the contested "bound water" idea | Uses the guide's three ideas: random movement both ways, a membrane impermeable to solutes, and a solute concentration difference. The mechanism is left to water potential (D2.3) | checked (guide) |
+| B2.1-3 | Habitat adaptation example (B2.1.11) | The guide doesn't name one | Polar vs tropical fish (homeoviscous adaptation; goldfish acclimation, Cossins & Prosser 1978) | open |
+| B2.1-4 | Voltage-gated channel thresholds | IB-level simplification | Threshold ≈ −50 mV; at about +30 to +40 mV Na⁺ channels inactivate and the slower K⁺ channels are open. In the simulation the voltage slider uses this as a steady-state rule; the "Fire an action potential" button shows the real time sequence | open |
+| B2.1-5 | SGLT stoichiometry | Intestine and kidney use different isoforms | Intestine: SGLT1, 2 Na⁺ per glucose. PCT: "similar cotransporters (mainly SGLT2)". Glucose leaves to the blood through GLUT2 (facilitated diffusion) | checked (textbook) |
+| B2.1-6 | Transport-rate simulation | Qualitative model | Facilitated diffusion is shown saturating (strictly most typical of carrier proteins; channels also saturate at high concentrations). Active-transport rate is shown independent of the gradient, which is a simplification. Labelled "qualitative model" on the page | open |
+| B2.1-7 | Fluidity simulation | Qualitative model | The shape of each effect is correct (temperature ↑ fluidity; unsaturation lowers melting point; cholesterol buffers both ways); the numbers are not real data. Labelled on the page | checked |
+| B2.1-8 | SGLT animation | Simplification for clarity | The Na⁺/K⁺ pump in the animation is shown pumping Na⁺ out; the K⁺ it brings in is not drawn (the caption says the pump is Na⁺/K⁺) | open |
+| B2.1-9 | 3D model proportions | Schematic | Heads and proteins are enlarged for visibility. Carbohydrate only on the outer face, peripheral proteins not in the core, and cholesterol –OH by the heads are all deliberately correct | checked |
+| B2.1-10 | Gated channels: "two ACh molecules bind" | Detail beyond the guide | Nicotinic receptors have two ACh binding sites (on α subunits) | checked (textbook) |
 
 ## Examiner review log
-_(One section per theme: findings, severity, fix, and re-check.)_
+
+### B2.1 (example page), 19 Oct 2026
+An independent reviewer, acting as a strict IB examiner, read the page text, visuals, quiz, flashcards, simulations and screenshots. The quiz keys, all exam-diagram markers and every 3D label were confirmed correct.
+
+| Severity | Finding | Fix | Re-checked |
+|---|---|---|---|
+| Critical | "Fire an action potential" showed Na⁺ channels closed while the voltage rose from −50 to +40 mV (states lagged one stage behind) | The run now shows the states of the stage being moved towards; the slider hint explains that it shows rising-phase states | ✓ |
+| Major | The flat active-transport line could suggest "a plateau rules out active transport" | Note added in the sim and the text: pumps can also saturate; the inhibitor test is decisive | ✓ |
+| Major | Saturation was attributed to channels only | "Channel or carrier proteins" in the text and slider | ✓ |
+| Minor ×15 | Wording and precision: "conformational change" added; K⁺ selectivity isn't size alone; bilayer "not covalently bonded"; active-transport definition covers the indirect route; cholesterol –OH wording; membrane area statement; flashcard c2 now covers water; K⁺ channel drawn with 4 subunits; diffusion steps show some molecules moving against the net direction; "bond dipoles cancel"; scale bar relabelled; CAMs drawn spanning the membrane; label 13 moved inside the frame | All applied | ✓ |

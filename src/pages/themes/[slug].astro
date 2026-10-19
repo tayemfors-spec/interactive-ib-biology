@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { idOf, levelLabel, themeSlug, themes, topicsByThemeAndLevel } from '../../lib/syllabus';
+import { themeIntro } from '../../lib/themes';
+import { SITE_NAME } from '../../lib/site';
+import { withBase } from '../../lib/url';
+
+export function getStaticPaths() {
+  return themes.map((theme) => ({ params: { slug: themeSlug(theme.id) }, props: { id: theme.id } }));
+}
+const { id } = Astro.props;
+const group = topicsByThemeAndLevel().find((g) => g.theme.id === id)!;
+const published = new Set((await getCollection('topics')).map((t) => t.id));
+const title = `Theme ${id}: ${group.theme.title}`;
+const site = Astro.site!;
+const jsonLd = [{
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: SITE_NAME, item: new URL(withBase('/'), site).href },
+    { '@type': 'ListItem', position: 2, name: title, item: new URL(withBase(`themes/${themeSlug(id)}`), site).href },
+  ],
+}];
+const count = group.levels.reduce((n, l) => n + l.topics.length, 0);
+---
+<BaseLayout title={`${title} – IB Biology topics`} description={`IB Biology Theme ${id} (${group.theme.title}): all ${count} topics with interactive models, explanations, quizzes and flashcards.`} jsonLd={jsonLd} ogTheme={id.toLowerCase()}>
+  <div class="theme-page" data-pagefind-body>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href={withBase('/')}>Home</a> › <span aria-current="page">Theme {id}</span></nav>
+    <h1>{title}</h1>
+    <p class="lead">{themeIntro[id]}</p>
+    {group.levels.filter((l) => l.topics.length).map((l) => (
+      <section>
+        <h2>{l.level}</h2>
+        <ul class="cards">
+          {l.topics.map((t) => (
+            <li class="card" data-level-block={t.status === 'AHL' ? 'AHL' : undefined}>
+              <h3>{published.has(idOf(t.code)) ? <a href={withBase(t.slug)}>{t.code} {t.title}</a> : <span>{t.code} {t.title} <span class="soon">coming soon</span></span>}</h3>
+              <p class="meta">{levelLabel(t.status)} · {t.understandings.length} understandings · visuals: {t.visualisation.priority} priority</p>
+              <p class="bq">{t.big_questions[0]}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+</BaseLayout>
+<style>
+  .theme-page { max-width: 58rem; margin: 0 auto; }
+  .crumbs { font-size: var(--step--1); color: var(--text-muted); margin-bottom: var(--space-3); }
+  .lead { font-size: var(--step-1); color: var(--text-muted); max-width: 46rem; }
+  .cards { list-style: none; padding: 0; display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
+  .card { margin: 0; padding: var(--space-4); border: 1px solid var(--border); border-radius: var(--radius-l); background: var(--surface); }
+  .card h3 { margin: 0 0 var(--space-2); font-size: var(--step-0); }
+  .meta { font-size: 0.8rem; color: var(--text-muted); margin-bottom: var(--space-2); }
+  .bq { font-size: var(--step--1); margin: 0; }
+  .soon { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; border: 1px dashed var(--border-strong); border-radius: 999px; padding: 0 0.4em; color: var(--text-muted); }
+</style>

@@ -1,0 +1,100 @@
+---
+import Icon from '../Icon.astro';
+---
+<dialog class="search" aria-labelledby="search-title" data-search-dialog>
+  <form method="dialog" class="search-form" role="search" onsubmit="return false">
+    <h2 id="search-title" class="visually-hidden">Search the site</h2>
+    <label class="visually-hidden" for="search-input">Search topics, terms and definitions</label>
+    <Icon name="search" />
+    <input id="search-input" type="search" placeholder="Search topics, terms, definitions…" autocomplete="off" spellcheck="false" />
+    <button class="btn btn-icon" type="button" data-search-close><Icon name="close" /><span class="visually-hidden">Close search</span></button>
+  </form>
+  <p class="status" role="status" aria-live="polite" data-search-status>Type at least 2 letters.</p>
+  <ol class="results" data-search-results></ol>
+</dialog>
+
+<script>
+  import { withBase } from '../../lib/url';
+
+  type PagefindResult = { data: () => Promise<{ url: string; excerpt: string; meta: { title?: string } }> };
+  type Pagefind = {
+    options: (o: Record<string, unknown>) => Promise<void>;
+    debouncedSearch: (q: string, o?: unknown, ms?: number) => Promise<{ results: PagefindResult[] } | null>;
+  };
+
+  const dialog = document.querySelector<HTMLDialogElement>('[data-search-dialog]')!;
+  const input = dialog.querySelector<HTMLInputElement>('#search-input')!;
+  const status = dialog.querySelector<HTMLElement>('[data-search-status]')!;
+  const list = dialog.querySelector<HTMLOListElement>('[data-search-results]')!;
+  let pagefind: Pagefind | null = null;
+
+  async function load(): Promise<Pagefind | null> {
+    if (pagefind) return pagefind;
+    try {
+      const url = withBase('pagefind/pagefind.js');
+      pagefind = (await import(/* @vite-ignore */ url)) as Pagefind;
+      await pagefind.options({ baseUrl: withBase('/'), excerptLength: 22 });
+    } catch {
+      status.textContent = 'Search is only available on the built site (run npm run build, then npm run preview).';
+      return null;
+    }
+    return pagefind;
+  }
+
+  const open = () => { dialog.showModal(); input.select(); void load(); };
+  document.querySelectorAll('[data-search-open]').forEach((b) => b.addEventListener('click', open));
+  dialog.querySelector('[data-search-close]')!.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+  document.addEventListener('keydown', (e) => {
+    const typing = e.target instanceof HTMLElement && e.target.closest('input, textarea, select, [contenteditable]');
+    if ((e.key === '/' && !typing) || ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k')) {
+      e.preventDefault();
+      if (!dialog.open) open();
+    }
+  });
+
+  input.addEventListener('input', async () => {
+    const q = input.value.trim();
+    if (q.length < 2) { list.replaceChildren(); status.textContent = 'Type at least 2 letters.'; return; }
+    const pf = await load();
+    if (!pf) return;
+    const res = await pf.debouncedSearch(q, {}, 200);
+    if (!res) return; // superseded by a newer keystroke
+    const items = await Promise.all(res.results.slice(0, 10).map((r) => r.data()));
+    list.replaceChildren(
+      ...items.map((d) => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = d.url;
+        const t = document.createElement('span');
+        t.className = 'r-title';
+        t.textContent = d.meta.title ?? d.url;
+        const ex = document.createElement('span');
+        ex.className = 'r-excerpt';
+        ex.innerHTML = d.excerpt; // Pagefind escapes content and wraps matches in <mark>
+        a.append(t, ex);
+        li.append(a);
+        return li;
+      }),
+    );
+    status.textContent = items.length ? `${res.results.length} result${res.results.length === 1 ? '' : 's'}` : 'No results. Try a shorter or different term.';
+  });
+</script>
+
+<style>
+  .search {
+    width: min(40rem, calc(100vw - 1.5rem)); max-height: min(36rem, 85vh); margin: 8vh auto auto; padding: 0;
+    color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-l); box-shadow: var(--shadow);
+  }
+  .search::backdrop { background: rgb(0 0 0 / 0.45); }
+  .search-form { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4); border-bottom: 1px solid var(--border); }
+  .search-form :global(svg) { color: var(--text-muted); flex: none; }
+  input[type='search'] { flex: 1; min-width: 0; font: inherit; font-size: var(--step-1); color: var(--text); background: transparent; border: 0; outline: none; padding: var(--space-2) 0; }
+  .status { margin: 0; padding: var(--space-2) var(--space-4); font-size: var(--step--1); color: var(--text-muted); }
+  .results { list-style: none; margin: 0; padding: 0 var(--space-2) var(--space-3); }
+  .results :global(a) { display: block; padding: var(--space-2) var(--space-3); border-radius: var(--radius-s); text-decoration: none; color: var(--text); }
+  .results :global(a:hover), .results :global(a:focus-visible) { background: var(--surface-2); }
+  .results :global(.r-title) { display: block; font-weight: 700; color: var(--accent-strong); }
+  .results :global(.r-excerpt) { display: block; font-size: var(--step--1); color: var(--text-muted); }
+  .results :global(mark) { background: var(--accent-soft); color: var(--text); border-radius: 2px; }
+</style>

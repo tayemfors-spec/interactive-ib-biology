@@ -1,0 +1,42 @@
+{
+  "name": "interactive-ib-biology",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Interactive IB Diploma Biology (first assessment 2025) revision site with 3D models, simulations and self-tests.",
+  "engines": {
+    "node": ">=24.11"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && pagefind --site dist",
+    "preview": "astro preview",
+    "check": "astro check",
+    "serve": "node scripts/serve.mjs",
+    "test:unit": "vitest run",
+    "test:links": "start-server-and-test serve http://127.0.0.1:4321 links",
+    "links": "linkinator http://127.0.0.1:4321/ --recurse --retry --timeout 15000 --skip \"^https://example\\.github\\.io\"",
+    "test:e2e": "playwright test",
+    "test:lh": "lhci autorun",
+    "verify": "npm run check && npm run build && npm run test:unit && npm run test:links && npm run test:e2e && npm run test:lh"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "8.1.0",
+    "@astrojs/sitemap": "3.7.4",
+    "astro": "7.4.1",
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.11",
+    "@axe-core/playwright": "4.14.0",
+    "@lhci/cli": "0.15.1",
+    "@playwright/test": "1.64.1",
+    "@types/three": "0.186.0",
+    "linkinator": "8.1.0",
+    "pagefind": "1.5.2",
+    "start-server-and-test": "3.0.13",
+    "typescript": "6.0.3",
+    "vitest": "5.0.5",
+    "yaml": "2.9.1"
+  }
+}

@@ -1,0 +1,97 @@
+---
+import { particles, routeLabel } from './models/permeability';
+const first = particles[0]!;
+---
+<div class="perm" data-perm>
+  <div class="choices" role="radiogroup" aria-label="Choose a particle">
+    {particles.map((p, i) => (
+      <button type="button" class="btn" role="radio" aria-checked={i === 0 ? 'true' : 'false'} data-pid={p.id} tabindex={i === 0 ? 0 : -1}>
+        <span class="formula">{p.formula}</span> {p.name}
+      </button>
+    ))}
+  </div>
+  <div class="stagebox">
+    <svg viewBox="0 0 400 220" aria-hidden="true" class="mini" data-mini>
+      <text class="side" x="10" y="24">outside</text>
+      <text class="side" x="10" y="210">cytoplasm</text>
+      <rect class="core" x="0" y="88" width="400" height="44" />
+      <g class="heads">{Array.from({ length: 20 }, (_, i) => <><circle cx={10 + i * 20} cy="82" r="8" /><circle cx={10 + i * 20} cy="138" r="8" /></>)}</g>
+      <circle class="particle" data-particle cx="200" cy="34" r="12" />
+    </svg>
+    <div class="result" aria-live="polite" data-result>
+      <p class="verdict" data-verdict data-route={first.route}>{routeLabel[first.route]}</p>
+      <dl>
+        <div><dt>Size</dt><dd data-size>{first.size}</dd></div>
+        <div><dt>Polarity</dt><dd data-polarity>{first.polarity}</dd></div>
+      </dl>
+      <p><strong>How it crosses:</strong> <span data-how>{first.how}</span></p>
+      <p><strong>Why:</strong> <span data-why>{first.why}</span></p>
+    </div>
+  </div>
+  <p class="rule">Rule of thumb: the bilayer lets <strong>small, non-polar</strong> particles through; <strong>ions, polar molecules and large molecules</strong> need proteins or vesicles. This is why simple diffusion is <em>not</em> selective, while channels and pumps are.</p>
+</div>
+
+<script>
+  import { particles, routeLabel } from './models/permeability';
+  import { prefersReducedMotion } from '../lib/prefs';
+
+  document.querySelectorAll<HTMLElement>('[data-perm]').forEach((root) => {
+    const buttons = [...root.querySelectorAll<HTMLButtonElement>('[data-pid]')];
+    const dot = root.querySelector<SVGCircleElement>('[data-particle]')!;
+    const set = (sel: string, text: string) => (root.querySelector(sel)!.textContent = text);
+    let anim: Animation | null = null;
+
+    const choose = (btn: HTMLButtonElement, focus = false) => {
+      const p = particles.find((x) => x.id === btn.dataset.pid)!;
+      buttons.forEach((b) => { const on = b === btn; b.setAttribute('aria-checked', String(on)); b.tabIndex = on ? 0 : -1; b.classList.toggle('is-active', on); });
+      if (focus) btn.focus();
+      const verdict = root.querySelector<HTMLElement>('[data-verdict]')!;
+      verdict.textContent = routeLabel[p.route];
+      verdict.dataset.route = p.route;
+      set('[data-size]', p.size); set('[data-polarity]', p.polarity); set('[data-how]', p.how); set('[data-why]', p.why);
+      dot.setAttribute('r', p.size === 'large' ? '22' : p.size === 'medium' ? '15' : '10');
+      dot.dataset.kind = p.polarity;
+      anim?.cancel();
+      if (prefersReducedMotion()) { dot.style.transform = p.crossesBilayer ? 'translateY(150px)' : 'translateY(30px)'; return; }
+      dot.style.transform = '';
+      const frames = p.crossesBilayer
+        ? [{ transform: 'translateY(0)' }, { transform: 'translateY(150px)' }]
+        : [{ transform: 'translateY(0)' }, { transform: 'translateY(32px)' }, { transform: 'translateY(0)' }];
+      anim = dot.animate(frames, { duration: p.route === 'bilayer-slow' ? 2600 : 1300, iterations: 3, easing: 'ease-in-out', fill: 'forwards' });
+    };
+    buttons.forEach((b, i) => {
+      b.addEventListener('click', () => choose(b));
+      b.addEventListener('keydown', (e) => {
+        const d = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+        if (d) { e.preventDefault(); choose(buttons[(i + d + buttons.length) % buttons.length]!, true); }
+      });
+    });
+    buttons[0]!.classList.add('is-active');
+  });
+</script>
+
+<style>
+  .choices { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); }
+  .choices .btn.is-active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-strong); }
+  .formula { font-weight: 800; }
+  .stagebox { display: grid; gap: var(--space-4); }
+  .perm { container-type: inline-size; }
+  @container (min-width: 38rem) { .stagebox { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); align-items: start; } }
+  .mini { width: 100%; height: auto; background: var(--surface-2); border-radius: var(--radius-m); font-family: var(--font-sans); }
+  .side { font-size: 13px; fill: var(--text-muted); font-weight: 600; }
+  .core { fill: color-mix(in srgb, var(--bio-tail) 40%, transparent); }
+  .heads circle { fill: var(--bio-head); }
+  .particle { fill: var(--bio-water); stroke: var(--text); stroke-width: 1.5; transform-box: fill-box; }
+  .particle[data-kind='charged'] { fill: var(--bio-na); }
+  .particle[data-kind='non-polar'] { fill: var(--border-strong); }
+  .result { font-size: var(--step--1); }
+  .result p { margin: 0 0 var(--space-2); }
+  .verdict { font-weight: 800; font-size: var(--step-0); }
+  .verdict[data-route='bilayer'] { color: var(--good); }
+  .verdict[data-route='bilayer-slow'] { color: var(--accent-strong); }
+  .verdict[data-route='protein'], .verdict[data-route='vesicle'] { color: var(--bad); }
+  dl { display: flex; gap: var(--space-5); margin: 0 0 var(--space-2); }
+  dt { font-weight: 700; color: var(--text-muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  dd { margin: 0; font-weight: 650; }
+  .rule { font-size: var(--step--1); margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--accent-soft); border-radius: var(--radius-m); }
+</style>

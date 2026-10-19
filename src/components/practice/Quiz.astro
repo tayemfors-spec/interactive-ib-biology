@@ -1,0 +1,138 @@
+---
+import type { Quiz } from '../../schemas';
+import { hash } from '../../lib/hash';
+interface Props { code: string; quiz: Quiz }
+const { code, quiz } = Astro.props;
+const rev = hash(JSON.stringify(quiz.questions.map((q) => [q.id, q.answer, q.stem])));
+---
+<div class="quiz" data-quiz data-code={code} data-rev={rev}>
+  <h3>Multiple-choice questions</h3>
+  <form novalidate>
+    <ol class="questions">
+      {quiz.questions.map((q, n) => (
+        <li class="q" data-q={q.id} data-answer={q.answer} data-level-block={q.level}>
+          <fieldset>
+            <legend>
+              <span class="q-num">Question {n + 1}</span>
+              {q.level === 'AHL' && <span class="badge badge-ahl">AHL</span>}
+              <span class="q-stem" set:html={q.stem} />
+            </legend>
+            <div class="options">
+              {q.options.map((o) => (
+                <label class="opt" data-opt={o.id}>
+                  <input type="radio" name={`${code}-${q.id}`} value={o.id} />
+                  <span class="opt-letter" aria-hidden="true">{o.id.toUpperCase()}</span>
+                  <span class="opt-text" set:html={o.text} />
+                  <span class="opt-why" hidden set:html={o.why} />
+                </label>
+              ))}
+            </div>
+            <p class="q-feedback" hidden></p>
+          </fieldset>
+        </li>
+      ))}
+    </ol>
+    <div class="quiz-actions">
+      <button class="btn btn-primary" type="submit">Check answers</button>
+      <button class="btn" type="button" data-retry hidden>Try again</button>
+      <p class="score" role="status" aria-live="polite" data-score></p>
+    </div>
+    <p class="best" data-best></p>
+  </form>
+</div>
+
+<script>
+  import { getProgress, updateTopic } from '../../lib/progress';
+
+  document.querySelectorAll<HTMLElement>('[data-quiz]').forEach((root) => {
+    const code = root.dataset.code!;
+    const rev = root.dataset.rev!;
+    const form = root.querySelector('form')!;
+    const scoreEl = root.querySelector<HTMLElement>('[data-score]')!;
+    const bestEl = root.querySelector<HTMLElement>('[data-best]')!;
+    const retry = root.querySelector<HTMLButtonElement>('[data-retry]')!;
+    const visible = () =>
+      [...root.querySelectorAll<HTMLElement>('.q')].filter((q) => q.offsetParent !== null || getComputedStyle(q).display !== 'none');
+
+    const showBest = () => {
+      const q = getProgress().topics[code]?.quiz;
+      if (!q) { bestEl.textContent = ''; return; }
+      bestEl.textContent = `Your best: ${q.best} / ${q.total}` + (q.rev !== rev ? ' (questions have been updated since)' : '') + ` · attempts: ${q.attempts}`;
+    };
+    showBest();
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const qs = visible();
+      let correct = 0;
+      let unanswered = 0;
+      for (const q of qs) {
+        const answer = q.dataset.answer!;
+        const chosen = q.querySelector<HTMLInputElement>('input:checked')?.value;
+        const fb = q.querySelector<HTMLElement>('.q-feedback')!;
+        q.querySelectorAll<HTMLElement>('.opt').forEach((opt) => {
+          const id = opt.dataset.opt!;
+          opt.classList.toggle('is-correct', id === answer);
+          opt.classList.toggle('is-wrong', id === chosen && id !== answer);
+          // Show the explanation for the correct option and for whatever the student picked.
+          opt.querySelector<HTMLElement>('.opt-why')!.hidden = !(id === answer || id === chosen);
+        });
+        q.querySelectorAll<HTMLInputElement>('input').forEach((i) => (i.disabled = true));
+        fb.hidden = false;
+        if (!chosen) { unanswered++; fb.textContent = `Not answered. The correct answer is ${answer.toUpperCase()}.`; fb.className = 'q-feedback is-skip'; }
+        else if (chosen === answer) { correct++; fb.textContent = 'Correct.'; fb.className = 'q-feedback is-good'; }
+        else { fb.textContent = `Not quite: the correct answer is ${answer.toUpperCase()}.`; fb.className = 'q-feedback is-bad'; }
+      }
+      const total = qs.length;
+      scoreEl.textContent = `You scored ${correct} out of ${total}${unanswered ? ` (${unanswered} not answered)` : ''}.`;
+      form.querySelector<HTMLButtonElement>('[type=submit]')!.hidden = true;
+      retry.hidden = false;
+      updateTopic(code, (t) => {
+        const prev = t.quiz && t.quiz.rev === rev && t.quiz.total === total ? t.quiz : undefined;
+        return { ...t, quiz: { rev, total, last: correct, best: Math.max(correct, prev?.best ?? 0), attempts: (t.quiz?.attempts ?? 0) + 1 } };
+      });
+      showBest();
+      scoreEl.focus?.();
+    });
+
+    retry.addEventListener('click', () => {
+      form.reset();
+      root.querySelectorAll<HTMLElement>('.opt').forEach((o) => { o.classList.remove('is-correct', 'is-wrong'); o.querySelector<HTMLElement>('.opt-why')!.hidden = true; });
+      root.querySelectorAll<HTMLElement>('.q-feedback').forEach((f) => (f.hidden = true));
+      root.querySelectorAll<HTMLInputElement>('input').forEach((i) => (i.disabled = false));
+      form.querySelector<HTMLButtonElement>('[type=submit]')!.hidden = false;
+      retry.hidden = true;
+      scoreEl.textContent = '';
+      root.querySelector<HTMLInputElement>('input')?.focus();
+    });
+  });
+</script>
+
+<style>
+  .quiz { margin-top: var(--space-5); }
+  .questions { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-4); }
+  .q { margin: 0; }
+  fieldset { margin: 0; padding: var(--space-4); border: 1px solid var(--border); border-radius: var(--radius-m); background: var(--surface); min-width: 0; }
+  legend { display: contents; }
+  .q-num { display: inline-block; font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-right: var(--space-2); }
+  .q-stem { display: block; font-weight: 650; margin: var(--space-2) 0 var(--space-3); }
+  .options { display: grid; gap: var(--space-2); }
+  .opt {
+    display: grid; grid-template-columns: auto auto 1fr; gap: var(--space-2) var(--space-3); align-items: start;
+    padding: var(--space-2) var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-s); cursor: pointer;
+  }
+  .opt:hover { background: var(--surface-2); }
+  .opt:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+  .opt input { margin: 0.3rem 0 0; accent-color: var(--accent); width: 1.05rem; height: 1.05rem; }
+  .opt-letter { font-weight: 800; color: var(--text-muted); }
+  .opt-why { grid-column: 3; font-size: var(--step--1); color: var(--text-muted); }
+  .opt.is-correct { border-color: var(--good); background: var(--good-soft); }
+  .opt.is-wrong { border-color: var(--bad); background: var(--bad-soft); }
+  .opt.is-correct .opt-letter::after { content: ' ✓'; color: var(--good); }
+  .opt.is-wrong .opt-letter::after { content: ' ✗'; color: var(--bad); }
+  .q-feedback { margin: var(--space-3) 0 0; font-weight: 700; }
+  .is-good { color: var(--good); } .is-bad { color: var(--bad); } .is-skip { color: var(--warn); }
+  .quiz-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; margin-top: var(--space-4); }
+  .score { margin: 0; font-weight: 700; }
+  .best { font-size: var(--step--1); color: var(--text-muted); margin-top: var(--space-2); }
+</style>

@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { topics } from '../lib/syllabus';
+---
+<BaseLayout title="My progress" description="Your quiz scores and flashcard progress for every IB Biology topic, stored in this browser only." noindex>
+  <div class="progress-page">
+    <h1>My progress</h1>
+    <p>Saved in this browser only. Some browsers (especially Safari) can clear site data if you don't visit for a while, so export a backup now and then.</p>
+    <p class="warn" data-blocked hidden>Your browser is blocking storage, so nothing can be saved between visits.</p>
+    <div class="actions">
+      <button class="btn" type="button" data-export>Export backup (.json)</button>
+      <label class="btn">Import backup<input type="file" accept="application/json,.json" data-import class="visually-hidden" /></label>
+      <button class="btn" type="button" data-reset>Reset all progress</button>
+      <span role="status" aria-live="polite" data-msg></span>
+    </div>
+    <table>
+      <caption class="visually-hidden">Quiz and flashcard progress by topic</caption>
+      <thead><tr><th scope="col">Topic</th><th scope="col">Best quiz score</th><th scope="col">Attempts</th><th scope="col">Flashcards known</th><th scope="col">Last visit</th></tr></thead>
+      <tbody>
+        {topics.map((t) => (
+          <tr data-row={t.code}><th scope="row">{t.code} {t.title}</th><td data-c="best">–</td><td data-c="attempts">–</td><td data-c="cards">–</td><td data-c="seen">–</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</BaseLayout>
+<script>
+  import { getProgress, PROGRESS_KEY, type ProgressStore } from '../lib/progress';
+  import { storageAvailable, writeJSON } from '../lib/storage';
+
+  const msg = document.querySelector<HTMLElement>('[data-msg]')!;
+  if (!storageAvailable()) document.querySelector<HTMLElement>('[data-blocked]')!.hidden = false;
+  const paint = () => {
+    const p = getProgress();
+    document.querySelectorAll<HTMLTableRowElement>('[data-row]').forEach((row) => {
+      const t = p.topics[row.dataset.row!];
+      const cell = (c: string, v: string) => (row.querySelector(`[data-c="${c}"]`)!.textContent = v);
+      cell('best', t?.quiz ? `${t.quiz.best} / ${t.quiz.total}` : '–');
+      cell('attempts', t?.quiz ? String(t.quiz.attempts) : '–');
+      cell('cards', t?.cards ? String(t.cards.known.length) : '–');
+      cell('seen', t?.seen ?? '–');
+    });
+  };
+  paint();
+  document.querySelector('[data-export]')!.addEventListener('click', () => {
+    const blob = new Blob([JSON.stringify(getProgress(), null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `ib-biology-progress-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+    msg.textContent = 'Backup downloaded.';
+  });
+  document.querySelector<HTMLInputElement>('[data-import]')!.addEventListener('change', async (e) => {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (!file) return;
+    try {
+      const data = JSON.parse(await file.text()) as ProgressStore;
+      if (data.v !== 1 || typeof data.topics !== 'object') throw new Error('not a progress file');
+      writeJSON(PROGRESS_KEY, data);
+      paint();
+      msg.textContent = 'Backup imported.';
+    } catch {
+      msg.textContent = "That file isn't a progress backup from this site.";
+    }
+  });
+  document.querySelector('[data-reset]')!.addEventListener('click', () => {
+    if (!confirm('Delete all saved quiz scores and flashcard progress in this browser?')) return;
+    writeJSON(PROGRESS_KEY, { v: 1, topics: {} });
+    paint();
+    msg.textContent = 'Progress reset.';
+  });
+</script>
+<style>
+  .progress-page { max-width: 58rem; margin: 0 auto; }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; margin: var(--space-4) 0; }
+  .warn { color: var(--warn); }
+  table { width: 100%; border-collapse: collapse; font-size: var(--step--1); }
+  th, td { text-align: left; padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--border); }
+  thead th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); }
+  td { font-variant-numeric: tabular-nums; }
+</style>

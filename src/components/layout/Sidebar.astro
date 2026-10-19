@@ -1,0 +1,134 @@
+---
+import { getCollection } from 'astro:content';
+import Icon from '../Icon.astro';
+import { idOf, themeSlug, topicsByThemeAndLevel } from '../../lib/syllabus';
+import { withBase } from '../../lib/url';
+
+interface Props { currentCode?: string }
+const { currentCode } = Astro.props;
+const published = new Set((await getCollection('topics')).map((t) => t.id));
+const groups = topicsByThemeAndLevel();
+const currentTheme = currentCode?.[0];
+---
+<div class="nav-backdrop" data-menu-backdrop hidden></div>
+<nav id="syllabus-nav" class="sidebar" aria-label="Syllabus">
+  <div class="sidebar-head">
+    <span class="sidebar-title">Syllabus</span>
+    <button class="btn btn-icon close-btn" type="button" data-menu-close><Icon name="close" /><span class="visually-hidden">Close menu</span></button>
+  </div>
+  {groups.map(({ theme, levels }) => (
+    <details class="theme" open={!currentTheme || currentTheme === theme.id}>
+      <summary><span class="theme-letter">{theme.id}</span> {theme.title}</summary>
+      <a class="theme-link" href={withBase(`themes/${themeSlug(theme.id)}`)}>Theme {theme.id} overview</a>
+      {levels.filter((l) => l.topics.length).map((l) => (
+        <div class="level">
+          <span class="level-name">{l.level}</span>
+          <ul>
+            {l.topics.map((t) => (
+              <li>
+                {published.has(idOf(t.code)) ? (
+                  <a href={withBase(t.slug)} aria-current={t.code === currentCode ? 'page' : undefined} data-topic={t.code}>
+                    <span class="code">{t.code}</span><span class="name">{t.title}</span>
+                    {t.status === 'AHL' && <span class="ahl-dot" title="AHL only">AHL</span>}
+                    <span class="tick" aria-hidden="true"></span>
+                  </a>
+                ) : (
+                  <span class="planned" data-level-block={t.status === 'AHL' ? 'AHL' : undefined}>
+                    <span class="code">{t.code}</span><span class="name">{t.title}</span><span class="soon">soon</span>
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </details>
+  ))}
+</nav>
+
+<script>
+  import { getProgress } from '../../lib/progress';
+
+  // Progress ticks: a topic is "done" once its quiz best score is at least 80%.
+  const paint = () => {
+    const { topics } = getProgress();
+    document.querySelectorAll<HTMLAnchorElement>('#syllabus-nav a[data-topic]').forEach((a) => {
+      const q = topics[a.dataset.topic!]?.quiz;
+      a.classList.toggle('done', !!q && q.total > 0 && q.best / q.total >= 0.8);
+    });
+  };
+  paint();
+  window.addEventListener('ibbio:progress', paint);
+
+  // Mobile drawer
+  const nav = document.getElementById('syllabus-nav')!;
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]')!;
+  const backdrop = document.querySelector<HTMLElement>('[data-menu-backdrop]')!;
+  const mq = window.matchMedia('(min-width: 64rem)');
+  const setOpen = (open: boolean) => {
+    nav.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    backdrop.hidden = !open;
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (open) nav.querySelector<HTMLElement>('[aria-current], a')?.focus();
+    else if (!mq.matches) toggle.focus();
+  };
+  const syncInert = () => { if (mq.matches) { nav.inert = false; } else { nav.inert = !nav.classList.contains('open'); } };
+  toggle.addEventListener('click', () => { setOpen(!nav.classList.contains('open')); syncInert(); });
+  document.querySelector('[data-menu-close]')!.addEventListener('click', () => { setOpen(false); syncInert(); });
+  backdrop.addEventListener('click', () => { setOpen(false); syncInert(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && nav.classList.contains('open')) { setOpen(false); syncInert(); } });
+  mq.addEventListener('change', () => { setOpen(false); syncInert(); });
+  syncInert();
+  nav.querySelector('[aria-current]')?.scrollIntoView({ block: 'center' });
+</script>
+
+<style>
+  .sidebar {
+    position: fixed; inset: 0 auto 0 0; z-index: 60;
+    width: min(20rem, 88vw); overflow-y: auto; overscroll-behavior: contain;
+    padding: var(--space-3) var(--space-3) var(--space-6);
+    background: var(--surface); border-right: 1px solid var(--border);
+    transform: translateX(-102%); transition: transform 0.22s ease;
+    font-size: var(--step--1);
+  }
+  .sidebar.open { transform: none; box-shadow: var(--shadow); }
+  .nav-backdrop { position: fixed; inset: 0; z-index: 55; background: rgb(0 0 0 / 0.4); }
+  .sidebar-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2); }
+  .sidebar-title { font-weight: 750; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.8rem; padding-left: var(--space-2); }
+  @media (min-width: 64rem) {
+    .sidebar {
+      position: sticky; top: var(--header-h); z-index: auto; width: auto; height: calc(100vh - var(--header-h));
+      transform: none; transition: none; background: var(--bg);
+    }
+    .close-btn { display: none; }
+    .nav-backdrop { display: none; }
+  }
+  .theme { margin-bottom: var(--space-2); }
+  summary {
+    cursor: pointer; font-weight: 700; padding: var(--space-2); border-radius: var(--radius-s);
+    list-style-position: outside; display: flex; gap: var(--space-2); align-items: center;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary:hover { background: var(--surface-2); }
+  .theme-letter {
+    display: inline-grid; place-items: center; width: 1.5rem; height: 1.5rem; flex: none;
+    border-radius: 6px; background: var(--accent); color: var(--on-accent); font-size: 0.8rem;
+  }
+  .theme-link { display: block; padding: 0.1rem var(--space-2) 0.3rem 2.6rem; font-size: 0.82rem; }
+  .level-name { display: block; padding: var(--space-2) var(--space-2) 0.1rem 2.6rem; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); }
+  ul { list-style: none; margin: 0; padding: 0; }
+  li + li { margin-top: 0; }
+  li a, .planned {
+    display: grid; grid-template-columns: 2.6rem 1fr auto auto; align-items: baseline; gap: 0 0.35rem;
+    padding: 0.32rem var(--space-2); border-radius: var(--radius-s); color: var(--text); text-decoration: none; line-height: 1.35;
+  }
+  li a:hover { background: var(--surface-2); color: var(--text); }
+  li a[aria-current='page'] { background: var(--accent-soft); color: var(--accent-strong); font-weight: 650; }
+  .code { font-variant-numeric: tabular-nums; color: var(--text-muted); font-weight: 600; font-size: 0.8rem; }
+  .planned { color: var(--text-muted); }
+  .soon { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); border: 1px dashed var(--border-strong); border-radius: 999px; padding: 0 0.4em; }
+  .ahl-dot { font-size: 0.62rem; font-weight: 800; color: var(--ahl); letter-spacing: 0.04em; }
+  .tick { width: 0.9rem; }
+  a.done .tick::before { content: '✓'; color: var(--good); font-weight: 800; }
+</style>

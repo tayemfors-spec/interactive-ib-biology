@@ -1,0 +1,74 @@
+---
+import { getEntry } from 'astro:content';
+import ProcessControls from './ProcessControls.astro';
+
+/**
+ * 2D step-through animation. The SVG lives in src/anims/<module>.astro and is drawn in its first
+ * state on the server; src/anims/<module>.ts animates it and is loaded when the figure scrolls into view.
+ */
+interface Props { topic: string; id: string }
+const { topic, id } = Astro.props;
+const entry = await getEntry('visuals', topic);
+const visual = entry?.data.visuals.find((v) => v.id === id);
+if (!visual || visual.kind !== 'anim') throw new Error(`Anim: no anim visual "${id}" in ${topic}/visuals.yaml`);
+const figures = import.meta.glob<{ default: any }>('../../anims/*.astro', { eager: true });
+const Figure = figures[`../../anims/${visual.module}.astro`]?.default;
+if (!Figure) throw new Error(`Anim: missing src/anims/${visual.module}.astro`);
+const uid = `a-${topic}-${id}`;
+---
+<figure class="viz anim" id={uid} data-anim data-module={visual.module} data-level-block={visual.level} aria-labelledby={`${uid}-title`}>
+  <figcaption id={`${uid}-title`} class="viz-title">{visual.title}{visual.level === 'AHL' && <span class="badge badge-ahl">AHL</span>}</figcaption>
+  <div class="art" data-art tabindex="0" role="group" aria-label={`${visual.title}. ${visual.alt}`}>
+    <Figure />
+  </div>
+  <ProcessControls />
+  <noscript><ol>{visual.steps.map((s) => <li><strong>{s.title}.</strong> {s.caption}</li>)}</ol></noscript>
+  <details class="desc">
+    <summary>Text description of this animation</summary>
+    <p>{visual.description}</p>
+    <ol>{visual.steps.map((s) => <li><strong>{s.title}.</strong> {s.caption}</li>)}</ol>
+  </details>
+  <script type="application/json" data-steps set:html={JSON.stringify(visual.steps)} />
+</figure>
+
+<script>
+  import { wireProcess, type StepText } from '../../lib/process-ui';
+
+  type AnimModule = { create(svg: SVGSVGElement): { render(index: number, t: number): void; durations?: number[] } };
+  const drivers = import.meta.glob<AnimModule>('../../anims/*.ts');
+
+  const start = async (fig: HTMLElement) => {
+    const loader = drivers[`../../anims/${fig.dataset.module}.ts`];
+    if (!loader) { console.error(`[anim] missing driver src/anims/${fig.dataset.module}.ts`); return; }
+    const mod = await loader();
+    const svg = fig.querySelector<SVGSVGElement>('[data-art] svg')!;
+    const steps = JSON.parse(fig.querySelector('[data-steps]')!.textContent!) as StepText[];
+    const anim = mod.create(svg);
+    wireProcess(fig.querySelector<HTMLElement>('[data-process]')!, steps, anim.render, {
+      durations: anim.durations,
+      keyTarget: fig.querySelector<HTMLElement>('[data-art]')!,
+    });
+    fig.dataset.state = 'ready';
+  };
+
+  const started = new WeakSet<HTMLElement>();
+  const begin = (fig: HTMLElement) => { if (started.has(fig)) return; started.add(fig); io.unobserve(fig); void start(fig); };
+  // Start when the figure scrolls near the viewport, or as soon as the reader interacts with it.
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) begin(e.target as HTMLElement);
+  }, { rootMargin: '200px' });
+  document.querySelectorAll<HTMLElement>('[data-anim]').forEach((f) => {
+    io.observe(f);
+    for (const type of ['pointerdown', 'focusin', 'keydown']) f.addEventListener(type, () => begin(f), { once: true });
+  });
+</script>
+
+<style>
+  .viz { margin: var(--space-5) 0 var(--space-6); padding: var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-l); background: var(--surface); }
+  @media (min-width: 40rem) { .viz { padding: var(--space-4); } }
+  .viz-title { font-weight: 750; display: flex; gap: var(--space-2); align-items: center; margin-bottom: var(--space-3); }
+  .art { border-radius: var(--radius-m); background: var(--surface-2); padding: var(--space-2); }
+  .art :global(svg) { display: block; width: 100%; height: auto; }
+  .desc { margin-top: var(--space-3); font-size: var(--step--1); }
+  .desc summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+</style>

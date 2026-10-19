@@ -1,0 +1,18 @@
+---
+/** Static diagram from src/diagrams/<name>.astro with a caption. The diagram supplies its own title/desc. */
+interface Props { name: string; caption: string; level?: 'SL' | 'AHL' }
+const { name, caption, level } = Astro.props;
+const diagrams = import.meta.glob<{ default: any }>('../../diagrams/*.astro', { eager: true });
+const Diagram = diagrams[`../../diagrams/${name}.astro`]?.default;
+if (!Diagram) throw new Error(`Figure: missing src/diagrams/${name}.astro`);
+---
+<figure class="fig" data-level-block={level}>
+  <div class="art"><Diagram /></div>
+  <figcaption>{caption}</figcaption>
+</figure>
+<style>
+  .fig { margin: var(--space-5) 0; }
+  .art { padding: var(--space-3); border-radius: var(--radius-m); background: var(--surface-2); border: 1px solid var(--border); }
+  .art :global(svg) { display: block; width: 100%; height: auto; }
+  figcaption { font-size: var(--step--1); color: var(--text-muted); margin-top: var(--space-2); }
+</style>

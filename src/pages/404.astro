@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../lib/url';
+---
+<BaseLayout title="Page not found" description="This page doesn't exist. Use the syllabus menu or search to find an IB Biology topic." noindex>
+  <div class="nf">
+    <h1>Page not found</h1>
+    <p>That page doesn't exist (or hasn't been written yet). Try the syllabus menu, <button class="btn" type="button" data-search-open>search</button>, or go to the <a href={withBase('/')}>home page</a>.</p>
+  </div>
+</BaseLayout>
+<style>.nf { max-width: 40rem; margin: var(--space-7) auto; }</style>

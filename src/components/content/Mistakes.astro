@@ -1,0 +1,29 @@
+---
+import type { TopicFrontmatter } from '../../schemas';
+interface Props { items: TopicFrontmatter['mistakes'] }
+const { items } = Astro.props;
+---
+<section class="box mistakes" id="exam-mistakes" aria-labelledby="exam-mistakes-title">
+  <h2 id="exam-mistakes-title">Common exam mistakes</h2>
+  <ul>
+    {items.map((m) => (
+      <li data-level-block={m.level}>
+        <p class="wrong"><span class="tag tag-bad">Loses marks</span> <span set:html={m.wrong} /></p>
+        <p class="right"><span class="tag tag-good">Write instead</span> <span set:html={m.right} /></p>
+        {m.level === 'AHL' && <span class="badge badge-ahl">AHL</span>}
+      </li>
+    ))}
+  </ul>
+</section>
+<style>
+  .box { margin-top: var(--space-6); padding: var(--space-4) var(--space-5); border-radius: var(--radius-l); border: 1px solid color-mix(in srgb, var(--warn) 40%, var(--border)); background: var(--surface); }
+  .box h2 { margin-top: 0; color: var(--warn); }
+  ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); }
+  li { padding-bottom: var(--space-4); border-bottom: 1px solid var(--border); }
+  li:last-child { border-bottom: 0; padding-bottom: 0; }
+  p { margin: 0 0 var(--space-1); }
+  .wrong { color: var(--text-muted); }
+  .tag { display: inline-block; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.05em 0.5em; border-radius: 4px; margin-right: 0.3rem; }
+  .tag-bad { background: var(--bad-soft); color: var(--bad); }
+  .tag-good { background: var(--good-soft); color: var(--good); }
+</style>
