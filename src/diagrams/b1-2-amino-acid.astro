@@ -1,0 +1,150 @@
+---
+/**
+ * Exam-style drawings for B1.2.1–B1.2.2: a generalized amino acid, and the condensation of two amino
+ * acids to a dipeptide. Two SVGs so that each stays legible when they stack at phone width.
+ * Bonds are drawn as lines between atom symbols; the line ends are trimmed so they never touch the letters.
+ */
+type P = [number, number];
+const trim = (a: P, b: P, ra = 13, rb = 13) => {
+  const dx = b[0] - a[0], dy = b[1] - a[1];
+  const l = Math.hypot(dx, dy);
+  return `M${(a[0] + (dx * ra) / l).toFixed(1)} ${(a[1] + (dy * ra) / l).toFixed(1)} L${(b[0] - (dx * rb) / l).toFixed(1)} ${(b[1] - (dy * rb) / l).toFixed(1)}`;
+};
+const dbl = (a: P, b: P, ra = 13, rb = 13, gap = 3.2) => {
+  const dx = b[0] - a[0], dy = b[1] - a[1];
+  const l = Math.hypot(dx, dy);
+  const ox = (-dy / l) * gap, oy = (dx / l) * gap;
+  const s = (o: number): P[] => [[a[0] + ox * o, a[1] + oy * o], [b[0] + ox * o, b[1] + oy * o]];
+  const [p1, q1] = s(1), [p2, q2] = s(-1);
+  return trim(p1!, q1!, ra, rb) + ' ' + trim(p2!, q2!, ra, rb);
+};
+
+/** One amino acid drawn with N at (x, y): returns atom positions, bonds and the atoms' letters. */
+const aminoAcid = (x: number, y: number) => {
+  const at = {
+    Ha: [x - 34, y - 30] as P, Hb: [x - 34, y + 30] as P, N: [x, y] as P, CA: [x + 64, y] as P, R: [x + 64, y - 54] as P, H: [x + 64, y + 54] as P,
+    C: [x + 128, y] as P, O: [x + 164, y - 36] as P, OH: [x + 168, y + 36] as P,
+  };
+  const bonds = [trim(at.N, at.Ha, 13, 9), trim(at.N, at.Hb, 13, 9), trim(at.N, at.CA), trim(at.CA, at.R, 13, 12), trim(at.CA, at.H, 13, 10), trim(at.CA, at.C), trim(at.C, at.OH, 13, 13)];
+  return { at, bonds, double: dbl(at.C, at.O) };
+};
+
+// ---------- panel 1: generalized amino acid ----------
+const g = aminoAcid(96, 150);
+
+// ---------- panel 2: condensation ----------
+const y0 = 92;
+const aa1 = aminoAcid(46, y0);
+const aa2 = aminoAcid(290, y0);
+const y1 = 336;
+const d = {
+  Ha: [22, y1 - 30] as P, Hb: [22, y1 + 30] as P, N1: [56, y1] as P, CA1: [116, y1] as P, R1: [116, y1 - 54] as P, H1: [116, y1 + 54] as P,
+  C1: [176, y1] as P, O1: [176, y1 - 56] as P, N2: [242, y1] as P, HN: [242, y1 + 54] as P, CA2: [302, y1] as P, R2: [302, y1 - 54] as P, H2: [302, y1 + 54] as P,
+  C2: [362, y1] as P, O2: [398, y1 - 36] as P, OH2: [402, y1 + 36] as P,
+};
+const dBonds = [trim(d.N1, d.Ha, 13, 9), trim(d.N1, d.Hb, 13, 9), trim(d.N1, d.CA1), trim(d.CA1, d.R1, 13, 12), trim(d.CA1, d.H1, 13, 10), trim(d.CA1, d.C1),
+  trim(d.N2, d.HN, 13, 10), trim(d.N2, d.CA2), trim(d.CA2, d.R2, 13, 12), trim(d.CA2, d.H2, 13, 10), trim(d.CA2, d.C2), trim(d.C2, d.OH2, 13, 13)];
+const dDouble = [dbl(d.C1, d.O1), dbl(d.C2, d.O2)];
+const peptide = trim(d.C1, d.N2);
+---
+<div class="exam-diagram aa-diagram">
+  <div class="panels">
+    <svg viewBox="0 0 330 300" role="img" aria-labelledby="aa-title aa-desc" xmlns="http://www.w3.org/2000/svg" class="p1">
+      <title id="aa-title">A generalized amino acid</title>
+      <desc id="aa-desc">A central alpha carbon atom bonded to four groups: an amine group (NH2) on the left, a carboxyl group (COOH) on the right, an R group above and a hydrogen atom below.</desc>
+      <rect class="grp" x="44" y="104" width="68" height="92" rx="12" />
+      <rect class="grp" x="210" y="98" width="100" height="102" rx="12" />
+      <rect class="grp grp-r" x="140" y="74" width="40" height="38" rx="10" />
+      <g class="bond">{g.bonds.map((b) => <path d={b} />)}<path d={g.double} /></g>
+      <g class="atom">
+        <text x={g.at.Ha[0]} y={g.at.Ha[1]}>H</text><text x={g.at.Hb[0]} y={g.at.Hb[1]}>H</text>
+        <text x={g.at.N[0]} y={g.at.N[1]}>N</text><text x={g.at.CA[0]} y={g.at.CA[1]}>C</text>
+        <text x={g.at.R[0]} y={g.at.R[1]} class="r">R</text><text x={g.at.H[0]} y={g.at.H[1]}>H</text>
+        <text x={g.at.C[0]} y={g.at.C[1]}>C</text><text x={g.at.O[0]} y={g.at.O[1]}>O</text>
+        <text x={g.at.OH[0] + 8} y={g.at.OH[1]}>OH</text>
+      </g>
+      <g class="lab">
+        <text x="78" y="222" text-anchor="middle">amine group</text>
+        <text x="260" y="222" text-anchor="middle">carboxyl group</text>
+        <text x="236" y="44" text-anchor="middle">R group (side chain)</text>
+        <path class="lead" d="M206 50 L178 76" />
+        <text x="174" y="290" text-anchor="middle">hydrogen atom</text>
+        <path class="lead" d="M168 276 L162 218" />
+        <text x="10" y="40" text-anchor="start">alpha (α) carbon</text>
+        <path class="lead" d="M60 48 L148 138" />
+      </g>
+    </svg>
+
+    <svg viewBox="0 0 500 486" role="img" aria-labelledby="dp-title dp-desc" xmlns="http://www.w3.org/2000/svg" class="p2">
+      <title id="dp-title">Condensation of two amino acids to form a dipeptide</title>
+      <desc id="dp-desc">Two amino acids side by side. The OH of the first amino acid's carboxyl group and one H from the second amino acid's amine group are circled: they are removed as a molecule of water. Below, the dipeptide: the carbon of the first carboxyl group is now bonded to the nitrogen of the second amine group by a peptide bond, with C=O and N–H either side of it.</desc>
+      <g class="bond">
+        {aa1.bonds.map((b) => <path d={b} />)}<path d={aa1.double} />
+        {aa2.bonds.map((b) => <path d={b} />)}<path d={aa2.double} />
+      </g>
+      <g class="atom">
+        {[aa1, aa2].map((a) => (
+          <>
+            <text x={a.at.Ha[0]} y={a.at.Ha[1]}>H</text><text x={a.at.Hb[0]} y={a.at.Hb[1]}>H</text>
+            <text x={a.at.N[0]} y={a.at.N[1]}>N</text><text x={a.at.CA[0]} y={a.at.CA[1]}>C</text>
+            <text x={a.at.R[0]} y={a.at.R[1]} class="r">R</text><text x={a.at.H[0]} y={a.at.H[1]}>H</text>
+            <text x={a.at.C[0]} y={a.at.C[1]}>C</text><text x={a.at.O[0]} y={a.at.O[1]}>O</text>
+            <text x={a.at.OH[0] + 8} y={a.at.OH[1]}>OH</text>
+          </>
+        ))}
+      </g>
+      <ellipse class="removed" cx={(aa1.at.OH[0] + aa2.at.Hb[0]) / 2 + 4} cy={y0 + 33} rx="50" ry="21" />
+      <g class="lab">
+        <text x="110" y="20" text-anchor="middle">amino acid</text>
+        <text x="233" y="24" text-anchor="middle" class="plus">+</text>
+        <text x="354" y="20" text-anchor="middle">amino acid</text>
+        <path class="arrow" d="M234 186 L234 254" />
+        <path class="arrowhead" d="M226 246 L234 260 L242 246 Z" />
+        <text x="248" y="206">condensation</text>
+        <text x="248" y="228">(–OH and –H removed</text>
+        <text x="248" y="248">as water)</text>
+      </g>
+      <g class="bond">{dBonds.map((b) => <path d={b} />)}{dDouble.map((b) => <path d={b} />)}</g>
+      <path class="peptide" d={peptide} />
+      <g class="atom">
+        <text x={d.Ha[0]} y={d.Ha[1]}>H</text><text x={d.Hb[0]} y={d.Hb[1]}>H</text><text x={d.N1[0]} y={d.N1[1]}>N</text>
+        <text x={d.CA1[0]} y={d.CA1[1]}>C</text><text x={d.R1[0]} y={d.R1[1]} class="r">R</text><text x={d.H1[0]} y={d.H1[1]}>H</text>
+        <text x={d.C1[0]} y={d.C1[1]}>C</text><text x={d.O1[0]} y={d.O1[1]}>O</text><text x={d.N2[0]} y={d.N2[1]}>N</text>
+        <text x={d.HN[0]} y={d.HN[1]}>H</text><text x={d.CA2[0]} y={d.CA2[1]}>C</text><text x={d.R2[0]} y={d.R2[1]} class="r">R</text>
+        <text x={d.H2[0]} y={d.H2[1]}>H</text><text x={d.C2[0]} y={d.C2[1]}>C</text><text x={d.O2[0]} y={d.O2[1]}>O</text>
+        <text x={d.OH2[0] + 8} y={d.OH2[1]}>OH</text>
+      </g>
+      <g class="lab">
+        <text x="440" y={y1 + 6} text-anchor="middle" class="water">+ H₂O</text>
+        <text x="209" y={y1 + 92} text-anchor="middle">peptide bond</text>
+        <path class="lead" d={`M209 ${y1 + 76} L209 ${y1 + 10}`} />
+        <path class="lead" d={`M14 ${y1 + 102} q0 10 10 10 h175 q10 0 10 8 q0 -8 10 -8 h196 q10 0 10 -10`} />
+        <text x="209" y={y1 + 120 + 18} text-anchor="middle" class="big">dipeptide</text>
+      </g>
+    </svg>
+  </div>
+  <p class="equation"><strong>Word equation:</strong> amino acid + amino acid → dipeptide + water</p>
+</div>
+
+<style>
+  .aa-diagram { font-family: var(--font-sans); }
+  .panels { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-5); align-items: flex-start; justify-content: center; }
+  .panels svg { display: block; height: auto; flex: 1 1 15rem; max-width: 100%; }
+  .panels .p1 { flex-basis: 14rem; max-width: 22rem; }
+  .panels .p2 { flex-basis: 19rem; max-width: 30rem; }
+  .atom text { font-size: 23px; font-weight: 600; fill: var(--text); text-anchor: middle; dominant-baseline: central; }
+  .atom .r { font-weight: 800; }
+  .bond path { stroke: var(--text); stroke-width: 2.2; fill: none; stroke-linecap: round; }
+  .peptide { stroke: var(--bio-head); stroke-width: 6; stroke-linecap: round; }
+  .grp { fill: color-mix(in srgb, var(--bio-protein) 10%, transparent); stroke: var(--bio-protein); stroke-width: 1.6; stroke-dasharray: 6 4; }
+  .grp-r { fill: color-mix(in srgb, var(--bio-carb) 12%, transparent); stroke: var(--bio-carb); }
+  .removed { fill: none; stroke: var(--bio-k); stroke-width: 2; stroke-dasharray: 5 4; }
+  .lab text { font-size: 16px; fill: var(--text); }
+  .lab .plus { font-size: 26px; font-weight: 700; }
+  .lab .water { font-size: 21px; font-weight: 700; }
+  .lab .big { font-size: 17px; font-weight: 700; }
+  .lead { stroke: var(--text-muted); stroke-width: 1.4; fill: none; }
+  .arrow { stroke: var(--text); stroke-width: 2.4; }
+  .arrowhead { fill: var(--text); }
+  .equation { margin: var(--space-3) 0 0; text-align: center; font-size: var(--step-0); }
+</style>

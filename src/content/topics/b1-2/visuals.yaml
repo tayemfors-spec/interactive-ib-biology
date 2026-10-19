@@ -1,0 +1,193 @@
+# Visuals for B1.2. Label/step text here is what readers see in the 3D viewer and the text descriptions,
+# so it is written to exam standard. Label ids must match anchors in the scene modules (src/scenes).
+visuals:
+  - id: protein
+    kind: viewer3d
+    title: Proteins in 3D, from amino acids to quaternary structure
+    alt: Ball-and-stick amino acids forming a dipeptide, a polypeptide folding into helix and sheet, and haemoglobin, insulin and collagen.
+    description: >-
+      Three models. The first is a ball-and-stick model of two amino acids. Each has a central alpha carbon
+      bonded to an amine group (N with two H), a carboxyl group (C with a double-bonded O and an OH), a hydrogen
+      atom and an R group (a green ball). Stepping on shows condensation: the OH of the first amino acid's
+      carboxyl group and an H from the second amino acid's amine group leave as a water molecule, and a peptide
+      bond forms between C and N, giving a dipeptide. The second model is one polypeptide of 45 amino acids,
+      shown as its backbone atoms with one bead per R group, coloured by type (hydrophobic yellow, polar green,
+      acidic red, basic purple, cysteine amber). Its steps show the primary structure (the chain being made from
+      the N-terminus to the C-terminus), the secondary structure (an alpha helix with hydrogen bonds between the
+      C=O of each amino acid and the N–H four amino acids further on, and a three-stranded beta-pleated sheet with
+      hydrogen bonds between neighbouring strands) and the tertiary structure (the helix packed onto the sheet with
+      the hydrophobic R groups buried between them, plus a disulfide bond, an ionic bond and a hydrogen bond
+      between R groups). The third model shows, to the same scale, haemoglobin (two alpha and two beta chains, each
+      with a haem group), insulin (an A chain and a B chain joined by disulfide bonds) and a segment of the collagen
+      triple helix.
+    scenes:
+      - id: amino-acids
+        module: b1-2-amino-acid
+        title: Amino acids and peptide bonds
+        labels:
+          - id: alpha-carbon
+            name: Alpha (α) carbon
+            text: The central carbon atom of an amino acid. It forms four single bonds, to the amine group, the carboxyl group, the R group and a hydrogen atom, arranged tetrahedrally.
+          - id: amine
+            name: Amine group (–NH₂)
+            text: A nitrogen bonded to two hydrogen atoms. In the dipeptide this amine group is still free, at the N-terminus. The other amino acid's amine group has lost one H to the water molecule and its N is now in the peptide bond.
+          - id: carboxyl
+            name: Carboxyl group (–COOH)
+            text: A carbon with a double-bonded oxygen (C=O) and an –OH group. This one stays free in the dipeptide, at the C-terminus. The first amino acid's carboxyl group lost its –OH in the condensation reaction.
+          - id: r-group
+            name: R group (side chain)
+            text: The variable part, shown here as one green ball. Each of the 20 amino acids has a different R group, and the R groups give a polypeptide its properties. In a chain, neighbouring R groups point to opposite sides.
+          - id: hydrogen
+            name: Hydrogen atom
+            text: The fourth group on the α carbon. It is always a single hydrogen atom, whatever the amino acid.
+          - id: peptide-bond
+            name: Peptide bond
+            text: The covalent bond between the carbon of one amino acid's carboxyl group and the nitrogen of the next amino acid's amine group, formed by condensation. A C=O and an N–H sit either side of it.
+          - id: water
+            name: Water (H₂O)
+            text: The –OH from the carboxyl group and an H from the amine group combine to form one water molecule for every peptide bond made. Hydrolysis uses a water molecule to break the bond again.
+        steps:
+          - id: two-amino-acids
+            title: Two amino acids
+            caption: Two amino acids side by side. In each, the alpha carbon is bonded to an amine group, a carboxyl group, a hydrogen atom and an R group. The R groups are the only parts that differ between amino acids.
+          - id: condensation
+            title: Condensation forms a dipeptide
+            caption: "The –OH of the first amino acid's carboxyl group and an H from the second amino acid's amine group are removed and form a water molecule. A peptide bond forms between the carbon and the nitrogen. Amino acid + amino acid → dipeptide + water."
+
+      - id: levels
+        module: b1-2-levels
+        title: Levels of structure
+        labels:
+          - id: n-terminus
+            name: N-terminus
+            text: The end of the polypeptide with a free amine group. Ribosomes add amino acids starting at this end, so the chain grows from the N-terminus to the C-terminus.
+          - id: c-terminus
+            name: C-terminus
+            text: The end of the polypeptide with a free carboxyl group, where the last amino acid was added.
+          - id: primary
+            name: Primary structure
+            text: The number and sequence of amino acids in the chain. It is coded by a gene and does not change as the chain folds — and it determines how the chain folds.
+          - id: peptide-bond
+            name: Peptide bond
+            text: Each amino acid is joined to the next by a peptide bond between C and N. Together they make the repeating –N–C–C– backbone, with an N–H and a C=O group in every amino acid.
+          - id: r-group
+            name: R groups (beads)
+            text: One bead per amino acid, coloured by type of R group — hydrophobic yellow, polar green, acidic red, basic purple, cysteine amber. Their positions in the sequence decide how the chain folds.
+          - id: alpha-helix
+            name: Alpha (α) helix
+            level: AHL
+            text: A right-handed coil with 3.6 amino acids per turn. The R groups point outwards from the helix. It is held by hydrogen bonds between backbone groups only.
+          - id: helix-hbond
+            name: Hydrogen bond in the α-helix
+            level: AHL
+            text: The C=O of one amino acid hydrogen-bonds to the N–H of the amino acid four further along the chain. Every turn has these bonds at the same regular positions, roughly parallel to the axis.
+          - id: beta-sheet
+            name: Beta (β) pleated sheet
+            level: AHL
+            text: Three sections of chain lie side by side, here in alternate directions (antiparallel). The chain zig-zags at each α carbon, so the sheet is pleated, and R groups point alternately above and below it.
+          - id: sheet-hbond
+            name: Hydrogen bond between strands
+            level: AHL
+            text: A C=O group on one strand hydrogen-bonds to an N–H group on the neighbouring strand. Many such bonds at regular positions hold the strands together.
+          - id: hydrophobic
+            name: Hydrophobic core
+            level: AHL
+            text: The yellow non-polar R groups from the helix and the sheet are packed together in the middle, away from water. These hydrophobic interactions stabilize the tertiary structure; hydrophilic R groups face the water outside.
+          - id: disulfide
+            name: Disulfide bond
+            level: AHL
+            text: A covalent S–S bond between the R groups of two cysteines (amber), far apart in the sequence but brought together by folding. It is the strongest of the tertiary interactions.
+          - id: ionic
+            name: Ionic bond
+            level: AHL
+            text: Attraction between a positively charged R group (–NH₃⁺, purple) and a negatively charged one (–COO⁻, red). The charges come from gaining or losing H⁺, so a change in pH can break this bond.
+          - id: r-hbond
+            name: Hydrogen bond between R groups
+            level: AHL
+            text: Two polar R groups (green) hydrogen-bonded to each other. Unlike the bonds of the helix and sheet, this one is between side chains, so it is part of the tertiary structure.
+        steps:
+          - id: primary
+            title: Primary structure
+            caption: Amino acids are joined by peptide bonds, one at a time from the N-terminus to the C-terminus. The sequence of amino acids, and of their R groups, is the primary structure. Laid out flat like this the chain has no stable shape yet.
+          - id: secondary
+            title: Secondary structure
+            level: AHL
+            caption: Parts of the chain coil into an alpha helix and fold back and forth into a beta-pleated sheet. Both are held by hydrogen bonds (orange dashes) between C=O and N–H groups of the backbone, at regular intervals.
+          - id: tertiary
+            title: Tertiary structure
+            level: AHL
+            caption: The helix and sheet fold together into a compact shape. Hydrophobic R groups are buried in the core. A disulfide bond, an ionic bond and hydrogen bonds between R groups hold the conformation.
+
+      - id: quaternary
+        module: b1-2-quaternary
+        title: Quaternary structure (AHL)
+        labels:
+          - id: haemoglobin
+            name: Haemoglobin
+            level: AHL
+            text: A globular protein with quaternary structure (four polypeptides) that is also conjugated, because each polypeptide carries a non-polypeptide haem group. It carries oxygen in red blood cells.
+          - id: alpha-chain
+            name: α chains (haemoglobin)
+            level: AHL
+            text: Two identical α chains of 141 amino acids each (blue). Like the β chains, each is folded mainly into α-helices around its haem group.
+          - id: beta-chain
+            name: β chains (haemoglobin)
+            level: AHL
+            text: Two identical β chains of 146 amino acids each (purple). Each α chain contacts both β chains; the four are held together by the same kinds of bonds as tertiary structure.
+          - id: haem
+            name: Haem group
+            level: AHL
+            text: The prosthetic group (red disc) with an iron ion, Fe²⁺, at its centre (orange). Each haem binds one O₂, so a haemoglobin molecule can carry up to four oxygen molecules.
+          - id: insulin-a
+            name: Insulin A chain
+            level: AHL
+            text: The shorter of insulin's two polypeptides, 21 amino acids, with two short helices and a disulfide bond within the chain.
+          - id: insulin-b
+            name: Insulin B chain
+            level: AHL
+            text: The longer polypeptide, 30 amino acids, with a central α-helix. Insulin has no prosthetic group, so it is a non-conjugated protein.
+          - id: insulin-ss
+            name: Disulfide bonds (insulin)
+            level: AHL
+            text: Two disulfide bonds link the A and B chains, and a third links two cysteines within the A chain. They hold the small globular hormone in its precise shape.
+          - id: collagen
+            name: Collagen triple helix
+            level: AHL
+            text: A fibrous protein. Three polypeptides wind round each other like the strands of a rope (a right-handed triple helix). Only a short segment is shown; a whole molecule is about 300 nm long and 1.5 nm wide.
+          - id: collagen-chain
+            name: One collagen polypeptide
+            level: AHL
+            text: Each chain is a left-handed helix, more extended than an α-helix, with three amino acids per turn. Type I collagen has two identical chains (blue) and one different chain (purple).
+          - id: glycine
+            name: Glycine (every third amino acid)
+            level: AHL
+            text: Every third amino acid in each chain is glycine (small grey beads), whose R group is just H. It is the only amino acid small enough to fit at the centre of the triple helix, where the chains touch.
+
+  - id: denaturation
+    kind: sim
+    module: b1-2-denaturation
+    title: Denaturing a protein with heat and pH
+    alt: Temperature and pH sliders unfold a protein chain; a meter, bond list and graphs show how many molecules keep their native shape.
+    description: >-
+      Choose a typical human enzyme, pepsin from the stomach or Taq polymerase from a thermophilic bacterium, then
+      change the temperature (0–100 °C) and pH (0–14). A drawing of the polypeptide unfolds as more molecules are
+      denatured, and its hydrogen bonds and ionic bond disappear while the disulfide bond stays. A meter shows the
+      percentage of molecules with their native shape, a list shows which bonds are intact or broken, and two
+      graphs show the percentage of native molecules against temperature and against pH, with a data table. The
+      human enzyme denatures above about 50 °C and outside roughly pH 4–10; pepsin is stable at pH 2 but denatures
+      at neutral pH; Taq polymerase stays folded close to 100 °C. Returning to normal conditions does not restore
+      a denatured sample, because the denaturation is permanent. Peptide bonds are never broken.
+
+  - id: r-groups
+    kind: sim
+    module: b1-2-r-groups
+    level: AHL
+    title: R-group explorer
+    alt: Pick any of the 20 amino acids to see its R group, its class, its charge at a chosen pH and where it tends to sit in proteins.
+    description: >-
+      The 20 amino acids are arranged in four groups by the chemistry of their R groups — non-polar
+      (hydrophobic), polar uncharged, acidic and basic. Choosing one shows its R group, what bonds it can form and
+      where it tends to be found: in the hydrophobic core of a water-soluble globular protein or in the part of a
+      membrane protein that contacts the lipid bilayer (non-polar), or on surfaces in contact with water (polar and
+      charged). A pH slider shows how acidic R groups lose H⁺ to become negative and basic R groups gain H⁺ to become
+      positive, and how these charges disappear at very low or very high pH.

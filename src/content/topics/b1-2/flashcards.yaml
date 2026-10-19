@@ -1,0 +1,69 @@
+cards:
+  - id: c1
+    level: SL
+    front: What is bonded to the alpha carbon of an amino acid?
+    back: Four groups — an amine group (–NH₂), a carboxyl group (–COOH), a hydrogen atom and an R group. Only the R group differs between the 20 amino acids.
+  - id: c2
+    level: SL
+    front: Word equation for making a dipeptide
+    back: amino acid + amino acid → dipeptide + water. It is a condensation reaction; hydrolysis reverses it.
+  - id: c3
+    level: SL
+    front: Which atoms does a peptide bond join, and where do the atoms of the water come from?
+    back: The C of one amino acid's carboxyl group to the N of the next amino acid's amine group. The water is made from the –OH of the carboxyl group and one H of the amine group.
+  - id: c4
+    level: SL
+    front: Essential vs non-essential amino acids
+    back: Essential amino acids cannot be synthesized by the body, so they must be in the diet. Non-essential amino acids can be made from other amino acids. The body needs all of them.
+  - id: c5
+    level: SL
+    front: Why does a vegan diet need planning?
+    back: Many plant foods are low in one or more essential amino acids (for example cereals in lysine, legumes in methionine), so a mix of plant protein sources is needed to obtain enough of every essential amino acid.
+  - id: c6
+    level: SL
+    front: Why is the number of possible polypeptides almost infinite?
+    back: 20 amino acids are coded for, any amino acid can be at any position, and chains can be any length from a few to thousands, so a chain of n amino acids has 20ⁿ possible sequences.
+  - id: c7
+    level: SL
+    front: Define denaturation.
+    back: A change in the three-dimensional shape (conformation) of a protein, for example by heat or extreme pH, so that it can no longer carry out its function. It is usually irreversible.
+  - id: c8
+    level: SL
+    front: How do heat and pH denature a protein?
+    back: Heat increases vibration, which breaks hydrogen bonds and other weak interactions. A change in pH alters the charges on R groups (they gain or lose H⁺), breaking ionic and hydrogen bonds. Peptide bonds are not broken.
+  - id: c9
+    level: SL
+    front: Give an example of a heat-resistant protein.
+    back: Taq polymerase from Thermus aquaticus, a bacterium of hot springs. It survives repeated heating to about 95 °C, so it is used in PCR. Proteins of thermophiles have features such as extra ionic and disulfide bonds.
+  - id: c10
+    level: AHL
+    front: Classify R groups by their chemistry.
+    back: Hydrophobic (non-polar) or hydrophilic. Hydrophilic R groups are either polar (uncharged) or charged — acidic (negative, –COO⁻) or basic (positive, e.g. –NH₃⁺).
+  - id: c11
+    level: AHL
+    front: How do R groups become charged?
+    back: An amine group gains H⁺ (–NH₂ → –NH₃⁺, positive); a carboxyl group loses H⁺ (–COOH → –COO⁻, negative). Oppositely charged R groups can then form ionic bonds.
+  - id: c12
+    level: AHL
+    front: Compare the hydrogen bonding in an α-helix and a β-pleated sheet.
+    back: Both use hydrogen bonds between backbone C=O and N–H groups at regular intervals. In an α-helix they link each amino acid to the one four further along the same coil; in a β-sheet they link neighbouring strands lying side by side.
+  - id: c13
+    level: AHL
+    front: Four bonds or interactions that stabilize tertiary structure
+    back: Hydrogen bonds (polar R groups), ionic bonds (–NH₃⁺ and –COO⁻), disulfide bonds (covalent, between two cysteines) and hydrophobic interactions (non-polar R groups).
+  - id: c14
+    level: AHL
+    front: Where are polar and non-polar amino acids in soluble and membrane proteins?
+    back: In water-soluble globular proteins, non-polar R groups are clustered in the core and polar ones are on the surface. Integral membrane proteins have hydrophobic regions (often α-helices of about 20 amino acids) in contact with the bilayer.
+  - id: c15
+    level: AHL
+    front: Conjugated vs non-conjugated proteins, with examples
+    back: A conjugated protein contains a non-polypeptide prosthetic group, such as haemoglobin with four haem groups. Insulin (two chains) and collagen (three chains) are non-conjugated. All three have quaternary structure.
+  - id: c16
+    level: AHL
+    front: How do the shapes of insulin and collagen suit their functions?
+    back: Insulin is small and globular with a hydrophilic surface, so it dissolves in plasma, and its precise shape binds its receptor. Collagen is fibrous — a triple helix cross-linked into fibres — giving tensile strength in skin, tendons and bone.
+  - id: c17
+    level: AHL
+    front: What does cryogenic electron microscopy (cryo-EM) do?
+    back: Proteins are frozen rapidly in glass-like ice and imaged by electron microscope; thousands of images of single molecules are combined into a 3D structure. No crystals are needed, so large complexes and membrane proteins can be studied.

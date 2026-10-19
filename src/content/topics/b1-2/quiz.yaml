@@ -1,0 +1,196 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: B1.2.1
+    stem: In a generalized amino acid, which four groups are bonded to the alpha carbon?
+    options:
+      - id: a
+        text: An amine group, a phosphate group, an R group and a hydrogen atom
+        why: Phosphate groups are found in nucleotides, not amino acids. The alpha carbon carries a carboxyl group instead.
+      - id: b
+        text: An amine group, a carboxyl group, a hydroxyl group and an R group
+        why: The –OH belongs to the carboxyl group; it is not a separate group on the alpha carbon. This answer leaves out the hydrogen atom.
+      - id: c
+        text: An amine group, a carboxyl group, an R group and a hydrogen atom
+        why: Correct. These four groups surround the alpha carbon in every amino acid; only the R group varies.
+      - id: d
+        text: Two hydrogen atoms, an amine group and an R group
+        why: The two hydrogen atoms usually drawn near the nitrogen belong to the amine group. The alpha carbon has only one hydrogen, and the carboxyl group is missing here.
+    answer: c
+
+  - id: q2
+    level: SL
+    understanding: B1.2.2
+    stem: Which statement correctly describes the formation of a dipeptide?
+    options:
+      - id: a
+        text: A molecule of water is released and a bond forms between the carbon of one carboxyl group and the nitrogen of the other amino acid's amine group.
+        why: Correct. This is a condensation reaction; the new C–N bond is a peptide bond.
+      - id: b
+        text: A molecule of water is used to join the two amino acids by hydrolysis.
+        why: Hydrolysis uses water to break peptide bonds. Joining amino acids is condensation, which releases water.
+      - id: c
+        text: A bond forms between the R groups of the two amino acids, releasing water.
+        why: The R groups are not involved in the peptide bond. It forms between the carboxyl and amine groups, which every amino acid has.
+      - id: d
+        text: The two alpha carbons bond directly to each other and carbon dioxide is released.
+        why: The alpha carbons are not bonded to each other; a C and an N lie between them in the chain, and the by-product is water, not CO₂.
+    answer: a
+
+  - id: q3
+    level: SL
+    understanding: B1.2.4
+    stem: Using the 20 amino acids of the genetic code, how many different sequences are possible for a peptide four amino acids long?
+    options:
+      - id: a
+        text: "80"
+        why: This multiplies 20 by 4. There are 20 choices at each of the four positions, so the choices must be multiplied together.
+      - id: b
+        text: 4²⁰ (about 1.1 × 10¹²)
+        why: This swaps the numbers. The number of choices (20) is raised to the power of the number of positions (4), not the other way round.
+      - id: c
+        text: 8,000
+        why: This is 20³, the number of sequences for three amino acids.
+      - id: d
+        text: 160,000
+        why: Correct. 20 × 20 × 20 × 20 = 20⁴ = 160,000.
+    answer: d
+
+  - id: q4
+    level: SL
+    understanding: B1.2.3
+    stem: Why does a vegan diet need planning to include several different plant protein sources, such as cereals and legumes?
+    options:
+      - id: a
+        text: Plant foods contain no protein, so amino acids must be taken as supplements.
+        why: Many plant foods, especially legumes, are rich in protein. The issue is the balance of amino acids, not the total amount of protein.
+      - id: b
+        text: Some plant foods contain too little of particular essential amino acids, which humans cannot synthesize, so combining sources supplies enough of all of them.
+        why: Correct. For example, cereals are low in lysine and legumes are low in methionine, so eating both covers the shortfall.
+      - id: c
+        text: Non-essential amino acids are only found in animal products.
+        why: Non-essential amino acids can be made in the body, so they do not need to come from any particular food.
+      - id: d
+        text: Humans can make every amino acid, but only if the starting material comes from animal protein.
+        why: Humans cannot make the essential amino acids at all, whatever the source of the starting material; they must be eaten.
+    answer: b
+
+  - id: q5
+    level: SL
+    understanding: B1.2.5
+    stem: >-
+      A solution of a human enzyme was kept at 80 °C for ten minutes and then cooled to 37 °C. Its activity at
+      37 °C was almost zero, whereas an unheated sample was fully active at 37 °C. What is the best explanation?
+    options:
+      - id: a
+        text: The heat broke the peptide bonds, changing the sequence of amino acids.
+        why: Heating to 80 °C does not hydrolyse peptide bonds. The primary structure is unchanged; it is the 3D shape that is lost.
+      - id: b
+        text: The enzyme was only inactive while it was hot, and needed longer at 37 °C to recover.
+        why: Heat denaturation is almost always irreversible. The unheated sample shows the enzyme works at 37 °C; the heated one has lost its shape for good.
+      - id: c
+        text: Heat broke hydrogen bonds and other weak interactions holding the enzyme's 3D shape, so it was denatured and did not refold on cooling.
+        why: Correct. The conformation, including the active site, was lost, and denaturation by heat is usually permanent.
+      - id: d
+        text: 37 °C is too cold for the enzyme to work, so activity was low.
+        why: The unheated control was fully active at 37 °C, so temperature during the assay cannot be the cause.
+    answer: c
+
+  - id: q6
+    level: AHL
+    understanding: B1.2.12
+    stem: Which feature of collagen best explains why it is suited to its role in tendons?
+    options:
+      - id: a
+        text: Its compact, rounded shape lets it dissolve in blood plasma.
+        why: That describes a globular protein such as insulin. A tendon needs an insoluble protein that stays in place.
+      - id: b
+        text: Its haem groups bind oxygen for the muscle cells attached to the tendon.
+        why: Collagen has no prosthetic group. Haem groups are found in haemoglobin and myoglobin.
+      - id: c
+        text: Its hydrophobic amino acids are buried in a core, making it a water-soluble enzyme.
+        why: Collagen is a fibrous structural protein, not an enzyme, and it is insoluble.
+      - id: d
+        text: Three long polypeptides wound into a triple helix, cross-linked into fibres, give it great tensile strength.
+        why: Correct. Like a rope, collagen resists pulling forces, which is what a tendon must do.
+    answer: d
+
+  - id: q7
+    level: AHL
+    understanding: B1.2.8
+    stem: In an α-helix, the hydrogen bonds that stabilize the secondary structure form between
+    options:
+      - id: a
+        text: the C=O group of one amino acid and the N–H group of the amino acid four positions further along the same chain.
+        why: Correct. These bonds are at regular intervals along the backbone, which is why every α-helix has the same dimensions.
+      - id: b
+        text: the R groups of amino acids on neighbouring turns of the helix.
+        why: Interactions between R groups belong to tertiary structure. Secondary structure is held by backbone groups only.
+      - id: c
+        text: C=O and N–H groups on two sections of chain lying side by side.
+        why: This describes a β-pleated sheet, where the hydrogen bonds link neighbouring strands rather than turns of one coil.
+      - id: d
+        text: the –SH groups of two cysteines.
+        why: Two cysteines form a covalent disulfide bond, which is a tertiary interaction, not a hydrogen bond.
+    answer: a
+
+  - id: q8
+    level: AHL
+    understanding: B1.2.9
+    stem: >-
+      In a folded protein at pH 7, an R group ending in –NH₂ lies next to an R group ending in –COOH. What type of
+      bond is most likely to form between them, and why?
+    options:
+      - id: a
+        text: A disulfide bond, because both R groups contain hydrogen.
+        why: Disulfide bonds form only between the –SH groups of two cysteines.
+      - id: b
+        text: An ionic bond, because –NH₂ gains H⁺ to become –NH₃⁺ and –COOH loses H⁺ to become –COO⁻.
+        why: Correct. At pH 7 these groups become oppositely charged and attract each other.
+      - id: c
+        text: A peptide bond, because an amine group and a carboxyl group react.
+        why: Peptide bonds join the backbone amine and carboxyl groups during translation; R groups in a folded protein do not form peptide bonds with each other.
+      - id: d
+        text: A hydrophobic interaction, because both groups are non-polar.
+        why: Both groups are hydrophilic, and at pH 7 they are charged. Hydrophobic interactions occur between non-polar R groups.
+    answer: b
+
+  - id: q9
+    level: AHL
+    understanding: B1.2.10
+    stem: >-
+      An integral protein of the plasma membrane has a stretch of about 20 consecutive amino acids that are
+      almost all non-polar. What is the most likely role of this stretch?
+    options:
+      - id: a
+        text: It forms a binding site exposed to the cytoplasm.
+        why: Parts exposed to the watery cytoplasm usually have hydrophilic R groups on their surface.
+      - id: b
+        text: It forms hydrogen bonds with water on the outer surface of the cell.
+        why: Non-polar R groups cannot form hydrogen bonds with water; that is a property of polar and charged R groups.
+      - id: c
+        text: It lines a water-filled channel through which ions pass.
+        why: A channel that ions pass through is lined with hydrophilic amino acids, not non-polar ones.
+      - id: d
+        text: It forms an α-helix that spans the hydrophobic core of the phospholipid bilayer.
+        why: Correct. About 20 amino acids in an α-helix is long enough to cross the bilayer, and non-polar R groups are attracted to the fatty acid tails.
+    answer: d
+
+  - id: q10
+    level: AHL
+    understanding: B1.2.11
+    stem: Which description of haemoglobin is correct?
+    options:
+      - id: a
+        text: A non-conjugated protein made of four identical polypeptides.
+        why: Haemoglobin has two kinds of polypeptide (two α and two β), and its haem groups make it conjugated.
+      - id: b
+        text: A fibrous protein made of three polypeptides wound into a triple helix.
+        why: That describes collagen. Haemoglobin is globular.
+      - id: c
+        text: A conjugated protein with quaternary structure, made of two α and two β chains, each with a haem group.
+        why: Correct. Four polypeptides give quaternary structure, and the non-polypeptide haem groups make it conjugated.
+      - id: d
+        text: A conjugated protein whose prosthetic groups are disulfide bonds between its chains.
+        why: Disulfide bonds are part of the polypeptides' R groups, not prosthetic groups. Haemoglobin's prosthetic groups are its four haem groups.
+    answer: c

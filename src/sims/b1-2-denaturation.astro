@@ -1,0 +1,252 @@
+---
+import { linePath, range, sx, sy, type Frame } from './chart';
+import { bonds, chainPoints, CYS, expose, freshSample, heatStable, nativeFraction, phStable, proteins, summary, WEAK } from './models/b1-2-denaturation';
+
+const p = proteins[0]!;
+const d = { temp: 37, pH: 7 };
+const s = expose(freshSample(), p, d.temp, d.pH);
+const pts = chainPoints(1 - s.native);
+const poly = pts.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
+const fT: Frame = { w: 320, h: 196, left: 46, right: 12, top: 14, bottom: 42, x: { min: 0, max: 100, ticks: range(0, 100, 20), label: 'Temperature / °C' }, y: { min: 0, max: 100, ticks: [0, 50, 100], label: '% native' } };
+const fP: Frame = { ...fT, x: { min: 0, max: 14, ticks: range(0, 14, 2), label: 'pH' } };
+const tLine = linePath(fT, (t) => 100 * nativeFraction(p, t, d.pH), 100);
+const pLine = linePath(fP, (x) => 100 * nativeFraction(p, d.temp, x), 112);
+const tRows = range(0, 100, 10).map((t) => [t, 100 * heatStable(p, t) * phStable(p, d.pH)]);
+const pRows = range(0, 14, 1).map((x) => [x, 100 * nativeFraction(p, d.temp, x)]);
+const charts = [
+  { f: fT, line: tLine, key: 'temp', title: 'Native molecules against temperature at the chosen pH', mx: d.temp },
+  { f: fP, line: pLine, key: 'pH', title: 'Native molecules against pH at the chosen temperature', mx: d.pH },
+];
+---
+<div class="denat" data-denat data-frames={JSON.stringify({ temp: fT, pH: fP })}>
+  <div class="choices" role="radiogroup" aria-label="Choose a protein">
+    {proteins.map((q, i) => (
+      <button type="button" class="btn" role="radio" aria-checked={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-protein={q.id}>{q.name}</button>
+    ))}
+  </div>
+  <div class="grid">
+    <div class="stage">
+      <svg viewBox="0 0 300 170" class="art" role="img" aria-labelledby="dn-t">
+        <title id="dn-t">A polypeptide chain that unfolds as the protein is denatured</title>
+        <g data-weak>
+          {WEAK.hbonds.map(([a, b]) => <line class="hb" x1={pts[a]![0]} y1={pts[a]![1]} x2={pts[b]![0]} y2={pts[b]![1]} />)}
+          {WEAK.ionic.map(([a, b]) => <line class="ion" x1={pts[a]![0]} y1={pts[a]![1]} x2={pts[b]![0]} y2={pts[b]![1]} />)}
+        </g>
+        <polyline class="chain" points={poly} data-chain />
+        <line class="ss" data-ss x1={pts[CYS[0]]![0]} y1={pts[CYS[0]]![1]} x2={pts[CYS[1]]![0]} y2={pts[CYS[1]]![1]} />
+        <g data-beads>{pts.map(([x, y], i) => <circle cx={x} cy={y} r={CYS.includes(i as 5 | 18) ? 4.6 : 3.6} class={CYS.includes(i as 5 | 18) ? 'cys' : 'aa'} />)}</g>
+        <g class="key" aria-hidden="true">
+          <line class="hb" x1="8" y1="158" x2="26" y2="158" /><text x="30" y="162">hydrogen bond</text>
+          <line class="ion" x1="120" y1="158" x2="138" y2="158" /><text x="142" y="162">ionic bond</text>
+          <line class="ss" x1="212" y1="158" x2="230" y2="158" /><text x="234" y="162">disulfide</text>
+        </g>
+      </svg>
+      <div class="meter" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow={Math.round(s.native * 100)} aria-label="Molecules with their native shape" data-meter>
+        <span class="mlabel">Molecules with their native shape: <strong data-pct>{Math.round(s.native * 100)}%</strong></span>
+        <span class="bar"><span class="fill" data-fill style={`width:${(s.native * 100).toFixed(0)}%`}></span></span>
+      </div>
+    </div>
+    <div class="controls">
+      <label class="slider">Temperature: <output data-out="temp">{d.temp} °C</output>
+        <input type="range" min="0" max="100" step="1" value={d.temp} data-param="temp" />
+      </label>
+      <label class="slider">pH: <output data-out="pH">{d.pH.toFixed(1)}</output>
+        <input type="range" min="0" max="14" step="0.5" value={d.pH} data-param="pH" />
+      </label>
+      <div class="row">
+        <button type="button" class="btn" data-reset>New sample (undenatured)</button>
+        <button type="button" class="btn" data-home>Back to normal conditions</button>
+      </div>
+      <ul class="bonds" data-bonds>
+        {bonds(s).map((b) => <li data-state={b.state}><span class="chip">{b.state}</span> <strong>{b.name}</strong>: {b.why}</li>)}
+      </ul>
+    </div>
+  </div>
+  <p class="readout" aria-live="polite" data-readout>{summary(p, s, d.temp, d.pH)}</p>
+  <div class="charts">
+    {charts.map((c) => (
+      <svg class="chart" viewBox={`0 0 ${c.f.w} ${c.f.h}`} role="img" aria-label={c.title} data-chart={c.key}>
+        <g class="gridl">{c.f.y.ticks.map((t) => <line x1={c.f.left} x2={c.f.w - c.f.right} y1={sy(c.f, t)} y2={sy(c.f, t)} />)}</g>
+        <g class="ticks">
+          {c.f.x.ticks.map((t) => <text x={sx(c.f, t)} y={c.f.h - c.f.bottom + 16} text-anchor="middle">{t}</text>)}
+          {c.f.y.ticks.map((t) => <text x={c.f.left - 6} y={sy(c.f, t)} dy="0.35em" text-anchor="end">{t}</text>)}
+        </g>
+        <text class="axis" x={(c.f.left + c.f.w - c.f.right) / 2} y={c.f.h - 6} text-anchor="middle">{c.f.x.label}</text>
+        <text class="axis" transform={`translate(13 ${(c.f.top + c.f.h - c.f.bottom) / 2}) rotate(-90)`} text-anchor="middle">{c.f.y.label}</text>
+        <path class="curve" d={c.line} data-curve />
+        <line class="marker" data-marker x1={sx(c.f, c.mx)} x2={sx(c.f, c.mx)} y1={c.f.top} y2={c.f.h - c.f.bottom} />
+        <circle class="dot" data-dot cx={sx(c.f, c.mx)} cy={sy(c.f, s.native * 100)} r="5" />
+      </svg>
+    ))}
+  </div>
+  <p class="legend-note">Solid line: the % of molecules that would have their native shape in a fresh sample under each condition. Dashed line: the conditions now. Dot: your sample, which stays denatured if it has been damaged before.</p>
+  <details class="table">
+    <summary>Show data table</summary>
+    <div class="tables">
+      <table>
+        <caption>% native vs temperature (pH <span data-cap-ph>{d.pH.toFixed(1)}</span>)</caption>
+        <thead><tr><th scope="col">°C</th><th scope="col">% native</th></tr></thead>
+        <tbody data-tbody="temp">{tRows.map(([x, y]) => <tr><th scope="row">{x}</th><td>{y!.toFixed(0)}</td></tr>)}</tbody>
+      </table>
+      <table>
+        <caption>% native vs pH (<span data-cap-t>{d.temp}</span> °C)</caption>
+        <thead><tr><th scope="col">pH</th><th scope="col">% native</th></tr></thead>
+        <tbody data-tbody="pH">{pRows.map(([x, y]) => <tr><th scope="row">{x}</th><td>{y!.toFixed(0)}</td></tr>)}</tbody>
+      </table>
+    </div>
+  </details>
+  <p class="model-note">Qualitative model: the shapes of the curves are realistic, but the numbers are illustrative. It treats all denaturation as permanent, which is true of almost all heat denaturation; a few proteins can refold after a small, brief change in pH.</p>
+</div>
+
+<script>
+  import { linePath, range, sx, sy, type Frame } from './chart';
+  import { bonds, chainPoints, CYS, expose, freshSample, nativeFraction, proteins, summary, WEAK, type Sample } from './models/b1-2-denaturation';
+  import { prefersReducedMotion } from '../lib/prefs';
+
+  document.querySelectorAll<HTMLElement>('[data-denat]').forEach((root) => {
+    const frames = JSON.parse(root.dataset.frames!) as Record<'temp' | 'pH', Frame>;
+    const input = (k: string) => root.querySelector<HTMLInputElement>(`[data-param="${k}"]`)!;
+    const buttons = [...root.querySelectorAll<HTMLButtonElement>('[data-protein]')];
+    const chain = root.querySelector<SVGPolylineElement>('[data-chain]')!;
+    const beads = [...root.querySelectorAll<SVGCircleElement>('[data-beads] circle')];
+    const weak = [...root.querySelectorAll<SVGLineElement>('[data-weak] line')];
+    const ss = root.querySelector<SVGLineElement>('[data-ss]')!;
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    let protein = proteins[0]!;
+    let sample: Sample = freshSample();
+    let shown = 0; // unfolding drawn on screen (0 folded → 1 unfolded), eased towards the target
+    let raf = 0;
+    let timer = 0;
+
+    const drawChain = (u: number) => {
+      const pts = chainPoints(u);
+      chain.setAttribute('points', pts.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' '));
+      beads.forEach((c, i) => { c.setAttribute('cx', pts[i]![0].toFixed(1)); c.setAttribute('cy', pts[i]![1].toFixed(1)); });
+      const pairs = [...WEAK.hbonds, ...WEAK.ionic];
+      weak.forEach((l, i) => {
+        const [a, b] = pairs[i]!;
+        l.setAttribute('x1', pts[a]![0].toFixed(1)); l.setAttribute('y1', pts[a]![1].toFixed(1));
+        l.setAttribute('x2', pts[b]![0].toFixed(1)); l.setAttribute('y2', pts[b]![1].toFixed(1));
+        l.style.opacity = String(Math.max(0, 1 - u * 1.6));
+      });
+      ss.setAttribute('x1', pts[CYS[0]]![0].toFixed(1)); ss.setAttribute('y1', pts[CYS[0]]![1].toFixed(1));
+      ss.setAttribute('x2', pts[CYS[1]]![0].toFixed(1)); ss.setAttribute('y2', pts[CYS[1]]![1].toFixed(1));
+    };
+    const animateTo = (target: number) => {
+      cancelAnimationFrame(raf);
+      if (prefersReducedMotion()) { shown = target; drawChain(shown); return; }
+      const step = () => {
+        shown += (target - shown) * 0.18;
+        if (Math.abs(target - shown) < 0.003) shown = target;
+        drawChain(shown);
+        if (shown !== target) raf = requestAnimationFrame(step);
+      };
+      raf = requestAnimationFrame(step);
+    };
+
+    const update = (announce = true) => {
+      const temp = Number(input('temp').value);
+      const pH = Number(input('pH').value);
+      sample = expose(sample, protein, temp, pH);
+      root.querySelector('[data-out="temp"]')!.textContent = `${temp} °C`;
+      root.querySelector('[data-out="pH"]')!.textContent = pH.toFixed(1);
+      const pct = Math.round(sample.native * 100);
+      root.querySelector('[data-pct]')!.textContent = `${pct}%`;
+      root.querySelector<HTMLElement>('[data-fill]')!.style.width = `${pct}%`;
+      root.querySelector('[data-meter]')!.setAttribute('aria-valuenow', String(pct));
+      root.querySelector('[data-bonds]')!.innerHTML = bonds(sample)
+        .map((b) => `<li data-state="${b.state}"><span class="chip">${b.state}</span> <strong>${b.name}</strong>: ${b.why}</li>`).join('');
+      for (const key of ['temp', 'pH'] as const) {
+        const f = frames[key];
+        const svg = root.querySelector(`[data-chart="${key}"]`)!;
+        const fn = key === 'temp' ? (t: number) => 100 * nativeFraction(protein, t, pH) : (x: number) => 100 * nativeFraction(protein, temp, x);
+        svg.querySelector('[data-curve]')!.setAttribute('d', linePath(f, fn, key === 'temp' ? 100 : 112));
+        const mx = sx(f, key === 'temp' ? temp : pH).toFixed(1);
+        const m = svg.querySelector('[data-marker]')!;
+        m.setAttribute('x1', mx); m.setAttribute('x2', mx);
+        const dot = svg.querySelector('[data-dot]')!;
+        dot.setAttribute('cx', mx); dot.setAttribute('cy', sy(f, sample.native * 100).toFixed(1));
+        root.querySelector(`[data-tbody="${key}"]`)!.innerHTML = (key === 'temp' ? range(0, 100, 10) : range(0, 14, 1))
+          .map((x) => `<tr><th scope="row">${x}</th><td>${fn(x).toFixed(0)}</td></tr>`).join('');
+      }
+      root.querySelector('[data-cap-ph]')!.textContent = pH.toFixed(1);
+      root.querySelector('[data-cap-t]')!.textContent = String(temp);
+      animateTo(1 - sample.native);
+      clearTimeout(timer);
+      if (announce) timer = window.setTimeout(() => (readout.textContent = summary(protein, sample, temp, pH)), 350);
+    };
+    const choose = (b: HTMLButtonElement, focus = false) => {
+      protein = proteins.find((q) => q.id === b.dataset.protein)!;
+      buttons.forEach((x) => { const on = x === b; x.setAttribute('aria-checked', String(on)); x.tabIndex = on ? 0 : -1; x.classList.toggle('is-active', on); });
+      if (focus) b.focus();
+      sample = freshSample();
+      input('temp').value = String(protein.home.temp);
+      input('pH').value = String(protein.home.pH);
+      update();
+    };
+    buttons.forEach((b, i) => {
+      b.addEventListener('click', () => choose(b));
+      b.addEventListener('keydown', (e) => {
+        const dir = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+        if (dir) { e.preventDefault(); choose(buttons[(i + dir + buttons.length) % buttons.length]!, true); }
+      });
+    });
+    buttons[0]!.classList.add('is-active');
+    root.querySelectorAll('[data-param]').forEach((el) => el.addEventListener('input', () => update()));
+    root.querySelector('[data-reset]')!.addEventListener('click', () => { sample = freshSample(); update(); });
+    root.querySelector('[data-home]')!.addEventListener('click', () => {
+      input('temp').value = String(protein.home.temp);
+      input('pH').value = String(protein.home.pH);
+      update();
+    });
+    window.addEventListener('ibbio:prefs', () => drawChain(1 - sample.native));
+    update(false);
+  });
+</script>
+
+<style>
+  .denat { container-type: inline-size; }
+  .choices { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); }
+  .choices .btn.is-active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-strong); }
+  .grid { display: grid; gap: var(--space-4); }
+  @container (min-width: 42rem) { .grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: start; } }
+  .art { width: 100%; height: auto; background: var(--surface-2); border-radius: var(--radius-m); font-family: var(--font-sans); }
+  .chain { fill: none; stroke: var(--bio-protein); stroke-width: 3.2; stroke-linejoin: round; stroke-linecap: round; }
+  .aa { fill: var(--bio-protein); }
+  .cys { fill: var(--bio-glucose); stroke: var(--text); stroke-width: 0.8; }
+  .hb { stroke: var(--bio-head); stroke-width: 2; stroke-dasharray: 3 3; }
+  .ion { stroke: var(--bio-na); stroke-width: 2.6; stroke-dasharray: 5 3; }
+  .ss { stroke: var(--bio-glucose); stroke-width: 3.4; }
+  .key text { font-size: 11px; fill: var(--text-muted); }
+  .meter { margin-top: var(--space-2); display: grid; gap: var(--space-1); font-size: var(--step--1); }
+  .bar { display: block; height: 0.8rem; border-radius: 999px; background: var(--surface-3); overflow: hidden; }
+  .fill { display: block; height: 100%; background: var(--good); }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .bonds { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-1); }
+  .bonds :global(li) { line-height: 1.35; }
+  .bonds :global(.chip) { display: inline-block; min-width: 6.4em; text-align: center; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em; border-radius: 4px; padding: 0.05em 0.4em; }
+  .bonds :global(li[data-state='intact'] .chip) { background: var(--good-soft); color: var(--good); }
+  .bonds :global(li[data-state='partly broken'] .chip) { background: var(--accent-soft); color: var(--accent-strong); }
+  .bonds :global(li[data-state='broken'] .chip) { background: var(--bad-soft); color: var(--bad); }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .charts { display: grid; gap: var(--space-3); margin-top: var(--space-3); }
+  @container (min-width: 36rem) { .charts { grid-template-columns: 1fr 1fr; } }
+  .chart { width: 100%; height: auto; font-family: var(--font-sans); }
+  .gridl line { stroke: var(--border); }
+  .ticks text { font-size: 12px; fill: var(--text-muted); }
+  .axis { font-size: 13px; font-weight: 650; fill: var(--text); }
+  .curve { fill: none; stroke: var(--bio-protein); stroke-width: 3; stroke-linejoin: round; }
+  .marker { stroke: var(--text); stroke-width: 1.2; stroke-dasharray: 4 3; }
+  .dot { fill: var(--bio-head); stroke: var(--text); stroke-width: 1.2; }
+  .legend-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  .tables { display: flex; flex-wrap: wrap; gap: var(--space-5); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  caption { text-align: left; font-weight: 650; padding-bottom: var(--space-1); }
+  table :global(th), table :global(td) { padding: 0.15rem 0.7rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

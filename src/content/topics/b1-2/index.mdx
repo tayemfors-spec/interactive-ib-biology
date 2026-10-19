@@ -1,0 +1,340 @@
+---
+code: B1.2
+description: "IB Biology B1.2 proteins revision: build a dipeptide, fold a polypeptide in 3D from primary to tertiary structure, explore denaturation, then self-test."
+updated: 2026-10-19
+related: [B1.1, C1.1, D1.2, B3.1]
+mustKnow:
+  - term: Amino acid
+    definition: "A molecule with a central <strong>alpha (α) carbon</strong> bonded to an amine group (–NH<sub>2</sub>), a carboxyl group (–COOH), a hydrogen atom and a variable <strong>R group</strong>. Twenty amino acids are coded for by the genetic code; they differ only in their R groups."
+    level: SL
+  - term: Peptide bond (condensation)
+    definition: "The covalent C–N bond that links two amino acids. It forms by a <strong>condensation</strong> reaction between the carboxyl group of one amino acid and the amine group of the next, releasing one molecule of water. Hydrolysis reverses it."
+    level: SL
+  - term: Polypeptide
+    definition: "An unbranched chain of amino acids joined by peptide bonds, with a free amine group at one end (N-terminus) and a free carboxyl group at the other (C-terminus). A protein consists of one or more polypeptides."
+    level: SL
+  - term: Essential amino acid
+    definition: "An amino acid that the body cannot synthesize (or cannot make fast enough), so it must be obtained from food. <strong>Non-essential</strong> amino acids can be made in the body from other amino acids."
+    level: SL
+  - term: Denaturation
+    definition: "A change in the three-dimensional shape (conformation) of a protein, caused for example by high temperature or extremes of pH, that stops it working. Bonds holding the shape break, but peptide bonds do not, and the change is usually irreversible."
+    level: SL
+  - term: R group
+    definition: "The variable side chain on the α carbon. R groups may be <strong>hydrophobic</strong> (non-polar) or <strong>hydrophilic</strong>; hydrophilic R groups are polar or charged (acidic or basic). The R groups in a polypeptide determine how it folds and what it can do."
+    level: AHL
+  - term: Secondary structure
+    definition: "Regular coiling (<strong>α-helix</strong>) or pleating (<strong>β-pleated sheet</strong>) of parts of a polypeptide, stabilized by hydrogen bonds between the C=O and N–H groups of the backbone at regular intervals."
+    level: AHL
+  - term: Tertiary structure
+    definition: "The overall three-dimensional folding of a whole polypeptide, stabilized by interactions between R groups: hydrogen bonds, ionic bonds, <strong>disulfide bonds</strong> (covalent, between two cysteines) and hydrophobic interactions."
+    level: AHL
+  - term: Quaternary structure and conjugated proteins
+    definition: "Quaternary structure is the linking of two or more polypeptides into one protein. A <strong>conjugated</strong> protein also contains a non-polypeptide part (prosthetic group), such as the haem groups of haemoglobin; insulin and collagen are non-conjugated."
+    level: AHL
+  - term: Globular and fibrous proteins
+    definition: "<strong>Globular</strong> proteins are folded into a compact, rounded shape and are usually soluble (insulin, enzymes). <strong>Fibrous</strong> proteins are long and narrow, usually insoluble, with structural roles (collagen)."
+    level: AHL
+mistakes:
+  - wrong: "The peptide bond forms between the R groups of the two amino acids."
+    right: "The peptide bond links the carbon of the carboxyl group of one amino acid to the nitrogen of the amine group of the next. The R groups are not involved, which is why any two amino acids can be joined."
+    level: SL
+  - wrong: "Condensation adds water to join two amino acids."
+    right: "Condensation <strong>releases</strong> a molecule of water (–OH from the carboxyl group, –H from the amine group). <strong>Hydrolysis</strong> uses water to break a peptide bond."
+    level: SL
+  - wrong: "Drawing the R group on the nitrogen or on the carboxyl carbon, or leaving out the hydrogen on the α carbon."
+    right: "The α carbon has four bonds: to the amine group, the carboxyl group, the R group and one hydrogen atom. Draw the carboxyl group as C with =O and –OH."
+    level: SL
+  - wrong: "Essential amino acids are the ones the body needs; non-essential ones are not needed."
+    right: "The body needs all 20 amino acids. 'Essential' means it cannot synthesize them, so they must be in the diet; non-essential amino acids can be made from other amino acids."
+    level: SL
+  - wrong: "Denaturation breaks the peptide bonds, so the protein falls apart into amino acids."
+    right: "Denaturation breaks the weaker bonds that hold the 3D shape (such as hydrogen bonds and ionic bonds). The peptide bonds and the amino acid sequence are unchanged."
+    level: SL
+  - wrong: "A heat-denatured enzyme starts working again when it cools down."
+    right: "Heat denaturation is almost always permanent: the unfolded molecules do not regain their original shape on cooling. Low temperature only slows an undamaged enzyme down."
+    level: SL
+  - wrong: "The hydrogen bonds in an α-helix form between R groups."
+    right: "In secondary structure the hydrogen bonds are between backbone groups: the C=O of one amino acid and the N–H of the amino acid four further along (α-helix), or of a neighbouring strand (β-sheet). R-group interactions are tertiary structure."
+    level: AHL
+  - wrong: "Water-soluble proteins have their hydrophobic amino acids on the outside."
+    right: "In water-soluble globular proteins the hydrophobic R groups are clustered in the core, away from water, and the hydrophilic R groups are on the surface. Integral membrane proteins have hydrophobic regions where they contact the bilayer."
+    level: AHL
+  - wrong: "Haemoglobin has quaternary structure because it contains haem groups."
+    right: "Haemoglobin has quaternary structure because it is made of four polypeptides (two α and two β). The haem groups make it a <strong>conjugated</strong> protein — a separate idea."
+    level: AHL
+---
+
+<Section id="amino-acids" title="Amino acids and peptide bonds" level="SL" covers="B1.2.1 B1.2.2">
+
+<Viewer3D topic="b1-2" id="protein" />
+
+Proteins are polymers built from **amino acids**. Every amino acid has the same basic structure around a central carbon atom, the **alpha (α) carbon**, which forms four single bonds:
+
+- an **amine group** (–NH₂);
+- a **carboxyl group** (–COOH), drawn as a carbon with a double-bonded O and an –OH;
+- a single **hydrogen atom**;
+- an **R group** (side chain), which is different in each of the 20 amino acids.
+
+Because the α carbon carries four different groups, amino acids (except glycine, whose R group is just H) exist in two mirror-image forms. Proteins are built only from the **L** form, which is the one the 3D model shows. (In solution at pH 7 the amine and carboxyl groups are mostly ionized, as –NH₃⁺ and –COO⁻, but in diagrams you draw them un-ionized.)
+
+### Condensation forms peptide bonds
+
+Two amino acids are linked by a **condensation reaction**. The –OH of the carboxyl group of one amino acid and a hydrogen from the amine group of the other are removed as a molecule of **water**, and a new covalent bond forms between the carbon and the nitrogen: a **peptide bond**.
+
+**amino acid + amino acid → dipeptide + water**
+
+The product, a **dipeptide**, still has a free amine group at one end and a free carboxyl group at the other, so more amino acids can be added in the same way, one water molecule being released for each new bond. In cells this happens on ribosomes during translation (see <TopicLink code="D1.2" />). A long chain is a **polypeptide**; the end with the free amine group is the **N-terminus** and the end with the free carboxyl group the **C-terminus**. Hydrolysis reverses the reaction: water is used to split the peptide bond, as happens when proteins are digested.
+
+<Callout type="tip" title="Modelling the reaction">
+
+With a molecular model kit, build two amino acids, then remove the –OH from one carboxyl group and an H from the other amine group. Join the two pieces you removed to make H₂O, and join the C and N that are left to make the peptide bond. The **Amino acids** model above does the same in 3D: step through it, then compare it with the **Exam diagram** view.
+
+</Callout>
+
+<Callout type="exam" title="Drawing an amino acid and a dipeptide">
+
+Your drawing of a generalized amino acid must show the **α carbon** with the **amine group** (N with two H), the **carboxyl group** (C with =O and –OH), the **R group** and the **hydrogen atom**, with every bond as a line. For a dipeptide, show the C(=O)–N(H) **peptide bond** between the two α carbons, with a free –NH₂ at one end and a free –COOH at the other, and write "+ H₂O" as the other product.
+
+</Callout>
+
+</Section>
+
+<Section id="diet" title="Essential and non-essential amino acids" level="SL" covers="B1.2.3">
+
+All 20 amino acids are needed to make the body's proteins, but they do not all have to come from food.
+
+- **Non-essential amino acids** can be made in the body, by metabolic pathways that convert one amino acid (or another compound) into another.
+- **Essential amino acids** cannot be synthesized in the body, or not fast enough, so they **must be obtained from the diet**. Nine of the twenty are essential for adult humans.
+
+Plants can make all 20 amino acids, using sugars from photosynthesis and nitrogen absorbed from the soil; animals obtain the ones they cannot make by digesting proteins in their food.
+
+### Vegan diets
+
+Meat, fish, eggs and milk contain all the essential amino acids in roughly the proportions humans need. Many plant foods contain plenty of protein but too little of one or more essential amino acids. Cereals such as wheat and rice are relatively low in **lysine**, while beans, lentils and peas are relatively low in **methionine**. A **vegan** diet, which contains no animal products, therefore needs attention to make sure enough of every essential amino acid is eaten. The usual solution is to combine plant protein sources across the day, for example cereals with legumes, so the shortfall in one is made up by the other. A few plant foods, such as soya and quinoa, are good sources of all of them.
+
+If even one essential amino acid is missing, the body cannot make the proteins that need it, however much of the others is eaten.
+
+<Callout type="note" title="Scope">
+
+You do not need to name any essential or non-essential amino acids. You do need to explain what "essential" means and why vegan diets need planning.
+
+</Callout>
+
+</Section>
+
+<Section id="variety" title="An almost infinite variety of polypeptides" level="SL" covers="B1.2.4">
+
+The genetic code specifies **20 amino acids**. Three facts together allow an almost unlimited number of different polypeptides:
+
+1. **Any amino acid can be at any position.** Peptide bonds form between the amine and carboxyl groups that every amino acid has, so the R groups do not limit which amino acids can join.
+2. **The chain can be any length**, from a few amino acids to many thousands.
+3. **The order matters**: the same amino acids in a different sequence make a different polypeptide.
+
+With 20 choices at each position, a chain of *n* amino acids has **20ⁿ** possible sequences. A dipeptide can be 20 × 20 = 400 different molecules; a chain of 10 amino acids, over 10¹³; and a chain of 100, about 10¹³⁰ — far more than could ever be made. The sequence of every polypeptide is coded by a gene, so living things use only a tiny fraction of the possibilities.
+
+| Polypeptide | Number of amino acids | Role |
+|---|---|---|
+| Oxytocin | 9 | Hormone (milk release, uterine contraction) |
+| Insulin | 51 (two chains of 21 and 30) | Hormone that lowers blood glucose |
+| Lysozyme (egg white) | 129 | Enzyme that breaks down bacterial cell walls |
+| Haemoglobin β chain | 146 | Oxygen transport in red blood cells |
+| Titin | up to about 34,000 | Elastic protein in muscle — the largest known |
+
+Short chains are often called **peptides**; longer ones are **polypeptides**. A **protein** is one or more polypeptides folded into a functional shape.
+
+</Section>
+
+<Section id="denaturation" title="Denaturation by heat and pH" level="SL" covers="B1.2.5">
+
+A protein can only do its job if it has its correct three-dimensional shape, its **conformation**. That shape is held together largely by many relatively weak bonds, so it can be disrupted by conditions around the protein. A change in conformation that destroys a protein's function is **denaturation**.
+
+### High temperature
+
+Heat makes the atoms of the protein vibrate more. Above a certain temperature the vibrations break the **hydrogen bonds** and other weak interactions holding the shape, and the polypeptide unfolds. Denatured proteins often become **insoluble**, because hydrophobic groups once hidden inside are exposed and the molecules clump together: this is why clear egg white turns white and solid when cooked. Heat denaturation is almost always **irreversible**: on cooling, the molecules do not regain their original shape.
+
+### pH
+
+Each protein has a range of pH in which its shape is stable. Outside it, the concentration of H⁺ ions changes the charges on amine and carboxyl groups in the R groups (they gain or lose H⁺). Ionic bonds and hydrogen bonds that depended on those charges break, and the protein denatures. Most human proteins work best near pH 7, but **pepsin**, which digests protein in the stomach, works at about pH 2 and is denatured at neutral pH. Stomach acid also denatures many food proteins, making them easier to digest.
+
+### What does not change
+
+Denaturation does **not** break peptide bonds, so the amino acid sequence is unchanged. Covalent disulfide bonds usually survive too.
+
+<Sim topic="b1-2" id="denaturation" />
+
+### Heat-resistant proteins
+
+Proteins of **thermophiles** (organisms that live in hot environments) stay folded at temperatures that would denature ours. *Thermus aquaticus*, a bacterium from hot springs, makes a DNA polymerase (**Taq polymerase**) that survives repeated heating to about 95 °C, which is why it is used in PCR. Some archaea from deep-sea hydrothermal vents grow above 100 °C. Their proteins tend to have extra ionic bonds and disulfide bonds and more tightly packed hydrophobic cores.
+
+<Callout type="exam">
+
+Explain denaturation in terms of **bonds**: name the bonds broken (hydrogen bonds, ionic bonds), say the **3D shape** changes, and link it to loss of **function** (for an enzyme, the active site no longer fits the substrate). Saying an enzyme is "killed" earns nothing — proteins are not alive.
+
+</Callout>
+
+</Section>
+
+<Section id="r-groups" title="R groups and protein diversity" level="AHL" covers="B1.2.6">
+
+Two of the four groups on the α carbon, the amine and carboxyl groups, are used up in forming peptide bonds, and the third is a hydrogen atom. So the properties of a polypeptide come almost entirely from its **R groups**, which differ greatly in chemistry, size and shape. This chemical diversity is the basis of the immense diversity of protein form and function.
+
+| Type of R group | Character | What it can do in a protein |
+|---|---|---|
+| **Non-polar** | Hydrophobic: mostly C and H | Clusters with other non-polar R groups away from water (hydrophobic interactions) |
+| **Polar, uncharged** | Hydrophilic: contains –OH, –SH or –CONH₂ | Forms hydrogen bonds with water and with other polar R groups |
+| **Acidic** | Hydrophilic and charged: –COOH loses H⁺ to become –COO⁻ | Negatively charged at pH 7: forms ionic bonds with positive R groups |
+| **Basic** | Hydrophilic and charged: an amine group gains H⁺, e.g. –NH₂ → –NH₃⁺ | Positively charged at pH 7: forms ionic bonds with negative R groups |
+
+R groups also differ in size, from a single hydrogen atom (glycine) to large ring structures, and some contain sulfur. Cysteine's –SH group is special because two cysteines can be joined by a covalent **disulfide bond**.
+
+Because each position in a chain can hold any of these, the R groups of a polypeptide decide whether its parts are attracted to water or to each other, where charges sit, and what other molecules it can bind. That is how one kind of building block produces enzymes, hormones, antibodies, channels and structural fibres.
+
+<Sim topic="b1-2" id="r-groups" />
+
+<Callout type="note" title="Scope">
+
+You do not need to name examples of R groups. You do need to classify R groups as hydrophobic or hydrophilic, and hydrophilic ones as polar or charged (acidic or basic).
+
+</Callout>
+
+</Section>
+
+<Section id="primary-secondary" title="Primary and secondary structure" level="AHL" covers="B1.2.7 B1.2.8">
+
+Protein conformation is described at four levels. The first two are about the chain and its backbone.
+
+### Primary structure determines conformation
+
+The **primary structure** is the number and sequence of amino acids in the polypeptide. As a ribosome adds amino acids, from the N-terminus to the C-terminus, the chain begins to fold, guided by the chemical properties of the R groups in their exact positions. Every molecule with the same sequence folds into the same shape, so proteins have **precise, predictable and repeatable** conformations despite their complexity.
+
+Evidence:
+
+- In the 1950s and 1960s Christian Anfinsen unfolded the enzyme ribonuclease with chemicals that also broke its disulfide bonds. When the chemicals were removed slowly, it refolded and became active again: the information for the shape is in the sequence.
+- A single change can matter. In sickle-cell haemoglobin, glutamic acid (hydrophilic) is replaced by valine (hydrophobic) at position 6 of the β chain, and the molecules stick together when oxygen is low.
+- Programs such as **AlphaFold** now predict the 3D structure of many proteins from their sequence alone.
+
+Some proteins are helped to fold by **chaperone** proteins, but the final shape is still set by the sequence.
+
+### Secondary structure: coiling and pleating
+
+The backbone of a polypeptide is a repeating –N–C–C– chain. Every N carries a hydrogen (N–H) and every second C a double-bonded oxygen (C=O). These groups are slightly polar, so N–H of one part of the chain can **hydrogen-bond** to C=O of another. When the hydrogen bonds form at regular positions, the chain adopts a regular **secondary structure**:
+
+- **α-helix**: the chain coils into a right-handed helix with 3.6 amino acids per turn. The C=O of each amino acid is hydrogen-bonded to the N–H of the amino acid **four** places further along, so all the bonds run roughly parallel to the axis, and the R groups point outwards.
+- **β-pleated sheet**: two or more sections of chain lie side by side (running in the same or opposite directions). Hydrogen bonds form between C=O groups on one strand and N–H groups on the neighbouring strand. The sheet is pleated because the chain zig-zags at each α carbon, and the R groups point alternately above and below it.
+
+Because the hydrogen bonds are at regular intervals, helices and sheets always have the same dimensions. Each hydrogen bond is weak, but there are very many of them. Regions without regular structure are often called loops or random coil.
+
+<Callout type="tip" title="Fold a polypeptide in 3D">
+
+Switch the 3D model above to **Levels of structure** and step from the unfolded chain to the α-helix and β-pleated sheet, then to the folded protein. Select the hydrogen-bond labels to see exactly which atoms they join.
+
+</Callout>
+
+<Callout type="exam">
+
+When asked how secondary structure is stabilized, say **hydrogen bonds between C=O and N–H groups of the backbone** (in the α-helix between amino acids four apart; in β-sheets between neighbouring strands). Do not mention R groups — that is tertiary structure.
+
+</Callout>
+
+</Section>
+
+<Section id="tertiary" title="Tertiary structure: bonds between R groups" level="AHL" covers="B1.2.9">
+
+The **tertiary structure** is the three-dimensional conformation of the whole polypeptide, produced as helices, sheets and loops fold up together. It is held by bonds and interactions between R groups, which may be far apart in the sequence but brought close together by folding:
+
+| Interaction | Between | Notes |
+|---|---|---|
+| **Hydrogen bonds** | Polar R groups (for example –OH and –CONH₂ groups) | Weak individually, but numerous |
+| **Ionic bonds** | Positively and negatively charged R groups (–NH₃⁺ and –COO⁻) | Broken if a change in pH alters the charges |
+| **Disulfide bonds** | The –SH groups of two **cysteines**, which become –S–S– | Covalent, so much stronger than the others |
+| **Hydrophobic interactions** | Non-polar R groups clustered together away from water | Not true bonds: water excludes non-polar groups, pushing them together |
+
+### How R groups become charged
+
+Amine and carboxyl groups in R groups can gain or lose hydrogen ions:
+
+- an amine group can **accept** H⁺: –NH₂ + H⁺ → –NH₃⁺ (positive);
+- a carboxyl group can **lose** H⁺: –COOH → –COO⁻ + H⁺ (negative).
+
+At the pH inside cells most of these groups are charged, so oppositely charged R groups attract and form **ionic bonds**. A change in pH adds or removes H⁺, changing these charges, which is why pH can break ionic bonds and denature proteins.
+
+Disulfide bonds are covalent, so they lock parts of the chain together firmly. They are common in proteins secreted from cells, such as insulin and antibodies.
+
+<Callout type="exam">
+
+The only amino acid you need to name for tertiary structure is **cysteine**: "a disulfide bond forms between the R groups of two cysteines". For ionic bonds, show the charged groups (–NH₃⁺ and –COO⁻) and explain that they arise by gaining or losing H⁺.
+
+</Callout>
+
+</Section>
+
+<Section id="polarity" title="Polar and non-polar amino acids in folding" level="AHL" covers="B1.2.10">
+
+Where hydrophobic and hydrophilic amino acids sit decides both the shape of a protein and where in the cell it can be.
+
+### Water-soluble globular proteins
+
+In a protein dissolved in water (in the cytoplasm, blood plasma or inside an organelle), the chain folds so that:
+
+- **hydrophobic** (non-polar) R groups are clustered in the **core**, away from water, where hydrophobic interactions hold them together;
+- **hydrophilic** (polar and charged) R groups are on the **surface**, forming hydrogen bonds with water, which keeps the protein soluble.
+
+This arrangement is the lowest-energy one in water, so it stabilizes the tertiary structure. In the 3D model's **tertiary** step, the yellow (hydrophobic) R groups end up packed between the helix and the sheet.
+
+### Integral membrane proteins
+
+Proteins embedded in membranes have regions on their surface with **hydrophobic** amino acids, which are attracted to the hydrophobic core of the phospholipid bilayer and hold the protein in place. A common pattern is an α-helix of about 20 mostly non-polar amino acids, just long enough to span the bilayer. The parts that project into the water on either side, and any water-filled channel through the protein, are lined with **hydrophilic** amino acids. See <TopicLink code="B2.1" /> for the membrane itself.
+
+</Section>
+
+<Section id="quaternary" title="Quaternary structure and conjugated proteins" level="AHL" covers="B1.2.11">
+
+Many proteins consist of a single polypeptide. Others are made of two or more polypeptides linked together: this is **quaternary structure**. The polypeptides (subunits) are held together by the same kinds of bonds as tertiary structure.
+
+Some proteins also contain a non-polypeptide part, a **prosthetic group**. These are **conjugated proteins**; proteins made of polypeptide alone are **non-conjugated**.
+
+| Protein | Polypeptides | Prosthetic group? |
+|---|---|---|
+| **Insulin** | 2: an A chain (21 amino acids) and a B chain (30), joined by two disulfide bonds | None: non-conjugated |
+| **Collagen** | 3, wound into a triple helix | None: non-conjugated |
+| **Haemoglobin** | 4: two α chains and two β chains | A **haem** group in each chain: conjugated |
+
+### Haemoglobin
+
+Each of haemoglobin's four polypeptides is folded around one **haem** group, a flat ring structure with an **iron ion (Fe²⁺)** at its centre. Each haem can bind one oxygen molecule, so one haemoglobin carries up to four O₂. The four subunits interact, so binding of oxygen to one changes the shape of the others and makes them bind oxygen more readily (see <TopicLink code="B3.1" />).
+
+Insulin is made as a single polypeptide that folds and forms its disulfide bonds; a middle section is then cut out, leaving the A and B chains linked. (Strictly, collagen carries a few sugar units on some of its amino acids, but it has no prosthetic group.)
+
+### Seeing single molecules: cryo-electron microscopy
+
+Most protein structures were first worked out by X-ray crystallography, which needs the protein to form crystals. In **cryogenic electron microscopy (cryo-EM)**, a solution of the protein is frozen so fast that the water forms glass-like (non-crystalline) ice, and the individual molecules are photographed with an electron microscope at very low temperature. Computers combine tens of thousands of images of molecules lying in different orientations into a 3D structure, often at near-atomic detail. Cryo-EM works for large complexes and membrane proteins that are hard to crystallize, and can show proteins bound to other molecules. Its developers shared the 2017 Nobel Prize in Chemistry, and it was used in 2020 to image the spike protein of the virus that causes COVID-19.
+
+</Section>
+
+<Section id="form-function" title="Globular and fibrous proteins" level="AHL" covers="B1.2.12">
+
+The shape of a protein suits it to its function.
+
+| | Globular proteins | Fibrous proteins |
+|---|---|---|
+| Shape | Polypeptides folded into a compact, rounded shape | Long and narrow; polypeptides elongated, often in parallel bundles |
+| Solubility | Usually soluble in water (hydrophilic surface) | Usually insoluble |
+| Sequence | Irregular; many different R groups | Often a repeating sequence |
+| Roles | Enzymes, hormones, antibodies, transport | Structural support and strength |
+| Example | **Insulin** | **Collagen** |
+
+### Insulin: a globular hormone
+
+Insulin is a small, compact protein secreted by β cells of the pancreas when blood glucose is high. Its **hydrophilic surface** lets it dissolve in **blood plasma** and travel round the body. Its precise, stable shape (helped by its disulfide bonds) fits a binding site on the **insulin receptor** in the plasma membranes of target cells such as liver, muscle and fat cells, triggering responses that lower blood glucose (see <TopicLink code="C2.1" />). Only molecules with exactly the right shape can bind — a general principle for globular proteins that bind other molecules, such as enzymes and their substrates (see <TopicLink code="C1.1" />).
+
+### Collagen: a fibrous structural protein
+
+Each collagen polypeptide has a repeating sequence in which **every third amino acid is glycine**, with proline and hydroxyproline also common. This sequence cannot form an α-helix; instead each chain forms a more extended, left-handed helix, and **three chains wind round each other** into a rope-like right-handed **triple helix**, about 300 nm long and 1.5 nm wide. Glycine, with the smallest R group, is the only amino acid that fits at the centre where the chains meet. Outside the cell, collagen molecules line up side by side and are covalently cross-linked into **fibrils** and fibres. Like a rope, collagen has very high **tensile strength**: it resists pulling forces without breaking. It is insoluble, so it stays in place in the extracellular matrix of skin, tendons, ligaments, cartilage, bone and blood vessel walls. It is the most abundant protein in mammals.
+
+<Callout type="exam">
+
+"Form and function" answers need a feature **and** what it allows: for example, insulin's hydrophilic surface → dissolves in plasma; its specific shape → binds to its receptor; collagen's triple helix and cross-links → tensile strength; its insolubility → stays as a structural fibre.
+
+</Callout>
+
+</Section>
