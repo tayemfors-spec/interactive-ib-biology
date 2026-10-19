@@ -1,0 +1,59 @@
+---
+/** In situ versus ex situ conservation, and how they support each other (A4.2.7). */
+const left = [
+  { y: 58, h: 88, title: 'Nature reserves and parks', lines: ['Habitat protected and managed:', 'remove invasive species, stop', 'poaching, control human access'] },
+  { y: 156, h: 88, title: 'Rewilding and reclamation', lines: ['Degraded land restored; lost', 'species (e.g. top predators)', 'reintroduced, then left alone'] },
+];
+const right = [
+  { y: 58, h: 68, title: 'Zoos', lines: ['Captive breeding of animals,', 'e.g. California condor'] },
+  { y: 134, h: 68, title: 'Botanic gardens', lines: ['Rare plants grown', 'and propagated'] },
+  { y: 210, h: 82, title: 'Seed and tissue banks', lines: ['Germ plasm stored: seeds dried', 'and frozen (about −20 °C); tissue,', 'eggs, sperm much colder'] },
+];
+---
+<svg viewBox="0 0 640 400" role="img" aria-labelledby="cons-t cons-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="cons-t">In situ and ex situ conservation compared</title>
+  <desc id="cons-d">Two panels. In situ conservation keeps species in their natural habitat: nature reserves and national parks that are protected and managed, and rewilding or reclamation of degraded land. It conserves whole ecosystems, interactions between species and natural selection. Ex situ conservation keeps species outside their natural habitat: captive breeding in zoos, plants grown in botanic gardens, and germ plasm stored in seed and tissue banks. Arrows show that individuals, seeds or tissue can be collected from the wild into ex situ collections, and that captive-bred animals and stored seeds can be returned to restore wild populations.</desc>
+  <defs>
+    <marker id="cons-ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker>
+  </defs>
+  <rect class="panel in" x="8" y="8" width="304" height="300" rx="12" />
+  <rect class="panel ex" x="328" y="8" width="304" height="300" rx="12" />
+  <text class="h" x="22" y="34">In situ</text><text class="hs" x="88" y="34">in the natural habitat</text>
+  <text class="h" x="342" y="34">Ex situ</text><text class="hs" x="414" y="34">outside the habitat</text>
+  {left.map((c) => (
+    <g>
+      <rect class="card" x="20" y={c.y} width="280" height={c.h} rx="8" />
+      <text class="ct" x="32" y={c.y + 22}>{c.title}</text>
+      {c.lines.map((l, i) => <text class="cl" x="32" y={c.y + 42 + i * 18}>{l}</text>)}
+    </g>
+  ))}
+  <text class="keep" x="22" y="268">Conserves whole ecosystems, species</text>
+  <text class="keep" x="22" y="287">interactions and natural selection</text>
+  {right.map((c) => (
+    <g>
+      <rect class="card" x="340" y={c.y} width="280" height={c.h} rx="8" />
+      <text class="ct" x="352" y={c.y + 22}>{c.title}</text>
+      {c.lines.map((l, i) => <text class="cl" x="352" y={c.y + 42 + i * 18}>{l}</text>)}
+    </g>
+  ))}
+  <path class="flow" d="M160 318 L160 334 L470 334 L470 318" marker-end="url(#cons-ar)" />
+  <text class="fl" x="315" y="354" text-anchor="middle">collect individuals, seeds or tissue from the wild</text>
+  <path class="flow back" d="M490 318 L490 376 L140 376 L140 318" marker-end="url(#cons-ar)" />
+  <text class="fl" x="315" y="394" text-anchor="middle">reintroduce: release captive-bred animals, sow stored seed</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .panel { stroke-width: 2; }
+  .panel.in { fill: color-mix(in srgb, var(--bio-carb) 12%, var(--surface)); stroke: var(--bio-carb); }
+  .panel.ex { fill: color-mix(in srgb, var(--bio-protein) 12%, var(--surface)); stroke: var(--bio-protein); }
+  .h { font-size: 19px; font-weight: 800; fill: var(--text); }
+  .hs { font-size: 14px; fill: var(--text-muted); font-style: italic; }
+  .card { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.2; }
+  .ct { font-size: 15px; font-weight: 750; fill: var(--text); }
+  .cl { font-size: 14px; fill: var(--text); }
+  .keep { font-size: 14px; font-weight: 650; fill: var(--text); }
+  .flow { fill: none; stroke: var(--text); stroke-width: 2; }
+  .flow.back { stroke-dasharray: 7 5; }
+  .ah { fill: var(--text); }
+  .fl { font-size: 14px; fill: var(--text); }
+</style>
