@@ -145,6 +145,7 @@ const table = range(-4, 10, 2).map((x) => ({
   .table { margin-top: var(--space-2); font-size: var(--step--1); }
   .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
   table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
-  th, td { padding: 0.2rem 0.7rem; border-bottom: 1px solid var(--border); text-align: right; }
+  /* rows are rewritten in the browser, so style them globally within the table */
+  table :global(th), table :global(td) { padding: 0.2rem 0.7rem; border-bottom: 1px solid var(--border); text-align: right; }
   .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
 </style>
