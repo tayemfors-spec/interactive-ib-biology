@@ -1,0 +1,164 @@
+---
+import { aminoAcids, charge, chargeText, classInfo, interactions, whereFound, type AAClass } from './models/b1-2-r-groups';
+
+const classes: AAClass[] = ['non-polar', 'polar', 'acidic', 'basic'];
+const pH0 = 7;
+const first = aminoAcids.find((a) => a.code === 'Leu')!;
+const w0 = whereFound(first);
+const sign = (q: number) => (q > 0.05 ? '+' : q < -0.05 ? '−' : '');
+// marker slots in the two diagrams
+const core = [[100, 88], [86, 108], [114, 110], [96, 124], [78, 90], [120, 90]];
+const surf = Array.from({ length: 9 }, (_, i) => { const a = (i / 9) * Math.PI * 2 + 0.3; return [100 + 72 * Math.cos(a), 104 + 72 * Math.sin(a)]; });
+const lipidSide = [[293, 84], [347, 92], [293, 112], [347, 120], [293, 98]];
+const waterSide = [[305, 36], [335, 44], [318, 58], [305, 156], [335, 166], [320, 176]];
+---
+<div class="rg" data-rg data-slots={JSON.stringify({ core, surf, lipidSide, waterSide })}>
+  <label class="slider">pH of the surroundings: <output data-out>{pH0.toFixed(1)}</output>
+    <input type="range" min="1" max="13" step="0.5" value={pH0} data-ph />
+  </label>
+  <div class="groups" role="radiogroup" aria-label="Choose an amino acid">
+    {classes.map((c) => (
+      <div class="group">
+        <p class="gname"><span class="sw" data-cls={c} aria-hidden="true"></span>{classInfo[c].label}</p>
+        <div class="btns">
+          {aminoAcids.filter((a) => a.cls === c).map((a) => (
+            <button type="button" class="btn aa" role="radio" aria-checked={a === first ? 'true' : 'false'} tabindex={a === first ? 0 : -1} data-aa={a.code}>
+              <span class="code">{a.code}</span> <span class="nm">{a.name}</span>{a.pKa !== undefined && <span class="q" data-q aria-hidden="true">{sign(charge(a, pH0))}</span>}
+            </button>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+  <div class="layout">
+    <svg viewBox="0 0 420 210" class="art" role="img" aria-labelledby="rg-t rg-d">
+      <title id="rg-t">Where this kind of R group tends to be found</title>
+      <desc id="rg-d" data-desc>{w0.text}</desc>
+      <text class="lab" x="100" y="14" text-anchor="middle">globular protein (in water)</text>
+      <circle class="prot" cx="100" cy="104" r="80" />
+      <circle class="core" cx="100" cy="104" r="40" />
+      <text class="lab small" x="100" y="146" text-anchor="middle">core</text>
+      <text class="lab small" x="100" y="198" text-anchor="middle">surface</text>
+      <text class="lab" x="320" y="14" text-anchor="middle">membrane protein</text>
+      <rect class="tails" x="210" y="74" width="205" height="60" />
+      <g class="heads">{Array.from({ length: 13 }, (_, i) => 214 + i * 16).filter((x) => x < 284 || x > 356).map((x) => <><circle cx={x} cy="70" r="6" /><circle cx={x} cy="138" r="6" /></>)}</g>
+      <rect class="prot" x="290" y="24" width="60" height="160" rx="22" />
+      <rect class="belt" x="290" y="74" width="60" height="60" />
+      <text class="lab small" x="248" y="108" text-anchor="middle">bilayer</text>
+      <text class="lab small" x="382" y="40" text-anchor="middle">water</text>
+      <text class="lab small" x="382" y="176" text-anchor="middle">water</text>
+      <g data-dots></g>
+    </svg>
+    <div class="detail" aria-live="polite" data-detail>
+      <p class="title"><strong data-name>{first.name} ({first.code})</strong> <span class="badge-cls" data-badge data-cls={first.cls}>{classInfo[first.cls].label}</span></p>
+      <p><strong>R group:</strong> <span data-r>{first.r}</span></p>
+      <p><strong>Charge at pH <span data-phv>{pH0.toFixed(1)}</span>:</strong> <span data-charge>{chargeText(first, pH0)}</span></p>
+      <p data-sum>{classInfo[first.cls].summary}</p>
+      <p><strong>Can form:</strong> <span data-int>{interactions(first).join('; ')}</span></p>
+      <p><strong>Where found:</strong> <span data-where>{w0.text}</span></p>
+      <p class="note" data-note hidden></p>
+    </div>
+  </div>
+  <p class="model-note">You do not need to learn these names (apart from cysteine). Classification is at pH 7 and follows a common textbook scheme; charges use typical side-chain pKa values, which shift inside folded proteins.</p>
+</div>
+
+<script>
+  import { aminoAcids, charge, chargeText, classInfo, interactions, whereFound } from './models/b1-2-r-groups';
+
+  const NS = 'http://www.w3.org/2000/svg';
+  document.querySelectorAll<HTMLElement>('[data-rg]').forEach((root) => {
+    const slots = JSON.parse(root.dataset.slots!) as Record<'core' | 'surf' | 'lipidSide' | 'waterSide', [number, number][]>;
+    const buttons = [...root.querySelectorAll<HTMLButtonElement>('[data-aa]')];
+    const ph = root.querySelector<HTMLInputElement>('[data-ph]')!;
+    const dots = root.querySelector<SVGGElement>('[data-dots]')!;
+    const set = (sel: string, text: string) => (root.querySelector(sel)!.textContent = text);
+    let current = aminoAcids.find((a) => a.code === 'Leu')!;
+
+    const draw = () => {
+      const pH = Number(ph.value);
+      set('[data-out]', pH.toFixed(1));
+      buttons.forEach((b) => {
+        const a = aminoAcids.find((x) => x.code === b.dataset.aa)!;
+        const q = b.querySelector('[data-q]');
+        if (q) { const c = charge(a, pH); q.textContent = c > 0.05 ? '+' : c < -0.05 ? '−' : ''; }
+      });
+      const a = current;
+      const w = whereFound(a);
+      set('[data-name]', `${a.name} (${a.code})`);
+      const badge = root.querySelector<HTMLElement>('[data-badge]')!;
+      badge.textContent = classInfo[a.cls].label;
+      badge.dataset.cls = a.cls;
+      set('[data-r]', a.r);
+      set('[data-phv]', pH.toFixed(1));
+      set('[data-charge]', chargeText(a, pH));
+      set('[data-sum]', classInfo[a.cls].summary);
+      set('[data-int]', interactions(a).join('; '));
+      set('[data-where]', w.text);
+      set('[data-desc]', w.text);
+      const note = root.querySelector<HTMLElement>('[data-note]')!;
+      note.hidden = !a.note;
+      note.textContent = a.note ?? '';
+      const pick = (g: 'buried' | 'exposed' | 'either', inside: [number, number][], outside: [number, number][]) =>
+        g === 'buried' ? inside : g === 'exposed' ? outside : [...inside.slice(0, 2), ...outside.slice(0, 3)];
+      const pts = [...pick(w.globular, slots.core, slots.surf), ...pick(w.membrane, slots.lipidSide, slots.waterSide)];
+      dots.replaceChildren(...pts.map(([x, y]) => {
+        const c = document.createElementNS(NS, 'circle');
+        c.setAttribute('cx', String(x)); c.setAttribute('cy', String(y)); c.setAttribute('r', '6.5');
+        c.setAttribute('class', `dot cls-${a.cls.replace(' ', '')}`);
+        return c;
+      }));
+    };
+    const choose = (b: HTMLButtonElement, focus = false) => {
+      current = aminoAcids.find((x) => x.code === b.dataset.aa)!;
+      buttons.forEach((x) => { const on = x === b; x.setAttribute('aria-checked', String(on)); x.tabIndex = on ? 0 : -1; x.classList.toggle('is-active', on); });
+      if (focus) b.focus();
+      draw();
+    };
+    buttons.forEach((b, i) => {
+      b.addEventListener('click', () => choose(b));
+      b.addEventListener('keydown', (e) => {
+        const d = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+        if (d) { e.preventDefault(); choose(buttons[(i + d + buttons.length) % buttons.length]!, true); }
+      });
+    });
+    ph.addEventListener('input', draw);
+    buttons.find((b) => b.dataset.aa === current.code)!.classList.add('is-active');
+    draw();
+  });
+</script>
+
+<style>
+  .rg { container-type: inline-size; display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; max-width: 26rem; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .groups { display: grid; gap: var(--space-3); }
+  @container (min-width: 40rem) { .groups { grid-template-columns: 1fr 1fr; } }
+  .gname { margin: 0 0 var(--space-1); font-weight: 750; display: flex; align-items: center; gap: var(--space-2); }
+  .sw { width: 0.9rem; height: 0.9rem; border-radius: 3px; border: 1px solid var(--text); flex: none; }
+  .btns { display: flex; flex-wrap: wrap; gap: var(--space-1); }
+  .btn.aa { padding: 0.25rem 0.55rem; font-size: 0.85rem; min-height: 2rem; }
+  .btn.aa.is-active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-strong); }
+  .code { font-weight: 800; }
+  .q { font-weight: 900; margin-left: 0.25rem; }
+  @container (max-width: 30rem) { .nm { display: none; } }
+  .layout { display: grid; gap: var(--space-3); }
+  @container (min-width: 42rem) { .layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; } }
+  .art { width: 100%; height: auto; background: var(--surface-2); border-radius: var(--radius-m); font-family: var(--font-sans); }
+  .lab { font-size: 12px; font-weight: 650; fill: var(--text); }
+  .lab.small { font-size: 11px; font-weight: 500; fill: var(--text-muted); }
+  .prot { fill: color-mix(in srgb, var(--bio-protein) 22%, var(--surface)); stroke: var(--bio-protein); stroke-width: 1.5; }
+  .core { fill: color-mix(in srgb, var(--bio-tail) 35%, var(--surface)); stroke: var(--bio-tail); stroke-dasharray: 4 3; }
+  .tails { fill: color-mix(in srgb, var(--bio-tail) 30%, transparent); }
+  .belt { fill: color-mix(in srgb, var(--bio-tail) 35%, transparent); stroke: var(--bio-tail); stroke-dasharray: 4 3; }
+  .heads circle { fill: var(--bio-head); }
+  .art :global(.dot) { stroke: var(--text); stroke-width: 1.4; }
+  .art :global(.cls-non-polar), .sw[data-cls='non-polar'] { fill: var(--bio-tail); background: var(--bio-tail); }
+  .art :global(.cls-polar), .sw[data-cls='polar'] { fill: var(--bio-carb); background: var(--bio-carb); }
+  .art :global(.cls-acidic), .sw[data-cls='acidic'] { fill: var(--bio-chol); background: var(--bio-chol); }
+  .art :global(.cls-basic), .sw[data-cls='basic'] { fill: var(--bio-protein-2); background: var(--bio-protein-2); }
+  .detail p { margin: 0 0 var(--space-2); }
+  .detail .title { font-size: var(--step-0); display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: baseline; }
+  .badge-cls { font-size: 0.75rem; font-weight: 750; padding: 0.1em 0.5em; border-radius: 4px; background: var(--surface-2); border: 1px solid var(--border); }
+  .note { padding: var(--space-2) var(--space-3); background: var(--accent-soft); border-radius: var(--radius-m); }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: 0; }
+</style>

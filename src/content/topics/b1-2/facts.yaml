@@ -1,0 +1,187 @@
+facts:
+  - id: f1
+    claim: The α carbon of an amino acid is bonded to an amine group, a carboxyl group, a hydrogen atom and an R group; the 20 genetically coded amino acids differ only in their R groups.
+    where: ["index.mdx#amino-acids", "quiz.yaml:q1", "flashcards.yaml:c1", "visuals.yaml:protein/amino-acids", "diagrams/b1-2-amino-acid"]
+    confidence: high
+    basis: Standard biochemistry (Berg, Biochemistry; Alberts); IB guide B1.2.1
+    status: checked
+  - id: f2
+    claim: Proteins contain L-amino acids; glycine (R = H) is the only standard amino acid that is not chiral. The 3D models use the L form (amino-acid scene checked by hand with the CORN rule; the levels model uses the ideal Cβ position from N, Cα and C, checked in unit tests).
+    where: ["index.mdx#amino-acids", "scenes/b1-2-amino-acid.ts", "scenes/b1-2-kit.ts", "tests/unit/b1-2.test.ts"]
+    confidence: high
+    basis: Berg, Biochemistry; chirality test in tests/unit/b1-2.test.ts
+    status: checked
+  - id: f3
+    claim: A peptide bond forms by condensation between the carboxyl C of one amino acid and the amine N of the next; the water is made from the –OH of the carboxyl group and an H of the amine group. Hydrolysis reverses it.
+    where: ["index.mdx#amino-acids", "index.mdx (mistakes)", "quiz.yaml:q2", "flashcards.yaml:c2", "flashcards.yaml:c3", "visuals.yaml:protein/amino-acids"]
+    confidence: high
+    basis: Standard biochemistry; IB guide B1.2.2
+    status: checked
+  - id: f4
+    claim: The peptide bond (C–N, about 0.133 nm) is shorter than a C–N single bond because of partial double-bond character; drawn shorter in the 3D model.
+    where: ["scenes/b1-2-amino-acid.ts"]
+    confidence: high
+    basis: Pauling; Berg, Biochemistry (peptide bond 1.32–1.33 Å vs Cα–N 1.46 Å)
+    status: checked
+  - id: f5
+    claim: Nine amino acids are essential for adult humans; non-essential amino acids can be synthesized from other amino acids or metabolites.
+    where: ["index.mdx#diet", "flashcards.yaml:c4"]
+    confidence: high
+    basis: WHO/FAO/UNU (2007) Protein and amino acid requirements in human nutrition; IB guide B1.2.3
+    status: checked
+  - id: f6
+    claim: Cereals such as wheat and rice are relatively low in lysine; legumes (beans, lentils, peas) are relatively low in methionine (sulfur amino acids); soya and quinoa supply all essential amino acids in good amounts.
+    where: ["index.mdx#diet", "quiz.yaml:q4", "flashcards.yaml:c5"]
+    confidence: high
+    basis: Standard nutrition texts; FAO protein quality (limiting amino acids)
+    status: checked
+  - id: f7
+    claim: Plants can synthesize all 20 amino acids using carbon compounds from photosynthesis and nitrogen absorbed from the soil.
+    where: ["index.mdx#diet"]
+    confidence: high
+    basis: Taiz & Zeiger, Plant Physiology
+    status: checked
+  - id: f8
+    claim: With 20 amino acids there are 20ⁿ possible sequences of length n (400 dipeptides; 20¹⁰ ≈ 1.02 × 10¹³; 20¹⁰⁰ ≈ 1.3 × 10¹³⁰; 20⁴ = 160,000).
+    where: ["index.mdx#variety", "quiz.yaml:q3", "flashcards.yaml:c6"]
+    confidence: high
+    basis: Arithmetic; IB guide B1.2.4
+    status: checked
+  - id: f9
+    claim: "Polypeptide lengths: oxytocin 9; insulin 51 (A chain 21, B chain 30); hen egg-white lysozyme 129; haemoglobin α chain 141 and β chain 146; titin up to about 34,000 (human isoforms up to ~34,350)."
+    where: ["index.mdx#variety", "index.mdx#quaternary", "visuals.yaml:protein/quaternary"]
+    confidence: high
+    basis: UniProt (P01178 oxytocin, P01308 insulin, P00698 lysozyme, P69905/P68871 haemoglobin, Q8WZ42 titin)
+    status: checked
+  - id: f10
+    claim: Heat denatures proteins by increasing vibration that breaks hydrogen bonds and other weak interactions; heat denaturation is almost always irreversible; denatured proteins often become insoluble and aggregate (egg white turns opaque and solid).
+    where: ["index.mdx#denaturation", "quiz.yaml:q5", "flashcards.yaml:c7", "flashcards.yaml:c8", "visuals.yaml:denaturation"]
+    confidence: high
+    basis: Standard biochemistry; IB guide B1.2.5
+    status: checked
+  - id: f11
+    claim: Denaturation does not break peptide bonds; disulfide bonds usually survive heating and moderate pH change.
+    where: ["index.mdx#denaturation", "index.mdx (mistakes)", "sims/models/b1-2-denaturation.ts"]
+    confidence: high
+    basis: Standard biochemistry (Anfinsen; Berg)
+    status: checked
+  - id: f12
+    claim: Pepsin works at about pH 1.5–2 and is irreversibly denatured at neutral to alkaline pH. In the model it is half-denatured at about pH 6.4.
+    where: ["index.mdx#denaturation", "sims/models/b1-2-denaturation.ts"]
+    confidence: medium
+    basis: Pepsin is stable to about pH 6 and irreversibly inactivated above about pH 7 (Piper & Fenton 1965; Lin et al.). Exact threshold depends on conditions.
+    status: open
+  - id: f13
+    claim: Taq polymerase from Thermus aquaticus (isolated from hot springs in Yellowstone) works best at about 72–80 °C and survives repeated heating to about 95 °C (half-life ~40 min at 95 °C), which is why it is used in PCR.
+    where: ["index.mdx#denaturation", "flashcards.yaml:c9", "sims/models/b1-2-denaturation.ts"]
+    confidence: high
+    basis: Brock & Freeze (1969); Saiki et al. (1988); Lawyer et al. (1993)
+    status: checked
+  - id: f14
+    claim: Some archaea from deep-sea hydrothermal vents grow above 100 °C (e.g. Pyrolobus fumarii to 113 °C, Methanopyrus kandleri strain 116 to 122 °C). Thermophile proteins tend to have more ionic bonds (salt bridges), disulfide bonds and well-packed hydrophobic cores.
+    where: ["index.mdx#denaturation", "flashcards.yaml:c9"]
+    confidence: high
+    basis: Takai et al. (2008) PNAS; Vieille & Zeikus (2001) Microbiol Mol Biol Rev
+    status: checked
+  - id: f15
+    claim: Model temperatures and pH thresholds in the denaturation simulation (human enzyme half-denatured at 55 °C and outside pH ~4.2–9.8; Taq at ~99 °C) are illustrative.
+    where: ["sims/models/b1-2-denaturation.ts", "visuals.yaml:denaturation"]
+    confidence: medium
+    basis: Typical mesophilic enzyme stability; shown on screen as a qualitative model
+    status: open
+  - id: f16
+    claim: "R-group classes at pH 7 (Campbell scheme): non-polar Gly, Ala, Val, Leu, Ile, Met, Phe, Trp, Pro; polar Ser, Thr, Cys, Tyr, Asn, Gln; acidic Asp, Glu; basic Lys, Arg, His. Some texts class Gly, Cys, Tyr, His or Trp differently."
+    where: ["sims/models/b1-2-r-groups.ts", "visuals.yaml:r-groups"]
+    confidence: medium
+    basis: Campbell Biology (12th ed.) Figure 5.14; Lehninger uses a different grouping for aromatic residues
+    status: open
+  - id: f17
+    claim: Approximate side-chain pKa values used for charge — Asp 3.9, Glu 4.1, His 6.0, Lys 10.5, Arg 12.5.
+    where: ["sims/models/b1-2-r-groups.ts"]
+    confidence: high
+    basis: Lehninger, Principles of Biochemistry, Table 3-1
+    status: checked
+  - id: f18
+    claim: Anfinsen's ribonuclease experiments (denaturation with urea and β-mercaptoethanol, refolding to an active enzyme) showed the amino acid sequence determines conformation.
+    where: ["index.mdx#primary-secondary"]
+    confidence: high
+    basis: Anfinsen (1973) Science 181, 223 (Nobel lecture)
+    status: checked
+  - id: f19
+    claim: Sickle-cell haemoglobin has valine instead of glutamic acid at position 6 of the β chain; HbS polymerizes at low oxygen.
+    where: ["index.mdx#primary-secondary"]
+    confidence: high
+    basis: Ingram (1957); standard genetics texts
+    status: checked
+  - id: f20
+    claim: "α-helix: right-handed, 3.6 residues per turn, rise 0.15 nm per residue (pitch 0.54 nm), C=O of residue i H-bonded to N–H of residue i + 4; R groups point outwards. The 3D model is built with φ = −57.8°, ψ = −47° and gives O···H = 2.05 Å for every i → i + 4 pair."
+    where: ["index.mdx#primary-secondary", "quiz.yaml:q7", "flashcards.yaml:c12", "visuals.yaml:protein/levels", "tests/unit/b1-2.test.ts"]
+    confidence: high
+    basis: Pauling, Corey & Branson (1951); geometry checked in unit tests
+    status: checked
+  - id: f21
+    claim: "β-pleated sheet: strands parallel or antiparallel, H-bonds between C=O and N–H of neighbouring strands, R groups alternately above and below, pleated at each α carbon. The model sheet is antiparallel (φ = −139°, ψ = +136.5°, strands 4.3 Å apart) with O···H ≈ 1.9–2.1 Å."
+    where: ["index.mdx#primary-secondary", "quiz.yaml:q7", "flashcards.yaml:c12", "visuals.yaml:protein/levels", "tests/unit/b1-2.test.ts"]
+    confidence: high
+    basis: Pauling & Corey (1951); geometry checked in unit tests
+    status: checked
+  - id: f22
+    claim: Tertiary structure is stabilized by hydrogen bonds, ionic bonds, disulfide bonds between cysteines and hydrophobic interactions; amine and carboxyl groups in R groups become charged by gaining or losing H⁺.
+    where: ["index.mdx#tertiary", "quiz.yaml:q8", "flashcards.yaml:c11", "flashcards.yaml:c13"]
+    confidence: high
+    basis: IB guide B1.2.9; Berg, Biochemistry
+    status: checked
+  - id: f23
+    claim: Disulfide bonds are common in secreted (extracellular) proteins such as insulin and antibodies, because the cytoplasm is a reducing environment.
+    where: ["index.mdx#tertiary"]
+    confidence: high
+    basis: Alberts, Molecular Biology of the Cell
+    status: checked
+  - id: f24
+    claim: Transmembrane α-helices are typically about 20 (roughly 18–25) mostly hydrophobic amino acids, enough to span the ~3 nm hydrophobic core.
+    where: ["index.mdx#polarity", "quiz.yaml:q9", "flashcards.yaml:c14"]
+    confidence: high
+    basis: Alberts, Molecular Biology of the Cell
+    status: checked
+  - id: f25
+    claim: Haemoglobin is a tetramer of two α (141 aa) and two β (146 aa) chains, each with a haem group containing Fe²⁺ that binds one O₂ (up to four O₂ per molecule); binding is cooperative. Each subunit has the all-α-helical globin fold.
+    where: ["index.mdx#quaternary", "quiz.yaml:q10", "flashcards.yaml:c15", "visuals.yaml:protein/quaternary"]
+    confidence: high
+    basis: Perutz; Berg, Biochemistry
+    status: checked
+  - id: f26
+    claim: Insulin has an A chain (21 aa) and a B chain (30 aa) linked by two interchain disulfide bonds (A7–B7, A20–B19), with one intrachain bond (A6–A11); it is made as a single chain (proinsulin) from which the C peptide is removed.
+    where: ["index.mdx#quaternary", "visuals.yaml:protein/quaternary", "scenes/b1-2-quaternary.ts"]
+    confidence: high
+    basis: Sanger; UniProt P01308
+    status: checked
+  - id: f27
+    claim: IB treats insulin and collagen as non-conjugated proteins with quaternary structure. Collagen carries a little carbohydrate (glucose–galactose on some hydroxylysines), which some biochemistry texts would count as a glycoprotein; the page says it has no prosthetic group.
+    where: ["index.mdx#quaternary", "flashcards.yaml:c15"]
+    confidence: medium
+    basis: IB guide B1.2.11; Shoulders & Raines (2009) Annu Rev Biochem
+    status: open
+  - id: f28
+    claim: "Collagen: every third residue is glycine (Gly–X–Y, X often proline, Y often hydroxyproline); each chain is a left-handed polyproline-II-type helix; three chains form a right-handed triple helix ~300 nm long and ~1.5 nm wide; type I collagen is two α1 chains and one α2 chain; molecules are cross-linked into fibrils; it is the most abundant protein in mammals."
+    where: ["index.mdx#form-function", "quiz.yaml:q6", "flashcards.yaml:c16", "visuals.yaml:protein/quaternary", "scenes/b1-2-quaternary.ts"]
+    confidence: high
+    basis: Shoulders & Raines (2009) Annu Rev Biochem 78, 929
+    status: checked
+  - id: f29
+    claim: Cryo-EM freezes samples in vitreous ice and combines many single-particle images into 3D structures at near-atomic resolution without crystals; 2017 Nobel Prize in Chemistry (Dubochet, Frank, Henderson); used in 2020 for the SARS-CoV-2 spike protein.
+    where: ["index.mdx#quaternary", "flashcards.yaml:c17"]
+    confidence: high
+    basis: Nobel Prize in Chemistry 2017 press release; Wrapp et al. (2020) Science 367, 1260
+    status: checked
+  - id: f30
+    claim: Insulin is secreted by β cells of the pancreatic islets, travels dissolved in plasma and binds insulin receptors on target cells (liver, muscle, adipose), triggering responses that lower blood glucose.
+    where: ["index.mdx#form-function", "flashcards.yaml:c16"]
+    confidence: high
+    basis: Standard physiology; IB guide B1.2.12 and C2.1
+    status: checked
+  - id: f31
+    claim: The haemoglobin, insulin and collagen models are schematic cartoons at a common scale; positions are illustrative, though chain counts, chain lengths, disulfide pairings, haem count and helix handedness are correct.
+    where: ["scenes/b1-2-quaternary.ts", "visuals.yaml:protein/quaternary"]
+    confidence: medium
+    basis: Built from the facts above, not from PDB coordinates
+    status: open
