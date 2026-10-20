@@ -291,6 +291,113 @@ Generated from each topic's `facts.yaml` (status `open`).
 - f15: Formation times — most peat accumulated over the last ~10,000 years (post-glacial) and is still forming; much coal formed ~300–360 million years ago (Carboniferous); oil and gas mostly from marine plankton over tens to hundreds of millions of years.
 - f17: Mauna Loa annual mean CO₂ (ppm, rounded) — 1959 316.0; 1960 316.9; 1965 320.0; 1970 325.7; 1975 331.1; 1980 338.8; 1985 346.1; 1990 354.4; 1995 360.8; 2000 369.7; 2005 380.0; 2010 389.9; 2015 401.0; 2016 404.4; 2017 406.8; 2018 408.7; 2019 411.7; 2020 414.2; 2021 416.4; 2022 418.6; 2023 421.1; 2024 424.6.
 
+### Theme D: claims for a teacher to confirm
+
+Generated from each topic's `facts.yaml` (status `open`).
+
+**D1.1 DNA replication**: 24 claims recorded, 3 open
+
+- f15: DNA profiles use STR loci; the US CODIS core set is 20 loci (13 before 2017) and the UK uses DNA-17 (16 STRs plus a sex marker) — summarised as "about 13–20 markers".
+- f16: RT-PCR (reverse transcription then PCR) was used for COVID-19 diagnosis. The IB guide does not name this example; it is included as one of the "broad range of applications".
+- f21: Proofreading by Pol III removes a mismatched nucleotide from the 3′ end and replaces it; it improves fidelity about 100-fold, to roughly 1 error in 10⁷ nucleotides added.
+
+**D1.2 Protein synthesis**: 27 claims recorded, 2 open
+
+- f4: About eight to nine RNA nucleotides remain paired with the template in the transcription bubble (RNA–DNA hybrid); the bubble is roughly 12–14 base pairs.
+- f14: The start of HBB coding sequence is ATG GTG CAC CTG ACT CCT GAG GAG AAG TCT, coding Met-Val-His-Leu-Thr-Pro-Glu-Glu-Lys-Ser; the initiator Met is removed from mature β-globin.
+
+**D1.3 Mutation and gene editing**: 26 claims recorded, 3 open
+
+- f7: Each human is born with roughly 60–70 de novo mutations (single-base changes) not present in either parent.
+- f20: A CRISPR-edited high-GABA tomato (Sicilian Rouge High GABA) went on sale in Japan in 2021; the edit increases the activity of glutamate decarboxylase (GAD), which makes GABA.
+- f25: Plant and animal lineages diverged well over a billion years ago.
+
+**D2.1 Cell and nuclear division**: 28 claims recorded, 4 open
+
+- f15: Spindles of meiosis II are shown at right angles to the spindle of meiosis I.
+- f18: Down syndrome is trisomy 21 (47 chromosomes), usually from non-disjunction in meiosis, with the extra chromosome most often of maternal origin (around 90% of non-disjunction cases), mostly from maternal meiosis I.
+- f20: Approximate live-birth prevalence of Down syndrome by maternal age — 20 about 1 in 1450, 25 about 1 in 1350, 30 about 1 in 950, 35 about 1 in 350, 40 about 1 in 85, 45 about 1 in 30.
+- f28: Mitotic-index sim fields (meristem 13/70, elongation zone 1/70, normal epithelium 2/70, tumour 11/70) are invented practice values that show the expected pattern, not measured data.
+
+**D2.2 Gene expression**: 29 claims recorded, 5 open
+
+- f17: Some epigenetic tags survive meiosis and gamete formation (transgenerational epigenetic inheritance).
+- f18: Air pollution exposure (PM2.5, NOx, ozone, PAHs) is associated with lower global DNA methylation (e.g. LINE-1, Alu) in blood, gene-specific methylation changes (some hypermethylated promoters), altered expression of inflammatory/immune genes, and higher rates of asthma, inflammation and cardiovascular disease.
+- f22: Ligers (lion father × tiger mother) grow larger than both parent species; tigons (tiger father × lion mother) are about parental size or smaller. Usual explanation is genomic imprinting of growth genes and parental conflict (stronger imprints in lions).
+- f25: A heterozygote can show the recessive phenotype if the dominant allele is silenced by imprinting.
+- f26: Fraga et al. 2005 (PNAS) studied 40 MZ twin pairs aged 3–74; older pairs and pairs who had spent less of their lives together showed greater differences in DNA methylation and histone acetylation and in gene expression; lifestyle differences such as diet, smoking and activity were noted.
+
+**D2.3 Water potential**: 23 claims recorded, 5 open
+
+- f6: Contractile vacuoles of freshwater protists (Paramecium, Amoeba) collect water entering by osmosis and expel it through a pore in the plasma membrane using ATP; in Paramecium they are fed by radiating canals and cycle every few seconds.
+- f9: A plant cell in a solution isotonic with its cell sap is flaccid (ψp ≈ 0), as shown in the animation's isotonic step.
+- f10: Brief plasmolysis can be reversed; prolonged or severe plasmolysis usually kills the cell.
+- f14: Simulated tissue isotonic concentrations (potato 0.30, mystery tissues 0.46 and 0.19 mol dm⁻³ sucrose) are illustrative. Real potato tissue is typically isotonic with roughly 0.25–0.35 mol dm⁻³ sucrose.
+- f22: The solution causing no mass change has the same water potential as the tissue; for turgid tissue it is slightly less concentrated than the cell sap.
+
+**D3.1 Reproduction**: 22 claims recorded, 4 open
+
+- f6: Oestradiol increases FSH receptors on follicle cells (positive feedback boosting oestradiol output).
+- f9: IVF — down-regulation (often a GnRH analogue, ~2–3 weeks) suspends FSH/LH secretion; FSH injections ~8–14 days give superovulation; hCG injection ~36 h before egg collection completes maturation; embryos transferred after 2–5 days; progesterone support often given.
+- f13: Self-incompatibility controlled by a multi-allelic S-locus; pollen with an S-allele matching the stigma is rejected (fails to germinate or tube growth stops in stigma/style); found in Brassicaceae, Rosaceae and Solanaceae.
+- f21: Progesterone comes from the corpus luteum in early pregnancy and from the placenta from about 8–12 weeks; a fall in progesterone (or its action) allows oxytocin to rise at term; oxytocin positive feedback via cervical stretch receptors.
+
+**D3.2 Inheritance**: 22 claims recorded, 5 open
+
+- f5: Tanning (increased melanin synthesis after UV exposure) and increased red blood cell production at high altitude are reversible plastic responses without change of genotype.
+- f10: The X chromosome carries over 800 protein-coding genes; the Y fewer than 100 (page text says several hundred vs a few dozen).
+- f15: Outliers are values more than 1.5 × IQR below Q1 or above Q3; quartiles computed as medians of lower and upper halves (excluding the median when n is odd).
+- f19: Gene loci (GRCh38) — HBB 11p15.4, HBD 11p15.4, INS 11p15.5, PAH 12q23.2, CFTR 7q31.2, ABO 9q34.2, F8 Xq28, OPN1LW Xq28, SRY Yp11.2; about 20 000 protein-coding genes.
+- f20: Drosophila body colour (b, black) and wing (vg, vestigial) genes are linked on chromosome 2 with roughly 17–18% recombination; the sim and worked example use letters G/g and L/l and invented counts.
+
+**D3.3 Homeostasis**: 21 claims recorded, 6 open
+
+- f3: Blood glucose is held at about 4–8 mmol dm⁻³ through the day with a set point near 5 mmol dm⁻³.
+- f9: Peripheral thermoreceptors in skin and central thermoreceptors (hypothalamus) feed the hypothalamus; cold raises TRH → TSH → thyroxine, which raises metabolic rate; thyroxine falls when overheated.
+- f12: Thermoregulation sim treats about 24 °C as neutral for a lightly clothed adult at rest; values are qualitative.
+- f16: The PCT reabsorbs all filtered glucose and amino acids (Na⁺ cotransport) and around two-thirds or more of the water and Na⁺.
+- f19: Blood flow at rest (cardiac output ≈ 5.8 dm³ min⁻¹) — muscle ≈ 1000, gut ≈ 1350, brain ≈ 750, kidneys ≈ 1100 cm³ min⁻¹; vigorous exercise (≈ 17.5 dm³ min⁻¹) — muscle ≈ 12 500, gut ≈ 600, brain ≈ 850, kidneys ≈ 600.
+- f20: Sleep values (cardiac output ≈ 4.5 dm³ min⁻¹; muscle ≈ 600, gut ≈ 1200, brain ≈ 700, kidneys ≈ 950 cm³ min⁻¹) are illustrative; cerebral flow falls in deep non-REM sleep and rises in REM sleep.
+
+**D4.1 Natural selection**: 33 claims recorded, 11 open
+
+- f5: An oak can drop tens of thousands of acorns in a mast year; a large female Atlantic cod releases millions of eggs in a breeding season.
+- f6: Darwin calculated that one pair of elephants would have nearly 19 million descendants after about 750 years if all survived.
+- f7: After the extreme 2014 winter cold snap in Texas, southern populations of green anole lizards (Anolis carolinensis) showed greater cold tolerance than before.
+- f8: A prolonged cold, rainy spell in May 1996 in south-western Nebraska killed about half of the cliff swallows; survivors were larger on average.
+- f11: Weismann cut off the tails of mice for five successive generations and all offspring were born with normal tails.
+- f12: Birds of paradise (Paradisaeidae) number about 45 species, mostly in New Guinea; in most species females alone nest and rear young; some species display at leks.
+- f15: Endler's greenhouse experiment: one mixed stock bred for about 6 months in ten pools without predators; then Crenicichla was added to 4 pools, Rivulus to 4, and 2 stayed predator-free; censuses about 5 and 14 months later showed fewer and smaller spots with Crenicichla and more spots with Rivulus and in controls.
+- f16: Endler's field transplant: in 1976 guppies from a high-predation (Crenicichla) site were moved to a guppy-free stream above a waterfall containing only Rivulus; about two years (roughly 15 generations) later the males had more and larger spots.
+- f19: CCR5-Δ32 (rs333) allele frequency is roughly 0.1–0.15 in northern Europe and close to 0 in most African, East Asian and indigenous American populations; homozygotes resist infection by CCR5-using (R5) HIV strains.
+- f28: Cystic fibrosis incidence of about 1 in 2500 newborns is typical of populations of northern European ancestry (often quoted 1 in 2500 to 1 in 3500); PKU is often quoted at about 1 in 10 000.
+- f31: The Illinois long-term selection experiment for maize kernel oil began in 1896; after about 100 generations the high-oil line had several times the original oil content (about 4.7% → about 20%) and the low-oil line very little (about 1% or less).
+
+**D4.2 Stability and change**: 30 claims recorded, 12 open
+
+- f2: The Daintree rainforest (Wet Tropics, Queensland) has persisted in the region, at least in refugia, for tens of millions of years and contains many ancient angiosperm lineages (e.g. Idiospermum, Austrobaileyaceae).
+- f3: The Namib Desert has been arid or semi-arid for tens of millions of years (often quoted as at least ~55 million years).
+- f4: Amazon transpiration recycles water vapour that falls as rain further inland (west); deforestation reduces transpiration and rainfall and increases drought and fire, a positive feedback; the minimum forest area (tipping point) is uncertain, with ~20–25% loss suggested and ~17% already lost.
+- f5: PRODES annual deforestation in the Brazilian Legal Amazon was about 27,800 km² in 2004, 4,600 km² in 2012 and 13,000 km² in 2021 (rounded from 27,772; 4,571; 13,038).
+- f10: Keystone sim model — crabs as alternative otter prey and rockfish dependent on kelp habitat; parameter values are illustrative (qualitative model). Removing otters gives urchins ~8–10× and kelp ~6%; removing crabs leaves kelp ~97%.
+- f13: North Sea cod recovery measures — quotas based on stock surveys, larger mesh, closed areas, fleet reduction; stock increased afterwards.
+- f15: Agricultural sustainability factors — soil erosion faster than soil formation (soil forms at roughly 1 cm per century or slower); Haber process uses natural gas; phosphate rock is finite; agrochemical pollution and resistance; carbon footprint from fuel, fertilizer manufacture, CH₄ and N₂O.
+- f18: DDT residues (ppm wet mass) in the Carmans River estuary, Long Island — water 0.00005, plankton (mostly zooplankton) 0.04, Atlantic silverside 0.23, needlefish 2.07, double-crested cormorant 26.4.
+- f22: Blue Planet II (BBC, 2017) is widely credited with shifting public attitudes to marine plastic ("Blue Planet effect"); UK microbead ban 2018.
+- f23: Hinewai Reserve, Banks Peninsula, South Island, New Zealand — former farmland regenerating since 1987; well over 1,000 ha; browsing mammals (goats, deer, possums) controlled; minimal interference; gorse (Ulex europaeus) used as a nurse canopy and shaded out by native trees; bird seed dispersal.
+- f27: Heather (Calluna vulgaris) cyclical phases — pioneer (~0–6 yr), building (~6–15), mature (~15–25), degenerate (25+), described by Watt (1947) and Gimingham.
+- f28: Californian chaparral is fire-adapted with fires every few decades; wood pasture in north-west Europe cycles between grassland and oak.
+
+**D4.3 Climate change**: 29 claims recorded, 7 open
+
+- f2: Atmospheric methane was about 0.72 ppm (≈ 720 ppb) before industrialization and about 1.93 ppm in 2024 — more than doubled (≈ 2.6×).
+- f13: Canada's 2023 fire season burned more than 15 million hectares; recent boreal fire years released carbon comparable to a large industrial country's annual fossil emissions.
+- f17: Coastal upwelling (Peru, California, Benguela) brings nutrient-rich deep water to the surface; these zones cover a small fraction of ocean area but supply a large share of fish catch. Warming increases stratification. 1972–73 El Niño contributed to the Peruvian anchoveta collapse.
+- f22: Peat forms in waterlogged anaerobic soils; temperate/boreal accumulation ≈ 0.5–1 mm per year; tropical peat (SE Asia, Congo Basin) accumulates faster. Peatlands cover ≈ 3% of land and store ≈ 600 Gt C, more than all forest vegetation. Rewetting can briefly increase CH₄.
+- f24: Reindeer/caribou (West Greenland, Kangerlussuaq) — calving timing (photoperiod-related) did not advance while plant green-up (incl. Cerastium arcticum) advanced with warming, causing trophic mismatch and reduced calf production/survival.
+- f26: Phenology sim parameters are illustrative — caterpillar peak 20 May shifting 6 d/°C; first egg 20 April; hatching 21 days after first egg (≈ 9 eggs at 1/day + ≈ 12 days incubation); chick demand peak ≈ 9 days after hatching; success curve s.d. 8 days; max 7.5 fledglings; day length at 52° N.
+- f28: Dendroctonus micans generation time 1–2 years; Dendroctonus rufipennis shifted from a 2-year to 1-year cycle in warm years, contributing to Alaskan outbreaks (Kenai Peninsula).
+
 ## Examiner review log
 
 ### B2.1 (example page), 19 Oct 2026
@@ -357,3 +464,29 @@ Three independent examiner reviewers covered three topics each. They checked the
 Study-guide errors noticed by the builders (the site uses the correct version): an action spectrum labelled as an absorption spectrum; "nicotine adenine dinucleotide" for nicotinamide; an unbalanced O₂-reduction equation.
 
 All findings were fixed; every gate was re-run (627 unit tests, 639 browser tests, 106 links, and Lighthouse with all assertions passing). The full run also covered the Theme D pages merged so far (D1.1, D1.2, D1.3, D2.1, D2.2, D2.3). Known minor leftovers: two antibody disulfide bonds are partly hidden by their label when labels are on; the dark-mode look of the new fibrin colour was checked by axe but not by eye.
+
+### Theme D (D1.1–D4.3), 20 Oct 2026
+Four independent examiner reviewers covered three topics each. They checked by hand: 5′/3′ directions in every replication, transcription and translation scene; chromosome and chromatid counts at every mitosis and meiosis step; ψ = ψs + ψp working; the menstrual hormone curves; Punnett, pedigree, dihybrid and χ² maths (critical value 7.815, df 3); box-plot quartiles; nephron anatomy (cortex vs medulla, afferent wider than efferent); Hardy–Weinberg working; MSY = rK/4; and the CO₂ values against C4.2. All 120 MCQ keys were confirmed correct.
+
+| Topic | Critical | Major | Minor | Key fixes |
+|---|---|---|---|---|
+| D1.1 DNA replication | 0 | 0 | 2 | DNA polymerase I role worded unambiguously; SL fork step marked as simplified |
+| D1.2 Protein synthesis | 0 | 0 | 4 | Garbled quiz option rewritten; "Release factor" label added to the 3D model; "amine group" as in B1.2 |
+| D1.3 Mutation and gene editing | 0 | 1 | 4 | Guide wording on conserved sequences rewritten; UVC does not reach the ground |
+| D2.1 Cell and nuclear division | 0 | 0 | 3 | Spindle no longer crosses an intact nuclear envelope; chromosomes decondense in telophase II |
+| D2.2 Gene expression | 0 | 0 | 4 | Male ligers/tigons share autosomal (not all nuclear) genes; testosterone link to D3.1 |
+| D2.3 Water potential | 0 | 2 | 2 | Bound-water ("solvation") explanation of osmosis removed; wording now matches B2.1 |
+| D3.1 Reproduction | 0 | 0 | 6 | Oocyte arrest until its own follicle ovulates; seminal vesicle (not prostate) supplies alkaline fluid; oestradiol feedback via GnRH |
+| D3.2 Inheritance | 0 | 1 | 3 | Fertilization animation no longer says nuclei fuse (consistent with D3.1) |
+| D3.3 Homeostasis | 0 | 0 | 2 | "Thyroxine" spelling matches C2.1 |
+| D4.1 Natural selection | 0 | 1 | 3 | Sim note: with no surplus young there is no selection; predation still kills in nature |
+| D4.2 Stability and change | 0 | 1 | 4 | DDT plankton row "mostly zooplankton"; climax net production levels off |
+| D4.3 Climate change | 0 | 1 | 3 | Corals are foundation, not keystone, species; unverified range-shift count removed |
+
+The official guide names both *Ips typographus* and *Dendroctonus micans* for D4.3.11, so the page's choice is compliant. Leaving SRY out of D3.1 matches the guide.
+
+Study-guide errors noticed by the builders (the site uses the correct version): glutamate decarboxylase makes GABA rather than breaking it down; gamma rays are not particles; the lac repressor binds the operator, not the promoter; the PCT reabsorbs about two-thirds of filtered water and Na⁺, not 80%.
+
+All findings were fixed; every gate was re-run on all 40 topics: astro check 0/0, 776 unit tests, 126 links, 732 browser tests (desktop Chrome, Android Chrome and iPhone Safari, axe in light and dark), and Lighthouse on 46 pages with lowest scores Performance 97, Accessibility 100, Best Practices 100, SEO 100.
+
+Known minor leftovers: on phones, labels in the widest diagrams (e.g. the nephron) are small until the reader scrolls the diagram sideways; the mitosis prophase step still shows the "Nuclear membrane" label at the end of the step after the envelope has faded.

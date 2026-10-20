@@ -50,3 +50,8 @@ Reference material is in the scratchpad (not in the repo): guide extracts in `sc
 - Uncommitted: tests/e2e/interactives.spec.ts skips hidden sliders (to verify in the Stage 6 run).
 - Running: 4 Theme D examiner reviews (D1, D2, D3, D4 groups). Screenshots in screenshots/<slug>/; server on port 4462.
 - Next: fixers per group (D2 group must align D2.3 osmosis wording with B2.1), npm run verify, REVIEW.md Theme D claims + log, commit "Stage 6: Theme D complete", final report. No deploy without the user.
+
+## Stage 6 — 2026-10-20: all 40 topics complete
+- Theme D built (12 topics), examiner-reviewed (0 critical, 7 major, 40 minor) and fixed.
+- Full verify on all 40 topics passed: astro check 0/0, 776 unit tests, 126 links, 732 e2e (desktop Chrome, Android Chrome, iPhone Safari; axe light + dark), Lighthouse on 46 pages (min: Perf 97, A11y 100, BP 100, SEO 100).
+- Remaining: Stage 8 deploy to GitHub Pages and Stage 9 Search Console both need the user (account, sign-in, approving the first push). Optional clean-ups listed in the final report.

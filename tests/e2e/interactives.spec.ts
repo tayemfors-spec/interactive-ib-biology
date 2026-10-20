@@ -26,6 +26,7 @@ for (const path of topicPaths) {
     const sliders = page.locator('figure input[type="range"]');
     for (let i = 0; i < (await sliders.count()); i++) {
       const s = sliders.nth(i);
+      if (!(await s.isVisible())) continue; // e.g. a slider shown only for one option of a sim
       await s.scrollIntoViewIfNeeded();
       await s.evaluate((el: HTMLInputElement) => { el.value = el.max; el.dispatchEvent(new Event('input', { bubbles: true })); });
       await s.evaluate((el: HTMLInputElement) => { el.value = el.min; el.dispatchEvent(new Event('input', { bubbles: true })); });
