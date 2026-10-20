@@ -1,0 +1,133 @@
+facts:
+  - id: f1
+    claim: "Diploid body cells have two copies of each autosomal gene; meiosis makes haploid gametes with one copy; fertilization restores diploidy in the zygote."
+    where: ["index.mdx#gametes", "visuals.yaml:fertilization", "flashcards.yaml:c1"]
+    confidence: high
+    basis: Standard genetics (Campbell Biology); IB guide D3.2.1
+    status: checked
+  - id: f2
+    claim: "Pea flowers self-pollinate; a controlled cross needs removal of anthers (emasculation) before pollen is shed, bagging and hand transfer of pollen."
+    where: ["index.mdx#plant-crosses", "flashcards.yaml:c3"]
+    confidence: high
+    basis: Standard plant breeding method; IB guide D3.2.2; study guide p161
+    status: checked
+  - id: f3
+    claim: "Mendel's round/wrinkled seed gene codes for a starch-branching enzyme (SBE1); the recessive allele gives a non-functional enzyme, more sucrose and wrinkling on drying."
+    where: ["index.mdx#phenotype", "sims/models/d3-2-punnett.ts", "sims/d3-2-punnett-view.ts"]
+    confidence: high
+    basis: Bhattacharyya et al. 1990, Cell 60:115 (rugosus locus, transposon insertion in SBEI)
+    status: checked
+  - id: f4
+    claim: "Mendel's F1 self-pollination gave close to 3 round : 1 wrinkled in the F2."
+    where: ["index.mdx#phenotype"]
+    confidence: high
+    basis: Mendel 1866 (5474 round, 1850 wrinkled)
+    status: checked
+  - id: f5
+    claim: "Tanning (increased melanin synthesis after UV exposure) and increased red blood cell production at high altitude are reversible plastic responses without change of genotype."
+    where: ["index.mdx#phenotype", "visuals.yaml:fertilization", "flashcards.yaml:c6"]
+    confidence: high
+    basis: Standard physiology; study guide p163 uses tanning; IB guide D3.2.6 names no example
+    status: open
+  - id: f6
+    claim: "PKU is autosomal recessive; the PAH gene codes for phenylalanine hydroxylase (converts phenylalanine to tyrosine); untreated it causes intellectual disability; newborn heel-prick screening and a low-phenylalanine diet prevent damage; untreated patients often have lighter skin and hair."
+    where: ["index.mdx#pku", "diagrams/d3-2-pku.astro", "quiz.yaml:q5", "flashcards.yaml:c7", "sims/models/d3-2-pedigree.ts"]
+    confidence: high
+    basis: OMIM 261600; NCBI Gene PAH; IB guide D3.2.7
+    status: checked
+  - id: f7
+    claim: "IA and IB code for glycosyltransferases adding different sugars (A or B antigen); i codes for a non-functional enzyme; IA and IB are codominant and dominant to i."
+    where: ["index.mdx#multiple-alleles", "sims/models/d3-2-punnett.ts", "quiz.yaml:q2", "diagrams/d3-2-dominance.astro"]
+    confidence: high
+    basis: Yamamoto et al. 1990, Nature 345:229; IB guide D3.2.9–10
+    status: checked
+  - id: f8
+    claim: "Mirabilis jalapa red × white gives pink F1 (incomplete dominance) and a 1 red : 2 pink : 1 white F2."
+    where: ["index.mdx#multiple-alleles", "quiz.yaml:q1", "sims/models/d3-2-punnett.ts", "unit test"]
+    confidence: high
+    basis: Correns 1905; IB guide D3.2.10; study guide p164
+    status: checked
+  - id: f9
+    claim: "SRY on the Y chromosome causes embryonic gonads to develop as testes, which secrete testosterone; without Y the gonads develop as ovaries."
+    where: ["index.mdx#sex-linkage", "diagrams/d3-2-sex.astro", "quiz.yaml:q7", "flashcards.yaml:c10"]
+    confidence: high
+    basis: Standard developmental biology; IB guide D3.2.11
+    status: checked
+  - id: f10
+    claim: "The X chromosome carries over 800 protein-coding genes; the Y fewer than 100 (page text says several hundred vs a few dozen)."
+    where: ["index.mdx#sex-linkage", "diagrams/d3-2-sex.astro"]
+    confidence: medium
+    basis: Ensembl/HGNC counts (X about 840 protein-coding, Y about 45–65 depending on annotation); study guide gives about 900 and 55
+    status: open
+  - id: f11
+    claim: "Haemophilia is X-linked recessive; commonest form (haemophilia A) lacks clotting factor VIII; affected fathers cannot pass it to sons and all their daughters are carriers."
+    where: ["index.mdx#sex-linkage", "sims/models/d3-2-punnett.ts", "sims/models/d3-2-pedigree.ts", "quiz.yaml:q3", "flashcards.yaml:c11"]
+    confidence: high
+    basis: OMIM 306700; IB guide D3.2.12
+    status: checked
+  - id: f12
+    claim: "Huntington's disease is autosomal dominant (HTT gene, chromosome 4)."
+    where: ["sims/models/d3-2-pedigree.ts", "index.mdx frontmatter mistakes"]
+    confidence: high
+    basis: OMIM 143100
+    status: checked
+  - id: f13
+    claim: "Pedigree examples are fictional families; their consistency with each pattern is verified by exhaustive search in unit tests."
+    where: ["sims/models/d3-2-pedigree.ts", "tests/unit/d3-2.test.ts"]
+    confidence: high
+    basis: Unit tests
+    status: checked
+  - id: f14
+    claim: "Human skin colour is polygenic and also affected by sunlight, giving continuous variation."
+    where: ["index.mdx#variation", "flashcards.yaml:c14"]
+    confidence: high
+    basis: IB guide D3.2.14; standard human genetics
+    status: checked
+  - id: f15
+    claim: "Outliers are values more than 1.5 × IQR below Q1 or above Q3; quartiles computed as medians of lower and upper halves (excluding the median when n is odd)."
+    where: ["index.mdx#variation", "sims/models/d3-2-boxplot.ts", "quiz.yaml:q6", "flashcards.yaml:c13"]
+    confidence: high
+    basis: IB guide D3.2.15 (outlier rule); quartile method is one common convention — teacher may prefer another
+    status: open
+  - id: f16
+    claim: "Box-plot data sets (student heights, melanin index) are illustrative, not real measurements."
+    where: ["sims/models/d3-2-boxplot.ts"]
+    confidence: high
+    basis: Stated on screen
+    status: checked
+  - id: f17
+    claim: "Independent assortment of unlinked genes gives four gamete types at 25%; F2 9:3:3:1; test cross 1:1:1:1; Mendel's second law holds only for genes on different chromosomes or far enough apart for ~50% recombination."
+    where: ["index.mdx#assortment", "sims/models/d3-2-dihybrid.ts", "quiz.yaml:q8", "flashcards.yaml:c15"]
+    confidence: high
+    basis: IB guide D3.2.16–17
+    status: checked
+  - id: f18
+    claim: "Mendel's dihybrid F2 data were 315 round yellow, 108 round green, 101 wrinkled yellow, 32 wrinkled green (556); χ² ≈ 0.47."
+    where: ["index.mdx#chi-squared", "sims/models/d3-2-dihybrid.ts", "unit test"]
+    confidence: high
+    basis: Mendel 1866
+    status: checked
+  - id: f19
+    claim: "Gene loci (GRCh38) — HBB 11p15.4, HBD 11p15.4, INS 11p15.5, PAH 12q23.2, CFTR 7q31.2, ABO 9q34.2, F8 Xq28, OPN1LW Xq28, SRY Yp11.2; about 20 000 protein-coding genes."
+    where: ["index.mdx#gene-loci"]
+    confidence: high
+    basis: NCBI Gene / HGNC records; teacher should confirm bands against current Ensembl release
+    status: open
+  - id: f20
+    claim: "Drosophila body colour (b, black) and wing (vg, vestigial) genes are linked on chromosome 2 with roughly 17–18% recombination; the sim and worked example use letters G/g and L/l and invented counts."
+    where: ["sims/models/d3-2-dihybrid.ts", "sims/d3-2-dihybrid.astro", "index.mdx#linkage", "index.mdx#chi-squared", "quiz.yaml:q10"]
+    confidence: medium
+    basis: Classic Morgan/Bridges map distance b–vg ≈ 17 cM; exact value varies with sex and strain (no crossing over in males)
+    status: open
+  - id: f21
+    claim: "χ² critical value for df = 3 at p = 0.05 is 7.815; df = number of classes − 1."
+    where: ["index.mdx#chi-squared", "sims/models/d3-2-dihybrid.ts", "quiz.yaml:q9", "flashcards.yaml:c18"]
+    confidence: high
+    basis: Standard χ² table
+    status: checked
+  - id: f22
+    claim: "Recombination frequency cannot exceed 50%."
+    where: ["index.mdx#linkage", "sims/models/d3-2-dihybrid.ts", "flashcards.yaml:c17"]
+    confidence: high
+    basis: Standard genetics; IB guide D3.2.17 NOS
+    status: checked

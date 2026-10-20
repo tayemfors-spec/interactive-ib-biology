@@ -1,0 +1,205 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: D3.1.5
+    stem: >-
+      A graph of blood hormone levels during a 28-day menstrual cycle shows that hormone P rises from about day 6,
+      reaches a peak on day 12–13 and then falls sharply. Hormone Q stays low until a sudden, sharp peak on day 14.
+      Which statement explains the relationship between P and Q?
+    options:
+      - id: a
+        text: P is progesterone, which inhibits Q (LH) by negative feedback until P falls.
+        why: Progesterone is low before ovulation; it is secreted by the corpus luteum after day 14. A hormone that peaks before day 14 is oestradiol.
+      - id: b
+        text: P is oestradiol, and its high level stimulates the pituitary to release a surge of Q (LH) by positive feedback.
+        why: Correct. Oestradiol from the growing follicle peaks just before ovulation, and at this high level it stimulates the LH surge that causes ovulation.
+      - id: c
+        text: P is FSH, which is converted into Q (LH) in the follicle.
+        why: FSH and LH are separate hormones, both secreted by the anterior pituitary; one is not converted into the other.
+      - id: d
+        text: P is oestradiol, which inhibits Q by negative feedback, so Q only rises when P falls.
+        why: This reverses the effect at high levels. Moderate oestradiol inhibits FSH, but peak oestradiol stimulates LH secretion (positive feedback); the LH surge starts while oestradiol is still high.
+    answer: b
+
+  - id: q2
+    level: SL
+    understanding: D3.1.1
+    stem: >-
+      A species of grass reproduces mainly asexually by runners in a stable meadow, but switches to sexual
+      reproduction by flowering when conditions become stressful. What is the most likely advantage of switching?
+    options:
+      - id: a
+        text: Sexual reproduction produces more offspring in a shorter time than asexual reproduction.
+        why: Asexual reproduction is usually faster and needs no partner; speed is not the advantage of sexual reproduction.
+      - id: b
+        text: Seeds produced sexually are genetically identical to the well-adapted parent.
+        why: That describes asexual reproduction. Sexually produced offspring have new combinations of alleles.
+      - id: c
+        text: Sexual reproduction removes all harmful alleles from the population.
+        why: Sexual reproduction reshuffles alleles; it does not eliminate them. Natural selection may reduce harmful alleles over time.
+      - id: d
+        text: Offspring have new combinations of alleles, so some may be suited to the changed conditions.
+        why: Correct. Variation from meiosis and fertilization gives natural selection something to act on when the environment changes; clones would all be equally affected.
+    answer: d
+
+  - id: q3
+    level: SL
+    understanding: D3.1.3
+    stem: Which feature most directly follows from the fact that male gametes travel to female gametes?
+    options:
+      - id: a
+        text: Male gametes are small with few food reserves and are produced in very large numbers.
+        why: Correct. A gamete that must move is small and cheap, so many can be made; the stationary female gamete can be large and carry food for the embryo.
+      - id: b
+        text: Male gametes are diploid, while female gametes are haploid.
+        why: Both gametes are haploid; they fuse to restore the diploid number.
+      - id: c
+        text: Female gametes are produced by mitosis, so far fewer are made.
+        why: Both kinds of gamete are produced via meiosis. Fewer eggs are made because each one is large and costly, and (in humans) unequal division gives one egg per meiosis.
+      - id: d
+        text: Female gametes have tails so that they can move away from competing sperm.
+        why: Eggs are not motile and have no tails; it is the male gamete that moves.
+    answer: a
+
+  - id: q4
+    level: SL
+    understanding: D3.1.7
+    stem: >-
+      In one IVF protocol a woman is first given a drug that stops her pituitary gland secreting FSH and LH,
+      and then injections of FSH for about ten days. What is the purpose of the FSH injections?
+    options:
+      - id: a
+        text: To make the endometrium thicken so that the embryo can implant.
+        why: Thickening of the endometrium is caused by oestradiol and maintained by progesterone; FSH acts on the follicles in the ovary.
+      - id: b
+        text: To trigger the release of eggs from the follicles at the right time.
+        why: The final maturation of the eggs before collection is triggered by an injection of hCG, which mimics the LH surge, not by FSH.
+      - id: c
+        text: To stimulate many follicles to develop at once (superovulation), so several eggs can be collected.
+        why: Correct. With her own cycle suspended, high doses of FSH make many follicles mature rather than the usual one.
+      - id: d
+        text: To keep the woman's own FSH secretion suspended throughout treatment.
+        why: Suspension is done by the first drug (down-regulation). Giving FSH adds the hormone; it does not suspend its secretion.
+    answer: c
+
+  - id: q5
+    level: SL
+    understanding: D3.1.11
+    stem: >-
+      In a self-incompatible plant species, pollen carrying allele S1 lands on the stigma of a plant with genotype S1S2.
+      What happens and why?
+    options:
+      - id: a
+        text: The pollen tube grows normally, because the plant is heterozygous.
+        why: Being heterozygous does not help, because the pollen's S1 allele matches one of the stigma's alleles, which triggers rejection.
+      - id: b
+        text: The pollen tube is stopped, because its S-allele matches one in the stigma, so it is recognised as self.
+        why: Correct. Matching S-alleles signal that the pollen could be the plant's own, so its growth is blocked and only pollen from genetically different plants can fertilize the ovules.
+      - id: c
+        text: The pollen is rejected because the anthers and stigma of this species mature at different times.
+        why: Different maturation times is a separate, timing-based method; self-incompatibility is a genetic recognition mechanism.
+      - id: d
+        text: The pollen tube grows, and the offspring are clones of the parent plant.
+        why: Even self-fertilization would be sexual and produce varied offspring; in any case the matching pollen is rejected here.
+    answer: b
+
+  - id: q6
+    level: SL
+    understanding: D3.1.12
+    stem: Which statement correctly distinguishes seed dispersal from pollination?
+    options:
+      - id: a
+        text: Dispersal transfers male gametes to the stigma; pollination moves seeds away from the parent.
+        why: This is the wrong way round. Pollination moves pollen; dispersal moves seeds.
+      - id: b
+        text: Dispersal happens only by wind, whereas pollination happens only by insects.
+        why: Both can be carried out by wind or by animals (and dispersal also by water or explosive fruits).
+      - id: c
+        text: Dispersal happens before fertilization, and pollination happens after it.
+        why: The order is reversed. Pollination must come first so that fertilization can produce the seeds that are dispersed.
+      - id: d
+        text: Pollination moves pollen before fertilization; dispersal moves seeds containing embryos after fertilization.
+        why: Correct. The two processes move different structures at different stages of the life cycle.
+    answer: d
+
+  - id: q7
+    level: AHL
+    understanding: D3.1.14
+    stem: >-
+      100 primary spermatocytes and 100 primary oocytes all complete gametogenesis (assume every secondary oocyte is fertilized).
+      How many gametes are produced?
+    options:
+      - id: a
+        text: 400 sperm and 100 eggs
+        why: Correct. Each primary spermatocyte gives four sperm; unequal cytokinesis means each primary oocyte gives one egg plus polar bodies.
+      - id: b
+        text: 400 sperm and 400 eggs
+        why: Polar bodies are not eggs. Unequal divisions put almost all the cytoplasm into one cell, and the polar bodies degenerate.
+      - id: c
+        text: 200 sperm and 100 eggs
+        why: This counts only one meiotic division for the sperm line. Meiosis I gives two secondary spermatocytes, and meiosis II gives four spermatids.
+      - id: d
+        text: 100 sperm and 25 eggs
+        why: Meiosis multiplies cell numbers in spermatogenesis rather than dividing them; one primary oocyte still gives one egg.
+    answer: a
+
+  - id: q8
+    level: AHL
+    understanding: D3.1.15
+    stem: What is the role of the cortical reaction in fertilization?
+    options:
+      - id: a
+        text: It releases enzymes from the sperm head that digest a path through the zona pellucida.
+        why: That is the acrosome reaction, which happens in the sperm.
+      - id: b
+        text: It makes the egg complete meiosis I so that it can be fertilized.
+        why: Meiosis I is completed before ovulation; after sperm entry the egg completes meiosis II.
+      - id: c
+        text: Cortical granules release enzymes that harden the zona pellucida and stop other sperm binding, preventing polyspermy.
+        why: Correct. The cortical reaction is triggered by the first sperm's fusion and blocks all others.
+      - id: d
+        text: It fuses the sperm and egg nuclei to form a single diploid nucleus.
+        why: The two nuclei never fuse directly; their membranes break down and the chromosomes join a single mitotic spindle.
+    answer: c
+
+  - id: q9
+    level: AHL
+    understanding: D3.1.17
+    stem: >-
+      A pregnancy test shows a coloured control line but no test line. Which conclusion is valid?
+    options:
+      - id: a
+        text: The test has failed, because the dye-labelled antibodies did not move along the strip.
+        why: The control line forms only if the mobile dye-labelled antibodies reached it, so the strip did work.
+      - id: b
+        text: The woman is pregnant, because hCG has bound to the control line instead of the test line.
+        why: The control line binds the mobile antibodies themselves, whether or not hCG is attached; hCG at the test line is what shows pregnancy.
+      - id: c
+        text: hCG is present but the monoclonal antibodies are not specific to it.
+        why: Monoclonal antibodies are specific to one antigen; if hCG were present it would be trapped at the test line.
+      - id: d
+        text: No hCG, or too little to detect, was present, so there was nothing to trap the dye at the test line.
+        why: Correct. The fixed antibodies at the test line only hold the dye if hCG links them to the mobile antibodies. (A very early test can be negative because hCG is still low.)
+    answer: d
+
+  - id: q10
+    level: AHL
+    understanding: D3.1.20
+    stem: >-
+      Early observational studies found that women taking hormone replacement therapy (HRT) had a lower incidence of
+      coronary heart disease (CHD). Later randomised controlled trials found a small increase in CHD with HRT.
+      What best explains the difference?
+    options:
+      - id: a
+        text: HRT protects the heart in some women and harms it in others, so both results are correct.
+        why: The trials compared randomly allocated groups and showed no protective effect overall; the observational correlation was explained by another factor.
+      - id: b
+        text: Women taking HRT tended to have higher socioeconomic status, which itself lowers CHD risk, so the early correlation was not cause and effect.
+        why: Correct. Socioeconomic status was a confounding variable; random allocation in the trials spread it evenly, revealing the true effect of HRT.
+      - id: c
+        text: The observational studies had larger samples, so their conclusion is more reliable than the trials'.
+        why: Sample size does not remove confounding. Randomised controlled trials are better at showing causation.
+      - id: d
+        text: HRT reduces CHD risk, but the women in the trials were too old to benefit.
+        why: This assumes the causal claim the trials were testing. The trials showed a small increase in risk, and the observational benefit is explained by confounding.
+    answer: b

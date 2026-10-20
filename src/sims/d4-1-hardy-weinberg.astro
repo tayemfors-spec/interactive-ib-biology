@@ -1,0 +1,259 @@
+---
+import { DEFAULT_CALC as c, HW_SEED, QF, calcTable, calculate, conditionList, genoBars, qChart, simText, sizeLabel } from './d4-1-hw-view';
+import { DEFAULT_HW as d, SIZE_STOPS, replicates } from './models/d4-1-hardy-weinberg';
+const res = calculate(c);
+const sizeIdx = SIZE_STOPS.indexOf(d.n);
+const rep = replicates(d, 50, HW_SEED);
+const modes = [
+  { id: 'q2', label: 'From q² (frequency of aa)' },
+  { id: 'pheno', label: 'From phenotype counts' },
+  { id: 'geno', label: 'From genotype counts (codominant)' },
+];
+---
+<div class="sim-hw" data-sim-hw>
+  <p class="part">1 · Hardy–Weinberg calculator</p>
+  <div class="calc-wrap">
+    <div class="calc-in">
+      <fieldset class="modes">
+        <legend>Start from</legend>
+        {modes.map((m) => <label class="pill"><input type="radio" name="hw-mode" value={m.id} checked={m.id === c.mode} data-mode /> {m.label}</label>)}
+      </fieldset>
+      <div class="fields" data-fields="q2">
+        <label class="num">Frequency of the homozygous recessive genotype, q²
+          <input type="number" min="0" max="1" step="any" value={c.q2} data-in="q2" inputmode="decimal" />
+        </label>
+      </div>
+      <div class="fields" data-fields="pheno" hidden>
+        <label class="num">Number with the dominant phenotype (AA or Aa)
+          <input type="number" min="0" step="1" value={c.dom} data-in="dom" />
+        </label>
+        <label class="num">Number with the recessive phenotype (aa)
+          <input type="number" min="0" step="1" value={c.rec} data-in="rec" />
+        </label>
+      </div>
+      <div class="fields" data-fields="geno" hidden>
+        <label class="num">Number AA <input type="number" min="0" step="1" value={c.AA} data-in="AA" /></label>
+        <label class="num">Number Aa <input type="number" min="0" step="1" value={c.Aa} data-in="Aa" /></label>
+        <label class="num">Number aa <input type="number" min="0" step="1" value={c.aa} data-in="aa" /></label>
+      </div>
+      <div class="presets">
+        <span class="presets-t">Worked examples:</span>
+        <button type="button" class="btn" data-preset="cf">Cystic fibrosis-type: 1 in 2500 affected</button>
+        <button type="button" class="btn" data-preset="pku">PKU-type: 1 in 10 000 affected</button>
+        <button type="button" class="btn" data-preset="pheno">36 of 400 show the recessive phenotype</button>
+        <button type="button" class="btn" data-preset="mn">MN blood group survey (illustrative)</button>
+      </div>
+    </div>
+    <div class="calc-out">
+      <ol class="steps" data-steps>{res.steps.map((s) => <li>{s}</li>)}</ol>
+      <div data-calc-out set:html={calcTable(res)} />
+    </div>
+  </div>
+
+  <p class="part">2 · What makes allele frequencies change?</p>
+  <div class="layout">
+    <div>
+      <svg class="chart" viewBox={`0 0 ${QF.w} ${QF.h}`} role="img" aria-labelledby="d41h-t d41h-d">
+        <title id="d41h-t">Frequency of allele a over 50 generations in five populations</title>
+        <desc id="d41h-d">Thin coloured lines: five separate populations of the chosen size. Thick dashed line: what happens in a very large population with the same settings, where there is no genetic drift.</desc>
+        <g data-qchart set:html={qChart(rep.runs, rep.expected)} />
+      </svg>
+      <ul class="legend" aria-hidden="true">
+        <li><span class="key rep"></span>5 separate populations</li>
+        <li><span class="key expct"></span>very large population (no drift)</li>
+      </ul>
+      <svg class="bars" viewBox="0 0 640 210" role="img" aria-labelledby="d41h-bt d41h-bd">
+        <title id="d41h-bt">Genotype frequencies of the breeding adults in the first population after 50 generations</title>
+        <desc id="d41h-bd">For each genotype, the observed percentage (solid bar) beside the percentage expected from p², 2pq and q² for the same allele frequencies (hatched bar).</desc>
+        <g data-bars set:html={genoBars(rep.runs[0]!.adults)} />
+      </svg>
+      <ul class="legend" aria-hidden="true">
+        <li><span class="sw obs"></span>observed in breeding adults (first population)</li>
+        <li><span class="sw exp"></span>expected: p², 2pq, q²</li>
+      </ul>
+    </div>
+    <div class="controls">
+      <label class="slider">Starting frequency of allele a, q: <output data-out="q0">{d.q0.toFixed(2)}</output>
+        <input type="range" min="0.05" max="0.95" step="0.05" value={d.q0} data-param="q0" />
+      </label>
+      <label class="slider">Selection against aa: <output data-out="s">{d.s.toFixed(2)}</output>
+        <input type="range" min="0" max="1" step="0.05" value={d.s} data-param="s" />
+        <span class="hint">0 = none; 1 = aa individuals never breed</span>
+      </label>
+      <label class="slider">Population size: <output data-out="n">{sizeLabel(d.n)}</output>
+        <input type="range" min="0" max={SIZE_STOPS.length - 1} step="1" value={sizeIdx} data-param="n" />
+        <span class="hint">small populations show genetic drift</span>
+      </label>
+      <label class="slider">Migration: <output data-out="m">{Math.round(d.m * 100)}%</output>
+        <input type="range" min="0" max="0.2" step="0.01" value={d.m} data-param="m" />
+        <span class="hint">share of breeders that are immigrants (their q = 0.9)</span>
+      </label>
+      <label class="slider">Non-random mating (inbreeding), F: <output data-out="f">{d.f.toFixed(2)}</output>
+        <input type="range" min="0" max="0.5" step="0.05" value={d.f} data-param="f" />
+      </label>
+      <button type="button" class="btn" data-reseed>New random populations</button>
+      <div class="conds">
+        <p class="conds-t">Hardy–Weinberg conditions</p>
+        <ul data-conds>{conditionList(d).map((x) => <li class={x.met ? 'met' : 'broken'}><span class="mark">{x.met ? '✓ met' : '✗ broken'}</span> {x.text}</li>)}</ul>
+      </div>
+    </div>
+  </div>
+  <p class="readout" aria-live="polite" data-readout>{simText(d, rep.runs, rep.expected)}</p>
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <thead><tr><th scope="col">Generation</th>{rep.runs.map((_, i) => <th scope="col">Population {i + 1}</th>)}<th scope="col">Very large</th></tr></thead>
+      <tbody data-tbody>{[0, 10, 20, 30, 40, 50].map((g) => <tr><th scope="row">{g}</th>{rep.runs.map((r) => <td>{r.q[g]!.toFixed(3)}</td>)}<td>{rep.expected[g]!.toFixed(3)}</td></tr>)}</tbody>
+    </table>
+  </details>
+  <p class="model-note">Qualitative model with seeded random numbers. One gene with two alleles; each generation: random mating (or inbreeding), then selection against aa, then immigration, then a random sample of the parents' alleles forms the next generation (genetic drift).</p>
+</div>
+
+<script>
+  import { calcTable, calculate, conditionList, genoBars, qChart, simText, sizeAt, sizeLabel, HW_SEED, type CalcInput, type CalcMode } from './d4-1-hw-view';
+  import { replicates, type HWSimParams } from './models/d4-1-hardy-weinberg';
+
+  const PRESETS: Record<string, Partial<CalcInput>> = {
+    cf: { mode: 'q2', q2: 0.0004 },
+    pku: { mode: 'q2', q2: 0.0001 },
+    pheno: { mode: 'pheno', dom: 364, rec: 36 },
+    mn: { mode: 'geno', AA: 298, Aa: 489, aa: 213 },
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-sim-hw]').forEach((root) => {
+    // ----- calculator -----
+    const num = (k: string) => root.querySelector<HTMLInputElement>(`[data-in="${k}"]`)!;
+    const mode = (): CalcMode => (root.querySelector<HTMLInputElement>('[data-mode]:checked')?.value ?? 'q2') as CalcMode;
+    const calc = () => {
+      const m = mode();
+      root.querySelectorAll<HTMLElement>('[data-fields]').forEach((el) => { el.hidden = el.dataset.fields !== m; });
+      const v = (k: string) => (num(k).value.trim() === '' ? NaN : Number(num(k).value));
+      const r = calculate({ mode: m, q2: v('q2'), dom: v('dom'), rec: v('rec'), AA: v('AA'), Aa: v('Aa'), aa: v('aa') });
+      const steps = root.querySelector<HTMLElement>('[data-steps]')!;
+      steps.innerHTML = r.steps.map((s) => `<li>${s}</li>`).join('');
+      root.querySelector('[data-calc-out]')!.innerHTML = calcTable(r);
+    };
+    root.querySelectorAll('[data-in]').forEach((el) => el.addEventListener('input', calc));
+    root.querySelectorAll('[data-mode]').forEach((el) => el.addEventListener('change', calc));
+    root.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach((b) => b.addEventListener('click', () => {
+      const p = PRESETS[b.dataset.preset!]!;
+      for (const [k, v] of Object.entries(p)) {
+        if (k === 'mode') root.querySelector<HTMLInputElement>(`[data-mode][value="${v}"]`)!.checked = true;
+        else num(k).value = String(v);
+      }
+      calc();
+    }));
+
+    // ----- simulator -----
+    const input = (k: string) => root.querySelector<HTMLInputElement>(`[data-param="${k}"]`)!;
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    let seed = HW_SEED;
+    let raf = 0;
+    let timer = 0;
+    const run = () => {
+      raf = 0;
+      const p: HWSimParams = {
+        q0: Number(input('q0').value), s: Number(input('s').value), n: sizeAt(Number(input('n').value)),
+        m: Number(input('m').value), qMig: 0.9, f: Number(input('f').value),
+      };
+      root.querySelector('[data-out="q0"]')!.textContent = p.q0.toFixed(2);
+      root.querySelector('[data-out="s"]')!.textContent = p.s.toFixed(2);
+      root.querySelector('[data-out="n"]')!.textContent = sizeLabel(p.n);
+      root.querySelector('[data-out="m"]')!.textContent = `${Math.round(p.m * 100)}%`;
+      root.querySelector('[data-out="f"]')!.textContent = p.f.toFixed(2);
+      const rep = replicates(p, 50, seed);
+      root.querySelector('[data-qchart]')!.innerHTML = qChart(rep.runs, rep.expected);
+      root.querySelector('[data-bars]')!.innerHTML = genoBars(rep.runs[0]!.adults);
+      root.querySelector('[data-conds]')!.innerHTML = conditionList(p)
+        .map((x) => `<li class="${x.met ? 'met' : 'broken'}"><span class="mark">${x.met ? '✓ met' : '✗ broken'}</span> ${x.text}</li>`).join('');
+      root.querySelector('[data-tbody]')!.innerHTML = [0, 10, 20, 30, 40, 50]
+        .map((g) => `<tr><th scope="row">${g}</th>${rep.runs.map((r) => `<td>${r.q[g]!.toFixed(3)}</td>`).join('')}<td>${rep.expected[g]!.toFixed(3)}</td></tr>`).join('');
+      clearTimeout(timer);
+      timer = window.setTimeout(() => (readout.textContent = simText(p, rep.runs, rep.expected)), 300);
+    };
+    const schedule = () => { if (!raf) raf = requestAnimationFrame(run); };
+    root.querySelectorAll('[data-param]').forEach((el) => el.addEventListener('input', schedule));
+    root.querySelector('[data-reseed]')!.addEventListener('click', () => { seed += 1; schedule(); });
+  });
+</script>
+
+<style>
+  .sim-hw { container-type: inline-size; }
+  .part { font-size: var(--step-0); font-weight: 750; margin: var(--space-2) 0 var(--space-3); }
+  .part:not(:first-child) { margin-top: var(--space-5); padding-top: var(--space-4); border-top: 1px solid var(--border); }
+  .calc-wrap, .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 46rem) {
+    .calc-wrap { grid-template-columns: minmax(15rem, 1fr) minmax(0, 1.4fr); align-items: start; }
+    .layout { grid-template-columns: minmax(0, 1.6fr) minmax(15rem, 1fr); align-items: start; }
+  }
+  .calc-in { display: grid; gap: var(--space-3); font-size: var(--step--1); align-content: start; }
+  .modes { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .modes legend { font-weight: 700; margin-bottom: var(--space-2); padding: 0; }
+  .pill { position: relative; display: inline-flex; align-items: center; min-height: 2.1rem; padding: 0.25rem 0.8rem; border: 1px solid var(--border-strong); border-radius: 999px; cursor: pointer; font-weight: 650; background: var(--surface); }
+  .pill input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+  .pill:has(input:checked) { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .pill:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .fields { display: grid; gap: var(--space-2); }
+  .fields[hidden] { display: none; }
+  .num { display: grid; gap: var(--space-1); font-weight: 600; }
+  .num input { font: inherit; padding: 0.35rem 0.5rem; min-height: 2.2rem; border: 1px solid var(--border-strong); border-radius: var(--radius-s); background: var(--surface); color: var(--text); max-width: 14rem; }
+  .presets { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .presets-t { font-weight: 700; width: 100%; }
+  .presets .btn { font-size: 0.82rem; text-align: left; }
+  .calc-out { font-size: var(--step--1); overflow-x: auto; }
+  .steps { margin: 0 0 var(--space-2); padding-left: 1.3rem; display: grid; gap: 0.2rem; font-variant-numeric: tabular-nums; }
+  .calc-out :global(table.calc) { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  .calc-out :global(.calc th), .calc-out :global(.calc td) { padding: 0.25rem 0.5rem; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+  .calc-out :global(.calc td:nth-child(3)) { font-weight: 800; color: var(--accent-strong); }
+  .calc-out :global(.check) { margin: var(--space-2) 0 0; }
+  .calc-out :global(.err) { color: var(--bad); font-weight: 650; }
+  .chart, .bars { width: 100%; height: auto; font-family: var(--font-sans); }
+  .chart :global(.grid line), .bars :global(.gl) { stroke: var(--border); stroke-width: 1; }
+  .chart :global(.axisline), .bars :global(.axisline) { fill: none; stroke: var(--text-muted); stroke-width: 1.4; }
+  .chart :global(.ticks text), .bars :global(.tk) { font-size: 15px; fill: var(--text-muted); }
+  .chart :global(.axis) { font-size: 16px; font-weight: 650; fill: var(--text); }
+  .chart :global(.line) { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .chart :global(.rep) { stroke-width: 2.2; opacity: 0.85; }
+  .chart :global(.r0) { stroke: var(--bio-protein); }
+  .chart :global(.r1) { stroke: var(--bio-carb); }
+  .chart :global(.r2) { stroke: var(--bio-head); }
+  .chart :global(.r3) { stroke: var(--bio-na); }
+  .chart :global(.r4) { stroke: var(--bio-k); }
+  .chart :global(.expct) { stroke: var(--text); stroke-width: 4; stroke-dasharray: 12 7; }
+  .bars :global(.obs) { fill: var(--bio-protein); }
+  .bars :global(.exp) { fill: color-mix(in srgb, var(--bio-glucose) 35%, transparent); stroke: var(--bio-glucose); stroke-width: 2; stroke-dasharray: 5 3; }
+  .bars :global(.val) { font-size: 14px; font-weight: 700; fill: var(--text); }
+  .bars :global(.cat) { font-size: 17px; font-weight: 750; fill: var(--text); }
+  @container (max-width: 30rem) {
+    .chart :global(.ticks text), .bars :global(.tk) { font-size: 19px; }
+    .chart :global(.axis) { font-size: 18px; }
+    .bars :global(.val) { font-size: 18px; }
+    .bars :global(.cat) { font-size: 20px; }
+  }
+  .legend { list-style: none; margin: var(--space-1) 0 var(--space-3); padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); font-size: var(--step--1); color: var(--text-muted); }
+  .legend li { display: inline-flex; align-items: center; gap: var(--space-2); margin: 0; }
+  .key { display: inline-block; width: 2rem; height: 0; border-top: 3px solid; }
+  .key.rep { border-top-color: var(--bio-protein); }
+  .key.expct { border-top: 4px dashed var(--text); }
+  .sw { display: inline-block; width: 1rem; height: 0.8rem; }
+  .sw.obs { background: var(--bio-protein); }
+  .sw.exp { background: color-mix(in srgb, var(--bio-glucose) 35%, transparent); border: 2px dashed var(--bio-glucose); }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); align-content: start; }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  .hint { font-weight: 400; color: var(--text-muted); font-size: 0.8rem; }
+  .controls .btn { justify-self: start; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .conds { border: 1px solid var(--border); border-radius: var(--radius-m); padding: var(--space-2) var(--space-3); }
+  .conds-t { margin: 0 0 var(--space-1); font-weight: 750; }
+  .conds ul { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--space-1); }
+  .conds :global(li) { margin: 0; }
+  .conds :global(.mark) { font-weight: 800; white-space: nowrap; }
+  .conds :global(.met .mark) { color: var(--good); }
+  .conds :global(.broken .mark) { color: var(--bad); }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); overflow-x: auto; }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  .table table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  .table :global(th), .table :global(td) { padding: 0.2rem 0.6rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

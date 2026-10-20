@@ -1,0 +1,110 @@
+---
+/**
+ * Exam-style diagram of a nephron with its blood supply (D3.3.7–D3.3.10), cortex above and medulla below.
+ * Tubules are drawn as a wall line with a pale lumen; each label gives the part's function.
+ */
+const PCT = 'M300 152 C292 176 250 182 236 166 C222 150 252 128 236 110 C220 92 186 104 186 128 C186 152 150 160 140 140 C130 120 160 96 148 78 C136 60 104 70 104 96 C104 124 122 150 126 176 C130 200 200 196 214 214 L214 226';
+const DESC = 'M214 226 L214 484';
+const LOOP = 'M214 484 C214 520 272 520 272 484';
+const ASC = 'M272 484 L272 232';
+const DCT = 'M272 232 C272 206 330 214 352 196 C374 178 344 158 360 140 C376 122 404 136 416 120 C428 104 410 84 426 72 C442 60 470 70 484 70';
+const CD = 'M500 30 L500 548';
+const AFF = 'M372 26 C352 50 334 70 318 92';
+const EFF = 'M282 92 C268 70 240 52 214 40 C190 30 160 34 140 46';
+---
+<div class="exam-diagram">
+  <svg viewBox="0 0 830 580" role="img" aria-labelledby="neph-t neph-d" xmlns="http://www.w3.org/2000/svg">
+    <title id="neph-t">A nephron and its blood supply, with the cortex above and the medulla below</title>
+    <desc id="neph-d">The renal corpuscle, proximal convoluted tubule and distal convoluted tubule lie in the cortex. Blood enters the glomerulus through a wide afferent arteriole and leaves through a narrower efferent arteriole, which leads to peritubular capillaries round the tubules and to the vasa recta beside the loop. Filtrate passes from Bowman's capsule into the proximal convoluted tubule, down the descending limb of the loop of Henle into the medulla, round the hairpin, up the ascending limb, through the distal convoluted tubule and into a collecting duct that runs down through the medulla to the renal pelvis. The medulla is shaded darker with depth to show its rising solute concentration.</desc>
+    <defs>
+      <linearGradient id="neph-med" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0" class="med-a" />
+        <stop offset="1" class="med-b" />
+      </linearGradient>
+      <marker id="neph-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker>
+    </defs>
+    <rect class="cortex" x="40" y="8" width="510" height="212" />
+    <rect x="40" y="220" width="510" height="340" fill="url(#neph-med)" />
+    <line class="boundary" x1="40" x2="550" y1="220" y2="220" />
+    <text class="zone" x="48" y="30">CORTEX</text>
+    <text class="zone" x="48" y="244">MEDULLA</text>
+    <text class="zone-s" x="48" y="546">solute concentration rises with depth</text>
+
+    <!-- vasa recta behind the loop -->
+    <path class="cap" d="M228 214 L228 470 C228 500 258 500 258 470 L258 214" />
+    <!-- peritubular capillaries (simplified) -->
+    <path class="cap" d="M140 46 C120 60 92 70 96 100 C100 130 92 160 118 186 C140 206 176 188 186 162 C196 136 226 140 230 120 C234 98 260 104 262 84" />
+    <path class="cap" d="M118 186 C130 200 180 206 228 214" />
+    <!-- tubule: wall then lumen -->
+    {[PCT, DESC, LOOP, ASC, DCT].map((d, i) => <path class="wall" d={d} style={`stroke-width:${[20, 11, 11, 15, 17][i]}`} />)}
+    {[PCT, DESC, LOOP, ASC, DCT].map((d, i) => <path class={`lum l${i}`} d={d} style={`stroke-width:${[14, 6, 6, 10, 12][i]}`} />)}
+    <path class="wall" d={CD} style="stroke-width:24" />
+    <path class="lum l5" d={CD} style="stroke-width:18" />
+    <path class="wall" d="M484 70 L492 70" style="stroke-width:17" />
+    <path class="lum l4" d="M480 70 L494 70" style="stroke-width:12" />
+    <!-- arterioles -->
+    <path class="art" d={AFF} style="stroke-width:13" />
+    <path class="art" d={EFF} style="stroke-width:7" />
+    <!-- renal corpuscle: Bowman's capsule (double-walled cup) and glomerulus -->
+    <path class="capsule" d="M318 98 C352 112 356 160 322 176 C300 186 282 182 272 170 C252 150 256 112 282 98" />
+    <path class="capsule-in" d="M316 108 C340 120 340 156 318 164 C304 170 292 168 284 160 C268 146 270 118 286 108" />
+    <path class="glom" d="M318 92 C322 112 300 112 300 126 C300 140 322 132 322 146 C322 158 300 156 296 146 C290 132 312 124 306 114 C300 104 288 116 288 130 C288 146 306 152 296 160 C288 166 280 146 284 128 C286 112 282 100 282 92" />
+
+    <!-- flow arrows -->
+    <path class="flow" d="M200 300 L200 360" marker-end="url(#neph-ah)" />
+    <path class="flow" d="M286 380 L286 320" marker-end="url(#neph-ah)" />
+    <path class="flow" d="M514 300 L514 380" marker-end="url(#neph-ah)" />
+    <text class="xs" x="500" y="572" text-anchor="middle">to renal pelvis</text>
+
+    <!-- labels: right -->
+    <g class="lead">
+      <path d="M368 32 L590 32" /><path d="M322 120 L590 106" /><path d="M350 140 L590 160" /><path d="M200 36 L200 14 L560 14 L590 54" />
+      <path d="M418 118 L590 222" /><path d="M500 300 L590 292" /><path d="M272 400 L590 380" />
+    </g>
+    <text class="t" x="596" y="30">afferent arteriole</text><text class="s" x="596" y="44">wider: keeps glomerular pressure high</text>
+    <text class="t" x="596" y="58">efferent arteriole</text><text class="s" x="596" y="72">narrower: raises pressure in glomerulus</text>
+    <text class="t" x="596" y="104">glomerulus</text><text class="s" x="596" y="118">knot of fenestrated capillaries:</text><text class="s" x="596" y="131">ultrafiltration of plasma</text>
+    <text class="t" x="596" y="158">Bowman's capsule</text><text class="s" x="596" y="172">podocytes; basement membrane is</text><text class="s" x="596" y="185">the filter; collects filtrate</text>
+    <text class="t" x="596" y="220">distal convoluted tubule</text><text class="s" x="596" y="234">adjusts ion concentrations</text>
+    <text class="t" x="596" y="290">collecting duct</text><text class="s" x="596" y="304">ADH → aquaporins → water</text><text class="s" x="596" y="317">reabsorbed by osmosis</text>
+    <text class="t" x="596" y="378">ascending limb</text><text class="s" x="596" y="392">impermeable to water; pumps</text><text class="s" x="596" y="405">Na⁺ out (active transport)</text>
+    <!-- labels: left -->
+    <g class="lead">
+      <path d="M104 104 L86 104" /><path d="M207 420 L48 416" /><path d="M228 470 L48 486" /><path d="M98 160 L84 300" />
+    </g>
+    <g class="left">
+      <text class="t" x="4" y="94">proximal</text><text class="t" x="4" y="108">convoluted</text><text class="t" x="4" y="122">tubule</text>
+      <text class="s" x="4" y="136">microvilli,</text><text class="s" x="4" y="149">mitochondria;</text><text class="s" x="4" y="162">reabsorbs all</text><text class="s" x="4" y="175">glucose and</text><text class="s" x="4" y="188">amino acids,</text><text class="s" x="4" y="201">most water</text><text class="s" x="4" y="214">and ions</text>
+      <text class="t" x="4" y="296">peritubular</text><text class="t" x="4" y="310">capillaries</text><text class="s" x="4" y="324">carry away</text><text class="s" x="4" y="337">reabsorbed</text><text class="s" x="4" y="350">substances</text>
+      <text class="t" x="4" y="406">descending</text><text class="t" x="4" y="420">limb</text><text class="s" x="4" y="434">permeable to</text><text class="s" x="4" y="447">water</text>
+      <text class="t" x="4" y="480">vasa</text><text class="t" x="4" y="494">recta</text>
+    </g>
+  </svg>
+</div>
+<style>
+  .exam-diagram svg { font-family: var(--font-sans); }
+  .cortex { fill: color-mix(in srgb, var(--bio-tail) 22%, var(--surface)); }
+  .med-a { stop-color: color-mix(in srgb, var(--border-strong) 20%, var(--surface)); }
+  .med-b { stop-color: color-mix(in srgb, var(--border-strong) 70%, var(--surface)); }
+  .boundary { stroke: var(--text-muted); stroke-width: 1.5; stroke-dasharray: 6 4; }
+  .zone { font-size: 14px; font-weight: 800; letter-spacing: 0.08em; fill: var(--text-muted); }
+  .zone-s { font-size: 12px; font-style: italic; fill: var(--text); }
+  .wall { fill: none; stroke: var(--text); stroke-linecap: round; stroke-linejoin: round; }
+  .lum { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .l0 { stroke: color-mix(in srgb, var(--bio-head) 55%, var(--surface)); }
+  .l1, .l2 { stroke: color-mix(in srgb, var(--bio-water) 50%, var(--surface)); }
+  .l3 { stroke: color-mix(in srgb, var(--bio-na) 50%, var(--surface)); }
+  .l4 { stroke: color-mix(in srgb, var(--bio-carb) 50%, var(--surface)); }
+  .l5 { stroke: color-mix(in srgb, var(--bio-glucose) 50%, var(--surface)); }
+  .art { fill: none; stroke: var(--bio-k); stroke-linecap: round; }
+  .cap { fill: none; stroke: var(--bio-chol); stroke-width: 2.5; stroke-linecap: round; }
+  .capsule { fill: color-mix(in srgb, var(--bio-tail) 50%, var(--surface)); stroke: var(--text); stroke-width: 2; }
+  .capsule-in { fill: var(--surface); stroke: var(--text); stroke-width: 1.5; }
+  .glom { fill: none; stroke: var(--bio-k); stroke-width: 4.5; stroke-linecap: round; }
+  .flow { stroke: var(--text); stroke-width: 2; }
+  .ah { fill: var(--text); }
+  .lead path { stroke: var(--text-muted); stroke-width: 1; fill: none; }
+  .t { font-size: 13.5px; font-weight: 700; fill: var(--text); }
+  .s { font-size: 12px; fill: var(--text); }
+  .xs { font-size: 12px; fill: var(--text-muted); }
+</style>

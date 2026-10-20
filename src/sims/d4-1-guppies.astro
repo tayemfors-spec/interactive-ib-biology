@@ -1,0 +1,173 @@
+---
+import { DEFAULT_VIEW as v, FRAME, GUPPY_SEED, NAMES, fishSvg, guppyChart, guppyText } from './d4-1-guppies-view';
+import { DEFAULT_GUPPY as d, END, TRANSPLANT, runExperiment } from './models/d4-1-guppies';
+const e = runExperiment(d, GUPPY_SEED);
+const keys = ['cichlid', 'rivulus', 'none', 'transplant'] as const;
+const val = (k: (typeof keys)[number], g: number) => (k === 'transplant' ? e.transplant[g]! : e.means[k][g]!);
+const rows = [0, 2, 4, 8, 12, 14, 16, 20, 24, 28];
+const f1 = (x: number) => (Number.isFinite(x) ? x.toFixed(1) : '–');
+---
+<div class="sim-gup" data-sim-gup>
+  <div class="layout">
+    <div>
+      <svg class="chart" viewBox={`0 0 ${FRAME.w} ${FRAME.h}`} role="img" aria-labelledby="d41g-t d41g-d">
+        <title id="d41g-t">Mean number of spots per male guppy in pools with different predators</title>
+        <desc id="d41g-d">Lines show the mean spots per male in each kind of pool over generations. A shaded band marks the first generations, when no pool had predators. Thin lines are the individual replicate pools.</desc>
+        <g data-chart set:html={guppyChart(e, v)} />
+      </svg>
+      <ul class="legend" aria-hidden="true">
+        <li><span class="key t-cichlid"></span>{NAMES.cichlid}</li>
+        <li><span class="key t-rivulus"></span>{NAMES.rivulus}</li>
+        <li><span class="key t-none"></span>{NAMES.none}</li>
+        <li data-legend-transplant><span class="key t-transplant"></span>{NAMES.transplant}</li>
+      </ul>
+    </div>
+    <div class="controls">
+      <label class="slider">Female preference for colourful males: <output data-out="preference">{d.preference.toFixed(1)}</output>
+        <input type="range" min="0" max="1" step="0.1" value={d.preference} data-param="preference" />
+        <span class="hint">sexual selection</span>
+      </label>
+      <label class="slider">Pike cichlid predation on conspicuous males: <output data-out="predation">{d.predation.toFixed(1)}</output>
+        <input type="range" min="0" max="1" step="0.1" value={d.predation} data-param="predation" />
+        <span class="hint">natural selection; Rivulus is set at a tenth of this</span>
+      </label>
+      <label class="slider">Look at generation: <output data-out="at">{v.at}</output>
+        <input type="range" min="0" max={END} step="1" value={v.at} data-param="at" />
+      </label>
+      <fieldset class="opts">
+        <legend>Show</legend>
+        <label><input type="checkbox" data-show="pools" checked /> Each replicate pool (thin lines)</label>
+        <label><input type="checkbox" data-show="transplant" checked /> Transplant at generation {TRANSPLANT}</label>
+      </fieldset>
+      <button type="button" class="btn" data-reseed>Run the experiment again (new random seed)</button>
+    </div>
+  </div>
+  <div class="fish-row" aria-label="Typical male in each kind of pool at the chosen generation" role="group">
+    {keys.map((k) => (
+      <div class="fish" data-fish={k}>
+        <svg viewBox="0 0 124 80" role="img" aria-label={`Male guppy with about ${Math.round(val(k, v.at))} spots`} data-fish-svg>
+          <g set:html={fishSvg(val(k, v.at))} />
+        </svg>
+        <p class="cap"><span class="fname">{NAMES[k]}</span> <span data-fish-n>{f1(val(k, v.at))}</span> spots</p>
+      </div>
+    ))}
+  </div>
+  <p class="readout" aria-live="polite" data-readout>{guppyText(e, d, v)}</p>
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <thead><tr><th scope="col">Generation</th><th scope="col">Pike cichlid</th><th scope="col">Rivulus</th><th scope="col">No predator</th><th scope="col">Transplanted</th></tr></thead>
+      <tbody data-tbody>{rows.map((g) => <tr><th scope="row">{g}</th>{keys.map((k) => <td>{f1(val(k, g))}</td>)}</tr>)}</tbody>
+    </table>
+  </details>
+  <p class="model-note">Qualitative model with seeded random numbers, after the design of Endler's experiments; the values are simulated, not Endler's data. Spots are controlled by ten genes and shown only by males. Every pool starts from the same varied stock and is held at 120 adults.</p>
+</div>
+
+<script>
+  import { GUPPY_SEED, fishSvg, guppyChart, guppyText, type GuppyView } from './d4-1-guppies-view';
+  import { runExperiment, type GuppyParams } from './models/d4-1-guppies';
+
+  const f1 = (x: number) => (Number.isFinite(x) ? x.toFixed(1) : '–');
+  const rows = [0, 2, 4, 8, 12, 14, 16, 20, 24, 28];
+  document.querySelectorAll<HTMLElement>('[data-sim-gup]').forEach((root) => {
+    const input = (k: string) => root.querySelector<HTMLInputElement>(`[data-param="${k}"]`)!;
+    const show = (k: string) => root.querySelector<HTMLInputElement>(`[data-show="${k}"]`)!.checked;
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    let seed = GUPPY_SEED;
+    let key = '';
+    let exp = runExperiment({ preference: 0.6, predation: 0.7 }, seed);
+    let timer = 0;
+    const update = () => {
+      const p: GuppyParams = { preference: Number(input('preference').value), predation: Number(input('predation').value) };
+      const v: GuppyView = { showPools: show('pools'), showTransplant: show('transplant'), at: Number(input('at').value) };
+      const k = `${p.preference}|${p.predation}|${seed}`;
+      if (k !== key) { exp = runExperiment(p, seed); key = k; }
+      root.querySelector('[data-out="preference"]')!.textContent = p.preference.toFixed(1);
+      root.querySelector('[data-out="predation"]')!.textContent = p.predation.toFixed(1);
+      root.querySelector('[data-out="at"]')!.textContent = String(v.at);
+      root.querySelector('[data-chart]')!.innerHTML = guppyChart(exp, v);
+      root.querySelector<HTMLElement>('[data-legend-transplant]')!.hidden = !v.showTransplant;
+      const val = (name: string, g: number) => (name === 'transplant' ? exp.transplant[g]! : exp.means[name as 'none'][g]!);
+      root.querySelectorAll<HTMLElement>('[data-fish]').forEach((fig) => {
+        const name = fig.dataset.fish!;
+        fig.hidden = name === 'transplant' && !v.showTransplant;
+        const n = val(name, v.at);
+        const svg = fig.querySelector('[data-fish-svg]')!;
+        svg.innerHTML = `<g>${fishSvg(Number.isFinite(n) ? n : 0)}</g>`;
+        svg.setAttribute('aria-label', Number.isFinite(n) ? `Male guppy with about ${Math.round(n)} spots` : 'Not yet transplanted');
+        fig.querySelector('[data-fish-n]')!.textContent = f1(n);
+      });
+      root.querySelector('[data-tbody]')!.innerHTML = rows
+        .map((g) => `<tr><th scope="row">${g}</th>${['cichlid', 'rivulus', 'none', 'transplant'].map((n) => `<td>${f1(val(n, g))}</td>`).join('')}</tr>`)
+        .join('');
+      clearTimeout(timer);
+      timer = window.setTimeout(() => (readout.textContent = guppyText(exp, p, v)), 300);
+    };
+    root.querySelectorAll('[data-param]').forEach((el) => el.addEventListener('input', update));
+    root.querySelectorAll('[data-show]').forEach((el) => el.addEventListener('change', update));
+    root.querySelector('[data-reseed]')!.addEventListener('click', () => { seed += 1; update(); });
+  });
+</script>
+
+<style>
+  .sim-gup { container-type: inline-size; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 46rem) { .layout { grid-template-columns: minmax(0, 1.6fr) minmax(15rem, 1fr); align-items: start; } }
+  .chart { width: 100%; height: auto; font-family: var(--font-sans); }
+  .chart :global(.grid line) { stroke: var(--border); stroke-width: 1; }
+  .chart :global(.found) { fill: color-mix(in srgb, var(--bio-carb) 12%, transparent); }
+  .chart :global(.event) { stroke: var(--text-muted); stroke-width: 1.4; stroke-dasharray: 4 4; }
+  .chart :global(.event-t) { font-size: 13px; font-weight: 700; fill: var(--text-muted); }
+  .chart :global(.axisline) { fill: none; stroke: var(--text-muted); stroke-width: 1.4; }
+  .chart :global(.ticks text) { font-size: 15px; fill: var(--text-muted); }
+  .chart :global(.axis) { font-size: 16px; font-weight: 650; fill: var(--text); }
+  .chart :global(.line) { fill: none; stroke-width: 3.8; stroke-linecap: round; stroke-linejoin: round; }
+  .chart :global(.line.thin) { stroke-width: 1.2; opacity: 0.45; stroke-dasharray: none; }
+  .chart :global(.marker) { stroke: var(--text); stroke-width: 1.2; stroke-dasharray: 3 3; }
+  .t-cichlid, .chart :global(.t-cichlid) { stroke: var(--bio-k); border-color: var(--bio-k); }
+  .t-rivulus, .chart :global(.t-rivulus) { stroke: var(--bio-protein); border-color: var(--bio-protein); stroke-dasharray: 11 6; }
+  .t-none, .chart :global(.t-none) { stroke: var(--text-muted); border-color: var(--text-muted); stroke-dasharray: 2 6; }
+  .t-transplant, .chart :global(.t-transplant) { stroke: var(--bio-carb); border-color: var(--bio-carb); stroke-dasharray: 16 5 3 5; }
+  @container (max-width: 30rem) {
+    .chart :global(.ticks text) { font-size: 19px; }
+    .chart :global(.axis) { font-size: 18px; }
+    .chart :global(.event-t) { font-size: 16px; }
+  }
+  .legend { list-style: none; margin: var(--space-1) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); font-size: var(--step--1); color: var(--text-muted); }
+  .legend li { display: inline-flex; align-items: center; gap: var(--space-2); margin: 0; }
+  .legend li[hidden] { display: none; }
+  .key { display: inline-block; width: 2rem; height: 0; border-top: 3.5px solid; flex: none; }
+  .key.t-cichlid { border-top-color: var(--bio-k); }
+  .key.t-rivulus { border-top-style: dashed; border-top-color: var(--bio-protein); }
+  .key.t-none { border-top-style: dotted; border-top-color: var(--text-muted); }
+  .key.t-transplant { border-top-style: dashed; border-top-width: 5px; border-top-color: var(--bio-carb); }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); align-content: start; }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  .hint { font-weight: 400; color: var(--text-muted); font-size: 0.8rem; }
+  .opts { border: 0; padding: 0; margin: 0; display: grid; gap: var(--space-1); }
+  .opts legend { font-weight: 700; color: var(--text-muted); margin-bottom: var(--space-1); }
+  .opts label { display: flex; align-items: center; gap: var(--space-2); min-height: 1.75rem; }
+  .controls .btn { justify-self: start; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .fish-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); margin: var(--space-4) 0 0; }
+  @container (min-width: 40rem) { .fish-row { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .fish { margin: 0; padding: var(--space-2); border: 1px solid var(--border); border-radius: var(--radius-m); background: var(--surface-2); }
+  .fish[hidden] { display: none; }
+  .fish svg { width: 100%; max-width: 11rem; height: auto; display: block; margin: 0 auto; }
+  .fish .cap { margin: 0; font-size: 0.82rem; color: var(--text-muted); text-align: center; }
+  .fname { display: block; font-weight: 650; color: var(--text); }
+  .fish [data-fish-n] { font-weight: 800; color: var(--accent-strong); }
+  .fish :global(.body) { fill: var(--surface-3); stroke: var(--text-muted); stroke-width: 1.4; }
+  .fish :global(.fin), .fish :global(.dorsal) { fill: color-mix(in srgb, var(--surface-3) 70%, transparent); stroke: var(--text-muted); stroke-width: 1.2; }
+  .fish :global(.eye) { fill: var(--text); }
+  .fish :global(.sp-o) { fill: var(--bio-glucose); }
+  .fish :global(.sp-b) { fill: var(--bio-water); }
+  .fish :global(.sp-k) { fill: var(--text); }
+  .fish :global(.sp-r) { fill: var(--bio-k); }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); overflow-x: auto; }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  .table :global(th), .table :global(td) { padding: 0.2rem 0.6rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

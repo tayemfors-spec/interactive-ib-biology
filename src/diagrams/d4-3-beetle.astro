@@ -1,0 +1,57 @@
+---
+/**
+ * European spruce bark beetle (Ips typographus) generations per year (D4.3.11). Schematic timing:
+ * adults overwinter; spring flight once air temperature exceeds ≈ 16.5 °C; one generation needs about
+ * 550 degree-days above ≈ 8.3 °C. Cool summer: one generation; warm summer: two (three at the warmest
+ * lowland sites). Timing is approximate (facts.yaml).
+ */
+const M = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
+const L = 150, W = 640, mw = (W - L - 16) / 12;
+const mx = (m: number) => L + m * mw; // m = months from 1 January (fractional)
+const rows = [
+  { y: 70, title: 'Cool summer', sub: 'one generation', bars: [
+    { a: 0, b: 4.6, k: 'winter', t: 'adults overwinter' }, { a: 4.6, b: 5.1, k: 'flight', t: '' },
+    { a: 5.1, b: 8.6, k: 'brood', t: 'generation 1 develops' }, { a: 8.6, b: 12, k: 'winter', t: 'overwinter' } ] },
+  { y: 160, title: 'Warm summer', sub: 'two generations', bars: [
+    { a: 0, b: 3.9, k: 'winter', t: 'adults overwinter' }, { a: 3.9, b: 4.3, k: 'flight', t: '' },
+    { a: 4.3, b: 6.4, k: 'brood', t: 'generation 1' }, { a: 6.4, b: 6.8, k: 'flight', t: '' },
+    { a: 6.8, b: 9.2, k: 'brood2', t: 'generation 2' }, { a: 9.2, b: 12, k: 'winter', t: 'overwinter' } ] },
+];
+---
+<svg viewBox={`0 0 ${W} 290`} role="img" aria-labelledby="bb-t bb-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="bb-t">Spruce bark beetle generations in cool and warm years</title>
+  <desc id="bb-d">Two timelines from January to December for the European spruce bark beetle, Ips typographus. In a cool summer, adults that overwintered fly in late spring to bore into spruce, and their brood develops through the summer, giving one generation a year. In a warm summer, flight starts earlier and development is faster, so the first generation's adults emerge in summer and start a second generation before autumn, giving two generations a year and many more beetles to attack trees.</desc>
+  {M.map((m, i) => <g><line class="grid" x1={mx(i)} x2={mx(i)} y1="40" y2="230" /><text class="tick" x={mx(i + 0.5)} y="34" text-anchor="middle">{m}</text></g>)}
+  <line class="grid" x1={mx(12)} x2={mx(12)} y1="40" y2="230" />
+  {rows.map((r) => (
+    <g>
+      <text class="row" x={L - 10} y={r.y + 22} text-anchor="end">{r.title}</text>
+      <text class="rowsub" x={L - 10} y={r.y + 40} text-anchor="end">{r.sub}</text>
+      {r.bars.map((b) => (
+        <g>
+          <rect class={`bar ${b.k}`} x={mx(b.a)} y={r.y} width={mx(b.b) - mx(b.a)} height="52" rx="4" />
+          {b.t && <text class="bt" x={(mx(b.a) + mx(b.b)) / 2} y={r.y + 31} text-anchor="middle">{b.t}</text>}
+        </g>
+      ))}
+    </g>
+  ))}
+  <g transform="translate(40 252)">
+    <rect class="bar winter" x="0" y="0" width="16" height="14" rx="3" /><text class="key" x="22" y="12">overwintering adults</text>
+    <rect class="bar flight" x="190" y="0" width="16" height="14" rx="3" /><text class="key" x="212" y="12">flight (swarming) to new spruce</text>
+    <rect class="bar brood" x="420" y="0" width="16" height="14" rx="3" /><text class="key" x="442" y="12">egg → larva → pupa → adult</text>
+  </g>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .grid { stroke: var(--border); stroke-width: 1; }
+  .tick { font-size: 12.5px; font-weight: 700; fill: var(--text-muted); }
+  .row { font-size: 13.5px; font-weight: 800; fill: var(--text); }
+  .rowsub { font-size: 12.5px; fill: var(--text-muted); }
+  .bar { stroke-width: 1.2; }
+  .bar.winter { fill: var(--surface-3); stroke: var(--border-strong); }
+  .bar.flight { fill: var(--bad); stroke: var(--bad); }
+  .bar.brood { fill: color-mix(in srgb, var(--bio-tail) 45%, var(--surface)); stroke: color-mix(in srgb, var(--bio-tail) 70%, var(--text)); }
+  .bar.brood2 { fill: color-mix(in srgb, var(--bio-tail) 45%, var(--surface)); stroke: var(--bad); stroke-width: 2.4; stroke-dasharray: 6 3; }
+  .bt { font-size: 12.5px; font-weight: 700; fill: var(--text); }
+  .key { font-size: 12px; fill: var(--text-muted); }
+</style>

@@ -1,0 +1,246 @@
+# Visuals for D3.3. Label/step text here is what readers see in the 3D viewer and the text descriptions.
+# Label ids must match anchors in the scene modules (src/scenes/d3-3-*.ts).
+visuals:
+  - id: kidney
+    kind: viewer3d
+    level: AHL
+    title: The nephron and the kidney in 3D
+    alt: A nephron with its blood supply spanning the cortex and medulla, and a kidney cut in half to show cortex, medulla, pelvis, ureter and renal vessels.
+    description: >-
+      The first model is one nephron with its blood vessels, drawn schematically. The pale upper band is the
+      cortex and the grey lower band is the medulla, which gets darker with depth to show that the solute
+      concentration of its tissue fluid rises towards the inner medulla. In the cortex, a wide afferent arteriole
+      carries blood into the glomerulus, a knot of capillaries inside the cup-shaped Bowman's capsule, and a
+      narrower efferent arteriole carries it out to peritubular capillaries wound round the tubules. From the
+      capsule the proximal convoluted tubule coils through the cortex, then the thin descending limb of the loop
+      of Henle runs straight down into the medulla, turns in a hairpin and returns as the wider ascending limb.
+      The distal convoluted tubule coils back past its own renal corpuscle and joins a collecting duct, which
+      is shared with other nephrons and runs down through the medulla towards the renal pelvis. The vasa recta,
+      a hairpin of capillaries, lie beside the loop. Enlarged insets show the filtration barrier (fenestrated
+      capillary wall, basement membrane and podocytes) and a cross-section of the proximal convoluted tubule
+      wall with microvilli and mitochondria. Seven steps follow blood and filtrate through the nephron. The second
+      model is a kidney cut in half from top to bottom, showing the outer cortex, the renal pyramids of the
+      medulla, the renal pelvis and ureter, and the renal artery and vein at the hilum.
+    scenes:
+      - id: nephron
+        module: d3-3-nephron
+        title: Nephron
+        level: AHL
+        labels:
+          - id: cortex
+            name: Cortex
+            level: AHL
+            text: The outer region of the kidney. It contains the renal corpuscles (glomerulus and Bowman's capsule) and the proximal and distal convoluted tubules.
+          - id: medulla
+            name: Medulla
+            level: AHL
+            text: The inner region, containing the loops of Henle and collecting ducts. The solute concentration of its tissue fluid rises with depth (shown by darker shading), up to about 1.2 osmol L⁻¹ in humans.
+          - id: afferent
+            name: Afferent arteriole
+            level: AHL
+            steps: [afferent, ultrafiltration]
+            text: Brings blood to the glomerulus. It is wider than the efferent arteriole, so blood enters faster than it can leave and the pressure inside the glomerular capillaries is high.
+          - id: efferent
+            name: Efferent arteriole
+            level: AHL
+            steps: [afferent, ultrafiltration, blood]
+            text: Carries blood away from the glomerulus. Being narrower than the afferent arteriole, it keeps glomerular pressure high. It leads to a second capillary network, the peritubular capillaries.
+          - id: glomerulus
+            name: Glomerulus
+            level: AHL
+            steps: [afferent, ultrafiltration]
+            text: A ball of capillaries with a long, contorted route and very leaky (fenestrated) walls. The high pressure forces about a fifth of the plasma out into Bowman's capsule — ultrafiltration.
+          - id: bowmans
+            name: Bowman's capsule
+            level: AHL
+            steps: [afferent, ultrafiltration]
+            text: A double-walled cup round the glomerulus. Its inner wall is made of podocytes; the space between the walls collects the glomerular filtrate and leads into the proximal convoluted tubule.
+          - id: fenestrations
+            name: Fenestrated capillary wall (enlarged)
+            level: AHL
+            steps: [ultrafiltration]
+            text: The endothelial cells of glomerular capillaries have many wide pores (fenestrations, up to about 100 nm across). They let plasma through freely but hold back blood cells.
+          - id: basement
+            name: Basement membrane (the filter)
+            level: AHL
+            steps: [ultrafiltration]
+            text: A continuous non-cellular mesh of glycoproteins round the capillaries. It is the actual filter — small solutes and water pass, but most plasma proteins are held back by their size and negative charge.
+          - id: podocytes
+            name: Podocytes (enlarged)
+            level: AHL
+            steps: [ultrafiltration]
+            text: Cells of the inner wall of Bowman's capsule. Their foot processes wrap round the capillaries, leaving narrow filtration slits that also help stop proteins leaving the blood.
+          - id: pct
+            name: Proximal convoluted tubule
+            level: AHL
+            steps: [pct]
+            text: The longest part of the nephron, coiled in the cortex. It reabsorbs all the glucose and amino acids and most of the water, Na⁺ and other ions from the filtrate, returning them to the blood.
+          - id: pct-cell
+            name: PCT wall in section (enlarged)
+            level: AHL
+            steps: [pct]
+            text: A single layer of cells with microvilli facing the lumen (a large surface area for reabsorption) and many mitochondria near the base, supplying ATP for the active transport of Na⁺.
+          - id: descending
+            name: Descending limb of the loop of Henle
+            level: AHL
+            steps: [loop]
+            text: Permeable to water but not to Na⁺. As it passes down into ever more concentrated medulla, water leaves the filtrate by osmosis.
+          - id: ascending
+            name: Ascending limb of the loop of Henle
+            level: AHL
+            steps: [loop]
+            text: Impermeable to water. Na⁺ is actively transported out of the filtrate (Cl⁻ follows), raising the solute concentration of the medulla; the filtrate becomes more dilute as it rises.
+          - id: dct
+            name: Distal convoluted tubule
+            level: AHL
+            steps: [dct]
+            text: Coils back through the cortex, passing its own glomerulus. Ions such as Na⁺, K⁺ and H⁺ are exchanged here to fine-tune the blood's ion balance and pH.
+          - id: collecting-duct
+            name: Collecting duct
+            level: AHL
+            steps: [dct, collecting-duct]
+            text: Receives filtrate from several nephrons and carries it through the medulla to the renal pelvis. ADH makes its walls permeable to water (aquaporins), so water is reabsorbed by osmosis.
+          - id: peritubular
+            name: Peritubular capillaries
+            level: AHL
+            steps: [pct, blood]
+            text: A capillary network fed by the efferent arteriole and wrapped round the convoluted tubules. It takes up the reabsorbed water and solutes and returns them to the circulation.
+          - id: vasa-recta
+            name: Vasa recta
+            level: AHL
+            steps: [loop, blood]
+            text: Long hairpin capillaries running beside the loops of Henle in the medulla. They carry away reabsorbed water without washing away the high solute concentration of the medulla.
+        steps:
+          - id: afferent
+            title: Blood enters the glomerulus
+            caption: Blood arrives in the cortex through the afferent arteriole, which is wider than the efferent arteriole leaving the glomerulus. Blood flows in faster than it can leave, and its route through the coiled capillaries is long, so the blood pressure in the glomerulus is unusually high.
+            level: AHL
+          - id: ultrafiltration
+            title: Ultrafiltration into Bowman's capsule
+            caption: The high pressure forces plasma out through the fenestrated capillary wall, the basement membrane and the slits between podocyte foot processes. Water, glucose, amino acids, ions and urea pass; blood cells and most plasma proteins stay in the blood. The fluid collected by Bowman's capsule is glomerular filtrate.
+            level: AHL
+          - id: pct
+            title: Selective reabsorption in the PCT
+            caption: As filtrate flows along the proximal convoluted tubule, Na⁺ is pumped out of the wall cells, glucose and amino acids are reabsorbed by cotransport with Na⁺, and water follows by osmosis. All the glucose and amino acids and most of the water and ions return to the blood in the peritubular capillaries; urea and other wastes stay in the filtrate.
+            level: AHL
+          - id: loop
+            title: The loop of Henle concentrates the medulla
+            caption: In the ascending limb, which is impermeable to water, Na⁺ is actively transported out into the medulla (Cl⁻ follows). This keeps the solute concentration of the medulla high. Water leaves the descending limb by osmosis into this concentrated tissue fluid and is carried away by the vasa recta.
+            level: AHL
+          - id: dct
+            title: Distal convoluted tubule
+            caption: The filtrate leaving the ascending limb is dilute. In the distal convoluted tubule, back in the cortex, ion concentrations are adjusted further before the filtrate drains into a collecting duct shared with other nephrons.
+            level: AHL
+          - id: collecting-duct
+            title: Water reabsorption in the collecting duct
+            caption: The collecting duct runs down through the increasingly concentrated medulla. When ADH is present, aquaporins are inserted into its wall cells and water leaves the filtrate by osmosis, so a small volume of concentrated urine flows on to the renal pelvis. With little ADH, most of this water stays in the duct.
+            level: AHL
+          - id: blood
+            title: Reabsorbed substances return to the blood
+            caption: Blood from the efferent arteriole flows through the peritubular capillaries round the convoluted tubules and the vasa recta in the medulla, collecting the reabsorbed water and solutes, and then drains into venules and on to the renal vein.
+            level: AHL
+      - id: overview
+        module: d3-3-kidney-overview
+        title: Whole kidney
+        level: AHL
+        labels:
+          - id: cortex
+            name: Cortex
+            level: AHL
+            text: The outer layer, under a tough fibrous capsule. It contains all the glomeruli, Bowman's capsules and convoluted tubules, and dips between the pyramids as renal columns.
+          - id: medulla
+            name: Medulla (renal pyramid)
+            level: AHL
+            text: The medulla is made of cone-shaped pyramids. Their stripes are loops of Henle and collecting ducts running towards the tip (papilla), where urine drains out.
+          - id: pelvis
+            name: Renal pelvis
+            level: AHL
+            text: A funnel-shaped cavity that collects urine from the collecting ducts through cup-like calyces round the tips of the pyramids, and leads into the ureter.
+          - id: ureter
+            name: Ureter
+            level: AHL
+            text: A muscular tube that carries urine from the renal pelvis down to the bladder.
+          - id: artery
+            name: Renal artery
+            level: AHL
+            text: A branch of the aorta bringing oxygenated blood, with its wastes, to the kidney. Inside it branches between the pyramids and finally into the afferent arterioles of about a million nephrons.
+          - id: vein
+            name: Renal vein
+            level: AHL
+            text: Carries filtered blood, with a lower concentration of urea, from the kidney to the inferior vena cava. At the hilum it lies in front of the artery.
+          - id: nephron
+            name: A nephron (not to scale)
+            level: AHL
+            text: The functional unit of the kidney. Its renal corpuscle and convoluted tubules are in the cortex; its loop of Henle dips into a pyramid and its collecting duct opens at the papilla.
+
+  - id: glucose
+    kind: sim
+    module: d3-3-glucose
+    title: Blood glucose control and diabetes
+    alt: Add meals and exercise to see blood glucose, insulin and glucagon change over 8 hours, with or without type 1 or type 2 diabetes.
+    description: >-
+      A simulation of blood glucose concentration over eight hours. You choose a person (no diabetes, type 1
+      diabetes or type 2 diabetes), move a time slider and add meals or 45-minute periods of exercise at that
+      time. A graph shows blood glucose with the typical range shaded and the renal threshold marked, and a
+      second graph shows insulin and glucagon. A panel shows the islet cells of the pancreas, the blood glucose
+      concentration, whether the liver and muscles are storing glucose as glycogen or breaking glycogen down, and
+      whether glucose is appearing in the urine. In a person without diabetes a meal raises glucose, β cells
+      secrete more insulin and glucose returns to about 5 mmol dm⁻³; exercise lowers glucose, glucagon rises and
+      glucose recovers. With type 1 diabetes no insulin is made and glucose stays very high unless insulin is
+      injected. With type 2 diabetes insulin is high but cells respond weakly, so glucose is raised. The model is
+      qualitative.
+
+  - id: thermoregulation
+    kind: sim
+    module: d3-3-thermoregulation
+    title: Thermoregulation by negative feedback
+    alt: Change air temperature and activity to see how skin arterioles, sweat glands, hairs, muscles, brown fat and thyroxin respond.
+    description: >-
+      A simulation of temperature control in a lightly clothed adult. Sliders set the air temperature from
+      −10 to 45 °C and the level of activity. The left panel shows the control pathway: peripheral thermoreceptors
+      in the skin and central thermoreceptors send signals to the hypothalamus, which controls effectors through
+      nerves and, through the pituitary gland and thyroid, the secretion of thyroxin. The right panel is a section
+      through skin and the tissues below. In the cold, skin arterioles constrict, a shunt vessel opens, the hairs
+      are raised by erector muscles, skeletal muscle shivers, brown adipose tissue releases heat and thyroxin
+      rises. In heat or during exercise, arterioles dilate, more blood flows through the skin capillaries and
+      sweat glands secrete sweat. Core temperature stays close to 37 °C; a checkbox switches the responses off to
+      show that core temperature would then drift into hypothermia or hyperthermia. The model is qualitative.
+
+  - id: osmoregulation
+    kind: anim
+    module: d3-3-osmoregulation
+    level: AHL
+    title: ADH and osmoregulation
+    alt: Step-by-step diagram of ADH control of water reabsorption, from osmoreceptors in the hypothalamus to aquaporins in collecting duct cells.
+    description: >-
+      A diagram in three parts: the hypothalamus with an osmoreceptor and the posterior pituitary gland (top
+      left); a gauge of blood solute concentration with its set point (top right); and a collecting duct cell
+      with the filtrate in the duct on its left and the concentrated tissue fluid of the medulla on its right. A
+      blood vessel links the pituitary to the kidney. Six steps show negative feedback when blood becomes too
+      concentrated (more ADH, aquaporins inserted, more water reabsorbed, concentrated urine) and when it becomes
+      too dilute (less ADH, aquaporins removed, dilute urine).
+    steps:
+      - id: detect
+        title: Blood becomes too concentrated
+        caption: After sweating or not drinking, the solute concentration of the blood rises above its set point. Osmoreceptors in the hypothalamus lose water by osmosis and shrink, and they detect this change.
+        level: AHL
+      - id: release
+        title: More ADH is secreted
+        caption: Signals from the hypothalamus cause the posterior pituitary gland to secrete more antidiuretic hormone (ADH) into the blood, which carries it to the kidneys.
+        level: AHL
+      - id: insert
+        title: Aquaporins are inserted
+        caption: ADH binds to receptors on collecting duct cells. Vesicles containing aquaporins move to the membrane facing the filtrate and fuse with it, so the duct wall becomes much more permeable to water.
+        level: AHL
+      - id: reabsorb
+        title: More water is reabsorbed
+        caption: Water moves by osmosis from the filtrate, through the aquaporins, into the concentrated tissue fluid of the medulla and then into the blood. A small volume of concentrated urine is produced and the blood solute concentration falls back to the set point — negative feedback.
+        level: AHL
+      - id: dilute
+        title: Blood becomes too dilute
+        caption: After drinking a lot of water, blood solute concentration falls below the set point. Osmoreceptors gain water and swell, and the pituitary gland secretes less ADH, so the ADH in the blood falls.
+        level: AHL
+      - id: remove
+        title: Aquaporins are removed
+        caption: With less ADH, aquaporins are taken back into the cell by endocytosis and stored in vesicles. The duct wall becomes less permeable, little water is reabsorbed, a large volume of dilute urine is produced and blood solute concentration rises back to the set point.
+        level: AHL

@@ -1,0 +1,63 @@
+---
+/** Phenotypes of the two homozygotes and the heterozygote under three kinds of dominance (D3.2.5, D3.2.10). */
+const seed = (wrinkled: boolean) => wrinkled
+  ? '<path class="seed" d="M30 10 C40 12 44 18 50 22 C46 28 52 34 48 42 C40 46 36 52 28 50 C22 44 14 46 12 38 C16 32 8 26 14 20 C20 18 22 10 30 10 Z"/>'
+  : '<circle class="seed" cx="30" cy="30" r="20"/>';
+const flower = (cls: string) => `<g class="${cls}">${[0, 72, 144, 216, 288].map((a) => `<ellipse cx="30" cy="16" rx="9" ry="14" transform="rotate(${a} 30 30)"/>`).join('')}</g><circle class="centre" cx="30" cy="30" r="5"/>`;
+const rbc = (a: boolean, b: boolean) => {
+  let s = '<ellipse class="rbc" cx="30" cy="30" rx="24" ry="20"/>';
+  const pts = [[30, 8], [52, 22], [52, 38], [30, 52], [8, 38], [8, 22]];
+  pts.forEach(([x, y], i) => {
+    const kind = a && b ? (i % 2 ? 'b' : 'a') : a ? 'a' : 'b';
+    s += kind === 'a' ? `<path class="ag-a" d="M${x! - 5} ${y! + 4} L${x} ${y! - 5} L${x! + 5} ${y! + 4} Z"/>` : `<rect class="ag-b" x="${x! - 4}" y="${y! - 4}" width="8" height="8"/>`;
+  });
+  return s;
+};
+const rows = [
+  { title: 'Complete dominance', ex: 'Pea seed shape', note: 'The heterozygote looks the same as the dominant homozygote.', tiles: [
+    { g: 'SS', p: 'smooth', svg: seed(false) }, { g: 'Ss', p: 'smooth', svg: seed(false) }, { g: 'ss', p: 'wrinkled', svg: seed(true) }] },
+  { title: 'Incomplete dominance', ex: 'Four o’clock flower, Mirabilis jalapa', note: 'The heterozygote is intermediate: a blend of the two homozygous phenotypes.', tiles: [
+    { g: 'C<sup>R</sup>C<sup>R</sup>', p: 'red', svg: flower('red') }, { g: 'C<sup>R</sup>C<sup>W</sup>', p: 'pink', svg: flower('pink') }, { g: 'C<sup>W</sup>C<sup>W</sup>', p: 'white', svg: flower('white') }] },
+  { title: 'Codominance', ex: 'ABO blood groups', note: 'The heterozygote shows both phenotypes at once: A and B antigens on the same red cell.', tiles: [
+    { g: 'I<sup>A</sup>I<sup>A</sup>', p: 'group A', svg: rbc(true, false) }, { g: 'I<sup>A</sup>I<sup>B</sup>', p: 'group AB', svg: rbc(true, true) }, { g: 'I<sup>B</sup>I<sup>B</sup>', p: 'group B', svg: rbc(false, true) }] },
+];
+---
+<div class="dom" role="img" aria-label="Three rows compare dominance. Complete dominance in pea seed shape: SS and Ss smooth, ss wrinkled. Incomplete dominance in Mirabilis jalapa: red, pink heterozygote, white. Codominance in ABO blood groups: IA IA group A with A antigens, IA IB group AB with both A and B antigens, IB IB group B.">
+  {rows.map((r) => (
+    <div class="row">
+      <div class="head"><strong>{r.title}</strong><span>{r.ex}</span></div>
+      <div class="tiles">
+        {r.tiles.map((t, i) => (
+          <div class:list={['tile', { het: i === 1 }]}>
+            <svg viewBox="0 0 60 60" aria-hidden="true" set:html={t.svg} />
+            <span class="g" set:html={t.g} />
+            <span class="p">{t.p}</span>
+          </div>
+        ))}
+      </div>
+      <p class="note">{r.note}</p>
+    </div>
+  ))}
+</div>
+<style>
+  .dom { display: grid; gap: var(--space-3); font-family: var(--font-sans); }
+  .row { display: grid; gap: var(--space-2); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border); }
+  .row:last-child { border-bottom: 0; padding-bottom: 0; }
+  .head { display: flex; flex-wrap: wrap; gap: 0 var(--space-2); align-items: baseline; }
+  .head span { font-size: var(--step--1); color: var(--text-muted); }
+  .tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-2); }
+  .tile { display: grid; justify-items: center; gap: 2px; padding: var(--space-2); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-s); }
+  .tile.het { border: 2px solid var(--accent); }
+  .tile svg { width: 3.4rem; height: 3.4rem; }
+  .g { font-weight: 800; }
+  .p { font-size: 0.8rem; color: var(--text-muted); }
+  .note { margin: 0; font-size: var(--step--1); }
+  .dom :global(.seed) { fill: var(--bio-tail); stroke: var(--text); stroke-width: 1.5; }
+  .dom :global(.red ellipse) { fill: var(--bio-k); stroke: var(--text); stroke-width: 0.8; }
+  .dom :global(.pink ellipse) { fill: color-mix(in srgb, var(--bio-k) 40%, white); stroke: var(--text); stroke-width: 0.8; }
+  .dom :global(.white ellipse) { fill: white; stroke: var(--text); stroke-width: 0.8; }
+  .dom :global(.centre) { fill: var(--bio-glucose); }
+  .dom :global(.rbc) { fill: color-mix(in srgb, var(--bio-chol) 35%, var(--surface)); stroke: var(--bio-chol); stroke-width: 1.5; }
+  .dom :global(.ag-a) { fill: var(--bio-protein); }
+  .dom :global(.ag-b) { fill: var(--bio-carb); }
+</style>

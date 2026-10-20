@@ -1,0 +1,81 @@
+---
+/**
+ * Haploid gametes, a diploid zygote, genotype → phenotype and phenotypic plasticity (D3.2.1, D3.2.3–D3.2.6).
+ * Drawn in the step-1 state; animated by d3-2-fertilization.ts.
+ */
+const chrom = (x: number, y: number, allele: string, cls: string) =>
+  `<rect class="chr ${cls}" x="${x - 5}" y="${y - 22}" width="10" height="44" rx="5"/><rect class="band" x="${x - 5}" y="${y - 3}" width="10" height="6"/><text class="al" x="${x + 9}" y="${y + 5}">${allele}</text>`;
+---
+<svg viewBox="0 0 520 370" xmlns="http://www.w3.org/2000/svg" class="fert">
+  <g data-el="mom" style="opacity:1">
+    <circle class="cell" cx="100" cy="78" r="56" />
+    <g set:html={chrom(80, 78, 'A', 'm') + chrom(114, 78, 'a', 'm2')} />
+    <text class="t" x="100" y="152" text-anchor="middle">mother · body cell · 2n</text>
+  </g>
+  <g data-el="dad" style="opacity:1">
+    <circle class="cell" cx="420" cy="78" r="56" />
+    <g set:html={chrom(400, 78, 'A', 'p') + chrom(434, 78, 'A', 'p2')} />
+    <text class="t" x="420" y="152" text-anchor="middle">father · body cell · 2n</text>
+  </g>
+  <g data-el="meio" style="opacity:0">
+    <path class="arr" d="M100 162 Q110 208 196 212 M186 206 l10 6 l-10 6" /><path class="arr" d="M430 162 Q432 186 416 200 M414 190 l2 10 l-10 0" />
+    <text class="t strong" x="96" y="200" text-anchor="end">meiosis</text>
+    <text class="t strong" x="440" y="190">meiosis</text>
+  </g>
+  <g data-el="egg" style="opacity:0">
+    <circle class="egg" cx="240" cy="215" r="40" />
+    <g set:html={chrom(236, 215, 'a', 'm2')} />
+    <text class="t" x="240" y="272" text-anchor="middle">egg · n</text>
+  </g>
+  <g data-el="sperm" transform="translate(0 0)" style="opacity:0">
+    <path class="tail" d="M412 215 q12 -10 24 0 t24 0 t24 0" />
+    <ellipse class="sperm" cx="398" cy="215" rx="16" ry="11" />
+    <rect class="chr p" x="389" y="206" width="8" height="18" rx="4" /><text class="al" x="400" y="221">A</text>
+    <text class="t" x="400" y="248" text-anchor="middle" data-el="spermLabel">sperm · n</text>
+  </g>
+  <g data-el="zygote" style="opacity:0">
+    <circle class="zyg" cx="240" cy="215" r="46" />
+    <g set:html={chrom(220, 215, 'A', 'p') + chrom(254, 215, 'a', 'm2')} />
+    <text class="t strong" x="240" y="278" text-anchor="middle">zygote · 2n · genotype Aa</text>
+  </g>
+  <g data-el="geno" style="opacity:0">
+    <rect class="panel" x="8" y="290" width="246" height="74" rx="8" />
+    <text class="t strong" x="18" y="310">Genotype Aa (heterozygous)</text>
+    <text class="t" x="18" y="330">A is dominant: one A makes enough</text>
+    <text class="t" x="18" y="346">enzyme, so the phenotype is the</text>
+    <text class="t" x="18" y="362" data-el="genoLast">same as AA. a is hidden (recessive).</text>
+  </g>
+  <g data-el="plast" style="opacity:0">
+    <rect class="panel" x="266" y="290" width="246" height="74" rx="8" />
+    <text class="t strong" x="276" y="310">Same genotype, other environment</text>
+    <rect class="skin lo" x="278" y="318" width="44" height="30" rx="6" />
+    <path class="arr" d="M328 330 H360 M354 325 l6 5 l-6 5" /><path class="arr" d="M360 340 H328 M334 335 l-6 5 l6 5" />
+    <rect class="skin lo" x="366" y="318" width="44" height="30" rx="6" />
+    <rect class="skin hi" data-el="skinHigh" x="366" y="318" width="44" height="30" rx="6" />
+    <text class="t small" x="300" y="362" text-anchor="middle">less UV</text>
+    <text class="t small" x="388" y="362" text-anchor="middle">more UV</text>
+    <text class="t small" x="416" y="330">more</text>
+    <text class="t small" x="416" y="346">melanin</text>
+  </g>
+</svg>
+<style>
+  .fert { font-family: var(--font-sans); }
+  .cell { fill: color-mix(in srgb, var(--bio-carb) 12%, var(--surface)); stroke: var(--bio-carb); stroke-width: 2; }
+  .egg { fill: color-mix(in srgb, var(--bio-head) 18%, var(--surface)); stroke: var(--bio-head); stroke-width: 2.5; }
+  .zyg { fill: color-mix(in srgb, var(--bio-protein-2) 14%, var(--surface)); stroke: var(--bio-protein-2); stroke-width: 3; }
+  .sperm { fill: color-mix(in srgb, var(--bio-protein) 22%, var(--surface)); stroke: var(--bio-protein); stroke-width: 2; }
+  .tail { fill: none; stroke: var(--bio-protein); stroke-width: 2; }
+  .fert :global(.chr.m), .fert :global(.chr.m2) { fill: var(--bio-head); }
+  .fert :global(.chr.m2) { fill: var(--bio-chol); }
+  .fert :global(.chr.p), .fert :global(.chr.p2) { fill: var(--bio-protein); }
+  .fert :global(.band) { fill: var(--text); opacity: 0.55; }
+  .fert :global(.al) { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .t { font-size: 13px; fill: var(--text); }
+  .t.strong { font-weight: 800; }
+  .t.small { font-size: 12px; }
+  .arr { fill: none; stroke: var(--text-muted); stroke-width: 2; marker-end: none; }
+  .panel { fill: var(--surface); stroke: var(--border-strong); }
+  .skin { stroke: var(--text); stroke-width: 1; }
+  .skin.lo { fill: color-mix(in srgb, var(--bio-head) 30%, white); }
+  .skin.hi { fill: color-mix(in srgb, var(--bio-head) 70%, black); }
+</style>

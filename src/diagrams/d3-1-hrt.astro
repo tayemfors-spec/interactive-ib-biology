@@ -1,0 +1,45 @@
+---
+/** D3.1.20 (NOS): HRT and coronary heart disease — a confounding variable explains the observational correlation. Qualitative. */
+const bx = (x: number, y: number, w: number, h: number) => ({ x, y, w, h });
+const L = { ses: bx(100, 40, 160, 56), hrt: bx(14, 190, 140, 56), chd: bx(206, 190, 140, 56) };
+const R = { rand: bx(456, 40, 180, 56), a: bx(384, 150, 150, 56), b: bx(558, 150, 150, 56), res: bx(384, 248, 324, 42) };
+---
+<svg viewBox="0 0 720 300" role="img" aria-labelledby="d31-h-t d31-h-d" class="hrt">
+  <title id="d31-h-t">Why early studies wrongly concluded that HRT protects against coronary heart disease</title>
+  <desc id="d31-h-d">Left, observational studies: higher socioeconomic status makes HRT use more likely and also, independently, lowers the risk of coronary heart disease. So HRT users had less heart disease, a correlation that was mistaken for cause and effect. Right, a randomised controlled trial: women are allocated at random to HRT or a placebo, so socioeconomic status and other factors are balanced between the groups. The trial found a small increase in coronary heart disease in the HRT group.</desc>
+  <defs>
+    <marker id="d31-h-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker>
+  </defs>
+  <text class="t b" x="14" y="18">Observational (epidemiological) studies</text>
+  <text class="t b" x="384" y="18">Randomised controlled trial</text>
+  <line class="div" x1="366" y1="8" x2="366" y2="296" />
+  {[...Object.values(L), ...Object.values(R)].map((b) => <rect class="bx" x={b.x} y={b.y} width={b.w} height={b.h} rx="10" />)}
+  <rect class="bx conf" x={L.ses.x} y={L.ses.y} width={L.ses.w} height={L.ses.h} rx="10" />
+  <text class="t b" x="180" y="64" text-anchor="middle">Higher socioeconomic</text><text class="t b" x="180" y="82" text-anchor="middle">status (confounder)</text>
+  <text class="t b" x="84" y="214" text-anchor="middle">More likely to</text><text class="t b" x="84" y="232" text-anchor="middle">use HRT</text>
+  <text class="t b" x="276" y="214" text-anchor="middle">Lower risk of</text><text class="t b" x="276" y="232" text-anchor="middle">CHD</text>
+  <path class="arr" d="M140 98 L96 186" marker-end="url(#d31-h-ah)" /><text class="t sm" x="56" y="140">causes</text>
+  <path class="arr" d="M220 98 L264 186" marker-end="url(#d31-h-ah)" /><text class="t sm" x="252" y="140">causes</text>
+  <path class="arr corr" d="M156 218 H202" /><text class="t sm acc" x="180" y="270" text-anchor="middle">correlation only,</text><text class="t sm acc" x="180" y="286" text-anchor="middle">not cause and effect</text>
+  <path class="lead" d="M180 222 V256" />
+
+  <text class="t b" x="546" y="64" text-anchor="middle">Women allocated</text><text class="t b" x="546" y="82" text-anchor="middle">at random</text>
+  <text class="t b" x="459" y="174" text-anchor="middle">HRT group</text><text class="t" x="459" y="192" text-anchor="middle">mixed status</text>
+  <text class="t b" x="633" y="174" text-anchor="middle">Placebo group</text><text class="t" x="633" y="192" text-anchor="middle">mixed status</text>
+  <path class="arr" d="M510 98 L470 146" marker-end="url(#d31-h-ah)" /><path class="arr" d="M582 98 L622 146" marker-end="url(#d31-h-ah)" />
+  <text class="t b" x="546" y="266" text-anchor="middle">Result: slightly MORE CHD</text><text class="t" x="546" y="282" text-anchor="middle">in the HRT group than with placebo</text>
+</svg>
+<style>
+  .hrt { font-family: var(--font-sans); }
+  .bx { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.4; }
+  .bx.conf { fill: color-mix(in srgb, var(--bio-glucose) 18%, var(--surface)); stroke: var(--bio-glucose); }
+  .div { stroke: var(--border); stroke-width: 1.5; }
+  .arr { fill: none; stroke: var(--text); stroke-width: 2; }
+  .corr { stroke-dasharray: 5 4; stroke: var(--text-muted); }
+  .ah { fill: var(--text); }
+  .lead { stroke: var(--text-muted); stroke-width: 1; }
+  .t { font-size: 13.5px; fill: var(--text); }
+  .t.b { font-weight: 750; }
+  .t.sm { font-size: 13px; }
+  .acc { fill: var(--accent-strong); font-weight: 700; }
+</style>

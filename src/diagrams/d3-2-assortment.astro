@@ -1,0 +1,41 @@
+---
+/** Independent assortment of unlinked genes (D3.2.16): the two equally likely orientations of two bivalents in metaphase I. */
+const homologue = (x: number, y: number, h: number, cls: string, allele: string, side: 'l' | 'r') =>
+  `<rect class="${cls}" x="${x - 9}" y="${y}" width="8" height="${h}" rx="4"/><rect class="${cls}" x="${x + 1}" y="${y}" width="8" height="${h}" rx="4"/>`
+  + `<text class="al" x="${side === 'l' ? x - 14 : x + 14}" y="${y + h / 2 + 5}" text-anchor="${side === 'l' ? 'end' : 'start'}">${allele}</text>`;
+const cell = (ox: number, flip: boolean) => {
+  let s = `<ellipse class="cell" cx="${ox + 110}" cy="120" rx="96" ry="88"/><path class="eq" d="M${ox + 110} 36 V204"/>`;
+  s += homologue(ox + 96, 52, 64, 'c1', 'A', 'l') + homologue(ox + 124, 52, 64, 'c2', 'a', 'r');
+  s += flip
+    ? homologue(ox + 96, 140, 40, 'c4', 'b', 'l') + homologue(ox + 124, 140, 40, 'c3', 'B', 'r')
+    : homologue(ox + 96, 140, 40, 'c3', 'B', 'l') + homologue(ox + 124, 140, 40, 'c4', 'b', 'r');
+  return s;
+};
+---
+<svg viewBox="0 0 540 300" role="img" aria-labelledby="ia-t ia-d" class="ia">
+  <title id="ia-t">Independent assortment in metaphase I</title>
+  <desc id="ia-d">A cell heterozygous for two genes on different chromosomes, Aa and Bb, in metaphase I. The two bivalents line up on the equator independently. In one orientation A and B move to the same pole, giving gametes AB and ab. In the other, equally likely, orientation A and b move together, giving gametes Ab and aB. Over many meioses the four gamete types are made in equal numbers, 25% each.</desc>
+  <text class="t strong" x="10" y="20">Either</text>
+  <text class="t strong" x="280" y="20">Or (equally likely)</text>
+  <g set:html={cell(0, false)} />
+  <g set:html={cell(270, true)} />
+  <text class="t" x="110" y="232" text-anchor="middle">gametes: <tspan class="b">AB</tspan> and <tspan class="b">ab</tspan></text>
+  <text class="t" x="380" y="232" text-anchor="middle">gametes: <tspan class="b">Ab</tspan> and <tspan class="b">aB</tspan></text>
+  <rect class="panel" x="40" y="250" width="460" height="42" rx="8" />
+  <text class="t" x="270" y="268" text-anchor="middle">Orientation of one bivalent does not affect the other, so a</text>
+  <text class="t" x="270" y="285" text-anchor="middle">double heterozygote makes AB, Ab, aB and ab gametes, 25% each.</text>
+</svg>
+<style>
+  .ia { font-family: var(--font-sans); }
+  .ia :global(.cell) { fill: color-mix(in srgb, var(--bio-carb) 8%, var(--surface)); stroke: var(--bio-carb); stroke-width: 2; }
+  .ia :global(.eq) { stroke: var(--text-muted); stroke-width: 1.5; stroke-dasharray: 5 4; }
+  .ia :global(.c1) { fill: var(--bio-protein); }
+  .ia :global(.c2) { fill: var(--bio-head); }
+  .ia :global(.c3) { fill: var(--bio-protein-2); }
+  .ia :global(.c4) { fill: var(--bio-glucose); }
+  .ia :global(.al) { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .t { font-size: 13px; fill: var(--text); }
+  .t.strong { font-weight: 800; }
+  .b { font-weight: 800; }
+  .panel { fill: var(--surface); stroke: var(--border-strong); }
+</style>

@@ -1,0 +1,386 @@
+---
+code: D4.1
+description: "IB Biology D4.1 natural selection revision: simulate selection and Endler's guppy experiments, master Hardy–Weinberg calculations, then self-test."
+updated: 2026-10-19
+related: [A4.1, D3.2, C3.2, D4.2]
+mustKnow:
+  - term: Natural selection
+    definition: "The process by which individuals with heritable traits that suit them better to their environment survive and reproduce more than others, so the alleles for those traits become more common in the population over generations. It is the main mechanism of evolution."
+    level: SL
+  - term: Paradigm shift
+    definition: "A fundamental change in the accepted framework of ideas in a branch of science, in which an old theory is replaced by a new one that explains the evidence better. Darwin's theory of evolution by natural selection replacing Lamarckism is an example."
+    level: SL
+  - term: Sources of variation
+    definition: "<strong>Mutation</strong> creates new alleles. <strong>Sexual reproduction</strong> creates new combinations of existing alleles: crossing over and random orientation of homologous pairs in meiosis, and fusion of gametes from two parents at fertilization."
+    level: SL
+  - term: Selection pressure
+    definition: "Any factor that makes some individuals more likely than others to survive and reproduce. <strong>Biotic</strong> pressures come from living things (predators, competitors, pathogens, mates); <strong>abiotic</strong> pressures from non-living factors such as extreme temperature, drought or fire."
+    level: SL
+  - term: Fitness
+    definition: "How well a genotype survives and reproduces in a particular environment, measured by the number of offspring it contributes to the next generation compared with other genotypes. It is reproductive success, not strength or health."
+    level: SL
+  - term: Sexual selection
+    definition: "Selection for traits that increase success in obtaining mates, either by being chosen by the other sex (for example female choice of male plumage in birds of paradise) or by winning contests with rivals of the same sex."
+    level: SL
+  - term: Gene pool
+    definition: "All the genes, and all the different alleles of those genes, present in an interbreeding population."
+    level: AHL
+  - term: Allele frequency
+    definition: "The proportion of all copies of a gene in a population that are one particular allele, from 0 to 1. For two alleles, the frequencies p and q add up to 1. A change in allele frequency over generations is evolution."
+    level: AHL
+  - term: Neo-Darwinism
+    definition: "The modern theory of evolution, which combines Darwin's natural selection with Mendelian and molecular genetics: variation comes from mutation and sexual reproduction, and evolution is a change in allele frequencies in a gene pool."
+    level: AHL
+  - term: Hardy–Weinberg equation
+    definition: "For one gene with two alleles of frequencies p and q (p + q = 1), the expected genotype frequencies with random mating are p² (homozygous dominant), 2pq (heterozygous) and q² (homozygous recessive), so <strong>p² + 2pq + q² = 1</strong>."
+    level: AHL
+  - term: Hardy–Weinberg (genetic) equilibrium
+    definition: "Allele and genotype frequencies stay constant from generation to generation if the population is very large, mating is random, and there is no mutation, no migration and no natural selection. A population that departs from the predicted frequencies is breaking at least one of these conditions."
+    level: AHL
+mistakes:
+  - wrong: "Organisms adapt because they need to: giraffes grew longer necks because they needed to reach higher leaves."
+    right: "Variation exists <strong>before</strong> selection, produced at random by mutation and sexual reproduction. Individuals that already happen to have favourable heritable traits survive and reproduce more, so those traits become more common. Need does not cause the variation."
+    level: SL
+  - wrong: "Characteristics developed during life, such as muscles built by training, are passed on to offspring."
+    right: "These are <strong>acquired characteristics</strong>. They do not change the base sequence of genes in gametes, so they are not inherited. This was Lamarck's idea, replaced by Darwin's theory."
+    level: SL
+  - wrong: "Survival of the fittest means the strongest, fastest or healthiest individuals win."
+    right: "<strong>Fitness</strong> means reproductive success in a particular environment: the number of offspring an individual or genotype leaves compared with others. A dull guppy that avoids predators, or a small seed-eater in a soft-seed habitat, can be the fittest."
+    level: SL
+  - wrong: "Individual organisms evolve during their lifetimes."
+    right: "An individual's genes do not change in response to the environment. Selection changes which individuals survive and breed, so it is the <strong>population</strong> (its allele frequencies) that evolves over generations."
+    level: SL
+  - wrong: "Mutations happen when an organism needs them, for example bacteria mutate to become resistant to an antibiotic."
+    right: "Mutations arise randomly, whether or not they are useful. Resistant bacteria were already present before the antibiotic was used; the antibiotic killed the susceptible bacteria and so <strong>selected</strong> the resistant ones."
+    level: SL
+  - wrong: "Sexual selection is the same as natural selection for survival."
+    right: "Sexual selection favours traits that increase mating success, even when they reduce survival. Bright male guppies attract females but are caught more by predators, so the two pressures pull in opposite directions."
+    level: SL
+  - wrong: "In Hardy–Weinberg questions, the frequency of the dominant phenotype is p²."
+    right: "Individuals with the dominant phenotype are AA <strong>or</strong> Aa, so their frequency is p² + 2pq. Only the recessive phenotype reveals its genotype: start from q², take the square root to get q, then p = 1 − q."
+    level: AHL
+  - wrong: "Stabilizing selection does not change the gene pool because the mean stays the same."
+    right: "Stabilizing, directional and disruptive selection all change allele frequencies. In stabilizing selection the individuals at both extremes leave fewer offspring, so the alleles they carry are passed on less often and variation decreases."
+    level: AHL
+  - wrong: "Antibiotic resistance in bacteria is an example of artificial selection, because humans caused it."
+    right: "It is <strong>natural</strong> selection: nobody deliberately chose resistant bacteria to breed. Artificial selection is the deliberate choice of individuals with desired traits for breeding, as in crop plants and domesticated animals."
+    level: AHL
+---
+
+<Section id="mechanism" title="Natural selection drives evolution" level="SL" covers="D4.1.1">
+
+**Evolution** is a change in the heritable characteristics of a population over generations (see <TopicLink code="A4.1" />). **Natural selection** is the main mechanism that causes it. It operates all the time, in every population, and has been operating since life began more than 3.5 billion years ago. Acting over that immense span of time, together with the steady supply of new variation, it has produced the **biodiversity** of life on Earth: millions of species, each adapted to its own way of life.
+
+Natural selection follows from a few observations that are easy to check:
+
+<Figure name="d4-1-steps" caption="The logic of natural selection. None of the steps requires an organism to 'try' to change: variation is produced at random, and the environment determines which variants leave the most offspring." />
+
+### Darwin replaced Lamarckism: a paradigm shift
+
+By the early 1800s many naturalists accepted that species change over time, but nobody had a convincing **mechanism**. The most popular idea was **Lamarckism**: organisms change during their lives through use and disuse of organs, and these **acquired characteristics** are passed to their offspring. Charles Darwin, in *On the Origin of Species* (1859), proposed instead that random heritable variation is sorted by natural selection. Alfred Russel Wallace reached the same idea independently, and their papers were presented together in 1858.
+
+Darwin's theory explained a vast range of observations and gradually displaced Lamarckism. This is an example of a **paradigm shift**: a change in the basic framework of a scientific field, in which a new theory replaces the old one and changes the questions scientists ask. Later discoveries, such as genes carried in gametes and the base sequence of DNA, showed why acquired characteristics cannot be inherited and strengthened Darwin's theory.
+
+<Callout type="exam">
+
+When explaining natural selection, give the chain in order: **variation** (heritable, from mutation and sexual reproduction) → **overproduction** → **competition / selection pressure** → **differential survival and reproduction** → **inheritance** of the favourable alleles → **change in allele frequency** over **many generations**. Marks are lost for skipping "heritable" or "over generations".
+
+</Callout>
+
+</Section>
+
+<Section id="variation" title="Sources of variation" level="SL" covers="D4.1.2">
+
+Natural selection can only "choose" between variants that already exist, so it depends on **heritable variation**: differences between individuals that are caused by differences in their genes.
+
+<Figure name="d4-1-variation" caption="Mutation is the only source of new alleles. Meiosis and fertilization do not create new alleles; they shuffle existing ones into new combinations." />
+
+- **Mutation** is a random change in the base sequence of DNA. A mutation in a gene creates a new **allele**. It is the original source of all genetic variation. Mutations are not caused by the organism's needs: they arise at random, and whether a new allele is harmful, neutral or beneficial depends on the environment.
+- **Sexual reproduction** generates new **combinations of alleles** in three ways:
+  - **Crossing over** in prophase I of meiosis swaps sections between homologous chromosomes, producing chromatids that carry new combinations of linked alleles.
+  - **Random orientation** of homologous pairs in metaphase I (independent assortment) means each gamete receives a random mix of maternal and paternal chromosomes.
+  - **Fertilization** combines the alleles of two gametes from different parents, so new mutations that arose in separate family lines can come together.
+
+Together these processes mean that, apart from identical twins, every individual produced by sexual reproduction is genetically unique. Asexually reproducing organisms such as bacteria rely mostly on mutation, although bacteria can also gain genes by horizontal gene transfer (see <TopicLink code="C3.2" />).
+
+<Callout type="tip">
+
+Keep the two roles separate. A question asking how **new alleles** arise wants *mutation*. A question about **new combinations** of alleles wants *meiosis* (crossing over, random orientation) and *fertilization*.
+
+</Callout>
+
+</Section>
+
+<Section id="overproduction" title="Overproduction and competition" level="SL" covers="D4.1.3">
+
+Most species produce far more offspring than can survive. An oak tree can drop tens of thousands of acorns in a good year, and a large female cod releases millions of eggs in a breeding season, yet the numbers of oaks and cod stay roughly constant from one decade to the next. Even slow-breeding species have this potential: Darwin calculated that if every calf survived, a single pair of elephants, among the slowest-breeding animals, would have nearly 19 million descendants after about 750 years.
+
+This **overproduction of offspring** matters because resources are limited. The maximum population size that an environment can support is its **carrying capacity** (see <TopicLink code="C4.1" />). When more young are produced than the carrying capacity allows, they must **compete** for the resources in short supply, and many die before they can reproduce.
+
+| Limited resource | Examples of who competes for it |
+|---|---|
+| Food | Seed-eating birds for seeds in a drought; herbivores for grazing |
+| Water | Desert plants for soil water |
+| Light | Tree seedlings in the shade of a forest canopy |
+| Mineral ions | Plants for nitrate and phosphate in the soil |
+| Space and shelter | Barnacles for room on a rock; animals for burrows |
+| Nest sites and territories | Birds for nest holes; male animals for breeding territories |
+
+Competition between members of the **same species** (**intraspecific competition**) is especially intense, because they need exactly the same resources. Overproduction does not cause evolution by itself; it creates the "struggle for existence" in which small heritable differences decide who survives.
+
+<Callout type="exam">
+
+If every offspring survived and bred, there would be nothing to select between. In the simulation below, set **young per pair** to 2: each pair only replaces itself, every young moth survives, and the population stops evolving even under strong predation.
+
+</Callout>
+
+</Section>
+
+<Section id="abiotic" title="Abiotic factors as selection pressures" level="SL" covers="D4.1.4">
+
+A **selection pressure** is any factor that makes some individuals more likely than others to survive and reproduce. Selection pressures can be:
+
+- **Biotic**: caused by other organisms, such as predators, pathogens, parasites, competitors and potential mates.
+- **Abiotic**: caused by non-living features of the environment, such as temperature, water availability, salinity, pH, fire or flooding.
+
+Many abiotic pressures are **density-independent**: their effect on each individual does not depend on how crowded the population is. A severe frost kills an individual that cannot tolerate it whether the population is large or small. Density-dependent factors such as competition and disease, by contrast, act more strongly in crowded populations.
+
+Abiotic extremes still cause **selection**, because individuals differ in their heritable tolerance:
+
+- **Low temperature.** After an unusually severe cold snap in Texas in 2014, surviving green anole lizards in southern populations tolerated cold better than lizards sampled there before the event.
+- **Cold, wet weather and food shortage.** A long spell of cold rain in Nebraska in 1996 stopped flying insects, the food of cliff swallows, and killed about half of the birds. The survivors were, on average, larger, probably because bigger birds hold more fat reserves.
+- **High temperature and drought.** Heatwaves kill plants and animals that cannot cope with heat or water loss; individuals with greater heat or drought tolerance survive and reproduce.
+- **Fire.** Trees with thicker, more fire-resistant bark, or the ability to resprout, survive bushfires that kill others.
+
+The key point is that the abiotic factor does not *create* the tolerant variants. It removes the less tolerant ones, so the heritable traits of the survivors become more common in the next generation.
+
+</Section>
+
+<Section id="fitness" title="Fitness: differences in survival and reproduction" level="SL" covers="D4.1.5">
+
+Individuals in a population differ in how well **adapted** they are: how well their heritable traits suit them to their environment. Better-adapted individuals tend to survive longer and to have more offspring. This difference in **survival and reproduction** is the basis of natural selection.
+
+Biologists describe it with the idea of **fitness**: the survival value and **reproductive potential** of a genotype in a particular environment, measured by its contribution of offspring to the next generation compared with other genotypes. Fitness is not strength, size or health. An individual that survives but never reproduces has a fitness of zero, and a trait that is advantageous in one environment can be a disadvantage in another.
+
+Selection is strongest through **intraspecific competition**. Members of the same species compete for the same food, space and mates, so even small heritable differences matter: a slightly better-camouflaged moth is a little less likely to be eaten, and over many generations that small advantage changes the population.
+
+<Sim topic="d4-1" id="selection" />
+
+Things to try in the simulation:
+
+1. Keep the default settings and press **Run 10 generations** a few times. The histogram shows that variation exists first; selection then removes moths that contrast with the bark, and the dark allele frequency rises towards the value that matches the bark.
+2. Set **selection pressure** to 0. Which moths die is now a matter of chance, so allele frequencies only drift slightly.
+3. Move the **bark shade** to 0 (pale, lichen-covered bark). The direction of selection reverses. The same allele can raise or lower fitness, depending on the environment.
+
+<Callout type="note" title="Real moths">
+
+The model is loosely based on industrial melanism in the peppered moth (*Biston betularia*). In that species the dark form is caused mainly by a single gene, whereas the model uses six genes so that shade varies continuously.
+
+</Callout>
+
+</Section>
+
+<Section id="heritable" title="Only heritable traits evolve" level="SL" covers="D4.1.6">
+
+For natural selection to change a population, the traits that improve survival and reproduction must be **heritable**: coded in the base sequence of genes, so that offspring inherit them through the gametes.
+
+Many characteristics are **acquired** during an individual's life because of its environment or its own activity:
+
+- muscles enlarged by exercise, or calluses on the hands
+- a scar, a lost limb or a docked tail
+- skin darkened by exposure to sunlight
+- learned skills and knowledge
+- a plant stunted by poor soil
+
+None of these changes the base sequence of genes in the cells that produce gametes, so none of them is inherited and none can contribute to evolution. In the 1880s August Weismann cut the tails off mice for five successive generations; every generation was still born with a normal tail. His conclusion, that the germ line (the cells that make gametes) is kept separate from the body cells, explains why Lamarck's mechanism does not work.
+
+In the simulation above, tick **Survivors darken during adult life**. The adults look darker, but the young are born with shades set only by the alleles they inherit, and the dark allele frequency follows exactly the same course as before.
+
+<Callout type="exam">
+
+Use precise wording: an acquired characteristic is **not encoded in the base sequence of genes**, so it is **not passed on in gametes**. Avoid saying the organism "passes on its adaptation" unless the adaptation is genetic.
+
+</Callout>
+
+Some chemical marks on DNA (epigenetic changes, see <TopicLink code="D2.2" />) can occasionally pass to the next generation, but they do not alter the base sequence and are usually reset within a generation or two.
+
+</Section>
+
+<Section id="sexual" title="Sexual selection" level="SL" covers="D4.1.7">
+
+**Sexual selection** is selection for traits that increase an individual's success in getting a mate. It happens in two main ways:
+
+- **Mate choice** (usually by females): members of one sex prefer mates with particular physical or behavioural traits.
+- **Contests between rivals** of the same sex: for example, red deer stags fight with their antlers for control of groups of females.
+
+Females typically invest more in each offspring (large eggs, pregnancy, parental care), so they are choosier, while males compete for matings. Traits that females prefer can therefore spread even if they make survival harder.
+
+### Birds of paradise
+
+Birds of paradise are a family of about 45 species of forest birds, most of them living in New Guinea. In many species the males have extraordinary plumage: long tail streamers, iridescent breast shields, capes and head plumes, combined with elaborate courtship dances and calls. In most species the females are drab brown, and they alone build the nest and raise the young. Males of some species display together at a traditional site (a **lek**), and the females visit, watch and choose.
+
+For example, a male superb bird-of-paradise spreads a velvety black cape into an oval around his head, shows an iridescent blue-green breast shield and hops around the female in a rhythmic dance. Females mate with the males whose display they prefer, and a few males obtain most of the matings.
+
+Why would such costly traits evolve? Bright, elaborate plumage takes energy to grow, makes a male easier for predators to spot and can hinder flying. Only a male in good condition, with genes that let him find food, resist parasites and avoid predators despite these handicaps, can produce the most impressive display. The display is therefore a **signal of overall fitness**. Females that choose such males produce offspring that inherit the good genes, and sons that inherit the attractive traits. Over many generations, sexual selection has made the plumage and display more and more elaborate.
+
+</Section>
+
+<Section id="endler" title="Endler's guppy experiments" level="SL" covers="D4.1.8">
+
+**Guppies** (*Poecilia reticulata*) are small fish from the streams of Trinidad and north-east South America. Males are covered with spots of orange, black, blue and iridescent colours; females are drab. In Trinidad's mountain streams, waterfalls separate stretches with different predators. Downstream, the **pike cichlid** (*Crenicichla*) eats many adult guppies; upstream, above waterfalls that it cannot climb, the main predator is a small killifish, *Rivulus hartii*, which mostly takes juvenile guppies. John Endler noticed that males are much more colourful in the low-predation streams, and tested whether predation was the cause.
+
+<Figure name="d4-1-endler-design" caption="The design of Endler's experiments. Only the predator differed between treatments; replicate pools and predator-free controls allow the effect of predation to be separated from chance and from the conditions in the greenhouse." />
+
+Two selection pressures act on the colour of male guppies in opposite directions:
+
+- **Sexual selection** by females, who prefer to mate with males that have more, larger and brighter spots.
+- **Natural selection** by visual predators, which spot and catch conspicuous males more easily, favouring duller males.
+
+In the greenhouse experiment, males in the pike cichlid pools ended up with fewer and smaller spots, while males in the *Rivulus* and predator-free pools became more colourful. In the field transplant, the descendants of fish moved from a high-predation site to a stream with only *Rivulus* became more colourful within about two years. Because guppies breed so quickly, this was roughly fifteen generations, showing that evolution can be observed over a few years when selection pressures change.
+
+<Sim topic="d4-1" id="guppies" />
+
+### Modelling selection by controlling the selection pressure
+
+Endler's work is an example of **modelling** natural and sexual selection with an experiment. He held other variables constant (the same stock, pools of the same size, gravel and lighting), changed only the **independent variable** (type of predator), and measured the **dependent variable** (spots per male). The simulation is a second kind of model: you can switch off female preference or predation and see which pressure produces each change.
+
+<Callout type="exam">
+
+When interpreting data from Endler's experiments: state the **trend** in each treatment with numbers from the graph; compare with the **control**; explain each trend using the correct pressure (predation = **natural selection** against conspicuous males; female choice = **sexual selection** for colourful males); comment on **reliability** (replicate pools, overlap of error bars); and note that a **balance** between the two pressures sets male colour in each stream.
+
+</Callout>
+
+</Section>
+
+<Section id="gene-pool" title="Gene pools and allele frequencies" level="AHL" covers="D4.1.9 D4.1.10">
+
+A **gene pool** consists of all the genes, and all their different alleles, present in an interbreeding population. Each individual carries only a small sample of the gene pool (two copies of each gene in a diploid organism), and at reproduction the next generation's gene pool is formed from the alleles in the gametes of the individuals that breed. Individuals that do not breed contribute nothing.
+
+The **allele frequency** of an allele is the proportion of all the copies of that gene in the gene pool that are that allele. For example, if 120 of 400 copies of a gene in a population of 200 diploid animals are allele b, its frequency is 120 ÷ 400 = 0.3.
+
+### Isolated populations have different allele frequencies
+
+When populations of a species are **geographically isolated**, there is little or no gene flow between them, so their gene pools change independently. Different selection pressures, new mutations, genetic drift and founder effects make their allele frequencies diverge, which can eventually lead to speciation (see <TopicLink code="A4.1" />). Human populations that were separated for thousands of years show this clearly.
+
+| Allele (gene) | Higher frequency | Low or absent | Likely reason |
+|---|---|---|---|
+| Duffy-null allele (*ACKR1*, also called *DARC*) | Much of sub-Saharan Africa: above 0.9 | Europe and East Asia: close to 0 | Resistance to the malaria parasite *Plasmodium vivax*, which uses the Duffy protein to enter red blood cells |
+| CCR5-Δ32 (*CCR5*) | Northern Europe: roughly 0.1–0.15 | Most of Africa, East Asia and the Americas (indigenous populations): close to 0 | Possibly an ancient selection pressure or genetic drift; carriers of two copies are resistant to many strains of HIV |
+| Lactase persistence allele (near *LCT*) | North-west Europe: high | East Asia: close to 0 | Selection in herding populations that drank milk as adults |
+
+*Approximate values from published surveys; check current figures in a database.*
+
+### Using a database
+
+Allele frequency databases summarise genome sequences from many populations. Useful free examples are **gnomAD**, the **Ensembl** genome browser (population data from the 1000 Genomes Project) and the **Allele Frequency Net Database**, which covers HLA (tissue-type) genes.
+
+1. Search for the gene or the variant's reference number (for example rs333 for CCR5-Δ32).
+2. Open the population genetics or allele frequency view.
+3. Record the frequency of the allele in each population or ancestry group, and the sample size.
+4. Compare populations in a bar chart and suggest reasons for the differences.
+
+<Callout type="exam">
+
+Allele frequencies are proportions (0 to 1), not numbers of people. Count **allele copies**: a diploid population of N individuals has 2N copies of each autosomal gene.
+
+</Callout>
+
+</Section>
+
+<Section id="neo-darwinism" title="Selection changes allele frequencies" level="AHL" covers="D4.1.11 D4.1.12">
+
+Darwin did not know how inheritance works. After Mendel's work was rediscovered in 1900, biologists in the 1930s and 1940s combined genetics with natural selection into **neo-Darwinism** (also called the modern synthesis). In neo-Darwinian terms:
+
+- variation is caused by different **alleles**, made by mutation and recombined by sexual reproduction;
+- individuals with heritable traits that give higher fitness leave more offspring, so **their alleles make up a larger share of the next generation's gene pool**;
+- **evolution is a change in allele frequencies** in a gene pool over generations.
+
+In the moth simulation, the dark allele frequency rises because moths carrying dark alleles survive to breed more often, not because any moth's alleles change.
+
+### Patterns of selection
+
+Many traits, such as height, body mass or beak depth, show **continuous variation** and form a bell-shaped distribution. Selection can act on such a distribution in three ways.
+
+<Anim topic="d4-1" id="selection-types" />
+
+| Pattern | Which individuals are favoured | Effect on the distribution | Example |
+|---|---|---|---|
+| **Stabilizing** | Intermediates | Mean unchanged; range narrows | Human birth mass: babies of average mass have historically had the highest survival |
+| **Directional** | One extreme | Mean shifts in one direction | Medium ground finches on Daphne Major after the 1977 drought: deeper beaks survived |
+| **Disruptive** | Both extremes | Splits towards two peaks; range widens | Black-bellied seedcrackers in Cameroon: small and large bills each suit a different type of seed |
+
+Stabilizing selection is the most common pattern when a population is already well adapted to a stable environment. Directional selection is typical when the environment changes. Disruptive selection can occur when two different resources favour different extremes, and it may contribute to speciation.
+
+<Callout type="exam">
+
+All three patterns **change allele frequencies**. Do not write that stabilizing selection "has no effect": it removes the individuals at both extremes, and with them the alleles they carry, which reduces variation even though the mean stays the same.
+
+</Callout>
+
+</Section>
+
+<Section id="hardy-weinberg" title="The Hardy–Weinberg equation and its conditions" level="AHL" covers="D4.1.13 D4.1.14">
+
+For a gene with two alleles, **A** and **a**, let **p** be the frequency of A and **q** the frequency of a. Every copy of the gene is one or the other, so
+
+**p + q = 1**
+
+With random mating, the chance that an offspring receives A from both parents is p × p, a from both is q × q, and one of each is p × q + q × p. So the expected genotype frequencies are:
+
+**p² + 2pq + q² = 1**, where p² = AA, 2pq = Aa and q² = aa.
+
+### Worked example: a recessive condition
+
+Cystic fibrosis is caused by recessive alleles of the *CFTR* gene. Suppose 1 in 2500 newborns in a population has the condition.
+
+1. Affected individuals are aa: q² = 1 ÷ 2500 = 0.0004
+2. q = √0.0004 = 0.02
+3. p = 1 − 0.02 = 0.98
+4. Carriers (Aa): 2pq = 2 × 0.98 × 0.02 = 0.0392, about 1 in 25
+
+So although only 1 person in 2500 is affected, about 1 in 25 carries the allele. Most copies of a rare recessive allele are hidden in heterozygotes.
+
+### Worked example: codominant alleles
+
+When alleles are codominant, all three genotypes can be identified and allele frequencies can be counted directly. In a sample of 1000 people tested for MN blood groups, 298 are MM, 489 MN and 213 NN. Then p(M) = (2 × 298 + 489) ÷ 2000 = 0.5425 and q(N) = 0.4575. Expected numbers are p² × 1000 ≈ 294, 2pq × 1000 ≈ 496 and q² × 1000 ≈ 209, very close to the observed numbers.
+
+### Conditions for genetic equilibrium
+
+Allele and genotype frequencies stay constant (**Hardy–Weinberg equilibrium**) only if:
+
+1. the population is **very large**, so chance changes (genetic drift) are negligible
+2. **mating is random**: no mate choice by genotype and no inbreeding
+3. there is **no mutation** of the gene
+4. there is **no migration** into or out of the population (no gene flow)
+5. there is **no natural selection**: all genotypes survive and reproduce equally well
+
+If observed genotype frequencies do not fit p², 2pq and q², at least one condition is broken. Too few heterozygotes, for example, suggests **non-random mating** such as inbreeding; a shortage of one homozygote among adults suggests that genotype has **lower survival** (selection).
+
+<Sim topic="d4-1" id="hardy-weinberg" />
+
+<Callout type="exam">
+
+In calculations, always begin from the **homozygous recessive** frequency (q²) unless the alleles are codominant. Show each step, and check that p + q = 1 and p² + 2pq + q² = 1. "Carriers" means heterozygotes, 2pq.
+
+</Callout>
+
+</Section>
+
+<Section id="artificial" title="Artificial selection" level="AHL" covers="D4.1.15">
+
+In **artificial selection** (selective breeding), humans **deliberately choose** individuals with desirable traits and breed only from them. Repeating this for many generations changes allele frequencies in the domesticated population, just as natural selection does, but the "selection pressure" is the breeder's choice, not survival in the wild.
+
+- **Crop plants.** Maize was bred from a wild grass, teosinte, in Mexico about 9000 years ago; wild cabbage was bred into cabbage, kale, broccoli, cauliflower and Brussels sprouts (see <TopicLink code="A4.1" />). In the Illinois long-term selection experiment, started in 1896, seed was taken each generation only from the maize plants with the highest (or, in a second line, the lowest) oil content in their kernels. The high-oil line now has several times the oil content of the original variety, and the low-oil line very little.
+- **Domesticated animals.** Selection of the highest-yielding cows as parents has greatly increased milk yield per cow in dairy breeds; dog breeds as different as Chihuahuas and Great Danes were all bred from wolves.
+
+### Natural or artificial?
+
+Human activity often causes evolution **without** anyone choosing traits. When an antibiotic is used, susceptible bacteria die and the few resistant ones survive and multiply, so resistance spreads (see <TopicLink code="C3.2" />). Nobody chose resistant bacteria to breed: this is **natural selection**, with the antibiotic acting as the selection pressure. The same applies to insects evolving resistance to pesticides and weeds to herbicides.
+
+<Callout type="exam">
+
+The test is **intention**. Artificial selection = humans **deliberately choose which individuals breed** for a desired trait. If humans only change the environment and the survivors happen to have a trait, it is natural selection, even though humans caused it.
+
+</Callout>
+
+</Section>

@@ -1,0 +1,54 @@
+---
+/** Patterns of selection as trait distributions (D4.1.12) plus artificial selection (D4.1.15). Animated by d4-1-selection-types.ts. */
+import { BASE, MEAN0, START_PATH, X0, X1 } from './d4-1-selection-types';
+const heads = [
+  { title: 'A varied population', ex: ['A continuously varying, heritable trait:', 'most individuals are near the mean, few at the extremes'], axis: 'Trait value' },
+  { title: 'Stabilizing selection', ex: ['Human birth mass: very light and very heavy babies', 'have had lower survival than babies of average mass'], axis: 'Birth mass' },
+  { title: 'Directional selection', ex: ['Medium ground finch, Daphne Major, 1977 drought: only large,', 'hard seeds were left, and deeper-beaked birds survived better'], axis: 'Beak depth' },
+  { title: 'Disruptive selection', ex: ['Black-bellied seedcracker, Cameroon: small bills handle soft', 'seeds, large bills hard seeds; intermediate birds do worse'], axis: 'Width of lower bill' },
+  { title: 'Artificial selection', ex: ['Illinois maize experiment: breeders sowed seed only from', 'the plants with the highest oil content in their kernels'], axis: 'Oil content of kernels' },
+];
+---
+<svg viewBox="0 0 520 360" xmlns="http://www.w3.org/2000/svg" class="seltypes">
+  {heads.map((h, i) => (
+    <g data-el={`h${i}`} style={i === 0 ? '' : 'opacity:0'}>
+      <text class="title" x="14" y="24">{h.title}</text>
+      <text class="ex" x="14" y="45">{h.ex[0]}</text>
+      <text class="ex" x="14" y="62">{h.ex[1]}</text>
+      <text class="axis-t" x={(X0 + X1) / 2} y="316" text-anchor="middle">{h.axis} →</text>
+    </g>
+  ))}
+  <text class="axis-t" transform={`translate(24 ${(BASE + 96) / 2}) rotate(-90)`} text-anchor="middle">Number of individuals →</text>
+  <path class="axis" d={`M${X0} 92 V${BASE} H${X1}`} />
+  <path data-el="removed" class="removed" d="" style="opacity:0" />
+  <path data-el="before" class="before" d={START_PATH} style="opacity:0" />
+  <path data-el="after" class="after" d={START_PATH} />
+  <line class="mean0" x1={MEAN0} x2={MEAN0} y1="82" y2={BASE} />
+  <line data-el="mean1" class="mean1" x1={MEAN0} x2={MEAN0} y1="82" y2={BASE} />
+  <text class="mean-t" x={MEAN0 - 6} y="80" text-anchor="end">mean</text>
+  <path data-el="shift" class="shift" d="" style="opacity:0" />
+  <g data-el="key" class="key" style="opacity:0">
+    <path class="before" d="M14 344 H44" />
+    <text x="50" y="348">before selection</text>
+    <rect class="removed" x="170" y="336" width="24" height="14" />
+    <text x="200" y="348">selected against</text>
+    <path class="after" d="M320 344 H350" />
+    <text x="356" y="348">after selection</text>
+  </g>
+</svg>
+<style>
+  .seltypes { font-family: var(--font-sans); }
+  .title { font-size: 17px; font-weight: 800; fill: var(--text); }
+  .ex { font-size: 13px; fill: var(--text-muted); }
+  .axis-t { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .axis { fill: none; stroke: var(--text-muted); stroke-width: 1.6; }
+  .removed { fill: color-mix(in srgb, var(--bio-k) 38%, transparent); stroke: var(--bio-k); stroke-width: 1; }
+  .before { fill: none; stroke: var(--text-muted); stroke-width: 2.2; stroke-dasharray: 7 5; }
+  .after { fill: color-mix(in srgb, var(--bio-protein) 14%, transparent); stroke: var(--bio-protein); stroke-width: 3.4; stroke-linejoin: round; }
+  .key .after { fill: none; }
+  .mean0 { stroke: var(--text-muted); stroke-width: 1.4; stroke-dasharray: 3 4; }
+  .mean1 { stroke: var(--bio-protein); stroke-width: 2.2; }
+  .mean-t { font-size: 12px; font-weight: 700; fill: var(--text-muted); }
+  .shift { fill: none; stroke: var(--text); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+  .key text { font-size: 13px; fill: var(--text); }
+</style>

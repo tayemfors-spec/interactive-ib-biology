@@ -1,0 +1,133 @@
+facts:
+  - id: f1
+    claim: Asexual reproduction gives genetically identical offspring suited to a stable environment; sexual reproduction gives new allele combinations and variation for adaptation to change.
+    where: ["index.mdx#sexual-asexual", "quiz.yaml:q2", "flashcards.yaml:c1"]
+    confidence: high
+    basis: IB guide D3.1.1; Campbell Biology
+    status: checked
+  - id: f2
+    claim: The male gamete travels to the female gamete, so it is small with few reserves and made in large numbers; human testes make millions of sperm per day.
+    where: ["index.mdx#sexes", "quiz.yaml:q3", "flashcards.yaml:c3"]
+    confidence: high
+    basis: IB guide D3.1.3; human daily sperm production estimated at roughly 10^8 (Amann 2008)
+    status: checked
+  - id: f3
+    claim: Sperm pathway testis → epididymis → sperm duct (over the bladder) → joined by seminal vesicle duct → through prostate into urethra → penis; seminal vesicle fluid contains fructose; prostate fluid is alkaline and neutralises vaginal acidity.
+    where: ["diagrams/d3-1-male.astro", "index.mdx#anatomy", "flashcards.yaml:c4", "index.mdx (mistakes)"]
+    confidence: high
+    basis: Standard human anatomy (Gray's; Campbell). Prostatic fluid is slightly alkaline/near neutral in some sources; semen overall is alkaline.
+    status: open
+  - id: f4
+    claim: Scrotal testes are kept a few degrees (about 2–3 °C) below core body temperature, which suits spermatogenesis.
+    where: ["diagrams/d3-1-male.astro"]
+    confidence: high
+    basis: Standard physiology (Guyton & Hall)
+    status: checked
+  - id: f5
+    claim: Menstrual cycle hormone pattern — FSH raised early then reduced by oestradiol negative feedback; oestradiol peaks just before ovulation; LH surge peaks at ovulation about day 14 (positive feedback from high oestradiol); progesterone from the corpus luteum high in the luteal phase and inhibits FSH and LH; fall of progesterone causes menstruation.
+    where: ["index.mdx#menstrual-cycle", "sims/models/d3-1-menstrual.ts", "visuals.yaml:menstrual-cycle", "quiz.yaml:q1", "flashcards.yaml:c6", "flashcards.yaml:c7"]
+    confidence: high
+    basis: IB guide D3.1.5; Guyton & Hall Textbook of Medical Physiology ch. 82; Oxford IB study guide p152
+    status: checked
+  - id: f6
+    claim: Oestradiol increases FSH receptors on follicle cells (positive feedback boosting oestradiol output).
+    where: ["index.mdx#menstrual-cycle", "sims/models/d3-1-menstrual.ts", "flashcards.yaml:c7"]
+    confidence: medium
+    basis: Oxford IB study guide p152; follicular physiology (oestradiol upregulates FSH receptors on granulosa cells)
+    status: open
+  - id: f7
+    claim: The corpus luteum degenerates after about 10–14 days if no hCG is present; hCG from the embryo keeps it secreting progesterone.
+    where: ["index.mdx#menstrual-cycle", "index.mdx (mustKnow)", "index.mdx#implantation"]
+    confidence: high
+    basis: Guyton & Hall (luteal phase ~14 days, involution begins ~12 days after ovulation)
+    status: checked
+  - id: f8
+    claim: Fertilization — membranes fuse, sperm nucleus enters, tail and mitochondria destroyed; egg completes meiosis II; both nuclear membranes break down and all chromosomes join one mitosis giving two diploid nuclei.
+    where: ["index.mdx#fertilization", "diagrams/d3-1-zygote.astro", "visuals.yaml:fertilization", "quiz.yaml:q8", "flashcards.yaml:c8"]
+    confidence: high
+    basis: IB guide D3.1.6; Alberts MBoC; Oxford IB study guide p153
+    status: checked
+  - id: f9
+    claim: IVF — down-regulation (often a GnRH analogue, ~2–3 weeks) suspends FSH/LH secretion; FSH injections ~8–14 days give superovulation; hCG injection ~36 h before egg collection completes maturation; embryos transferred after 2–5 days; progesterone support often given.
+    where: ["index.mdx#ivf", "quiz.yaml:q4", "flashcards.yaml:c9", "index.mdx (mustKnow)"]
+    confidence: medium
+    basis: IB guide D3.1.7; HFEA / NHS descriptions of the long protocol. Durations vary by clinic and protocol (antagonist protocols differ).
+    status: open
+  - id: f10
+    claim: Flower parts and functions (stigma, style, ovary, ovule, anther, filament, petal, sepal, nectary, receptacle); ovule becomes seed, ovary becomes fruit.
+    where: ["diagrams/d3-1-flower.astro", "index.mdx#flowering-plants", "flashcards.yaml:c10"]
+    confidence: high
+    basis: Campbell Biology ch. 38; IB guide D3.1.9
+    status: checked
+  - id: f11
+    claim: The pollen tube carries two male gametes; one fuses with the egg (zygote), the other with the central cell (forming endosperm).
+    where: ["visuals.yaml:plant-reproduction"]
+    confidence: high
+    basis: Double fertilization in angiosperms (Campbell ch. 38)
+    status: checked
+  - id: f12
+    claim: Examples — maize has separate male and female flowers on one plant; holly and kiwifruit have separate male and female plants.
+    where: ["index.mdx#cross-pollination"]
+    confidence: high
+    basis: Standard botany (monoecy in Zea mays; dioecy in Ilex aquifolium and Actinidia deliciosa)
+    status: checked
+  - id: f13
+    claim: Self-incompatibility controlled by a multi-allelic S-locus; pollen with an S-allele matching the stigma is rejected (fails to germinate or tube growth stops in stigma/style); found in Brassicaceae, Rosaceae and Solanaceae.
+    where: ["index.mdx#cross-pollination", "visuals.yaml:plant-reproduction", "quiz.yaml:q5"]
+    confidence: high
+    basis: Takayama & Isogai 2005 Annu Rev Plant Biol; Campbell ch. 38. Simplified — in sporophytic SI the pollen phenotype is set by the parent plant's two alleles.
+    status: open
+  - id: f14
+    claim: Germination needs water, oxygen and a suitable temperature; gibberellin stimulates amylase, which hydrolyses starch to sugars for the growing embryo; the radicle emerges first.
+    where: ["index.mdx#seeds", "visuals.yaml:plant-reproduction", "flashcards.yaml:c12"]
+    confidence: high
+    basis: Campbell ch. 38–39 (barley aleurone gibberellin–amylase system)
+    status: checked
+  - id: f15
+    claim: Puberty starts with increased GnRH release from the hypothalamus, which raises LH and FSH secretion and then sex steroid production.
+    where: ["index.mdx#puberty", "diagrams/d3-1-puberty.astro", "flashcards.yaml:c13"]
+    confidence: high
+    basis: IB guide D3.1.13
+    status: checked
+  - id: f16
+    claim: Oogonia divide by mitosis only before birth; primary oocytes arrest in prophase I until puberty; meiosis I completes just before ovulation (unequal division, first polar body); the secondary oocyte arrests at metaphase II and completes meiosis II only after sperm entry; one primary spermatocyte gives four sperm.
+    where: ["index.mdx#gametogenesis", "visuals.yaml:gametogenesis", "quiz.yaml:q7", "flashcards.yaml:c14"]
+    confidence: high
+    basis: Alberts MBoC; Langman's Medical Embryology
+    status: checked
+  - id: f17
+    claim: Cortical reaction — Ca²⁺ wave after fusion triggers exocytosis of cortical granules whose enzymes modify zona glycoproteins (sperm can no longer bind) and harden the zona.
+    where: ["index.mdx#polyspermy", "visuals.yaml:fertilization", "quiz.yaml:q8", "flashcards.yaml:c15"]
+    confidence: high
+    basis: Alberts MBoC ch. 17; IB guide D3.1.15
+    status: checked
+  - id: f18
+    claim: Blastocyst forms by about day 5 (trophoblast, cavity, inner cell mass) and implants at about day 7 (range ~6–10).
+    where: ["index.mdx#implantation", "diagrams/d3-1-blastocyst.astro", "flashcards.yaml:c16"]
+    confidence: high
+    basis: Langman's Medical Embryology
+    status: checked
+  - id: f19
+    claim: Pregnancy tests use a mobile dye-labelled anti-hCG monoclonal antibody, a fixed anti-hCG antibody at the test line binding a different epitope, and a control line that binds the mobile antibody.
+    where: ["index.mdx#implantation", "diagrams/d3-1-pregnancy-test.astro", "quiz.yaml:q9"]
+    confidence: high
+    basis: Standard lateral-flow immunoassay design
+    status: checked
+  - id: f20
+    claim: Umbilical cord has two arteries and one vein; placenta exchanges O₂, nutrients, water, ions and IgG antibodies to the foetus, CO₂ and urea to the mother; bloods do not mix; marsupials give birth to very undeveloped young.
+    where: ["index.mdx#placenta", "diagrams/d3-1-placenta.astro", "flashcards.yaml:c17"]
+    confidence: high
+    basis: Langman's; Campbell ch. 46
+    status: checked
+  - id: f21
+    claim: Progesterone comes from the corpus luteum in early pregnancy and from the placenta from about 8–12 weeks; a fall in progesterone (or its action) allows oxytocin to rise at term; oxytocin positive feedback via cervical stretch receptors.
+    where: ["index.mdx#pregnancy-birth", "diagrams/d3-1-birth.astro", "flashcards.yaml:c18", "index.mdx (mistakes)"]
+    confidence: medium
+    basis: IB guide D3.1.19. In humans plasma progesterone does not clearly fall before labour; a functional progesterone withdrawal (receptor changes) occurs. Page follows the guide's wording; the birth figure's end-of-pregnancy dip is schematic.
+    status: open
+  - id: f22
+    claim: Observational studies linked HRT to lower CHD; randomised trials (Women's Health Initiative, 2002) showed a small increase; higher socioeconomic status of HRT users was the confounder.
+    where: ["index.mdx#hrt", "diagrams/d3-1-hrt.astro", "quiz.yaml:q10"]
+    confidence: high
+    basis: IB guide D3.1.20 NOS; Writing Group for the WHI, JAMA 2002; Lawlor, Davey Smith & Ebrahim, BMJ 2004
+    status: checked

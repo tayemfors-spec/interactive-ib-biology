@@ -1,0 +1,74 @@
+---
+/**
+ * D3.1.4: male-typical reproductive system, side view (anterior to the left). Schematic proportions;
+ * topology matches the standard textbook drawing: sperm duct from the tail of the epididymis, up in front
+ * of the pubic bone, over and behind the bladder, joined by the seminal vesicle duct, through the prostate
+ * into the urethra.
+ */
+const P = { x: 240, y: 222, a: 138 }; // penis root and angle
+---
+<svg viewBox="0 0 640 462" role="img" aria-labelledby="d31-m-t d31-m-d" class="mrs">
+  <title id="d31-m-t">Male-typical reproductive system seen from the side, with structures labelled and their functions</title>
+  <desc id="d31-m-d">Side view with the front of the body to the left. The two testes hang in the scrotum outside the body cavity. An epididymis lies along the back of each testis. A sperm duct runs from the epididymis up in front of the pubic bone, loops over the bladder and down behind it, where it joins the duct of a seminal vesicle. They pass through the prostate gland, which surrounds the urethra just below the bladder. The urethra continues through the penis, which contains erectile tissue, to the tip.</desc>
+  <!-- scrotum (behind) -->
+  <path class="scrotum" d="M224 244 C196 286 198 384 246 386 C294 384 296 288 270 246 Z" />
+  <!-- testis -->
+  <ellipse class="testis" cx="240" cy="330" rx="26" ry="34" />
+  <path class="tub" d="M226 312 q6 -6 12 0 t12 0 M224 326 q6 -6 12 0 t12 0 t10 0 M226 340 q6 -6 12 0 t12 0 M230 354 q6 -6 12 0 t8 0" />
+  <!-- epididymis on the back of the testis -->
+  <path class="epi" d="M248 298 C262 296 274 304 272 322 C270 338 270 352 264 364" />
+  <!-- pubic bone -->
+  <ellipse class="bone" cx="198" cy="168" rx="13" ry="26" />
+  <!-- bladder -->
+  <ellipse class="bladder" cx="258" cy="108" rx="56" ry="46" />
+  <!-- seminal vesicle -->
+  <ellipse class="sv" cx="328" cy="140" rx="10" ry="27" transform="rotate(18 328 140)" />
+  <path class="svduct" d="M322 164 C314 172 302 174 292 174" />
+  <!-- prostate -->
+  <ellipse class="prostate" cx="264" cy="180" rx="27" ry="19" />
+  <!-- penis (rotated group) -->
+  <g transform={`translate(${P.x} ${P.y}) rotate(${P.a})`}>
+    <rect class="penis" x="-6" y="-16" width="128" height="32" rx="14" />
+    <ellipse class="erect" cx="56" cy="-7" rx="50" ry="5.5" />
+    <ellipse class="erect" cx="56" cy="8" rx="50" ry="4" />
+    <ellipse class="penis" cx="126" cy="0" rx="17" ry="19" />
+    <path class="urethra" d="M-8 0 H142" />
+  </g>
+  <!-- urethra from bladder through prostate -->
+  <path class="urethra" d="M260 150 L262 196 Q262 216 240 222" />
+  <!-- sperm duct: tail of epididymis → up in front of pubic bone → over and behind bladder → prostate -->
+  <path class="duct" d="M264 364 C284 352 288 310 278 292 C264 264 214 248 186 212 C176 196 174 160 176 120 C178 72 214 50 256 52 C296 54 314 76 310 100 C308 124 306 150 302 166 C298 176 286 180 264 184" />
+
+  <!-- labels -->
+  <text class="t muted" x="6" y="20">← front (anterior)</text>
+  <path class="lead" d="M184 160 L120 140" /><text class="t muted" x="6" y="144">pubic bone</text>
+  <path class="lead" d="M300 86 L376 46" /><text class="t muted" x="380" y="40">bladder</text><text class="t muted" x="380" y="56">(stores urine; not reproductive)</text>
+  <path class="lead" d="M311 94 L376 98" /><text class="t b" x="380" y="96">sperm duct (vas deferens)</text><text class="t" x="380" y="112">carries sperm to the urethra</text><text class="t" x="380" y="128">by peristalsis during ejaculation</text>
+  <path class="lead" d="M336 150 L376 158" /><text class="t b" x="380" y="156">seminal vesicle</text><text class="t" x="380" y="172">secretes fluid with fructose</text><text class="t" x="380" y="188">(energy for sperm) and mucus</text>
+  <path class="lead" d="M288 190 L376 218" /><text class="t b" x="380" y="216">prostate gland</text><text class="t" x="380" y="232">adds alkaline fluid with ions</text><text class="t" x="380" y="248">that neutralises vaginal acidity</text>
+  <path class="lead" d="M274 322 L376 286" /><text class="t b" x="380" y="282">epididymis</text><text class="t" x="380" y="298">stores sperm while they mature</text><text class="t" x="380" y="314">and become able to swim</text>
+  <path class="lead" d="M252 346 L376 348" /><text class="t b" x="380" y="344">testis</text><text class="t" x="380" y="360">produces sperm (in seminiferous</text><text class="t" x="380" y="376">tubules) and secretes testosterone</text>
+  <path class="lead" d="M284 376 L376 408" /><text class="t b" x="380" y="406">scrotum</text><text class="t" x="380" y="422">holds the testes outside the body,</text><text class="t" x="380" y="438">where it is a few °C cooler,</text><text class="t" x="380" y="454">which suits sperm production</text>
+  <path class="lead" d="M200 258 L146 222" /><text class="t b" x="6" y="212">penis</text><text class="t" x="6" y="228">erectile tissue fills</text><text class="t" x="6" y="244">with blood, so it can be</text><text class="t" x="6" y="260">inserted into the vagina</text>
+  <path class="lead" d="M166 294 L92 382" /><text class="t b" x="6" y="398">urethra</text><text class="t" x="6" y="414">carries semen (or urine)</text><text class="t" x="6" y="430">out of the body</text>
+</svg>
+<style>
+  .mrs { font-family: var(--font-sans); }
+  .t { font-size: 13.5px; fill: var(--text); }
+  .t.b { font-weight: 750; }
+  .t.muted { fill: var(--text-muted); }
+  .lead { stroke: var(--text); stroke-width: 1.1; }
+  .scrotum { fill: color-mix(in srgb, var(--bio-head) 16%, var(--surface)); stroke: var(--text-muted); stroke-width: 1.4; }
+  .testis { fill: color-mix(in srgb, var(--bio-protein) 22%, var(--surface)); stroke: var(--text); stroke-width: 1.8; }
+  .tub { fill: none; stroke: color-mix(in srgb, var(--bio-protein) 70%, var(--text)); stroke-width: 1.1; }
+  .epi { fill: none; stroke: var(--bio-protein-2); stroke-width: 9; stroke-linecap: round; }
+  .bone { fill: var(--surface-3); stroke: var(--text-muted); stroke-width: 1.2; }
+  .bladder { fill: color-mix(in srgb, var(--bio-glucose) 14%, var(--surface)); stroke: var(--text-muted); stroke-width: 1.6; stroke-dasharray: 5 3; }
+  .sv { fill: color-mix(in srgb, var(--bio-carb) 35%, var(--surface)); stroke: var(--text); stroke-width: 1.5; }
+  .svduct { fill: none; stroke: var(--bio-carb); stroke-width: 3; }
+  .prostate { fill: color-mix(in srgb, var(--bio-chol) 30%, var(--surface)); stroke: var(--text); stroke-width: 1.6; }
+  .penis { fill: color-mix(in srgb, var(--bio-head) 22%, var(--surface)); stroke: var(--text); stroke-width: 1.6; }
+  .erect { fill: color-mix(in srgb, var(--bio-k) 30%, var(--surface)); }
+  .urethra { fill: none; stroke: var(--bio-water); stroke-width: 3.2; }
+  .duct { fill: none; stroke: var(--bio-protein-2); stroke-width: 3.4; stroke-linecap: round; }
+</style>

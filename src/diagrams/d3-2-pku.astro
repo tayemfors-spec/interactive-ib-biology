@@ -1,0 +1,54 @@
+---
+/** Phenylketonuria (D3.2.7): the blocked reaction and a carrier × carrier cross. */
+---
+<svg viewBox="0 0 540 322" role="img" aria-labelledby="pku-t pku-d" class="pku">
+  <title id="pku-t">Phenylketonuria: the reaction catalysed by phenylalanine hydroxylase and a cross between two carriers</title>
+  <desc id="pku-d">Phenylalanine from dietary protein is normally converted to tyrosine by the enzyme phenylalanine hydroxylase, coded for by an autosomal gene. With two copies of the recessive PKU allele the enzyme does not work, so phenylalanine builds up and harms brain development, and less tyrosine is made. Two carriers, Aa and Aa, have a 1 in 4 chance of an affected aa child.</desc>
+  <rect class="box" x="10" y="40" width="150" height="54" rx="8" />
+  <text class="t strong" x="85" y="63" text-anchor="middle">phenylalanine</text>
+  <text class="t" x="85" y="82" text-anchor="middle">(from protein in food)</text>
+  <path class="arr" d="M162 67 H372" /><path class="head" d="M372 67 l-10 -6 v12 z" />
+  <rect class="enz" x="166" y="6" width="210" height="34" rx="17" />
+  <text class="t strong" x="271" y="28" text-anchor="middle">phenylalanine hydroxylase</text>
+  <text class="t" x="268" y="92" text-anchor="middle">(PAH gene, autosomal)</text>
+  <rect class="box" x="376" y="40" width="150" height="54" rx="8" />
+  <text class="t strong" x="451" y="63" text-anchor="middle">tyrosine</text>
+  <text class="t" x="451" y="82" text-anchor="middle">(used to make melanin)</text>
+  <g class="block">
+    <path d="M254 56 l34 22 M288 56 l-34 22" />
+  </g>
+  <text class="t bad" x="10" y="124">aa (PKU): no working enzyme, so phenylalanine builds up in the blood</text>
+  <text class="t bad" x="10" y="142">and harms brain development; less tyrosine is made.</text>
+  <text class="t" x="10" y="164">Newborns are screened with a heel-prick blood test;</text>
+  <text class="t" x="10" y="182">a diet low in phenylalanine prevents the damage.</text>
+
+  <text class="t strong" x="10" y="216">Two carriers: Aa × Aa</text>
+  <text class="t" x="10" y="234">A = allele for working enzyme (dominant)</text>
+  <text class="t" x="10" y="252">a = PKU allele (recessive)</text>
+  <g transform="translate(360 190)">
+    <text class="t" x="75" y="-4" text-anchor="middle">gametes of each parent</text>
+    <text class="t g" x="45" y="16" text-anchor="middle">A</text><text class="t g" x="105" y="16" text-anchor="middle">a</text>
+    <text class="t g" x="-4" y="47" text-anchor="end">A</text><text class="t g" x="-4" y="97" text-anchor="end">a</text>
+    <rect class="cell" x="15" y="22" width="60" height="50" /><rect class="cell" x="75" y="22" width="60" height="50" />
+    <rect class="cell" x="15" y="72" width="60" height="50" /><rect class="cell aff" x="75" y="72" width="60" height="50" />
+    <text class="t strong" x="45" y="51" text-anchor="middle">AA</text><text class="t strong" x="105" y="51" text-anchor="middle">Aa</text>
+    <text class="t strong" x="45" y="101" text-anchor="middle">Aa</text><text class="t strong" x="105" y="101" text-anchor="middle">aa</text>
+    <text class="t" x="105" y="116" text-anchor="middle">PKU</text>
+  </g>
+  <text class="t" x="10" y="280">3 in 4 children unaffected (2 in 4 are carriers);</text>
+  <text class="t strong" x="10" y="298">1 in 4 chance of PKU for each child.</text>
+</svg>
+<style>
+  .pku { font-family: var(--font-sans); }
+  .box { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.5; }
+  .enz { fill: color-mix(in srgb, var(--bio-protein) 20%, var(--surface)); stroke: var(--bio-protein); }
+  .arr { stroke: var(--text); stroke-width: 2.5; }
+  .head { fill: var(--text); }
+  .block path { stroke: var(--bad); stroke-width: 5; stroke-linecap: round; }
+  .t { font-size: 13px; fill: var(--text); }
+  .t.strong { font-weight: 800; }
+  .t.bad { fill: var(--bad); font-weight: 650; }
+  .t.g { font-weight: 800; font-size: 15px; }
+  .cell { fill: var(--surface); stroke: var(--text); stroke-width: 1.5; }
+  .cell.aff { fill: color-mix(in srgb, var(--bad) 22%, var(--surface)); }
+</style>

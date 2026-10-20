@@ -1,0 +1,89 @@
+---
+/**
+ * How to cross two flowering plants (D3.2.2): emasculate, bag, transfer pollen, collect seeds.
+ * Four small drawings with HTML captions so the text stays readable at phone width.
+ */
+const flower = (o: { anthers: boolean; cut?: boolean; tube?: boolean; pollen?: boolean }) => {
+  let s = '';
+  s += '<path class="stem" d="M120 190 V128"/>';
+  s += '<path class="sepal" d="M120 132 L92 118 L104 136 Z M120 132 L148 118 L136 136 Z"/>';
+  s += '<path class="petal" d="M120 128 C70 120 56 70 78 52 C92 70 106 96 120 112 Z"/><path class="petal" d="M120 128 C170 120 184 70 162 52 C148 70 134 96 120 112 Z"/>';
+  // carpel: ovary, style, stigma
+  s += '<ellipse class="ovary" cx="120" cy="116" rx="15" ry="13"/>';
+  s += '<circle class="ovule" cx="114" cy="116" r="3.5"/><circle class="ovule" cx="126" cy="116" r="3.5"/>';
+  s += '<path class="style" d="M120 104 V46"/><ellipse class="stigma" cx="120" cy="42" rx="9" ry="5"/>';
+  if (o.pollen) s += '<circle class="pollen" cx="114" cy="38" r="2.6"/><circle class="pollen" cx="121" cy="36" r="2.6"/><circle class="pollen" cx="127" cy="39" r="2.6"/>';
+  if (o.tube) s += '<path class="tube" d="M121 40 C123 60 117 80 121 100 C122 108 118 112 114 114"/>';
+  // stamens
+  const st = [[100, 58], [140, 58]];
+  for (const [x, y] of st) {
+    s += `<path class="filament" d="M120 124 Q${(x! + 120) / 2} ${y! + 40} ${x} ${y! + 6}"/>`;
+    if (o.anthers) s += `<ellipse class="anther" cx="${x}" cy="${y}" rx="6" ry="9"/>`;
+    else if (o.cut) s += `<ellipse class="anther gone" cx="${x! + (x! < 120 ? -20 : 20)}" cy="${y! + 40}" rx="6" ry="9"/>`;
+  }
+  return s;
+};
+---
+<div class="poll">
+  <div class="panel">
+    <svg viewBox="0 0 240 200" role="img" aria-labelledby="pol-1"><title id="pol-1">A flower on the female parent with its anthers cut off before they release pollen</title>
+      <g set:html={flower({ anthers: false, cut: true })} />
+      <path class="scis" d="M40 40 L72 60 M40 64 L72 44" /><circle class="scis-h" cx="36" cy="38" r="6" /><circle class="scis-h" cx="36" cy="66" r="6" />
+      <text class="t" x="180" y="186" text-anchor="middle">anthers removed</text>
+    </svg>
+    <p class="cap"><strong>1. Remove the anthers</strong> of the flower chosen as the female parent while it is still in bud, before any pollen is shed. This stops self-pollination.</p>
+  </div>
+  <div class="panel">
+    <svg viewBox="0 0 240 200" role="img" aria-labelledby="pol-2"><title id="pol-2">The same flower enclosed in a paper bag tied around the stem</title>
+      <g set:html={flower({ anthers: false })} />
+      <path class="bag" d="M52 26 H188 L178 160 Q120 170 62 160 Z" />
+      <path class="tie" d="M100 168 Q120 176 140 168" />
+      <text class="t" x="120" y="194" text-anchor="middle">paper bag</text>
+    </svg>
+    <p class="cap"><strong>2. Cover the flower with a bag</strong> so that wind and insects cannot bring pollen from any other plant.</p>
+  </div>
+  <div class="panel">
+    <svg viewBox="0 0 240 200" role="img" aria-labelledby="pol-3"><title id="pol-3">A brush carrying pollen from the anther of the male parent to the stigma of the female parent</title>
+      <g set:html={flower({ anthers: false, pollen: true })} />
+      <path class="brush" d="M210 10 L140 36" /><path class="bristle" d="M140 36 L128 40 L142 30 Z" />
+      <circle class="pollen" cx="134" cy="38" r="2.6" />
+      <text class="t" x="186" y="160" text-anchor="middle">pollen from</text>
+      <text class="t" x="186" y="176" text-anchor="middle">male parent</text>
+    </svg>
+    <p class="cap"><strong>3. Transfer pollen</strong> (which contains the male gametes) from anthers of the chosen male parent onto the stigma when it is ripe, then re-cover the flower.</p>
+  </div>
+  <div class="panel">
+    <svg viewBox="0 0 240 200" role="img" aria-labelledby="pol-4"><title id="pol-4">A pollen tube growing down the style to an ovule in the ovary, where fertilization happens</title>
+      <g set:html={flower({ anthers: false, pollen: true, tube: true })} />
+      <text class="t" x="186" y="160" text-anchor="middle">ovules → seeds</text>
+      <text class="t" x="186" y="176" text-anchor="middle">(F1 generation)</text>
+      <path class="lead" d="M168 148 L134 122" />
+    </svg>
+    <p class="cap"><strong>4. Collect the seeds.</strong> A pollen tube carries a male gamete down the style to the female gamete in an ovule. Each fertilized ovule becomes a seed; growing the seeds gives the F1 generation.</p>
+  </div>
+</div>
+<style>
+  .poll { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); font-family: var(--font-sans); }
+  .panel svg { width: 100%; height: auto; background: var(--surface); border-radius: var(--radius-s); }
+  .cap { font-size: var(--step--1); margin: var(--space-1) 0 0; }
+  .poll :global(.stem) { stroke: var(--bio-carb); stroke-width: 5; }
+  .poll :global(.sepal) { fill: var(--bio-carb); }
+  .poll :global(.petal) { fill: color-mix(in srgb, var(--bio-k) 30%, var(--surface)); stroke: var(--bio-k); stroke-width: 1.5; }
+  .poll :global(.ovary) { fill: color-mix(in srgb, var(--bio-carb) 35%, var(--surface)); stroke: var(--bio-carb); stroke-width: 1.5; }
+  .poll :global(.ovule) { fill: var(--surface); stroke: var(--text); }
+  .poll :global(.style) { stroke: var(--bio-carb); stroke-width: 4; }
+  .poll :global(.stigma) { fill: var(--bio-carb); }
+  .poll :global(.filament) { fill: none; stroke: var(--bio-tail); stroke-width: 2.5; }
+  .poll :global(.anther) { fill: var(--bio-glucose); stroke: var(--text); stroke-width: 1; }
+  .poll :global(.anther.gone) { fill: none; stroke-dasharray: 3 2; }
+  .poll :global(.pollen) { fill: var(--bio-glucose); stroke: var(--text); stroke-width: 0.8; }
+  .poll :global(.tube) { fill: none; stroke: var(--bio-head); stroke-width: 2.5; stroke-dasharray: 5 3; }
+  .bag { fill: color-mix(in srgb, var(--bio-tail) 25%, transparent); stroke: var(--text-muted); stroke-width: 2; }
+  .tie { fill: none; stroke: var(--text); stroke-width: 3; }
+  .scis { stroke: var(--text); stroke-width: 3; }
+  .scis-h { fill: none; stroke: var(--text); stroke-width: 2.5; }
+  .brush { stroke: var(--bio-head); stroke-width: 5; stroke-linecap: round; }
+  .bristle { fill: var(--text); }
+  .lead { stroke: var(--text-muted); stroke-width: 1.5; }
+  .t { font-size: 13px; fill: var(--text); }
+</style>

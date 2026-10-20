@@ -1,0 +1,201 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: D4.1.1
+    stem: Why is the replacement of Lamarckism by Darwin's theory of natural selection described as a paradigm shift?
+    options:
+      - id: a
+        text: Darwin was the first scientist to suggest that species change over time.
+        why: Many naturalists, including Lamarck and Darwin's grandfather Erasmus, already accepted that species evolve. What was new was the mechanism.
+      - id: b
+        text: A new explanation of how evolution happens replaced the accepted framework, changing how biologists interpreted evidence and what questions they asked.
+        why: Correct. A paradigm shift is a fundamental change in the accepted theory of a field. Selection acting on random heritable variation replaced the inheritance of acquired characteristics.
+      - id: c
+        text: Darwin proved his theory true with experiments, whereas Lamarck's was only a hypothesis.
+        why: Scientific theories are supported by evidence but never proved. Both were proposed explanations; Darwin's explained far more of the evidence.
+      - id: d
+        text: Darwin added extra details to Lamarck's mechanism without changing its main idea.
+        why: Refining an existing theory is not a paradigm shift. Darwin's mechanism was completely different — variation arises at random and the environment selects among it.
+    answer: b
+
+  - id: q2
+    level: SL
+    understanding: D4.1.2
+    stem: Which process is the original source of new alleles in a population?
+    options:
+      - id: a
+        text: Crossing over between homologous chromosomes in prophase I
+        why: Crossing over produces new combinations of existing alleles on a chromosome. It does not create new alleles.
+      - id: b
+        text: Random orientation of homologous pairs in metaphase I
+        why: Independent assortment shuffles whole maternal and paternal chromosomes into new combinations; the alleles themselves are unchanged.
+      - id: c
+        text: Fusion of male and female gametes at fertilization
+        why: Fertilization combines alleles from two parents into a new combination, but no new allele is made.
+      - id: d
+        text: Random changes in the base sequence of DNA
+        why: Correct. Mutation changes the base sequence of a gene, creating a new allele. Sexual reproduction then recombines it with other alleles.
+    answer: d
+
+  - id: q3
+    level: SL
+    understanding: D4.1.4
+    stem: >-
+      An unusually severe frost kills 60% of the plants in a population of a perennial herb. The proportion killed is
+      the same in dense and in sparse patches. Which statement is correct?
+    options:
+      - id: a
+        text: The frost is a density-independent abiotic selection pressure; if frost tolerance is heritable, the next generation will be more frost-tolerant on average.
+        why: Correct. The frost acts regardless of density, but it kills the less tolerant plants, so alleles for frost tolerance become more common among the survivors' offspring.
+      - id: b
+        text: The frost causes the surviving plants to become frost-tolerant, and they pass this tolerance on to their seeds.
+        why: This is Lamarckian. The frost does not create tolerance; it removes plants that were already less tolerant. Changes acquired during life are not inherited.
+      - id: c
+        text: The frost is a density-dependent factor, because it reduced the size of the population.
+        why: Almost any factor can reduce population size. A density-dependent factor acts more strongly when the population is crowded, which is not the case here.
+      - id: d
+        text: Because the frost kills plants regardless of density, it cannot cause natural selection.
+        why: Density-independent factors can still select, as long as individuals differ in heritable tolerance. Here survival depends on tolerance, not on density.
+    answer: a
+
+  - id: q4
+    level: SL
+    understanding: D4.1.5
+    stem: Four female rabbits in the same population are compared. Which one has the highest fitness?
+    options:
+      - id: a
+        text: The heaviest female, which lived for 7 years and had 4 offspring that survived to breed
+        why: Size and strength are not fitness. This female contributed fewer breeding offspring than female C.
+      - id: b
+        text: The fastest runner, which lived for 6 years and had 6 offspring that survived to breed
+        why: Speed may help survival, but fitness is measured by the number of offspring contributed to the next generation, and C contributed more.
+      - id: c
+        text: A small female that lived for only 3 years but had 14 offspring that survived to breed
+        why: Correct. Fitness is reproductive success, so the female that contributed the most breeding offspring, and so the most alleles to the next generation, is fittest.
+      - id: d
+        text: A female that was never ill and lived for 10 years, but had no offspring
+        why: Long life without reproduction contributes no alleles to the next generation, so this female's fitness is zero.
+    answer: c
+
+  - id: q5
+    level: SL
+    understanding: D4.1.6
+    stem: A weightlifter has greatly enlarged muscles from years of training. Which statement explains why the trait will not be inherited by the weightlifter's children?
+    options:
+      - id: a
+        text: Acquired characteristics take several generations to appear in offspring.
+        why: Acquired characteristics are not inherited at all, however many generations pass. Weismann's mice still had normal tails after five generations of tail cutting.
+      - id: b
+        text: Large muscles are a recessive trait, so they will only appear in the grandchildren.
+        why: The enlarged muscles were caused by training, not by an allele, so dominance and recessiveness do not apply.
+      - id: c
+        text: Muscle size is not affected by the environment, only by genes.
+        why: Training clearly did change muscle size, which is exactly why this is an acquired, environmentally caused characteristic.
+      - id: d
+        text: Training changed the muscle cells but not the base sequences of genes in the cells that produce gametes.
+        why: Correct. Only information encoded in the base sequence of DNA in gametes is inherited. Changes to body (somatic) cells are not passed on.
+    answer: d
+
+  - id: q6
+    level: SL
+    understanding: D4.1.8
+    stem: >-
+      In an experiment based on Endler's design, guppies from one varied stock were kept in ten pools without predators,
+      then predators were added. Mean spots per male at the start, in all pools — 10.5. After 14 months — pike cichlid
+      pools 9.0; Rivulus pools 12.5; pools with no predator 13.0. Which is the best interpretation?
+    options:
+      - id: a
+        text: Rivulus causes male guppies to grow extra spots.
+        why: Rivulus pools changed almost exactly like the predator-free controls, so Rivulus is not the cause; the increase happened without any predator.
+      - id: b
+        text: Female preference for colourful males increased spot number where predation was weak, but pike cichlids caught conspicuous males and selected for fewer spots.
+        why: Correct. The controls show the effect of sexual selection alone; the strong predator reversed the trend by natural selection against conspicuous males.
+      - id: c
+        text: The controls show that predators increase the number of spots on males.
+        why: The control pools had no predators, yet spot number rose most there. The controls show what happens without predation.
+      - id: d
+        text: The Rivulus pools experienced no selection, because their results were similar to the controls.
+        why: Sexual selection by females still acted in both Rivulus and control pools; it is the predation pressure that was weak or absent.
+    answer: b
+
+  - id: q7
+    level: AHL
+    understanding: D4.1.12
+    stem: >-
+      In a lake, small fish of one species feed efficiently on plankton and large fish feed efficiently on snails.
+      Fish of intermediate size are poor at both. What pattern of selection is this, and what is its effect?
+    options:
+      - id: a
+        text: Disruptive selection; the size distribution develops two peaks and allele frequencies change.
+        why: Correct. Both extremes are favoured over intermediates, so the population is pushed towards two size classes.
+      - id: b
+        text: Stabilizing selection; the range of sizes narrows around the mean.
+        why: Stabilizing selection favours intermediates. Here intermediates are the least fit.
+      - id: c
+        text: Directional selection; the mean size shifts towards larger fish.
+        why: Directional selection favours one extreme only. Here both small and large fish are favoured.
+      - id: d
+        text: No selection is acting, because the mean size of the fish does not change.
+        why: The mean can stay the same in disruptive (and stabilizing) selection, yet the distribution and allele frequencies still change.
+    answer: a
+
+  - id: q8
+    level: AHL
+    understanding: D4.1.13
+    stem: >-
+      Phenylketonuria (PKU) is caused by a recessive allele. In a population, 1 in 10 000 babies has PKU. Assuming
+      Hardy–Weinberg equilibrium, what is the frequency of carriers (heterozygotes)?
+    options:
+      - id: a
+        text: "0.0001"
+        why: This is q², the frequency of affected (homozygous recessive) babies, which was given in the question.
+      - id: b
+        text: "0.01"
+        why: This is q, the frequency of the recessive allele. Carriers are 2pq.
+      - id: c
+        text: "0.0198"
+        why: Correct. q = √0.0001 = 0.01, p = 0.99, so 2pq = 2 × 0.99 × 0.01 = 0.0198, about 1 in 50 people.
+      - id: d
+        text: "0.99"
+        why: This is p, the frequency of the dominant allele, not a genotype frequency.
+    answer: c
+
+  - id: q9
+    level: AHL
+    understanding: D4.1.14
+    stem: >-
+      In a plant population the genotype frequencies are AA 0.45, Aa 0.20 and aa 0.35, so p = 0.55 and q = 0.45.
+      Hardy–Weinberg predicts AA 0.30, Aa 0.50 and aa 0.20. Which is the most likely explanation of the difference?
+    options:
+      - id: a
+        text: The population is very large.
+        why: A very large population is one of the Hardy–Weinberg conditions. It would make the observed frequencies closer to the prediction, not further from it.
+      - id: b
+        text: A high mutation rate is converting A alleles into a alleles.
+        why: Mutation rates are far too low to change genotype frequencies this much, and mutation alone would not produce a large shortage of heterozygotes.
+      - id: c
+        text: Natural selection favours heterozygotes.
+        why: If heterozygotes survived better there would be more of them than predicted, but there are far fewer.
+      - id: d
+        text: Mating is not random, for example many plants self-pollinate.
+        why: Correct. Self-pollination and other inbreeding increase homozygotes and reduce heterozygotes without changing p and q, exactly the pattern observed.
+    answer: d
+
+  - id: q10
+    level: AHL
+    understanding: D4.1.15
+    stem: Which of these is an example of artificial selection?
+    options:
+      - id: a
+        text: Bacteria in a hospital becoming resistant after years of antibiotic use
+        why: Nobody chose resistant bacteria to breed. The antibiotic killed susceptible bacteria and the survivors multiplied, so this is natural selection caused by human action.
+      - id: b
+        text: Farmers each year sowing only seed saved from their highest-yielding wheat plants
+        why: Correct. Humans deliberately choose which individuals reproduce, based on a desired trait.
+      - id: c
+        text: Weeds in fields becoming resistant after repeated spraying with herbicide
+        why: The herbicide is an unintended selection pressure; the resistant weeds were not chosen for breeding. This is natural selection.
+      - id: d
+        text: Rats in cities becoming resistant to the poison warfarin
+        why: The poison killed susceptible rats and resistant ones survived to breed. No one deliberately selected the rats, so this is natural selection.
+    answer: b

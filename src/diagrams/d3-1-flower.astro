@@ -1,0 +1,74 @@
+---
+/** D3.1.9: half-flower (longitudinal section) of a generalised insect-pollinated flower. Schematic. */
+const C = 360;
+const m = (x: number) => 2 * C - x; // mirror about the centre line
+const filament = (bx: number, by: number, c1x: number, c1y: number, c2x: number, c2y: number, ex: number, ey: number) =>
+  [`M${bx} ${by} C${c1x} ${c1y} ${c2x} ${c2y} ${ex} ${ey}`, `M${m(bx)} ${by} C${m(c1x)} ${c1y} ${m(c2x)} ${c2y} ${m(ex)} ${ey}`];
+const stamens = [
+  { f: filament(338, 322, 328, 280, 322, 220, 326, 188), a: [326, 172] },
+  { f: filament(330, 326, 306, 290, 296, 240, 298, 216), a: [298, 200] },
+];
+const petal = 'M336 330 C300 310 262 250 252 160 C282 176 318 240 346 322 Z';
+const sepal = 'M330 340 C300 346 276 366 266 386 C296 378 320 362 340 346 Z';
+const mirrorPath = (d: string) => d.replace(/(-?\d+(?:\.\d+)?) (-?\d+(?:\.\d+)?)/g, (_, x, y) => `${m(Number(x))} ${y}`);
+---
+<svg viewBox="0 0 720 456" role="img" aria-labelledby="d31-fl-t d31-fl-d" class="flw">
+  <title id="d31-fl-t">Half-flower of an insect-pollinated flower with structures labelled and their functions</title>
+  <desc id="d31-fl-d">A flower cut in half from top to bottom. At the centre is the carpel: a sticky stigma on top of a long style, above a swollen ovary containing ovules. Around it are stamens, each a thin filament carrying an anther. Large coloured petals surround the stamens, with nectaries at their bases, and small green sepals lie below the petals. All the parts are attached to the receptacle at the top of the flower stalk.</desc>
+  <!-- stalk and receptacle -->
+  <rect class="stalk" x="352" y="348" width="16" height="104" rx="4" />
+  <path class="sepal" d={sepal} /><path class="sepal" d={mirrorPath(sepal)} />
+  <path class="recept" d="M322 328 C328 346 344 354 360 354 C376 354 392 346 398 328 Z" />
+  <!-- petals -->
+  <path class="petal" d={petal} /><path class="petal" d={mirrorPath(petal)} />
+  <path class="vein" d="M340 324 C312 300 280 246 262 176" />
+  <path class="vein" d={mirrorPath('M340 324 C312 300 280 246 262 176')} />
+  <!-- nectaries -->
+  <ellipse class="nect" cx="344" cy="330" rx="8" ry="4.5" /><ellipse class="nect" cx="376" cy="330" rx="8" ry="4.5" />
+  <!-- stamens -->
+  {stamens.map((s) => <>
+    <path class="fil" d={s.f[0]} /><path class="fil" d={s.f[1]} />
+    <ellipse class="anther" cx={s.a[0]} cy={s.a[1]} rx="7.5" ry="16" /><ellipse class="anther" cx={m(s.a[0]!)} cy={s.a[1]} rx="7.5" ry="16" />
+    <path class="pol" d={`M${s.a[0]} ${s.a[1]! - 12} V${s.a[1]! + 12} M${m(s.a[0]!)} ${s.a[1]! - 12} V${s.a[1]! + 12}`} />
+  </>)}
+  <!-- carpel -->
+  <ellipse class="ovary" cx={C} cy="300" rx="34" ry="30" />
+  <path class="plac" d="M360 278 V324" />
+  {[[348, 288], [372, 288], [348, 312], [372, 312]].map(([x, y]) => <ellipse class="ovule" cx={x} cy={y} rx="6.5" ry="8" />)}
+  <path class="style" d="M356 272 C356 230 355 190 356 160 H364 C365 190 364 230 364 272 Z" />
+  <path class="stigma" d="M340 156 C342 140 352 142 356 148 C358 138 362 138 364 148 C368 142 378 140 380 156 C372 162 348 162 340 156 Z" />
+
+  <!-- labels -->
+  <path class="lead" d="M342 150 L234 112" /><text class="t b" x="6" y="98">stigma</text><text class="t" x="6" y="114">sticky surface that traps</text><text class="t" x="6" y="130">pollen; pollen germinates here</text>
+  <path class="lead" d="M356 218 L234 186" /><text class="t b" x="6" y="174">style</text><text class="t" x="6" y="190">holds up the stigma; pollen</text><text class="t" x="6" y="206">tube grows down through it</text>
+  <path class="lead" d="M343 288 L234 252" /><text class="t b" x="6" y="244">ovule</text><text class="t" x="6" y="260">contains the female gamete</text><text class="t" x="6" y="276">(egg cell); becomes a seed</text>
+  <path class="lead" d="M327 306 L234 320" /><text class="t b" x="6" y="314">ovary</text><text class="t" x="6" y="330">contains and protects the</text><text class="t" x="6" y="346">ovules; becomes the fruit</text>
+  <path class="lead" d="M290 372 L234 392" /><text class="t b" x="6" y="388">sepal</text><text class="t" x="6" y="404">protects the flower</text><text class="t" x="6" y="420">while it is a bud</text>
+  <path class="lead" d="M428 192 L500 116" /><text class="t b" x="504" y="100">anther</text><text class="t" x="504" y="116">meiosis produces pollen grains,</text><text class="t" x="504" y="132">which contain male gametes</text>
+  <path class="lead" d="M444 210 L500 194" /><text class="t b" x="504" y="182">petal</text><text class="t" x="504" y="198">large, brightly coloured (often</text><text class="t" x="504" y="214">scented) to attract insects</text>
+  <path class="lead" d="M394 280 L500 264" /><text class="t b" x="504" y="254">filament</text><text class="t" x="504" y="270">stalk that holds the anther</text><text class="t" x="504" y="286">where insects brush against it</text>
+  <path class="lead" d="M383 330 L500 334" /><text class="t b" x="504" y="324">nectary</text><text class="t" x="504" y="340">secretes nectar (sugar solution),</text><text class="t" x="504" y="356">a food reward for insects</text>
+  <path class="lead" d="M380 350 L500 400" /><text class="t b" x="504" y="396">receptacle</text><text class="t" x="504" y="412">top of the stalk that bears</text><text class="t" x="504" y="428">all the flower parts</text>
+  <text class="t muted" x="504" y="30">stamen (male part) =</text><text class="t muted" x="504" y="46">anther + filament</text>
+  <text class="t muted" x="6" y="30">carpel (female part) =</text><text class="t muted" x="6" y="46">stigma + style + ovary</text>
+</svg>
+<style>
+  .flw { font-family: var(--font-sans); }
+  .t { font-size: 13.5px; fill: var(--text); }
+  .t.b { font-weight: 750; }
+  .t.muted { fill: var(--text-muted); font-weight: 650; }
+  .lead { stroke: var(--text); stroke-width: 1.1; }
+  .stalk, .sepal { fill: color-mix(in srgb, var(--bio-carb) 55%, var(--surface)); stroke: var(--text); stroke-width: 1.3; }
+  .recept { fill: color-mix(in srgb, var(--bio-carb) 35%, var(--surface)); stroke: var(--text); stroke-width: 1.3; }
+  .petal { fill: color-mix(in srgb, var(--bio-protein-2) 40%, var(--surface)); stroke: var(--text); stroke-width: 1.4; }
+  .vein { fill: none; stroke: color-mix(in srgb, var(--bio-protein-2) 70%, var(--text)); stroke-width: 1; }
+  .nect { fill: var(--bio-glucose); stroke: var(--text); stroke-width: 1; }
+  .fil { fill: none; stroke: color-mix(in srgb, var(--bio-tail) 80%, var(--text)); stroke-width: 3; }
+  .anther { fill: color-mix(in srgb, var(--bio-head) 70%, var(--surface)); stroke: var(--text); stroke-width: 1.2; }
+  .pol { stroke: var(--text); stroke-width: 1; }
+  .ovary { fill: color-mix(in srgb, var(--bio-carb) 28%, var(--surface)); stroke: var(--text); stroke-width: 1.6; }
+  .plac { stroke: var(--text-muted); stroke-width: 2; }
+  .ovule { fill: color-mix(in srgb, var(--bio-tail) 55%, var(--surface)); stroke: var(--text); stroke-width: 1.1; }
+  .style { fill: color-mix(in srgb, var(--bio-carb) 40%, var(--surface)); stroke: var(--text); stroke-width: 1.2; }
+  .stigma { fill: color-mix(in srgb, var(--bio-carb) 60%, var(--surface)); stroke: var(--text); stroke-width: 1.3; }
+</style>

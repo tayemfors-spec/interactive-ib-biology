@@ -1,0 +1,69 @@
+cards:
+  - id: c1
+    level: SL
+    front: Define homeostasis and name four variables it controls in humans.
+    back: Keeping the internal environment within narrow, preset limits despite changes outside. Body temperature, blood pH, blood glucose concentration and blood osmotic concentration.
+  - id: c2
+    level: SL
+    front: Why does homeostasis use negative rather than positive feedback?
+    back: Negative feedback reverses a deviation above or below the set point, so the variable stays stable. Positive feedback amplifies a deviation, moving the variable further from the set point.
+  - id: c3
+    level: SL
+    front: Name the three parts of a homeostatic control loop.
+    back: Receptors detect the variable; a control centre compares it with the set point; effectors (muscles or glands) respond to reverse the change.
+  - id: c4
+    level: SL
+    front: Which cells secrete insulin and glucagon, and where are they?
+    back: β cells secrete insulin and α cells secrete glucagon. Both are in the islets of Langerhans, small groups of endocrine cells scattered through the pancreas.
+  - id: c5
+    level: SL
+    front: Effects of insulin on target cells
+    back: Muscle and fat cells take up more glucose (more glucose transporters in the membrane); liver and muscle cells convert glucose to glycogen; cells respire more glucose; liver releases less glucose. Blood glucose falls.
+  - id: c6
+    level: SL
+    front: Effects of glucagon on target cells
+    back: Liver cells break glycogen down to glucose (glycogenolysis), make glucose from other molecules and release it into the blood. Blood glucose rises.
+  - id: c7
+    level: SL
+    front: Type 1 vs type 2 diabetes — the physiological change
+    back: Type 1 — autoimmune destruction of β cells, so little or no insulin is made. Type 2 — target cells are insulin resistant, so they take up little glucose even though insulin is secreted.
+  - id: c8
+    level: SL
+    front: Risk factors and treatment of type 2 diabetes
+    back: Risk factors — obesity, physical inactivity, diet high in sugar and fat and low in fibre, age, family history. Prevention and treatment — healthy weight, exercise, diet; drugs, and insulin if needed.
+  - id: c9
+    level: SL
+    front: Role of thyroxin in thermoregulation
+    back: In the cold the hypothalamus causes the pituitary gland to secrete TSH, so the thyroid secretes more thyroxin. Thyroxin raises the metabolic rate of body cells, releasing more heat. It is a slower response than the nervous ones.
+  - id: c10
+    level: SL
+    front: Human responses to overheating
+    back: Vasodilation of arterioles supplying the skin (more blood flows near the surface and loses heat) and sweating (evaporation of water from sweat absorbs heat). Thyroxin secretion falls.
+  - id: c11
+    level: SL
+    front: Human responses to cold
+    back: Vasoconstriction of skin arterioles, shivering (skeletal muscle), uncoupled respiration in brown adipose tissue, hair erection, and more thyroxin.
+  - id: c12
+    level: AHL
+    front: Excretion vs osmoregulation
+    back: Excretion — removing toxic waste products of metabolism, such as urea. Osmoregulation — controlling the osmotic concentration (osmol L⁻¹) of body fluids by varying the water and salt lost in urine.
+  - id: c13
+    level: AHL
+    front: Three layers of the ultrafiltration barrier
+    back: Fenestrated capillary endothelium (holds back cells), basement membrane (the filter; holds back most proteins) and podocytes with filtration slits between their foot processes.
+  - id: c14
+    level: AHL
+    front: What is reabsorbed in the proximal convoluted tubule, and how?
+    back: All glucose and amino acids (cotransport with Na⁺), most Na⁺ (active transport) and Cl⁻, and most water (osmosis). Microvilli give a large surface area; mitochondria supply ATP.
+  - id: c15
+    level: AHL
+    front: Role of the loop of Henle
+    back: The ascending limb, impermeable to water, actively transports Na⁺ out into the medulla, keeping its osmotic concentration high. This lets water be reabsorbed from the collecting ducts by osmosis.
+  - id: c16
+    level: AHL
+    front: How does ADH change the collecting duct?
+    back: ADH from the posterior pituitary causes vesicles containing aquaporins to fuse with the collecting duct cells' membranes, so more water is reabsorbed by osmosis. Less ADH — aquaporins are taken back into vesicles.
+  - id: c17
+    level: AHL
+    front: Blood flow changes during vigorous exercise
+    back: Skeletal muscle flow rises over tenfold (vasodilation); gut and kidney flow fall (vasoconstriction); brain flow stays about the same, so its share of cardiac output falls.

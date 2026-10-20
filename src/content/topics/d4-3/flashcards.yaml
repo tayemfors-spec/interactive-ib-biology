@@ -1,0 +1,73 @@
+cards:
+  - id: c1
+    level: SL
+    front: Outline the greenhouse effect.
+    back: Short-wave solar radiation passes through the atmosphere and warms the surface. The surface emits long-wave infrared; greenhouse gases (CO₂, CH₄, H₂O, N₂O) absorb some of it and re-emit part back towards the surface, keeping it warmer (about +15 °C instead of −18 °C).
+  - id: c2
+    level: SL
+    front: Human sources of the rise in atmospheric CO₂
+    back: Combustion of fossil fuels (coal, oil, natural gas) — the largest source; deforestation and land clearance (burning and decay of biomass); drainage and burning of peat.
+  - id: c3
+    level: SL
+    front: Human sources of the rise in atmospheric methane
+    back: Ruminant livestock (methanogens in the rumen), flooded rice paddies and landfill (anaerobic decomposition), and leaks from coal mines, oil and gas wells and pipelines.
+  - id: c4
+    level: SL
+    front: How is ozone depletion different from the enhanced greenhouse effect?
+    back: Ozone depletion (by CFCs) lets more ultraviolet reach the surface, raising skin-cancer risk. The enhanced greenhouse effect is warming from more CO₂ and CH₄ absorbing infrared. Different causes, different effects.
+  - id: c5
+    level: SL
+    front: Name five positive feedbacks in global warming.
+    back: Loss of reflective snow and ice; faster decomposition of peat and permafrost organic matter; methane from thawing permafrost; CO₂ release from the oceans, including deep water; more droughts and forest fires.
+  - id: c6
+    level: SL
+    front: Why does melting snow and ice cause more warming?
+    back: Snow and ice reflect most sunlight. When they melt, darker ocean, rock and vegetation are exposed, absorb more solar radiation and warm further.
+  - id: c7
+    level: SL
+    front: Tipping point — definition and boreal example
+    back: A threshold beyond which a self-reinforcing change shifts a system to a new state that is hard to reverse. Boreal forest — drought, browning and more intense fires burning legacy carbon — changes from net carbon accumulation to net loss.
+  - id: c8
+    level: SL
+    front: Landfast ice vs sea ice, and the animal that loses each
+    back: Landfast ice is frozen to the coast; emperor penguins breed on it in Antarctica and lose chicks if it breaks out early. Sea ice drifts; Arctic walruses use it to rest between dives and lose access to shallow feeding grounds.
+  - id: c9
+    level: SL
+    front: How can warmer surface water reduce marine primary production?
+    back: Warm, less dense water floats on cold deep water (stratification), reducing mixing and upwelling of nutrient-rich deep water. Fewer nutrients reach the sunlit layer, so phytoplankton grow less and less energy passes along marine food chains.
+  - id: c10
+    level: SL
+    front: Two named examples of range shifts with climate change
+    back: Upslope — New Guinea montane birds (Karkar Island upper limits rose about 152 m, 1969–2013). Poleward — North American trees, with seedlings spreading north in some species and ranges contracting in many.
+  - id: c11
+    level: SL
+    front: Write the equations for ocean acidification and its effect on carbonate.
+    back: CO₂ + H₂O → H₂CO₃ → H⁺ + HCO₃⁻, then H⁺ + CO₃²⁻ → HCO₃⁻. Fewer carbonate ions are left for Ca²⁺ + CO₃²⁻ → CaCO₃, so coral calcification is suppressed.
+  - id: c12
+    level: SL
+    front: What causes coral bleaching, and why can it collapse a reef?
+    back: Water about 1 °C or more above the usual summer maximum for weeks makes corals expel their zooxanthellae, losing their sugar supply. Corals are the reef's foundation; when they die the structure erodes and the dependent community collapses.
+  - id: c13
+    level: SL
+    front: Where and why does peat form?
+    back: In waterlogged, anaerobic (often acidic) soils where decomposition is slower than plant production — bogs and fens in temperate and boreal zones, and very rapidly in some tropical peat swamp forests.
+  - id: c14
+    level: SL
+    front: Non-native plantations vs native rewilding for carbon sequestration
+    back: Plantations (e.g. Sitka spruce) grow fast and sequester quickly but are low-biodiversity monocultures vulnerable to pests, fire and harvest. Native rewilding gives diverse, resilient forest storing carbon long-term, but can be slower.
+  - id: c15
+    level: AHL
+    front: Give an event cued by photoperiod and one cued by temperature.
+    back: Photoperiod — bud set in deciduous trees, bird migration and the start of nesting. Temperature — budburst in deciduous trees, insect emergence (e.g. winter moth caterpillars).
+  - id: c16
+    level: AHL
+    front: Reindeer and Arctic mouse-ear chickweed — why are they out of step?
+    back: Reindeer (Rangifer tarandus) migrate and calve on a photoperiod-based schedule; Cerastium arcticum starts growing when it warms. Warming advanced plant growth but not reindeer arrival, so mothers miss the most nutritious food and fewer calves survive.
+  - id: c17
+    level: AHL
+    front: Why does warming increase the number of spruce bark beetle generations per year?
+    back: Ips typographus is an ectotherm. Warmth brings the spring flight forward and speeds development, so a second (sometimes third) generation fits into the year — more beetles attacking drought-weakened spruce.
+  - id: c18
+    level: AHL
+    front: Tawny owl (Strix aluco) — evolution caused by climate change
+    back: Plumage colour is heritable (brown dominant to grey). Grey owls survived snowy winters better; less snow weakened selection against brown, so the brown variant's frequency rose in Finland.

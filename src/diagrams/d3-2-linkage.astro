@@ -1,0 +1,49 @@
+---
+/** Autosomal linkage and recombination by crossing over (D3.2.19, D3.2.20). */
+// chromatid: x position, colour top (above crossover point), colour bottom
+const chromatid = (x: number, top: string, bottom: string, a: string, b: string) =>
+  `<rect class="${top}" x="${x - 5}" y="40" width="10" height="70" rx="5"/><rect class="${bottom}" x="${x - 5}" y="104" width="10" height="70" rx="5"/>`
+  + `<text class="al" x="${x}" y="66" text-anchor="middle" dx="0">${a}</text><text class="al" x="${x}" y="156" text-anchor="middle">${b}</text>`;
+---
+<svg viewBox="0 0 540 300" role="img" aria-labelledby="lk-t lk-d" class="lk">
+  <title id="lk-t">Linked genes and crossing over</title>
+  <desc id="lk-d">Genes A and B are on the same chromosome. In a double heterozygote one homologue carries A and B and the other carries a and b. In prophase I a chiasma forms between non-sister chromatids at a point between the two loci, and the chromatids exchange segments. After meiosis, two of the four chromatids keep the parental combinations AB and ab, and two are recombinants, Ab and aB. The further apart the loci, the more often a crossover falls between them and the higher the recombination frequency, up to a maximum of 50%. Linked genotypes are written with alleles beside vertical lines that represent the homologous chromosomes.</desc>
+  <text class="t strong" x="60" y="22" text-anchor="middle">1. Notation</text>
+  <path class="line" d="M48 50 V160 M72 50 V160" />
+  <text class="al" x="40" y="80" text-anchor="end">A</text><text class="al" x="80" y="80">a</text>
+  <text class="al" x="40" y="140" text-anchor="end">B</text><text class="al" x="80" y="140">b</text>
+  <text class="t small" x="60" y="182" text-anchor="middle">homologous</text>
+  <text class="t small" x="60" y="196" text-anchor="middle">chromosomes</text>
+
+  <text class="t strong" x="215" y="22" text-anchor="middle">2. Crossing over (prophase I)</text>
+  <g set:html={chromatid(170, 'p', 'p', 'A', 'B') + chromatid(195, 'p', 'p', 'A', 'B') + chromatid(235, 'q', 'q', 'a', 'b') + chromatid(260, 'q', 'q', 'a', 'b')} />
+  <path class="chiasma" d="M195 98 L235 116 M235 98 L195 116" />
+  <text class="t small" x="215" y="196" text-anchor="middle">chiasma between the loci,</text>
+  <text class="t small" x="215" y="210" text-anchor="middle">non-sister chromatids exchange DNA</text>
+
+  <text class="t strong" x="430" y="22" text-anchor="middle">3. Four chromatids → gametes</text>
+  <g set:html={chromatid(358, 'p', 'p', 'A', 'B') + chromatid(410, 'p', 'q', 'A', 'b') + chromatid(450, 'q', 'p', 'a', 'B') + chromatid(502, 'q', 'q', 'a', 'b')} />
+  <text class="t small" x="352" y="196" text-anchor="middle">parental</text>
+  <text class="t small rec" x="430" y="196" text-anchor="middle">recombinants</text>
+  <text class="t small" x="508" y="196" text-anchor="middle">parental</text>
+  <path class="brace" d="M402 184 H458" />
+
+  <rect class="panel" x="10" y="228" width="520" height="62" rx="8" />
+  <text class="t" x="20" y="248">Alleles of linked genes stay together unless a crossover falls between</text>
+  <text class="t" x="20" y="265">the loci, so a test cross gives more parental types and fewer recombinants</text>
+  <text class="t" x="20" y="282">than the 1 : 1 : 1 : 1 of unlinked genes. RF = recombinants ÷ total.</text>
+</svg>
+<style>
+  .lk { font-family: var(--font-sans); }
+  .lk :global(.p) { fill: var(--bio-protein); }
+  .lk :global(.q) { fill: var(--bio-head); }
+  .lk :global(.al) { font-size: 15px; font-weight: 800; fill: var(--text); paint-order: stroke; stroke: var(--surface); stroke-width: 3px; }
+  .line { stroke: var(--text); stroke-width: 3; }
+  .chiasma { stroke: var(--bad); stroke-width: 3; }
+  .brace { stroke: var(--ahl); stroke-width: 2; }
+  .t { font-size: 13px; fill: var(--text); }
+  .t.strong { font-weight: 800; }
+  .t.small { font-size: 12px; }
+  .t.rec { fill: var(--ahl); font-weight: 800; }
+  .panel { fill: var(--surface); stroke: var(--border-strong); }
+</style>

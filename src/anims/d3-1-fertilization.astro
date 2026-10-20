@@ -1,0 +1,91 @@
+---
+/**
+ * D3.1.6 and D3.1.15: fertilization, acrosome reaction and cortical reaction. Drawn in the step-1 state;
+ * animated by d3-1-fertilization.ts. Schematic: the sperm is drawn much larger than scale.
+ */
+const E = { cx: 260, cy: 200, mem: 116, zIn: 128, zOut: 148, cor: 160 };
+const cortical = Array.from({ length: 28 }, (_, k) => (k / 28) * Math.PI * 2);
+const corona = Array.from({ length: 34 }, (_, k) => (k / 34) * Math.PI * 2).filter((a) => Math.abs(Math.cos(a) + 1) > 0.02);
+const pt = (r: number, a: number) => ({ x: E.cx + r * Math.cos(a), y: E.cy + r * Math.sin(a) });
+const pb1 = pt(122, -1.05);
+const pb2 = pt(122, -0.62);
+---
+<svg viewBox="0 0 560 380" xmlns="http://www.w3.org/2000/svg" class="fer">
+  <!-- follicle cells (corona radiata) -->
+  {corona.map((a) => { const p = pt(E.cor, a); return <circle class="foll" cx={p.x.toFixed(1)} cy={p.y.toFixed(1)} r="8.5" />; })}
+  <!-- zona pellucida -->
+  <circle class="zona" data-el="zona" cx={E.cx} cy={E.cy} r={(E.zIn + E.zOut) / 2} stroke-width={E.zOut - E.zIn} />
+  <rect class="channel" data-el="channel" x={E.cx - E.zOut - 2} y={E.cy - 7} width={E.zOut - E.zIn + 4} height="14" style="opacity:0" />
+  <circle class="pvs" cx={E.cx} cy={E.cy} r={E.zIn} />
+  <circle class="pb" cx={pb1.x.toFixed(1)} cy={pb1.y.toFixed(1)} r="6" />
+  <circle class="pb" data-el="pb2" cx={pb2.x.toFixed(1)} cy={pb2.y.toFixed(1)} r="6" style="opacity:0" />
+  <!-- egg -->
+  <circle class="egg" cx={E.cx} cy={E.cy} r={E.mem} />
+  {cortical.map((a, i) => { const p = pt(108, a); return <circle class="cg" data-el={`cg${i}`} cx={p.x.toFixed(1)} cy={p.y.toFixed(1)} r="3.6" />; })}
+  <!-- egg chromosomes on the metaphase II spindle -->
+  <g data-el="spindle2">
+    <path class="spin" d="M296 120 Q314 104 332 120 Q314 136 296 120 M296 120 H332" />
+    {[302, 310, 318, 326].map((x) => <rect class="ce" x={x - 2.5} y="116" width="5" height="8" rx="1.5" />)}
+  </g>
+  <!-- pronuclei -->
+  <ellipse class="pnE" data-el="pnE" cx="300" cy="196" rx="22" ry="20" style="opacity:0" />
+  <ellipse class="pnS" data-el="sNuc" cx="102" cy="200" rx="7" ry="5" />
+  <!-- joint mitosis -->
+  <g data-el="jm" style="opacity:0">
+    <path class="spin" d="M226 200 Q260 156 294 200 Q260 244 226 200 M226 200 Q260 178 294 200 M226 200 Q260 222 294 200" />
+    {[-21, -7, 7, 21].map((dy) => <rect class="cs" x="252" y={200 + dy - 3} width="7" height="6" rx="1.5" />)}
+    {[-21, -7, 7, 21].map((dy) => <rect class="ce" x="261" y={200 + dy - 3} width="7" height="6" rx="1.5" />)}
+  </g>
+  <g data-el="twocell" style="opacity:0">
+    <path class="furrow" d={`M${E.cx} ${E.cy - E.mem} V${E.cy + E.mem}`} />
+    <ellipse class="dip" cx="204" cy="200" rx="22" ry="20" /><ellipse class="dip" cx="316" cy="200" rx="22" ry="20" />
+    <text class="lab c" x="204" y="205" text-anchor="middle">2n</text><text class="lab c" x="316" y="205" text-anchor="middle">2n</text>
+  </g>
+  <!-- other sperm (blocked later) -->
+  {[{ k: 's2', a: 215 }, { k: 's3', a: 145 }].map((s) => <g data-el={s.k} transform="translate(-200 -200)">
+    <path class="tail" d="M-32 0 q-10 -6 -20 0 t-20 0 t-20 0" /><rect class="midp" x="-32" y="-3.5" width="13" height="7" rx="3" />
+    <ellipse class="head" cx="-10" cy="0" rx="10" ry="6.5" /><path class="acro" d="M-6 -6 C2 -4 2 4 -6 6 C-2 2 -2 -2 -6 -6 Z" /><ellipse class="pnS" cx="-12" cy="0" rx="6" ry="4.5" />
+  </g>)}
+  <g data-el="blocked" style="opacity:0"><path class="no" d="M118 102 l14 14 M132 102 l-14 14 M118 286 l14 14 M132 286 l-14 14" /></g>
+  <!-- lead sperm: tip at the group origin, pointing right -->
+  <g data-el="s1" transform="translate(-40 200)">
+    <g data-el="s1tail"><path class="tail" d="M-32 0 q-10 -6 -20 0 t-20 0 t-20 0" /><rect class="midp" x="-32" y="-3.5" width="13" height="7" rx="3" /></g>
+    <ellipse class="head" data-el="s1head" cx="-10" cy="0" rx="10" ry="6.5" />
+    <path class="acro" data-el="acro" d="M-6 -6 C2 -4 2 4 -6 6 C-2 2 -2 -2 -6 -6 Z" />
+  </g>
+  <circle class="enz" data-el="enz" cx="114" cy="200" r="16" style="opacity:0" />
+  <!-- labels -->
+  <path class="lead" d="M379 93 L440 46" /><text class="lab" x="444" y="40">follicle cells</text>
+  <path class="lead" d="M398 180 L440 92" /><text class="lab" x="444" y="80">zona pellucida</text><text class="lab sm" x="444" y="96" data-el="zonaLab">(glycoproteins)</text>
+  <g data-el="cgLab"><path class="lead" d="M361 237 L440 300" /><text class="lab" x="444" y="304">cortical</text><text class="lab" x="444" y="320">granules</text></g>
+  <path class="lead" d="M349 275 L440 344" /><text class="lab" x="444" y="350">egg plasma</text><text class="lab" x="444" y="366">membrane</text>
+  <text class="lab" data-el="tag" x="12" y="370"></text>
+</svg>
+<style>
+  .fer { font-family: var(--font-sans); }
+  .foll { fill: color-mix(in srgb, var(--bio-glucose) 28%, var(--surface)); stroke: var(--text-muted); stroke-width: 1; }
+  .zona { fill: none; stroke: color-mix(in srgb, var(--bio-carb) 32%, var(--surface)); transition: stroke 0.2s; }
+  .zona.hard { stroke: color-mix(in srgb, var(--bio-carb) 75%, var(--text)); }
+  .channel { fill: var(--surface); }
+  .pvs { fill: var(--surface); stroke: var(--text-muted); stroke-width: 0.8; }
+  .egg { fill: color-mix(in srgb, var(--bio-tail) 22%, var(--surface)); stroke: var(--bio-head); stroke-width: 2.4; }
+  .cg { fill: color-mix(in srgb, var(--bio-protein-2) 70%, var(--surface)); }
+  .pb { fill: color-mix(in srgb, var(--bio-tail) 50%, var(--surface)); stroke: var(--text); stroke-width: 1; }
+  .spin { fill: none; stroke: var(--text-muted); stroke-width: 1; }
+  .ce { fill: var(--bio-k); }
+  .cs { fill: var(--bio-protein); }
+  .pnE { fill: color-mix(in srgb, var(--bio-k) 35%, var(--surface)); stroke: var(--text); stroke-width: 1.3; }
+  .pnS { fill: color-mix(in srgb, var(--bio-protein) 60%, var(--surface)); stroke: var(--text); stroke-width: 1.2; }
+  .dip { fill: color-mix(in srgb, var(--bio-protein-2) 45%, var(--surface)); stroke: var(--text); stroke-width: 1.3; }
+  .furrow { stroke: var(--bio-head); stroke-width: 2.4; }
+  .head { fill: color-mix(in srgb, var(--bio-protein) 25%, var(--surface)); stroke: var(--text); stroke-width: 1.2; }
+  .acro { fill: color-mix(in srgb, var(--bio-protein-2) 60%, var(--surface)); stroke: var(--text); stroke-width: 0.8; }
+  .midp { fill: color-mix(in srgb, var(--bio-chol) 50%, var(--surface)); stroke: var(--text); stroke-width: 0.8; }
+  .tail { fill: none; stroke: var(--text); stroke-width: 1.6; }
+  .enz { fill: color-mix(in srgb, var(--bio-protein-2) 30%, transparent); stroke: var(--bio-protein-2); stroke-dasharray: 3 3; }
+  .no { stroke: var(--bad); stroke-width: 3.5; stroke-linecap: round; }
+  .lead { stroke: var(--text); stroke-width: 1; }
+  .lab { font-size: 13.5px; font-weight: 650; fill: var(--text); }
+  .lab.sm { font-size: 12.5px; font-weight: 500; fill: var(--text-muted); }
+  .lab.c { font-weight: 800; }
+</style>

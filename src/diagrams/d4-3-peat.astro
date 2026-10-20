@@ -1,0 +1,53 @@
+---
+/**
+ * Peatland as a carbon sink and source (D4.3.8): intact (waterlogged, anaerobic, slow decomposition, peat
+ * accumulates), drained (aerobic, saprotrophs decompose peat, CO₂ released, fire risk) and restored
+ * (drains blocked, water table raised, Sphagnum re-established, peat formation can restart).
+ */
+const panels = [
+  { x: 10, title: 'Intact peatland', wt: 132, peat: 'peat accumulates', flux: 'in', note: ['waterlogged → anaerobic', 'decomposition very slow', 'net carbon SINK'] },
+  { x: 230, title: 'Drained peatland', wt: 214, peat: 'peat decomposes', flux: 'out', note: ['water table lowered → aerobic', 'saprotrophs respire peat;', 'fire risk → net carbon SOURCE'] },
+  { x: 450, title: 'Restored (rewetted)', wt: 140, peat: 'peat forms again', flux: 'in', note: ['drains blocked, water raised', 'Sphagnum moss replanted', 'sink restored (slowly)'] },
+];
+---
+<svg viewBox="0 0 660 330" role="img" aria-labelledby="pt-t pt-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="pt-t">Intact, drained and restored peatland</title>
+  <desc id="pt-d">Three cross-sections of a peatland. Intact: the water table is near the surface, the peat is waterlogged and anaerobic, decomposition is very slow, plants absorb more CO₂ than is released and peat accumulates, so it is a carbon sink. Drained: the water table is lowered, air enters the peat, saprotrophs decompose it aerobically and release CO₂, and dry peat can burn, so it becomes a carbon source. Restored: drains are blocked, the water table rises again and Sphagnum moss is re-established, so peat formation and carbon storage can restart.</desc>
+  <defs>
+    <marker id="pt-a" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="mk" /></marker>
+    <marker id="pt-b" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="mk out" /></marker>
+  </defs>
+  {panels.map((p) => (
+    <g transform={`translate(${p.x} 0)`}>
+      <text class="head" x="100" y="20" text-anchor="middle">{p.title}</text>
+      <rect class="peat" x="0" y="110" width="200" height="130" rx="4" />
+      <rect class="water" x="0" y={p.wt} width="200" height={240 - p.wt} rx="2" />
+      <line class="wt" x1="0" x2="200" y1={p.wt} y2={p.wt} />
+      <rect class="pill" x="118" y={p.wt - 19} width="80" height="17" rx="8" /><text class="small" x="158" y={p.wt - 6} text-anchor="middle">water table</text>
+      {Array.from({ length: 9 }, (_, i) => <path class="plant" d={`M${12 + i * 22} 110 l-4 -14 M${12 + i * 22} 110 l0 -18 M${12 + i * 22} 110 l5 -13`} />)}
+      <rect class="pill" x="44" y="216" width="112" height="22" rx="11" /><text class="lab" x="100" y="231" text-anchor="middle">{p.peat}</text>
+      {p.flux === 'in'
+        ? <g><line class="co2" x1="70" y1="40" x2="70" y2="92" marker-end="url(#pt-a)" /><text class="lab" x="80" y="62">CO₂ absorbed</text></g>
+        : <g><line class="co2 out" x1="70" y1="104" x2="70" y2="44" marker-end="url(#pt-b)" /><text class="lab bad" x="80" y="62">CO₂ released</text></g>}
+      {p.note.map((n, i) => <text class={`note ${i === 2 ? 'key' : ''}`} x="100" y={262 + i * 18} text-anchor="middle">{n}</text>)}
+    </g>
+  ))}
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .head { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .peat { fill: color-mix(in srgb, var(--bio-tail) 55%, var(--text)); }
+  .water { fill: color-mix(in srgb, var(--bio-water) 45%, transparent); }
+  .wt { stroke: var(--bio-water); stroke-width: 2.5; stroke-dasharray: 6 3; }
+  .small { font-size: 12px; font-weight: 700; fill: var(--text); }
+  .pill { fill: var(--surface); stroke: var(--border-strong); }
+  .plant { stroke: var(--bio-carb); stroke-width: 2.5; fill: none; stroke-linecap: round; }
+  .lab { font-size: 12.5px; font-weight: 700; fill: var(--text); }
+  .lab.bad { fill: var(--bad); }
+  .co2 { stroke: var(--bio-carb); stroke-width: 3.5; }
+  .co2.out { stroke: var(--bad); }
+  .mk { fill: var(--bio-carb); }
+  .mk.out { fill: var(--bad); }
+  .note { font-size: 12.5px; fill: var(--text-muted); }
+  .note.key { font-weight: 750; fill: var(--text); }
+</style>

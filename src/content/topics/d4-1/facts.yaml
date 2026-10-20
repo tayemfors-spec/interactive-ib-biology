@@ -1,0 +1,199 @@
+facts:
+  - id: f1
+    claim: Life on Earth began more than 3.5 billion years ago, and natural selection has operated throughout that time.
+    where: ["index.mdx#mechanism"]
+    confidence: high
+    basis: Fossil and isotopic evidence of life by about 3.5 Ga (stromatolites; earlier claims to about 3.8–4.1 Ga are debated); Campbell Biology
+    status: checked
+  - id: f2
+    claim: Darwin published On the Origin of Species in 1859; Darwin's and Wallace's papers were presented together at the Linnean Society in 1858.
+    where: ["index.mdx#mechanism"]
+    confidence: high
+    basis: Standard history of biology (Futuyma, Evolution)
+    status: checked
+  - id: f3
+    claim: Lamarckism proposed inheritance of characteristics acquired through use and disuse; Darwin's mechanism replacing it is the IB's example of a paradigm shift (Kuhn's term).
+    where: ["index.mdx#mechanism", "index.mdx (mustKnow)", "quiz.yaml:q1", "flashcards.yaml:c2"]
+    confidence: high
+    basis: IB guide D4.1.1 NOS; Kuhn, The Structure of Scientific Revolutions (1962)
+    status: checked
+  - id: f4
+    claim: Mutation is the only source of new alleles; crossing over, random orientation in meiosis and fertilization create new combinations of alleles.
+    where: ["index.mdx#variation", "src/diagrams/d4-1-variation.astro", "quiz.yaml:q2", "flashcards.yaml:c3"]
+    confidence: high
+    basis: IB guide D4.1.2; Campbell Biology
+    status: checked
+  - id: f5
+    claim: An oak can drop tens of thousands of acorns in a mast year; a large female Atlantic cod releases millions of eggs in a breeding season.
+    where: ["index.mdx#overproduction"]
+    confidence: medium
+    basis: Forestry mast-year counts; fisheries data (large female cod several million eggs)
+    status: open
+  - id: f6
+    claim: Darwin calculated that one pair of elephants would have nearly 19 million descendants after about 750 years if all survived.
+    where: ["index.mdx#overproduction"]
+    confidence: medium
+    basis: On the Origin of Species, chapter 3 (figures differ slightly between editions — 15 million in the 1st edition corrected to about 19 million later)
+    status: open
+  - id: f7
+    claim: After the extreme 2014 winter cold snap in Texas, southern populations of green anole lizards (Anolis carolinensis) showed greater cold tolerance than before.
+    where: ["index.mdx#abiotic", "flashcards.yaml:c6"]
+    confidence: medium
+    basis: Campbell-Staton et al. (2017) Science 357, 495–498
+    status: open
+  - id: f8
+    claim: A prolonged cold, rainy spell in May 1996 in south-western Nebraska killed about half of the cliff swallows; survivors were larger on average.
+    where: ["index.mdx#abiotic"]
+    confidence: medium
+    basis: Brown & Brown (1998) Evolution 52, 1461–1475
+    status: open
+  - id: f9
+    claim: Fitness is the reproductive success (contribution of offspring to the next generation) of a genotype relative to others in a given environment.
+    where: ["index.mdx#fitness", "index.mdx (mustKnow)", "quiz.yaml:q4", "flashcards.yaml:c7"]
+    confidence: high
+    basis: IB guide D4.1.5; Futuyma, Evolution
+    status: checked
+  - id: f10
+    claim: In the peppered moth (Biston betularia) the melanic carbonaria form is controlled mainly by a single locus (a transposon insertion in the cortex gene).
+    where: ["index.mdx#fitness"]
+    confidence: high
+    basis: van't Hof et al. (2016) Nature 534, 102–105
+    status: checked
+  - id: f11
+    claim: Weismann cut off the tails of mice for five successive generations and all offspring were born with normal tails.
+    where: ["index.mdx#heritable", "quiz.yaml:q5"]
+    confidence: medium
+    basis: Weismann (1889) Essays upon Heredity; widely reported (901 young over five generations)
+    status: open
+  - id: f12
+    claim: Birds of paradise (Paradisaeidae) number about 45 species, mostly in New Guinea; in most species females alone nest and rear young; some species display at leks.
+    where: ["index.mdx#sexual", "flashcards.yaml:c9"]
+    confidence: medium
+    basis: Laman & Scholes (2012) Birds of Paradise; species count varies (about 42–45) with taxonomy
+    status: open
+  - id: f13
+    claim: The male superb bird-of-paradise (Lophorina superba) displays by spreading a black cape into an oval and showing an iridescent blue-green breast shield while dancing.
+    where: ["index.mdx#sexual"]
+    confidence: high
+    basis: Laman & Scholes (2012); Cornell Lab of Ornithology Birds-of-Paradise Project
+    status: checked
+  - id: f14
+    claim: Guppies (Poecilia reticulata) are native to Trinidad and north-east South America; in Trinidad, pike cichlids (Crenicichla) prey on adults downstream, while above waterfalls the main predator is Rivulus hartii, which mostly eats juveniles.
+    where: ["index.mdx#endler", "src/diagrams/d4-1-endler-design.astro", "src/sims/models/d4-1-guppies.ts"]
+    confidence: high
+    basis: Endler (1980) Evolution 34, 76–91; Reznick & Endler (1982)
+    status: checked
+  - id: f15
+    claim: "Endler's greenhouse experiment: one mixed stock bred for about 6 months in ten pools without predators; then Crenicichla was added to 4 pools, Rivulus to 4, and 2 stayed predator-free; censuses about 5 and 14 months later showed fewer and smaller spots with Crenicichla and more spots with Rivulus and in controls."
+    where: ["index.mdx#endler", "src/diagrams/d4-1-endler-design.astro", "src/sims/models/d4-1-guppies.ts", "quiz.yaml:q6", "flashcards.yaml:c10", "flashcards.yaml:c11"]
+    confidence: medium
+    basis: Endler (1980) Evolution 34, 76–91 — pool numbers and census times as usually reported; check against the paper
+    status: open
+  - id: f16
+    claim: "Endler's field transplant: in 1976 guppies from a high-predation (Crenicichla) site were moved to a guppy-free stream above a waterfall containing only Rivulus; about two years (roughly 15 generations) later the males had more and larger spots."
+    where: ["index.mdx#endler", "src/diagrams/d4-1-endler-design.astro", "flashcards.yaml:c11"]
+    confidence: medium
+    basis: Endler (1980) Evolution 34, 76–91 (sampled 1978, about 23 months after transfer)
+    status: open
+  - id: f17
+    claim: The guppy, moth and Hardy–Weinberg simulations are qualitative models with illustrative numbers, not published data; quiz q6 numbers are invented in the style of Endler's results.
+    where: ["src/sims/models/d4-1-guppies.ts", "src/sims/models/d4-1-selection.ts", "quiz.yaml:q6"]
+    confidence: high
+    basis: Model design; stated on screen
+    status: checked
+  - id: f18
+    claim: "Duffy-null allele (ACKR1) frequency is above 0.9 in much of sub-Saharan Africa and close to 0 in Europe and East Asia; the Duffy antigen is the receptor P. vivax uses to enter red blood cells."
+    where: ["index.mdx#gene-pool"]
+    confidence: high
+    basis: Howes et al. (2011) Nature Communications 2, 266; Miller et al. (1976) NEJM
+    status: checked
+  - id: f19
+    claim: CCR5-Δ32 (rs333) allele frequency is roughly 0.1–0.15 in northern Europe and close to 0 in most African, East Asian and indigenous American populations; homozygotes resist infection by CCR5-using (R5) HIV strains.
+    where: ["index.mdx#gene-pool"]
+    confidence: medium
+    basis: Novembre et al. (2005) PLoS Biology 3, e339; Samson et al. (1996) Nature; check current values in gnomAD/Ensembl
+    status: open
+  - id: f20
+    claim: The lactase persistence allele (−13910*T, rs4988235) is common in north-west Europe and close to 0 in East Asia; its spread is linked to dairying.
+    where: ["index.mdx#gene-pool"]
+    confidence: high
+    basis: Enattah et al. (2002) Nature Genetics; Itan et al. (2009)
+    status: checked
+  - id: f21
+    claim: gnomAD, Ensembl (1000 Genomes population data) and the Allele Frequency Net Database (HLA alleles) are free online allele frequency databases; rs333 is the identifier for CCR5-Δ32.
+    where: ["index.mdx#gene-pool"]
+    confidence: high
+    basis: Database websites (gnomad.broadinstitute.org, ensembl.org, allelefrequencies.net); dbSNP
+    status: checked
+  - id: f22
+    claim: Neo-Darwinism (the modern synthesis) combined Mendelian genetics with natural selection in the 1930s–1940s, after Mendel's work was rediscovered in 1900.
+    where: ["index.mdx#neo-darwinism", "flashcards.yaml:c13"]
+    confidence: high
+    basis: Futuyma, Evolution; IB guide D4.1.11
+    status: checked
+  - id: f23
+    claim: Human birth mass shows stabilizing selection — historically, mortality was lowest near the average birth mass and higher for very light and very heavy babies.
+    where: ["index.mdx#neo-darwinism", "visuals.yaml:selection-types", "src/anims/d4-1-selection-types.astro", "flashcards.yaml:c14"]
+    confidence: high
+    basis: Karn & Penrose (1951) Annals of Eugenics 16, 147–164
+    status: checked
+  - id: f24
+    claim: During the 1977 drought on Daphne Major, medium ground finches (Geospiza fortis) with deeper beaks survived better because mainly large, hard seeds remained; the next generation had deeper beaks on average.
+    where: ["index.mdx#neo-darwinism", "visuals.yaml:selection-types", "src/anims/d4-1-selection-types.astro", "flashcards.yaml:c14"]
+    confidence: high
+    basis: Boag & Grant (1981) Science 214, 82–85; Grant & Grant
+    status: checked
+  - id: f25
+    claim: Black-bellied seedcrackers (Pyrenestes ostrinus) in Cameroon show disruptive selection on bill size — small-billed birds feed efficiently on soft seeds, large-billed on hard seeds, and intermediates survive less well.
+    where: ["index.mdx#neo-darwinism", "visuals.yaml:selection-types", "src/anims/d4-1-selection-types.astro", "flashcards.yaml:c14"]
+    confidence: high
+    basis: Smith (1993) Nature 363, 618–620
+    status: checked
+  - id: f26
+    claim: All three patterns of selection change allele frequencies.
+    where: ["index.mdx#neo-darwinism", "index.mdx (mistakes)"]
+    confidence: high
+    basis: IB guide D4.1.12
+    status: checked
+  - id: f27
+    claim: "Hardy–Weinberg: p + q = 1 and p² + 2pq + q² = 1; for q² = 1/2500, q = 0.02, p = 0.98 and 2pq = 0.0392 (about 1 in 25–26); for q² = 1/10 000, 2pq = 0.0198 (about 1 in 50)."
+    where: ["index.mdx#hardy-weinberg", "src/sims/models/d4-1-hardy-weinberg.ts", "tests/unit/d4-1.test.ts", "quiz.yaml:q8", "flashcards.yaml:c15"]
+    confidence: high
+    basis: Arithmetic, verified in unit tests
+    status: checked
+  - id: f28
+    claim: Cystic fibrosis incidence of about 1 in 2500 newborns is typical of populations of northern European ancestry (often quoted 1 in 2500 to 1 in 3500); PKU is often quoted at about 1 in 10 000.
+    where: ["index.mdx#hardy-weinberg", "src/sims/d4-1-hardy-weinberg.astro", "quiz.yaml:q8"]
+    confidence: medium
+    basis: Standard medical genetics texts; incidence varies between populations
+    status: open
+  - id: f29
+    claim: The MN blood group counts (298 MM, 489 MN, 213 NN) are illustrative, not survey data; p = 0.5425 and expected counts ≈ 294, 496, 209.
+    where: ["index.mdx#hardy-weinberg", "src/sims/d4-1-hardy-weinberg.astro", "tests/unit/d4-1.test.ts"]
+    confidence: high
+    basis: Arithmetic, verified in unit tests
+    status: checked
+  - id: f30
+    claim: Hardy–Weinberg conditions are a very large population, random mating, no mutation, no migration and no natural selection; inbreeding reduces heterozygote frequency without itself changing allele frequencies.
+    where: ["index.mdx#hardy-weinberg", "index.mdx (mustKnow)", "quiz.yaml:q9", "flashcards.yaml:c16", "src/sims/models/d4-1-hardy-weinberg.ts"]
+    confidence: high
+    basis: IB guide D4.1.14; Hartl & Clark, Principles of Population Genetics
+    status: checked
+  - id: f31
+    claim: The Illinois long-term selection experiment for maize kernel oil began in 1896; after about 100 generations the high-oil line had several times the original oil content (about 4.7% → about 20%) and the low-oil line very little (about 1% or less).
+    where: ["index.mdx#artificial", "visuals.yaml:selection-types", "src/anims/d4-1-selection-types.astro"]
+    confidence: medium
+    basis: Dudley & Lambert (2004) Plant Breeding Reviews 24, 79–110; Moose et al. (2004)
+    status: open
+  - id: f32
+    claim: Maize was domesticated from teosinte in Mexico about 9000 years ago; dogs descend from wolves.
+    where: ["index.mdx#artificial"]
+    confidence: high
+    basis: Matsuoka et al. (2002) PNAS; consistent with A4.1 facts
+    status: checked
+  - id: f33
+    claim: Antibiotic, pesticide and herbicide resistance (and warfarin resistance in rats) evolve by natural selection, not artificial selection, because no one deliberately chooses the resistant individuals for breeding.
+    where: ["index.mdx#artificial", "index.mdx (mistakes)", "quiz.yaml:q10", "flashcards.yaml:c17"]
+    confidence: high
+    basis: IB guide D4.1.15; consistent with C3.2
+    status: checked

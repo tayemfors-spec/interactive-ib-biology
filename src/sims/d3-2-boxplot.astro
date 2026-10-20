@@ -1,0 +1,124 @@
+---
+import { DATA_SETS } from './models/d3-2-boxplot';
+import { H, W, plotSvg, statsHtml, summaryText } from './d3-2-boxplot-view';
+const d = DATA_SETS[0]!;
+---
+<div class="bx" data-boxplot>
+  <div class="choices" role="radiogroup" aria-label="Choose a data set">
+    {DATA_SETS.map((s, i) => (
+      <button type="button" class="btn small" role="radio" aria-checked={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-set={s.id}>{s.label}</button>
+    ))}
+  </div>
+  <svg class="plot" viewBox={`0 0 ${W} ${H}`} role="img" aria-labelledby="bx-t" data-plot>
+    <title id="bx-t" data-plot-title>{summaryText(d.values, d.unit)}</title>
+    <g data-plot-g set:html={plotSvg(d.values, d.unit)} />
+  </svg>
+  <p class="legend">Dots: each individual value (repeats stack). Box: Q1 to Q3, split at the median. Whiskers: smallest and largest values that are not outliers. Thin vertical lines: the outlier limits, 1.5 × IQR beyond the quartiles.</p>
+  <div class="cols">
+    <label class="data">Data (edit, then press Plot)
+      <textarea rows="3" data-text>{d.values.join(', ')}</textarea>
+    </label>
+    <div class="stats" data-stats set:html={statsHtml(d.values)} />
+  </div>
+  <div class="row">
+    <button type="button" class="btn btn-primary" data-plot-btn>Plot</button>
+    <label class="slider">Largest value: <output data-big-out>{Math.max(...d.values)}</output>
+      <input type="range" min="0" max="100" step="1" value="0" data-big />
+    </label>
+  </div>
+  <p class="readout" aria-live="polite" data-readout>{summaryText(d.values, d.unit)}</p>
+  <p class="model-note">Illustrative data. Quartiles here are the medians of the lower and upper halves of the ordered data; calculators and spreadsheets use slightly different rules, so their quartiles may differ a little.</p>
+</div>
+
+<script>
+  import { DATA_SETS, parseData, sorted } from './models/d3-2-boxplot';
+  import { plotSvg, statsHtml, summaryText } from './d3-2-boxplot-view';
+
+  document.querySelectorAll<HTMLElement>('[data-boxplot]').forEach((root) => {
+    const q = <T extends Element>(s: string) => root.querySelector<T>(s)!;
+    const setBtns = [...root.querySelectorAll<HTMLButtonElement>('[data-set]')];
+    const text = q<HTMLTextAreaElement>('[data-text]');
+    const big = q<HTMLInputElement>('[data-big]');
+    let set = DATA_SETS[0]!;
+    let base: number[] = [...set.values];
+    let timer = 0;
+
+    const render = (values: number[]) => {
+      q('[data-plot-g]').innerHTML = plotSvg(values, set.unit);
+      q('[data-plot-title]').textContent = summaryText(values, set.unit);
+      q('[data-stats]').innerHTML = statsHtml(values);
+      clearTimeout(timer);
+      timer = window.setTimeout(() => (q('[data-readout]').textContent = summaryText(values, set.unit)), 300);
+    };
+    /** Slider 0–100 moves the largest value from the second largest up to 40 units above the original maximum. */
+    const sliderRange = () => {
+      const s = sorted(base);
+      const second = s[s.length - 2] ?? 0, top = s[s.length - 1] ?? 0;
+      return { second, hiEnd: top + 40, top };
+    };
+    const syncSlider = () => {
+      const { second, hiEnd, top } = sliderRange();
+      big.value = String(Math.round(((top - second) / Math.max(1, hiEnd - second)) * 100));
+      q('[data-big-out]').textContent = String(top);
+    };
+    const load = (values: number[]) => { base = [...values]; text.value = values.join(', '); syncSlider(); render(values); };
+    const choose = (btn: HTMLButtonElement, focus = false) => {
+      set = DATA_SETS.find((x) => x.id === btn.dataset.set)!;
+      setBtns.forEach((b) => { const on = b === btn; b.setAttribute('aria-checked', String(on)); b.tabIndex = on ? 0 : -1; });
+      if (focus) btn.focus();
+      load(set.values);
+    };
+    setBtns.forEach((b, i) => {
+      b.addEventListener('click', () => choose(b));
+      b.addEventListener('keydown', (e) => {
+        const d = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+        if (d) { e.preventDefault(); choose(setBtns[(i + d + setBtns.length) % setBtns.length]!, true); }
+      });
+    });
+    q('[data-plot-btn]').addEventListener('click', () => load(parseData(text.value).slice(0, 200)));
+    big.addEventListener('input', () => {
+      if (base.length < 2) return;
+      const { second, hiEnd } = sliderRange();
+      const v = Math.round(second + (Number(big.value) / 100) * (hiEnd - second));
+      const s = sorted(base);
+      s[s.length - 1] = v;
+      q('[data-big-out]').textContent = String(v);
+      text.value = s.join(', ');
+      render(s);
+    });
+    syncSlider();
+  });
+</script>
+
+<style>
+  .bx { container-type: inline-size; }
+  .choices { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); }
+  .choices .btn[aria-checked='true'] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-strong); }
+  .small { min-height: 2.1rem; padding: 0.3rem 0.65rem; }
+  .plot { width: 100%; height: auto; display: block; background: var(--surface-2); border-radius: var(--radius-m); font-family: var(--font-sans); }
+  .plot :global(.pt) { fill: var(--bio-protein); }
+  .plot :global(.pt.out), .plot :global(.opt) { fill: var(--bad); }
+  .plot :global(.box) { fill: color-mix(in srgb, var(--bio-protein) 22%, var(--surface)); stroke: var(--text); stroke-width: 2; }
+  .plot :global(.med) { stroke: var(--text); stroke-width: 3.5; }
+  .plot :global(.whisk) { stroke: var(--text); stroke-width: 2; fill: none; }
+  .plot :global(.fence) { stroke: var(--bad); stroke-width: 1.5; stroke-dasharray: 4 3; }
+  .plot :global(.axis) { stroke: var(--text-muted); stroke-width: 1.5; }
+  .plot :global(.tick), .plot :global(.unit) { font-size: 12px; fill: var(--text-muted); }
+  .plot :global(.ann) { font-size: 12px; fill: var(--text); font-weight: 650; }
+  .plot :global(.ann.strong) { font-weight: 800; }
+  .plot :global(.outt) { fill: var(--bad); }
+  .plot :global(.msg) { font-size: 15px; fill: var(--text-muted); }
+  .legend { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-1) 0 var(--space-3); }
+  .cols { display: grid; gap: var(--space-3); }
+  @container (min-width: 40rem) { .cols { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; } }
+  .data { display: grid; gap: var(--space-1); font-size: var(--step--1); font-weight: 650; }
+  textarea { font: inherit; font-weight: 400; font-size: var(--step--1); color: var(--text); background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-s); padding: 0.4rem; width: 100%; box-sizing: border-box; }
+  .stats :global(dl) { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: var(--space-2); margin: 0; font-size: var(--step--1); }
+  .stats :global(dt) { font-weight: 700; color: var(--text-muted); font-size: 0.75rem; }
+  .stats :global(dd) { margin: 0; font-weight: 650; font-variant-numeric: tabular-nums; }
+  .row { display: grid; gap: var(--space-3); margin-top: var(--space-3); align-items: end; }
+  @container (min-width: 32rem) { .row { grid-template-columns: auto minmax(0, 1fr); } }
+  .slider { display: grid; gap: var(--space-1); font-size: var(--step--1); font-weight: 650; }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

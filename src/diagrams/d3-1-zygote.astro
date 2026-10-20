@@ -1,0 +1,68 @@
+---
+/** D3.1.6: events of fertilization in humans, from membrane fusion to the first (joint) mitosis. Schematic, not to scale. */
+const cx = [92, 272, 452, 632];
+const cy = 118;
+const R = 62;
+const chromP = [-15, -5, 5, 15]; // paternal (sperm) chromosomes, drawn as a sample of 4 of the 23
+---
+<svg viewBox="0 0 720 270" role="img" aria-labelledby="d31-z-t d31-z-d" class="zyg">
+  <title id="d31-z-t">Four stages of human fertilization, from fusion of membranes to two diploid nuclei</title>
+  <desc id="d31-z-d">Stage 1: the plasma membrane of a sperm fuses with the egg's plasma membrane and the sperm nucleus enters the egg. Stage 2: inside the egg there are two separate haploid nuclei, one from the sperm and one from the egg; the sperm's tail and mitochondria are broken down. Stage 3: both nuclear membranes break down and the condensed chromosomes from both nuclei line up on a single spindle. Stage 4: one mitosis produces two cells, each with a diploid nucleus.</desc>
+  {cx.map((x, i) => <>
+    <circle class="zona" cx={x} cy={cy} r={R + 9} />
+    {i < 3 ? <circle class="egg" cx={x} cy={cy} r={R} /> : <><ellipse class="egg" cx={x - 26} cy={cy} rx="30" ry="50" /><ellipse class="egg" cx={x + 26} cy={cy} rx="30" ry="50" /></>}
+    <text class="n" x={x - R - 8} y="34">{i + 1}</text>
+  </>)}
+  <!-- 1: fusion, sperm nucleus entering -->
+  <path class="tail" d={`M${cx[0]! + 52} ${cy - 44} C${cx[0]! + 80} ${cy - 70} ${cx[0]! + 70} ${cy - 90} ${cx[0]! + 96} ${cy - 104}`} />
+  <ellipse class="mid" cx={cx[0]! + 52} cy={cy - 42} rx="6" ry="4" transform={`rotate(-40 ${cx[0]! + 52} ${cy - 42})`} />
+  <ellipse class="pn-s" cx={cx[0]! + 36} cy={cy - 28} rx="9" ry="7" />
+  <ellipse class="pn-e" cx={cx[0]! - 14} cy={cy + 10} rx="13" ry="12" />
+  <!-- 2: two haploid nuclei; tail and mitochondria broken down -->
+  <ellipse class="pn-s" cx={cx[1]! + 14} cy={cy} rx="14" ry="13" />
+  <ellipse class="pn-e" cx={cx[1]! - 16} cy={cy} rx="14" ry="13" />
+  <g class="gone"><ellipse cx={cx[1]! + 40} cy={cy - 34} rx="5" ry="3.5" /><ellipse cx={cx[1]! + 46} cy={cy - 26} rx="5" ry="3.5" /><path d={`M${cx[1]! + 34} ${cy - 40} l18 18 M${cx[1]! + 52} ${cy - 40} l-18 18`} /></g>
+  <!-- 3: nuclear membranes gone, chromosomes from both on one spindle -->
+  <path class="spindle" d={`M${cx[2]! - 34} ${cy} Q${cx[2]!} ${cy - 40} ${cx[2]! + 34} ${cy} Q${cx[2]!} ${cy + 40} ${cx[2]! - 34} ${cy} M${cx[2]! - 34} ${cy} Q${cx[2]!} ${cy - 18} ${cx[2]! + 34} ${cy} M${cx[2]! - 34} ${cy} Q${cx[2]!} ${cy + 18} ${cx[2]! + 34} ${cy}`} />
+  {chromP.map((d) => <rect class="cs" x={cx[2]! - 7} y={cy + d * 1.4 - 3} width="6" height="6" rx="1.5" />)}
+  {chromP.map((d) => <rect class="ce" x={cx[2]! + 1} y={cy + d * 1.4 - 3} width="6" height="6" rx="1.5" />)}
+  <!-- 4: two diploid nuclei -->
+  <ellipse class="dip" cx={cx[3]! - 26} cy={cy} rx="13" ry="12" />
+  <ellipse class="dip" cx={cx[3]! + 26} cy={cy} rx="13" ry="12" />
+
+  <!-- captions -->
+  <g class="cap">
+    <text x={cx[0]} y="210" text-anchor="middle"><tspan class="b">Membranes fuse</tspan></text>
+    <text x={cx[0]} y="227" text-anchor="middle">sperm nucleus</text><text x={cx[0]} y="243" text-anchor="middle">enters the egg</text>
+    <text x={cx[1]} y="210" text-anchor="middle"><tspan class="b">Two haploid nuclei</tspan></text>
+    <text x={cx[1]} y="227" text-anchor="middle">(n = 23 each); tail and</text><text x={cx[1]} y="243" text-anchor="middle">mitochondria destroyed</text>
+    <text x={cx[2]} y="210" text-anchor="middle"><tspan class="b">Joint mitosis</tspan></text>
+    <text x={cx[2]} y="227" text-anchor="middle">nuclear membranes break</text><text x={cx[2]} y="243" text-anchor="middle">down; one shared spindle</text>
+    <text x={cx[3]} y="210" text-anchor="middle"><tspan class="b">Two diploid nuclei</tspan></text>
+    <text x={cx[3]} y="227" text-anchor="middle">2n = 46 in each</text><text x={cx[3]} y="243" text-anchor="middle">cell of the embryo</text>
+  </g>
+  <g class="key">
+    <rect class="pn-s" x="196" y="256" width="12" height="10" /><text x="212" y="265">from sperm</text>
+    <rect class="pn-e" x="300" y="256" width="12" height="10" /><text x="316" y="265">from egg</text>
+    <text x="400" y="265">(only 4 of the 23 chromosome pairs drawn)</text>
+  </g>
+</svg>
+<style>
+  .zyg { font-family: var(--font-sans); }
+  .zona { fill: none; stroke: color-mix(in srgb, var(--bio-carb) 40%, var(--surface)); stroke-width: 12; }
+  .egg { fill: color-mix(in srgb, var(--bio-tail) 22%, var(--surface)); stroke: var(--bio-head); stroke-width: 2; }
+  .pn-s { fill: color-mix(in srgb, var(--bio-protein) 55%, var(--surface)); stroke: var(--text); stroke-width: 1.2; }
+  .pn-e { fill: color-mix(in srgb, var(--bio-k) 45%, var(--surface)); stroke: var(--text); stroke-width: 1.2; }
+  .dip { fill: color-mix(in srgb, var(--bio-protein-2) 50%, var(--surface)); stroke: var(--text); stroke-width: 1.2; }
+  .tail { fill: none; stroke: var(--text); stroke-width: 2; }
+  .mid { fill: color-mix(in srgb, var(--bio-chol) 50%, var(--surface)); stroke: var(--text); }
+  .gone ellipse { fill: color-mix(in srgb, var(--bio-chol) 30%, var(--surface)); stroke: var(--text-muted); }
+  .gone path { stroke: var(--bad); stroke-width: 2; }
+  .spindle { fill: none; stroke: var(--text-muted); stroke-width: 1; }
+  .cs { fill: var(--bio-protein); }
+  .ce { fill: var(--bio-k); }
+  .n { font-size: 16px; font-weight: 800; fill: var(--accent-strong); }
+  .cap text { font-size: 13px; fill: var(--text); }
+  .cap .b { font-weight: 750; }
+  .key text { font-size: 12.5px; fill: var(--text-muted); }
+</style>

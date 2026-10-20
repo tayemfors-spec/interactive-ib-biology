@@ -1,0 +1,73 @@
+cards:
+  - id: c1
+    level: SL
+    front: Why does a diploid organism have two copies of each autosomal gene, but its gametes only one?
+    back: Body cells contain two sets of chromosomes, one from each parent, so each autosomal gene is present on both chromosomes of a homologous pair. Meiosis halves the chromosome number, so each haploid gamete receives one chromosome of each pair and one allele of each gene.
+  - id: c2
+    level: SL
+    front: Homozygous vs heterozygous
+    back: Homozygous — two identical alleles (AA or aa), so all gametes carry the same allele. Heterozygous — two different alleles (Aa), so half the gametes carry A and half carry a.
+  - id: c3
+    level: SL
+    front: How do you prevent self-pollination when crossing two pea plants?
+    back: Remove the anthers of the flower chosen as the female parent before they shed pollen, then cover it with a bag. When the stigma is ripe, transfer pollen from the chosen male parent and re-cover it.
+  - id: c4
+    level: SL
+    front: Why do AA and Aa individuals have the same phenotype?
+    back: The dominant allele codes for a functional product (often an enzyme). One copy makes enough of it for the normal phenotype, so the recessive allele, which codes for a non-functional product, has no visible effect.
+  - id: c5
+    level: SL
+    front: Give a human trait due to genotype only, one due to environment only and one due to both.
+    back: Genotype only — ABO blood group or haemophilia. Environment only — a scar or a tattoo. Both — height, body mass or skin colour.
+  - id: c6
+    level: SL
+    front: What is phenotypic plasticity? Give an example.
+    back: The capacity to develop traits suited to the environment by changing gene expression, with no change in genotype; often reversible. Example — skin darkens with more sunlight because more melanin is made, then pales again.
+  - id: c7
+    level: SL
+    front: What causes phenylketonuria?
+    back: Two copies of a recessive allele of an autosomal gene (PAH) for phenylalanine hydroxylase. Without the working enzyme, phenylalanine is not converted to tyrosine; it accumulates and harms brain development unless a low-phenylalanine diet is followed.
+  - id: c8
+    level: SL
+    front: What is a SNP, and how does it relate to multiple alleles?
+    back: A single-nucleotide polymorphism is a position in a gene where different bases are found in different individuals. One gene can contain many SNPs, so many alleles can exist in the gene pool, although each diploid individual carries only two.
+  - id: c9
+    level: SL
+    front: Codominance vs incomplete dominance
+    back: Codominance — the heterozygote shows both phenotypes (IᴬIᴮ, blood group AB, with A and B antigens). Incomplete dominance — the heterozygote is intermediate (CᴿCᵂ pink four o'clock flowers, Mirabilis jalapa).
+  - id: c10
+    level: SL
+    front: What determines the sex of a human baby?
+    back: The sex chromosome in the sperm. All eggs carry X; an X sperm gives XX (female), a Y sperm gives XY (male). SRY on the Y makes the gonads develop into testes, which secrete testosterone.
+  - id: c11
+    level: SL
+    front: Why is haemophilia more common in males than in females?
+    back: The gene is on the X chromosome. Males have one X, so one recessive Xʰ allele causes haemophilia (XʰY). Females need two copies (XʰXʰ); with one copy they are unaffected carriers.
+  - id: c12
+    level: SL
+    front: Why do many societies forbid marriage between close relatives?
+    back: Relatives share alleles from common ancestors, so both partners are more likely to carry the same rare recessive allele, which raises the chance of a homozygous recessive child with a genetic disease.
+  - id: c13
+    level: SL
+    front: How is an outlier defined for a box-and-whisker plot?
+    back: A value more than 1.5 × IQR (IQR = Q3 − Q1) below the lower quartile or above the upper quartile. It is plotted as a separate point beyond the whisker.
+  - id: c14
+    level: SL
+    front: Why does skin colour show continuous variation?
+    back: It is polygenic — alleles of many genes each add a little to melanin production — and sunlight also increases melanin. Many combinations of alleles plus environmental effects give a continuous range of skin colours.
+  - id: c15
+    level: AHL
+    front: "Explain the 9 : 3 : 3 : 1 ratio."
+    back: "For two unlinked genes, independent assortment in meiosis lets the double heterozygote (AaBb) make AB, Ab, aB and ab gametes equally. Random fusion of these gametes gives 16 equally likely combinations — 9 A_B_ : 3 A_bb : 3 aaB_ : 1 aabb."
+  - id: c16
+    level: AHL
+    front: Why do linked genes not assort independently?
+    back: Their loci are on the same chromosome, so their alleles move together into gametes. Only crossing over between the two loci in prophase I separates them, producing recombinants.
+  - id: c17
+    level: AHL
+    front: Expected test-cross results for unlinked and linked genes
+    back: "Double heterozygote × double recessive. Unlinked — 1 : 1 : 1 : 1 (50% recombinants). Linked — mainly the two parental types, with fewer recombinants; recombination frequency = recombinants ÷ total, at most 50%."
+  - id: c18
+    level: AHL
+    front: Chi-squared on a dihybrid cross — df, critical value, decision?
+    back: df = 4 classes − 1 = 3. Critical value at p = 0.05 is 7.815. If χ² > 7.815, reject H₀ (results differ significantly from the Mendelian ratio, e.g. because of linkage); otherwise H₀ is not rejected.

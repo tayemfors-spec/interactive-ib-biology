@@ -1,0 +1,78 @@
+---
+/**
+ * Range shifts (D4.3.6). Left: upslope shift of montane birds on Karkar Island, Papua New Guinea
+ * (surveyed 1969, resurveyed 2013; Freeman & Class Freeman 2014): mean upper-limit shift 152 m upslope;
+ * 17 species' upper limits moved up, 5 down. Elevations are schematic apart from the island summit (~1,800 m).
+ * Right: eastern USA trees (Zhu, Woodall & Clark 2012), seedling vs adult ranges by latitude for 92 species:
+ * ≈ 59% contraction at both edges, ≈ 21% northward shift, ≈ 16% southward shift, ≈ 4% expansion.
+ */
+const mtn = 'M20 330 C80 320 120 280 150 230 C175 190 190 120 214 92 C230 76 242 80 256 104 C280 150 300 230 340 300 C350 316 360 326 372 330 Z';
+const band = (lo: number, hi: number) => `M20 ${lo} L372 ${lo} L372 ${hi} L20 ${hi} Z`;
+const yE = (m: number) => 330 - (m / 1800) * 240; // elevation (m) to y
+---
+<svg viewBox="0 0 740 404" role="img" aria-labelledby="rs-t rs-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="rs-t">Upslope and poleward range shifts</title>
+  <desc id="rs-d">Left: a mountain on Karkar Island, Papua New Guinea. A montane bird species' elevational range in 1969 is shown as a band; in 2013 the band sits higher up the slope. Across species, upper range limits moved upslope by about 152 metres on average, with 17 species moving up and 5 down. Right: eastern North American trees, comparing where seedlings grow with where adult trees grow. In a species shifting north, seedlings extend beyond the adults at the northern edge and are missing at the southern edge. In about 59% of 92 species the seedling range was narrower at both edges, a range contraction; about 21% showed a northward shift and about 16% a southward shift.</desc>
+  <defs>
+    <clipPath id="rs-clip"><path d={mtn} /></clipPath>
+    <marker id="rs-a" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="mk" /></marker>
+  </defs>
+  <g transform="translate(52 0)">
+  <text class="head" x="-40" y="24">Upslope: birds on Karkar Island, New Guinea</text>
+  <path class="mtn" d={mtn} />
+  <g clip-path="url(#rs-clip)">
+    <path class="b69" d={band(yE(900), yE(600))} />
+    <path class="b13" d={band(yE(1060), yE(740))} />
+  </g>
+  <path class="mtn-edge" d={mtn} />
+  {[0, 600, 1200, 1800].map((m) => <g><line class="tickl" x1="20" x2="14" y1={yE(m)} y2={yE(m)} /><text class="tick" x="10" y={yE(m) + 4} text-anchor="end">{m}</text></g>)}
+  <text class="tick" transform={`translate(-34 ${yE(900)}) rotate(-90)`} text-anchor="middle">elevation (m)</text>
+  <line class="up" x1="300" y1={yE(700)} x2="300" y2={yE(880)} marker-end="url(#rs-a)" />
+  <g class="key">
+    <rect class="b69" x="250" y="40" width="18" height="12" /><text class="lab" x="274" y="51">range in 1969</text>
+    <rect class="b13" x="250" y="60" width="18" height="12" /><text class="lab" x="274" y="71">range in 2013</text>
+  </g>
+  <text class="lab strong" x="20" y="358">Upper limits rose 152 m on average</text>
+  <text class="lab" x="20" y="376">17 species moved up, 5 moved down</text>
+  <text class="lab" x="20" y="394">(species surveyed 1969, resurveyed 2013)</text>
+
+  </g>
+  <g transform="translate(52 0)">
+  <text class="head" x="398" y="24">Poleward: eastern North American trees</text>
+  <text class="lab" x="410" y="44">Where seedlings grow vs where adults grow</text>
+  <line class="lat" x1="430" y1="64" x2="430" y2="300" marker-end="url(#rs-a)" transform="rotate(180 430 182)" />
+  <text class="tick" transform="translate(420 182) rotate(-90)" text-anchor="middle">latitude → north</text>
+  {[
+    { x: 470, t: 'contraction', p: '≈ 59%', a0: 110, a1: 270, s0: 140, s1: 240 },
+    { x: 560, t: 'shift north', p: '≈ 21%', a0: 110, a1: 270, s0: 80, s1: 220 },
+    { x: 640, t: 'shift south', p: '≈ 16%', a0: 110, a1: 270, s0: 160, s1: 300 },
+  ].map((c) => (
+    <g>
+      <rect class="adult" x={c.x - 22} y={c.a0} width="18" height={c.a1 - c.a0} rx="3" />
+      <rect class="seed" x={c.x + 2} y={c.s0} width="18" height={c.s1 - c.s0} rx="3" />
+      <text class="lab strong" x={c.x} y="326" text-anchor="middle">{c.t}</text>
+      <text class="lab" x={c.x} y="344" text-anchor="middle">{c.p}</text>
+    </g>
+  ))}
+  <rect class="adult" x="440" y="362" width="14" height="12" /><text class="lab" x="460" y="373">adults</text>
+  <rect class="seed" x="520" y="362" width="14" height="12" /><text class="lab" x="540" y="373">seedlings</text>
+  <text class="lab" x="440" y="394">92 species; north is up</text>
+  </g>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .head { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .mtn { fill: color-mix(in srgb, var(--bio-carb) 22%, var(--surface)); }
+  .mtn-edge { fill: none; stroke: color-mix(in srgb, var(--bio-carb) 60%, var(--text)); stroke-width: 2; }
+  .b69 { fill: color-mix(in srgb, var(--bio-water) 45%, transparent); stroke: var(--bio-water); stroke-dasharray: 5 3; }
+  .b13 { fill: color-mix(in srgb, var(--bad) 40%, transparent); stroke: var(--bad); }
+  .up { stroke: var(--text); stroke-width: 3; }
+  .mk { fill: var(--text); }
+  .lat { stroke: var(--text-muted); stroke-width: 2; }
+  .tick { font-size: 12px; fill: var(--text-muted); }
+  .tickl { stroke: var(--text-muted); }
+  .lab { font-size: 12.5px; fill: var(--text-muted); }
+  .lab.strong { font-weight: 750; fill: var(--text); }
+  .adult { fill: color-mix(in srgb, var(--bio-carb) 60%, var(--surface)); stroke: var(--bio-carb); }
+  .seed { fill: color-mix(in srgb, var(--bio-head) 35%, var(--surface)); stroke: var(--bio-head); stroke-dasharray: 4 2; }
+</style>

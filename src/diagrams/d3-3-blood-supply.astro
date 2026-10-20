@@ -1,0 +1,69 @@
+---
+/**
+ * D3.3.11: blood flow to four organs during sleep, wakeful rest and vigorous exercise.
+ * Typical rounded values for a young adult (cm³ min⁻¹). Rest and exercise follow standard physiology
+ * tables; sleep values are illustrative (see facts.yaml).
+ */
+const organs = ['Skeletal muscle', 'Gut (digestive organs)', 'Brain', 'Kidneys'];
+const data: Record<string, number[]> = {
+  sleep: [600, 1200, 700, 950],
+  rest: [1000, 1350, 750, 1100],
+  exercise: [12500, 600, 850, 600],
+};
+const states = [
+  { k: 'sleep', name: 'Sleep (cardiac output ≈ 4.5 dm³ min⁻¹)' },
+  { k: 'rest', name: 'Wakeful rest (≈ 5.8 dm³ min⁻¹)' },
+  { k: 'exercise', name: 'Vigorous exercise (≈ 17.5 dm³ min⁻¹)' },
+];
+const X0 = 76, Y0 = 300, H = 250, MAX = 13000;
+const y = (v: number) => Y0 - (v / MAX) * H;
+const GW = 168, BW = 40;
+---
+<div class="exam-diagram">
+  <svg viewBox="0 0 760 352" role="img" aria-labelledby="bs-t bs-d" xmlns="http://www.w3.org/2000/svg">
+    <title id="bs-t">Blood flow to skeletal muscle, gut, brain and kidneys during sleep, wakeful rest and vigorous exercise</title>
+    <desc id="bs-d">Grouped bar chart of blood flow in cubic centimetres per minute. Skeletal muscle: about 600 in sleep, 1000 at rest and 12 500 in vigorous exercise. Gut: about 1200 in sleep, 1350 at rest and 600 in vigorous exercise. Brain: about 700 in sleep, 750 at rest and 850 in vigorous exercise. Kidneys: about 950 in sleep, 1100 at rest and 600 in vigorous exercise.</desc>
+    {[0, 2000, 4000, 6000, 8000, 10000, 12000].map((v) => (
+      <g><line class="grid" x1={X0} x2="748" y1={y(v)} y2={y(v)} /><text class="tick" x={X0 - 8} y={y(v)} dy="0.35em" text-anchor="end">{v.toLocaleString('en-GB')}</text></g>
+    ))}
+    <line class="axis" x1={X0} x2={X0} y1="40" y2={Y0} /><line class="axis" x1={X0} x2="748" y1={Y0} y2={Y0} />
+    <text class="ax" transform={`translate(18 ${(Y0 + 40) / 2}) rotate(-90)`} text-anchor="middle">Blood flow (cm³ min⁻¹)</text>
+    {organs.map((o, i) => {
+      const gx = X0 + 24 + i * GW;
+      return (
+        <g>
+          {states.map((s, j) => {
+            const v = data[s.k]![i]!;
+            const bx = gx + j * (BW + 6);
+            return (
+              <g>
+                <rect class={`bar ${s.k}`} x={bx} y={y(v)} width={BW} height={Y0 - y(v)} />
+                <text class="val" x={bx + BW / 2} y={y(v) - 5} text-anchor="middle">{v.toLocaleString('en-GB')}</text>
+              </g>
+            );
+          })}
+          <text class="org" x={gx + (3 * BW + 12) / 2} y={Y0 + 20} text-anchor="middle">{o}</text>
+        </g>
+      );
+    })}
+    {states.map((s, j) => (
+      <g transform={`translate(430 ${70 + j * 24})`}><rect class={`bar ${s.k}`} width="22" height="14" /><text class="leg" x="28" y="12">{s.name}</text></g>
+    ))}
+    <text class="note" x="748" y="346" text-anchor="end">Typical rounded values for a young adult; sleep values are illustrative.</text>
+  </svg>
+</div>
+<style>
+  .exam-diagram svg { font-family: var(--font-sans); }
+  .grid { stroke: var(--border); stroke-width: 1; }
+  .axis { stroke: var(--text); stroke-width: 1.5; }
+  .tick { font-size: 12px; fill: var(--text-muted); }
+  .ax { font-size: 13.5px; font-weight: 650; fill: var(--text); }
+  .bar { stroke: var(--text); stroke-width: 1; }
+  .bar.sleep { fill: color-mix(in srgb, var(--bio-protein-2) 35%, var(--surface)); stroke-dasharray: 3 2; }
+  .bar.rest { fill: var(--bio-protein); }
+  .bar.exercise { fill: var(--bio-chol); }
+  .val { font-size: 11.5px; font-weight: 700; fill: var(--text); }
+  .org { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .leg { font-size: 12px; fill: var(--text); }
+  .note { font-size: 11.5px; font-style: italic; fill: var(--text-muted); }
+</style>

@@ -1,0 +1,194 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: D3.3.1
+    stem: Which of these is a variable that homeostasis keeps within narrow limits in humans?
+    options:
+      - id: a
+        text: Heart rate
+        why: Heart rate changes widely (for example from about 60 to over 180 beats per minute) as part of the responses that keep other variables steady; it is not itself held constant.
+      - id: b
+        text: Blood pH
+        why: Correct. Blood pH is kept between about 7.35 and 7.45, one of the four homeostatic variables named in the guide.
+      - id: c
+        text: Ventilation rate
+        why: Ventilation rate is adjusted to keep blood pH and CO₂ concentration steady, so it varies a lot rather than being kept constant.
+      - id: d
+        text: Volume of urine produced
+        why: Urine volume varies greatly; it is changed by ADH in order to keep blood osmotic concentration constant.
+    answer: b
+
+  - id: q2
+    level: SL
+    understanding: D3.3.2
+    stem: Why is homeostasis based on negative feedback rather than positive feedback?
+    options:
+      - id: a
+        text: Negative feedback always lowers the value of the variable, which prevents it becoming too high.
+        why: '"Negative" refers to opposing the change, not to lowering the value. Negative feedback raises a variable that has fallen as well as lowering one that has risen.'
+      - id: b
+        text: Negative feedback uses hormones, whereas positive feedback uses nerves.
+        why: Both kinds of feedback can involve nerves or hormones; thermoregulation, for example, uses both in a negative feedback loop.
+      - id: c
+        text: Positive feedback needs more energy, so it would be wasteful.
+        why: Energy cost is not the reason. Positive feedback is unsuitable because it amplifies a deviation instead of reversing it.
+      - id: d
+        text: Negative feedback reverses a deviation in either direction, returning the variable to the set point, whereas positive feedback amplifies it.
+        why: Correct. The response opposes the change, so deviations above and below the set point are both corrected and the variable stays stable.
+    answer: d
+
+  - id: q3
+    level: SL
+    understanding: D3.3.3
+    stem: Blood glucose concentration rises after a meal rich in starch. Which response follows?
+    options:
+      - id: a
+        text: β cells secrete insulin, which causes liver and muscle cells to take up glucose and store it as glycogen.
+        why: Correct. Insulin from β cells increases glucose uptake and glycogenesis in liver and muscle, lowering blood glucose.
+      - id: b
+        text: α cells secrete insulin, which causes liver cells to break glycogen down.
+        why: Insulin comes from β cells, and it promotes glycogen synthesis, not breakdown. α cells secrete glucagon.
+      - id: c
+        text: β cells secrete glucagon, which converts glucose into glycogen in the liver.
+        why: β cells secrete insulin, and glucagon causes glycogen breakdown. This confuses the two hormones and their effects.
+      - id: d
+        text: Insulin is carried to the liver by nerves, where it acts as an enzyme to make glycogen.
+        why: Insulin is a hormone carried dissolved in blood plasma. It binds to receptors; it is not an enzyme itself.
+    answer: a
+
+  - id: q4
+    level: SL
+    understanding: D3.3.4
+    stem: >-
+      In a glucose tolerance test, a person drinks a glucose solution. Person X shows a large, slow-falling rise in blood
+      glucose and a higher-than-normal blood insulin concentration throughout. What is the most likely explanation?
+    options:
+      - id: a
+        text: Type 1 diabetes, because the β cells have been destroyed.
+        why: With β cells destroyed, insulin would be very low, not higher than normal.
+      - id: b
+        text: Type 2 diabetes, because target cells respond weakly to insulin.
+        why: Correct. Insulin is secreted, often in larger amounts than normal, but insulin resistance means cells take up glucose slowly, so glucose stays high.
+      - id: c
+        text: The person has a very high rate of glucagon breakdown in the liver.
+        why: Glucagon is a hormone that is broken down after acting; this would not explain both high glucose and high insulin. It also confuses glucagon with glycogen.
+      - id: d
+        text: Too much insulin has caused glycogen to be broken down into glucose.
+        why: Insulin promotes glycogen synthesis, not breakdown, so extra insulin would lower blood glucose.
+    answer: b
+
+  - id: q5
+    level: SL
+    understanding: D3.3.5
+    stem: How does the hypothalamus increase heat production by body cells over several days of cold weather?
+    options:
+      - id: a
+        text: It stimulates the pituitary gland to release TSH, so the thyroid gland secretes more thyroxin, which raises metabolic rate.
+        why: Correct. This hormonal route (hypothalamus → pituitary → thyroid) raises the metabolic rate of most cells, so more heat is released by respiration.
+      - id: b
+        text: It secretes thyroxin directly into the blood, which makes skeletal muscles shiver.
+        why: Thyroxin is secreted by the thyroid gland, not the hypothalamus, and shivering is triggered by nerve impulses, not thyroxin.
+      - id: c
+        text: It stimulates the posterior pituitary to release ADH, which reduces heat loss in urine.
+        why: ADH controls water reabsorption in the kidney (osmoregulation), not temperature.
+      - id: d
+        text: It causes vasodilation of skin arterioles, so more heat is carried to the cells.
+        why: Vasodilation of skin arterioles increases heat loss from the skin; it is a response to overheating.
+    answer: a
+
+  - id: q6
+    level: SL
+    understanding: D3.3.6
+    stem: Brown adipose tissue helps a newborn baby keep warm. What is the basis of its heat production?
+    options:
+      - id: a
+        text: Its fat insulates the body and so reduces heat loss through the skin.
+        why: Insulation by stored fat is a property of white adipose tissue under the skin. Brown adipose tissue actively generates heat.
+      - id: b
+        text: Its cells contract rapidly, like shivering muscle.
+        why: Adipose cells do not contract. Shivering is a response of skeletal muscle.
+      - id: c
+        text: Its mitochondria make extra ATP, and ATP hydrolysis releases heat.
+        why: In brown fat the mitochondria are uncoupled, so they make little ATP; the energy is released directly as heat.
+      - id: d
+        text: Its many mitochondria oxidize fat but let protons leak across the inner membrane, so energy is released as heat instead of being used to make ATP.
+        why: Correct. This is uncoupled respiration — oxidation is not coupled to ATP synthesis.
+    answer: d
+
+  - id: q7
+    level: AHL
+    understanding: D3.3.8
+    stem: Which feature raises the blood pressure in glomerular capillaries and so increases the rate of ultrafiltration?
+    options:
+      - id: a
+        text: The basement membrane has a negative charge.
+        why: The negative charge helps hold back proteins, but it does not raise blood pressure.
+      - id: b
+        text: Podocytes have foot processes with narrow slits between them.
+        why: The slits help to stop proteins leaving the blood; they do not affect blood pressure.
+      - id: c
+        text: The efferent arteriole is narrower than the afferent arteriole.
+        why: Correct. Blood can enter faster than it can leave, so pressure builds up in the glomerulus and forces plasma out.
+      - id: d
+        text: The proximal convoluted tubule is long and coiled.
+        why: The PCT's length increases the time and surface for reabsorption; it comes after filtration and does not affect glomerular pressure.
+    answer: c
+
+  - id: q8
+    level: AHL
+    understanding: D3.3.9
+    stem: What is the role of the ascending limb of the loop of Henle in producing concentrated urine?
+    options:
+      - id: a
+        text: It reabsorbs water by osmosis, concentrating the filtrate.
+        why: The ascending limb is impermeable to water. Water leaves the descending limb and the collecting duct.
+      - id: b
+        text: It reabsorbs glucose by cotransport with sodium ions.
+        why: Glucose has already been completely reabsorbed in the proximal convoluted tubule.
+      - id: c
+        text: It actively transports Na⁺ out of the filtrate, keeping the solute concentration of the medulla high so water can leave the collecting ducts by osmosis.
+        why: Correct. Because the ascending limb is impermeable to water, pumping Na⁺ out makes the medulla hypertonic, which draws water out of the collecting ducts.
+      - id: d
+        text: It secretes urea into the filtrate so that more water follows.
+        why: Urea is not actively secreted here, and water does not follow solutes in the ascending limb because it is impermeable to water.
+    answer: c
+
+  - id: q9
+    level: AHL
+    understanding: D3.3.10
+    stem: After several hours without drinking on a hot day, which changes occur in the collecting ducts of the kidney?
+    options:
+      - id: a
+        text: More ADH reaches the duct cells, vesicles containing aquaporins fuse with the plasma membrane and more water is reabsorbed by osmosis.
+        why: Correct. High blood solute concentration is detected by hypothalamic osmoreceptors, more ADH is released and duct permeability to water rises.
+      - id: b
+        text: Less ADH reaches the duct cells, aquaporins are taken into vesicles and urine becomes dilute.
+        why: This is the response to drinking excess water (low blood solute concentration), the opposite situation.
+      - id: c
+        text: More ADH reaches the duct cells, which then actively pump water out of the filtrate.
+        why: Water is never actively pumped; it moves by osmosis through aquaporins.
+      - id: d
+        text: More glucagon reaches the duct cells, making their walls more permeable to water.
+        why: Glucagon controls blood glucose via the liver; ADH is the hormone that controls water reabsorption.
+    answer: a
+
+  - id: q10
+    level: AHL
+    understanding: D3.3.11
+    stem: >-
+      During vigorous exercise a person's cardiac output is 17 500 cm³ min⁻¹. Blood flow to the brain is 850 cm³ min⁻¹,
+      compared with 750 cm³ min⁻¹ out of 5 800 cm³ min⁻¹ at rest. Which statement is supported by these data?
+    options:
+      - id: a
+        text: Blood flow to the brain falls during exercise because of vasoconstriction.
+        why: The absolute flow rises slightly, from 750 to 850 cm³ min⁻¹; only the brain's share of cardiac output falls.
+      - id: b
+        text: The brain receives the same percentage of cardiac output at rest and during exercise.
+        why: At rest it receives about 13% (750/5800); during exercise about 5% (850/17 500), so the percentage falls.
+      - id: c
+        text: The brain receives about 50% of the cardiac output during exercise.
+        why: 850/17 500 is about 5%, not 50% — a calculation error by a factor of ten.
+      - id: d
+        text: Absolute blood flow to the brain is maintained, but its percentage of cardiac output falls from about 13% to about 5%.
+        why: Correct. The flow even rises a little, while most of the extra cardiac output goes to skeletal muscle.
+    answer: d

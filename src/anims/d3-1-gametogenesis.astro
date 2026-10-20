@@ -1,0 +1,81 @@
+---
+/**
+ * D3.1.14: spermatogenesis and oogenesis compared stage by stage (mitosis, growth, meiosis I, meiosis II,
+ * differentiation). Drawn in the step-1 state (only the mitosis column visible); animated by d3-1-gametogenesis.ts.
+ * Cell sizes are schematic: the real primary oocyte is far larger relative to sperm-line cells.
+ */
+const X = [70, 206, 342, 478, 610];
+const SY = 104, OY = 296;
+const stages = ['Mitosis', 'Growth', 'Meiosis I', 'Meiosis II', 'Differentiation'];
+const fol = Array.from({ length: 18 }, (_, k) => { const a = (k / 18) * Math.PI * 2; return { x: X[1]! + 34 * Math.cos(a), y: OY + 34 * Math.sin(a) }; });
+const sperm = (x: number, y: number) => `M${x + 6} ${y} q10 -4 20 0 t20 0`;
+---
+<svg viewBox="0 0 680 410" xmlns="http://www.w3.org/2000/svg" class="gam">
+  <rect class="lane s" x="4" y="24" width="672" height="178" rx="10" />
+  <rect class="lane o" x="4" y="214" width="672" height="192" rx="10" />
+  <text class="lt" x="14" y="42">Spermatogenesis (testis) · continuous from puberty</text>
+  <text class="lt" x="14" y="232">Oogenesis (ovary) · begins before birth</text>
+  {stages.map((s, i) => <text class="stage" data-el={`h${i}`} x={X[i]} y="16" text-anchor="middle" style={i === 0 ? '' : 'opacity:0.35'}>{s}</text>)}
+  <!-- arrows between columns -->
+  {[0, 1, 2, 3].map((i) => <g data-el={`a${i}`} style="opacity:0"><path class="arr" d={`M${X[i]! + 34} ${SY} H${X[i + 1]! - 38}`} /><path class="arr" d={`M${X[i]! + 36} ${OY} H${X[i + 1]! - 44}`} /><path class="ah" d={`M${X[i + 1]! - 38} ${SY - 5} l7 5 l-7 5 z M${X[i + 1]! - 44} ${OY - 5} l7 5 l-7 5 z`} /></g>)}
+
+  <!-- column 0: mitosis -->
+  <g data-el="c0">
+    <circle class="sc" cx={X[0]! - 13} cy={SY} r="12" /><circle class="sc" cx={X[0]! + 13} cy={SY} r="12" />
+    <text class="lab" x={X[0]} y={SY + 36} text-anchor="middle">spermatogonia</text><text class="pl" x={X[0]} y={SY + 52} text-anchor="middle">2n</text>
+    <circle class="oc" cx={X[0]! - 13} cy={OY} r="12" /><circle class="oc" cx={X[0]! + 13} cy={OY} r="12" />
+    <text class="lab" x={X[0]} y={OY + 40} text-anchor="middle">oogonia</text><text class="pl" x={X[0]} y={OY + 56} text-anchor="middle">2n</text>
+    <text class="note" x={X[0]} y={OY + 74} text-anchor="middle">in the foetus</text>
+  </g>
+  <!-- column 1: growth -->
+  <g data-el="c1" style="opacity:0">
+    <circle class="sc" cx={X[1]} cy={SY} r="18" />
+    <text class="lab" x={X[1]} y={SY + 36} text-anchor="middle">primary</text><text class="lab" x={X[1]} y={SY + 51} text-anchor="middle">spermatocyte, 2n</text>
+    {fol.map((f) => <circle class="fc" cx={f.x.toFixed(1)} cy={f.y.toFixed(1)} r="6" />)}
+    <circle class="oc" cx={X[1]} cy={OY} r="26" />
+    <text class="lab" x={X[1]} y={OY + 56} text-anchor="middle">primary oocyte, 2n</text>
+    <text class="note" x={X[1]} y={OY + 72} text-anchor="middle">in a follicle; paused</text><text class="note" x={X[1]} y={OY + 86} text-anchor="middle">in meiosis I</text>
+  </g>
+  <!-- column 2: meiosis I -->
+  <g data-el="c2" style="opacity:0">
+    <circle class="sc" cx={X[2]} cy={SY - 16} r="13" /><circle class="sc" cx={X[2]} cy={SY + 16} r="13" />
+    <text class="lab" x={X[2]} y={SY + 50} text-anchor="middle">2 secondary</text><text class="lab" x={X[2]} y={SY + 65} text-anchor="middle">spermatocytes, n</text>
+    <circle class="oc" cx={X[2]! - 4} cy={OY} r="30" /><circle class="pb" cx={X[2]! + 34} cy={OY - 26} r="6" />
+    <text class="lab" x={X[2]} y={OY + 50} text-anchor="middle">secondary oocyte, n</text>
+    <text class="note" x={X[2]} y={OY + 66} text-anchor="middle">+ 1st polar body;</text><text class="note" x={X[2]} y={OY + 80} text-anchor="middle">just before ovulation</text>
+  </g>
+  <!-- column 3: meiosis II -->
+  <g data-el="c3" style="opacity:0">
+    {[[-11, -11], [11, -11], [-11, 11], [11, 11]].map(([dx, dy]) => <circle class="sc" cx={X[3]! + dx!} cy={SY + dy!} r="9.5" />)}
+    <text class="lab" x={X[3]} y={SY + 42} text-anchor="middle">4 spermatids, n</text>
+    <circle class="oc" cx={X[3]! - 4} cy={OY} r="30" /><circle class="pb" cx={X[3]! + 34} cy={OY + 26} r="6" /><circle class="pb" cx={X[3]! + 34} cy={OY - 26} r="6" />
+    <text class="lab" x={X[3]} y={OY + 50} text-anchor="middle">ovum, n</text>
+    <text class="note" x={X[3]} y={OY + 66} text-anchor="middle">+ 2nd polar body;</text><text class="note" x={X[3]} y={OY + 80} text-anchor="middle">only if a sperm enters</text>
+  </g>
+  <!-- column 4: differentiation -->
+  <g data-el="c4" style="opacity:0">
+    {[-30, -10, 10, 30].map((dy) => <g><ellipse class="sh" cx={X[4]! - 30} cy={SY + dy} rx="7" ry="5" /><path class="tail" d={sperm(X[4]! - 30, SY + dy)} /></g>)}
+    <text class="lab" x={X[4]} y={SY + 58} text-anchor="middle">4 sperm</text><text class="note" x={X[4]} y={SY + 73} text-anchor="middle">little cytoplasm</text>
+    <circle class="oc big" cx={X[4]} cy={OY} r="32" /><circle class="pb dead" cx={X[4]! + 40} cy={OY - 22} r="5" /><circle class="pb dead" cx={X[4]! + 42} cy={OY + 22} r="5" />
+    <text class="lab" x={X[4]} y={OY + 52} text-anchor="middle">1 egg</text><text class="note" x={X[4]} y={OY + 67} text-anchor="middle">large food store;</text><text class="note" x={X[4]} y={OY + 81} text-anchor="middle">polar bodies die</text>
+  </g>
+</svg>
+<style>
+  .gam { font-family: var(--font-sans); }
+  .lane.s { fill: color-mix(in srgb, var(--bio-water) 7%, var(--surface)); stroke: var(--border); }
+  .lane.o { fill: color-mix(in srgb, var(--bio-k) 6%, var(--surface)); stroke: var(--border); }
+  .lt { font-size: 13.5px; font-weight: 750; fill: var(--text-muted); }
+  .stage { font-size: 13.5px; font-weight: 800; fill: var(--accent-strong); transition: opacity 0.2s; }
+  .lab { font-size: 13px; font-weight: 650; fill: var(--text); }
+  .pl { font-size: 13px; font-weight: 800; fill: var(--text); }
+  .note { font-size: 12px; fill: var(--text-muted); }
+  .sc { fill: color-mix(in srgb, var(--bio-protein) 35%, var(--surface)); stroke: var(--text); stroke-width: 1.3; }
+  .oc { fill: color-mix(in srgb, var(--bio-tail) 45%, var(--surface)); stroke: var(--text); stroke-width: 1.4; }
+  .fc { fill: color-mix(in srgb, var(--bio-glucose) 30%, var(--surface)); stroke: var(--text-muted); stroke-width: 0.8; }
+  .pb { fill: color-mix(in srgb, var(--bio-tail) 45%, var(--surface)); stroke: var(--text); stroke-width: 1.2; }
+  .pb.dead { opacity: 0.4; stroke-dasharray: 2 2; }
+  .sh { fill: color-mix(in srgb, var(--bio-protein) 45%, var(--surface)); stroke: var(--text); stroke-width: 1.1; }
+  .tail { fill: none; stroke: var(--text); stroke-width: 1.4; }
+  .arr { stroke: var(--text-muted); stroke-width: 1.6; }
+  .ah { fill: var(--text-muted); }
+</style>

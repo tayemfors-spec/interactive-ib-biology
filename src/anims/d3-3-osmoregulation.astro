@@ -1,0 +1,91 @@
+---
+/**
+ * D3.3.10 osmoregulation by ADH (AHL). Drawn in its step-1 start state: blood solute concentration
+ * normal, no ADH in the blood, aquaporins held in vesicles inside the collecting-duct cell.
+ * Layout: brain (hypothalamus + posterior pituitary) top left, blood vessel across the middle,
+ * collecting duct cell bottom right with the duct lumen (filtrate) on its left and the hypertonic
+ * medullary interstitial fluid on its right.
+ */
+const VES: [number, number][] = [[312, 238], [334, 268], [306, 298], [340, 318]];
+---
+<svg viewBox="0 0 560 380" xmlns="http://www.w3.org/2000/svg" class="osmo">
+  <defs>
+    <marker id="os-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker>
+  </defs>
+  <!-- brain -->
+  <rect class="brain" x="8" y="8" width="230" height="122" rx="16" />
+  <text class="hd" x="20" y="28">Hypothalamus</text>
+  <circle class="osmo-cell" data-el="osmo" cx="62" cy="66" r="18" />
+  <text class="sm" x="88" y="62">osmoreceptor</text>
+  <text class="sm" x="88" y="77" data-el="osmo-note">volume normal</text>
+  <path class="axon" d="M62 84 C62 100, 120 96, 150 104" />
+  <rect class="pit" x="150" y="92" width="80" height="30" rx="12" />
+  <text class="xs b2" x="190" y="104" text-anchor="middle">posterior</text><text class="xs b2" x="190" y="117" text-anchor="middle">pituitary</text>
+  <!-- solute gauge -->
+  <rect class="gauge-bg" x="262" y="12" width="290" height="60" rx="10" />
+  <text class="sm b" x="274" y="30">Blood solute concentration</text>
+  <rect class="track" x="274" y="42" width="262" height="10" rx="5" />
+  <line class="setpt" x1="405" x2="405" y1="36" y2="58" />
+  <text class="xs" x="405" y="68" text-anchor="middle">set point</text>
+  <text class="xs" x="274" y="68">low</text><text class="xs" x="536" y="68" text-anchor="end">high</text>
+  <circle class="needle" data-el="needle" cx="405" cy="47" r="8" />
+  <!-- blood vessel -->
+  <path class="vessel" d="M150 150 H552" />
+  <path class="vessel-in" d="M190 122 V150" />
+  <text class="sm" x="270" y="140">blood</text>
+  <text class="sm" x="430" y="140" data-el="adh-note">no extra ADH</text>
+  <path class="vessel-down" d="M520 150 V200" />
+  <!-- collecting duct -->
+  <rect class="lumen" x="196" y="196" width="66" height="176" />
+  <text class="sm b" x="229" y="214" text-anchor="middle">filtrate</text>
+  <path class="flow-arrow" d="M229 224 V350" marker-end="url(#os-ah)" />
+  <rect class="cell" x="262" y="196" width="150" height="176" />
+  <text class="sm b" x="337" y="214" text-anchor="middle">collecting duct cell</text>
+  <path class="mem" d="M262 196 V372 M412 196 V372" />
+  <rect class="inter" x="412" y="196" width="140" height="176" />
+  <text class="sm b" x="482" y="214" text-anchor="middle">medulla fluid</text>
+  <text class="xs" x="482" y="228" text-anchor="middle">(very concentrated)</text>
+  <rect class="receptor" x="406" y="252" width="12" height="22" rx="4" />
+  <text class="xs" x="424" y="248">ADH receptor</text>
+  {VES.map(([x, y], i) => (
+    <g data-el={`aq${i}`} transform={`translate(${x} ${y})`}>
+      <circle class="ves" data-el={`ves${i}`} r="13" />
+      <rect class="aqp" x="-4" y="-8" width="8" height="16" rx="2" />
+    </g>
+  ))}
+  <text class="xs" x="337" y="364" text-anchor="middle" data-el="aq-note">aquaporins in vesicles</text>
+  {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => <circle class="water" data-el={`w${i}`} cx="228" cy={250 + i * 12} r="4.5" style="opacity:0" />)}
+  {[0, 1, 2, 3, 4, 5].map((i) => <g data-el={`adh${i}`} transform={`translate(${190} ${130})`} style="opacity:0"><polygon class="adh" points="-7,0 0,-7 7,0 0,7" /></g>)}
+  <text class="urine" x="8" y="300" data-el="urine1">urine:</text>
+  <text class="urine" x="8" y="318" data-el="urine2">normal volume</text>
+</svg>
+<style>
+  .osmo { font-family: var(--font-sans); }
+  .hd { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .sm { font-size: 12.5px; fill: var(--text); }
+  .xs { font-size: 11.5px; fill: var(--text-muted); }
+  .b { font-weight: 700; }
+  .b2 { font-weight: 700; fill: var(--text); }
+  .brain { fill: color-mix(in srgb, var(--bio-protein-2) 18%, var(--surface)); stroke: var(--border-strong); }
+  .osmo-cell { fill: color-mix(in srgb, var(--bio-water) 45%, var(--surface)); stroke: var(--bio-water); stroke-width: 2; }
+  .axon { stroke: var(--text-muted); stroke-width: 2.5; fill: none; }
+  .pit { fill: color-mix(in srgb, var(--bio-protein) 30%, var(--surface)); stroke: var(--bio-protein); }
+  .gauge-bg { fill: var(--surface); stroke: var(--border); }
+  .track { fill: var(--surface-3); }
+  .setpt { stroke: var(--text); stroke-width: 2; stroke-dasharray: 3 2; }
+  .needle { fill: var(--bio-chol); stroke: var(--surface); stroke-width: 2; }
+  .vessel { stroke: color-mix(in srgb, var(--bio-k) 45%, var(--surface)); stroke-width: 22; stroke-linecap: round; fill: none; }
+  .vessel-in, .vessel-down { stroke: color-mix(in srgb, var(--bio-k) 45%, var(--surface)); stroke-width: 12; fill: none; }
+  .adh { fill: var(--bio-protein); stroke: var(--surface); stroke-width: 1; }
+  .lumen { fill: color-mix(in srgb, var(--bio-glucose) 22%, var(--surface)); }
+  .flow-arrow { stroke: var(--text-muted); stroke-width: 2; stroke-dasharray: 5 4; fill: none; }
+  .ah { fill: var(--text-muted); }
+  .cell { fill: color-mix(in srgb, var(--accent-soft) 70%, var(--surface)); }
+  .mem { stroke: var(--bio-head); stroke-width: 5; stroke-dasharray: 3 3; fill: none; }
+  .inter { fill: color-mix(in srgb, var(--bio-na) 22%, var(--surface)); }
+  .receptor { fill: var(--bio-protein-2); }
+  .ves { fill: var(--surface); stroke: var(--bio-head); stroke-width: 2.5; }
+  .aqp { fill: var(--bio-water); }
+  .water { fill: var(--bio-water); }
+  .urine { font-size: 13px; font-weight: 700; fill: var(--text); }
+</style>
