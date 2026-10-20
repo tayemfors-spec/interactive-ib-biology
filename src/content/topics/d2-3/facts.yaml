@@ -12,11 +12,11 @@ facts:
     basis: IB guide D2.3.2; consistent with B2.1 osmosis wording
     status: checked
   - id: f3
-    claim: "Explanation of osmosis that solute particles attract (solvate) water molecules, so fewer are free to cross from the more concentrated side."
+    claim: "Osmosis explained by solute concentration / water potential, consistent with B2.1: more water molecules cross from the lower to the higher solute concentration than the reverse; solutes lower the potential energy (water potential) of water."
     where: ["index.mdx#osmosis", "index.mdx#components"]
-    confidence: medium
-    basis: Common textbook simplification (Campbell; study guide). The full physical explanation involves entropy of mixing; a teacher may prefer to omit the solvation reason.
-    status: open
+    confidence: high
+    basis: Matches the B2.1 wording; no bound-water (solvation) mechanism is claimed for osmosis.
+    status: checked
   - id: f4
     claim: In an isotonic solution water continues to move in both directions at equal rates (dynamic equilibrium).
     where: ["index.mdx#osmosis", "quiz.yaml:q2", "flashcards.yaml:c5", "visuals.yaml:tonicity"]

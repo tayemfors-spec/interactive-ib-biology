@@ -138,7 +138,7 @@ facts:
     basis: Felid karyotypes (most Felidae 2n = 38; Panthera 2n = 38)
     status: checked
   - id: f24
-    claim: Mitochondrial DNA is inherited from the mother, so ligers and tigons differ in mtDNA but have the same nuclear genes.
+    claim: Ligers and tigons have the same autosomal genes; they can differ in mtDNA (maternal) and, in males, in X/Y-linked genes, but these cannot explain the size difference.
     where: [ "index.mdx#gametes" ]
     confidence: high
     basis: Standard genetics

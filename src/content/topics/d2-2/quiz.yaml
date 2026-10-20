@@ -151,7 +151,7 @@ questions:
     options:
       - id: a
         text: Ligers inherit more lion genes than tigons do.
-        why: Both hybrids receive one set of nuclear chromosomes from each parent species, so they have the same genes.
+        why: Both hybrids receive one set of chromosomes from each parent species, so they have the same autosomal genes. Any difference in base sequence (sex chromosomes, mitochondrial DNA) cannot explain the size difference.
       - id: b
         text: Ligers have a mutation in a growth gene that tigons lack.
         why: There is no difference in base sequence to explain this. The difference depends on the direction of the cross, which points to tags inherited from each parent.
@@ -160,7 +160,7 @@ questions:
         why: Correct. Imprinted growth genes from a lion father strongly promote growth, while a tiger mother provides only weak growth-limiting imprints, so ligers overgrow.
       - id: d
         text: Ligers receive more chromosomes than tigons, because the lion parent contributes more.
-        why: Lions and tigers both have 38 chromosomes (2n = 38), so every liger and tigon receives 19 from each parent. Chromosome number cannot explain the difference.
+        why: Lions and tigers both have 38 chromosomes (2n = 38), so every liger and tigon receives 19 from each parent and the same set of autosomes. Chromosome number cannot explain the difference.
     answer: c
 
   - id: q9

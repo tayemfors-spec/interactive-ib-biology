@@ -18,6 +18,20 @@ const POLE = 3.5;
 const X = new THREE.Vector3(1, 0, 0);
 const ORIGIN = new THREE.Vector3();
 
+/** Fraction along the segment p→q at which it first meets a sphere of radius r centred on the origin (1 if it never does). */
+function sphereHit(p: THREE.Vector3, q: THREE.Vector3, r: number): number {
+  const dx = q.x - p.x, dy = q.y - p.y, dz = q.z - p.z;
+  const a = dx * dx + dy * dy + dz * dz;
+  const b = 2 * (p.x * dx + p.y * dy + p.z * dz);
+  const c = p.x * p.x + p.y * p.y + p.z * p.z - r * r;
+  if (a < 1e-9) return 1;
+  if (c <= 0) return 0; // start already inside: draw nothing until the envelope has gone
+  const disc = b * b - 4 * a * c;
+  if (disc < 0) return 1;
+  const s = (-b - Math.sqrt(disc)) / (2 * a);
+  return s >= 0 && s <= 1 ? s : 1;
+}
+
 type Spec = { type: 'L' | 'S'; col: 'm' | 'p'; pro: [number, number, number]; proU: [number, number, number]; y: number; z: number };
 // order on the metaphase plate (top to bottom): L-m, S-p, L-p, S-m
 const CHROMS: Spec[] = [
@@ -173,7 +187,8 @@ const scene: SceneModule = {
         moveAnchor('membrane', a3.set(-s - r * 0.45, r * 0.83, r * 0.25));
 
         // ----- nuclear envelope: present in interphase, breaks down in prophase, re-forms in telophase -----
-        const env = index === 0 ? 1 : index === 1 ? 1 - 0.6 * ease(phase(t, 0.45, 0.95)) : index === 2 ? 0.4 * (1 - ease(phase(t, 0, 0.3))) : 0;
+        // (it has gone by t = 0.7 of prophase; spindle microtubules only enter the nuclear region after that)
+        const env = index === 0 ? 1 : index === 1 ? 1 - ease(phase(t, 0.4, 0.7)) : 0;
         fade(mat.envelope, env, 0.22);
         nucleus.scale.setScalar(1 + 0.06 * (1 - env));
         const env2 = index === 4 ? ease(phase(t, 0.45, 1)) : index === 5 ? 1 : 0;
@@ -229,12 +244,16 @@ const scene: SceneModule = {
         let n = 0;
         // grow in prophase, full in metaphase/anaphase, disassemble in telophase
         const grow = index === 1 ? ease(phase(t, 0.3, 1)) : index === 2 || index === 3 ? 1 : index === 4 ? 1 - ease(phase(t, 0, 0.6)) : 0;
+        // while the nuclear envelope is still present, microtubules stop at its surface (they cannot cross it);
+        // once it has broken down (prophase t > 0.7) the limit opens so they can reach the chromosomes
+        const open = index === 1 ? ease(phase(t, 0.72, 1)) : index >= 2 ? 1 : 0;
+        const envR = NR * nucleus.scale.x + 0.06;
         if (grow > 0.01) {
           for (const side of [-1, 1]) {
             const pole = centrosomes[side < 0 ? 0 : 1]!.position;
             for (const tg of polarTargets) {
               b3.set(-side * 0.5, tg.y, tg.z);
-              a3.copy(pole).lerp(b3, grow);
+              a3.copy(pole).lerp(b3, Math.min(grow, lerp(sphereHit(pole, b3, envR), 1, open)));
               segmentInstance(mts, n++, pole, a3);
             }
             for (const d of asterDirs) {

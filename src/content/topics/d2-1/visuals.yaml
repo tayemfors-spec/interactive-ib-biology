@@ -165,7 +165,7 @@ visuals:
             caption: The centromeres divide and sister chromatids are pulled to opposite poles. Because of crossing over, the two chromatids of each chromosome are not identical.
           - id: telophase-2
             title: Telophase II and cytokinesis
-            caption: Nuclear membranes re-form and both cells divide. Result — four haploid cells, each with 2 chromosomes (one long, one short), and every one genetically different because of random orientation and crossing over.
+            caption: The chromosomes decondense, nuclear membranes re-form around each set and both cells divide. Result — four haploid cells, each with 2 chromosomes (one long, one short), and every one genetically different because of random orientation and crossing over.
 
   - id: nondisjunction
     kind: anim

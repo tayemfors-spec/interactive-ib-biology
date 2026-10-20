@@ -23,6 +23,20 @@ const POLE = 3.5;
 const X = new THREE.Vector3(1, 0, 0);
 const Y = new THREE.Vector3(0, 1, 0);
 const ORIGIN = new THREE.Vector3();
+
+/** Fraction along the segment p→q at which it first meets a sphere of radius r centred on the origin (1 if it never does). */
+function sphereHit(p: THREE.Vector3, q: THREE.Vector3, r: number): number {
+  const dx = q.x - p.x, dy = q.y - p.y, dz = q.z - p.z;
+  const a = dx * dx + dy * dy + dz * dz;
+  const b = 2 * (p.x * dx + p.y * dy + p.z * dz);
+  const c = p.x * p.x + p.y * p.y + p.z * p.z - r * r;
+  if (a < 1e-9) return 1;
+  if (c <= 0) return 0;
+  const disc = b * b - 4 * a * c;
+  if (disc < 0) return 1;
+  const s = (-b - Math.sqrt(disc)) / (2 * a);
+  return s >= 0 && s <= 1 ? s : 1;
+}
 const SIS = 0.165; // half the spacing of sister chromatids (they touch)
 const HOM = 0.43; // distance of each homologue from the mid-line of its bivalent
 
@@ -178,7 +192,8 @@ const scene: SceneModule = {
         put('gametes', 3.38 + r2 * 0.55, -s2 - r2 * 0.6, r2 * 0.3);
 
         // ----- nuclear envelopes -----
-        const env = index === 0 ? 1 : index === 1 ? 1 - 0.6 * ease(phase(t, 0.55, 0.95)) : index === 2 ? 0.4 * (1 - ease(phase(t, 0, 0.3))) : 0;
+        // breaks down late in prophase I (gone by t = 0.8); spindle microtubules only enter the nuclear region after that
+        const env = index === 0 ? 1 : index === 1 ? 1 - ease(phase(t, 0.55, 0.8)) : 0;
         fade(mat.envelope, env, 0.22);
         nucleus.scale.setScalar(1 + 0.06 * (1 - env));
         put('nucleus', -1.4, -1.6, 1.2);
@@ -189,6 +204,7 @@ const scene: SceneModule = {
 
         // ----- chromatids -----
         const crossed = index > 1 || (index === 1 && t >= 0.45);
+        const decon = index === 7 ? ease(phase(t, 0.45, 1)) : 0;
         cts.forEach((c, i) => {
           const Ps = poses[i]!;
           const k = index === 1 ? 1 : index === 4 || index === 7 ? ease(phase(t, 0.05, 0.8)) : ease(phase(t, 0.05, 0.85));
@@ -196,6 +212,12 @@ const scene: SceneModule = {
           lerpPose(from, Ps[index]!, k, cur[i]);
           kit.place(c.ch, cur[i]!);
           c.ch.segs[0]![1]!.material = tipMat(c, crossed);
+          // telophase II: chromosomes decondense (thin out into chromatin) as the nuclear membranes re-form
+          if (decon > 0) {
+            const th = 1 - 0.72 * decon;
+            c.ch.segs.flat().forEach((m) => { m.scale.x *= th; m.scale.z *= th; });
+            c.ch.cen.scale.multiplyScalar(th);
+          }
         });
 
         // chiasmata: where the two inner (non-sister) chromatids exchanged segments
@@ -228,10 +250,17 @@ const scene: SceneModule = {
           return a3.set(side * (index >= 3 ? 3.65 : POLE), 0, 0);
         };
         cs1.forEach((m, i) => { m.position.copy(pos1(i ? 1 : -1)); m.visible = !meiosis2 && index <= 4 && !(index === 4 && t > 0.6); });
+        // while the nuclear envelope is present, microtubules stop at its surface; the limit opens once it has gone
+        const open = index === 1 ? ease(phase(t, 0.82, 1)) : index >= 2 ? 1 : 0;
+        const envR = NR * nucleus.scale.x + 0.06;
         if (g1 > 0.01) {
           cs1.forEach((pole, i) => {
             const side = i ? 1 : -1;
-            for (const [cy, cz] of polar) { b3.set(-side * 0.5, cy * 1.7, cz * 1.4); a3.copy(pole.position).lerp(b3, g1); segmentInstance(mts, n++, pole.position, a3); }
+            for (const [cy, cz] of polar) {
+              b3.set(-side * 0.5, cy * 1.7, cz * 1.4);
+              a3.copy(pole.position).lerp(b3, Math.min(g1, lerp(sphereHit(pole.position, b3, envR), 1, open)));
+              segmentInstance(mts, n++, pole.position, a3);
+            }
           });
           // kinetochore microtubules: both sister chromatids of a homologue attach to the SAME pole
           if (index >= 2) {
