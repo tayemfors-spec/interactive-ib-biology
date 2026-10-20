@@ -1,0 +1,131 @@
+---
+import { DEFAULT_K as d, NAMES, SPECIES, chart, run, summary, tableRows, web } from './d4-2-keystone-view';
+const series = run(d);
+const choices: { id: string; label: string }[] = [
+  { id: 'none', label: 'Remove nothing' },
+  { id: 'otter', label: 'Remove sea otters' },
+  { id: 'crab', label: 'Remove crabs' },
+  { id: 'fish', label: 'Remove rockfish' },
+];
+---
+<div class="sim-ks" data-sim-ks>
+  <div class="choices" role="group" aria-label="Choose a species to remove in year 10">
+    {choices.map((c) => <button type="button" class="btn chip" aria-pressed={c.id === "none" ? "true" : "false"} data-remove={c.id}>{c.label}</button>)}
+  </div>
+  <label class="check"><input type="checkbox" data-reintro /> Reintroduce the removed species in year 40</label>
+  <div class="layout">
+    <svg class="web" viewBox="0 0 300 270" role="img" aria-labelledby="ks-wt ks-wd">
+      <title id="ks-wt">Kelp-forest food web and the state of each population at year 80</title>
+      <desc id="ks-wd">Arrows point from food to feeder: kelp to sea urchins, urchins to sea otters, crabs to sea otters. A dashed arrow shows that rockfish use kelp as shelter. Each box gives the population at the end of the run as a percentage of its starting level.</desc>
+      <defs>
+        <marker id="ks-m-feed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="mk-feed" /></marker>
+        <marker id="ks-m-habitat" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="mk-hab" /></marker>
+      </defs>
+      <g data-web set:html={web(series, d)} />
+    </svg>
+    <svg class="chart" viewBox="0 0 640 360" role="img" aria-labelledby="ks-ct ks-cd">
+      <title id="ks-ct">Model populations over 80 years, as a percentage of their starting levels</title>
+      <desc id="ks-cd">Log-scale line graph with one line for each species. The horizontal line at 100% is the intact community. Vertical lines mark when a species is removed and, if chosen, reintroduced.</desc>
+      <g data-chart set:html={chart(series, d)} />
+    </svg>
+  </div>
+  <ul class="keys" aria-hidden="true">
+    {SPECIES.map((id) => <li><span class={`key ${id}`}></span> {NAMES[id]}</li>)}
+  </ul>
+  <p class="readout" aria-live="polite" data-readout>{summary(series, d)}</p>
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <thead><tr><th scope="col">Year</th>{SPECIES.map((id) => <th scope="col">{NAMES[id]} (%)</th>)}</tr></thead>
+      <tbody data-tbody>{tableRows(series).map((r) => <tr><th scope="row">{r.y}</th>{r.v.map((v) => <td>{v}</td>)}</tr>)}</tbody>
+    </table>
+  </details>
+  <p class="model-note">Qualitative model in relative units. Its structure follows the sea otter → sea urchin → kelp cascade documented along the Pacific coast of North America, but the numbers are illustrative. Real kelp forests contain hundreds of species.</p>
+</div>
+
+<script>
+  import { chart, run, summary, tableRows, web, type KUi } from './d4-2-keystone-view';
+  import type { SpeciesId } from './models/d4-2-keystone';
+
+  document.querySelectorAll<HTMLElement>('[data-sim-ks]').forEach((root) => {
+    const btns = [...root.querySelectorAll<HTMLButtonElement>('[data-remove]')];
+    const reintro = root.querySelector<HTMLInputElement>('[data-reintro]')!;
+    const chartG = root.querySelector<SVGGElement>('[data-chart]')!;
+    const webG = root.querySelector<SVGGElement>('[data-web]')!;
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    const tbody = root.querySelector<HTMLElement>('[data-tbody]')!;
+    let remove: SpeciesId | null = null;
+    let timer = 0;
+    const update = () => {
+      const u: KUi = { remove, reintroduce: reintro.checked };
+      const s = run(u);
+      chartG.innerHTML = chart(s, u);
+      webG.innerHTML = web(s, u);
+      tbody.innerHTML = tableRows(s).map((r) => `<tr><th scope="row">${r.y}</th>${r.v.map((v) => `<td>${v}</td>`).join('')}</tr>`).join('');
+      clearTimeout(timer);
+      timer = window.setTimeout(() => (readout.textContent = summary(s, u)), 300);
+    };
+    btns.forEach((b) => b.addEventListener('click', () => {
+      btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      const v = b.dataset.remove!;
+      remove = v === 'none' ? null : (v as SpeciesId);
+      update();
+    }));
+    reintro.addEventListener('change', update);
+  });
+</script>
+
+<style>
+  .sim-ks { container-type: inline-size; }
+  .choices { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-2); }
+  .check { display: flex; gap: var(--space-2); align-items: center; font-weight: 600; min-height: 1.75rem; font-size: var(--step--1); margin-bottom: var(--space-3); }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 46rem) { .layout { grid-template-columns: minmax(14rem, 0.8fr) minmax(0, 1.7fr); align-items: center; } }
+  .web, .chart { width: 100%; height: auto; font-family: var(--font-sans); }
+  .web { max-width: 20rem; justify-self: center; }
+  .web :global(.node rect) { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.6; }
+  .web :global(.node.keystone rect) { stroke-width: 2.6; }
+  .web :global(.node.up rect) { fill: color-mix(in srgb, var(--warn) 18%, var(--surface)); stroke: var(--warn); }
+  .web :global(.node.down rect) { fill: color-mix(in srgb, var(--bad) 14%, var(--surface)); stroke: var(--bad); }
+  .web :global(.node.removed rect) { fill: var(--surface-3); stroke: var(--text-muted); stroke-dasharray: 5 4; }
+  .web :global(.n-name) { font-size: 14px; font-weight: 750; fill: var(--text); }
+  .web :global(.n-val) { font-size: 13px; font-weight: 650; fill: var(--text-muted); }
+  .web :global(.node.down .n-val) { fill: var(--bad); }
+  .web :global(.w-arr) { fill: none; stroke-width: 2.4; }
+  .web :global(.w-arr.feed) { stroke: var(--text-muted); }
+  .web :global(.w-arr.habitat) { stroke: var(--bio-carb); stroke-dasharray: 6 4; }
+  .web :global(.w-note) { font-size: 12px; font-style: italic; fill: var(--text-muted); }
+  .web :global(.mk-feed) { fill: var(--text-muted); }
+  .web :global(.mk-hab) { fill: var(--bio-carb); }
+  .chart :global(.grid line) { stroke: var(--border); stroke-width: 1; }
+  .chart :global(.axisline) { fill: none; stroke: var(--text-muted); stroke-width: 1.4; }
+  .chart :global(.ticks text) { font-size: 15px; fill: var(--text-muted); }
+  .chart :global(.axis) { font-size: 16px; font-weight: 650; fill: var(--text); }
+  .chart :global(.ref) { stroke: var(--text-muted); stroke-width: 1.2; stroke-dasharray: 2 4; }
+  .chart :global(.mark) { stroke: var(--text); stroke-width: 1.4; stroke-dasharray: 4 4; }
+  .chart :global(.mark-t) { font-size: 13px; font-weight: 650; fill: var(--text); }
+  .chart :global(.line) { fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  .chart :global(.line.otter) { stroke: var(--bio-head); stroke-width: 3.6; }
+  .chart :global(.line.urchin) { stroke: var(--bio-protein-2); stroke-dasharray: 10 6; }
+  .chart :global(.line.kelp) { stroke: var(--bio-carb); stroke-width: 4.2; }
+  .chart :global(.line.crab) { stroke: var(--bio-k); stroke-dasharray: 2 5; }
+  .chart :global(.line.fish) { stroke: var(--bio-water); stroke-dasharray: 14 5 3 5; }
+  @container (max-width: 30rem) {
+    .chart :global(.ticks text), .chart :global(.axis) { font-size: 20px; }
+    .chart :global(.mark-t) { font-size: 17px; }
+  }
+  .keys { list-style: none; padding: 0; margin: var(--space-2) 0 0; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); font-weight: 600; font-size: var(--step--1); }
+  .keys li { display: flex; align-items: center; gap: var(--space-2); }
+  .key { display: inline-block; width: 2rem; height: 0; border-top: 3.5px solid; }
+  .key.otter { border-color: var(--bio-head); }
+  .key.urchin { border-color: var(--bio-protein-2); border-top-style: dashed; }
+  .key.kelp { border-color: var(--bio-carb); border-top-width: 4.5px; }
+  .key.crab { border-color: var(--bio-k); border-top-style: dotted; }
+  .key.fish { border-color: var(--bio-water); border-top-style: dashed; border-top-width: 2.5px; }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); overflow-x: auto; }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  .table :global(th), .table :global(td) { padding: 0.2rem 0.6rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

@@ -1,0 +1,147 @@
+---
+import { DEFAULT_H as d, msy, prodChart, run, summary, tableRows, timeChart } from './d4-2-harvest-view';
+const series = run(d);
+---
+<div class="sim-hv" data-sim-hv>
+  <div class="modes" role="group" aria-label="Choose a harvesting rule">
+    <button type="button" class="btn chip" aria-pressed="true" data-mode="quota">Fixed quota (tonnes per year)</button>
+    <button type="button" class="btn chip" aria-pressed="false" data-mode="effort">Fixed effort (% of stock per year)</button>
+  </div>
+  <div class="controls">
+    <label class="slider" data-for="quota"><span>Annual catch quota: <output data-out="quota">{d.quota}</output> thousand t per year</span>
+      <input type="range" min="0" max="200" step="5" value={d.quota} data-param="quota" />
+    </label>
+    <label class="slider" data-for="effort"><span>Fishing effort: <output data-out="effort">{d.effort}%</output> of the stock caught per year</span>
+      <input type="range" min="0" max="80" step="2" value={d.effort} data-param="effort" disabled />
+    </label>
+    <label class="slider"><span>Growth rate of the species, r: <output data-out="r">{d.r.toFixed(1)}</output> per year (MSY = <output data-out="msy">{Math.round(msy(d.r, 1000))}</output> thousand t per year)</span>
+      <input type="range" min="0.2" max="0.8" step="0.1" value={d.r} data-param="r" />
+    </label>
+  </div>
+  <div class="charts">
+    <figure class="panel">
+      <svg class="chart" viewBox="0 0 640 360" role="img" aria-labelledby="hv-tt hv-td">
+        <title id="hv-tt">Stock biomass over 60 years</title>
+        <desc id="hv-td">Line graph of the fish stock, starting at the carrying capacity K of 1000 thousand tonnes, with fishing starting in year 5. Dashed lines mark K and K/2.</desc>
+        <g data-time set:html={timeChart(series, d)} />
+      </svg>
+      <figcaption>Stock over time</figcaption>
+    </figure>
+    <figure class="panel">
+      <svg class="chart" viewBox="0 0 640 360" role="img" aria-labelledby="hv-pt hv-pd">
+        <title id="hv-pt">Rate of replacement and rate of harvesting against stock size</title>
+        <desc id="hv-pd">The curved line is the natural rate of replacement, r N (1 − N/K): zero at no stock and at K, highest at K/2, where it equals the maximum sustainable yield. The straight line is the harvest. A filled circle marks a stable stock size where replacement equals harvest; an open circle marks an unstable one.</desc>
+        <g data-prod set:html={prodChart(d)} />
+      </svg>
+      <figcaption>Replacement (curve) vs harvest (straight line)</figcaption>
+    </figure>
+  </div>
+  <ul class="keys" aria-hidden="true">
+    <li><span class="key stock"></span> Stock biomass</li>
+    <li><span class="key prod"></span> Rate of replacement</li>
+    <li><span class="key harv"></span> Rate of harvesting</li>
+    <li><span class="dot st"></span> Stable</li>
+    <li><span class="dot un"></span> Unstable</li>
+  </ul>
+  <p class="readout" aria-live="polite" data-readout>{summary(series, d)}</p>
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <thead><tr><th scope="col">Year</th><th scope="col">Stock (thousand t)</th><th scope="col">Catch (thousand t per year)</th></tr></thead>
+      <tbody data-tbody>{tableRows(series).map((r) => <tr><th scope="row">{r.y}</th><td>{r.N}</td><td>{r.c}</td></tr>)}</tbody>
+    </table>
+  </details>
+  <p class="model-note">Qualitative model: logistic growth with K = 1000 thousand tonnes, loosely based on an Atlantic cod stock. Real stocks also vary with recruitment, age structure, temperature and food supply, and are estimated with large uncertainty.</p>
+</div>
+
+<script>
+  import { msy, prodChart, run, summary, tableRows, timeChart, type HUi } from './d4-2-harvest-view';
+  import type { HarvestMode } from './models/d4-2-harvest';
+
+  document.querySelectorAll<HTMLElement>('[data-sim-hv]').forEach((root) => {
+    const input = (k: string) => root.querySelector<HTMLInputElement>(`[data-param="${k}"]`)!;
+    const out = (k: string) => root.querySelector<HTMLOutputElement>(`[data-out="${k}"]`)!;
+    const modeBtns = [...root.querySelectorAll<HTMLButtonElement>('[data-mode]')];
+    const timeG = root.querySelector<SVGGElement>('[data-time]')!;
+    const prodG = root.querySelector<SVGGElement>('[data-prod]')!;
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    const tbody = root.querySelector<HTMLElement>('[data-tbody]')!;
+    let mode: HarvestMode = 'quota';
+    let timer = 0;
+    const update = () => {
+      const u: HUi = { mode, quota: Number(input('quota').value), effort: Number(input('effort').value), r: Number(input('r').value) };
+      input('quota').disabled = mode !== 'quota';
+      input('effort').disabled = mode !== 'effort';
+      root.querySelector('[data-for="quota"]')!.classList.toggle('off', mode !== 'quota');
+      root.querySelector('[data-for="effort"]')!.classList.toggle('off', mode !== 'effort');
+      out('quota').textContent = String(u.quota);
+      out('effort').textContent = `${u.effort}%`;
+      out('r').textContent = u.r.toFixed(1);
+      out('msy').textContent = String(Math.round(msy(u.r, 1000)));
+      const s = run(u);
+      timeG.innerHTML = timeChart(s, u);
+      prodG.innerHTML = prodChart(u);
+      tbody.innerHTML = tableRows(s).map((r) => `<tr><th scope="row">${r.y}</th><td>${r.N}</td><td>${r.c}</td></tr>`).join('');
+      clearTimeout(timer);
+      timer = window.setTimeout(() => (readout.textContent = summary(s, u)), 300);
+    };
+    root.querySelectorAll('[data-param]').forEach((el) => el.addEventListener('input', update));
+    modeBtns.forEach((b) => b.addEventListener('click', () => {
+      modeBtns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      mode = b.dataset.mode as HarvestMode;
+      update();
+    }));
+  });
+</script>
+
+<style>
+  .sim-hv { container-type: inline-size; }
+  .modes { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); margin-bottom: var(--space-3); }
+  @container (min-width: 46rem) { .controls { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; align-content: start; }
+  .slider.off { font-weight: 500; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .charts { display: grid; gap: var(--space-3); }
+  @container (min-width: 46rem) { .charts { grid-template-columns: 1fr 1fr; } }
+  .panel { margin: 0; }
+  .panel figcaption { font-size: var(--step--1); font-weight: 650; text-align: center; color: var(--text-muted); }
+  .chart { width: 100%; height: auto; font-family: var(--font-sans); }
+  .chart :global(.grid line) { stroke: var(--border); stroke-width: 1; }
+  .chart :global(.axisline) { fill: none; stroke: var(--text-muted); stroke-width: 1.4; }
+  .chart :global(.ticks text) { font-size: 15px; fill: var(--text-muted); }
+  .chart :global(.axis) { font-size: 16px; font-weight: 650; fill: var(--text); }
+  .chart :global(.ref) { stroke: var(--text-muted); stroke-width: 1.3; stroke-dasharray: 3 4; }
+  .chart :global(.ref-t), .chart :global(.mark-t) { font-size: 14px; fill: var(--text-muted); font-weight: 600; }
+  .chart :global(.mark) { stroke: var(--text); stroke-width: 1.3; stroke-dasharray: 4 4; }
+  .chart :global(.line) { fill: none; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
+  .chart :global(.line.stock) { stroke: var(--bio-water); }
+  .chart :global(.line.prod) { stroke: var(--bio-carb); }
+  .chart :global(.line.harv) { stroke: var(--bio-k); stroke-dasharray: 10 6; }
+  .chart :global(.msy) { fill: var(--bio-carb); }
+  .chart :global(.msy-t) { font-size: 15px; font-weight: 700; fill: var(--text); }
+  .chart :global(.eq) { stroke: var(--text); stroke-width: 2.5; }
+  .chart :global(.eq.stable) { fill: var(--text); }
+  .chart :global(.eq.unstable) { fill: var(--surface); }
+  .chart :global(.collapse) { fill: var(--bad); }
+  .chart :global(.collapse-t) { font-size: 15px; font-weight: 750; fill: var(--bad); }
+  @container (max-width: 30rem) {
+    .chart :global(.ticks text), .chart :global(.axis) { font-size: 20px; }
+    .chart :global(.ref-t), .chart :global(.mark-t), .chart :global(.msy-t), .chart :global(.collapse-t) { font-size: 18px; }
+  }
+  .keys { list-style: none; padding: 0; margin: var(--space-2) 0 0; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); font-weight: 600; font-size: var(--step--1); }
+  .keys li { display: flex; align-items: center; gap: var(--space-2); }
+  .key { display: inline-block; width: 2rem; height: 0; border-top: 3.5px solid; }
+  .key.stock { border-color: var(--bio-water); }
+  .key.prod { border-color: var(--bio-carb); }
+  .key.harv { border-color: var(--bio-k); border-top-style: dashed; }
+  .dot { display: inline-block; width: 0.8rem; height: 0.8rem; border-radius: 50%; border: 2.5px solid var(--text); }
+  .dot.st { background: var(--text); }
+  .dot.un { background: var(--surface); }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  .table :global(th), .table :global(td) { padding: 0.2rem 0.7rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

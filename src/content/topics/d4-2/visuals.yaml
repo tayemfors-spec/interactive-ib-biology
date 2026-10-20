@@ -1,0 +1,101 @@
+# Visuals for D4.2. Step captions are what readers see under each animation, so they are written to exam standard.
+visuals:
+  - id: keystone
+    kind: sim
+    module: d4-2-keystone
+    title: Remove a species from a kelp forest
+    alt: Kelp-forest food web with a graph of five populations over 80 years, where buttons remove sea otters, crabs or rockfish in year 10.
+    description: >-
+      A simplified kelp-forest community from the Pacific coast of North America: kelp, sea urchins that graze kelp,
+      crabs, sea otters that eat urchins and crabs, and rockfish that shelter in the kelp. Buttons remove one species
+      in year 10, and a checkbox reintroduces it in year 40. A log-scale line graph shows every population as a
+      percentage of its starting level, and the food web shows each population at year 80. Removing sea otters lets
+      urchins increase about tenfold and graze the kelp down to a few per cent of its original cover, an urchin
+      barren, and rockfish decline with the kelp: every other species changes. Removing crabs reduces the otters,
+      but the remaining otters still keep urchins scarce, so the kelp forest survives; removing rockfish changes
+      nothing else. Reintroducing otters lets the kelp forest recover. Qualitative model with illustrative numbers.
+
+  - id: harvest
+    kind: sim
+    module: d4-2-harvest
+    title: Sustainable harvesting and maximum sustainable yield
+    alt: Graphs of a fish stock over 60 years and of its replacement rate against stock size, with sliders for catch quota, fishing effort and growth rate.
+    description: >-
+      A logistic model of a fish stock such as Atlantic cod, starting at its carrying capacity K of 1000 thousand
+      tonnes, with fishing from year 5. The left graph shows stock biomass over time. The right graph shows the natural
+      rate of replacement, r N (1 − N/K), against stock size: an arch that is zero at no stock and at K and highest at
+      K/2, where it equals the maximum sustainable yield, r K/4. A straight line shows the harvest: horizontal for a
+      fixed quota, or rising from zero for a fixed proportion of the stock. Where the lines cross, replacement equals
+      harvest and the stock is steady. A quota below the MSY is sustainable; a quota above the MSY makes the stock
+      collapse to zero, as the Grand Banks cod did in the early 1990s. A fixed effort of r/2 gives the MSY.
+
+  - id: eutrophication
+    kind: anim
+    module: d4-2-eutrophication
+    title: Eutrophication of a lake
+    alt: Step-by-step diagram of fertilizer leaching from a field into a lake, an algal bloom, death of plants, bacterial decomposition, rising BOD and fish death.
+    description: >-
+      A field with crops slopes down to a lake. Gauges show dissolved oxygen and biochemical oxygen demand (BOD)
+      in the lake. Rain leaches nitrate and phosphate ions from the fertilized soil into the lake. Algae and
+      cyanobacteria then grow rapidly and form a dense bloom at the surface, which blocks the light, so submerged
+      plants die. Dead plants and algae collect on the lake bed, where saprotrophic bacteria multiply and decompose
+      them by aerobic respiration, raising the BOD. Dissolved oxygen falls until fish and other aerobic animals die.
+    steps:
+      - id: leaching
+        title: Leaching of fertilizer
+        caption: Farmers add nitrate and phosphate fertilizers, often more than crops can absorb. These ions are soluble, so rain water draining through the soil carries them into streams, rivers and lakes. This is leaching. Run-off of manure and slurry adds more.
+      - id: bloom
+        title: Algal bloom
+        caption: Nitrate and phosphate were the factors limiting growth, so algae and cyanobacteria now grow and reproduce rapidly, forming a dense layer at the surface called an algal bloom. Nutrient enrichment of water like this is eutrophication.
+      - id: shading
+        title: Shading and death of plants
+        caption: The bloom absorbs and blocks light, so submerged plants and algae below it cannot photosynthesize enough and die. Algae in the bloom are also short-lived. Dead organic matter builds up on the lake bed.
+      - id: decomposition
+        title: Bacterial decomposition raises BOD
+        caption: Saprotrophic bacteria feed on the dead organic matter and multiply. They respire aerobically, using up dissolved oxygen. The biochemical oxygen demand (BOD), the oxygen that microorganisms need to break down the organic matter in a sample of water, becomes high.
+      - id: hypoxia
+        title: Hypoxia kills animals
+        caption: Oxygen is used faster than it can diffuse in from the air or be released by photosynthesis, so the water becomes hypoxic. Fish and other aerobic animals suffocate and die, adding yet more dead matter for decomposers. With no oxygen left, anaerobic bacteria may release toxic hydrogen sulfide.
+
+  - id: succession
+    kind: anim
+    module: d4-2-succession
+    level: AHL
+    title: Primary succession, secondary succession and arrested succession
+    alt: Step-by-step landscape changing from bare rock to forest as soil deepens, with meters for biomass, production, diversity, food webs, soil and nutrient cycling.
+    description: >-
+      A cross-section of land with six meters beside it: plant size and biomass, primary production, species
+      diversity, food-web complexity, soil depth and organic matter, and nutrient cycling. Bare rock is colonized by
+      lichens and mosses, which start to build a thin soil. Grasses and herbs follow, then shrubs, and finally a
+      forest, as the soil deepens and every meter rises. A fire then destroys the forest, but the soil survives, so
+      secondary succession begins with grasses and herbs. In the last step, grazing sheep eat the seedlings of shrubs
+      and trees, so the grassland persists and succession is arrested.
+    steps:
+      - id: bare
+        title: Bare rock
+        caption: Primary succession starts on a surface with no soil and no organisms, such as rock exposed by a retreating glacier or a new lava flow. Conditions are harsh — no soil water, few mineral nutrients, wide swings of temperature.
+        level: AHL
+      - id: pioneers
+        title: Pioneer species
+        caption: Lichens and mosses are the pioneers. They tolerate drought and bare rock, and lichens help weather it. Trapped dust and the remains of dead pioneers form the first thin soil, containing a little humus that holds water and mineral nutrients.
+        level: AHL
+      - id: herbs
+        title: Grasses and herbs
+        caption: The new soil lets rooted plants such as grasses and small herbs establish, including nitrogen-fixing species. Their roots and dead remains add organic matter, so the soil deepens and holds more water and nutrients. Primary production, diversity and food-web complexity rise.
+        level: AHL
+      - id: shrubs
+        title: Shrubs
+        caption: Deeper soil supports larger, woody shrubs. They shade out many of the smaller plants that came before. More plant species mean more niches, so more animal species, and the food web becomes more complex.
+        level: AHL
+      - id: climax
+        title: Climax community
+        caption: Trees grow up and a forest forms — the climax community for this climate. Plant size, biomass, primary production and nutrient cycling are now at their highest, and the community stays broadly stable as long as conditions do not change.
+        level: AHL
+      - id: secondary
+        title: Secondary succession
+        caption: A fire destroys the forest, but the soil, with its seeds, roots and nutrients, remains. Succession restarts from grasses and herbs rather than bare rock, so it is much faster than primary succession. Abandoned farmland follows the same pattern.
+        level: AHL
+      - id: arrested
+        title: Arrested succession
+        caption: If sheep or cattle graze the land intensively, they eat the seedlings of shrubs and trees, but grasses survive because they grow from the base. Grassland persists instead of the climax forest. This is arrested succession, and the grassland is a plagioclimax.
+        level: AHL

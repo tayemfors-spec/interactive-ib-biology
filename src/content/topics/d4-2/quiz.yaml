@@ -1,0 +1,208 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: D4.2.3
+    stem: >-
+      Satellite images show that an area of rainforest covered 52,000 km² in 1990 and 39,000 km² in 2020. What was
+      the percentage change in forest area?
+    options:
+      - id: a
+        text: −33%
+        why: This divides the loss (13,000 km²) by the final area (39,000 km²). Percentage change is always calculated relative to the initial value.
+      - id: b
+        text: −25%
+        why: Correct. (39,000 − 52,000) ÷ 52,000 × 100 = −25%. The negative sign shows a decrease.
+      - id: c
+        text: +25%
+        why: The size of the change is right, but the forest area fell, so the percentage change must be negative.
+      - id: d
+        text: 75%
+        why: This is the final area as a percentage of the initial area (39,000 ÷ 52,000 × 100), not the change. Subtract the initial value first.
+    answer: b
+
+  - id: q2
+    level: SL
+    understanding: D4.2.5
+    stem: >-
+      On a rocky shore, the predatory sea star Pisaster ochraceus was removed from experimental plots. Within a few
+      years one species of mussel covered most of the rock and the number of species in the plots fell from 15 to 8.
+      Control plots with Pisaster kept their diversity. What is the best conclusion?
+    options:
+      - id: a
+        text: Pisaster is the most abundant species on the shore, so its removal left the most space.
+        why: Keystone species are defined by an effect out of proportion to their abundance. Pisaster is not especially abundant; its effect comes from predation.
+      - id: b
+        text: The mussel is the keystone species, because it became dominant when Pisaster was removed.
+        why: The mussel is a dominant competitor. The species whose removal transformed the community was Pisaster, so Pisaster is the keystone species.
+      - id: c
+        text: Pisaster competes with seaweeds and invertebrates for space on the rock, so removing it gave them room.
+        why: Removing Pisaster reduced, not increased, the number of other species. Its effect is through predation on mussels, not competition.
+      - id: d
+        text: Pisaster is a keystone species; by eating mussels it stops them outcompeting other species for space.
+        why: Correct. Predation by Pisaster keeps the competitively dominant mussel in check, so many other species can coexist. Removing it lowers diversity, a disproportionate effect.
+    answer: d
+
+  - id: q3
+    level: SL
+    understanding: D4.2.6
+    stem: >-
+      A fish stock shows logistic growth with a carrying capacity of 800,000 tonnes. At what stock size can the
+      maximum sustainable yield be harvested?
+    options:
+      - id: a
+        text: 400,000 tonnes
+        why: Correct. The rate of replacement of a logistically growing population is greatest at half the carrying capacity (K/2), the steepest part of the sigmoid curve.
+      - id: b
+        text: 800,000 tonnes
+        why: At the carrying capacity, births and natural deaths balance, so there is no surplus. Any catch would reduce the stock.
+      - id: c
+        text: 200,000 tonnes
+        why: At K/4 the population grows more slowly than at K/2, because there are fewer adults reproducing. The MSY itself is rK/4, which may cause this confusion.
+      - id: d
+        text: As small as possible, because each fish then reproduces fastest
+        why: The rate per individual is highest when numbers are low, but there are so few individuals that the total rate of replacement is small.
+    answer: a
+
+  - id: q4
+    level: SL
+    understanding: D4.2.8
+    stem: >-
+      After fertilizer is leached into a lake, an algal bloom develops and the dissolved oxygen concentration falls.
+      What is the main cause of the fall in dissolved oxygen?
+    options:
+      - id: a
+        text: Algae in the bloom absorb oxygen for photosynthesis.
+        why: Photosynthesis releases oxygen; it does not use it. The bloom's role is to block light and then die, providing dead organic matter.
+      - id: b
+        text: Nitrate and phosphate ions react chemically with dissolved oxygen.
+        why: Nitrate and phosphate are already fully oxidized ions and do not remove oxygen from water. Their effect is biological, by stimulating algal growth.
+      - id: c
+        text: Aerobic respiration by saprotrophic bacteria decomposing dead algae and plants.
+        why: Correct. Bacteria multiply on the dead organic matter and use dissolved oxygen in aerobic respiration, so the biochemical oxygen demand (BOD) rises.
+      - id: d
+        text: Fish respire faster because there is more food available.
+        why: Fish are victims of the hypoxia, not its cause. Their oxygen use is small compared with that of the huge bacterial population.
+    answer: c
+
+  - id: q5
+    level: SL
+    understanding: D4.2.9
+    stem: >-
+      In an estuary, the DDT concentration was 0.04 ppm in plankton, 0.23 ppm in small fish, 2.07 ppm in predatory
+      fish and 26.4 ppm in cormorants, which eat fish. Which explanation for the pattern is correct?
+    options:
+      - id: a
+        text: Cormorants absorb DDT directly from the water through their skin and feathers.
+        why: Direct uptake from water is important for plankton, but the stepwise rise along the chain is explained by feeding, not absorption through skin or feathers.
+      - id: b
+        text: DDT is fat-soluble and not excreted, and each cormorant eats a large mass of fish containing DDT over its life.
+        why: Correct. DDT is stored in fatty tissue. Because of energy losses between trophic levels, consumers eat much more biomass than they build, so DDT is concentrated at each step.
+      - id: c
+        text: Cormorants convert other chemicals in their food into DDT.
+        why: DDT is a synthetic insecticide made by humans; animals do not synthesize it. They can convert DDT to DDE, but that does not increase the total.
+      - id: d
+        text: Cormorants are more sensitive to DDT, so their cells take it up more readily.
+        why: Sensitivity describes how much harm a dose does, not how much is absorbed. The higher concentration results from food-chain accumulation.
+    answer: b
+
+  - id: q6
+    level: SL
+    understanding: D4.2.4
+    stem: >-
+      Why are sealed glass vessels preferable to open tanks for mesocosms used to investigate ecosystem stability?
+    options:
+      - id: a
+        text: No energy can enter or leave, so only nutrient recycling has to be studied.
+        why: Light energy must enter (through the glass) for producers to photosynthesize, and heat leaves. A sealed vessel blocks matter, not energy.
+      - id: b
+        text: They keep out light, so that light is not an uncontrolled variable.
+        why: Clear glass lets light in; without it the producers would die and the mesocosm would collapse.
+      - id: c
+        text: Oxygen can diffuse in from the air continuously, keeping the animals alive.
+        why: That describes an open system. In a sealed vessel no gases are exchanged with the outside; oxygen must be produced inside by photosynthesis.
+      - id: d
+        text: Matter cannot enter or leave, but energy can still be transferred in as light and out as heat.
+        why: Correct. The mesocosm is a closed system, so any stability depends on recycling of nutrients inside it, as in a real ecosystem, while light supplies energy.
+    answer: d
+
+  - id: q7
+    level: SL
+    understanding: D4.2.2
+    stem: >-
+      A forest tree species has very low genetic diversity. Why does this make the forest ecosystem less likely to
+      remain stable?
+    options:
+      - id: a
+        text: There is little variation for natural selection to act on, so the species may not adapt if conditions change or a new disease arrives.
+        why: Correct. Genetic diversity allows some individuals to survive and reproduce under new conditions, so the population can adapt and persist.
+      - id: b
+        text: Trees with low genetic diversity cannot reproduce sexually.
+        why: Genetically similar trees can still reproduce sexually. The problem is the lack of variation in the offspring, not the ability to reproduce.
+      - id: c
+        text: Genetic diversity is needed for energy to flow from producers to consumers.
+        why: Energy flow depends on feeding relationships and photosynthesis, not on genetic variation within a species.
+      - id: d
+        text: Low genetic diversity causes a high mutation rate, producing harmful alleles.
+        why: Genetic diversity does not set the mutation rate. Low diversity is a lack of different alleles in the population.
+    answer: a
+
+  - id: q8
+    level: AHL
+    understanding: D4.2.13
+    stem: >-
+      Which change takes place during primary succession on bare rock exposed by a retreating glacier?
+    options:
+      - id: a
+        text: Primary production decreases as the plants compete more intensely for light.
+        why: Competition changes which species are present, but larger plants with more leaves photosynthesize more per unit area, so primary production increases.
+      - id: b
+        text: Species diversity decreases steadily because pioneer species are lost.
+        why: Pioneers are lost, but many more species colonize as soil develops, so overall diversity increases during succession.
+      - id: c
+        text: Soil depth and the amount of nutrient cycling increase.
+        why: Correct. Dead organic matter from successive communities builds soil, and more biomass and decomposers mean more nutrients are recycled.
+      - id: d
+        text: The average size of plants decreases as soil nutrients are used up.
+        why: Plant size increases during succession, from lichens and mosses to shrubs and trees, as soil deepens and holds more water and nutrients.
+    answer: c
+
+  - id: q9
+    level: AHL
+    understanding: D4.2.15
+    stem: >-
+      In many upland areas of Britain, grassland grazed by sheep persists where the climax community would be
+      woodland. When sheep are excluded, scrub and then trees return. What does this show?
+    options:
+      - id: a
+        text: The grassland is the climax community for the upland climate.
+        why: If grassland were the climax, it would persist without grazing. The return of scrub and trees shows that woodland is the climax.
+      - id: b
+        text: Grazing has arrested succession, producing a plagioclimax.
+        why: Correct. Sheep eat the seedlings of shrubs and trees while grasses regrow from their bases, so a human influence holds the community at grassland.
+      - id: c
+        text: The grassland and woodland are stages of cyclical succession.
+        why: Cyclical succession repeats without outside intervention. Here the grassland is maintained by livestock that people keep, so this is arrested succession.
+      - id: d
+        text: Removing sheep starts primary succession on the grassland.
+        why: Soil is already present, so the change after sheep are removed is secondary succession, not primary.
+    answer: b
+
+  - id: q10
+    level: AHL
+    understanding: D4.2.14
+    stem: >-
+      Which description is an example of cyclical succession?
+    options:
+      - id: a
+        text: Heather moorland is gradually replaced by birch and then pine woodland, which then persists.
+        why: This is progressive succession to a climax community; the sequence does not return to its starting point.
+      - id: b
+        text: Lichens colonize bare rock, then mosses and then grasses, building soil.
+        why: This describes the early stages of primary succession, which proceeds towards a climax rather than repeating.
+      - id: c
+        text: A wetland is drained and used as pasture for cattle.
+        why: This is a human influence that arrests succession, giving a plagioclimax, not a natural cycle.
+      - id: d
+        text: Heather patches pass through pioneer, building, mature and degenerate phases, and the gap left by dead heather is recolonized.
+        why: Correct. Each patch passes through the same sequence of communities repeatedly, so there is a cycle rather than a single unchanging climax.
+    answer: d

@@ -1,0 +1,138 @@
+---
+/**
+ * Eutrophication of a lake by leaching of fertilizer (D4.2.8). Drawn in its step-1 start state;
+ * d4-2-eutrophication.ts moves the ions, grows the bloom, kills plants and fish and drives the gauges.
+ */
+const ions = [
+  { id: 0, l: 'NO₃⁻', sx: 50, sy: 226, ex: 268, ey: 246 },
+  { id: 1, l: 'PO₄³⁻', sx: 105, sy: 250, ex: 330, ey: 238 },
+  { id: 2, l: 'NO₃⁻', sx: 160, sy: 228, ex: 392, ey: 250 },
+  { id: 3, l: 'PO₄³⁻', sx: 75, sy: 282, ex: 300, ey: 290 },
+];
+const crops = [18, 42, 66, 90, 114, 138, 162, 186];
+const cropY = (x: number) => 160 + (x / 200) * 10;
+const granules = [[28, 0], [55, 0], [80, 0], [104, 0], [130, 0], [150, 0], [175, 0]].map(([x]) => ({ x: x!, y: cropY(x!) - 2 }));
+const plants = [272, 312, 352, 398];
+const plantBase = (x: number) => (x < 300 ? 352 : x > 420 ? 340 : 366);
+const fish = [
+  { x: 292, y: 270, s: 1 }, { x: 362, y: 300, s: -1 }, { x: 414, y: 262, s: 1 },
+];
+const deadFish = [{ x: 290, y: 236 }, { x: 352, y: 238 }, { x: 420, y: 234 }];
+const detritus = [[262, 350], [286, 360], [312, 368], [338, 370], [364, 370], [392, 368], [418, 358], [440, 342], [300, 364], [378, 371]];
+// bacteria: deterministic scatter in the lower water and on the sediment
+let seed = 7;
+const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+const bact = Array.from({ length: 32 }, () => {
+  // scatter in the lower half of the basin: keep inside the bowl by narrowing with depth
+  const y = 286 + rnd() * 72;
+  const half = 108 - ((y - 286) / 72) * 62;
+  return { x: 348 + (rnd() * 2 - 1) * half, y };
+});
+const rays = [[278, 256], [318, 318], [358, 380]];
+---
+<svg viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg" class="eu" aria-hidden="true">
+  <!-- ground (farmland, lake basin, far bank) -->
+  <path class="ground" d="M0 160 L200 170 Q215 190 225 212 Q232 330 300 372 L400 374 Q455 340 470 212 Q482 204 560 200 L560 400 L0 400 Z" />
+  <path class="water" d="M225 212 Q232 330 300 372 L400 374 Q455 340 470 212 Z" />
+  <!-- leaching route -->
+  <path class="leach" d="M30 262 C110 300 190 280 238 252" />
+  <text class="lab" x="95" y="194" text-anchor="middle">Farmland with fertilizer</text>
+  <text class="lab small" x="120" y="322" text-anchor="middle">leaching through soil</text>
+
+  <!-- crops and fertilizer -->
+  {crops.map((x) => (
+    <g class="crop"><path d={`M${x} ${cropY(x)} L${x} ${cropY(x) - 16}`} /><path d={`M${x} ${cropY(x) - 9} q-7 -3 -9 -10 M${x} ${cropY(x) - 11} q7 -3 9 -10`} /></g>
+  ))}
+  <g data-el="granules">{granules.map((g) => <circle class="gran" cx={g.x} cy={g.y} r="3" />)}</g>
+
+  <!-- sun, cloud, rain, light -->
+  <circle class="sun" cx="318" cy="38" r="18" />
+  <text class="lab small" x="346" y="34">light</text>
+  <g data-el="rays">{rays.map(([x1, x2]) => <line class="ray" x1={x1} y1="62" x2={x2} y2="356" data-ray />)}</g>
+  <g class="cloud"><ellipse cx="96" cy="44" rx="44" ry="18" /><ellipse cx="128" cy="36" rx="30" ry="16" /><ellipse cx="66" cy="40" rx="24" ry="13" /></g>
+  <g data-el="rain">{[50, 72, 94, 116, 138, 160].map((x, i) => <line class="drop" x1={x} y1={70 + (i % 2) * 14} x2={x - 6} y2={92 + (i % 2) * 14} />)}
+    {[60, 84, 106, 128, 150].map((x, i) => <line class="drop" x1={x} y1={108 + (i % 2) * 10} x2={x - 6} y2={130 + (i % 2) * 10} />)}</g>
+
+  <!-- dead organic matter on the lake bed -->
+  <g data-el="detritus" style="opacity:0">{detritus.map(([x, y]) => <ellipse class="det" cx={x} cy={y! - 4} rx="11" ry="4" />)}</g>
+
+  <!-- submerged plants: healthy and dead versions -->
+  <g data-el="plants-live">{plants.map((x) => (
+    <path class="plant" d={`M${x} ${plantBase(x)} q-8 -18 0 -34 q8 -16 0 -34 q-6 -10 -2 -18 M${x} ${plantBase(x) - 22} q10 -4 14 -12 M${x} ${plantBase(x) - 48} q-10 -4 -14 -12`} />
+  ))}</g>
+  <g data-el="plants-dead" style="opacity:0">{plants.map((x) => (
+    <path class="plant dead" d={`M${x} ${plantBase(x)} q8 -6 20 -6 q10 0 18 -6 M${x} ${plantBase(x)} q-6 -5 -16 -4`} />
+  ))}</g>
+
+  <!-- saprotrophic bacteria -->
+  <g data-el="bacteria">{bact.map((b, i) => <circle class="bact" cx={b.x.toFixed(1)} cy={b.y.toFixed(1)} r="2.6" data-b={i} style={i < 3 ? undefined : 'opacity:0'} />)}</g>
+
+  <!-- fish -->
+  <g data-el="fish-live">{fish.map((f) => (
+    <g class="fish" data-fish transform={`translate(${f.x} ${f.y}) scale(${f.s} 1)`}><ellipse cx="0" cy="0" rx="15" ry="6.5" /><path d="M-13 0 L-23 -7 L-23 7 Z" /><circle class="eye" cx="8" cy="-1.5" r="1.6" /></g>
+  ))}</g>
+
+  <!-- algal bloom on the surface -->
+  <rect data-el="bloom" class="bloom" x="226" y="212" width="243" height="0" rx="3" />
+  <g data-el="fish-dead" style="opacity:0">{deadFish.map((f) => (
+    <g class="fish dead" transform={`translate(${f.x} ${f.y}) scale(1 -1)`}><ellipse cx="0" cy="0" rx="15" ry="6.5" /><path d="M-13 0 L-23 -7 L-23 7 Z" /><path class="x" d="M6 -4 l4 4 m0 -4 l-4 4" /></g>
+  ))}</g>
+  <text data-el="lab-bloom" class="lab" x="348" y="202" text-anchor="middle" style="opacity:0">algal bloom (algae and cyanobacteria)</text>
+  <text data-el="lab-dead" class="lab" x="350" y="394" text-anchor="middle" style="opacity:0">dead organic matter on the lake bed</text>
+  <g data-el="lab-bact" style="opacity:0"><text class="lab" x="515" y="244" text-anchor="middle">saprotrophic</text><text class="lab" x="515" y="260" text-anchor="middle">bacteria</text><text class="lab" x="515" y="276" text-anchor="middle">multiply</text></g>
+  <g data-el="lab-fish" style="opacity:0"><text class="lab bad" x="515" y="306" text-anchor="middle">fish and</text><text class="lab bad" x="515" y="322" text-anchor="middle">invertebrates</text><text class="lab bad" x="515" y="338" text-anchor="middle">die</text></g>
+
+  <!-- ions leaching -->
+  <g data-el="ions">{ions.map((n) => (
+    <g class="ion" data-ion={n.id} data-sx={n.sx} data-sy={n.sy} data-ex={n.ex} data-ey={n.ey} transform={`translate(${n.sx} ${n.sy})`}>
+      <rect x="-21" y="-10" width="42" height="20" rx="10" class={n.l.startsWith('NO') ? 'no3' : 'po4'} /><text x="0" y="4.5" text-anchor="middle">{n.l}</text>
+    </g>
+  ))}</g>
+
+  <!-- gauges -->
+  <g class="gauges">
+    <rect class="panel" x="398" y="8" width="156" height="132" rx="10" />
+    <text class="g-lab" x="410" y="30">Dissolved O₂</text>
+    <rect class="track" x="410" y="38" width="132" height="14" rx="7" />
+    <rect data-el="o2" class="o2" x="410" y="38" width="119" height="14" rx="7" />
+    <text class="g-lab" x="410" y="90">BOD</text>
+    <rect class="track" x="410" y="98" width="132" height="14" rx="7" />
+    <rect data-el="bod" class="bod" x="410" y="98" width="13" height="14" rx="7" />
+    <text class="g-val" data-el="o2-t" x="410" y="68">high</text>
+    <text class="g-val" data-el="bod-t" x="410" y="128">low</text>
+  </g>
+</svg>
+<style>
+  .eu { font-family: var(--font-sans); }
+  .ground { fill: color-mix(in srgb, var(--bio-tail) 30%, var(--surface)); stroke: color-mix(in srgb, var(--bio-tail) 60%, var(--text)); stroke-width: 1.2; }
+  .water { fill: color-mix(in srgb, var(--bio-water) 22%, var(--surface)); stroke: var(--bio-water); stroke-width: 1.4; }
+  .leach { fill: none; stroke: var(--text-muted); stroke-width: 2; stroke-dasharray: 6 5; }
+  .lab { font-size: 13px; font-weight: 650; fill: var(--text); }
+  .lab.small { font-size: 12.5px; font-weight: 600; fill: var(--text); }
+  .lab.bad { fill: var(--bad); }
+  .crop path { fill: none; stroke: var(--bio-carb); stroke-width: 2.2; stroke-linecap: round; }
+  .gran { fill: var(--surface); stroke: var(--text-muted); stroke-width: 1.2; }
+  .sun { fill: var(--bio-tail); stroke: var(--bio-glucose); stroke-width: 2; }
+  .ray { stroke: var(--bio-glucose); stroke-width: 2.4; stroke-dasharray: 7 6; }
+  .cloud ellipse { fill: var(--surface-3); stroke: var(--border-strong); stroke-width: 1; }
+  .drop { stroke: var(--bio-water); stroke-width: 2.2; stroke-linecap: round; }
+  .det { fill: color-mix(in srgb, var(--bio-tail) 55%, var(--text)); }
+  .plant { fill: none; stroke: var(--bio-carb); stroke-width: 3; stroke-linecap: round; }
+  .plant.dead { stroke: color-mix(in srgb, var(--bio-tail) 60%, var(--text)); }
+  .bact { fill: var(--bio-protein-2); }
+  .fish ellipse, .fish > path:not(.x) { fill: var(--bio-head); }
+  .fish .eye { fill: var(--surface); }
+  .fish.dead ellipse, .fish.dead > path:not(.x) { fill: var(--text-muted); }
+  .fish .x { stroke: var(--surface); stroke-width: 1.4; fill: none; }
+  .bloom { fill: color-mix(in srgb, var(--bio-carb) 75%, var(--surface)); }
+  .ion rect { stroke-width: 1.4; }
+  .ion .no3 { fill: color-mix(in srgb, var(--bio-protein) 22%, var(--surface)); stroke: var(--bio-protein); }
+  .ion .po4 { fill: color-mix(in srgb, var(--bio-head) 22%, var(--surface)); stroke: var(--bio-head); }
+  .ion text { font-size: 12px; font-weight: 750; fill: var(--text); }
+  .panel { fill: var(--surface); stroke: var(--border); }
+  .track { fill: var(--surface-3); }
+  .o2 { fill: var(--bio-water); }
+  .bod { fill: var(--bad); }
+  .g-lab { font-size: 13px; font-weight: 750; fill: var(--text); }
+  .g-val { font-size: 12.5px; font-weight: 650; fill: var(--text-muted); }
+</style>

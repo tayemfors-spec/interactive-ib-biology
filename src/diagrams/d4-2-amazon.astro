@@ -1,0 +1,68 @@
+---
+/** Amazon rainforest: the forest's own water cycle, and the positive feedback past a tipping point (D4.2.3). */
+interface Box { x: number; y: number; t: string[] }
+const W = 118, H = 66;
+const left: Box[] = [
+  { x: 74, y: 40, t: ['Large area of', 'rainforest'] },
+  { x: 148, y: 120, t: ['Transpiration:', 'water vapour', 'and cooling'] },
+  { x: 74, y: 200, t: ['Vapour condenses:', 'clouds; moist air', 'drawn inland'] },
+  { x: 0, y: 120, t: ['Rainfall over', 'forest further', 'inland (west)'] },
+];
+const right: Box[] = [
+  { x: 74, y: 40, t: ['Deforestation', 'beyond a', 'tipping point?'] },
+  { x: 148, y: 120, t: ['Less', 'transpiration'] },
+  { x: 74, y: 200, t: ['Less rain, longer', 'dry seasons,', 'hotter air'] },
+  { x: 0, y: 120, t: ['Drought and', 'fires kill more', 'trees'] },
+];
+const offL = 20, offR = 334;
+const cx = (b: Box, o: number) => o + b.x + W / 2;
+const cy = (b: Box) => b.y + H / 2;
+// arrows between consecutive boxes, clockwise
+const arrows = (o: number) => [
+  `M${o + 192} 73 Q${o + 207} 73 ${o + 207} 114`,
+  `M${o + 207} 188 Q${o + 207} 233 ${o + 194} 233`,
+  `M${o + 72} 233 Q${o + 59} 233 ${o + 59} 190`,
+  `M${o + 59} 118 Q${o + 59} 73 ${o + 70} 73`,
+];
+---
+<svg viewBox="0 0 640 312" role="img" aria-labelledby="d42a-t d42a-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="d42a-t">How the Amazon rainforest makes its own rain, and how deforestation could tip it into a different state</title>
+  <desc id="d42a-d">Left cycle, labelled self-sustaining: a large area of rainforest transpires, releasing water vapour and cooling the air; the vapour condenses into clouds and the low pressure draws moist air further inland; rain falls on forest further inland, which supports more forest. Right cycle, labelled positive feedback: deforestation beyond a possible tipping point means less transpiration, so less rain, longer dry seasons and higher temperatures; drought and fires kill more trees, which reduces transpiration further, so the forest may change to degraded savanna-like vegetation.</desc>
+  <defs>
+    <marker id="d42a-g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="hg" /></marker>
+    <marker id="d42a-r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="hr" /></marker>
+  </defs>
+  <text class="h" x={offL + 133} y="22" text-anchor="middle">Intact forest: self-sustaining</text>
+  <text class="h bad" x={offR + 133} y="22" text-anchor="middle">Past a tipping point: positive feedback</text>
+  {arrows(offL).map((d) => <path class="arr g" d={d} marker-end="url(#d42a-g)" />)}
+  {arrows(offR).map((d) => <path class="arr r" d={d} marker-end="url(#d42a-r)" />)}
+  {left.map((b) => (
+    <g>
+      <rect class="box g" x={offL + b.x} y={b.y} width={W} height={H} rx="10" />
+      {b.t.map((s, i) => <text class="t" x={cx(b, offL)} y={cy(b) + 5 + (i - (b.t.length - 1) / 2) * 16} text-anchor="middle">{s}</text>)}
+    </g>
+  ))}
+  {right.map((b) => (
+    <g>
+      <rect class="box r" x={offR + b.x} y={b.y} width={W} height={H} rx="10" />
+      {b.t.map((s, i) => <text class="t" x={cx(b, offR)} y={cy(b) + 5 + (i - (b.t.length - 1) / 2) * 16} text-anchor="middle">{s}</text>)}
+    </g>
+  ))}
+  <text class="foot" x="320" y="300" text-anchor="middle">The minimum forest area needed to keep the cycle going is uncertain.</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .h { font-size: 14.5px; font-weight: 800; fill: var(--text); }
+  .h.bad, .mid.bad { fill: var(--bad); }
+  .box { stroke-width: 1.6; }
+  .box.g { fill: color-mix(in srgb, var(--bio-carb) 12%, var(--surface)); stroke: var(--bio-carb); }
+  .box.r { fill: color-mix(in srgb, var(--bad) 10%, var(--surface)); stroke: var(--bad); }
+  .t { font-size: 12px; font-weight: 650; fill: var(--text); }
+  .arr { fill: none; stroke-width: 2.6; }
+  .arr.g { stroke: var(--bio-carb); }
+  .arr.r { stroke: var(--bad); stroke-dasharray: 8 5; }
+  .hg { fill: var(--bio-carb); }
+  .hr { fill: var(--bad); }
+  .mid { font-size: 13px; font-weight: 750; font-style: italic; fill: var(--text-muted); }
+  .foot { font-size: 13px; font-style: italic; fill: var(--text); }
+</style>

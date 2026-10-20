@@ -1,0 +1,90 @@
+---
+/**
+ * Primary succession from bare rock to climax forest, then secondary succession and arrested
+ * succession (D4.2.12–15). Drawn in its step-1 start state (bare rock); d4-2-succession.ts grows
+ * the soil and vegetation and drives the meters.
+ */
+const B = 300; // rock surface
+const lichens = [30, 88, 150, 212, 268, 330];
+const mosses = [56, 120, 184, 244, 306];
+const grasses = Array.from({ length: 16 }, (_, i) => 12 + i * 22);
+const flowers = [34, 100, 166, 232, 298];
+const shrubs = [40, 136, 232, 322];
+const trees = [64, 176, 290];
+const meters = [
+  { id: 'biomass', l: 'Plant size and biomass' },
+  { id: 'production', l: 'Primary production' },
+  { id: 'diversity', l: 'Species diversity' },
+  { id: 'foodweb', l: 'Food-web complexity' },
+  { id: 'soil', l: 'Soil depth' },
+  { id: 'nutrient', l: 'Nutrient cycling' },
+];
+const MY = (i: number) => 30 + i * 56;
+---
+<svg viewBox="0 0 560 380" xmlns="http://www.w3.org/2000/svg" class="suc" aria-hidden="true">
+  <text data-el="stage" class="stage" x="12" y="26">Bare rock</text>
+  <text data-el="time" class="time" x="12" y="46">Time 0: no soil, no life</text>
+
+  <path class="rock" d={`M0 ${B} L360 ${B} L360 380 L0 380 Z`} />
+  <text class="rock-t" x="180" y="352" text-anchor="middle">rock</text>
+  <rect data-el="soil" class="soil" x="0" y={B} width="360" height="0" />
+
+  <g data-el="veg">
+    <g data-el="stumps" style="opacity:0">{trees.map((x) => <rect class="stump" x={x - 6} y={B - 26} width="12" height="26" rx="2" />)}</g>
+    <g data-el="trees" style="opacity:0">{trees.map((x) => (
+      <g class="tree"><rect class="trunk" x={x - 5} y={B - 86} width="10" height="86" /><circle cx={x} cy={B - 120} r="32" /><circle cx={x - 22} cy={B - 98} r="22" /><circle cx={x + 22} cy={B - 98} r="22" /></g>
+    ))}</g>
+    <g data-el="shrubs" style="opacity:0">{shrubs.map((x) => (
+      <g class="shrub"><path class="stem" d={`M${x} ${B} L${x} ${B - 16}`} /><circle cx={x - 10} cy={B - 22} r="13" /><circle cx={x + 10} cy={B - 22} r="13" /><circle cx={x} cy={B - 34} r="14" /></g>
+    ))}</g>
+    <g data-el="grass" style="opacity:0">
+      {grasses.map((x, i) => <path class="blade" d={`M${x - 4} ${B} q-2 -12 -6 ${-16 - (i % 3) * 4} M${x} ${B} q0 -14 1 ${-20 - (i % 2) * 5} M${x + 4} ${B} q3 -10 7 ${-15 - (i % 3) * 3}`} />)}
+      {flowers.map((x) => <g class="herb"><path class="stem" d={`M${x} ${B} L${x} ${B - 26}`} /><circle cx={x} cy={B - 29} r="4.5" /></g>)}
+    </g>
+    <g data-el="moss" style="opacity:0">{mosses.map((x) => <path class="moss" d={`M${x - 13} ${B} Q${x} ${B - 15} ${x + 13} ${B} Z`} />)}</g>
+    <g data-el="lichen" style="opacity:0">{lichens.map((x) => <ellipse class="lichen" cx={x} cy={B - 1} rx="10" ry="4" />)}</g>
+    <g data-el="sheep" style="opacity:0">{[120, 252].map((x) => (
+      <g class="sheep"><path class="leg" d={`M${x - 8} ${B - 6} L${x - 8} ${B} M${x + 8} ${B - 6} L${x + 8} ${B}`} /><ellipse class="wool" cx={x} cy={B - 14} rx="17" ry="10" /><ellipse class="head" cx={x + 19} cy={B - 10} rx="6" ry="5" /></g>
+    ))}</g>
+  </g>
+
+  <g class="meters">
+    <rect class="panel" x="372" y="6" width="182" height="352" rx="10" />
+    {meters.map((m, i) => (
+      <g>
+        <text class="m-lab" x="384" y={MY(i)}>{m.l}</text>
+        <rect class="track" x="384" y={MY(i) + 8} width="158" height="14" rx="7" />
+        <rect data-meter={m.id} class={`bar ${m.id}`} x="384" y={MY(i) + 8} width="0" height="14" rx="7" />
+      </g>
+    ))}
+  </g>
+</svg>
+<style>
+  .suc { font-family: var(--font-sans); }
+  .stage { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .time { font-size: 13px; font-weight: 600; fill: var(--text-muted); }
+  .rock { fill: color-mix(in srgb, var(--text) 16%, var(--surface)); stroke: var(--text-muted); stroke-width: 1.2; }
+  .rock-t { font-size: 13px; font-weight: 650; fill: var(--text); }
+  .soil { fill: color-mix(in srgb, var(--bio-tail) 72%, var(--text)); }
+  .lichen { fill: color-mix(in srgb, var(--bio-glucose) 70%, var(--text-muted)); stroke: var(--text-muted); stroke-width: 0.8; }
+  .moss { fill: color-mix(in srgb, var(--bio-carb) 80%, var(--text)); }
+  .blade { fill: none; stroke: var(--bio-carb); stroke-width: 2; stroke-linecap: round; }
+  .stem { stroke: color-mix(in srgb, var(--bio-carb) 60%, var(--text)); stroke-width: 2.4; fill: none; }
+  .herb circle { fill: var(--bio-glucose); stroke: var(--text-muted); stroke-width: 0.8; }
+  .shrub circle { fill: color-mix(in srgb, var(--bio-carb) 70%, var(--surface)); stroke: var(--bio-carb); stroke-width: 1.2; }
+  .tree circle { fill: color-mix(in srgb, var(--bio-carb) 85%, var(--text)); }
+  .trunk { fill: color-mix(in srgb, var(--bio-tail) 50%, var(--text)); }
+  .stump { fill: color-mix(in srgb, var(--text) 80%, var(--surface)); }
+  .sheep .wool { fill: var(--surface); stroke: var(--text); stroke-width: 1.4; }
+  .sheep .head { fill: var(--text); }
+  .sheep .leg { stroke: var(--text); stroke-width: 2.4; }
+  .panel { fill: var(--surface); stroke: var(--border); }
+  .m-lab { font-size: 12.5px; font-weight: 700; fill: var(--text); }
+  .track { fill: var(--surface-3); }
+  .bar { fill: var(--bio-carb); }
+  .bar.soil { fill: color-mix(in srgb, var(--bio-tail) 70%, var(--text)); }
+  .bar.nutrient { fill: var(--bio-protein); }
+  .bar.foodweb { fill: var(--bio-head); }
+  .bar.diversity { fill: var(--bio-protein-2); }
+  .bar.production { fill: color-mix(in srgb, var(--bio-carb) 70%, var(--text)); }
+</style>

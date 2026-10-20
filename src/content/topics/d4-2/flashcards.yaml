@@ -1,0 +1,73 @@
+cards:
+  - id: c1
+    level: SL
+    front: Give the four requirements for ecosystem stability.
+    back: A continuous supply of energy (usually sunlight); recycling of nutrients by decomposers; genetic diversity within populations; climatic variables (temperature, rainfall) staying within the tolerance of the species present.
+  - id: c2
+    level: SL
+    front: What evidence shows that some ecosystems have been stable for millions of years?
+    back: Fossils and pollen in sediment layers showing the same type of community over long periods, and ancient endemic lineages that could only survive if their habitat persisted, e.g. the Daintree rainforest in Queensland and the Namib Desert.
+  - id: c3
+    level: SL
+    front: Why could Amazon deforestation reach a tipping point?
+    back: The forest transpires water vapour that cools the air and falls as rain further inland. Less forest means less transpiration, less rain and more drought and fire, which kill more trees — positive feedback that could turn rainforest into savanna. The minimum area needed is uncertain.
+  - id: c4
+    level: SL
+    front: Formula for percentage change
+    back: (final value − initial value) ÷ initial value × 100. A decrease gives a negative value.
+  - id: c5
+    level: SL
+    front: Why are sealed glass vessels preferred for mesocosms, and what must they contain?
+    back: They are closed systems — no matter enters or leaves, but light enters and heat leaves. They need producers and decomposers (e.g. pond plants and pond mud); consumers are optional. Aquatic or microbial mesocosms work best.
+  - id: c6
+    level: SL
+    front: Keystone species — definition and example
+    back: A species with an effect on community structure disproportionate to its abundance; removing it can collapse the community. Sea otters eat urchins; without otters, urchins overgraze kelp forests into urchin barrens.
+  - id: c7
+    level: SL
+    front: When is harvesting a natural resource sustainable?
+    back: When the rate of harvesting is no greater than the rate of replacement (reproduction and growth), so the population does not decline over the long term.
+  - id: c8
+    level: SL
+    front: Maximum sustainable yield — where and why?
+    back: At half the carrying capacity (K/2), where a logistically growing population has its fastest rate of replacement (MSY = rK/4 in the logistic model). At K there is no surplus; at low numbers there are too few breeders.
+  - id: c9
+    level: SL
+    front: Named examples of harvesting — one marine fish, one terrestrial plant
+    back: Atlantic cod — the Grand Banks stock collapsed through overfishing (moratorium 1992); North Sea cod recovered with quotas, larger mesh, closed areas. Brazil nut — sustainable only if enough nuts are left for young trees; check the age structure of the trees.
+  - id: c10
+    level: SL
+    front: Five factors affecting the sustainability of agriculture
+    back: Soil erosion; leaching of nutrients; supply of fertilizers and other inputs (Haber process uses natural gas, phosphate rock is finite); pollution by agrochemicals such as pesticides; carbon footprint (fuel, fertilizer manufacture, methane, N₂O).
+  - id: c11
+    level: SL
+    front: Sequence of events in eutrophication
+    back: Nitrate and phosphate leached into water → algal bloom → light blocked, plants die → saprotrophic bacteria decompose dead matter, respiring aerobically → BOD rises → dissolved oxygen falls → fish and other aerobic animals die.
+  - id: c12
+    level: SL
+    front: What is BOD?
+    back: Biochemical oxygen demand — the amount of dissolved oxygen used by microorganisms to break down organic matter in a water sample over a set time (usually 5 days at 20 °C in the dark). High BOD means heavy organic pollution.
+  - id: c13
+    level: SL
+    front: Why do DDT and methylmercury biomagnify?
+    back: They are persistent and fat-soluble, so they are stored in fatty tissue and not excreted. Energy losses mean each consumer eats a large mass of food, so it accumulates the toxin from all of it — concentration rises at every trophic level.
+  - id: c14
+    level: SL
+    front: Effects of macroplastics and microplastics on marine life
+    back: Macroplastics (over 5 mm) entangle seals, turtles and seabirds and are swallowed (turtles eat bags; albatross chicks are fed plastic). Microplastics (under 5 mm) are eaten by zooplankton, filter feeders and fish, carry toxins and pass along food chains. Plastics persist because they are not biodegradable.
+  - id: c15
+    level: SL
+    front: Rewilding methods, and the Hinewai Reserve example
+    back: Reintroduce apex predators and other keystone species; reconnect habitats over large areas; minimize human impact. Hinewai (Banks Peninsula, New Zealand) — former farmland left to regenerate; browsing mammals controlled; gorse acts as a nurse canopy for native trees that then shade it out.
+  - id: c16
+    level: AHL
+    front: Trends during primary succession
+    back: Increases in plant size and biomass, primary production, species diversity, food-web complexity, soil depth and organic matter, and nutrient cycling. Example — Glacier Bay, Alaska, where pioneers are followed by alder (nitrogen fixing), then spruce–hemlock forest.
+  - id: c17
+    level: AHL
+    front: Primary vs secondary succession, and two triggers of each kind
+    back: Primary starts with no soil (bare rock, new sand); secondary starts where soil remains. Abiotic triggers — glacier retreat, volcanic eruption, landslide, fire. Biotic triggers — beavers building dams, a disease killing the dominant tree.
+  - id: c18
+    level: AHL
+    front: Cyclical succession vs arrested succession
+    back: Cyclical — communities repeat in a cycle with no fixed climax, e.g. heather pioneer → building → mature → degenerate. Arrested — human influence stops succession at a plagioclimax, e.g. sheep grazing keeps grassland; drainage of wetlands.

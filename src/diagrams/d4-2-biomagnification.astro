@@ -1,0 +1,61 @@
+---
+/**
+ * DDT concentrations up an estuarine food chain (D4.2.9), on a log scale. Values (ppm, wet mass) as
+ * reported by Woodwell, Wurster & Isaacson (1967) for the Carmans River estuary, Long Island, USA.
+ */
+const rows = [
+  { name: 'Fish-eating bird', ex: 'double-crested cormorant', ppm: 26.4, v: '26.4' },
+  { name: 'Predatory fish', ex: 'needlefish', ppm: 2.07, v: '2.07' },
+  { name: 'Small fish', ex: 'Atlantic silverside', ppm: 0.23, v: '0.23' },
+  { name: 'Plankton', ex: 'phyto- and zooplankton', ppm: 0.04, v: '0.04' },
+  { name: 'Water', ex: '', ppm: 0.00005, v: '0.00005' },
+];
+const X0 = 186, X1 = 500, LMIN = -5, LMAX = 2;
+const xs = (ppm: number) => X0 + ((Math.log10(ppm) - LMIN) / (LMAX - LMIN)) * (X1 - X0);
+const RY = (i: number) => 40 + i * 50;
+const ticks = [-5, -4, -3, -2, -1, 0, 1, 2];
+const tl = (e: number) => (e >= 0 ? String(10 ** e) : (10 ** e).toFixed(-e));
+const factors = [
+  { between: 0, f: '×13' }, { between: 1, f: '×9' }, { between: 2, f: '×6' }, { between: 3, f: '×800' },
+];
+---
+<svg viewBox="0 0 560 330" role="img" aria-labelledby="d42b-t d42b-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="d42b-t">Biomagnification of DDT in an estuary food chain</title>
+  <desc id="d42b-d">Horizontal bars on a logarithmic scale of DDT concentration in parts per million. Water 0.00005; plankton 0.04; small fish (Atlantic silverside) 0.23; predatory fish (needlefish) 2.07; fish-eating bird (double-crested cormorant) 26.4. The concentration increases about 6 to 13 times at each step up the food chain, and is about half a million times higher in the cormorant than in the water.</desc>
+  {ticks.map((e) => (
+    <g>
+      <line class="grid" x1={xs(10 ** e)} x2={xs(10 ** e)} y1="18" y2="272" />
+      {(e + 5) % 2 === 0 && <text class="tick" x={xs(10 ** e)} y="290" text-anchor="middle">{tl(e)}</text>}
+    </g>
+  ))}
+  <text class="axis" x={(X0 + X1) / 2} y="318" text-anchor="middle">DDT concentration / ppm (log scale)</text>
+  {rows.map((r, i) => (
+    <g>
+      <text class="name" x="10" y={RY(i) - 2}>{r.name}</text>
+      {r.ex && <text class="ex" x="10" y={RY(i) + 14}>{r.ex}</text>}
+      <rect class={`bar ${i === 4 ? 'water' : ''}`} x={X0} y={RY(i) - 14} width={Math.max(4, xs(r.ppm) - X0)} height="26" rx="4" />
+      <text class="val" x={xs(r.ppm) + 6} y={RY(i) + 4}>{r.v}</text>
+    </g>
+  ))}
+  {factors.map((f) => (
+    <g>
+      <path class="up" d={`M546 ${RY(f.between + 1) - 10} L546 ${RY(f.between) + 10}`} marker-end="url(#d42b-arr)" />
+      <text class="fac" x="540" y={(RY(f.between) + RY(f.between + 1)) / 2 + 4} text-anchor="end">{f.f}</text>
+    </g>
+  ))}
+  <defs><marker id="d42b-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="head" /></marker></defs>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .grid { stroke: var(--border); stroke-width: 1; }
+  .tick { font-size: 12px; fill: var(--text-muted); }
+  .axis { font-size: 13.5px; font-weight: 700; fill: var(--text); }
+  .name { font-size: 14px; font-weight: 750; fill: var(--text); }
+  .ex { font-size: 12px; font-style: italic; fill: var(--text-muted); }
+  .bar { fill: color-mix(in srgb, var(--bad) 70%, var(--surface)); }
+  .bar.water { fill: var(--bio-water); }
+  .val { font-size: 13.5px; font-weight: 750; fill: var(--text); }
+  .up { stroke: var(--text-muted); stroke-width: 2; fill: none; }
+  .head { fill: var(--text-muted); }
+  .fac { font-size: 12.5px; font-weight: 700; fill: var(--text-muted); }
+</style>
