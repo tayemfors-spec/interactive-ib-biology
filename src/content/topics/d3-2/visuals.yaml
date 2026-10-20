@@ -22,7 +22,7 @@ visuals:
         caption: Meiosis halves the chromosome number, so each gamete is haploid (n) and carries just one allele of each gene. Half of this mother's eggs carry A and half carry a; all of the father's sperm carry A.
       - id: fertilization
         title: Fertilization
-        caption: The nucleus of a sperm fuses with the nucleus of an egg. The zygote is diploid again, with one allele from each parent, so its genotype is Aa. Mitosis copies this genotype into every body cell.
+        caption: The sperm and egg fuse; their chromosomes combine in the zygote, so it is diploid again. It has one allele from each parent, so its genotype is Aa. Mitosis copies this genotype into every body cell.
       - id: phenotype
         title: Genotype and phenotype
         caption: Aa is heterozygous. A is dominant, because one copy makes enough of the functional protein, so the phenotype of Aa is the same as that of AA. The recessive allele a has no effect in a heterozygote.

@@ -194,14 +194,14 @@ visuals:
     kind: sim
     module: d3-3-thermoregulation
     title: Thermoregulation by negative feedback
-    alt: Change air temperature and activity to see how skin arterioles, sweat glands, hairs, muscles, brown fat and thyroxin respond.
+    alt: Change air temperature and activity to see how skin arterioles, sweat glands, hairs, muscles, brown fat and thyroxine respond.
     description: >-
       A simulation of temperature control in a lightly clothed adult. Sliders set the air temperature from
       −10 to 45 °C and the level of activity. The left panel shows the control pathway: peripheral thermoreceptors
       in the skin and central thermoreceptors send signals to the hypothalamus, which controls effectors through
-      nerves and, through the pituitary gland and thyroid, the secretion of thyroxin. The right panel is a section
+      nerves and, through the pituitary gland and thyroid, the secretion of thyroxine. The right panel is a section
       through skin and the tissues below. In the cold, skin arterioles constrict, a shunt vessel opens, the hairs
-      are raised by erector muscles, skeletal muscle shivers, brown adipose tissue releases heat and thyroxin
+      are raised by erector muscles, skeletal muscle shivers, brown adipose tissue releases heat and thyroxine
       rises. In heat or during exercise, arterioles dilate, more blood flows through the skin capillaries and
       sweat glands secrete sweat. Core temperature stays close to 37 °C; a checkbox switches the responses off to
       show that core temperature would then drift into hypothermia or hyperthermia. The model is qualitative.

@@ -6,17 +6,17 @@ facts:
     basis: IB guide D3.1.1; Campbell Biology
     status: checked
   - id: f2
-    claim: The male gamete travels to the female gamete, so it is small with few reserves and made in large numbers; human testes make millions of sperm per day.
+    claim: Sperm move to reach the egg, so each is small with few reserves and made in large numbers; human testes make millions of sperm per day.
     where: ["index.mdx#sexes", "quiz.yaml:q3", "flashcards.yaml:c3"]
     confidence: high
     basis: IB guide D3.1.3; human daily sperm production estimated at roughly 10^8 (Amann 2008)
     status: checked
   - id: f3
-    claim: Sperm pathway testis → epididymis → sperm duct (over the bladder) → joined by seminal vesicle duct → through prostate into urethra → penis; seminal vesicle fluid contains fructose; prostate fluid is alkaline and neutralises vaginal acidity.
+    claim: Sperm pathway testis → epididymis → sperm duct (over the bladder) → joined by seminal vesicle duct → through prostate into urethra → penis; seminal vesicle fluid is alkaline and contains fructose, and its alkalinity helps neutralise vaginal acidity; prostate fluid is slightly acidic and adds ions (e.g. zinc, citrate) and enzymes (e.g. PSA, which liquefies semen).
     where: ["diagrams/d3-1-male.astro", "index.mdx#anatomy", "flashcards.yaml:c4", "index.mdx (mistakes)"]
     confidence: high
-    basis: Standard human anatomy (Gray's; Campbell). Prostatic fluid is slightly alkaline/near neutral in some sources; semen overall is alkaline.
-    status: open
+    basis: Standard human anatomy and physiology (Gray's; Guyton & Hall). Prostatic fluid pH is about 6.5; seminal vesicle fluid is alkaline and makes up most of semen volume, so semen overall is alkaline.
+    status: checked
   - id: f4
     claim: Scrotal testes are kept a few degrees (about 2–3 °C) below core body temperature, which suits spermatogenesis.
     where: ["diagrams/d3-1-male.astro"]
@@ -90,7 +90,7 @@ facts:
     basis: IB guide D3.1.13
     status: checked
   - id: f16
-    claim: Oogonia divide by mitosis only before birth; primary oocytes arrest in prophase I until puberty; meiosis I completes just before ovulation (unequal division, first polar body); the secondary oocyte arrests at metaphase II and completes meiosis II only after sperm entry; one primary spermatocyte gives four sperm.
+    claim: Oogonia divide by mitosis only before birth; primary oocytes arrest in prophase I from before birth until shortly before their own follicle ovulates (from puberty onwards, so some for decades); meiosis I completes just before ovulation (unequal division, first polar body); the secondary oocyte arrests at metaphase II and completes meiosis II only after sperm entry; one primary spermatocyte gives four sperm.
     where: ["index.mdx#gametogenesis", "visuals.yaml:gametogenesis", "quiz.yaml:q7", "flashcards.yaml:c14"]
     confidence: high
     basis: Alberts MBoC; Langman's Medical Embryology

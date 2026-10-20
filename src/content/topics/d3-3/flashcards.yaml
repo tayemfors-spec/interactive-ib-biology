@@ -2,7 +2,7 @@ cards:
   - id: c1
     level: SL
     front: Define homeostasis and name four variables it controls in humans.
-    back: Keeping the internal environment within narrow, preset limits despite changes outside. Body temperature, blood pH, blood glucose concentration and blood osmotic concentration.
+    back: Keeping the internal environment within narrow, preset limits despite changes outside. Examples are body temperature, blood glucose, blood pH and the osmotic concentration of blood.
   - id: c2
     level: SL
     front: Why does homeostasis use negative rather than positive feedback?
@@ -33,16 +33,16 @@ cards:
     back: Risk factors — obesity, physical inactivity, diet high in sugar and fat and low in fibre, age, family history. Prevention and treatment — healthy weight, exercise, diet; drugs, and insulin if needed.
   - id: c9
     level: SL
-    front: Role of thyroxin in thermoregulation
-    back: In the cold the hypothalamus causes the pituitary gland to secrete TSH, so the thyroid secretes more thyroxin. Thyroxin raises the metabolic rate of body cells, releasing more heat. It is a slower response than the nervous ones.
+    front: Role of thyroxine in thermoregulation
+    back: In the cold the hypothalamus causes the pituitary gland to secrete TSH, so the thyroid secretes more thyroxine. Thyroxine raises the metabolic rate of body cells, releasing more heat. It is a slower response than the nervous ones.
   - id: c10
     level: SL
     front: Human responses to overheating
-    back: Vasodilation of arterioles supplying the skin (more blood flows near the surface and loses heat) and sweating (evaporation of water from sweat absorbs heat). Thyroxin secretion falls.
+    back: Vasodilation of arterioles supplying the skin (more blood flows near the surface and loses heat) and sweating (evaporation of water from sweat absorbs heat). Thyroxine secretion falls.
   - id: c11
     level: SL
     front: Human responses to cold
-    back: Vasoconstriction of skin arterioles, shivering (skeletal muscle), uncoupled respiration in brown adipose tissue, hair erection, and more thyroxin.
+    back: Vasoconstriction of skin arterioles, shivering (skeletal muscle), uncoupled respiration in brown adipose tissue, hair erection, and more thyroxine.
   - id: c12
     level: AHL
     front: Excretion vs osmoregulation

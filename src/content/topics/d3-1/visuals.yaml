@@ -72,7 +72,7 @@ visuals:
         caption: Germ cells divide by mitosis to make many diploid (2n) cells. In the testis, spermatogonia in the wall of the seminiferous tubules divide continuously from puberty onwards. In the ovary, oogonia divide only before birth, in the foetus.
       - id: growth
         title: Cell growth
-        caption: Cells grow into primary spermatocytes and primary oocytes, still diploid. A primary oocyte grows much larger and is surrounded by follicle cells, forming a primary follicle. It starts meiosis I before birth and then pauses until puberty.
+        caption: Cells grow into primary spermatocytes and primary oocytes, still diploid. A primary oocyte grows much larger and is surrounded by follicle cells, forming a primary follicle. It starts meiosis I before birth and then pauses in prophase I. It stays paused until shortly before its own follicle ovulates, which may be any cycle from puberty onwards.
       - id: meiosis-1
         title: Meiosis I
         caption: Meiosis I halves the chromosome number, so the products are haploid (n), though each chromosome still has two chromatids. A primary spermatocyte divides equally into two secondary spermatocytes. A primary oocyte divides unequally, just before ovulation, into one large secondary oocyte and a small first polar body.

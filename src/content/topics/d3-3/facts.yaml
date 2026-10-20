@@ -48,10 +48,10 @@ facts:
     basis: WHO diagnostic criteria
     status: checked
   - id: f9
-    claim: Peripheral thermoreceptors in skin and central thermoreceptors (hypothalamus) feed the hypothalamus; cold raises TRH → TSH → thyroxin, which raises metabolic rate; thyroxin falls when overheated.
+    claim: Peripheral thermoreceptors in skin and central thermoreceptors (hypothalamus) feed the hypothalamus; cold raises TRH → TSH → thyroxine, which raises metabolic rate; thyroxine falls when overheated.
     where: ["index.mdx#thermoregulation", "quiz.yaml:q5", "flashcards.yaml:c9", "visuals.yaml:thermoregulation"]
     confidence: medium
-    basis: IB guide D3.3.5 includes thyroxin; in adult humans the cold-induced thyroxin rise is modest and slow
+    basis: IB guide D3.3.5 includes thyroxine; in adult humans the cold-induced thyroxine rise is modest and slow
     status: open
   - id: f10
     claim: Brown adipose tissue produces heat by uncoupled respiration (UCP1/thermogenin lets protons leak across the inner mitochondrial membrane); it is most abundant in newborns, with some retained in adults in the neck and upper chest.

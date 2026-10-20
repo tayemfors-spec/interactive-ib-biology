@@ -210,7 +210,7 @@ export const PEDIGREES: Pedigree[] = [
         why: 'III-2 is unaffected, so his only X carries Xᴴ. He received his Y from his affected father, which is why haemophilia is never passed from father to son.' },
     ],
     feedback: {
-      'x-linked-recessive': 'The best explanation. Only males are affected, and they have unaffected parents, so the allele is recessive; it passes through unaffected carrier females (I-2, II-3). The affected father II-2 has no affected sons, and all his daughters are carriers. Strictly, autosomal recessive inheritance cannot be ruled out, but it would need two unrelated people who married in (II-1 or II-4) to carry the same rare allele.',
+      'x-linked-recessive': 'The best explanation. Only males are affected, and they have unaffected parents, so the allele is recessive; it passes through unaffected carrier females (I-2, II-3). The affected father II-2 has no affected sons, and all his daughters are carriers. Strictly, autosomal recessive inheritance cannot be ruled out, but it would need II-4, who married into the family, to carry the same rare allele as his wife II-3.',
       'autosomal-recessive': 'Possible but unlikely. It would need II-4, who married into the family, to be a carrier of the same rare allele, and it would not explain why only males are affected. By inductive reasoning, the pattern of affected males and carrier mothers suggests an X-linked recessive allele.',
       'autosomal-dominant': 'Not possible. II-2 and III-3 are affected but none of their parents is. With a dominant allele, every affected person must have at least one affected parent.',
     },

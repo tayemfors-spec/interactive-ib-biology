@@ -83,11 +83,11 @@ questions:
     stem: How does the hypothalamus increase heat production by body cells over several days of cold weather?
     options:
       - id: a
-        text: It stimulates the pituitary gland to release TSH, so the thyroid gland secretes more thyroxin, which raises metabolic rate.
+        text: It stimulates the pituitary gland to release TSH, so the thyroid gland secretes more thyroxine, which raises metabolic rate.
         why: Correct. This hormonal route (hypothalamus → pituitary → thyroid) raises the metabolic rate of most cells, so more heat is released by respiration.
       - id: b
-        text: It secretes thyroxin directly into the blood, which makes skeletal muscles shiver.
-        why: Thyroxin is secreted by the thyroid gland, not the hypothalamus, and shivering is triggered by nerve impulses, not thyroxin.
+        text: It secretes thyroxine directly into the blood, which makes skeletal muscles shiver.
+        why: Thyroxine is secreted by the thyroid gland, not the hypothalamus, and shivering is triggered by nerve impulses, not thyroxine.
       - id: c
         text: It stimulates the posterior pituitary to release ADH, which reduces heat loss in urine.
         why: ADH controls water reabsorption in the kidney (osmoregulation), not temperature.
