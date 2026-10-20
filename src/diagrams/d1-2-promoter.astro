@@ -1,0 +1,57 @@
+---
+/**
+ * D1.2.13: initiation of transcription at the promoter in a eukaryote, in three stages: the promoter
+ * (a non-transcribed sequence just upstream of the start point), transcription factors binding to it, then
+ * RNA polymerase binding to the factor–promoter complex and starting transcription at the start point.
+ */
+const rows = [70, 170, 270];
+const P0 = 70, P1 = 190, TSS = 200, G1 = 470;
+---
+<svg viewBox="0 0 520 320" role="img" aria-labelledby="pr-title pr-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="pr-title">Transcription factors and RNA polymerase at a promoter</title>
+  <desc id="pr-desc">Three stages at the start of a eukaryotic gene. First, the DNA with a promoter region just upstream of the transcription start point; the promoter itself is not transcribed. Second, several transcription factor proteins bind to the promoter. Third, RNA polymerase binds to the promoter together with the transcription factors, separates the DNA strands at the start point and begins transcribing the gene towards the right, making RNA from its 5′ end.</desc>
+  {rows.map((y, i) => (
+    <g>
+      <text class="step" x="10" y={y - 38}>{i + 1}</text>
+      <rect class="prom" x={P0} y={y - 6} width={P1 - P0} height="20" rx="3" />
+      <path class="dna" d={`M30 ${y} H${G1 + 20} M30 ${y + 8} H${G1 + 20}`} />
+      <rect class="gene" x={TSS} y={y - 4} width={G1 - TSS} height="16" rx="3" />
+      <path class="tss" d={`M${TSS} ${y - 6} V${y - 20} H${TSS + 18}`} marker-end="url(#pr-ah)" />
+    </g>
+  ))}
+  <text class="lbl" x={(P0 + P1) / 2} y={rows[0]! + 34} text-anchor="middle">promoter (not transcribed)</text>
+  <text class="lbl" x={(TSS + G1) / 2} y={rows[0]! + 34} text-anchor="middle">gene: transcribed region</text>
+  <text class="sm" x={TSS + 24} y={rows[0]! - 16}>start point</text>
+
+  <!-- stage 2: transcription factors -->
+  {[[96, 0], [126, 1], [156, 0]].map(([x, k]) => <ellipse class="tf" cx={x} cy={rows[1]! - 18 - k! * 6} rx="15" ry="13" />)}
+  <text class="lbl" x="230" y={rows[1]! - 24}>transcription factors bind</text>
+  <text class="lbl" x="230" y={rows[1]! - 9}>to the promoter</text>
+
+  <!-- stage 3: RNA polymerase joins -->
+  {[[96, 0], [126, 1], [156, 0]].map(([x, k]) => <ellipse class="tf" cx={x} cy={rows[2]! - 18 - k! * 6} rx="15" ry="13" />)}
+  <ellipse class="pol" cx={TSS + 4} cy={rows[2]! + 2} rx="44" ry="30" />
+  <text class="poltxt" x={TSS + 4} y={rows[2]! + 24} text-anchor="middle">RNA pol</text>
+  <path class="rna" d={`M${TSS + 30} ${rows[2]! - 22} q14 -10 26 -4`} />
+  <path class="arrow" d={`M${TSS + 60} ${rows[2]! + 36} H${TSS + 170}`} marker-end="url(#pr-ah)" />
+  <text class="sm" x={TSS + 62} y={rows[2]! + 32}>direction of transcription</text>
+  <text class="lbl" x="300" y={rows[2]! - 24}>RNA polymerase binds and</text>
+  <text class="lbl" x="300" y={rows[2]! - 9}>starts transcribing</text>
+  <defs><marker id="pr-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" class="ah" /></marker></defs>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .step { font-size: 14px; font-weight: 800; fill: var(--accent-strong); }
+  .dna { stroke: var(--text); stroke-width: 3; }
+  .prom { fill: color-mix(in srgb, var(--bio-chol) 22%, transparent); stroke: var(--bio-chol); stroke-width: 1.4; stroke-dasharray: 5 3; }
+  .gene { fill: color-mix(in srgb, var(--bio-carb) 18%, transparent); stroke: none; }
+  .tss { stroke: var(--text); stroke-width: 2; fill: none; }
+  .lbl { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .sm { font-size: 12.5px; fill: var(--text-muted); }
+  .tf { fill: color-mix(in srgb, var(--bio-protein-2) 60%, var(--surface)); stroke: var(--bio-protein-2); stroke-width: 1.4; }
+  .pol { fill: color-mix(in srgb, var(--bio-protein) 35%, transparent); stroke: var(--bio-protein); stroke-width: 1.6; }
+  .poltxt { font-size: 12px; font-weight: 800; fill: var(--text); }
+  .rna { stroke: var(--bio-chol); stroke-width: 3; fill: none; }
+  .arrow { stroke: var(--text); stroke-width: 1.8; fill: none; }
+  .ah { fill: var(--text); }
+</style>

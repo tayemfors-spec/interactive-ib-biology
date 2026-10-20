@@ -1,0 +1,226 @@
+---
+import { AMINO_ACIDS, BASES, MAX_LENGTH, aminoAcidOf, toMrna } from './models/d1-2-codon-table';
+import { render } from './d1-2-codon-view';
+
+const start = 'AUGGCAUUCAAAGUGUAA';
+const view = render(toMrna(start, 'mrna').mrna, 'aug');
+const used = new Set(view.used);
+const label = (c: string) => {
+  const aa = aminoAcidOf(c);
+  return aa === '*' ? 'Stop' : AMINO_ACIDS[aa]!.three;
+};
+---
+<div class="codons" data-codons>
+  <div class="controls">
+    <fieldset class="opts">
+      <legend>Type in</legend>
+      <label><input type="radio" name="ct-mode" value="mrna" checked data-mode /> mRNA (5′→3′)</label>
+      <label><input type="radio" name="ct-mode" value="coding" data-mode /> DNA coding strand (5′→3′)</label>
+      <label><input type="radio" name="ct-mode" value="template" data-mode /> DNA template strand (3′→5′)</label>
+    </fieldset>
+    <label class="field">
+      <span class="field-name" data-field-name>mRNA, written 5′→3′ (A, U, G, C; up to {MAX_LENGTH} bases)</span>
+      <input type="text" value={start} data-input autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="120" />
+    </label>
+    <fieldset class="opts">
+      <legend>Start reading at</legend>
+      <label><input type="radio" name="ct-frame" value="aug" checked data-frame /> the first AUG (start codon)</label>
+      <label><input type="radio" name="ct-frame" value="0" data-frame /> base 1</label>
+      <label><input type="radio" name="ct-frame" value="1" data-frame /> base 2</label>
+      <label><input type="radio" name="ct-frame" value="2" data-frame /> base 3</label>
+    </fieldset>
+    <div class="row-btns">
+      <div class="keys" role="group" aria-label="Examples">
+        <button type="button" class="btn" data-example="AUGGCAUUCAAAGUGUAA">Short gene</button>
+        <button type="button" class="btn" data-example="hbb">β-globin gene (start)</button>
+        <button type="button" class="btn" data-random>Random</button>
+      </div>
+      <div class="keys" role="group" aria-label="Edit">
+        <button type="button" class="btn" data-del>Delete last codon</button>
+        <button type="button" class="btn" data-clear>Clear</button>
+      </div>
+    </div>
+    <label class="toggle"><input type="checkbox" data-sickle /> Sickle-cell mutation: change the 6th amino acid's codon from GAG to GUG (GAG → GTG in the coding strand)</label>
+    <p class="warn" data-warn hidden></p>
+  </div>
+
+  <div class="strands" data-strands set:html={view.strands} />
+  <ol class="chips" data-chips aria-label="Codons read, with tRNA anticodons and amino acids" set:html={view.chips} />
+  <p class="chip-key"><span class="k codon">codon (mRNA, 5′→3′)</span> <span class="k anti">anticodon (tRNA, 3′→5′)</span> <span class="k aa">amino acid</span></p>
+  <div class="compare" data-compare hidden={!view.compare} set:html={view.compare} />
+  <p class="readout" aria-live="polite" data-readout>{view.summary}</p>
+
+  <div class="table-wrap">
+    <table class="code">
+      <caption>The genetic code (mRNA codons). Pick a codon to add it to the end of the sequence; codons being read are highlighted.</caption>
+      <thead>
+        <tr><th scope="col" class="corner">1st base ↓<br />2nd base →</th>{BASES.map((b) => <th scope="col">{b}</th>)}</tr>
+      </thead>
+      <tbody>
+        {BASES.map((a) => (
+          <tr>
+            <th scope="row">{a}</th>
+            {BASES.map((b) => (
+              <td>
+                {BASES.map((c) => {
+                  const codon = a + b + c;
+                  const aa = aminoAcidOf(codon);
+                  return (
+                    <button type="button" class:list={['cod', { stop: aa === '*', start: codon === 'AUG', used: used.has(codon) }]} data-codon={codon}>
+                      <span class="c">{codon}</span> <span class="a">{label(codon)}</span>
+                    </button>
+                  );
+                })}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="model-note">Standard genetic code. Each codon is read 5′→3′ on the mRNA; within each cell the third base runs U, C, A, G from top to bottom. AUG codes for methionine and is also the start codon; UAA, UAG and UGA are stop codons and code for no amino acid.</p>
+</div>
+
+<script>
+  import { HBB_NORMAL, HBB_SICKLE, MAX_LENGTH, fromMrna, randomMrna, toMrna, type Frame, type InputMode, type RnaBase } from './models/d1-2-codon-table';
+  import { render } from './d1-2-codon-view';
+
+  const NAMES: Record<InputMode, string> = {
+    mrna: `mRNA, written 5′→3′ (A, U, G, C; up to ${MAX_LENGTH} bases)`,
+    coding: `DNA coding (sense) strand, written 5′→3′ (A, T, G, C; up to ${MAX_LENGTH} bases)`,
+    template: `DNA template (antisense) strand, written 3′→5′ so it lines up with the mRNA (A, T, G, C; up to ${MAX_LENGTH} bases)`,
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-codons]').forEach((root) => {
+    const input = root.querySelector<HTMLInputElement>('[data-input]')!;
+    const warn = root.querySelector<HTMLElement>('[data-warn]')!;
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    const sickle = root.querySelector<HTMLInputElement>('[data-sickle]')!;
+    const compare = root.querySelector<HTMLElement>('[data-compare]')!;
+    const tableBtns = [...root.querySelectorAll<HTMLButtonElement>('[data-codon]')];
+    let mode: InputMode = 'mrna';
+    let frame: Frame = 'aug';
+    let mrna: RnaBase[] = toMrna(input.value, mode).mrna;
+    let seed = 5;
+    let timer = 0;
+
+    const update = (note = '') => {
+      const parsed = toMrna(input.value, mode);
+      mrna = parsed.mrna;
+      const v = render(mrna, frame);
+      root.querySelector('[data-strands]')!.innerHTML = v.strands;
+      root.querySelector('[data-chips]')!.innerHTML = v.chips;
+      compare.innerHTML = v.compare;
+      compare.hidden = !v.compare;
+      const seq = mrna.join('');
+      sickle.checked = seq === HBB_SICKLE;
+      const used = new Set(v.used);
+      for (const b of tableBtns) b.classList.toggle('used', used.has(b.dataset.codon!));
+      const notes: string[] = note ? [note] : [];
+      if (mode === 'mrna' && parsed.ignored.includes('T')) notes.push('T (thymine) is found in DNA, not RNA: mRNA has uracil (U) instead, so T was left out. To type DNA, choose a DNA strand above.');
+      if (mode !== 'mrna' && parsed.ignored.includes('U')) notes.push('U (uracil) is found in RNA, not DNA, so it was left out. To type mRNA, choose mRNA above.');
+      const others = parsed.ignored.filter((x) => x !== 'T' && x !== 'U');
+      if (others.length) notes.push(`${others.join(', ')} ${others.length > 1 ? 'are not bases and were' : 'is not a base and was'} left out.`);
+      if (parsed.truncated) notes.push(`Only the first ${MAX_LENGTH} bases are used.`);
+      warn.hidden = notes.length === 0;
+      warn.textContent = notes.join(' ');
+      clearTimeout(timer);
+      timer = window.setTimeout(() => { readout.textContent = v.summary; }, 350);
+    };
+    const setMrna = (m: string, note = '') => { input.value = fromMrna([...m] as RnaBase[], mode); update(note); };
+
+    input.addEventListener('input', () => update());
+    root.querySelectorAll<HTMLInputElement>('[data-mode]').forEach((r) => r.addEventListener('change', () => {
+      if (!r.checked) return;
+      const keep = mrna.join('');
+      mode = r.value as InputMode;
+      root.querySelector('[data-field-name]')!.textContent = NAMES[mode];
+      setMrna(keep);
+    }));
+    root.querySelectorAll<HTMLInputElement>('[data-frame]').forEach((r) => r.addEventListener('change', () => {
+      if (!r.checked) return;
+      frame = r.value === 'aug' ? 'aug' : (Number(r.value) as 0 | 1 | 2);
+      update();
+    }));
+    for (const b of tableBtns) b.addEventListener('click', () => {
+      const cur = mrna.join('');
+      if (cur.length + 3 > MAX_LENGTH) { setMrna(cur, `The sequence is already ${cur.length} bases long (maximum ${MAX_LENGTH}).`); return; }
+      setMrna(cur + b.dataset.codon);
+    });
+    root.querySelectorAll<HTMLButtonElement>('[data-example]').forEach((b) => b.addEventListener('click', () => setMrna(b.dataset.example === 'hbb' ? HBB_NORMAL : b.dataset.example!)));
+    root.querySelector('[data-random]')!.addEventListener('click', () => { seed = (seed * 37 + 17) % 100000; setMrna(randomMrna(6, seed)); });
+    root.querySelector('[data-del]')!.addEventListener('click', () => setMrna(mrna.join('').slice(0, Math.max(0, Math.ceil(mrna.length / 3) * 3 - 3))));
+    root.querySelector('[data-clear]')!.addEventListener('click', () => { setMrna(''); input.focus(); });
+    sickle.addEventListener('change', () => setMrna(sickle.checked ? HBB_SICKLE : HBB_NORMAL));
+  });
+</script>
+
+<style>
+  .codons { container-type: inline-size; display: grid; gap: var(--space-3); }
+  .controls { display: grid; gap: var(--space-2); }
+  .opts { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-3); font-size: var(--step--1); }
+  .opts legend { font-weight: 700; padding: 0; margin-bottom: var(--space-1); width: 100%; }
+  .opts label, .toggle { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 1.75rem; }
+  .opts input, .toggle input { width: 1.1rem; height: 1.1rem; accent-color: var(--accent); flex: none; }
+  .toggle { font-size: var(--step--1); font-weight: 600; align-items: flex-start; }
+  .toggle input { margin-top: 0.2rem; }
+  .field { display: grid; gap: var(--space-1); font-weight: 650; font-size: var(--step--1); }
+  .field input { font: 700 1.05rem/1.4 var(--font-mono, ui-monospace, monospace); letter-spacing: 0.1em; padding: 0.45rem 0.6rem; border: 1.5px solid var(--border-strong); border-radius: var(--radius-m); background: var(--surface); color: var(--text); min-height: 2.6rem; text-transform: uppercase; min-width: 0; width: 100%; }
+  .field input:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px; }
+  .row-btns { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); }
+  .keys { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .warn { margin: 0; padding: var(--space-2) var(--space-3); border-radius: var(--radius-m); background: var(--surface-2); border-left: 4px solid var(--bad); font-size: var(--step--1); }
+
+  .strands { display: grid; gap: 0.2rem; font-size: var(--step--1); padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); }
+  .strands :global(p) { margin: 0; display: grid; grid-template-columns: 9.5rem 1fr; gap: var(--space-2); align-items: baseline; }
+  .strands :global(.nm), .compare :global(.nm) { font-weight: 700; }
+  .strands :global(code) { font-weight: 700; letter-spacing: 0.06em; overflow-wrap: anywhere; }
+  .strands :global(.cd) { margin-right: 0.45em; }
+  .strands :global(.cd.start) { text-decoration: underline 2px var(--bio-carb); text-underline-offset: 3px; }
+  .strands :global(.cd.stop) { text-decoration: underline 2px var(--bad); text-underline-offset: 3px; }
+  .strands :global(.off) { color: var(--text-muted); font-weight: 500; margin-right: 0.45em; }
+  .strands :global(mark), .chips :global(mark), .compare :global(mark) { background: color-mix(in srgb, var(--bio-glucose) 40%, transparent); color: var(--text); border-radius: 3px; padding: 0 0.1em; }
+  .muted, .strands :global(.muted), .compare :global(.muted) { color: var(--text-muted); }
+
+  .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .chips :global(.chip) { display: grid; grid-template-rows: auto auto auto auto; justify-items: center; min-width: 3.6rem; padding: 0.3rem 0.4rem; border: 1.5px solid var(--border-strong); border-radius: var(--radius-m); background: var(--surface); font-family: var(--font-mono, ui-monospace, monospace); }
+  .chips :global(.chip .n) { font: 700 0.7rem/1 var(--font-sans); color: var(--text-muted); }
+  .chips :global(.codon) { font-weight: 800; letter-spacing: 0.08em; }
+  .chips :global(.anti) { font-size: 0.82rem; color: var(--text-muted); letter-spacing: 0.08em; border-top: 1px dashed var(--border-strong); }
+  .chips :global(.aa) { font: 800 0.85rem/1.3 var(--font-sans); color: var(--accent-strong); }
+  .chips :global(.chip.start) { border-color: var(--bio-carb); }
+  .chips :global(.chip.stop) { border-color: var(--bad); border-style: dashed; }
+  .chips :global(.chip.stop .aa) { color: var(--bad); }
+  .chips :global(.chip.hit) { background: color-mix(in srgb, var(--bio-glucose) 22%, var(--surface)); }
+  .chips :global(.none) { font-size: var(--step--1); color: var(--text-muted); }
+  .chip-key { margin: 0; display: flex; flex-wrap: wrap; gap: var(--space-3); font-size: 0.8rem; color: var(--text-muted); }
+  .chip-key .codon { font-weight: 800; color: var(--text); }
+  .chip-key .aa { font-weight: 800; color: var(--accent-strong); }
+  .compare { padding: var(--space-3); border-radius: var(--radius-m); border-left: 4px solid var(--bio-glucose); background: var(--surface-2); font-size: var(--step--1); display: grid; gap: 0.25rem; }
+  .compare[hidden] { display: none; }
+  .compare :global(p) { margin: 0; }
+  .compare :global(.nm) { display: block; }
+  .readout { margin: 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+
+  .table-wrap { overflow-x: auto; }
+  .code { border-collapse: collapse; width: 100%; font-size: 0.8rem; }
+  .code caption { text-align: left; font-weight: 650; font-size: var(--step--1); margin-bottom: var(--space-2); caption-side: top; }
+  .code th { padding: 0.25rem; font-weight: 800; background: var(--surface-2); border: 1px solid var(--border); }
+  .code th[scope='row'] { width: 2rem; }
+  .code th.corner { width: 4.5rem; font-size: 0.7rem; font-weight: 700; color: var(--text-muted); }
+  .code td { border: 1px solid var(--border); padding: 2px; vertical-align: top; }
+  .cod { display: flex; justify-content: space-between; gap: 0.3rem; width: 100%; min-height: 1.6rem; padding: 0.1rem 0.3rem; font: inherit; color: var(--text); background: transparent; border: 1px solid transparent; border-radius: 4px; cursor: pointer; }
+  .cod:hover { background: var(--surface-2); border-color: var(--border-strong); }
+  .cod:focus-visible { outline: 3px solid var(--accent); outline-offset: -1px; }
+  .cod .c { font-family: var(--font-mono, ui-monospace, monospace); font-weight: 700; letter-spacing: 0.04em; }
+  .cod .a { font-weight: 650; }
+  .cod.start .a { color: var(--accent-strong); font-weight: 800; }
+  .cod.stop .a { color: var(--bad); font-weight: 800; }
+  .cod.used { background: var(--accent-soft); border-color: var(--accent); }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: 0; }
+  @container (max-width: 30rem) {
+    .strands :global(p) { grid-template-columns: 1fr; gap: 0; }
+    .code { font-size: 0.72rem; }
+    .cod { flex-direction: column; align-items: center; gap: 0; padding: 0.1rem; }
+  }
+</style>

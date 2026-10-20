@@ -1,0 +1,107 @@
+---
+/**
+ * Initiation of translation and the roles of the A, P and E sites (D1.2.17). Drawn in the step-1 start
+ * state: the small subunit, carrying the initiator tRNA, arriving at the 5′ end of the mRNA. Animated by
+ * d1-2-initiation.ts. Codon k is centred at x = 127 + 54k; the ribosome is positioned by its P site.
+ */
+const leader = ['G', 'A', 'C', 'C'];
+const codons = ['AUG', 'GCA', 'UUC', 'AAA', 'GUG', 'UAA'];
+const cx = (k: number) => 127 + 54 * k;
+const trnas = [
+  { n: 0, anti: 'UAC', aa: 'Met', x: 63, cls: 'aaM' },
+  { n: 1, anti: 'CGU', aa: 'Ala', x: 181, cls: 'aaA' },
+  { n: 2, anti: 'AAG', aa: 'Phe', x: 235, cls: 'aaF' },
+];
+const trnaBody = 'M-15 214 V176 H-34 a10 10 0 0 1 0 -20 H-15 V140 H15 V156 H34 a10 10 0 0 1 0 20 H15 V214 Z';
+---
+<svg viewBox="0 0 520 330" xmlns="http://www.w3.org/2000/svg" class="ini">
+  <text class="side" x="12" y="22">Cytoplasm</text>
+  <text class="dir" x="508" y="22" text-anchor="end">ribosome moves 5′ → 3′</text>
+
+  <!-- large subunit (hidden until it joins) -->
+  <g data-el="large" transform="translate(63 -140)" style="opacity:0">
+    <path class="sub" d="M-96 236 V150 C-96 104 96 104 96 150 V236 Z" />
+    <path class="site" d="M-81 150 V236 M-27 150 V236 M27 150 V236 M81 150 V236" />
+    <text class="subt" x="-58" y="134" text-anchor="middle">large subunit</text>
+  </g>
+
+  <!-- mRNA -->
+  <path class="mrna" d="M24 262 H496" />
+  <circle class="cap" cx="18" cy="262" r="8" />
+  <text class="end" x="2" y="244">5′</text>
+  <text class="end" x="500" y="244">3′</text>
+  {leader.map((b, i) => <text class="base" x={34 + i * 17} y="255">{b}</text>)}
+  {codons.map((c, k) => (
+    <g>
+      <rect class:list={['codon', { start: k === 0, stop: k === 5 }]} x={cx(k) - 25} y="238" width="50" height="22" rx="3" />
+      <text class="base" x={cx(k)} y="254" text-anchor="middle">{c}</text>
+    </g>
+  ))}
+  <text class="base" x="436" y="255">G</text>
+
+  <!-- small subunit -->
+  <g data-el="small" transform="translate(63 70)">
+    <ellipse class="sub" cx="0" cy="290" rx="92" ry="27" />
+    <text class="subt" x="0" y="308" text-anchor="middle">small subunit</text>
+  </g>
+  <!-- site letters (shown with the large subunit), under the codons they sit over -->
+  <g data-el="sites" transform="translate(63 0)" style="opacity:0">
+    <text class="sitet" x="-54" y="286" text-anchor="middle">E</text>
+    <text class="sitet" x="0" y="286" text-anchor="middle">P</text>
+    <text class="sitet" x="54" y="286" text-anchor="middle">A</text>
+  </g>
+
+  <!-- tRNAs -->
+  {trnas.map((t) => (
+    <g data-el={`t${t.n}`} transform={`translate(${t.x} ${t.n === 0 ? 56 : -100})`} style={t.n === 0 ? '' : 'opacity:0'}>
+      <path class="trna" d={trnaBody} />
+      <rect class="anti" x="-24" y="214" width="48" height="20" rx="3" />
+      <text class="base" x="0" y="229" text-anchor="middle">{t.anti}</text>
+      <g data-el={`hb${t.n}`} style="opacity:0">
+        {[-14, 0, 14].map((dx) => <path class="hb" d={`M${dx - 3} 235 V239 M${dx + 3} 235 V239`} />)}
+      </g>
+      {t.n !== 0 && (
+        <g>
+          <path class="link" d="M0 140 V128" />
+          <circle class={`aa ${t.cls}`} cx="0" cy="116" r="15" />
+          <text class="aat" x="0" y="121" text-anchor="middle">{t.aa}</text>
+        </g>
+      )}
+    </g>
+  ))}
+  <!-- methionine: on the initiator tRNA, later transferred onto alanine -->
+  <path data-el="pb" class="pb" d="M181 101 V86" style="opacity:0" />
+  <text data-el="pbt" class="lbl" x="200" y="96" style="opacity:0">peptide bond</text>
+  <g data-el="met" transform="translate(63 172)">
+    <path data-el="metLink" class="link" d="M0 24 V12" />
+    <circle class="aa aaM" cx="0" cy="0" r="15" />
+    <text class="aat" x="0" y="5" text-anchor="middle">Met</text>
+  </g>
+</svg>
+<style>
+  .ini { font-family: var(--font-sans); }
+  .side { font-size: 14px; font-weight: 700; fill: var(--text-muted); }
+  .dir { font-size: 13px; font-style: italic; fill: var(--text-muted); }
+  .mrna { stroke: var(--bio-chol); stroke-width: 4; }
+  .cap { fill: var(--bio-chol); }
+  .end { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .base { font: 800 13px var(--font-mono, ui-monospace, monospace); fill: var(--text); letter-spacing: 0.04em; }
+  .codon { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.2; }
+  .codon.start { stroke: var(--bio-carb); stroke-width: 2.4; }
+  .codon.stop { stroke: var(--bad); stroke-width: 2; stroke-dasharray: 4 3; }
+  .sub { fill: color-mix(in srgb, var(--text-muted) 22%, transparent); stroke: var(--text-muted); stroke-width: 1.4; }
+  .site { stroke: var(--text-muted); stroke-width: 1.2; stroke-dasharray: 4 4; fill: none; }
+  .sitet { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .subt { font-size: 12px; font-weight: 700; fill: var(--text); }
+  .trna { fill: color-mix(in srgb, var(--bio-tail) 70%, var(--surface)); stroke: color-mix(in srgb, var(--bio-tail) 50%, var(--text)); stroke-width: 1.4; }
+  .anti { fill: var(--surface); stroke: color-mix(in srgb, var(--bio-tail) 50%, var(--text)); stroke-width: 1.4; }
+  .hb { stroke: var(--text); stroke-width: 1.4; }
+  .link { stroke: var(--text); stroke-width: 2.4; }
+  .pb { stroke: var(--text); stroke-width: 4; }
+  .aa { stroke: color-mix(in srgb, var(--text) 50%, transparent); stroke-width: 1.2; }
+  .aaM { fill: color-mix(in srgb, var(--bio-k) 55%, var(--surface)); }
+  .aaA { fill: color-mix(in srgb, var(--bio-water) 45%, var(--surface)); }
+  .aaF { fill: color-mix(in srgb, var(--bio-carb) 45%, var(--surface)); }
+  .aat { font-size: 11px; font-weight: 800; fill: var(--text); }
+  .lbl { font-size: 13px; font-weight: 700; fill: var(--text); }
+</style>

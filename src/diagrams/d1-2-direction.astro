@@ -1,0 +1,77 @@
+---
+/**
+ * D1.2.12: directionality. Top: RNA polymerase adds each nucleotide's 5′ phosphate to the free 3′ end of the
+ * growing RNA, so RNA is made 5′→3′ while the antiparallel template is read 3′→5′. Bottom: a ribosome moves
+ * along mRNA 5′→3′, and the polypeptide is made from its N-terminus to its C-terminus.
+ */
+const ticks = Array.from({ length: 12 }, (_, i) => 40 + i * 22);
+const pent = (cx: number, cy: number, r: number) =>
+  [-90, -18, 54, 126, 198].map((a) => `${(cx + r * Math.cos((a * Math.PI) / 180)).toFixed(1)},${(cy + r * Math.sin((a * Math.PI) / 180)).toFixed(1)}`).join(' ');
+const beads = [0, 1, 2, 3, 4, 5].map((i) => [282 - i * 24, 240 - i * 10 - (i % 2 ? 6 : 0)] as const);
+---
+<svg viewBox="0 0 520 340" role="img" aria-labelledby="dir-title dir-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="dir-title">Transcription and translation both go 5′ to 3′</title>
+  <desc id="dir-desc">Top: an RNA strand paired with the template strand of DNA. The template runs 3′ to 5′ from left to right and the RNA runs 5′ to 3′. A free RNA nucleotide approaches the 3′ end of the RNA; its 5′ phosphate will be linked to the 3′ hydroxyl group at the end of the chain, so the RNA grows in the 5′ to 3′ direction. Bottom: a ribosome on an mRNA moves from the 5′ end towards the 3′ end. The polypeptide leaving it has its first amino acid, the N-terminus, at the far end, and new amino acids are added at the C-terminus.</desc>
+
+  <text class="h" x="12" y="22">Transcription</text>
+  <path class="dna" d="M30 120 H490" />
+  {Array.from({ length: 21 }, (_, i) => <path class="tick" d={`M${40 + i * 22} 120 V108`} />)}
+  <text class="end" x="10" y="125">3′</text><text class="end" x="496" y="125">5′</text>
+  <text class="sm" x="260" y="142" text-anchor="middle">DNA template strand, read 3′ → 5′</text>
+  <path class="rna" d="M30 84 H286" />
+  {ticks.map((x) => <path class="tickr" d={`M${x} 84 V96`} />)}
+  <text class="end" x="10" y="89">5′</text>
+  <text class="end strong" x="292" y="100">3′–OH</text>
+  <!-- incoming nucleotide -->
+  <g class="nuc">
+    <circle class="p" cx="342" cy="56" r="9" />
+    <text class="pt" x="342" y="60" text-anchor="middle">P</text>
+    <path class="bond" d="M351 58 L364 64" />
+    <polygon class="sugar" points={pent(378, 70, 14)} />
+    <rect class="basebox" x="372" y="86" width="12" height="18" rx="2" />
+  </g>
+  <path class="arrow dash" d="M332 60 Q312 68 294 80" marker-end="url(#dir-ah)" />
+  <text class="sm" x="404" y="52">Free nucleotide:</text>
+  <text class="sm" x="404" y="67">its 5′ phosphate</text>
+  <text class="sm" x="404" y="82">joins the 3′–OH</text>
+  <path class="arrow" d="M60 40 H230" marker-end="url(#dir-ah)" />
+  <text class="sm" x="145" y="34" text-anchor="middle">RNA grows 5′ → 3′</text>
+
+  <text class="h" x="12" y="176">Translation</text>
+  <path class="rna" d="M30 300 H490" />
+  <text class="end" x="10" y="305">5′</text><text class="end" x="496" y="305">3′</text>
+  <ellipse class="ribo" cx="300" cy="312" rx="62" ry="16" />
+  <ellipse class="ribo" cx="300" cy="270" rx="74" ry="30" />
+  {beads.map(([x, y], i) => <circle class:list={['aa', { first: i === beads.length - 1 }]} cx={x} cy={y} r="9" />)}
+  <text class="sm" x="28" y="196">N-terminus</text>
+  <text class="sm" x="28" y="211">(first amino acid)</text>
+  <text class="sm" x="384" y="210">C-terminus: new</text>
+  <text class="sm" x="384" y="225">amino acids added</text>
+  <path class="lead" d="M380 220 L292 238" />
+  <path class="arrow" d="M384 268 H474" marker-end="url(#dir-ah)" />
+  <text class="sm" x="429" y="260" text-anchor="middle">ribosome moves</text>
+  <text class="sm" x="429" y="286" text-anchor="middle">5′ → 3′</text>
+  <defs><marker id="dir-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" class="ah" /></marker></defs>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .h { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .dna { stroke: var(--text); stroke-width: 4; }
+  .rna { stroke: var(--bio-chol); stroke-width: 4; }
+  .tick { stroke: var(--text-muted); stroke-width: 3; }
+  .tickr { stroke: var(--bio-chol); stroke-width: 3; }
+  .end { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .sm { font-size: 12.5px; fill: var(--text-muted); }
+  .p { fill: var(--bio-head); }
+  .pt { font-size: 11px; font-weight: 800; fill: #000; }
+  .sugar { fill: color-mix(in srgb, var(--bio-glucose) 35%, var(--surface)); stroke: var(--bio-glucose); stroke-width: 1.6; }
+  .basebox { fill: color-mix(in srgb, var(--bio-protein) 35%, var(--surface)); stroke: var(--bio-protein); stroke-width: 1.4; }
+  .bond { stroke: var(--text); stroke-width: 2; }
+  .arrow { stroke: var(--text); stroke-width: 1.8; fill: none; }
+  .arrow.dash { stroke-dasharray: 4 3; }
+  .ah { fill: var(--text); }
+  .ribo { fill: color-mix(in srgb, var(--text-muted) 25%, var(--surface)); stroke: var(--text-muted); stroke-width: 1.4; }
+  .aa { fill: color-mix(in srgb, var(--bio-k) 50%, var(--surface)); stroke: var(--bio-k); stroke-width: 1.2; }
+  .aa.first { stroke-width: 3; }
+  .lead { stroke: var(--text-muted); stroke-width: 1.2; }
+</style>

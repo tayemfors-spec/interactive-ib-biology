@@ -1,0 +1,73 @@
+cards:
+  - id: c1
+    level: SL
+    front: What are the roles of RNA polymerase in transcription?
+    back: It binds to the promoter, separates the DNA strands by breaking hydrogen bonds between bases, and links RNA nucleotides that pair with the template strand into an RNA strand (5′→3′). It releases the RNA at the end of the gene.
+  - id: c2
+    level: SL
+    front: Template strand vs coding strand
+    back: The template (antisense) strand is the one transcribed; the RNA is complementary to it. The coding (sense) strand is not transcribed; it has the same sequence as the RNA, except T instead of U.
+  - id: c3
+    level: SL
+    front: Which RNA base pairs with adenine on the DNA template?
+    back: Uracil (U). RNA has no thymine. The full set is A→U, T→A, G→C, C→G, held by hydrogen bonds.
+  - id: c4
+    level: SL
+    front: Why can a DNA template be transcribed many times?
+    back: Its strands separate only by breaking hydrogen bonds, which re-form afterwards. The base sequence is not changed. This matters in non-dividing cells, which must keep the same sequences all their life.
+  - id: c5
+    level: SL
+    front: Why is transcription a key control point for gene expression?
+    back: It is the first stage of gene expression. Not all genes are expressed at once; a gene that is not transcribed produces no mRNA, so its protein cannot be made.
+  - id: c6
+    level: SL
+    front: Roles of mRNA, ribosomes and tRNA in translation
+    back: mRNA carries the codons and binds to the small ribosomal subunit. tRNA brings a specific amino acid and pairs its anticodon with a codon. The ribosome holds two tRNAs at once on its large subunit and catalyses peptide bonds.
+  - id: c7
+    level: SL
+    front: Codon vs anticodon
+    back: A codon is three bases on mRNA coding for one amino acid. An anticodon is the complementary three bases on tRNA. They pair antiparallel, e.g. codon 5′-AUG-3′ with anticodon 3′-UAC-5′.
+  - id: c8
+    level: SL
+    front: Why is the genetic code a triplet code?
+    back: Four bases taken two at a time give only 16 combinations, fewer than the 20 amino acids. Triplets give 4³ = 64 codons, enough for all amino acids and stop signals.
+  - id: c9
+    level: SL
+    front: What do "degenerate" and "universal" mean for the genetic code?
+    back: Degenerate — most amino acids have more than one codon (64 codons, 20 amino acids). Universal — almost all organisms use the same codons for the same amino acids, with a few minor exceptions.
+  - id: c10
+    level: SL
+    front: Start and stop codons
+    back: AUG is the start codon and codes for methionine. UAA, UAG and UGA are stop codons and code for no amino acid.
+  - id: c11
+    level: SL
+    front: What happens in each cycle of elongation?
+    back: A tRNA with a matching anticodon binds, a peptide bond joins its amino acid to the growing chain (catalysed by rRNA), and the ribosome moves one codon along the mRNA towards the 3′ end. The empty tRNA leaves.
+  - id: c12
+    level: SL
+    front: The sickle-cell mutation — bases and amino acids
+    back: A base substitution in the β-globin gene. Coding strand GAG → GTG; mRNA GAG → GUG; amino acid 6 glutamic acid → valine. HbS forms fibres at low oxygen and red blood cells become sickle-shaped.
+  - id: c13
+    level: AHL
+    front: What does 5′ → 3′ mean for transcription and for translation?
+    back: Transcription — nucleotides are added to the 3′ end of the RNA, so it is built 5′→3′ (the template is read 3′→5′). Translation — the ribosome moves along the mRNA from its 5′ end to its 3′ end.
+  - id: c14
+    level: AHL
+    front: How is transcription initiated in eukaryotes?
+    back: Transcription factors bind to the promoter, a non-transcribed sequence upstream of the gene. RNA polymerase then binds and begins transcription at the start point.
+  - id: c15
+    level: AHL
+    front: Name four kinds of non-coding DNA sequence.
+    back: Regulators of gene expression (promoters, enhancers), introns, telomeres, and genes for tRNA and rRNA (transcribed but not translated).
+  - id: c16
+    level: AHL
+    front: Three modifications of eukaryotic pre-mRNA
+    back: A 5′ cap and a 3′ poly-A tail are added (they stabilize the mRNA), and introns are removed while exons are spliced together. Alternative splicing joins different exon combinations, giving several polypeptides from one gene.
+  - id: c17
+    level: AHL
+    front: Roles of the A, P and E sites
+    back: A — a tRNA carrying the next amino acid binds. P — holds the tRNA with the growing chain (the initiator tRNA starts here). E — the empty tRNA exits after translocation.
+  - id: c18
+    level: AHL
+    front: How is pre-proinsulin turned into insulin, and how are amino acids recycled?
+    back: The signal peptide is removed in the rough ER (→ proinsulin), then the C peptide in the Golgi/vesicles (→ insulin, A + B chains joined by disulfide bonds). Unneeded proteins are tagged with ubiquitin and digested by proteasomes; their amino acids are reused.

@@ -1,0 +1,101 @@
+---
+/**
+ * Post-transcriptional modification and alternative splicing (D1.2.15, D1.2.16). Drawn in the step-1
+ * starting state (a freshly made pre-mRNA with four exons and three introns); animated by d1-2-splicing.ts.
+ * Exons keep their own colour throughout so the reader can follow them into the mature mRNAs.
+ */
+const Y = 96;
+const exons = [
+  { n: 1, x: 50, w: 70, cls: 'e1' },
+  { n: 2, x: 180, w: 60, cls: 'e2' },
+  { n: 3, x: 290, w: 50, cls: 'e3' },
+  { n: 4, x: 390, w: 60, cls: 'e4' },
+];
+const introns = [
+  { n: 1, x: 120, w: 60 },
+  { n: 2, x: 240, w: 50 },
+  { n: 3, x: 340, w: 50 },
+];
+const wavy = (w: number) => `M0 0 q${w / 8} -9 ${w / 4} 0 t${w / 4} 0 t${w / 4} 0 t${w / 4} 0`;
+const v2 = [
+  { x: 50, w: 70, cls: 'e1', n: 1 },
+  { x: 120, w: 60, cls: 'e2', n: 2 },
+  { x: 180, w: 60, cls: 'e4', n: 4 },
+];
+---
+<svg viewBox="0 0 520 330" xmlns="http://www.w3.org/2000/svg" class="spl">
+  <text class="side" x="12" y="22">Nucleus</text>
+  <text class="row" data-el="lblPre" x="50" y="50">pre-mRNA (primary transcript)</text>
+  <text class="row" data-el="lblMature" x="50" y="50" style="opacity:0">mature mRNA</text>
+  <text class="row" data-el="lblV1" x="50" y="50" style="opacity:0">variant 1: all four exons</text>
+  <text class="end" data-el="five" x="14" y={Y + 5}>5′</text>
+
+  {introns.map((i) => (
+    <g data-el={`i${i.n}`} transform={`translate(${i.x} ${Y})`}>
+      <path class="intron" d={wavy(i.w)} />
+      <text class="itext" x={i.w / 2} y="26" text-anchor="middle">intron</text>
+    </g>
+  ))}
+  {exons.map((e) => (
+    <g data-el={`e${e.n}`} transform={`translate(${e.x} ${Y})`}>
+      <rect class={`exon ${e.cls}`} x="0" y="-13" width={e.w} height="26" rx="4" />
+      <text class="etext" x={e.w / 2} y="5" text-anchor="middle">Exon {e.n}</text>
+    </g>
+  ))}
+  <g data-el="cap" transform={`translate(38 ${Y})`} style="opacity:0">
+    <circle class="cap" r="10" />
+    <text class="lbl" x="0" y="-18" text-anchor="middle">5′ cap</text>
+  </g>
+  <g data-el="tail" transform={`translate(450 ${Y})`} style="opacity:0">
+    <path class="tailp" d="M0 0 h4 q4 -7 8 0 t8 0 t8 0 t8 0 t8 0" />
+    <text class="lbl" x="22" y="-14" text-anchor="middle">poly-A tail</text>
+    <text class="aaa" x="22" y="22" text-anchor="middle">AAAA…A</text>
+  </g>
+  <text class="end" data-el="three" x="458" y={Y + 5}>3′</text>
+
+  <!-- alternative splicing: a second mature mRNA from the same pre-mRNA, exon 3 left out -->
+  <g data-el="v2" style="opacity:0">
+    <text class="row" x="50" y="196">variant 2: exon 3 left out</text>
+    <circle class="cap" cx="38" cy="230" r="10" />
+    {v2.map((e) => (
+      <g transform={`translate(${e.x} 230)`}>
+        <rect class={`exon ${e.cls}`} x="0" y="-13" width={e.w} height="26" rx="4" />
+        <text class="etext" x={e.w / 2} y="5" text-anchor="middle">Exon {e.n}</text>
+      </g>
+    ))}
+    <path class="tailp" transform="translate(240 230)" d="M0 0 h4 q4 -7 8 0 t8 0 t8 0 t8 0 t8 0" />
+  </g>
+  <g data-el="prot" style="opacity:0">
+    <path class="arrow" d={`M358 ${Y} H380`} marker-end="url(#spl-ah)" />
+    <text class="lbl" x="384" y={Y - 4}>polypeptide 1</text>
+    <text class="small" x="384" y={Y + 12}>(exons 1, 2, 3, 4)</text>
+    <path class="arrow" d="M300 230 H378" marker-end="url(#spl-ah)" />
+    <text class="lbl" x="384" y="226">polypeptide 2</text>
+    <text class="small" x="384" y="242">(exons 1, 2, 4)</text>
+    <text class="note" x="260" y="300" text-anchor="middle">One gene → different polypeptides</text>
+  </g>
+  <text class="note" data-el="introNote" x="260" y="300" text-anchor="middle" style="opacity:0">Introns removed and broken down in the nucleus</text>
+  <defs><marker id="spl-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" class="ah" /></marker></defs>
+</svg>
+<style>
+  .spl { font-family: var(--font-sans); }
+  .side { font-size: 14px; font-weight: 700; fill: var(--text-muted); }
+  .row { font-size: 14px; font-weight: 700; fill: var(--text); }
+  .end { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .exon { stroke: color-mix(in srgb, var(--text) 45%, transparent); stroke-width: 1.2; }
+  .e1 { fill: color-mix(in srgb, var(--bio-protein) 45%, var(--surface)); }
+  .e2 { fill: color-mix(in srgb, var(--bio-carb) 45%, var(--surface)); }
+  .e3 { fill: color-mix(in srgb, var(--bio-head) 50%, var(--surface)); }
+  .e4 { fill: color-mix(in srgb, var(--bio-protein-2) 45%, var(--surface)); }
+  .etext { font-size: 12px; font-weight: 800; fill: var(--text); }
+  .intron { stroke: var(--text-muted); stroke-width: 3; fill: none; }
+  .itext { font-size: 12px; font-style: italic; fill: var(--text-muted); }
+  .cap { fill: var(--bio-chol); }
+  .tailp { stroke: var(--bio-chol); stroke-width: 3; fill: none; }
+  .lbl { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .small { font-size: 12px; fill: var(--text-muted); }
+  .aaa { font-size: 12px; font-weight: 700; fill: var(--text); letter-spacing: 0.05em; }
+  .note { font-size: 13px; font-style: italic; fill: var(--text-muted); }
+  .arrow { stroke: var(--text); stroke-width: 1.8; fill: none; }
+  .ah { fill: var(--text); }
+</style>

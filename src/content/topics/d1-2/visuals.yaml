@@ -1,0 +1,277 @@
+# Visuals for D1.2. Label and step text here is what readers see in the 3D viewer and the text descriptions,
+# so it is written to exam standard. Label ids must match anchors in the scene modules (src/scenes).
+visuals:
+  - id: protein-synthesis
+    kind: viewer3d
+    title: Transcription and translation in 3D
+    alt: RNA polymerase transcribing a gene into mRNA, and a ribosome translating that mRNA into a polypeptide.
+    description: >-
+      Two step-by-step models. In the first, a short gene in double-stranded DNA is transcribed. RNA polymerase
+      binds at the promoter and separates the two strands over a short stretch, forming a bubble. Free RNA
+      nucleotides pair with the bases of the template (antisense) strand by complementary base pairing, held by
+      hydrogen bonds: adenine on the template with uracil, thymine with adenine, guanine with cytosine and
+      cytosine with guanine. The polymerase links them into an RNA strand that grows from its 5′ end to its
+      3′ end; the 5′ end peels away from the template first and the DNA rewinds behind the polymerase. At the end
+      of the gene the RNA is released. The upper, coding (sense) strand has the same base sequence as the RNA,
+      with thymine in place of uracil. In the second model the same mRNA is translated. It binds to the small
+      subunit of a ribosome, which moves to the start codon AUG. Transfer RNA molecules bring amino acids; each
+      tRNA's anticodon pairs with a complementary codon on the mRNA. The large subunit holds two tRNAs at a time,
+      a peptide bond joins their amino acids, and the ribosome moves along the mRNA one codon at a time towards
+      the 3′ end. A stop codon ends translation and the polypeptide Met–Ala–Phe–Lys–Val is released.
+    scenes:
+      - id: transcription
+        module: d1-2-transcription
+        title: Transcription
+        labels:
+          - id: rna-polymerase
+            name: RNA polymerase
+            text: The enzyme that transcribes the gene. It binds to the promoter, separates the DNA strands by breaking the hydrogen bonds between bases, and links RNA nucleotides together into a strand that is complementary to the template.
+          - id: promoter
+            name: Promoter
+            text: A base sequence at the start of the gene where RNA polymerase binds to begin transcription. The promoter itself is not transcribed.
+            steps: [bind-promoter, unwind]
+          - id: bubble
+            name: Unwound DNA (bubble)
+            text: RNA polymerase separates the two DNA strands over a short stretch, so the bases of the template strand are exposed and can pair with RNA nucleotides.
+            steps: [unwind]
+          - id: coding-strand
+            name: Coding (sense) strand
+            text: The DNA strand that is not copied. Its base sequence is the same as the RNA's, except that it has thymine (T) where the RNA has uracil (U). It runs 5′→3′ from left to right.
+          - id: template-strand
+            name: Template (antisense) strand
+            text: The DNA strand that is copied. It is read 3′→5′ (left to right here), and the RNA made is complementary and antiparallel to it. Its base sequence is not changed by being transcribed.
+          - id: free-nucleotides
+            name: Free RNA nucleotides
+            text: RNA nucleotides with ribose and the bases A, U, G or C, carrying two extra phosphates (ribonucleoside triphosphates). Losing those two phosphates provides the energy to link each nucleotide to the chain.
+            steps: [base-pairing, elongation]
+          - id: base-pairing
+            name: Complementary base pairing
+            text: Each incoming RNA nucleotide pairs with the next template base. Adenine on the template pairs with uracil in the RNA, thymine with adenine, guanine with cytosine and cytosine with guanine.
+            steps: [base-pairing]
+          - id: hydrogen-bonds
+            name: Hydrogen bonds
+            text: Weak bonds between complementary bases (two between A and U or T, three between G and C). They hold each RNA nucleotide in place opposite the right template base while RNA polymerase joins it to the chain.
+            steps: [base-pairing]
+          - id: three-prime
+            name: Growing 3′ end of the RNA
+            text: Each new nucleotide is joined by its 5′ phosphate to the 3′ end of the growing RNA, so the RNA is made in the 5′→3′ direction.
+            steps: [base-pairing, elongation]
+          - id: mrna
+            name: mRNA
+            text: The RNA being made. Only about eight of its nucleotides stay paired with the template inside the polymerase; the rest has separated from the DNA. Here the transcript is messenger RNA, which will be translated.
+            steps: [elongation, termination]
+          - id: five-prime
+            name: 5′ end of the mRNA
+            text: The first nucleotide to be added. It is the first part of the RNA to leave the polymerase.
+            steps: [elongation, termination]
+          - id: rewound-dna
+            name: DNA rewinds
+            text: Behind the polymerase the two DNA strands pair up again and re-form the double helix. The DNA is unchanged, so the gene can be transcribed again and again.
+            steps: [elongation]
+          - id: end-of-gene
+            name: End of the gene
+            text: When RNA polymerase reaches the end of the gene, it releases the RNA and detaches from the DNA.
+            steps: [termination]
+        steps:
+          - id: bind-promoter
+            title: RNA polymerase binds at the promoter
+            caption: RNA polymerase binds to the DNA at the promoter, a sequence at the start of the gene. Only genes whose promoter the polymerase binds to are transcribed, so this is a key point at which a gene can be switched on or off.
+          - id: unwind
+            title: The DNA strands separate
+            caption: RNA polymerase breaks the hydrogen bonds between base pairs and separates the two strands over a short stretch (a transcription bubble). The bases of the template strand are now exposed. The other strand, the coding strand, is not copied.
+          - id: base-pairing
+            title: Complementary base pairing
+            caption: Free RNA nucleotides diffuse to the active site and pair with the exposed template bases by hydrogen bonding, A with U, T with A, G with C and C with G. RNA polymerase links each one to the chain with a covalent bond (between sugar and phosphate). Uracil is used in RNA in place of thymine.
+          - id: elongation
+            title: The RNA grows 5′ → 3′
+            caption: RNA polymerase moves along the template strand, adding nucleotides one at a time to the 3′ end of the RNA. The RNA separates from the template as it leaves the polymerase, 5′ end first, and the DNA rewinds behind it. The RNA has the same sequence as the coding strand, with U instead of T.
+          - id: termination
+            title: The RNA is released
+            caption: At the end of the gene, RNA polymerase releases the completed RNA and detaches. The DNA closes into a double helix again with its base sequence unchanged, so it can be used as a template many more times. In eukaryotes this pre-mRNA is then modified before it leaves the nucleus.
+      - id: translation
+        module: d1-2-translation
+        title: Translation
+        labels:
+          - id: mrna
+            name: mRNA
+            text: Messenger RNA carrying the base sequence copied from the gene. It is read in codons (triplets of bases) from the 5′ end towards the 3′ end. This is the mRNA made in the transcription model.
+          - id: five-prime
+            name: 5′ end of the mRNA
+            text: The ribosome binds near the 5′ end of the mRNA and moves towards the 3′ end, so translation proceeds 5′→3′.
+          - id: small-subunit
+            name: Small ribosomal subunit
+            text: The mRNA binds to the small subunit. Ribosomes are made of ribosomal RNA (rRNA) and protein, in two subunits that come together on an mRNA.
+          - id: large-subunit
+            name: Large ribosomal subunit
+            text: Joins once the start codon is found. It has binding sites for tRNA, so two tRNAs can be bound at the same time, and its rRNA catalyses peptide bond formation.
+            steps: [start-codon, trna-arrives, peptide-bond, translocation, elongation, termination]
+          - id: start-codon
+            name: Start codon (AUG)
+            text: Translation starts at the first AUG codon. AUG codes for methionine, so polypeptides start with methionine (which is sometimes removed later).
+            steps: [mrna-binds, start-codon]
+          - id: codon
+            name: Codon
+            text: A sequence of three bases on the mRNA that codes for one amino acid. This codon, GCA, codes for alanine.
+            steps: [trna-arrives]
+          - id: anticodon
+            name: Anticodon
+            text: Three bases on a tRNA that are complementary to a codon on the mRNA. They pair antiparallel by hydrogen bonds; for example the anticodon 3′-UAC-5′ pairs with the codon 5′-AUG-3′.
+            steps: [start-codon, trna-arrives]
+          - id: trna
+            name: Transfer RNA (tRNA)
+            text: A folded RNA molecule with an anticodon at one end and a specific amino acid attached at the other. Each tRNA brings the amino acid that matches the codon its anticodon pairs with.
+            steps: [trna-arrives, peptide-bond, translocation, elongation]
+          - id: a-site
+            name: A site
+            level: AHL
+            text: Where each tRNA carrying a new amino acid binds, if its anticodon matches the codon there.
+            steps: [trna-arrives, peptide-bond, translocation, elongation]
+          - id: p-site
+            name: P site
+            level: AHL
+            text: Holds the tRNA carrying the growing polypeptide. The initiator tRNA starts here. The chain is transferred from this tRNA to the amino acid on the A-site tRNA.
+            steps: [trna-arrives, peptide-bond, translocation, elongation]
+          - id: e-site
+            name: E site
+            level: AHL
+            text: The exit site. After translocation the tRNA that has given up its amino acid moves here, then leaves the ribosome to be reloaded with another amino acid of its kind.
+            steps: [trna-arrives, peptide-bond, translocation, elongation]
+          - id: peptide-bond
+            name: Peptide bond
+            text: A covalent bond between the carboxyl group of one amino acid and the amino group of the next, made by a condensation reaction. It is catalysed by rRNA in the large subunit.
+            steps: [peptide-bond, translocation]
+          - id: polypeptide
+            name: Growing polypeptide
+            text: The chain of amino acids, in the order set by the codons. It grows by one amino acid per codon and leaves the ribosome through a tunnel in the large subunit.
+            steps: [elongation, termination]
+          - id: stop-codon
+            name: Stop codon (UAA)
+            text: UAA, UAG and UGA are stop codons. No tRNA has an anticodon for them, so when one reaches the A site, translation stops and the polypeptide is released.
+            steps: [elongation, termination]
+        steps:
+          - id: mrna-binds
+            title: mRNA binds to the small subunit
+            caption: The small subunit of a ribosome, already carrying an initiator tRNA, binds to the mRNA near its 5′ end. The ribosome will read the mRNA from 5′ to 3′.
+          - id: start-codon
+            title: Start codon and large subunit
+            caption: The small subunit moves along the mRNA to the first AUG, the start codon. The anticodon UAC of the initiator tRNA pairs with it, bringing methionine. The large subunit then joins, completing the ribosome.
+          - id: trna-arrives
+            title: A tRNA brings the next amino acid
+            caption: A tRNA whose anticodon (CGU) is complementary to the next codon (GCA) binds to the ribosome, carrying alanine. Complementary base pairing between codon and anticodon makes sure the right amino acid is brought. Two tRNAs are now bound at once.
+          - id: peptide-bond
+            title: A peptide bond forms
+            caption: The ribosome joins methionine to alanine by a peptide bond. The growing chain is now attached to the newest tRNA, and the first tRNA no longer carries an amino acid. The reaction is catalysed by rRNA in the large subunit.
+          - id: translocation
+            title: The ribosome moves one codon
+            caption: The ribosome moves three bases (one codon) along the mRNA towards the 3′ end. The tRNA carrying the chain moves to the middle site, the empty tRNA moves to the exit site, and the next codon (UUC) is exposed.
+          - id: elongation
+            title: Elongation repeats
+            caption: The cycle repeats for each codon — a tRNA with the matching anticodon binds, a peptide bond joins its amino acid to the chain, and the ribosome moves one codon on. Each empty tRNA leaves and can pick up another amino acid. Phenylalanine, lysine and valine are added in turn.
+          - id: termination
+            title: Stop codon — the polypeptide is released
+            caption: The stop codon UAA reaches the ribosome. No tRNA pairs with it; a release factor protein binds instead, the bond holding the chain to the last tRNA is broken, and the polypeptide Met–Ala–Phe–Lys–Val is released. The subunits separate and can translate another mRNA.
+
+  - id: codon-table
+    kind: sim
+    module: d1-2-codon-table
+    title: The genetic code — decode an mRNA
+    alt: Type an mRNA or DNA strand, or pick codons from the codon table, to see the amino acid sequence it codes for.
+    description: >-
+      A decoder for the standard genetic code. You type a sequence as mRNA (5′→3′), as the DNA coding strand
+      (5′→3′) or as the DNA template strand written 3′→5′, or add codons by picking them from a 64-codon table
+      arranged by first, second and third base. The tool shows the coding strand, template strand and mRNA lined
+      up, splits the mRNA into codons, and lists the tRNA anticodon and amino acid for each. Reading starts at the
+      first AUG start codon, or at base 1, 2 or 3 to compare reading frames, and stops at the first stop codon
+      (UAA, UAG or UGA). An example from the human β-globin gene can be switched to the sickle-cell allele, where
+      one base substitution (GAG to GUG in the mRNA) replaces glutamic acid with valine at position 6.
+
+  - id: splicing
+    kind: anim
+    module: d1-2-splicing
+    level: AHL
+    title: Modifying pre-mRNA in eukaryotes
+    alt: A pre-mRNA gains a 5′ cap and poly-A tail, its introns are removed, and alternative splicing gives two different mature mRNAs.
+    description: >-
+      A pre-mRNA in the nucleus of a eukaryotic cell, with four exons separated by three introns, shown in five steps.
+      A 5′ cap is added to the 5′ end and a poly-A tail to the 3′ end. The introns are cut out and the exons are
+      spliced together to form mature mRNA. Finally, alternative splicing joins a different combination of exons from
+      the same pre-mRNA, leaving out exon 3, so the same gene gives two different polypeptides.
+    steps:
+      - id: pre-mrna
+        title: Pre-mRNA
+        caption: Transcription in the nucleus of a eukaryotic cell produces pre-mRNA (the primary transcript). It contains exons, the sequences that will be translated, separated by introns, which will not.
+      - id: cap
+        title: 5′ cap added
+        caption: A modified guanine nucleotide, the 5′ cap, is added to the 5′ end. It protects the mRNA from being broken down and helps the ribosome bind to it.
+      - id: tail
+        title: Poly-A tail added
+        caption: A long chain of adenine nucleotides, the poly-A tail, is added to the 3′ end. It also protects the mRNA from breakdown, so the mRNA lasts longer in the cytoplasm and can be translated more times.
+      - id: splice
+        title: Introns removed, exons joined
+        caption: The introns are cut out and the exons are joined together (splicing). The result is mature mRNA with a continuous coding sequence, which leaves the nucleus through a nuclear pore.
+      - id: alternative
+        title: Alternative splicing
+        caption: Splicing can join different combinations of exons from the same pre-mRNA. Here exon 3 is left out of the second mature mRNA. Each version is translated into a different polypeptide, so one gene can code for several protein variants.
+
+  - id: initiation
+    kind: anim
+    module: d1-2-initiation
+    level: AHL
+    title: Starting translation and the A, P and E sites
+    alt: A ribosome assembles at the start codon of an mRNA, then tRNAs pass through its A, P and E sites.
+    description: >-
+      An mRNA with a 5′ cap, read 5′→3′ from left to right, shown in seven steps. The small ribosomal subunit,
+      carrying the initiator tRNA with methionine, binds near the 5′ end and moves along to the start codon AUG,
+      where the anticodon UAC pairs with it. The large subunit joins, so the initiator tRNA is in the P site.
+      A second tRNA carrying alanine enters the A site; a peptide bond joins methionine to alanine; the ribosome
+      moves one codon towards the 3′ end, so the empty tRNA is in the E site and the dipeptide-carrying tRNA in the
+      P site. The empty tRNA then leaves and the next tRNA enters the A site.
+    steps:
+      - id: bind
+        title: Small subunit binds the 5′ end
+        caption: The small subunit of the ribosome, carrying the initiator tRNA (anticodon UAC, with methionine attached), attaches to the 5′ end of the mRNA. In eukaryotes it recognizes the 5′ cap.
+      - id: scan
+        title: Moves to the start codon
+        caption: The small subunit moves along the mRNA towards the 3′ end until it reaches the first AUG, the start codon. The anticodon of the initiator tRNA pairs with AUG by complementary base pairing.
+      - id: large-joins
+        title: Large subunit attaches
+        caption: The large subunit attaches, completing the ribosome. It has three tRNA binding sites, E, P and A. The initiator tRNA is in the P site and the A site is over the next codon, GCA.
+      - id: second-trna
+        title: A second tRNA enters the A site
+        caption: A tRNA with the anticodon CGU, complementary to GCA, binds in the A site, carrying alanine. A tRNA with any other anticodon would not pair with the codon and would leave again.
+      - id: peptide-bond
+        title: Peptide bond in the large subunit
+        caption: Methionine is detached from the tRNA in the P site and joined to alanine by a peptide bond, catalysed by rRNA in the large subunit. The chain is now held by the tRNA in the A site.
+      - id: translocate
+        title: Translocation
+        caption: The ribosome moves one codon along the mRNA towards the 3′ end. The empty initiator tRNA is now in the E site, the tRNA carrying the dipeptide is in the P site, and the A site is empty, over the next codon UUC.
+      - id: exit
+        title: E-site tRNA leaves; the cycle repeats
+        caption: The empty tRNA leaves from the E site and can be loaded with another methionine. A tRNA with the anticodon AAG enters the A site with phenylalanine, and the cycle of peptide bond formation and translocation repeats.
+
+  - id: insulin
+    kind: anim
+    module: d1-2-insulin
+    level: AHL
+    title: From pre-proinsulin to insulin
+    alt: Pre-proinsulin loses its signal peptide to become proinsulin, which folds and then loses its C peptide to become insulin.
+    description: >-
+      The modification of the polypeptide made by translating the insulin gene, in four steps. Pre-proinsulin,
+      110 amino acids long, consists of a signal peptide, the B chain, the C peptide and the A chain. In the rough
+      endoplasmic reticulum the signal peptide is cut off, leaving proinsulin with 86 amino acids. Proinsulin folds
+      and three disulfide bonds form: two between the future A and B chains and one within the A chain. In the Golgi
+      apparatus and secretory vesicles, proteases remove the C peptide, leaving insulin: an A chain of 21 amino acids
+      and a B chain of 30, held together by the two disulfide bonds.
+    steps:
+      - id: pre-proinsulin
+        title: Pre-proinsulin is made
+        caption: Translation of the insulin mRNA by a ribosome on the rough ER produces pre-proinsulin, 110 amino acids long. At its N-terminal end is a signal peptide of 24 amino acids that directs the chain into the rough ER.
+      - id: signal-removed
+        title: Stage 1 — signal peptide removed
+        caption: Inside the rough ER, an enzyme cuts off the signal peptide. The remaining polypeptide, 86 amino acids long, is proinsulin.
+      - id: folding
+        title: Proinsulin folds
+        caption: Proinsulin folds into its three-dimensional shape, and three disulfide bonds form between cysteine R groups — two linking the future A and B chains and one within the A chain. The C peptide connects the B chain to the A chain.
+      - id: c-peptide-removed
+        title: Stage 2 — C peptide removed
+        caption: In the Golgi apparatus and the secretory vesicles that bud from it, proteases cut out the C peptide. What remains is insulin, an A chain (21 amino acids) and a B chain (30) held together by two disulfide bonds. Insulin is stored in vesicles until it is secreted by exocytosis.
