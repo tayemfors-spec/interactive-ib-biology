@@ -189,3 +189,36 @@ describe('cell cycle animation data', () => {
     expect(cyclinM(0.98)).toBeLessThan(0.1); // destroyed before cytokinesis
   });
 });
+
+describe('spindle and nuclear envelope (3D scenes)', () => {
+  /** Smallest distance from the cell centre to any microtubule while the parent nuclear envelope is still visible. */
+  async function closestWhileEnvelope(mod: SceneModule, step: number, nr: number) {
+    const c = ctx();
+    const built = await mod.build(c);
+    let worst = Infinity;
+    for (let i = 0; i <= 40; i++) {
+      built.render!(step, i / 40);
+      let env: THREE.MeshStandardMaterial | undefined;
+      let mts: THREE.InstancedMesh | undefined;
+      c.scene.traverse((o) => {
+        if (o instanceof THREE.InstancedMesh) mts = o;
+        else if (o instanceof THREE.Mesh && o.geometry instanceof THREE.SphereGeometry && o.geometry.parameters.radius === nr) env = o.material as THREE.MeshStandardMaterial;
+      });
+      if (!env || !env.visible || env.opacity < 0.01 || !mts) continue;
+      const m = new THREE.Matrix4(), a = new THREE.Vector3(), b = new THREE.Vector3(), line = new THREE.Line3(), q = new THREE.Vector3();
+      for (let k = 0; k < mts.count; k++) {
+        mts.getMatrixAt(k, m);
+        a.set(0, -0.5, 0).applyMatrix4(m); b.set(0, 0.5, 0).applyMatrix4(m);
+        line.set(a, b).closestPointToPoint(new THREE.Vector3(), true, q);
+        worst = Math.min(worst, q.length());
+      }
+    }
+    return worst;
+  }
+  it('mitosis: microtubules do not cross the nuclear envelope before it breaks down', async () => {
+    expect(await closestWhileEnvelope(mitosis, 1, 2.3)).toBeGreaterThanOrEqual(2.3);
+  });
+  it('meiosis: microtubules do not cross the nuclear envelope before it breaks down', async () => {
+    expect(await closestWhileEnvelope(meiosis, 1, 2.4)).toBeGreaterThanOrEqual(2.4);
+  });
+});

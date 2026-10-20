@@ -22,7 +22,7 @@ cards:
   - id: c6
     level: AHL
     front: Define epigenesis.
-    back: The development of patterns of differentiation in the cells of a multicellular organism, by activating some genes and silencing others. The base sequence is unchanged, so phenotype changes but genotype does not.
+    back: The gradual build-up of differences between the cells of a multicellular organism as they specialize, by activating some genes and silencing others. The base sequence is unchanged, so phenotype changes but genotype does not.
   - id: c7
     level: AHL
     front: Genome, transcriptome, proteome
