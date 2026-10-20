@@ -14,7 +14,7 @@ cards:
   - id: c4
     level: SL
     front: Autotroph — definition and the two things its external energy is used for
-    back: An organism that makes its own carbon compounds from simple inorganic substances using an external energy source. The energy is needed for carbon fixation and for the anabolic reactions that build macromolecules.
+    back: An organism that makes its own carbon compounds from simple inorganic substances using an external energy source. The external energy is used to fix CO₂ and to build macromolecules.
   - id: c5
     level: SL
     front: Photoautotroph vs chemoautotroph

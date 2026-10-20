@@ -78,10 +78,10 @@ visuals:
         caption: Where decomposition is incomplete — for example in waterlogged, acidic, anaerobic soils — dead organic matter builds up as peat. Over millions of years, buried organic matter was converted into coal, oil and natural gas, locking carbon away for very long periods.
       - id: combustion
         title: Combustion
-        caption: Burning biomass, peat, coal, oil or natural gas oxidizes carbon compounds and releases CO₂. Fires started by lightning occur naturally, but human burning of fossil fuels and forests has greatly increased the rate of combustion.
+        caption: Burning biomass (the shorter dashed arrow from producers, as in forest fires), peat, coal, oil or natural gas oxidizes carbon compounds and releases CO₂. Fires started by lightning occur naturally, but human burning of fossil fuels and forests has greatly increased the rate of combustion.
       - id: oceans
-        title: Exchange with the oceans
-        caption: Carbon dioxide dissolves in sea water, where some forms hydrogen carbonate ions, and it can also come out of solution again. Aquatic producers absorb this dissolved carbon for photosynthesis, and aquatic organisms release CO₂ into the water when they respire.
+        title: Exchange with the oceans (and aquatic producers)
+        caption: Carbon dioxide dissolves in sea water, where some forms hydrogen carbonate ions, and it can also come out of solution again. Aquatic producers (included in the producers box) absorb this dissolved carbon for photosynthesis, and aquatic organisms release CO₂ into the water when they respire.
       - id: sinks-sources
         title: Sinks and sources
         caption: When photosynthesis in an ecosystem exceeds respiration (plus any combustion), it removes CO₂ from the atmosphere — a carbon sink, such as a growing forest or a peat bog. When respiration and combustion exceed photosynthesis — a drained peatland or a burning forest — it releases CO₂ and is a carbon source.

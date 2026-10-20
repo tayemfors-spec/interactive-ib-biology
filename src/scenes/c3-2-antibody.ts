@@ -39,7 +39,7 @@ const scene: SceneModule = {
     const light: THREE.Object3D[][] = [[], []];
     const variable: THREE.Object3D[] = [];
     const ss: THREE.Object3D[] = [];
-    const ssGeo = ctx.track(new THREE.CylinderGeometry(0.11, 0.11, 1, 8));
+    const ssGeo = ctx.track(new THREE.CylinderGeometry(0.15, 0.15, 1, 10));
     const bond = (a: THREE.Vector3, b: THREE.Vector3) => {
       const m = new THREE.Mesh(ssGeo, mSS);
       const d = b.clone().sub(a);
@@ -73,8 +73,10 @@ const scene: SceneModule = {
       heavy[k]!.push(ch1, vh, hs, ch2, ch3);
       light[k]!.push(cl, vl);
       variable.push(vh, vl);
-      // light chain to heavy chain disulfide bond, near the base of CL and CH1
-      bond(armPt(0.95, 0.4), armPt(0.95, -0.05));
+      // light chain to heavy chain disulfide bond, just below the base of CL and CH1 and slightly towards
+      // the viewer, so it is not hidden inside the domains
+      const lz = v(0, 0, 0.32);
+      bond(armPt(0.62, 0.86).add(lz), armPt(0.72, -0.36).add(lz));
       // the light chain's variable and constant halves are one polypeptide: a short link
       if (side === -1) {
         tipLeft = armPt(4.55, 0.25);

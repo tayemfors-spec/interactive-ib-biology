@@ -45,7 +45,7 @@ mistakes:
     right: "Divide by the area of one quadrat as well: estimate = mean per quadrat × total area ÷ quadrat area. The two give the same answer only for a 1 m² quadrat with the area in m²."
     level: SL
   - wrong: "A large standard deviation means the quadrat counts were added up wrongly."
-    right: "Standard deviation measures spread. A large one (relative to the mean) shows the counts varied a lot between quadrats, usually because the organisms are clumped, so the estimate is less reliable."
+    right: "Standard deviation measures spread. A large one (relative to the mean, or to other sites with a similar mean) shows the counts varied a lot between quadrats, usually because the organisms are clumped, so the estimate is less reliable."
     level: SL
   - wrong: "Sigmoid growth begins with a lag phase."
     right: "In the IB population model there is no lag phase: growth is exponential from the start, when resources are plentiful. (Lag phases belong to microbial cultures adjusting to new medium.)"
@@ -89,12 +89,13 @@ The **population size** is the total number of individuals. Counting every one i
 
 <Sim topic="c4-1" id="quadrat" />
 
-### Standard deviation of the mean
+### Standard deviation of the counts
 
-Use a calculator to find the **standard deviation** (SD) of the counts per quadrat; you do not need to learn the formula. SD measures the **spread** of the counts around the mean:
+Use a calculator to find the **standard deviation** (SD) of the counts per quadrat; you do not need to learn the formula. SD measures the **spread** of the counts around the mean. To judge whether the spread is large, compare it with the mean (or with other sites):
 
-- **Small SD** (much less than the mean): counts are similar in every quadrat, so the organisms are **evenly spread** and the estimate is more reliable.
-- **Large SD** (close to or larger than the mean): counts vary a lot, so the organisms are **clumped** and a few quadrats can swing the estimate. More quadrats are needed.
+- If the organisms are scattered at random, the **variance** (SD²) is roughly equal to the mean, so variance ÷ mean ≈ 1.
+- **Large SD**: variance well above the mean (variance ÷ mean above about 1.5) suggests the organisms are **clumped**. A large SD relative to other sites with a similar mean shows clumping too. A few quadrats can swing the estimate, so more quadrats are needed.
+- **Small SD**: variance well below the mean (variance ÷ mean below about 0.67) suggests the organisms are **evenly spread**. A small SD relative to other sites with a similar mean shows even spacing, and the estimate is more reliable.
 
 <Callout type="exam">
 
@@ -255,7 +256,7 @@ For each relationship, state the effect on **both** species and give a named exa
 
 **Root nodules in Fabaceae (legumes).** Peas, beans, clover and other legumes form **root nodules** containing *Rhizobium* bacteria. The bacteria **fix nitrogen**: they convert N₂ from the air into ammonium (NH₄⁺), which the plant uses to make amino acids, so legumes thrive in nitrogen-poor soil. The plant supplies the bacteria with carbon compounds from photosynthesis, for respiration, and a protected, **low-oxygen** environment (oxygen would inactivate the enzyme that fixes nitrogen).
 
-**Mycorrhizae in Orchidaceae (orchids).** Fungal hyphae grow into the roots of orchids, entering root cells (through the cell wall, but not the plasma membrane) and forming coils. The hyphae also spread far through the soil and act as an extension of the root system, absorbing **water and mineral ions** (such as phosphate) and passing them to the orchid. Orchid seeds are tiny, with almost no food reserves, so seedlings depend on the fungus for **sugars** as well. Adult green orchids pass sugars made by photosynthesis to the fungus.
+**Mycorrhizae in Orchidaceae (orchids).** Fungal hyphae grow into the roots of orchids, entering root cells (through the cell wall, but not the plasma membrane) and forming coils. The hyphae also spread far through the soil and act as an extension of the root system, absorbing **water and mineral ions** (such as phosphate) and passing them to the orchid. Orchid seeds are tiny, with almost no food reserves, so seedlings depend on the fungus for **sugars** as well. Adult green orchids can pass some photosynthetic sugars to the fungus (shown in some species).
 
 **Zooxanthellae in hard corals.** Reef-building hard corals have single-celled photosynthetic algae (dinoflagellates called **zooxanthellae**) living inside their cells. The algae pass most of the sugars and other organic compounds (such as amino acids) they make by photosynthesis, and oxygen, to the coral. The coral provides the algae with **CO₂** from its respiration, nitrogen and phosphorus compounds from its wastes, and a protected position in the light. When corals are stressed by high temperatures, they expel the algae and lose their colour (**bleaching**).
 

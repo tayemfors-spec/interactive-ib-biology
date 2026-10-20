@@ -45,7 +45,7 @@ visuals:
         caption: A small number of individuals colonize a new habitat, for example duckweed in a pond or yeast in fresh medium. Resources are plentiful and there is little competition. There is no lag phase in the model; growth starts at once.
       - id: exponential
         title: Exponential phase
-        caption: Births far exceed deaths. The per-capita growth rate is constant, so each generation adds more individuals than the one before and the curve gets steeper. Numbers would double in equal times if this continued.
+        caption: Births far exceed deaths. The per-capita growth rate is almost constant while numbers are far below K, so each generation adds more individuals than the one before and the curve gets steeper. Numbers would double in equal times if this continued.
       - id: transitional
         title: Transitional phase
         caption: Density-dependent factors start to act. Competition for food, space or light increases, predators find prey more easily and pathogens spread faster. The birth rate falls and the death rate rises, so the curve becomes less steep after its steepest point at K/2.

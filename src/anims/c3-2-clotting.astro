@@ -51,6 +51,7 @@ const thrombinAt = [[244, 96], [276, 112], [262, 72], [286, 92]];
     <circle class="factor" cx="234" cy="222" r="3.6" /><text x="244" y="226">clotting factor</text>
     <path class="thrombin" d="M352 216 L358 222 L352 228 L346 222 Z" /><text x="364" y="226">thrombin</text>
     <line class="fibrinogen" x1="430" y1="219" x2="444" y2="225" /><text x="450" y="226">fibrinogen</text>
+    <path class="fibre" d="M314 238 L332 248" /><text x="340" y="248">fibrin (insoluble fibres)</text>
   </g>
 
   <!-- the reactions -->
@@ -83,7 +84,7 @@ const thrombinAt = [[244, 96], [276, 112], [262, 72], [286, 92]];
   .plasma { fill: color-mix(in srgb, var(--bio-glucose) 14%, var(--surface)); }
   .leak { fill: var(--bio-k); }
   .fibrinogen { stroke: var(--bio-carb); stroke-width: 3; stroke-linecap: round; }
-  .fibre { fill: none; stroke: var(--bio-carb); stroke-width: 3.2; stroke-linecap: round; }
+  .fibre { fill: none; stroke: color-mix(in srgb, var(--text) 70%, var(--bio-carb)); stroke-width: 4.2; stroke-linecap: round; }
   .rbc { fill: var(--bio-k); stroke: color-mix(in srgb, var(--bio-k) 60%, black); stroke-width: 1; }
   .rbc-in { fill: color-mix(in srgb, var(--bio-k) 55%, white); }
   .platelet { fill: var(--bio-protein-2); stroke: color-mix(in srgb, var(--bio-protein-2) 60%, black); stroke-width: 1; }

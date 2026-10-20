@@ -118,7 +118,7 @@ const fmt = (n: number) => { if (n < 1000) return String(n); const [m, e] = n.to
         let msg: string;
         if (treatment === 'none') msg = `No antibiotic: resistant variants arise but are not selected (they carry a small cost), so only ${(frac * 100).toPrecision(2)}% of the bacteria are resistant at the end.`;
         else if (total === 0) msg = 'The antibiotic killed every bacterium before a resistant variant arose: the infection was cleared.';
-        else msg = `By generation ${L} the population is mostly bacteria ${names[top]}. The antibiotic killed the susceptible bacteria, so resistant variants that were already present survived, reproduced and took over.`;
+        else msg = `By generation ${L} the population is mostly bacteria ${names[top]}. The antibiotic killed the susceptible bacteria, so resistant variants (present before, or arising during, treatment) survived, reproduced and took over.`;
         if (r.abFirst >= 0 && treatment !== 'none') msg += ` A multiresistant strain first appeared in generation ${r.abFirst}.`;
         if (treatment === 'AandB' && r.counts.AB[L]! === 0 && total === 0) msg += ' Using two antibiotics together means a bacterium must already resist both to survive, which is very rare.';
         readout.textContent = msg;

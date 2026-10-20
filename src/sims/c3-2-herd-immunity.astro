@@ -75,7 +75,7 @@ const pct = (x: number) => `${Math.round(x * 100)}%`;
 </div>
 
 <script>
-  import { N, simulate, stateAt, threshold } from './models/c3-2-herd-immunity';
+  import { N, compareToThreshold, simulate, stateAt, threshold } from './models/c3-2-herd-immunity';
 
   const cls = ['sus', 'vac', 'inf', 'rec'];
   document.querySelectorAll<HTMLElement>('[data-herd]').forEach((root) => {
@@ -124,10 +124,12 @@ const pct = (x: number) => `${Math.round(x * 100)}%`;
         const unvac = N - Math.round(coverage * N);
         let infectedSoFar = 0;
         for (let i = 0; i < N; i++) { const a = result.infectedAt[i]!; if (a >= 0 && a <= g) infectedSoFar++; }
-        const above = coverage >= thr;
-        const verdict = above
+        const where = compareToThreshold(coverage, thr);
+        const verdict = where === 'above'
           ? ' Coverage is above the threshold: each case infects fewer than one new person on average, so the outbreak dies out and most unvaccinated people are protected by herd immunity.'
-          : ' Coverage is below the threshold, so each case infects more than one new person on average while many people are still susceptible, and the infection spreads.';
+          : where === 'at'
+            ? ' Coverage is at the threshold: each case infects about one other person on average, so the outbreak neither grows nor dies out quickly; chance decides how far it gets.'
+            : ' Coverage is below the threshold, so each case infects more than one new person on average while many people are still susceptible, and the infection spreads.';
         readout.textContent = `With R₀ = ${r0} and ${pct(coverage)} vaccinated (threshold ${pct(thr)}): by generation ${g}, ${infectedSoFar} of the ${unvac} unvaccinated people had been infected; at the end ${result.protectedUnvaccinated} had never been infected.` + verdict;
       }, 350);
     };

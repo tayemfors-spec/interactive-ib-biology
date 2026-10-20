@@ -52,6 +52,16 @@ function poisson(mean: number, rand: () => number): number {
 /** Herd immunity threshold as a fraction: 1 − 1/R₀ (0 when R₀ ≤ 1). */
 export const threshold = (r0: number) => (r0 <= 1 ? 0 : 1 - 1 / r0);
 
+/**
+ * Compares coverage with the threshold. Values within a small tolerance (for floating-point error, well
+ * under the 1% slider step) count as "at" it: each case then infects about one other person on average.
+ */
+export const AT_TOLERANCE = 0.001;
+export function compareToThreshold(coverage: number, thr: number): 'above' | 'at' | 'below' {
+  if (Math.abs(coverage - thr) <= AT_TOLERANCE) return 'at';
+  return coverage > thr ? 'above' : 'below';
+}
+
 export function simulate(p: HerdParams): HerdResult {
   const r0 = Math.max(0.5, Math.min(20, p.r0));
   const coverage = Math.max(0, Math.min(1, p.coverage));
