@@ -220,6 +220,77 @@ Generated from each topic's `facts.yaml` (status `open`).
 - f15: Homo floresiensis - Liang Bua, Flores, Indonesia; skeletal remains about 100 000–60 000 years old; adults about 1.1 m tall with a brain of about 400 cm³; small molars similar to small modern humans, primitive premolars, no sagittal crest, no chin; found with stone tools and animal bones including juvenile Stegodon, some cut-marked.
 - f22: Tropical rainforest floor receives only about 1–2 % of full sunlight.
 
+### Theme C: claims for a teacher to confirm
+
+Generated from each topic's `facts.yaml` (status `open`).
+
+**C1.1 Enzymes and metabolism**: 24 claims recorded, 5 open
+
+- f7: Large substrates may be immobilized (e.g. DNA for DNA-copying/repair enzymes; starch grains in seeds) and enzymes may be immobilized in membranes (e.g. disaccharidases in the microvillus plasma membrane of the small intestine; ATP synthase in the inner mitochondrial membrane).
+- f11: Pepsin is irreversibly inactivated at pH 8 (used as the premise of quiz q3).
+- f17: Metabolic heat is inevitable because energy transfers are not 100% efficient; mammals and birds use it to maintain constant body temperature; bumblebees warm flight muscles by shivering and tuna keep swimming muscles warmer than the water.
+- f19: Allosteric inhibitors bind reversibly to a specific allosteric site, change conformation and prevent catalysis; IB treats this as non-competitive inhibition, which lowers the maximum rate and is not overcome by substrate.
+- f23: Resistance via altered transpeptidases — mutations change amino acids near the active site so penicillin binds poorly while cross-linking continues; in MRSA an additional low-affinity transpeptidase (PBP2a, mecA) is used. β-lactamase is a separate mechanism.
+
+**C1.2 Cell respiration**: 32 claims recorded, 4 open
+
+- f5: Cells store little ATP; in contracting muscle the store lasts only a few seconds. A resting human turns over roughly their own body mass of ATP per day.
+- f13: Respirometer sim values are illustrative — 0.3 mm³ O₂ g⁻¹ min⁻¹ at 20 °C, Q10 ≈ 2, falling above ~40 °C (optimum ~35–37 °C).
+- f20: Fermentation stops when sugar runs out or ethanol becomes toxic to the yeast, at about 15% for most wine yeasts.
+- f31: Fatty acids are broken into 2C units in the mitochondrial matrix and enter as acetyl CoA, so they are respired only aerobically; glycerol can be converted to a glycolysis intermediate (dihydroxyacetone phosphate).
+
+**C1.3 Photosynthesis**: 27 claims recorded, 3 open
+
+- f4: Chromatography order (non-polar solvent, TLC) from the top — carotene (Rf ≈ 0.9+), phaeophytin, chlorophyll a, chlorophyll b, xanthophylls. Sim Rf values 0.92, 0.78, 0.62, 0.50, 0.38, 0.27 are illustrative.
+- f7: Action spectrum has peaks in blue and red and a trough in green that is well above zero; modelled trough ≈ 25% of maximum.
+- f14: FACE found smaller growth and yield increases than enclosure studies predicted, partly because nitrogen and water become limiting.
+
+**C2.1 Chemical signalling**: 26 claims recorded, 4 open
+
+- f10: The guide lists "nitrous oxide" as a neurotransmitter; the gaseous signalling molecule is nitric oxide (NO). The site uses nitric oxide and flags the discrepancy (REVIEW.md S7).
+- f23: Much of oestradiol's feedback on GnRH neurons is mediated by kisspeptin neurons expressing ERα, because GnRH neurons themselves lack ERα; the page follows the IB wording (oestradiol acting on GnRH-secreting cells) and notes the simplification.
+- f24: Progesterone, via the progesterone receptor in endometrial cells, maintains the secretory endometrium (glands, blood supply) ready for implantation; falling progesterone leads to menstruation. The Allott study guide says progesterone makes endometrium cells divide repeatedly; proliferation is mainly driven by oestradiol, so the site does not say this.
+- f26: In the late follicular phase LH (with FSH) stimulates follicles to secrete more oestradiol, closing the positive feedback loop; the LH surge triggers ovulation at about day 14, after which oestradiol falls.
+
+**C2.2 Neural signalling**: 28 claims recorded, 4 open
+
+- f2: The human brain contains roughly 86 billion neurons and on the order of 10¹⁴ (a hundred trillion) synapses.
+- f10b: Negative-correlation example — time for an impulse to travel a fixed distance falls as fibre diameter rises (inverse relationship); cross-species comparisons such as conduction speed against body size give weak correlations confounded by myelination and temperature.
+- f20: Neonicotinoids (e.g. imidacloprid) are nicotine-like insecticides that bind nicotinic ACh receptors, much more strongly in insects than mammals; they bind strongly and are not broken down by acetylcholinesterase, so they stay bound for a long time, causing overstimulation then blocked transmission, paralysis and death.
+- f21: The EU banned outdoor use of imidacloprid, clothianidin and thiamethoxam in 2018 because of risks to bees.
+
+**C3.1 Integration of body systems**: 31 claims recorded, 3 open
+
+- f12: The biceps is used as the effector (flexing the elbow to lift the hand). Real withdrawal involves several flexor muscles.
+- f18: Sim values — resting heart rate 70 min⁻¹, stroke volume 70 cm³, cardiac output ≈ 4.9 dm³ min⁻¹, maximum heart rate ≈ 185 min⁻¹, maximum stroke volume ≈ 110 cm³; resting ventilation 12 breaths min⁻¹ × 0.5 dm³; maximal exercise about 40 breaths min⁻¹ and tidal volume about 2.5 dm³ (≈ 100 dm³ min⁻¹).
+- f29: The statement that a larger root system sends more cytokinin to the shoot (and a larger shoot more auxin to the roots), matching their growth, is a simplified model of root–shoot integration.
+
+**C3.2 Defence against disease**: 23 claims recorded, 5 open
+
+- f11: Secondary response is faster (lag ~2 days vs ~7), larger (model 10×; real often 10–100×) and longer-lasting than the primary response. Model numbers are illustrative.
+- f16: Halicin was identified in 2020 by machine-learning screening of a chemical library (Stokes et al., Cell 2020).
+- f17: About 60% of known human infectious diseases are zoonotic, and about 75% of emerging ones.
+- f20: Herd immunity threshold ≈ 1 − 1/R₀; measles R₀ ≈ 12–18 gives ≈ 92–94%; early SARS-CoV-2 R₀ ≈ 3 and seasonal flu ≈ 1.5 (sim presets).
+- f22: Percentage difference is given relative to a stated reference group ((A − B) ÷ A × 100); some sources use the mean of the two values. Worked example and quiz data are illustrative, not real.
+
+**C4.1 Populations and communities**: 26 claims recorded, 6 open
+
+- f4: A standard deviation that is large relative to the mean indicates a clumped distribution and a less reliable estimate; a small SD indicates even spread.
+- f11: St Matthew Island — 29 reindeer introduced 1944; about 1350 in 1957; about 6000 in 1963; 42 in 1966 after lichen overgrazing and a severe winter (1963–64); no predators.
+- f17: Orchid mycorrhizal hyphae penetrate root cell walls but not plasma membranes, forming coils; fungus supplies water and mineral ions, and sugars to seedlings (tiny seeds with almost no reserves); adult green orchids can pass some photosynthetic sugars to the fungus (shown in some species).
+- f19: Grey squirrels were introduced to Britain from North America in the late 19th century; they digest tannin-rich acorns more efficiently than red squirrels and take hazelnuts before ripening, outcompeting reds in broadleaved woodland; they also carry squirrelpox virus.
+- f22: Snowshoe hare and Canada lynx numbers cycle with a period of about 10 years, lynx lagging hares by about 1–2 years; evidence from Hudson's Bay Company fur records. Kluane (Yukon) experiments showed both predation and food limit hares; combining predator exclusion and food addition raised density far more than either alone.
+- f25: Streptomyces griseus secretes streptomycin (discovered 1943, Schatz and Waksman); Penicillium secretes penicillin, which inhibits bacterial cell-wall (peptidoglycan) synthesis. Their role in reducing competition in nature is the standard textbook interpretation.
+
+**C4.2 Transfers of energy and matter**: 24 claims recorded, 6 open
+
+- f4: Food-web example (British oak woodland) — winter moth caterpillars eat oak leaves; blue tits eat caterpillars; sparrowhawks eat blue tits; wood mice eat acorns, bramble seeds/berries and invertebrates such as caterpillars; tawny owls eat wood mice; red foxes eat rabbits, wood mice and blackberries; rabbits eat grasses.
+- f7: Producers convert only a small fraction (often about 1–2% or less) of the light reaching them into chemical energy; at Silver Springs gross production was about 1.2% of the sunlight.
+- f8: Silver Springs (Odum 1957) energy assimilated, kcal m⁻² yr⁻¹ — sunlight 1,700,000; producers 20,810; herbivores 3,368; carnivores 383; top carnivores 21; decomposers 5,060. In kJ (×4.184, 3 s.f.) — 87,100; 14,100; 1,600; 87.9; decomposers 21,200. Efficiencies ≈16.2%, 11.3%, 5.5%.
+- f12: Approximate mean NPP (g dry mass m⁻² yr⁻¹) — tropical rainforest 2,200; temperate deciduous forest 1,200; savanna 900; boreal forest 800; temperate grassland 600; tundra and alpine 140; open ocean 125; desert and semidesert scrub 90. Carbon ≈ 45% of dry biomass.
+- f15: Formation times — most peat accumulated over the last ~10,000 years (post-glacial) and is still forming; much coal formed ~300–360 million years ago (Carboniferous); oil and gas mostly from marine plankton over tens to hundreds of millions of years.
+- f17: Mauna Loa annual mean CO₂ (ppm, rounded) — 1959 316.0; 1960 316.9; 1965 320.0; 1970 325.7; 1975 331.1; 1980 338.8; 1985 346.1; 1990 354.4; 1995 360.8; 2000 369.7; 2005 380.0; 2010 389.9; 2015 401.0; 2016 404.4; 2017 406.8; 2018 408.7; 2019 411.7; 2020 414.2; 2021 416.4; 2022 418.6; 2023 421.1; 2024 424.6.
+
 ## Examiner review log
 
 ### B2.1 (example page), 19 Oct 2026
@@ -267,3 +338,22 @@ Three independent examiner reviewers covered three topics each. The curves and m
 Study-guide errors noticed by the builders (the site uses the correct version): the Bohr shift is to the right, not the left (S13); the ventricles contract from the apex, not the base; root pressure is usually much smaller than transpiration pull.
 
 All findings were fixed; every gate was re-run (323 unit tests, 387 browser tests, links, and Lighthouse 99–100 on all 25 pages); the changed 3D scenes were re-checked from fresh screenshots.
+
+### Theme C (C1.1–C4.2), 20 Oct 2026
+Three independent examiner reviewers covered three topics each. They checked the sims and curves by hand: enzyme rate and inhibition, the ATP and reduced-NAD tallies, the Calvin-cycle counts, the action-potential trace, the herd-immunity threshold, the Lincoln index and chi-squared working, Lotka–Volterra lag, the Silver Springs efficiencies and the Keeling annual means. All 90 MCQ keys were confirmed correct.
+
+| Topic | Critical | Major | Minor | Key fixes |
+|---|---|---|---|---|
+| C1.1 Enzymes and metabolism | 0 | 1 | 3 | pH denaturation in the rate sim is now permanent at extreme pH (fresh-enzyme reset) |
+| C1.2 Cell respiration | 0 | 0 | 6 | Balanced O₂ + 4e⁻ + 4H⁺ → 2H₂O; "fatty acids cannot enter glycolysis"; yield "about 30–32" throughout |
+| C1.3 Photosynthesis | 0 | 3 | 3 | Thylakoid 3D keeps far more H⁺ in the lumen than the stroma; diagram H⁺ arrow passes through ATP synthase; spectra sim explains the green part of the action spectrum |
+| C2.1 Chemical signalling | 0 | 0 | 4 | Quorum-sensing threshold line drawn where the switch happens; cleft width 20–40 nm on both pages |
+| C2.2 Neural signalling | 0 | 1 | 4 | Action-potential animation ends with ions on their resting sides (no "swap"); channel timing changes at the peak |
+| C3.1 Integration of body systems | 0 | 0 | 4 | Sympathetic nerves also act on ventricle muscle; "some" auxin is IAAH |
+| C3.2 Defence against disease | 0 | 2 | 4 | Fibrin drawn distinct from fibrinogen; herd-immunity wording and verdict at the threshold |
+| C4.1 Populations and communities | 0 | 1 | 4 | Quadrat pattern judged by variance ÷ mean, not SD > mean |
+| C4.2 Transfers of energy and matter | 0 | 1 | 4 | Carbon-cycle feeding arrow visible; combustion of biomass added |
+
+Study-guide errors noticed by the builders (the site uses the correct version): an action spectrum labelled as an absorption spectrum; "nicotine adenine dinucleotide" for nicotinamide; an unbalanced O₂-reduction equation.
+
+All findings were fixed; every gate was re-run (627 unit tests, 639 browser tests, 106 links, and Lighthouse with all assertions passing). The full run also covered the Theme D pages merged so far (D1.1, D1.2, D1.3, D2.1, D2.2, D2.3). Known minor leftovers: two antibody disulfide bonds are partly hidden by their label when labels are on; the dark-mode look of the new fibrin colour was checked by axe but not by eye.
