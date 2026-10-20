@@ -1,0 +1,204 @@
+---
+import { linePath, sx, sy, type Frame } from './chart';
+import { RESPONSE_MAX, RESPONSE_MIN, TEMP_MAX, TEMP_MIN, caterpillars, dateLabel, demand, summary } from './models/d4-3-phenology';
+
+const frame: Frame = {
+  w: 640, h: 360, left: 56, right: 16, top: 44, bottom: 56,
+  x: { min: 1, max: 91, ticks: [1, 15, 31, 45, 62, 76, 91], label: 'Date' },
+  y: { min: 0, max: 1.05, ticks: [0, 0.25, 0.5, 0.75, 1], label: 'Relative amount' },
+};
+const TICK_LABELS = ['1 Apr', '15 Apr', '1 May', '15 May', '1 Jun', '15 Jun', '30 Jun'];
+const dT0 = 0, resp0 = 2;
+const s0 = summary(dT0, resp0);
+const area = (fn: (x: number) => number) => {
+  const line = linePath(frame, fn, 180);
+  return `${line}L${sx(frame, frame.x.max)} ${sy(frame, 0)}L${sx(frame, frame.x.min)} ${sy(frame, 0)}Z`;
+};
+const tableTemps = [-1, 0, 1, 2, 3];
+const hm = (h: number) => { const m = Math.round(h * 60); return `${Math.floor(m / 60)} h ${m % 60} min`; };
+const fmt = (m: number) => (Math.abs(m) < 0.5 ? 'in step' : m > 0 ? `${Math.round(m)} days late` : `${Math.round(-m)} days early`);
+---
+<div class="ph" data-phenology data-frame={JSON.stringify(frame)}>
+  <p class="model-note top"><strong>Qualitative model</strong> based on the long-term great tit study at Hoge Veluwe, the Netherlands. Dates, rates and the success curve are illustrative, chosen so that birds and caterpillars match in the reference spring.</p>
+  <div class="layout">
+    <div>
+      <svg class="chart" viewBox={`0 0 ${frame.w} ${frame.h}`} role="img" aria-labelledby="ph-t ph-d">
+        <title id="ph-t">Caterpillar biomass and great tit chicks' food demand through spring</title>
+        <desc id="ph-d">Two bell-shaped curves: winter moth caterpillar biomass, and the food demand of great tit chicks. In the reference spring both peak on 20 May. Warming moves the caterpillar peak earlier faster than the birds' peak, opening a gap.</desc>
+        <g class="grid">
+          {frame.x.ticks.map((t) => <line x1={sx(frame, t)} x2={sx(frame, t)} y1={frame.top} y2={frame.h - frame.bottom} />)}
+          {frame.y.ticks.map((t) => <line x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, t)} y2={sy(frame, t)} />)}
+        </g>
+        <g class="ticks">
+          {frame.x.ticks.map((t, i) => <text x={sx(frame, t)} y={frame.h - frame.bottom + 20} text-anchor={i === frame.x.ticks.length - 1 ? "end" : "middle"}>{TICK_LABELS[i]}</text>)}
+          {frame.y.ticks.map((t) => <text x={frame.left - 8} y={sy(frame, t)} dy="0.35em" text-anchor="end">{t}</text>)}
+        </g>
+        <text class="axis" x={(frame.left + frame.w - frame.right) / 2} y={frame.h - 8} text-anchor="middle">{frame.x.label}</text>
+        <text class="axis" transform={`translate(14 ${(frame.top + frame.h - frame.bottom) / 2}) rotate(-90)`} text-anchor="middle">{frame.y.label}</text>
+        <path class="cat-area" d={area((x) => caterpillars(x, dT0))} data-cat-area />
+        <path class="line cat" d={linePath(frame, (x) => caterpillars(x, dT0), 180)} data-cat />
+        <path class="line dem" d={linePath(frame, (x) => demand(x, dT0, resp0), 180)} data-dem />
+        <g class="marker lay" data-lay transform={`translate(${sx(frame, s0.laying).toFixed(1)} 0)`}>
+          <line x1="0" x2="0" y1={frame.top} y2={frame.h - frame.bottom} />
+          <text x="4" y={frame.top + 14}>first egg</text>
+        </g>
+        <g class="marker hatch" data-hatch transform={`translate(${sx(frame, s0.hatch).toFixed(1)} 0)`}>
+          <line x1="0" x2="0" y1={frame.top + 22} y2={frame.h - frame.bottom} />
+          <text x="4" y={frame.top + 36}>hatching</text>
+        </g>
+        <g class="gap" data-gap>
+          <line data-gap-line x1={sx(frame, s0.caterpillarPeak)} x2={sx(frame, s0.demandPeak)} y1={frame.top - 16} y2={frame.top - 16} />
+          <text data-gap-text x={sx(frame, s0.caterpillarPeak)} y={frame.top - 24} text-anchor="middle">{fmt(s0.mismatch)}</text>
+        </g>
+      </svg>
+      <ul class="legend" role="list">
+        <li><span class="k cat"></span> Winter moth caterpillar biomass (temperature-cued)</li>
+        <li><span class="k dem"></span> Great tit chicks' food demand</li>
+        <li><span class="k lay"></span> Bird dates (cued mainly by day length)</li>
+      </ul>
+    </div>
+    <div class="side">
+      <label class="slider">Spring temperature vs the reference spring: <output data-out="dT">+0.0 °C</output>
+        <input type="range" min={TEMP_MIN} max={TEMP_MAX} step="0.5" value={dT0} data-param="dT" />
+      </label>
+      <label class="slider">How far the birds advance laying per °C of warming: <output data-out="resp">{resp0} days</output>
+        <input type="range" min={RESPONSE_MIN} max={RESPONSE_MAX} step="0.5" value={resp0} data-param="resp" />
+      </label>
+      <p class="hint">Caterpillars advance about 6 days per °C. A bird population whose timing is set mostly by photoperiod responds less.</p>
+      <div class="presets" role="group" aria-label="Scenarios">
+        <button type="button" data-preset="0,2">Reference spring</button>
+        <button type="button" data-preset="2,2">Warm spring</button>
+        <button type="button" data-preset="2,6">Birds track temperature</button>
+      </div>
+      <dl class="stats">
+        <div><dt>Caterpillar peak</dt><dd data-stat="cat">{dateLabel(s0.caterpillarPeak)}</dd></div>
+        <div><dt>Chicks' peak demand</dt><dd data-stat="dem">{dateLabel(s0.demandPeak)}</dd></div>
+        <div><dt>Mismatch</dt><dd data-stat="mis">{fmt(s0.mismatch)}</dd></div>
+        <div><dt>Fledglings per nest</dt><dd data-stat="fl">{s0.fledglings.toFixed(1)}</dd></div>
+        <div class="wide"><dt>Day length on first-egg date (52° N)</dt><dd data-stat="day">{hm(s0.dayLengthAtLaying)}</dd></div>
+      </dl>
+    </div>
+  </div>
+  <p class="readout" aria-live="polite" data-readout>
+    In the reference spring the chicks need most food on {dateLabel(s0.demandPeak)}, exactly when caterpillars peak, so each nest fledges about {s0.fledglings.toFixed(1)} young.
+  </p>
+  <details class="table">
+    <summary>Show data table</summary>
+    <table data-table>
+      <caption>Peaks and mismatch for the selected bird response</caption>
+      <thead><tr><th scope="col">Spring temperature</th><th scope="col">Caterpillar peak</th><th scope="col">Chicks' peak demand</th><th scope="col">Mismatch</th><th scope="col">Fledglings</th></tr></thead>
+      <tbody>{tableTemps.map((t) => { const s = summary(t, resp0); return <tr><th scope="row">{t > 0 ? '+' : ''}{t} °C</th><td>{dateLabel(s.caterpillarPeak)}</td><td>{dateLabel(s.demandPeak)}</td><td>{fmt(s.mismatch)}</td><td>{s.fledglings.toFixed(1)}</td></tr>; })}</tbody>
+    </table>
+  </details>
+</div>
+
+<script>
+  import { linePath, sx, type Frame } from './chart';
+  import { caterpillars, dateLabel, demand, summary } from './models/d4-3-phenology';
+
+  const hm = (h: number) => { const m = Math.round(h * 60); return `${Math.floor(m / 60)} h ${m % 60} min`; };
+  const fmt = (m: number) => (Math.abs(m) < 0.5 ? 'in step' : m > 0 ? `${Math.round(m)} days late` : `${Math.round(-m)} days early`);
+
+  document.querySelectorAll<HTMLElement>('[data-phenology]').forEach((root) => {
+    const frame = JSON.parse(root.dataset.frame!) as Frame;
+    const $ = <T extends Element>(s: string) => root.querySelector<T>(s)!;
+    const tIn = $<HTMLInputElement>('[data-param="dT"]');
+    const rIn = $<HTMLInputElement>('[data-param="resp"]');
+    const readout = $<HTMLElement>('[data-readout]');
+    const y0 = frame.h - frame.bottom;
+    let timer = 0;
+
+    const update = () => {
+      const dT = Number(tIn.value), resp = Number(rIn.value);
+      const s = summary(dT, resp);
+      $('[data-out="dT"]').textContent = `${dT >= 0 ? '+' : '−'}${Math.abs(dT).toFixed(1)} °C`;
+      $('[data-out="resp"]').textContent = `${resp} days`;
+      const cat = linePath(frame, (x) => caterpillars(x, dT), 180);
+      $('[data-cat]').setAttribute('d', cat);
+      $('[data-cat-area]').setAttribute('d', `${cat}L${sx(frame, frame.x.max)} ${y0}L${sx(frame, frame.x.min)} ${y0}Z`);
+      $('[data-dem]').setAttribute('d', linePath(frame, (x) => demand(x, dT, resp), 180));
+      $('[data-lay]').setAttribute('transform', `translate(${sx(frame, s.laying).toFixed(1)} 0)`);
+      $('[data-hatch]').setAttribute('transform', `translate(${sx(frame, s.hatch).toFixed(1)} 0)`);
+      const a = sx(frame, s.caterpillarPeak), b = sx(frame, s.demandPeak);
+      const gl = $('[data-gap-line]');
+      gl.setAttribute('x1', a.toFixed(1)); gl.setAttribute('x2', b.toFixed(1));
+      const gt = $('[data-gap-text]');
+      gt.setAttribute('x', ((a + b) / 2).toFixed(1));
+      gt.textContent = fmt(s.mismatch);
+      root.classList.toggle('late', s.mismatch >= 4);
+      $('[data-stat="cat"]').textContent = dateLabel(s.caterpillarPeak);
+      $('[data-stat="dem"]').textContent = dateLabel(s.demandPeak);
+      $('[data-stat="mis"]').textContent = fmt(s.mismatch);
+      $('[data-stat="fl"]').textContent = s.fledglings.toFixed(1);
+      $('[data-stat="day"]').textContent = hm(s.dayLengthAtLaying);
+      $('[data-table] tbody').innerHTML = [-1, 0, 1, 2, 3].map((t) => {
+        const q = summary(t, resp);
+        return `<tr><th scope="row">${t > 0 ? '+' : ''}${t} °C</th><td>${dateLabel(q.caterpillarPeak)}</td><td>${dateLabel(q.demandPeak)}</td><td>${fmt(q.mismatch)}</td><td>${q.fledglings.toFixed(1)}</td></tr>`;
+      }).join('');
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        const when = `Caterpillars peak on ${dateLabel(s.caterpillarPeak)} and the chicks need most food on ${dateLabel(s.demandPeak)}`;
+        const verdict = Math.abs(s.mismatch) < 0.5
+          ? 'so the two are in step'
+          : s.mismatch > 0
+            ? `so the chicks are ${Math.round(s.mismatch)} days too late for the caterpillar peak`
+            : `so the chicks are ${Math.round(-s.mismatch)} days too early for the caterpillar peak`;
+        readout.textContent = `${when}, ${verdict}. Each nest fledges about ${s.fledglings.toFixed(1)} young (${Math.round(s.success * 100)}% of the best possible).`;
+      }, 300);
+    };
+    tIn.addEventListener('input', update);
+    rIn.addEventListener('input', update);
+    root.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach((btn) => btn.addEventListener('click', () => {
+      const [t, r] = btn.dataset.preset!.split(',');
+      tIn.value = t!; rIn.value = r!;
+      update();
+    }));
+    update();
+  });
+</script>
+
+<style>
+  .ph { container-type: inline-size; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 52rem) { .layout { grid-template-columns: minmax(0, 1.6fr) minmax(16rem, 1fr); align-items: start; } }
+  .chart { width: 100%; height: auto; font-family: var(--font-sans); display: block; }
+  .grid line { stroke: var(--border); stroke-width: 1; }
+  .ticks text { font-size: 14px; fill: var(--text-muted); }
+  .axis { font-size: 15px; font-weight: 650; fill: var(--text); }
+  @container (max-width: 34rem) { .ticks text { font-size: 18px; } .axis { font-size: 18px; } .marker text, .gap text { font-size: 17px; } }
+  .line { fill: none; stroke-linejoin: round; stroke-linecap: round; }
+  .cat { stroke: var(--bio-carb); stroke-width: 3.5; }
+  .cat-area { fill: color-mix(in srgb, var(--bio-carb) 18%, transparent); }
+  .dem { stroke: var(--bio-head); stroke-width: 3.5; stroke-dasharray: 10 6; }
+  .marker line { stroke: var(--text-muted); stroke-width: 1.6; stroke-dasharray: 2 4; }
+  .marker text { font-size: 13px; font-weight: 650; fill: var(--text-muted); }
+  .gap line { stroke: var(--text); stroke-width: 2; }
+  .gap text { font-size: 14px; font-weight: 750; fill: var(--text); }
+  .late .gap line { stroke: var(--bad); }
+  .legend { list-style: none; padding: 0; margin: var(--space-2) 0 0; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); font-size: 0.8rem; color: var(--text-muted); }
+  .legend li { margin: 0; display: flex; align-items: center; gap: var(--space-2); }
+  .k { display: inline-block; width: 1.8rem; flex: none; }
+  .k.cat { border-top: 3.5px solid var(--bio-carb); }
+  .k.dem { border-top: 3.5px dashed var(--bio-head); }
+  .k.lay { border-top: 2px dotted var(--text-muted); }
+  .side { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .hint { margin: 0; color: var(--text-muted); font-size: 0.8rem; }
+  .presets { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .presets button { min-height: 32px; padding: 0.3rem 0.7rem; border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); border-radius: var(--radius-m); font: inherit; font-size: 0.8rem; cursor: pointer; }
+  .presets button:hover { background: var(--surface-2); }
+  .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); margin: 0; }
+  .stats div { padding: var(--space-2) var(--space-3); border-radius: var(--radius-m); background: var(--surface-2); }
+  .stats .wide { grid-column: 1 / -1; }
+  .stats dt { font-size: 0.75rem; color: var(--text-muted); font-weight: 650; }
+  .stats dd { margin: 0; font-weight: 800; font-size: var(--step-0); font-variant-numeric: tabular-nums; }
+  .late .stats div:nth-child(3) { background: var(--bad-soft); }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); overflow-x: auto; }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  caption { text-align: left; font-weight: 650; padding-bottom: var(--space-1); }
+  th, td { padding: 0.2rem 0.6rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: 0 0 var(--space-3); }
+</style>

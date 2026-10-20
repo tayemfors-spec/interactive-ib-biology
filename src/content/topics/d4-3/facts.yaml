@@ -1,0 +1,175 @@
+facts:
+  - id: f1
+    claim: Atmospheric CO₂ was about 280 ppm before industrialization and about 424.6 ppm (rounded to 425) at Mauna Loa in 2024.
+    where: [ "index.mdx#causes", "index.mdx (mustKnow)", "visuals.yaml:greenhouse", "anim d4-3-greenhouse note", "diagram d4-3-ice-core", "quiz.yaml:q1" ]
+    confidence: high
+    basis: NOAA GML Mauna Loa annual mean 2024 (424.61 ppm); IPCC AR6 WG1 (pre-industrial ~278–280 ppm). Consistent with C4.2 keeling model.
+    status: checked
+  - id: f2
+    claim: Atmospheric methane was about 0.72 ppm (≈ 720 ppb) before industrialization and about 1.93 ppm in 2024 — more than doubled (≈ 2.6×).
+    where: [ "index.mdx#causes", "index.mdx (mustKnow)", "visuals.yaml:greenhouse step enhanced" ]
+    confidence: medium
+    basis: IPCC AR6 WG1 (1750 ≈ 729 ppb); NOAA GML global mean CH₄ 2024 ≈ 1,930 ppb. NOTE — teacher to confirm the exact 2024 value.
+    status: open
+  - id: f3
+    claim: Main human sources — CO₂ from fossil-fuel combustion (largest), deforestation/land-use change and peat drainage/burning; CH₄ from ruminants, rice paddies, landfill, fossil-fuel extraction leaks.
+    where: [ "index.mdx#causes", "flashcards.yaml:c2", "flashcards.yaml:c3" ]
+    confidence: high
+    basis: IPCC AR6 WG1 ch. 5; Global Carbon Budget 2024; Global Methane Budget (Saunois et al. 2020/2024)
+    status: checked
+  - id: f4
+    claim: Without greenhouse gases Earth's mean surface temperature would be about −18 °C; with them about +15 °C. About 30% of incoming sunlight is reflected (planetary albedo ≈ 0.3).
+    where: [ "visuals.yaml:greenhouse steps", "index.mdx (mustKnow, mistakes, exam callout)", "flashcards.yaml:c1" ]
+    confidence: high
+    basis: Standard radiative balance (IPCC AR6 WG1 ch. 7; Campbell). Some sources quote +14 °C.
+    status: checked
+  - id: f5
+    claim: Methane causes about 80 times as much warming per kilogram as CO₂ over 20 years (GWP20 ≈ 81) and has an atmospheric lifetime of roughly a decade (≈ 12 years); much extra CO₂ persists for centuries.
+    where: [ "index.mdx#causes" ]
+    confidence: high
+    basis: IPCC AR6 WG1 Table 7.15 (GWP20 81.2, GWP100 27.9; lifetime 11.8 yr)
+    status: checked
+  - id: f6
+    claim: Ozone depletion (by CFCs) increases UV at the surface and is a separate issue from global warming; the ozone layer is slowly recovering.
+    where: [ "visuals.yaml:greenhouse step not-ozone", "index.mdx (mistakes)", "flashcards.yaml:c4", "quiz.yaml:q1" ]
+    confidence: high
+    basis: WMO/UNEP Scientific Assessment of Ozone Depletion 2022
+    status: checked
+  - id: f7
+    claim: Antarctic ice cores (EPICA Dome C, Vostok) show CO₂ ≈ 180 ppm in glacials and ≈ 280–300 ppm in interglacials over 800,000 years, never above ≈ 300 ppm, correlated with site temperature (range ≈ 8–10 °C). At deglaciations orbital changes initiated warming and CO₂ amplified it. Figure curve is SCHEMATIC.
+    where: [ "diagram d4-3-ice-core", "index.mdx#causes" ]
+    confidence: high
+    basis: Lüthi et al. 2008 Nature 453:379; Jouzel et al. 2007 Science; Shakun et al. 2012 Nature 484:49
+    status: checked
+  - id: f8
+    claim: Evidence for causation — lab IR absorption by CO₂ (Tyndall, 1859 onward), isotopic signature of fossil carbon (no ¹⁴C, depleted ¹³C; Suess effect), tropospheric warming with stratospheric cooling.
+    where: [ "index.mdx#causes", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: IPCC AR6 WG1 ch. 2, 3, 5. NOTE — the page says "since the 1850s" (Foote 1856, Tyndall 1859).
+    status: checked
+  - id: f9
+    claim: Global surface temperature 2011–2020 was about 1.1 °C above 1850–1900; 2024 was the warmest year on record at about 1.55 °C above 1850–1900.
+    where: [ "index.mdx#causes" ]
+    confidence: high
+    basis: IPCC AR6 WG1 SPM A.1.2 (1.09 °C); WMO State of the Global Climate 2024 (1.55 ± 0.13 °C)
+    status: checked
+  - id: f10
+    claim: Permafrost is ground that stays at or below 0 °C for at least two consecutive years; northern permafrost soils hold roughly 1,400–1,600 Gt C, about twice the carbon in the atmosphere.
+    where: [ "index.mdx#feedback" ]
+    confidence: high
+    basis: Schuur et al. 2015 Nature 520:171; Hugelius et al. 2014
+    status: checked
+  - id: f11
+    claim: Feedback sim is a qualitative model — loop gains (0.10, 0.06→0.12, 0.04→0.10, 0.05), thresholds (1.8, 2.4 relative units) and strength range are invented for illustration, with no hysteresis.
+    where: [ "src/sims/models/d4-3-feedback.ts", "sim d4-3-feedback", "visuals.yaml:feedback", "tests/unit/d4-3.test.ts" ]
+    confidence: high
+    basis: Labelled on screen as qualitative; behaviour (amplification = 1/(1−G); jumps at tipping points) is standard feedback analysis.
+    status: checked
+  - id: f12
+    claim: Boreal forest holds about a third (≈ 32%) of global forest carbon, much in soils and peat; high latitudes warm ~2–4 times faster than the global mean; legacy carbon (soil organic layers that escaped previous fires) is now combusting in young stands.
+    where: [ "index.mdx#boreal", "index.mdx (mustKnow)", "quiz.yaml:q3" ]
+    confidence: high
+    basis: Pan et al. 2011 Science 333:988; Rantanen et al. 2022 Commun Earth Environ (Arctic ≈ 4×); Walker et al. 2019 Nature 572:520
+    status: checked
+  - id: f13
+    claim: Canada's 2023 fire season burned more than 15 million hectares; recent boreal fire years released carbon comparable to a large industrial country's annual fossil emissions.
+    where: [ "index.mdx#boreal" ]
+    confidence: medium
+    basis: CIFFC / Natural Resources Canada 2023 (~15–18 Mha); Byrne et al. 2024 Nature 633:835 (647 Tg C); Zheng et al. 2023 Science (2021 boreal fires 1.76 Gt CO₂). NOTE — teacher to confirm area figure.
+    status: open
+  - id: f14
+    claim: Arctic September sea-ice extent has declined by about 13% per decade since 1979.
+    where: [ "index.mdx#polar" ]
+    confidence: high
+    basis: NSIDC Sea Ice Index (≈ 12–13% per decade relative to 1981–2010 mean)
+    status: checked
+  - id: f15
+    claim: Emperor penguins breed on landfast ice; eggs laid ~May–June, incubated by males; chicks fledge ~December–January after growing waterproof feathers. In 2022 four of five colonies in the Bellingshausen Sea region had total breeding failure because ice broke out early. Most colonies are projected to be lost by 2100 under high emissions.
+    where: [ "index.mdx#polar", "quiz.yaml:q6", "flashcards.yaml:c8" ]
+    confidence: high
+    basis: Fretwell et al. 2023 Commun Earth Environ 4:273; Jenouvrier et al. 2021 Global Change Biology (projected quasi-extinction of ~98% of colonies by 2100 under high emissions)
+    status: checked
+  - id: f16
+    claim: Pacific walruses feed on benthic invertebrates (e.g. clams) on shallow shelves and rest on sea ice; summer ice retreat beyond the Chukchi shelf forces mass coastal haul-outs (tens of thousands), with calf trampling and longer foraging trips.
+    where: [ "index.mdx#polar", "flashcards.yaml:c8" ]
+    confidence: high
+    basis: Jay et al. 2012 Mar Ecol Prog Ser; USGS walrus research; Fischbach et al. 2016
+    status: checked
+  - id: f17
+    claim: Coastal upwelling (Peru, California, Benguela) brings nutrient-rich deep water to the surface; these zones cover a small fraction of ocean area but supply a large share of fish catch. Warming increases stratification. 1972–73 El Niño contributed to the Peruvian anchoveta collapse.
+    where: [ "index.mdx#upwelling", "flashcards.yaml:c9" ]
+    confidence: medium
+    basis: Chavez & Messié 2009 Prog Oceanogr; IPCC SROCC 2019 ch. 5; FAO. NOTE — share of fish catch often quoted 20% (some sources up to 50%); page avoids a number.
+    status: open
+  - id: f18
+    claim: New Guinea birds — Karkar Island (Diamond 1969; resurveyed 2013) upper limits rose 152 m on average (17 species up, 5 down); Mt Karimui (1965; 2012) upper limits rose 113 m.
+    where: [ "index.mdx#ranges", "diagram d4-3-range-shift", "quiz.yaml:q5", "flashcards.yaml:c10" ]
+    confidence: high
+    basis: Freeman & Class Freeman 2014 PNAS 111:4490–4494. Quiz q5 species values are illustrative.
+    status: checked
+  - id: f19
+    claim: Eastern US trees (92 species, FIA seedling vs adult latitudes) — ≈ 59% contraction at both edges, ≈ 21% northward shift, ≈ 16% southward, ≈ 4% expansion. Conifers tend to shift poleward, many broadleaves westward.
+    where: [ "index.mdx#ranges", "diagram d4-3-range-shift", "flashcards.yaml:c10" ]
+    confidence: high
+    basis: Zhu, Woodall & Clark 2012 Global Change Biology 18:1042; Fei et al. 2017 Science Advances 3:e1603055
+    status: checked
+  - id: f20
+    claim: Oceans have absorbed roughly a quarter of human CO₂ emissions; surface pH has fallen from ≈ 8.2 to ≈ 8.1 (≈ 30% rise in [H⁺]).
+    where: [ "index.mdx#coral", "diagram d4-3-coral", "index.mdx (mustKnow)", "quiz.yaml:q4" ]
+    confidence: high
+    basis: IPCC AR6 WG1 ch. 5; Global Carbon Budget 2024 (ocean sink ≈ 26%)
+    status: checked
+  - id: f21
+    claim: Bleaching occurs when water stays ≈ 1 °C above the maximum monthly mean for weeks (NOAA degree heating weeks); the fourth global bleaching event began in 2023. Reefs cover < 1% of the sea floor but support ~25% of marine species.
+    where: [ "index.mdx#coral", "diagram d4-3-coral", "flashcards.yaml:c12" ]
+    confidence: high
+    basis: NOAA Coral Reef Watch (4th global bleaching event confirmed April 2024, began early 2023); Hughes et al. 2018 Science
+    status: checked
+  - id: f22
+    claim: Peat forms in waterlogged anaerobic soils; temperate/boreal accumulation ≈ 0.5–1 mm per year; tropical peat (SE Asia, Congo Basin) accumulates faster. Peatlands cover ≈ 3% of land and store ≈ 600 Gt C, more than all forest vegetation. Rewetting can briefly increase CH₄.
+    where: [ "index.mdx#sequestration", "diagram d4-3-peat", "flashcards.yaml:c13" ]
+    confidence: medium
+    basis: Yu et al. 2010 GRL; Dargie et al. 2017 Nature 542:86; IUCN peatland briefs; Günther et al. 2020 Nat Commun. NOTE — tropical peat rates vary widely.
+    status: open
+  - id: f23
+    claim: Phenology — photoperiod cues bud set, many birds' migration and nesting; temperature cues budburst (after chilling; beech also photoperiod-sensitive) and insect emergence. Spring events have advanced ~2–3 days per decade. Geneva official horse-chestnut leaf-out recorded since 1808, now typically ~March.
+    where: [ "index.mdx#phenology", "quiz.yaml:q8", "flashcards.yaml:c15" ]
+    confidence: high
+    basis: Parmesan & Yohe 2003 Nature 421:37 (2.3 d/decade); Menzel et al. 2006 Global Change Biology; Basler & Körner 2012; République et canton de Genève records
+    status: checked
+  - id: f24
+    claim: Reindeer/caribou (West Greenland, Kangerlussuaq) — calving timing (photoperiod-related) did not advance while plant green-up (incl. Cerastium arcticum) advanced with warming, causing trophic mismatch and reduced calf production/survival.
+    where: [ "index.mdx#synchrony", "flashcards.yaml:c16" ]
+    confidence: medium
+    basis: Post & Forchhammer 2008 Phil Trans R Soc B 363:2367; Post et al. 2008. NOTE — IB guide phrase is "arrival of migrating reindeer".
+    status: open
+  - id: f25
+    claim: Hoge Veluwe great tits — since the 1980s the winter moth caterpillar peak advanced more than laying date, giving a mismatch (typically ~5–10 days) and selection for earlier laying. Wytham Woods great tits advanced laying ~14 days over 47 years by plasticity and stayed well matched.
+    where: [ "index.mdx#synchrony", "visuals.yaml:phenology", "sim d4-3-phenology" ]
+    confidence: high
+    basis: Visser et al. 1998 Proc R Soc B 265:1867; Visser et al. 2021 Proc R Soc B 288:20211337; Charmantier et al. 2008 Science 320:800
+    status: checked
+  - id: f26
+    claim: Phenology sim parameters are illustrative — caterpillar peak 20 May shifting 6 d/°C; first egg 20 April; hatching 21 days after first egg (≈ 9 eggs at 1/day + ≈ 12 days incubation); chick demand peak ≈ 9 days after hatching; success curve s.d. 8 days; max 7.5 fledglings; day length at 52° N.
+    where: [ "src/sims/models/d4-3-phenology.ts", "sim d4-3-phenology", "tests/unit/d4-3.test.ts" ]
+    confidence: medium
+    basis: Great tit breeding biology (clutch 8–10, incubation 12–14 d, nestling food demand peaks ~day 9–10; Perrins 1979, Van Balen 1973); dates and sensitivities chosen to illustrate. NOTE — labelled qualitative on screen.
+    status: open
+  - id: f27
+    claim: Ips typographus — adults overwinter, spring swarming above ≈ 16.5 °C, one generation needs ≈ 557 degree-days above 8.3 °C; univoltine in cool north/upland, bivoltine in warm summers in southern Scandinavia (e.g. 2018), up to three in lowland central Europe. 2018–2020 drought caused major outbreaks (Czech Republic, Germany).
+    where: [ "index.mdx#insects", "diagram d4-3-beetle", "quiz.yaml:q9", "flashcards.yaml:c17" ]
+    confidence: high
+    basis: Wermelinger & Seifert 1998 J Appl Entomol; Jönsson et al. 2009 Global Change Biology; Hlásny et al. 2021 Curr For Rep
+    status: checked
+  - id: f28
+    claim: Dendroctonus micans generation time 1–2 years; Dendroctonus rufipennis shifted from a 2-year to 1-year cycle in warm years, contributing to Alaskan outbreaks (Kenai Peninsula).
+    where: [ "index.mdx#insects" ]
+    confidence: medium
+    basis: Grégoire 1988 (D. micans); Werner et al. 2006 For Ecol Manage; Berg et al. 2006 For Ecol Manage
+    status: open
+  - id: f29
+    claim: Tawny owl colour is highly heritable with brown dominant to grey; selection against brown occurred only in snowy, cold winters; brown frequency increased over 28 years (study population) and 48 years (Finland).
+    where: [ "index.mdx#evolution", "quiz.yaml:q10", "flashcards.yaml:c18", "index.mdx (mustKnow, mistakes)" ]
+    confidence: high
+    basis: Karell et al. 2011 Nature Communications 2:208. NOTE — exact percentages differ between secondary sources, so the page gives none.
+    status: checked

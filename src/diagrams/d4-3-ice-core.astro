@@ -1,0 +1,61 @@
+---
+/**
+ * SCHEMATIC of the Antarctic ice-core record (after EPICA Dome C / Vostok): CO₂ and temperature over the
+ * last 800,000 years rise and fall together in ~100,000-year glacial cycles (CO₂ ≈ 180–300 ppm,
+ * temperature range ≈ 8–10 °C at the site). The curve shape is stylised, not plotted data. See facts.yaml.
+ */
+const W = 640, L = 70, R = 140, top1 = 30, h = 120, gap = 40, top2 = top1 + h + gap;
+const x = (ka: number) => L + ((800 - ka) / 800) * (W - L - R);
+// stylised glacial cycle: rapid warming (~10 kyr) then slow, irregular cooling (~90 kyr); present = interglacial
+const v = (ka: number) => {
+  const t = 800 - ka;
+  const c = (((t - 788) % 100) + 100) % 100;
+  const base = c < 10 ? c / 10 : 1 - (c - 10) / 90;
+  const wig = 0.12 * Math.sin(t / 3.7) * Math.min(1, c / 12);
+  return Math.max(0, Math.min(1, base * 0.92 + wig + 0.04));
+};
+const pts = Array.from({ length: 401 }, (_, i) => 800 - i * 2);
+const co2y = (ppm: number) => top1 + h - ((ppm - 170) / (310 - 170)) * h;
+const ty = (dt: number) => top2 + h - ((dt + 10) / 14) * h;
+const co2 = pts.map((a, i) => `${i ? 'L' : 'M'}${x(a).toFixed(1)} ${co2y(185 + 100 * v(a)).toFixed(1)}`).join('');
+const temp = pts.map((a, i) => `${i ? 'L' : 'M'}${x(a).toFixed(1)} ${ty(-8.5 + 10 * v(a)).toFixed(1)}`).join('');
+const ages = [800, 600, 400, 200, 0];
+---
+<svg viewBox={`0 0 ${W} ${top2 + h + 58}`} role="img" aria-labelledby="ic-t ic-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="ic-t">Schematic ice-core record of CO₂ and temperature over 800,000 years</title>
+  <desc id="ic-d">Two stacked schematic curves for the last 800,000 years. Upper: atmospheric CO₂ from air bubbles in Antarctic ice, swinging between about 180 ppm in glacial periods and about 280 to 300 ppm in warm interglacials. Lower: temperature at the ice-core site, estimated from hydrogen isotopes, swinging over roughly 8 to 10 °C. The two curves rise and fall together, a positive correlation. An arrow on the right shows that today's CO₂, about 425 ppm, is far above anything in the record.</desc>
+  <g class="panel">
+    <text class="head" x={L} y={top1 - 10}>CO₂ in trapped air bubbles (ppm)</text>
+    {[200, 250, 300].map((p) => <g><line class="grid" x1={L} x2={W - R} y1={co2y(p)} y2={co2y(p)} /><text class="tick" x={L - 8} y={co2y(p) + 4} text-anchor="end">{p}</text></g>)}
+    <path class="co2" d={co2} />
+    <line class="now" x1={W - R + 14} x2={W - R + 14} y1={co2y(285)} y2={top1 - 8} marker-end="url(#ic-arrow)" />
+    <text class="nowt" x={W - R + 24} y={top1 + 6}>today ≈ 425 ppm</text>
+    <text class="nowt sm" x={W - R + 24} y={top1 + 22}>(off this scale)</text>
+    <text class="nowt sm" x={W - R + 24} y={top1 + 64}>pre-industrial</text>
+    <text class="nowt sm" x={W - R + 24} y={top1 + 79}>≈ 280 ppm</text>
+  </g>
+  <g class="panel">
+    <text class="head" x={L} y={top2 - 10}>Temperature at the site compared with recent (°C)</text>
+    {[-8, -4, 0].map((p) => <g><line class="grid" x1={L} x2={W - R} y1={ty(p)} y2={ty(p)} /><text class="tick" x={L - 8} y={ty(p) + 4} text-anchor="end">{p > 0 ? `+${p}` : p}</text></g>)}
+    <path class="temp" d={temp} />
+    <text class="nowt sm" x={W - R + 14} y={ty(1)}>warm</text>
+    <text class="nowt sm" x={W - R + 14} y={ty(1) + 15}>interglacial</text>
+    <text class="nowt sm" x={W - R + 14} y={ty(-8)}>glacial</text>
+  </g>
+  {ages.map((a) => <text class="tick" x={x(a)} y={top2 + h + 22} text-anchor="middle">{a === 0 ? 'now' : `${a},000`}</text>)}
+  <text class="axis" x={(L + W - R) / 2} y={top2 + h + 46} text-anchor="middle">Years before present (schematic)</text>
+  <defs><marker id="ic-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="mk" /></marker></defs>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .head { font-size: 14px; font-weight: 750; fill: var(--text); }
+  .grid { stroke: var(--border); stroke-width: 1; }
+  .tick { font-size: 12.5px; fill: var(--text-muted); }
+  .axis { font-size: 13px; font-weight: 650; fill: var(--text); }
+  .co2 { fill: none; stroke: var(--bio-water); stroke-width: 2.2; stroke-linejoin: round; }
+  .temp { fill: none; stroke: var(--bad); stroke-width: 2.2; stroke-dasharray: 7 3; stroke-linejoin: round; }
+  .now { stroke: var(--bio-water); stroke-width: 3; }
+  .mk { fill: var(--bio-water); }
+  .nowt { font-size: 13px; font-weight: 750; fill: var(--text); }
+  .nowt.sm { font-size: 12px; font-weight: 600; fill: var(--text-muted); }
+</style>

@@ -1,0 +1,97 @@
+---
+/**
+ * Two threats to reef-building corals (D4.3.7): ocean acidification (chemistry) and bleaching (heat).
+ * Values in facts.yaml: surface pH ≈ 8.2 → ≈ 8.1 since pre-industrial (≈ 30% rise in [H⁺]).
+ */
+const dots = (cx: number, cy: number, n: number, r: number) =>
+  Array.from({ length: n }, (_, i) => {
+    const a = i * 2.39996, d = r * Math.sqrt((i + 0.5) / n);
+    return { x: cx + d * Math.cos(a), y: cy + d * Math.sin(a) * 0.55 };
+  });
+const polyp = (cx: number) => [-30, -12, 12, 30].map((k) => `M${cx + k} 116 C${cx + k * 1.1} 100 ${cx + k * 1.5} 92 ${cx + k * 1.7} 76`).join(' ');
+---
+<svg viewBox="0 0 640 436" role="img" aria-labelledby="co-t co-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="co-t">Ocean acidification and coral bleaching</title>
+  <desc id="co-d">Left: the chemistry of ocean acidification. Carbon dioxide from the air dissolves in sea water and reacts with water to form carbonic acid, which dissociates into hydrogen ions and hydrogen carbonate ions. The extra hydrogen ions combine with carbonate ions to form more hydrogen carbonate, so fewer carbonate ions are left for corals to combine with calcium ions to build calcium carbonate skeletons. Surface ocean pH has fallen from about 8.2 to about 8.1. Right: coral bleaching. A healthy coral polyp is coloured by many zooxanthellae, photosynthetic algae living in its cells. When water stays unusually warm for weeks, the coral expels the algae and turns white, exposing the skeleton; if the heat lasts, the starving coral dies.</desc>
+  <!-- acidification -->
+  <text class="head" x="16" y="24">1. Ocean acidification — caused by more CO₂</text>
+  <rect class="air" x="16" y="36" width="300" height="34" rx="6" />
+  <text class="eq" x="166" y="58" text-anchor="middle">CO₂ in the atmosphere</text>
+  <line class="arr" x1="166" y1="72" x2="166" y2="92" marker-end="url(#co-a)" />
+  <rect class="sea" x="16" y="96" width="300" height="290" rx="6" />
+  <text class="eq" x="166" y="120" text-anchor="middle">CO₂ + H₂O → H₂CO₃</text>
+  <text class="note" x="166" y="138" text-anchor="middle">dissolved CO₂ forms carbonic acid</text>
+  <text class="eq" x="166" y="168" text-anchor="middle">H₂CO₃ → H⁺ + HCO₃⁻</text>
+  <text class="note" x="166" y="186" text-anchor="middle">more H⁺ ions, so pH falls</text>
+  <text class="eq strong" x="166" y="218" text-anchor="middle">H⁺ + CO₃²⁻ → HCO₃⁻</text>
+  <text class="note" x="166" y="236" text-anchor="middle">H⁺ removes carbonate ions</text>
+  <rect class="calc" x="34" y="254" width="264" height="62" rx="6" />
+  <text class="eq" x="166" y="278" text-anchor="middle">Ca²⁺ + CO₃²⁻ → CaCO₃</text>
+  <text class="note" x="166" y="298" text-anchor="middle">calcification of the coral skeleton</text>
+  <text class="note" x="166" y="312" text-anchor="middle">is slowed: fewer CO₃²⁻ available</text>
+  <text class="ph" x="166" y="346" text-anchor="middle">Surface ocean pH ≈ 8.2 (1750) → ≈ 8.1 now</text>
+  <text class="note" x="166" y="366" text-anchor="middle">about 30% more H⁺ (pH is a log scale)</text>
+
+  <!-- bleaching -->
+  <text class="head" x="340" y="24">2. Bleaching — caused by heat</text>
+  <text class="sub" x="410" y="56" text-anchor="middle">healthy</text>
+  <text class="sub" x="570" y="56" text-anchor="middle">bleached</text>
+  <text class="note l" x="410" y="250" text-anchor="middle">zooxanthellae give</text>
+  <text class="note l" x="410" y="265" text-anchor="middle">colour and sugars</text>
+  <text class="note l" x="570" y="250" text-anchor="middle">algae expelled; white</text>
+  <text class="note l" x="570" y="265" text-anchor="middle">skeleton shows through</text>
+  <line class="arr hot" x1="462" y1="170" x2="516" y2="170" marker-end="url(#co-h)" />
+  <text class="hot-t" x="489" y="160" text-anchor="middle">heat</text>
+  <text class="hot-t" x="489" y="294" text-anchor="middle">Trigger: water ≥ 1 °C above the usual</text>
+  <text class="hot-t" x="489" y="310" text-anchor="middle">summer maximum for several weeks</text>
+  <g>
+    <ellipse class="body ok" cx="410" cy="150" rx="40" ry="40" />
+    {dots(410, 150, 34, 34).map((d) => <circle class="alga" cx={d.x} cy={d.y + 4} r="3.6" />)}
+    <path class="tent ok" d={polyp(410)} />
+    <rect class="skel" x="364" y="196" width="92" height="36" rx="4" />
+    <text class="note" x="410" y="219" text-anchor="middle">CaCO₃ skeleton</text>
+  </g>
+  <g>
+    <ellipse class="body bl" cx="570" cy="150" rx="40" ry="40" />
+    {dots(570, 150, 4, 30).map((d) => <circle class="alga" cx={d.x} cy={d.y + 4} r="3.6" />)}
+    <path class="tent bl" d={polyp(570)} />
+    <rect class="skel" x="524" y="196" width="92" height="36" rx="4" />
+  </g>
+  <rect class="box" x="340" y="320" width="286" height="110" rx="8" />
+  <text class="note dk" x="352" y="342">Corals are the reef's foundation (keystone)</text>
+  <text class="note dk" x="352" y="360">species. Repeated bleaching and slower</text>
+  <text class="note dk" x="352" y="378">calcification mean reefs erode faster than</text>
+  <text class="note dk" x="352" y="396">they grow: fish and invertebrates lose food</text>
+  <text class="note dk" x="352" y="414">and shelter, and the ecosystem can collapse.</text>
+  <defs>
+    <marker id="co-a" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="mk" /></marker>
+    <marker id="co-h" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="mk hot" /></marker>
+  </defs>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .head { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .sub { font-size: 13px; font-weight: 750; fill: var(--text); }
+  .air { fill: var(--surface); stroke: var(--border-strong); }
+  .sea { fill: color-mix(in srgb, var(--bio-water) 12%, var(--surface)); stroke: var(--bio-water); }
+  .calc { fill: var(--surface); stroke: var(--bio-head); stroke-width: 1.5; stroke-dasharray: 5 3; }
+  .eq { font-size: 14px; font-weight: 700; fill: var(--text); }
+  .eq.strong { fill: var(--bad); }
+  .note { font-size: 12px; fill: var(--text-muted); }
+  .note.dk { fill: var(--text); }
+  .ph { font-size: 13px; font-weight: 750; fill: var(--text); }
+  .arr { stroke: var(--text-muted); stroke-width: 2; }
+  .arr.hot { stroke: var(--bad); stroke-width: 3.5; }
+  .mk { fill: var(--text-muted); }
+  .mk.hot { fill: var(--bad); }
+  .hot-t { font-size: 12px; font-weight: 700; fill: var(--bad); }
+  .body { stroke-width: 2; }
+  .body.ok { fill: color-mix(in srgb, var(--bio-tail) 45%, var(--surface)); stroke: color-mix(in srgb, var(--bio-tail) 60%, var(--text)); }
+  .body.bl { fill: var(--surface); stroke: var(--text-muted); }
+  .alga { fill: color-mix(in srgb, var(--bio-carb) 70%, var(--text)); }
+  .tent { fill: none; stroke-width: 6; stroke-linecap: round; }
+  .tent.ok { stroke: color-mix(in srgb, var(--bio-tail) 60%, var(--surface)); }
+  .tent.bl { stroke: var(--border-strong); }
+  .skel { fill: var(--surface-3); stroke: var(--text-muted); stroke-width: 1.5; }
+  .box { fill: var(--surface); stroke: var(--border-strong); }
+</style>

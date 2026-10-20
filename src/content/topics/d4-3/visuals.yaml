@@ -1,0 +1,77 @@
+# Visuals for D4.3. Step captions and descriptions are what readers see, so they are written to exam standard.
+# Every number used in the sims and figures is recorded with its basis in facts.yaml.
+visuals:
+  - id: greenhouse
+    kind: anim
+    module: d4-3-greenhouse
+    title: The greenhouse effect and the enhanced greenhouse effect
+    alt: Step-by-step diagram of short-wave sunlight warming the Earth, infrared re-emitted, absorbed by greenhouse gases, and ozone depletion as a separate issue.
+    description: >-
+      A cross-section from space down to the Earth's surface. The Sun emits short-wave radiation that passes
+      through the atmosphere; some is reflected by ice, but most is absorbed by the ground and oceans, warming
+      them. The warm surface emits long-wave infrared radiation, drawn as wavy arrows. Some escapes to space, but
+      molecules of carbon dioxide, methane, water vapour and nitrous oxide absorb infrared and re-emit it in all
+      directions, including back towards the surface; this natural greenhouse effect keeps the surface warm
+      enough for life. When more carbon dioxide and methane molecules are added, as CO₂ has risen from about 280
+      to about 425 ppm since 1750, more infrared is absorbed and re-emitted downwards and a thermometer shows the
+      surface warming further. The last step shows the stratospheric ozone layer absorbing ultraviolet radiation:
+      thinning of this layer by CFCs lets more UV reach the surface, but it is a separate problem and not the cause
+      of global warming.
+    steps:
+      - id: sunlight
+        title: Short-wave radiation from the Sun
+        caption: The Sun emits mostly short-wave radiation (visible light, with some ultraviolet and near-infrared). Greenhouse gases absorb little of it, so most passes straight through the atmosphere. About 30% of incoming sunlight is reflected back to space by clouds, ice and other bright surfaces.
+      - id: absorbed
+        title: The surface absorbs sunlight and warms
+        caption: Land and oceans absorb most of the short-wave radiation that reaches them and convert it to heat. Dark surfaces such as open ocean and forest absorb more than white snow and ice, which reflect most of the light.
+      - id: infrared
+        title: The warmed surface emits long-wave infrared
+        caption: The warm Earth radiates energy as long-wave infrared radiation (heat). If nothing absorbed it, this radiation would pass out to space and the average surface temperature would be about −18 °C.
+      - id: natural
+        title: Greenhouse gases absorb and re-emit infrared
+        caption: Molecules of carbon dioxide, methane, water vapour and nitrous oxide absorb infrared and re-emit it in all directions, so part of it returns to the surface. This natural greenhouse effect keeps the average surface temperature at about +15 °C, which is essential for life on Earth.
+      - id: enhanced
+        title: The enhanced greenhouse effect
+        caption: Human activities have raised CO₂ from about 280 ppm to about 425 ppm and more than doubled methane. With more greenhouse-gas molecules, less infrared escapes directly to space and more is re-emitted back down, so the surface and lower atmosphere warm until enough energy escapes again — global warming.
+      - id: not-ozone
+        title: Not the same as the ozone hole
+        caption: Ozone in the stratosphere absorbs harmful ultraviolet radiation. CFCs thinned this layer, letting more UV reach the surface and raising the risk of skin cancer and cataracts. That is a different problem with a different cause; extra UV does not explain global warming, and the ozone layer is now slowly recovering.
+
+  - id: feedback
+    kind: sim
+    module: d4-3-feedback
+    title: Positive feedback loop explorer
+    alt: Switch four climate feedback loops on and off and see how they amplify warming, with tipping points that make warming jump.
+    description: >-
+      A qualitative model of positive feedback in global warming, using relative units in which 1 is the warming
+      that human emissions would cause with no feedback. Four loops can be switched on or off: melting snow and
+      ice (less sunlight reflected), thawing permafrost and warming peat (decomposition releases CO₂ and, in
+      waterlogged soil, methane), drought and fire in boreal forest (stored carbon burned), and warmer oceans
+      (less CO₂ absorbed and some released). Each loop returns a fraction of the warming as extra warming, so the
+      total equals the direct warming divided by one minus the sum of the loop strengths. A graph plots total
+      warming against direct warming, beside a dashed no-feedback line; a stacked bar shows how much of today's
+      total each loop adds; and a row of bars shows that each round of feedback adds less than the round before.
+      The permafrost and boreal-forest loops have tipping points: when total warming crosses a threshold, the loop
+      becomes stronger (widespread thaw; forest flips from carbon sink to carbon source) and warming jumps. Sliders
+      set the direct warming and the strength of every loop, and preset buttons show no feedback, all loops at low
+      emissions and a push past both tipping points. The strengths and thresholds are invented for illustration.
+
+  - id: phenology
+    kind: sim
+    module: d4-3-phenology
+    title: Great tits and caterpillars out of step
+    level: AHL
+    alt: Graph of winter moth caterpillar biomass and great tit chicks' food demand through spring, with sliders for spring temperature and bird response.
+    description: >-
+      A qualitative model based on the long-term study of great tits (Parus major) at Hoge Veluwe in the
+      Netherlands. The graph runs from 1 April to 30 June. A shaded bell-shaped curve shows winter moth caterpillar
+      biomass, which peaks on 20 May in the reference spring; a dashed curve shows the food demand of great tit
+      chicks, which peaks about 30 days after the first egg is laid (about 9 eggs at one a day, about 12 days of
+      incubation, then about 9 days of chick growth). Markers show the first-egg date and hatching. In the reference
+      spring both curves peak together. A spring temperature slider moves the caterpillar peak about 6 days earlier
+      per °C, because caterpillar emergence follows oak budburst, which is triggered by temperature. A second slider
+      sets how many days earlier per °C the birds lay; birds whose timing is set mainly by photoperiod respond
+      weakly. A bracket and readouts show the mismatch in days, the expected fledglings per nest, which fall as the
+      mismatch grows, and the day length on the first-egg date at 52° N. With a weak bird response a warm spring
+      makes chicks hatch too late for the caterpillar peak; birds that tracked temperature as closely as the
+      caterpillars would stay in step. All rates are illustrative.

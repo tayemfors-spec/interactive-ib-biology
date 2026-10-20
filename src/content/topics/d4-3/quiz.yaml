@@ -1,0 +1,204 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: D4.3.1
+    stem: >-
+      Atmospheric CO₂ has risen from about 280 ppm to about 425 ppm since 1750. Which statement explains how this
+      rise warms the Earth's surface?
+    options:
+      - id: a
+        text: CO₂ absorbs more of the incoming short-wave radiation from the Sun before it reaches the ground.
+        why: Greenhouse gases are largely transparent to incoming short-wave radiation. If CO₂ absorbed sunlight high in the atmosphere, less would reach the surface.
+      - id: b
+        text: CO₂ destroys ozone, so more ultraviolet radiation reaches and heats the surface.
+        why: This confuses global warming with ozone depletion. CFCs, not CO₂, thinned the ozone layer, and extra UV does not explain global warming.
+      - id: c
+        text: More CO₂ absorbs more of the long-wave infrared emitted by the surface and re-emits part of it back towards the surface.
+        why: Correct. This is the enhanced greenhouse effect. Less infrared escapes directly to space, so the surface and lower atmosphere warm until outgoing energy balances incoming energy again.
+      - id: d
+        text: CO₂ reflects sunlight back down onto the surface, like the glass of a greenhouse.
+        why: CO₂ does not reflect sunlight. It absorbs and re-emits infrared; "trapping" in a real glasshouse works mainly by stopping warm air escaping, which is why the analogy is imperfect.
+    answer: c
+
+  - id: q2
+    level: SL
+    understanding: D4.3.2
+    stem: Which sequence is an example of positive feedback in global warming?
+    options:
+      - id: a
+        text: Warming thaws permafrost → waterlogged anaerobic soil → methanogens release methane → more warming
+        why: Correct. The end of the chain (more warming) increases the change that started it, so the warming is amplified.
+      - id: b
+        text: Warming increases evaporation → more low cloud reflects sunlight → less warming
+        why: This chain reduces the original change, so it is negative feedback, not positive feedback.
+      - id: c
+        text: Burning fossil fuels → more CO₂ in the atmosphere → more warming
+        why: This is the human cause of the enhanced greenhouse effect, a one-way chain. It does not loop back so that warming causes more of itself.
+      - id: d
+        text: More CO₂ → faster photosynthesis by plants → more CO₂ removed from the atmosphere
+        why: Removing CO₂ opposes the rise that started the chain, so this would be negative feedback.
+    answer: a
+
+  - id: q3
+    level: SL
+    understanding: D4.3.3
+    stem: >-
+      Boreal forest has accumulated carbon for thousands of years. Which change would show that a tipping point had
+      been passed, turning it into a net carbon source?
+    options:
+      - id: a
+        text: Trees grow faster because the growing season is longer.
+        why: Faster growth increases photosynthesis and carbon uptake, which would strengthen the sink, not turn it into a source.
+      - id: b
+        text: Winter snowfall increases, insulating the soil.
+        why: The guide describes the opposite — warmer temperatures and decreased winter snowfall, which bring summer drought.
+      - id: c
+        text: The forest stores the same amount of carbon in wood each year as it loses in leaf litter.
+        why: Litter is still part of the forest's carbon store and decomposes slowly in the cold. This does not describe a net loss to the atmosphere.
+      - id: d
+        text: Drought, browning and more frequent, intense fires burn legacy carbon, so CO₂ released exceeds CO₂ fixed by photosynthesis.
+        why: Correct. When respiration and combustion, including of legacy carbon in old soil layers, exceed photosynthesis, the forest is a net source, and the extra warming makes fires and drought still more likely.
+    answer: d
+
+  - id: q4
+    level: SL
+    understanding: D4.3.7
+    stem: >-
+      CO₂ + H₂O → H₂CO₃ → H⁺ + HCO₃⁻ and H⁺ + CO₃²⁻ → HCO₃⁻. Using these equations, why does more dissolved CO₂
+      suppress calcification by reef-building corals?
+    options:
+      - id: a
+        text: Hydrogen carbonate ions are toxic to the zooxanthellae, which are expelled.
+        why: Expulsion of zooxanthellae is bleaching, caused mainly by high temperature, not by hydrogen carbonate ions.
+      - id: b
+        text: The extra H⁺ ions combine with carbonate ions, so fewer carbonate ions are available for corals to form calcium carbonate.
+        why: Correct. Ca²⁺ + CO₃²⁻ → CaCO₃ needs carbonate ions. As carbonate concentration falls, skeleton building slows and existing skeleton can start to dissolve.
+      - id: c
+        text: Carbonic acid raises the pH of sea water, so calcium carbonate cannot form.
+        why: Acid lowers the pH. Surface ocean pH has fallen from about 8.2 to about 8.1.
+      - id: d
+        text: CO₂ reacts with calcium ions, removing them from sea water.
+        why: The equations do not involve calcium. Calcium ions remain plentiful; it is carbonate ions that become scarcer.
+    answer: b
+
+  - id: q5
+    level: SL
+    understanding: D4.3.6
+    stem: >-
+      In 1969 a montane bird species on Karkar Island, New Guinea, was recorded between 600 m and 900 m. In 2013 it
+      was recorded between 740 m and 1,060 m. Which conclusion is best supported?
+    options:
+      - id: a
+        text: The species has evolved a wider tolerance of temperature.
+        why: The range is about the same width (300 m and 320 m) but higher. A shift in position, not a wider range, is what the data show.
+      - id: b
+        text: The species migrated to a different island with cooler climate.
+        why: The data come from the same mountain and show the species still present there, just higher up the slope.
+      - id: c
+        text: Its range has shifted upslope by about 150 m, consistent with species tracking cooler conditions as the climate warms.
+        why: Correct. Both limits rose (upper limit +160 m), matching the average upslope shift of about 152 m found on Karkar. Data from one species alone cannot prove the cause, but the pattern across most species supports warming.
+      - id: d
+        text: The data prove that global warming caused the change.
+        why: A correlation in one species cannot prove cause. Other factors, such as habitat change or survey differences, must also be considered.
+    answer: c
+
+  - id: q6
+    level: SL
+    understanding: D4.3.4
+    stem: Why does early break-out of landfast ice threaten emperor penguins (Aptenodytes forsteri)?
+    options:
+      - id: a
+        text: Chicks still covered in down fall into the sea before they have grown waterproof feathers.
+        why: Correct. Emperor penguins breed on stable landfast ice through the winter; the ice must last until about December–January, when chicks fledge. In 2022 early break-up caused total breeding failure at four of five colonies in one region.
+      - id: b
+        text: Adults lose the sea ice they rest on between dives for clams on the sea floor.
+        why: This describes walruses in the Arctic. Emperor penguins live in the Antarctic and feed on fish, krill and squid in open water.
+      - id: c
+        text: The penguins can no longer find snow to build nests.
+        why: Emperor penguins do not build nests; the male incubates the single egg on his feet.
+      - id: d
+        text: Melting ice makes the sea less salty, so the penguins cannot drink it.
+        why: Salinity changes are not the threat described; the problem is the loss of the breeding platform.
+    answer: a
+
+  - id: q7
+    level: AHL
+    understanding: D4.3.10
+    stem: >-
+      In a long-term study in a north European forest (illustrative data), the peak of winter moth caterpillars
+      advanced by about 15 days over several decades, while the mean laying date of great tits advanced by about 5 days. What is the most likely explanation and consequence?
+    options:
+      - id: a
+        text: The birds use temperature as a cue, so they now lay too early and chicks hatch before the caterpillars appear.
+        why: If the birds tracked temperature as strongly as the caterpillars, the two would stay in step. Here the birds advanced less, so chicks are late, not early.
+      - id: b
+        text: Caterpillars use photoperiod as a cue, so their timing has not changed.
+        why: The data show the caterpillar peak moved much earlier. Caterpillar emergence follows oak budburst, which is triggered by temperature.
+      - id: c
+        text: Both use the same cue, so the mismatch must be caused by competition for caterpillars.
+        why: If both used the same cue they would have shifted by similar amounts. Different shifts point to different cues.
+      - id: d
+        text: The caterpillar peak is cued by temperature, but laying is cued mainly by photoperiod, so chicks now need most food after the caterpillar peak and fewer survive.
+        why: Correct. Warming moves temperature-cued events but not photoperiod. The roughly 10-day mismatch means less food when chicks' demand peaks, and selection now favours earlier laying.
+    answer: d
+
+  - id: q8
+    level: AHL
+    understanding: D4.3.9
+    stem: Which phenological event in deciduous trees is triggered mainly by a change in photoperiod?
+    options:
+      - id: a
+        text: Budburst in spring after a cold winter
+        why: Budburst is triggered mainly by rising spring temperature, after enough winter chilling, which is why it has become earlier with warming.
+      - id: b
+        text: Bud set in late summer as nights lengthen
+        why: Correct. Shortening days are a reliable, unchanging signal that winter is coming, so many trees use photoperiod to stop growth and form winter buds.
+      - id: c
+        text: Faster leaf growth during a heatwave
+        why: This is a direct effect of temperature on the rate of metabolism, not a timed event triggered by day length.
+      - id: d
+        text: Earlier flowering of spring plants in a warm year
+        why: Flowering that shifts with warm years must be responding to temperature; day length is identical every year on a given date.
+    answer: b
+
+  - id: q9
+    level: AHL
+    understanding: D4.3.11
+    stem: >-
+      In parts of southern Scandinavia, the spruce bark beetle (Ips typographus) used to complete one generation a
+      year but now often completes two. Which explanation is correct?
+    options:
+      - id: a
+        text: Warmer temperatures speed up development and lengthen the warm season, so each generation is completed faster and a second fits in before autumn.
+        why: Correct. As ectotherms, the beetles develop at a rate set by temperature. With more accumulated warmth, two generations fit into a year, so populations grow faster and more trees are attacked.
+      - id: b
+        text: The beetles have evolved a shorter life cycle because spruce trees are dying.
+        why: The change happens within warm years and reverses in cool ones, so it is a direct effect of temperature on development, not evolution.
+      - id: c
+        text: Warmer winters let the larvae keep feeding through the winter.
+        why: The extra generation comes from faster development and an earlier spring flight in summer, not from winter feeding. Adults overwinter.
+      - id: d
+        text: Drought makes the beetles lay twice as many eggs in each generation.
+        why: Drought weakens the trees' resin defences, making them easier to attack, but it does not double the number of generations.
+    answer: a
+
+  - id: q10
+    level: AHL
+    understanding: D4.3.12
+    stem: >-
+      In Finland, the proportion of brown tawny owls (Strix aluco) has risen as winters have become less snowy.
+      Why is this described as evolution?
+    options:
+      - id: a
+        text: Individual grey owls moult into brown plumage when there is no snow.
+        why: Owls do not change morph in response to snow. A change in individuals' appearance would be plasticity, not evolution.
+      - id: b
+        text: Owls choose mates of the same colour as the background.
+        why: There is no evidence that mate choice explains the change; the study showed winter survival differences linked to snow.
+      - id: c
+        text: Colour is heritable, and milder winters have changed the relative fitness of the variants, so the frequency of the brown allele has increased.
+        why: Correct. Grey owls used to survive snowy winters better. With less snow, selection against brown weakened, and the allele for brown, which is dominant, increased in frequency in the population.
+      - id: d
+        text: Brown owls have migrated into Finland from further south.
+        why: Immigration could change morph frequencies, but the study linked the change to selection on survival within the Finnish population.
+    answer: c
