@@ -27,6 +27,14 @@ function readPalette(host: HTMLElement): Record<PaletteKey, THREE.Color> {
   return out;
 }
 
+/** True if this object is drawn and solid enough to hide what is behind it. */
+function blocksView(o: THREE.Object3D): boolean {
+  for (let n: THREE.Object3D | null = o; n; n = n.parent) if (!n.visible) return false;
+  const mat = (o as THREE.Mesh).material as THREE.Material | THREE.Material[] | undefined;
+  const m = Array.isArray(mat) ? mat[0] : mat;
+  return !!m && m.visible && !(m.transparent && m.opacity < 0.5);
+}
+
 export interface ViewerHandle { dispose(): void; sample(): { drawn: number; colours: number }; azimuth(): number }
 
 export async function mountViewer(fig: HTMLElement, scenes: SceneDef[]): Promise<ViewerHandle> {
@@ -204,7 +212,8 @@ export async function mountViewer(fig: HTMLElement, scenes: SceneDef[]): Promise
       if (checkOcclusion) {
         const dist = camera.position.distanceTo(l.pos);
         ray.set(camera.position, v.copy(l.pos).sub(camera.position).normalize());
-        const hit = ray.intersectObjects(scene.children, true)[0];
+        // Raycasting ignores visibility, so skip hidden or mostly see-through meshes: they don't block a label.
+        const hit = ray.intersectObjects(scene.children, true).find((h) => blocksView(h.object));
         const own = (a.highlight ?? [a.object]).some((o) => { let n: THREE.Object3D | null = hit?.object ?? null; while (n) { if (n === o) return true; n = n.parent; } return false; });
         l.dimmed = !!hit && hit.distance < dist - 0.25 && !own;
         l.el.classList.toggle('dimmed', l.dimmed);
