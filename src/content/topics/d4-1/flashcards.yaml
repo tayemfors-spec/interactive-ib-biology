@@ -1,0 +1,69 @@
+cards:
+  - id: c1
+    level: SL
+    front: Outline the steps of evolution by natural selection.
+    back: Heritable variation (mutation, sexual reproduction) → overproduction of offspring → competition and selection pressures → individuals with favourable heritable traits survive and reproduce more → they pass on their alleles → allele frequencies change over many generations.
+  - id: c2
+    level: SL
+    front: What is a paradigm shift? Give the D4.1 example.
+    back: A fundamental change in the accepted framework of a branch of science, when a new theory replaces an old one. Darwin's natural selection replaced Lamarckism (inheritance of acquired characteristics) as the mechanism of evolution.
+  - id: c3
+    level: SL
+    front: Which process makes new alleles, and which make new combinations of alleles?
+    back: Mutation (a random change in base sequence) makes new alleles. Sexual reproduction makes new combinations — crossing over and random orientation of homologous pairs in meiosis, and fusion of gametes from two parents at fertilization.
+  - id: c4
+    level: SL
+    front: Why does overproduction of offspring promote natural selection?
+    back: More offspring are produced than the carrying capacity can support, so they compete for limited resources (food, water, light, space, nest sites). Many die before breeding, and heritable differences influence which ones survive.
+  - id: c5
+    level: SL
+    front: Give three examples of resources that can limit carrying capacity.
+    back: Any three of — food, water, light (for plants), mineral ions such as nitrate, space or shelter, nest sites or breeding territories.
+  - id: c6
+    level: SL
+    front: What is a density-independent abiotic selection pressure? Give an example.
+    back: A non-living factor whose effect on each individual does not depend on population density, such as an extreme frost, heatwave, drought or fire. It selects because individuals differ in heritable tolerance (e.g. green anoles with greater cold tolerance survived a severe 2014 cold snap in Texas).
+  - id: c7
+    level: SL
+    front: Define fitness.
+    back: The survival value and reproductive potential of a genotype in a particular environment — the number of offspring it contributes to the next generation compared with other genotypes. It is not strength or size.
+  - id: c8
+    level: SL
+    front: Why are acquired characteristics not inherited?
+    back: They are caused by the environment or use during life and do not change the base sequence of genes in the cells that make gametes. Only heritable (genetic) traits can be passed on and selected.
+  - id: c9
+    level: SL
+    front: What is sexual selection? Use birds of paradise as an example.
+    back: Selection for traits that increase mating success. Female birds of paradise choose males with the most elaborate plumage and courtship displays; these costly traits signal overall fitness, so they have become more extreme over generations.
+  - id: c10
+    level: SL
+    front: Describe the design of Endler's greenhouse guppy experiment.
+    back: Guppies from one varied stock bred in ten similar pools without predators. Then pike cichlids were added to four pools, Rivulus to four, and two were kept predator-free as controls. Spots on males were counted at later censuses.
+  - id: c11
+    level: SL
+    front: State the results of Endler's experiments and the two opposing pressures.
+    back: Males became less colourful (fewer, smaller spots) with pike cichlids, but more colourful with Rivulus, in controls, and after transplant to a Rivulus stream. Natural selection by predators favours dull males; sexual selection by females favours colourful males.
+  - id: c12
+    level: AHL
+    front: Define gene pool and allele frequency.
+    back: A gene pool is all the genes and their different alleles in an interbreeding population. An allele frequency is the proportion of all copies of a gene in the gene pool that are a particular allele (0 to 1).
+  - id: c13
+    level: AHL
+    front: What is neo-Darwinism?
+    back: The combination of Darwin's natural selection with genetics. Variation is due to alleles from mutation and sexual reproduction; individuals with favourable alleles leave more offspring, so evolution is a change in allele frequencies in the gene pool.
+  - id: c14
+    level: AHL
+    front: Distinguish stabilizing, directional and disruptive selection, with an example of each.
+    back: Stabilizing favours intermediates (human birth mass). Directional favours one extreme (deeper finch beaks after the 1977 drought on Daphne Major). Disruptive favours both extremes over intermediates (bill size in black-bellied seedcrackers). All change allele frequencies.
+  - id: c15
+    level: AHL
+    front: A recessive condition affects 1 in 2500 people. Find q, p and the carrier frequency.
+    back: q² = 0.0004, so q = 0.02 and p = 0.98. Carriers 2pq = 2 × 0.98 × 0.02 = 0.0392 (about 1 in 25).
+  - id: c16
+    level: AHL
+    front: List the Hardy–Weinberg conditions for genetic equilibrium.
+    back: Very large population (no genetic drift), random mating, no mutation, no migration (gene flow) and no natural selection. If genotype frequencies do not fit p², 2pq, q², at least one condition is not met.
+  - id: c17
+    level: AHL
+    front: Is antibiotic resistance an example of artificial selection? Explain.
+    back: No. Artificial selection is the deliberate choice of individuals with desired traits for breeding (crops, livestock). Resistance evolves because the antibiotic kills susceptible bacteria and resistant ones survive — natural selection, an unintended consequence of human action.

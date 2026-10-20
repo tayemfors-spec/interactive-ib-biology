@@ -1,0 +1,28 @@
+---
+/** D4.1.1–D4.1.6: the logic of natural selection as a chain of observations and consequences, repeating every generation. */
+const steps = [
+  { t: 'Heritable variation', d: 'Individuals of a species differ. Much of the variation is genetic: mutation makes new alleles and sexual reproduction (meiosis and fertilization) makes new combinations of alleles.' },
+  { t: 'Overproduction of offspring', d: 'More young are produced than the environment can support, because resources such as food, water, light, space or nest sites are limited (the carrying capacity).' },
+  { t: 'Competition and selection pressures', d: 'Individuals of the same species compete for the limited resources (intraspecific competition), and face predators, disease and abiotic factors such as extreme temperatures.' },
+  { t: 'Differential survival and reproduction', d: 'Individuals whose heritable traits suit them better to the environment (higher fitness) are more likely to survive and leave more offspring.' },
+  { t: 'Inheritance', d: 'Their offspring inherit the alleles for those traits. Characteristics acquired during life are not passed on, because they do not change the genes in gametes.' },
+  { t: 'Evolution of the population', d: 'The favourable alleles become more frequent in the gene pool over generations. Individuals do not change: the population evolves.' },
+];
+---
+<div class="steps-fig">
+  <ol class="flow">
+    {steps.map((s) => <li><strong>{s.t}</strong><span>{s.d}</span></li>)}
+  </ol>
+  <p class="loop" aria-hidden="true">↻ repeats in every generation</p>
+</div>
+<style>
+  .steps-fig { max-width: 40rem; margin: 0 auto; }
+  .flow { list-style: none; margin: 0; padding: 0; counter-reset: st; display: grid; gap: 1.6rem; }
+  .flow li { position: relative; counter-increment: st; margin: 0; padding: var(--space-2) var(--space-3) var(--space-2) 2.9rem; background: var(--surface); border: 1.5px solid var(--border-strong); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .flow li::before { content: counter(st); position: absolute; left: 0.7rem; top: 0.55rem; display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-weight: 800; font-size: 0.8rem; }
+  .flow li:not(:last-child)::after { content: '↓'; position: absolute; left: 50%; bottom: -1.55rem; transform: translateX(-50%); font-size: 1.2rem; font-weight: 800; color: var(--text-muted); line-height: 1.5rem; }
+  .flow li:last-child { border-color: var(--accent); background: var(--accent-soft); }
+  .flow strong { display: block; color: var(--text); }
+  .flow span { color: var(--text-muted); }
+  .loop { margin: var(--space-2) 0 0; text-align: center; font-weight: 700; color: var(--text-muted); font-size: var(--step--1); }
+</style>

@@ -1,0 +1,86 @@
+---
+/**
+ * D4.1.2: where heritable variation comes from. Mutation makes new alleles; meiosis (crossing over and
+ * independent assortment) and fertilization make new combinations of existing alleles.
+ */
+---
+<div class="var-fig">
+  <div class="row">
+    <svg viewBox="0 0 232 110" role="img" aria-labelledby="d41v-mt d41v-md">
+      <title id="d41v-mt">Mutation</title>
+      <desc id="d41v-md">A short DNA base sequence in which one base, A, is replaced by T, turning allele B into a new allele, B′.</desc>
+      <text class="lab" x="8" y="20">allele B</text>
+      <g class="seq" font-family="var(--font-mono)">
+        {['C', 'T', 'G', 'A', 'G', 'G'].map((b, i) => <><rect class={i === 3 ? 'base hit' : 'base'} x={100 + i * 20} y="6" width="18" height="20" rx="3" /><text x={109 + i * 20} y="21" text-anchor="middle">{b}</text></>)}
+        {['C', 'T', 'G', 'T', 'G', 'G'].map((b, i) => <><rect class={i === 3 ? 'base new' : 'base'} x={100 + i * 20} y="76" width="18" height="20" rx="3" /><text x={109 + i * 20} y="91" text-anchor="middle">{b}</text></>)}
+      </g>
+      <path class="arr" d="M169 32 V68 M163 61 L169 69 L175 61" />
+      <text class="small" x="160" y="54" text-anchor="end">substitution</text>
+      <text class="lab" x="8" y="90">new allele B′</text>
+    </svg>
+    <div class="txt">
+      <strong>Mutation: new alleles</strong>
+      <span>A random change in the base sequence of a gene creates a new allele. Mutation is the original source of all genetic variation. Most mutations are neutral or harmful; a few happen to be beneficial in a particular environment.</span>
+    </div>
+  </div>
+  <div class="row">
+    <svg viewBox="0 0 232 110" role="img" aria-labelledby="d41v-ct d41v-cd">
+      <title id="d41v-ct">Meiosis</title>
+      <desc id="d41v-cd">A pair of homologous chromosomes, one carrying alleles A and B, the other a and b, exchange segments by crossing over, producing chromatids with the new combinations A b and a B.</desc>
+      <rect class="chrA" x="14" y="16" width="16" height="78" rx="8" />
+      <rect class="chrB" x="38" y="16" width="16" height="78" rx="8" />
+      <text class="al" x="22" y="40" text-anchor="middle">A</text><text class="al" x="22" y="80" text-anchor="middle">B</text>
+      <text class="al" x="46" y="40" text-anchor="middle">a</text><text class="al" x="46" y="80" text-anchor="middle">b</text>
+      <path class="arr" d="M64 55 H98 M91 49 L99 55 L91 61" />
+      <rect class="chrA" x="112" y="16" width="16" height="40" rx="8" /><rect class="chrB" x="112" y="56" width="16" height="38" rx="8" />
+      <rect class="chrB" x="140" y="16" width="16" height="40" rx="8" /><rect class="chrA" x="140" y="56" width="16" height="38" rx="8" />
+      <text class="al" x="120" y="40" text-anchor="middle">A</text><text class="al" x="120" y="80" text-anchor="middle">b</text>
+      <text class="al" x="148" y="40" text-anchor="middle">a</text><text class="al" x="148" y="80" text-anchor="middle">B</text>
+      <text class="small" x="164" y="44">new</text><text class="small" x="164" y="60">combi-</text><text class="small" x="164" y="76">nations</text>
+    </svg>
+    <div class="txt">
+      <strong>Meiosis: new combinations in gametes</strong>
+      <span><b>Crossing over</b> swaps segments between homologous chromosomes, and the <b>random orientation</b> of each pair of homologues (independent assortment) mixes maternal and paternal chromosomes. Almost every gamete gets a different combination of alleles.</span>
+    </div>
+  </div>
+  <div class="row">
+    <svg viewBox="0 0 232 110" role="img" aria-labelledby="d41v-ft d41v-fd">
+      <title id="d41v-ft">Fertilization</title>
+      <desc id="d41v-fd">A sperm carrying alleles A and b from one parent fuses with an egg carrying a and B from another parent, giving a zygote with alleles from both.</desc>
+      <circle class="egg" cx="128" cy="55" r="40" />
+      <text class="al" x="128" y="49" text-anchor="middle">a B</text>
+      <text class="small" x="128" y="70" text-anchor="middle">egg</text>
+      <ellipse class="sperm" cx="40" cy="55" rx="14" ry="10" />
+      <path class="tail" d="M26 55 C18 47 12 63 4 55" />
+      <text class="al" x="40" y="60" text-anchor="middle">A b</text>
+      <path class="arr" d="M58 55 H82 M76 49 L84 55 L76 61" />
+      <text class="small" x="30" y="86">sperm</text>
+    </svg>
+    <div class="txt">
+      <strong>Fertilization: alleles from two parents</strong>
+      <span>Random fusion of gametes from two different individuals brings together alleles, including new mutations, that arose in different family lines. Each offspring has a combination of alleles never seen before.</span>
+    </div>
+  </div>
+</div>
+<style>
+  .var-fig { display: grid; gap: var(--space-3); }
+  .row { display: grid; grid-template-columns: minmax(7.5rem, 12rem) 1fr; gap: var(--space-3); align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-m); padding: var(--space-2) var(--space-3); }
+  .row svg { width: 100%; height: auto; font-family: var(--font-sans); }
+  .txt { font-size: var(--step--1); color: var(--text-muted); }
+  .txt strong { display: block; color: var(--text); }
+  .txt b { color: var(--text); font-weight: 650; }
+  .lab { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .small { font-size: 12px; fill: var(--text-muted); }
+  .base { fill: var(--surface-2); stroke: var(--border-strong); }
+  .hit { fill: color-mix(in srgb, var(--bio-glucose) 30%, var(--surface)); stroke: var(--bio-glucose); }
+  .new { fill: color-mix(in srgb, var(--bio-k) 30%, var(--surface)); stroke: var(--bio-k); stroke-width: 2; }
+  .seq text { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .arr { fill: none; stroke: var(--text-muted); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .chrA { fill: color-mix(in srgb, var(--bio-protein) 45%, var(--surface)); stroke: var(--bio-protein); stroke-width: 1.5; }
+  .chrB { fill: color-mix(in srgb, var(--bio-k) 40%, var(--surface)); stroke: var(--bio-k); stroke-width: 1.5; }
+  .al { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .egg { fill: color-mix(in srgb, var(--bio-glucose) 22%, var(--surface)); stroke: var(--bio-glucose); stroke-width: 2; }
+  .sperm { fill: color-mix(in srgb, var(--bio-protein) 30%, var(--surface)); stroke: var(--bio-protein); stroke-width: 1.5; }
+  .tail { fill: none; stroke: var(--bio-protein); stroke-width: 2; }
+  @media (max-width: 30rem) { .row { grid-template-columns: 1fr; } .row svg { max-width: 15rem; } }
+</style>

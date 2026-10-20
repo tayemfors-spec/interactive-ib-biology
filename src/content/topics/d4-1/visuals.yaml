@@ -1,0 +1,86 @@
+# Visuals for D4.1. Step captions and descriptions here are what readers see, so they are written to exam standard.
+visuals:
+  - id: selection
+    kind: sim
+    module: d4-1-selection
+    title: Natural selection in a moth population
+    alt: Simulation of moths of varied wing shade on tree bark, showing which survive and how the dark allele frequency changes over generations.
+    description: >-
+      A population of 200 moths whose wing shade, from palest (0) to darkest (12), is controlled by six genes, each
+      with a pale and a dark allele. Every generation the moths pair at random and each pair produces a chosen number
+      of young; each parent passes on one allele of each gene at random, and alleles occasionally mutate. Food supports
+      only 200 adults, so most of the young die before breeding. Birds hunting by sight find moths that contrast with
+      the bark more easily, so moths that match the bark are more likely to survive. A picture shows a sample of the
+      latest young on the bark, with crosses on those that died; a histogram compares the shades of all the young born
+      with those that survived; and a line graph tracks the frequency of the dark allele in the gene pool. Sliders set
+      the selection pressure, the bark shade and the number of young per pair. A checkbox lets the survivors darken
+      during their adult lives, which has no effect on the next generation because acquired characteristics are not
+      inherited.
+
+  - id: guppies
+    kind: sim
+    module: d4-1-guppies
+    title: Endler's guppy experiments
+    alt: Simulation of mean spots per male guppy in pools with pike cichlids, Rivulus or no predator, plus a transplant to a Rivulus pool.
+    description: >-
+      A model of John Endler's experiments on guppies. Ten pools are stocked from one varied population and kept
+      without predators for the first few generations. Then a strong predator of adult guppies, the pike cichlid, is
+      added to four pools, a weak predator, Rivulus, to four, and two pools stay predator-free as controls. A line graph
+      shows the mean number of spots per male in each kind of pool over 28 generations, with thin lines for each
+      replicate pool. In pike cichlid pools the number of spots falls, because predators catch conspicuous males; in
+      Rivulus and control pools it rises, because females prefer colourful males. A second line follows fish moved from a
+      pike cichlid pool to a new Rivulus pool, whose males become more colourful. Sliders change the strength of female
+      preference and of pike cichlid predation, and drawings show a typical male from each kind of pool.
+
+  - id: hardy-weinberg
+    kind: sim
+    module: d4-1-hardy-weinberg
+    level: AHL
+    title: Hardy–Weinberg calculator and allele frequency simulator
+    alt: A Hardy–Weinberg calculator, and a simulation of allele frequency under selection, genetic drift, migration and inbreeding.
+    description: >-
+      Part 1 is a calculator. Enter the frequency of the homozygous recessive genotype (q²), counts of the two phenotypes
+      when one allele is dominant, or counts of all three genotypes when the alleles are codominant. It shows each step of
+      the working and gives p, q, p², 2pq and q², the carrier frequency, and, for genotype counts, a chi-squared test of
+      fit to Hardy–Weinberg proportions. Preset buttons load worked examples. Part 2 simulates one gene with two alleles in
+      five separate populations over 50 generations, with sliders for the starting frequency of allele a, selection
+      against the aa genotype, population size, migration and non-random mating (inbreeding). A line graph shows how q
+      changes in each population and in a very large population without drift; a bar chart compares the genotype
+      frequencies of the breeding adults with those predicted by p², 2pq and q²; and a checklist shows which
+      Hardy–Weinberg conditions are being met.
+
+  - id: selection-types
+    kind: anim
+    module: d4-1-selection-types
+    level: AHL
+    title: Patterns of selection
+    alt: Distribution curves showing how stabilizing, directional, disruptive and artificial selection change a varied population.
+    description: >-
+      A graph of the number of individuals against the value of a continuously varying, heritable trait. It starts as a
+      bell-shaped (normal) distribution. In each later step a shaded band shows the individuals that selection removes,
+      the dashed curve shows the starting population and the solid curve shows the population after selection, with a
+      line marking its mean. Stabilizing selection removes both extremes and narrows the curve without moving the mean.
+      Directional selection removes one extreme and shifts the mean. Disruptive selection removes the intermediates and
+      produces two peaks. Artificial selection by breeders keeps only the top of the range as parents and shifts the next
+      generation towards it.
+    steps:
+      - id: start
+        title: A varied population
+        caption: >-
+          A heritable trait shows continuous variation, which is typical of traits controlled by several genes (polygenic). Most individuals are close to the mean and few are at the extremes. Selection can only act on variation that already exists.
+      - id: stabilizing
+        title: Stabilizing selection
+        caption: >-
+          Individuals at both extremes have lower fitness, so intermediates leave the most offspring. The mean stays the same but the range narrows. Example — human birth mass: historically, very light and very heavy babies had lower survival rates. Alleles carried by the extremes are passed on less often, so allele frequencies in the gene pool still change.
+      - id: directional
+        title: Directional selection
+        caption: >-
+          Individuals at one extreme have the highest fitness, so the mean shifts in that direction over generations. Example — in the 1977 drought on Daphne Major (Galápagos), small soft seeds ran out; medium ground finches with deeper beaks could crack the remaining large, hard seeds and survived better, and the mean beak depth of the next generation was greater. Alleles for deeper beaks increased in frequency.
+      - id: disruptive
+        title: Disruptive selection
+        caption: >-
+          Both extremes have higher fitness than intermediates, so the population splits towards two peaks. Example — in black-bellied seedcrackers in Cameroon, small-billed birds feed efficiently on soft seeds and large-billed birds on hard seeds, while birds with intermediate bills are worse at both and survive less well. Allele frequencies change in favour of the extremes.
+      - id: artificial
+        title: Artificial selection
+        caption: >-
+          Breeders deliberately choose which individuals reproduce. In the Illinois long-term experiment, begun in 1896, seed was sown only from maize plants with the highest kernel oil content; repeated every generation, this raised the oil content several-fold. Because the trait is only partly heritable, each generation moves part of the way towards the parents chosen.

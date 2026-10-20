@@ -1,0 +1,171 @@
+---
+import { BH, BW, HIST, SEED, barkSvg, freqFrame, freqSvg, histSvg, selectionText } from './d4-1-selection-view';
+import { DEFAULT_SELECTION as d, SelectionRun, shade } from './models/d4-1-selection';
+const run = new SelectionRun({ seed: SEED });
+const h0 = run.history[0]!;
+const ff = freqFrame(0);
+---
+<div class="sim-sel" data-sim-sel>
+  <div class="layout">
+    <div class="views">
+      <svg class="bark-svg" viewBox={`0 0 ${BW} ${BH}`} role="img" aria-labelledby="d41s-bt d41s-bd">
+        <title id="d41s-bt">Moths of the current generation resting on tree bark</title>
+        <desc id="d41s-bd">A sample of the young moths of the latest generation, each coloured by its wing shade, on bark of the chosen shade. Moths marked with a cross did not survive to breed.</desc>
+        <g data-bark set:html={barkSvg(d.background, run.adults.slice(0, 60).map(shade), [])} />
+      </svg>
+      <ul class="key" aria-hidden="true">
+        <li><span class="k-moth"></span>survived to breed</li>
+        <li><span class="k-x">✕</span>died before breeding</li>
+      </ul>
+      <svg class="chart" viewBox={`0 0 ${HIST.w} ${HIST.h}`} role="img" aria-labelledby="d41s-ht d41s-hd">
+        <title id="d41s-ht">Histogram of wing shade in the latest generation</title>
+        <desc id="d41s-hd">Outlined bars: all the young born, by wing shade. Filled bars: the ones that survived to breed.</desc>
+        <g data-hist set:html={histSvg(h0)} />
+      </svg>
+      <ul class="key" aria-hidden="true">
+        <li><span class="k-born"></span>young born</li>
+        <li><span class="k-surv"></span>survived to breed (filled)</li>
+      </ul>
+      <svg class="chart" viewBox={`0 0 ${ff.w} ${ff.h}`} role="img" aria-labelledby="d41s-ft d41s-fd">
+        <title id="d41s-ft">Frequency of the dark allele in the gene pool over generations</title>
+        <desc id="d41s-fd">A line graph of the proportion of all wing-shade alleles in the breeding moths that are dark alleles, one point per generation. A dotted line marks the frequency that would give moths matching the bark.</desc>
+        <g data-freq set:html={freqSvg(run.history, d.background)} />
+      </svg>
+    </div>
+    <div class="controls">
+      <label class="slider">Selection pressure (birds hunting by sight): <output data-out="strength">{d.strength.toFixed(1)}</output>
+        <input type="range" min="0" max="1" step="0.1" value={d.strength} data-param="strength" />
+        <span class="hint">0 = no selection; 1 = strong</span>
+      </label>
+      <label class="slider">Bark shade: <output data-out="background">{d.background}</output>
+        <input type="range" min="0" max="12" step="1" value={d.background} data-param="background" />
+        <span class="hint">0 = pale lichen-covered bark; 12 = soot-blackened bark</span>
+      </label>
+      <label class="slider">Young produced per pair: <output data-out="offspring">{d.offspring}</output>
+        <input type="range" min="2" max="10" step="1" value={d.offspring} data-param="offspring" />
+        <span class="hint">food supports only 200 adults; 2 young per pair just replaces the parents</span>
+      </label>
+      <label class="check"><input type="checkbox" data-acquired /> Survivors darken during adult life (an acquired change, not in their genes)</label>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" data-next>Next generation</button>
+        <button type="button" class="btn" data-next10>Run 10 generations</button>
+        <button type="button" class="btn" data-reset>Start again</button>
+      </div>
+      <p class="stats" data-stats>Generation <strong data-gen>0</strong> · dark allele frequency <strong data-p>{Math.round(h0.darkFreq * 100)}%</strong></p>
+    </div>
+  </div>
+  <p class="readout" aria-live="polite" data-readout>{selectionText(run.history, d)}</p>
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <thead><tr><th scope="col">Generation</th><th scope="col">Young born</th><th scope="col">Mean shade of young</th><th scope="col">Mean shade of survivors</th><th scope="col">Dark allele frequency</th></tr></thead>
+      <tbody data-tbody><tr><th scope="row">0</th><td>–</td><td>–</td><td>{h0.meanShade.toFixed(2)}</td><td>{h0.darkFreq.toFixed(3)}</td></tr></tbody>
+    </table>
+  </details>
+  <p class="model-note">Qualitative model with seeded random numbers. Wing shade is set by six genes, each with a pale and a dark allele; parents pass on one allele of each gene, chosen at random, and an allele occasionally mutates to the other form. Changing a slider affects the next generation onwards.</p>
+</div>
+
+<script>
+  import { MAX_GEN, SEED, barkSvg, freqSvg, histSvg, selectionText } from './d4-1-selection-view';
+  import { SelectionRun, shade, type SelectionParams } from './models/d4-1-selection';
+
+  document.querySelectorAll<HTMLElement>('[data-sim-sel]').forEach((root) => {
+    const input = (k: string) => root.querySelector<HTMLInputElement>(`[data-param="${k}"]`)!;
+    const acquired = root.querySelector<HTMLInputElement>('[data-acquired]')!;
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+    const tbody = root.querySelector<HTMLElement>('[data-tbody]')!;
+    let seed = SEED;
+    let run = new SelectionRun({ seed });
+    let timer = 0;
+    const params = (): SelectionParams => ({
+      strength: Number(input('strength').value), background: Number(input('background').value),
+      offspring: Number(input('offspring').value), acquired: acquired.checked,
+    });
+    const draw = () => {
+      const p = params();
+      root.querySelector('[data-out="strength"]')!.textContent = p.strength.toFixed(1);
+      root.querySelector('[data-out="background"]')!.textContent = String(p.background);
+      root.querySelector('[data-out="offspring"]')!.textContent = String(p.offspring);
+      const last = run.history.at(-1)!;
+      const born = last.gen === 0 ? run.adults.map(shade) : run.lastBorn;
+      // show a random-looking but fixed sample: every k-th young moth
+      const step = Math.max(1, Math.floor(born.length / 60));
+      const idx = born.map((_, i) => i).filter((i) => i % step === 0);
+      root.querySelector('[data-bark]')!.innerHTML = barkSvg(p.background, idx.map((i) => born[i]!), last.gen === 0 ? [] : idx.map((i) => run.lastSurvived[i]!));
+      root.querySelector('[data-hist]')!.innerHTML = histSvg(last);
+      root.querySelector('[data-freq]')!.innerHTML = freqSvg(run.history, p.background);
+      root.querySelector('[data-gen]')!.textContent = String(last.gen);
+      root.querySelector('[data-p]')!.textContent = `${Math.round(last.darkFreq * 100)}%`;
+      tbody.innerHTML = run.history.map((r) => {
+        const n = r.born.reduce((a, b) => a + b, 0);
+        return `<tr><th scope="row">${r.gen}</th><td>${r.gen ? n : '–'}</td><td>${r.gen ? r.bornMean.toFixed(2) : '–'}</td><td>${r.meanShade.toFixed(2)}</td><td>${r.darkFreq.toFixed(3)}</td></tr>`;
+      }).join('');
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        readout.textContent = run.history.length > MAX_GEN
+          ? `Generation ${MAX_GEN} reached. Press "Start again" for a new population.`
+          : selectionText(run.history, p);
+      }, 250);
+    };
+    const step = (n: number) => {
+      for (let i = 0; i < n && run.history.length <= MAX_GEN; i++) run.step(params());
+      draw();
+    };
+    root.querySelectorAll('[data-param]').forEach((el) => el.addEventListener('input', draw));
+    acquired.addEventListener('change', draw);
+    root.querySelector('[data-next]')!.addEventListener('click', () => step(1));
+    root.querySelector('[data-next10]')!.addEventListener('click', () => step(10));
+    root.querySelector('[data-reset]')!.addEventListener('click', () => { seed += 1; run = new SelectionRun({ seed }); draw(); });
+    draw();
+  });
+</script>
+
+<style>
+  .sim-sel { container-type: inline-size; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 46rem) { .layout { grid-template-columns: minmax(0, 1.6fr) minmax(15rem, 1fr); align-items: start; } }
+  .views { display: grid; gap: var(--space-2); }
+  .bark-svg, .chart { width: 100%; height: auto; font-family: var(--font-sans); }
+  .bark-svg :global(.streaks) { fill: none; stroke-width: 3; opacity: 0.55; }
+  .bark-svg :global(.moth .body) { stroke: #2b2520; stroke-width: 2.2; stroke-linecap: round; }
+  .bark-svg :global(.moth path:first-child) { stroke: rgba(0, 0, 0, 0.35); stroke-width: 0.8; }
+  .bark-svg :global(.eaten) { opacity: 0.55; }
+  .bark-svg :global(.x) { stroke: #c62f43; stroke-width: 3.2; stroke-linecap: round; }
+  .chart :global(.grid line) { stroke: var(--border); stroke-width: 1; }
+  .chart :global(.axisline) { fill: none; stroke: var(--text-muted); stroke-width: 1.4; }
+  .chart :global(.ticks text) { font-size: 15px; fill: var(--text-muted); }
+  .chart :global(.axis) { font-size: 16px; font-weight: 650; fill: var(--text); }
+  .chart :global(.born) { fill: none; stroke: var(--text-muted); stroke-width: 1.6; stroke-dasharray: 4 3; }
+  .chart :global(.surv) { stroke: var(--text); stroke-width: 1.4; }
+  .chart :global(.line) { fill: none; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+  .chart :global(.freq) { stroke: var(--bio-protein); }
+  .chart :global(.pt) { fill: var(--bio-protein); stroke: var(--surface); stroke-width: 2; }
+  .chart :global(.target) { stroke: var(--text-muted); stroke-width: 1.6; stroke-dasharray: 2 5; }
+  .chart :global(.target-t) { font-size: 13px; font-weight: 650; fill: var(--text-muted); }
+  @container (max-width: 30rem) {
+    .chart :global(.ticks text) { font-size: 19px; }
+    .chart :global(.axis) { font-size: 19px; }
+    .chart :global(.target-t) { font-size: 17px; }
+  }
+  .key { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); font-size: var(--step--1); color: var(--text-muted); }
+  .key li { display: inline-flex; align-items: center; gap: var(--space-2); margin: 0; }
+  .k-moth { display: inline-block; width: 1.1rem; height: 0.7rem; border-radius: 50% 50% 40% 40%; background: #8a7d6a; border: 1px solid var(--text-muted); }
+  .k-x { color: var(--bad); font-weight: 800; }
+  .k-born { display: inline-block; width: 1rem; height: 0.8rem; border: 1.6px dashed var(--text-muted); }
+  .k-surv { display: inline-block; width: 1rem; height: 0.8rem; background: #8a7d6a; border: 1.4px solid var(--text); }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); align-content: start; }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  .hint { font-weight: 400; color: var(--text-muted); font-size: 0.8rem; }
+  .check { display: flex; gap: var(--space-2); align-items: flex-start; font-weight: 600; }
+  .check input { margin-top: 0.2rem; width: 1.1rem; height: 1.1rem; flex: none; }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .stats { margin: 0; color: var(--text-muted); }
+  .stats strong { color: var(--text); }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); overflow-x: auto; }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  .table :global(th), .table :global(td) { padding: 0.2rem 0.6rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>
