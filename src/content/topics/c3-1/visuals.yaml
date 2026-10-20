@@ -45,7 +45,8 @@ visuals:
       (sensing blood pH, CO₂ and O₂) and baroreceptors in the carotid sinus and aortic arch (sensing blood pressure)
       send impulses to the cardiovascular centre in the medulla. The medulla sends impulses along a sympathetic nerve,
       which speeds the heart and strengthens its contractions, and along the vagus nerve (parasympathetic), which slows
-      it; both act on the sinoatrial node. In the ventilation panel, chemoreceptors in the brainstem and in the carotid
+      it; both act on the sinoatrial node, and the sympathetic nerve also acts on the ventricular muscle, increasing the
+      force of contraction (stroke volume). In the ventilation panel, chemoreceptors in the brainstem and in the carotid
       and aortic bodies signal to the respiratory centre in the medulla, which controls the diaphragm and intercostal
       muscles. Raising exercise intensity increases CO₂ production and lowers blood pH, so heart rate, stroke volume,
       ventilation rate and tidal volume all rise, which keeps pH close to normal. Raising blood pressure increases
@@ -101,7 +102,7 @@ visuals:
       membranes facing the shaded side, and auxin is pumped across to the shaded side. A close-up of a cell wall shows
       acid growth: proton pumps secrete hydrogen ions into the wall, expansins loosen the cross-links between
       cellulose microfibrils and the cell elongates. Finally the shaded-side cells are longer than the lit-side cells
-      and the shoot bends towards the light; the angle of curvature, about 43 degrees, is marked.
+      and the shoot bends towards the light; the angle of curvature, about 45 degrees, is marked.
     steps:
       - id: even
         title: Light from above

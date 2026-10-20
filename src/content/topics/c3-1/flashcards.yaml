@@ -50,7 +50,7 @@ cards:
   - id: c13
     level: SL
     front: Which nerves from the medulla speed up and slow down the heart?
-    back: Sympathetic (cardiac accelerator) nerves increase heart rate and stroke volume. The vagus nerve (parasympathetic) decreases heart rate. Both act on the SA node.
+    back: Sympathetic (cardiac accelerator) nerves increase heart rate and stroke volume. The vagus nerve (parasympathetic) decreases heart rate. Both act on the SA node; sympathetic nerves also act on the ventricular muscle, increasing the force of contraction (stroke volume).
   - id: c14
     level: SL
     front: Outline the control of peristalsis.

@@ -180,7 +180,7 @@ facts:
     basis: Taiz & Zeiger (ethylene, climacteric ripening); IB guide C3.1.23
     status: checked
   - id: f31
-    claim: The phototropism animation's angle of curvature (≈ 43°) and seedling drawings are illustrative, not measured data.
+    claim: The phototropism animation's angle of curvature (≈ 45°, the same as the tropism-measure figure) and seedling drawings are illustrative, not measured data.
     where: [ "visuals.yaml:phototropism", "src/diagrams/c3-1-tropism-measure.astro" ]
     confidence: high
     basis: Editorial

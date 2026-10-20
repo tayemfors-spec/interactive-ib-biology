@@ -53,7 +53,7 @@ visuals:
             text: The swollen tip of each terminal branch. It contains vesicles of the neurotransmitter acetylcholine and forms a synapse with the muscle fibre (a neuromuscular junction).
           - id: muscle
             name: Muscle fibre (effector)
-            text: A striated muscle fibre. When acetylcholine from the motor neuron depolarises its membrane, the fibre contracts. Muscles and glands are effectors.
+            text: A striated muscle fibre. When acetylcholine from the motor neuron depolarizes its membrane, the fibre contracts. Muscles and glands are effectors.
           - id: impulse
             name: Direction of the impulse
             text: Impulses travel one way through the neuron, from dendrites and cell body along the axon to the terminals, because synapses only pass signals in one direction.
@@ -66,11 +66,11 @@ visuals:
             text: The end of the presynaptic neuron, cut open to show the inside. Its membrane facing the cleft is the presynaptic membrane.
           - id: impulse
             name: Action potential arriving
-            text: The nerve impulse travels along the axon and depolarises the membrane of the presynaptic knob.
+            text: The nerve impulse travels along the axon and depolarizes the membrane of the presynaptic knob.
             steps: [arrive]
           - id: ca-channel
             name: Voltage-gated Ca²⁺ channel
-            text: A channel protein in the presynaptic membrane that opens when the membrane is depolarised. Ca²⁺ is much more concentrated outside the neuron, so it diffuses in.
+            text: A channel protein in the presynaptic membrane that opens when the membrane is depolarized. Ca²⁺ is much more concentrated outside the neuron, so it diffuses in.
             steps: [arrive, calcium]
           - id: calcium
             name: Calcium ions (Ca²⁺)
@@ -85,7 +85,7 @@ visuals:
             text: Supplies ATP for synthesising acetylcholine, loading it into vesicles, and pumping ions to restore gradients.
           - id: ach
             name: Acetylcholine (ACh)
-            text: The neurotransmitter, released into the cleft by exocytosis. It diffuses across the cleft (about 20 nm wide at most synapses).
+            text: The neurotransmitter, released into the cleft by exocytosis. It diffuses across the cleft (about 20–40 nm wide).
             steps: [release, bind]
           - id: cleft
             name: Synaptic cleft
@@ -96,7 +96,7 @@ visuals:
             steps: [bind, epsp, breakdown]
           - id: sodium
             name: Na⁺ entering → EPSP
-            text: Na⁺ diffuses into the postsynaptic cell down its concentration gradient, making the inside less negative. This local depolarisation is an excitatory postsynaptic potential.
+            text: Na⁺ diffuses into the postsynaptic cell down its concentration gradient, making the inside less negative. This local depolarization is an excitatory postsynaptic potential.
             steps: [epsp]
           - id: postsynaptic
             name: Postsynaptic membrane
@@ -116,7 +116,7 @@ visuals:
         steps:
           - id: arrive
             title: An action potential arrives
-            caption: A nerve impulse (action potential) travels along the axon to the presynaptic knob and depolarises the presynaptic membrane (shown glowing). Voltage-gated calcium channels in this membrane start to open.
+            caption: A nerve impulse (action potential) travels along the axon to the presynaptic knob and depolarizes the presynaptic membrane (shown glowing). Voltage-gated calcium channels in this membrane start to open.
           - id: calcium
             title: Ca²⁺ diffuses into the knob
             caption: The voltage-gated Ca²⁺ channels are open. Calcium ions are far more concentrated outside the neuron, so they diffuse into the knob (green spheres). Inside, Ca²⁺ acts as a signal for neurotransmitter release.
@@ -127,11 +127,11 @@ visuals:
             title: ACh diffuses and binds to receptors
             caption: Acetylcholine diffuses across the cleft and binds to the receptor sites of transmembrane receptor proteins in the postsynaptic membrane (two ACh per receptor). Binding changes the shape of each receptor and opens its ion channel.
           - id: epsp
-            title: Na⁺ enters and depolarises the membrane
-            caption: Na⁺ diffuses into the postsynaptic cell through the open receptor channels, down its concentration gradient. The membrane potential becomes less negative (depolarised, shown purple). This is an excitatory postsynaptic potential (EPSP); if it reaches threshold, an action potential starts.
+            title: Na⁺ enters and depolarizes the membrane
+            caption: Na⁺ diffuses into the postsynaptic cell through the open receptor channels, down its concentration gradient. The membrane potential becomes less negative (depolarized, shown purple). This is an excitatory postsynaptic potential (EPSP); if it reaches threshold, an action potential starts.
           - id: breakdown
             title: Acetylcholinesterase stops the signal
-            caption: Acetylcholinesterase in the cleft hydrolyses acetylcholine into choline and acetate. The receptors close and the postsynaptic membrane repolarises. Choline is reabsorbed into the presynaptic knob through transporters and used to make more acetylcholine.
+            caption: Acetylcholinesterase in the cleft hydrolyses acetylcholine into choline and acetate. The receptors close and the postsynaptic membrane repolarizes. Choline is reabsorbed into the presynaptic knob through transporters and used to make more acetylcholine.
 
   - id: action-potential
     kind: anim
@@ -155,22 +155,22 @@ visuals:
         level: AHL
         caption: Higher level. A stimulus (or local currents from an active region next door) makes region 2 less negative. When it reaches the threshold potential, about −50 mV, its voltage-gated Na⁺ channels open. Below threshold they stay shut and no action potential occurs.
       - id: depolarise
-        title: Depolarisation — Na⁺ in
+        title: Depolarization — Na⁺ in
         caption: Na⁺ diffuses into the axon through the open Na⁺ channels, down its concentration gradient. Positive charge entering reverses the membrane potential, so the inside becomes positive, up to about +30 to +40 mV.
       - id: local-currents
         title: Local currents (AHL)
         level: AHL
         caption: Higher level. Na⁺ that entered region 2 diffuses along the inside of the axon to region 3, and on the outside Na⁺ diffuses from region 3 towards region 2. These local currents make region 3 less negative until it reaches threshold, so its Na⁺ channels open.
       - id: repolarise
-        title: Repolarisation — K⁺ out
-        caption: In region 2 the Na⁺ channels close and the voltage-gated K⁺ channels open. K⁺ diffuses out, down its concentration gradient, so the inside becomes negative again. Region 3 is now depolarised, so the action potential has moved along the axon.
+        title: Repolarization — K⁺ out
+        caption: In region 2 the Na⁺ channels close and the voltage-gated K⁺ channels open. K⁺ diffuses out, down its concentration gradient, so the inside becomes negative again. Region 3 is now depolarized, so the action potential has moved along the axon.
       - id: refractory
-        title: Hyperpolarisation and refractory period (AHL)
+        title: Hyperpolarization and refractory period (AHL)
         level: AHL
-        caption: Higher level. The K⁺ channels close slowly, so extra K⁺ leaves and region 2 overshoots to about −80 mV (hyperpolarisation). Its Na⁺ channels cannot reopen yet — this refractory period stops the impulse travelling backwards, so it continues only towards region 3 and beyond.
+        caption: Higher level. The K⁺ channels close slowly, so extra K⁺ leaves and region 2 overshoots to about −80 mV (hyperpolarization). Its Na⁺ channels cannot reopen yet — this refractory period stops the impulse travelling backwards, so it continues only towards region 3 and beyond.
       - id: recover
         title: Resting potential restored
-        caption: The K⁺ channels close and region 2 returns to −70 mV, ready to fire again. Only a tiny fraction of the ions moved, and the Na⁺/K⁺ pumps keep restoring the concentration gradients. The trace shows one complete action potential, lasting a few milliseconds.
+        caption: The K⁺ channels close and region 2 returns to −70 mV, ready to fire again. Only a tiny fraction of the ions crossed the membrane, and Na⁺/K⁺ pumps all along the axon gradually pump that Na⁺ back out and that K⁺ back in. Na⁺ stays concentrated outside and K⁺ inside, so the gradients are kept. The trace shows one complete action potential, lasting a few milliseconds.
 
   - id: conduction
     kind: sim

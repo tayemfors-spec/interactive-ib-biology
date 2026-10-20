@@ -176,7 +176,7 @@ const ventOut = (br: number) => 0.15 + 0.85 * ((br - 12) / 28);
         const parts: string[] = [];
         parts.push(exercise === 0 ? 'At rest' : `At ${exercise}% exercise intensity`);
         parts.push(`: blood pH ${s.pH.toFixed(2)}, heart rate ${Math.round(s.heartRate)} beats per minute, ventilation rate ${Math.round(s.breathRate)} breaths per minute.`);
-        if (exercise > 0) parts.push(' Muscles release more CO₂, which lowers blood pH; chemoreceptors detect this and the medulla increases sympathetic and decreases vagus signals to the SA node.');
+        if (exercise > 0) parts.push(' Muscles release more CO₂, which lowers blood pH; chemoreceptors detect this and the medulla increases sympathetic and decreases vagus signals to the SA node; sympathetic nerves also make the ventricles contract more forcefully.');
         if (pressure > 0) parts.push(' Raised blood pressure stretches the baroreceptors, so the medulla sends more impulses along the vagus nerve and heart rate falls (negative feedback).');
         if (pressure < 0) parts.push(' Lower blood pressure reduces baroreceptor firing, so sympathetic output rises and heart rate and stroke volume increase.');
         if (!feedback) parts.push(exercise > 0

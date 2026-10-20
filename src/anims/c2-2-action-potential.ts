@@ -1,6 +1,6 @@
 import { ease, lerp, phase } from '../lib/timeline';
 import { AP, apX, apY } from './c2-2-ap-geometry';
-import { REGION_DELAY, STEP_WINDOWS, membranePotential, naChannel } from '../sims/models/c2-2-action-potential';
+import { REGION_DELAY, STEP_WINDOWS, T_PEAK, T_THRESHOLD, membranePotential, naChannel } from '../sims/models/c2-2-action-potential';
 
 type XY = [number, number];
 
@@ -26,8 +26,8 @@ export function create(svg: SVGSVGElement) {
       r.setAttribute('x', String(i === 0 ? cx - 12 - gap / 2 : cx + gap / 2));
     });
   };
-  const naOpen = (tau: number) => phase(tau, 1.52, 1.6) * (1 - phase(tau, 3.4, 3.5));
-  const kOpen = (tau: number) => phase(tau, 2.1, 2.2) * (1 - phase(tau, 3.5, 3.6));
+  const naOpen = (tau: number) => phase(tau, 1.52, T_THRESHOLD) * (1 - phase(tau, 3.4, 3.5));
+  const kOpen = (tau: number) => phase(tau, T_PEAK, T_PEAK + 0.1) * (1 - phase(tau, 3.5, 3.6));
 
   const charges = (n: number, v: number) => {
     let out = '+ + + + +', inn = '− − − − −';
@@ -56,8 +56,9 @@ export function create(svg: SVGSVGElement) {
     setChannel('na3', ch.na3, naOpen(t3));
     setChannel('k2', ch.k2, kOpen(now));
     setChannel('k3', ch.k3, kOpen(t3));
-    el('inact2').style.opacity = naChannel(now) === 'inactivated' ? '1' : '0';
-    el('inact3').style.opacity = naChannel(t3) === 'inactivated' ? '1' : '0';
+    // sampled just before `now` so a step ending exactly at the peak still shows its channels open
+    el('inact2').style.opacity = naChannel(now - 0.01) === 'inactivated' ? '1' : '0';
+    el('inact3').style.opacity = naChannel(t3 - 0.01) === 'inactivated' ? '1' : '0';
     charges(1, -70);
     charges(2, v2);
     charges(3, v3);
@@ -67,24 +68,39 @@ export function create(svg: SVGSVGElement) {
     el('lc').style.opacity = index === 3 ? String(ease(phase(t, 0, 0.25))) : '0';
 
     // ---- ions ----
+    // Final step: the few ions that crossed in regions 2 and 3 are returned by Na⁺/K⁺ pumps along the axon,
+    // so Na⁺ ends up mostly outside and K⁺ mostly inside everywhere. One Na⁺ (naA0) is left inside to show
+    // that a tiny fraction of ions moved. The ion fades out where it is and fades back in on its resting side.
+    const restore = (key: string, moved: XY, home: XY) => {
+      const g = el(key);
+      if (index !== 6 || key === 'naA0') { g.style.opacity = '1'; return false; }
+      const away = t < 0.45;
+      at(key, away ? moved : home);
+      g.style.opacity = String(away ? 1 - ease(phase(t, 0.15, 0.4)) : ease(phase(t, 0.5, 0.8)));
+      return true;
+    };
     ions.naA.forEach((p, i) => {
       let pos: XY = p.start;
       if (index === 2) pos = along(through(p.start, p.inside, ch.na2 - 3 + i * 3, 1), ease(phase(t, 0.05 + i * 0.1, 0.65 + i * 0.1)));
       else if (index === 3) pos = mix(p.inside, p.far, ease(phase(t, 0.1, 0.95)));
       else if (index > 3) pos = p.far;
-      at(`naA${i}`, pos);
+      if (!restore(`naA${i}`, p.far, p.start)) at(`naA${i}`, pos);
     });
     ions.naO.forEach((p, i) => at(`naO${i}`, index < 3 ? p.start : index === 3 ? mix(p.start, p.end, ease(phase(t, 0.1, 0.95))) : p.end));
-    ions.naB.forEach((p, i) => at(`naB${i}`, index < 4 ? p.start : index === 4 ? along(through(p.start, p.end, ch.na3 - 2 + i * 4, 1), ease(phase(t, 0.05 + i * 0.12, 0.6 + i * 0.12))) : p.end));
+    ions.naB.forEach((p, i) => restore(`naB${i}`, p.end, p.start) || at(`naB${i}`, index < 4 ? p.start : index === 4 ? along(through(p.start, p.end, ch.na3 - 2 + i * 4, 1), ease(phase(t, 0.05 + i * 0.12, 0.6 + i * 0.12))) : p.end));
     ions.kA.forEach((p, i) => {
       const step = i < 3 ? 4 : 5;
       const u = i < 3 ? ease(phase(t, 0.15 + i * 0.1, 0.7 + i * 0.1)) : ease(phase(t, 0.1, 0.75));
-      at(`kA${i}`, index < step ? p.start : index === step ? along(through(p.start, p.end, ch.k2 - 3 + (i % 3) * 3, -1), u) : p.end);
+      if (!restore(`kA${i}`, p.end, p.start)) at(`kA${i}`, index < step ? p.start : index === step ? along(through(p.start, p.end, ch.k2 - 3 + (i % 3) * 3, -1), u) : p.end);
     });
-    ions.kB.forEach((p, i) => at(`kB${i}`, index < 5 ? p.start : index === 5 ? along(through(p.start, p.end, ch.k3 - 2 + i * 4, -1), ease(phase(t, 0.2 + i * 0.1, 0.8 + i * 0.1))) : p.end));
+    ions.kB.forEach((p, i) => restore(`kB${i}`, p.end, p.start) || at(`kB${i}`, index < 5 ? p.start : index === 5 ? along(through(p.start, p.end, ch.k3 - 2 + i * 4, -1), ease(phase(t, 0.2 + i * 0.1, 0.8 + i * 0.1))) : p.end));
     // Na⁺/K⁺ pump: one cycle in the resting step, another during recovery
     ions.pNa.forEach((p, i) => at(`pNa${i}`, index === 0 ? along(through(p.start, p.end, ch.pump - 6 + i * 6, -1), ease(phase(t, 0.05 + i * 0.08, 0.5 + i * 0.08))) : p.end));
     ions.pK.forEach((p, i) => at(`pK${i}`, index === 0 ? along(through(p.start, p.end, ch.pump - 4 + i * 8, 1), ease(phase(t, 0.5 + i * 0.1, 0.9 + i * 0.05))) : p.end));
+    // the second pump cycle's ions only appear in the recovery step, as they reach the pump
+    const qShow = index === 6 ? String(ease(phase(t, 0.2, 0.35))) : '0';
+    [...ions.qNa.map((_, i) => `qNa${i}`), ...ions.qK.map((_, i) => `qK${i}`)].forEach((k) => (el(k).style.opacity = qShow));
+    el('pumpArrows').style.opacity = index === 0 || index === 6 ? '1' : '0.35';
     ions.qNa.forEach((p, i) => at(`qNa${i}`, index < 6 ? p.start : along(through(p.start, p.end, ch.pump - 6 + i * 6, -1), ease(phase(t, 0.3 + i * 0.07, 0.65 + i * 0.07)))));
     ions.qK.forEach((p, i) => at(`qK${i}`, index < 6 ? p.start : along(through(p.start, p.end, ch.pump - 4 + i * 8, 1), ease(phase(t, 0.62 + i * 0.08, 0.92 + i * 0.08)))));
 

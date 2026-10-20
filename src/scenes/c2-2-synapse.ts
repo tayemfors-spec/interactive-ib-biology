@@ -74,7 +74,7 @@ const scene: SceneModule = {
     const post = new THREE.Mesh(ctx.track(new THREE.BoxGeometry(13, POST_T, 5.2)), mPost);
     post.position.set(0, POST - POST_T / 2, 0.4);
     root.add(post);
-    // EPSP: the depolarised patch of postsynaptic membrane under the receptors
+    // EPSP: the depolarized patch of postsynaptic membrane under the receptors
     const mEpsp = ctx.material('na', { roughness: 0.4, transparent: true, depthWrite: false });
     const epsp = new THREE.Mesh(ctx.track(new THREE.BoxGeometry(5.4, POST_T + 0.04, 2.6)), mEpsp);
     epsp.position.set(0, POST - POST_T / 2, RECEPTOR_Z);
@@ -212,7 +212,7 @@ const scene: SceneModule = {
       anchors,
       durations: [5, 5, 6, 6, 6, 7],
       render(index, t) {
-        // --- action potential band and depolarised knob ---
+        // --- action potential band and depolarized knob ---
         const arrive = index === 0 ? ease(phase(t, 0, 0.7)) : 1;
         wave.position.set(0, lerp(10, 5.4, arrive), 0);
         wave.scale.setScalar(lerp(1, 1.35, arrive));
@@ -220,7 +220,7 @@ const scene: SceneModule = {
         wave.visible = index === 0;
         glow(mPre, index === 0 ? 0.45 * phase(t, 0.55, 1) : index <= 2 ? 0.45 : 0);
 
-        // --- Ca²⁺ channels: open from the end of step 0 (depolarisation) until after release ---
+        // --- Ca²⁺ channels: open from the end of step 0 (depolarization) until after release ---
         setCa(index === 0 ? ease(phase(t, 0.75, 1)) : index <= 2 ? 1 : index === 3 ? 1 - ease(phase(t, 0, 0.4)) : 0);
         const caEnter = index === 1 ? t : index > 1 ? 1 : 0;
         caMesh.count = caOut.length;

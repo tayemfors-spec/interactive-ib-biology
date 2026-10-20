@@ -36,7 +36,7 @@ questions:
         why: Correct. Open K⁺ channels let K⁺ diffuse out down the concentration gradient set up by the pumps, leaving the inside negative; unequal pumping and negatively charged proteins also contribute.
       - id: d
         text: Na⁺ ions diffuse into the neuron through open sodium channels.
-        why: Na⁺ entering would make the inside more positive. At rest few Na⁺ channels are open; Na⁺ entry is what depolarises the membrane during an action potential.
+        why: Na⁺ entering would make the inside more positive. At rest few Na⁺ channels are open; Na⁺ entry is what depolarizes the membrane during an action potential.
     answer: c
 
   - id: q3
@@ -68,8 +68,8 @@ questions:
       when an action potential reaches a presynaptic knob?
     options:
       - id: a
-        text: The action potential would be unable to depolarise the presynaptic membrane.
-        why: Depolarisation of the knob is caused by Na⁺ channels and local currents, not by Ca²⁺ channels, so it still occurs.
+        text: The action potential would be unable to depolarize the presynaptic membrane.
+        why: Depolarization of the knob is caused by Na⁺ channels and local currents, not by Ca²⁺ channels, so it still occurs.
       - id: b
         text: Neurotransmitter would be released but could not bind to receptors.
         why: Binding depends on the postsynaptic receptors, which the toxin does not affect. The problem is earlier, at release.
@@ -88,13 +88,13 @@ questions:
       At a neuromuscular junction, which sequence of events follows the release of acetylcholine into the synaptic cleft?
     options:
       - id: a
-        text: Acetylcholine is actively transported across the cleft → binds to receptors → K⁺ enters the muscle fibre → depolarisation.
+        text: Acetylcholine is actively transported across the cleft → binds to receptors → K⁺ enters the muscle fibre → depolarization.
         why: Acetylcholine crosses the cleft by diffusion, not active transport, and it is Na⁺ that enters.
       - id: b
-        text: Acetylcholine diffuses across the cleft → binds to receptors → Na⁺ enters the muscle fibre → depolarisation → acetylcholine is broken down.
-        why: Correct. Binding opens the receptor's ion channel, Na⁺ diffuses in and depolarises the postsynaptic membrane, then acetylcholinesterase breaks acetylcholine down.
+        text: Acetylcholine diffuses across the cleft → binds to receptors → Na⁺ enters the muscle fibre → depolarization → acetylcholine is broken down.
+        why: Correct. Binding opens the receptor's ion channel, Na⁺ diffuses in and depolarizes the postsynaptic membrane, then acetylcholinesterase breaks acetylcholine down.
       - id: c
-        text: Acetylcholine diffuses across the cleft → enters the muscle fibre → opens Na⁺ channels from inside → depolarisation.
+        text: Acetylcholine diffuses across the cleft → enters the muscle fibre → opens Na⁺ channels from inside → depolarization.
         why: Acetylcholine does not enter the postsynaptic cell. It binds to transmembrane receptors on the outer surface.
       - id: d
         text: Acetylcholine diffuses across the cleft → binds to receptors → Ca²⁺ enters the muscle fibre → acetylcholine is reabsorbed whole.
@@ -126,8 +126,8 @@ questions:
     level: AHL
     understanding: C2.2.8
     stem: >-
-      A stimulus depolarises an axon from −70 mV to −58 mV, and the membrane then returns to −70 mV. A second,
-      stronger stimulus depolarises it to −45 mV. What happens after the second stimulus?
+      A stimulus depolarizes an axon from −70 mV to −58 mV, and the membrane then returns to −70 mV. A second,
+      stronger stimulus depolarizes it to −45 mV. What happens after the second stimulus?
     options:
       - id: a
         text: Threshold is passed, voltage-gated Na⁺ channels open, and a full-sized action potential occurs.
@@ -136,8 +136,8 @@ questions:
         text: An action potential occurs that is larger than normal, because the stimulus was stronger.
         why: Action potentials are all or nothing. A stronger stimulus can increase their frequency but not their size.
       - id: c
-        text: Voltage-gated K⁺ channels open first, so the membrane hyperpolarises.
-        why: The K⁺ channels open after the Na⁺ channels, during repolarisation; they do not open first.
+        text: Voltage-gated K⁺ channels open first, so the membrane hyperpolarizes.
+        why: The K⁺ channels open after the Na⁺ channels, during repolarization; they do not open first.
       - id: d
         text: No action potential occurs, because the first stimulus caused a refractory period.
         why: The first stimulus did not reach threshold, so no action potential occurred and there is no refractory period.
@@ -150,7 +150,7 @@ questions:
       Which explains why impulses travel faster in myelinated fibres than in unmyelinated fibres of the same diameter?
     options:
       - id: a
-        text: Myelin contains more Na⁺ channels, so depolarisation happens faster.
+        text: Myelin contains more Na⁺ channels, so depolarization happens faster.
         why: Myelin is an insulator made of Schwann cell membranes; the channels are in the axon membrane at the nodes.
       - id: b
         text: The impulse travels along the myelin sheath, which conducts better than the axon membrane.
@@ -160,7 +160,7 @@ questions:
         why: Synaptic transmission is not involved in conduction along a single fibre.
       - id: d
         text: Action potentials occur only at nodes of Ranvier, where channels are concentrated, so the impulse jumps from node to node.
-        why: Correct. This is saltatory conduction. Local currents flow under the myelin to the next node, so fewer regions of membrane have to depolarise.
+        why: Correct. This is saltatory conduction. Local currents flow under the myelin to the next node, so fewer regions of membrane have to depolarize.
     answer: d
 
   - id: q9
@@ -195,10 +195,10 @@ questions:
         text: Temporal summation of the EPSPs; Z blocks the release of neurotransmitter from X and Y.
         why: Inputs from different neurons at the same time is spatial, not temporal, summation, and Z acts on the postsynaptic membrane.
       - id: b
-        text: Spatial summation of the EPSPs; Z releases acetylcholine, which depolarises the membrane further.
-        why: An inhibitory neuron does not depolarise the membrane. Its neurotransmitter (such as GABA) hyperpolarises it.
+        text: Spatial summation of the EPSPs; Z releases acetylcholine, which depolarizes the membrane further.
+        why: An inhibitory neuron does not depolarize the membrane. Its neurotransmitter (such as GABA) hyperpolarizes it.
       - id: c
-        text: Spatial summation of the EPSPs; Z releases a neurotransmitter such as GABA that hyperpolarises the membrane, so the net depolarisation stays below threshold.
+        text: Spatial summation of the EPSPs; Z releases a neurotransmitter such as GABA that hyperpolarizes the membrane, so the net depolarization stays below threshold.
         why: Correct. EPSPs from different neurons add (spatial summation), and the IPSP subtracts, so the axon hillock does not reach threshold.
       - id: d
         text: Temporal summation of the EPSPs; Z makes the action potential smaller than usual.

@@ -1,6 +1,6 @@
 ---
 import { linePath, range, sx, sy, type Frame } from './chart';
-import { DENSITY, THRESHOLD_PERCENT, aiPercent, lightPerCell } from './models/c2-1-quorum';
+import { DENSITY, SWITCH_PERCENT, aiPercent, lightPerCell } from './models/c2-1-quorum';
 
 const frame: Frame = {
   w: 640, h: 380, left: 58, right: 18, top: 16, bottom: 52,
@@ -49,8 +49,8 @@ const nShown = (d: number) => Math.max(1, Math.round((d / DENSITY.max) * cells.l
       </g>
       <text class="axis" x={(frame.left + frame.w - frame.right) / 2} y={frame.h - 10} text-anchor="middle">{frame.x.label} →</text>
       <text class="axis" transform={`translate(16 ${(frame.top + frame.h - frame.bottom) / 2}) rotate(-90)`} text-anchor="middle">{frame.y.label} →</text>
-      <line class="thr" x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, THRESHOLD_PERCENT)} y2={sy(frame, THRESHOLD_PERCENT)} />
-      <text class="thr-t" x={frame.w - frame.right - 6} y={sy(frame, THRESHOLD_PERCENT) - 6} text-anchor="end">autoinducer threshold</text>
+      <line class="thr" x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, SWITCH_PERCENT)} y2={sy(frame, SWITCH_PERCENT)} />
+      <text class="thr-t" x={frame.w - frame.right - 6} y={sy(frame, SWITCH_PERCENT) - 6} text-anchor="end">autoinducer threshold</text>
       <path class="line ai" d={paths.ai} data-line="ai" />
       <path class="line light" d={paths.light} data-line="light" />
       <line class="marker" data-marker x1={sx(frame, start)} x2={sx(frame, start)} y1={frame.top} y2={frame.h - frame.bottom} />
@@ -84,12 +84,12 @@ const nShown = (d: number) => Math.max(1, Math.round((d / DENSITY.max) * cells.l
       <tbody data-tbody>{table.map((r) => <tr><th scope="row">{r.d}</th><td>{r.ai.toFixed(0)}</td><td>{r.light.toFixed(0)}</td></tr>)}</tbody>
     </table>
   </details>
-  <p class="model-note">Qualitative model with relative units. It shows the shape of the response — a switch at a threshold, sharpened by positive feedback because the lux genes include the gene for autoinducer synthase — not measured values.</p>
+  <p class="model-note">Qualitative model with relative units. It shows the shape of the response, not measured values. The lux genes include the gene for autoinducer synthase, so cells that start to switch on make more autoinducer. This positive feedback makes the switch abrupt: once autoinducer reaches the threshold line, a small rise in density makes it jump to a much higher level.</p>
 </div>
 
 <script>
   import { linePath, sx, type Frame } from './chart';
-  import { DENSITY, aiPercent, autoinducer, lightPerCell, THRESHOLD, type QuorumOptions } from './models/c2-1-quorum';
+  import { DENSITY, aiPercent, autoinducer, lightPerCell, SWITCH_AI, THRESHOLD, type QuorumOptions } from './models/c2-1-quorum';
 
   document.querySelectorAll<HTMLElement>('[data-sim-quorum]').forEach((root) => {
     const frame = JSON.parse(root.dataset.frame!) as Frame;
@@ -129,7 +129,7 @@ const nShown = (d: number) => Math.max(1, Math.round((d / DENSITY.max) * cells.l
         .join('');
       clearTimeout(timer);
       timer = window.setTimeout(() => {
-        const above = autoinducer(d, o) >= THRESHOLD;
+        const above = autoinducer(d, o) > SWITCH_AI + 1e-6;
         let s = `At density ${d}, `;
         if (o.receptor === false) s += 'autoinducer still builds up, but with no LuxR receptor to bind it the lux genes are never switched on: no light at any density.';
         else if (above) s += `the autoinducer concentration is above the threshold. LuxR–autoinducer switches on the lux genes, so each cell emits ${light.toFixed(0)}% of its maximum light.`;

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { AI_MAX, DENSITY, THRESHOLD, autoinducer, lightPerCell, totalLight } from '../../src/sims/models/c2-1-quorum';
+import { AI_MAX, DENSITY, SWITCH_AI, THRESHOLD, autoinducer, lightPerCell, totalLight } from '../../src/sims/models/c2-1-quorum';
 
 describe('C2.1 quorum sensing model', () => {
   const densities = Array.from({ length: 100 }, (_, i) => i + 1);
@@ -38,5 +38,16 @@ describe('C2.1 quorum sensing model', () => {
   it('adding autoinducer above the threshold makes even a sparse population glow', () => {
     expect(lightPerCell(DENSITY.sea, { added: 1.5 * THRESHOLD })).toBeGreaterThan(80);
     expect(lightPerCell(DENSITY.sea, { added: 1.5 * THRESHOLD })).toBeGreaterThan(50 * lightPerCell(DENSITY.sea));
+  });
+
+  it('the drawn threshold line sits where the switch actually jumps (positive feedback makes it abrupt)', () => {
+    expect(SWITCH_AI).toBeGreaterThan(0);
+    expect(SWITCH_AI).toBeLessThan(THRESHOLD);
+    // every density whose autoinducer is at or below the line is still dim; just past it the population is bright
+    const below = densities.filter((d) => autoinducer(d) <= SWITCH_AI);
+    const above = densities.filter((d) => autoinducer(d) > SWITCH_AI);
+    expect(below.length).toBeGreaterThan(0);
+    for (const d of below) expect(lightPerCell(d)).toBeLessThan(15);
+    expect(lightPerCell(above[0]!)).toBeGreaterThan(80);
   });
 });
