@@ -1,0 +1,132 @@
+---
+/** Cell cycle wheel + cyclin graph. Animated by d2-1-cell-cycle.ts; drawn in its step-1 state. */
+import { CX, CY, G0, GBASE, GTOP, GX0, GX1, PHASES, THRESHOLD, arc, curve, cyclinG1S, cyclinM, gx, gy, shown, wheel } from './d2-1-cell-cycle';
+const op = (k: string) => `opacity:${shown[k]![0]}`;
+const mid = (p: { from: number; to: number }) => (p.from + p.to) / 2;
+const [m0x, m0y] = wheel(0.02);
+const chk1 = wheel(0.417), chk2 = wheel(0.889), chk3 = wheel(0.93);
+const tick = (f: number) => { const [a, b] = wheel(f, 86), [c, d] = wheel(f, 114); return `M${a.toFixed(1)} ${b.toFixed(1)} L${c.toFixed(1)} ${d.toFixed(1)}`; };
+const cross = ([x, y]: [number, number]) => `M${x - 9} ${y - 9} L${x + 9} ${y + 9} M${x + 9} ${y - 9} L${x - 9} ${y + 9}`;
+const g0From = wheel(0.1);
+---
+<svg viewBox="0 0 560 356" xmlns="http://www.w3.org/2000/svg" class="cyc">
+  <!-- wheel -->
+  {PHASES.map((p) => <path class:list={['band', `b-${p.id}`]} d={arc(p.from + 0.003, p.to - 0.003)} />)}
+  {PHASES.filter((p) => p.id !== 'C').map((p) => {
+    const [x, y] = wheel(mid(p));
+    return <text class="bandt" x={x} y={y + 4.5} text-anchor="middle">{p.id}</text>;
+  })}
+  <path class="lead" d={`M${wheel(0.986, 114)[0]} ${wheel(0.986, 114)[1]} L168 62`} />
+  <text class="lbl" x="171" y="60">cytokinesis</text>
+  <path class="chk" d={tick(0.417)} />
+  <path class="chk" d={tick(0.889)} />
+  <path class="chk" d={tick(0.93)} />
+  <path class="lead" d={`M${chk1[0] + 10} ${chk1[1] + 12} L214 300`} />
+  <text class="lbl" x="216" y="306">G1 checkpoint</text>
+  <path class="lead" d={`M${chk2[0] - 8} ${chk2[1] - 10} L70 64`} />
+  <text class="lbl" x="6" y="58">G2 checkpoint</text>
+  <path class="lead" d={`M${chk3[0] - 4} ${chk3[1] - 12} L96 38`} />
+  <text class="lbl" x="6" y="32">metaphase checkpoint</text>
+  <g data-el="inner" style={op('inner')}><text class="inner" x={CX} y={CY + 50} text-anchor="middle">interphase = G1 + S + G2</text></g>
+
+  <!-- G0 exit -->
+  <g data-el="g0path" style={op('g0path')}>
+    <path class="g0arrow" d={`M${g0From[0]} ${g0From[1]} Q ${G0[0] - 10} ${G0[1] + 30} ${G0[0]} ${G0[1] + 16}`} />
+  </g>
+  <circle class="g0" cx={G0[0]} cy={G0[1]} r="16" />
+  <text class="g0t" x={G0[0]} y={G0[1] + 4.5} text-anchor="middle">G0</text>
+
+  <!-- centre text for each step -->
+  <g class="ctext">
+    <g data-el="c-g1" style={op('c-g1')}><text x={CX} y={CY - 8} text-anchor="middle" class="ct">G1: growth</text><text x={CX} y={CY + 12} text-anchor="middle">proteins and organelles</text><text x={CX} y={CY + 28} text-anchor="middle">are made</text></g>
+    <g data-el="c-chk1" style={op('c-chk1')}><text x={CX} y={CY - 8} text-anchor="middle" class="ct">G1 checkpoint</text><text x={CX} y={CY + 12} text-anchor="middle">cyclin above threshold:</text><text x={CX} y={CY + 28} text-anchor="middle">cell enters S</text></g>
+    <g data-el="c-s" style={op('c-s')}><text x={CX} y={CY - 8} text-anchor="middle" class="ct">S: DNA replication</text><text x={CX} y={CY + 12} text-anchor="middle">each chromosome now</text><text x={CX} y={CY + 28} text-anchor="middle">has two chromatids</text></g>
+    <g data-el="c-g2" style={op('c-g2')}><text x={CX} y={CY - 8} text-anchor="middle" class="ct">G2: more growth</text><text x={CX} y={CY + 12} text-anchor="middle">mitotic cyclin above</text><text x={CX} y={CY + 28} text-anchor="middle">threshold: mitosis starts</text></g>
+    <g data-el="c-m" style={op('c-m')}><text x={CX} y={CY - 8} text-anchor="middle" class="ct">Mitosis, cytokinesis</text><text x={CX} y={CY + 12} text-anchor="middle">cyclin destroyed;</text><text x={CX} y={CY + 28} text-anchor="middle">two cells enter G1</text></g>
+    <g data-el="c-g0" style={op('c-g0')}><text x={CX} y={CY - 8} text-anchor="middle" class="ct">G0: not dividing</text><text x={CX} y={CY + 12} text-anchor="middle">the cell leaves the</text><text x={CX} y={CY + 28} text-anchor="middle">cycle after G1</text></g>
+    <g data-el="c-mut" style={op('c-mut')}>
+      <text x={CX} y={CY - 30} text-anchor="middle" class="ct bad">Control lost</text>
+      {[[-22, -6], [0, -10], [22, -6], [-30, 14], [-8, 12], [14, 12], [34, 14], [-18, 32], [4, 32], [26, 32]].map(([dx, dy]) => <circle class="tcell" cx={CX + dx!} cy={CY + dy! + 6} r="10" />)}
+    </g>
+  </g>
+  <g data-el="mut" style={op('mut')}>
+    {[chk1, chk2, chk3].map((p) => <path class="x" d={cross(p)} />)}
+  </g>
+  <g data-el="marker" transform={`translate(${m0x} ${m0y})`}><circle class="marker" r="9" /></g>
+
+  <!-- cyclin graph -->
+  <g data-el="graph" style={op('graph')}>
+    <text class="ttl" x={GX0} y="22">Cyclin concentration (qualitative)</text>
+    <path class="k-g1s" d="M300 40 h24" /><text class="leg" x="330" y="44">G1/S cyclin</text>
+    <path class="k-m" d="M300 60 h24" /><text class="leg" x="330" y="64">mitotic cyclin</text>
+    <path class="k-cdk" d="M420 40 h24" /><text class="leg" x="450" y="44">CDK (constant)</text>
+    <path class="k-th" d="M420 60 h24" /><text class="leg" x="450" y="64">threshold</text>
+    {PHASES.map((p, i) => <rect class:list={['pband', i % 2 ? 'odd' : '']} x={gx(p.from)} y={GTOP - 10} width={gx(p.to) - gx(p.from)} height={GBASE - GTOP + 10} />)}
+    {PHASES.filter((p) => p.id !== 'C').map((p) => <text class="ptick" x={gx(mid(p))} y={GBASE + 16} text-anchor="middle">{p.id}</text>)}
+    <path class="axis" d={`M${GX0} ${GTOP - 12} V${GBASE} H${GX1}`} />
+    <text class="ptick" x={(GX0 + GX1) / 2} y={GBASE + 32} text-anchor="middle">time through one cycle →</text>
+    <path class="k-th" d={`M${GX0} ${gy(THRESHOLD)} H${GX1}`} />
+    <path class="k-cdk" d={`M${GX0} ${gy(0.55)} H${GX1}`} />
+    <path class="k-g1s" d={curve(cyclinG1S)} />
+    <path class="k-m" d={curve(cyclinM)} />
+  </g>
+  <g data-el="cursor" style={op('cursor')} transform={`translate(${gx(0)} 0)`}><path class="cursor" d={`M0 ${GTOP - 12} V${GBASE}`} /></g>
+
+  <!-- cyclin–CDK complex -->
+  <g data-el="complex" style={op('complex')}>
+    <rect class="cdk" x="318" y="316" width="40" height="28" rx="8" />
+    <text class="mol" x="338" y="335" text-anchor="middle">CDK</text>
+    <g data-el="cyclin" transform="translate(40 0)"><circle class="cyclin" cx="372" cy="330" r="14" /><text class="mol" x="372" y="334" text-anchor="middle">cyc</text></g>
+    <text class="lbl" x="404" y="326">active complex:</text>
+    <text class="lbl" x="404" y="343">phosphorylates targets</text>
+  </g>
+  <!-- mutation panel -->
+  <g data-el="mut-text" style={op('mut-text')}>
+    <text class="ttl bad" x={GX0} y="100">Mutations in control genes</text>
+    <text class="lbl" x={GX0} y="128">Proto-oncogene → oncogene:</text>
+    <text class="sub" x={GX0} y="146">signal to divide stuck “on”</text>
+    <text class="lbl" x={GX0} y="178">Tumour suppressor gene inactivated:</text>
+    <text class="sub" x={GX0} y="196">no brake at checkpoints</text>
+    <text class="lbl" x={GX0} y="228">Result: uncontrolled division</text>
+    <text class="sub" x={GX0} y="246">→ a tumour (mass of cells)</text>
+  </g>
+</svg>
+<style>
+  .cyc { font-family: var(--font-sans); }
+  .band { fill: none; stroke-width: 26; }
+  .b-G1 { stroke: color-mix(in srgb, var(--bio-carb) 70%, var(--surface)); }
+  .b-S { stroke: color-mix(in srgb, var(--bio-protein) 70%, var(--surface)); }
+  .b-G2 { stroke: color-mix(in srgb, var(--bio-glucose) 75%, var(--surface)); }
+  .b-M { stroke: color-mix(in srgb, var(--bio-k) 75%, var(--surface)); }
+  .b-C { stroke: color-mix(in srgb, var(--bio-protein-2) 75%, var(--surface)); }
+  .bandt { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .lbl { font-size: 13px; fill: var(--text); }
+  .sub { font-size: 13px; fill: var(--text-muted); }
+  .ttl { font-size: 14px; font-weight: 750; fill: var(--text); }
+  .bad { fill: var(--bad); }
+  .lead { stroke: var(--text-muted); stroke-width: 1.2; fill: none; }
+  .chk { stroke: var(--text); stroke-width: 3; }
+  .inner { font-size: 12px; fill: var(--text-muted); }
+  .ctext text { font-size: 12.5px; fill: var(--text-muted); }
+  .ctext .ct { font-size: 14px; font-weight: 750; fill: var(--text); }
+  .ctext .ct.bad { fill: var(--bad); }
+  .tcell { fill: color-mix(in srgb, var(--bio-k) 30%, var(--surface)); stroke: var(--bio-k); stroke-width: 1.4; }
+  .g0 { fill: var(--surface); stroke: var(--text-muted); stroke-width: 1.6; stroke-dasharray: 3 2; }
+  .g0t { font-size: 13px; font-weight: 800; fill: var(--text); }
+  .g0arrow { fill: none; stroke: var(--text); stroke-width: 1.6; }
+  .marker { fill: var(--surface); stroke: var(--text); stroke-width: 3; }
+  .x { stroke: var(--bad); stroke-width: 3.5; stroke-linecap: round; }
+  .pband { fill: var(--surface); opacity: 0.5; }
+  .pband.odd { fill: var(--surface-3); }
+  .axis { stroke: var(--text); stroke-width: 1.4; fill: none; }
+  .ptick { font-size: 12.5px; fill: var(--text-muted); }
+  .leg { font-size: 12.5px; fill: var(--text); }
+  .k-g1s { stroke: var(--bio-carb); stroke-width: 3; fill: none; }
+  .k-m { stroke: var(--bio-k); stroke-width: 3; fill: none; stroke-dasharray: 8 4; }
+  .k-cdk { stroke: var(--text-muted); stroke-width: 2; fill: none; stroke-dasharray: 2 4; }
+  .k-th { stroke: var(--text); stroke-width: 1.5; fill: none; stroke-dasharray: 5 5; }
+  .cursor { stroke: var(--focus); stroke-width: 2.5; }
+  .cdk { fill: color-mix(in srgb, var(--bio-protein) 35%, var(--surface)); stroke: var(--bio-protein); stroke-width: 1.6; }
+  .cyclin { fill: color-mix(in srgb, var(--bio-k) 35%, var(--surface)); stroke: var(--bio-k); stroke-width: 1.6; }
+  .mol { font-size: 12px; font-weight: 750; fill: var(--text); }
+</style>

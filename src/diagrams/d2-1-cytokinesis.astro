@@ -1,0 +1,54 @@
+---
+/** Cytokinesis in an animal cell (contractile ring, cleavage furrow) and a plant cell (vesicles → cell plate) — D2.1.2. */
+const vesicles = [104, 122, 140, 158, 176, 194];
+---
+<div class="dfig">
+  <div class="pair">
+    <svg viewBox="0 0 300 270" role="img" aria-labelledby="cyt-a-t cyt-a-d" xmlns="http://www.w3.org/2000/svg">
+      <title id="cyt-a-t">Cytokinesis in an animal cell</title>
+      <desc id="cyt-a-d">A cell with two new nuclei is pinched in at its equator. A ring of actin and myosin just inside the plasma membrane contracts, pulling the membrane inwards to form a cleavage furrow until the cell splits in two.</desc>
+      <text class="h" x="150" y="22" text-anchor="middle">Animal cell</text>
+      <path class="cell" d="M150 70 C 128 34, 24 40, 24 140 C 24 240, 128 246, 150 210 C 172 246, 276 240, 276 140 C 276 40, 172 34, 150 70 Z" />
+      <circle class="nuc" cx="86" cy="140" r="30" /><circle class="nuc" cx="214" cy="140" r="30" />
+      <ellipse class="ring" cx="150" cy="140" rx="10" ry="68" />
+      <circle class="am" cx="150" cy="73" r="6" /><circle class="am" cx="150" cy="207" r="6" />
+      <path class="arrow" d="M150 40 V62 M150 62 l-5 -7 M150 62 l5 -7 M150 240 V218 M150 218 l-5 7 M150 218 l5 7" />
+      <path class="lead" d="M158 72 L196 52" /><text class="t" x="198" y="50">cleavage furrow</text>
+      <path class="lead" d="M144 206 L100 236" /><text class="t" x="8" y="252">contractile ring of</text><text class="t" x="8" y="267">actin and myosin</text>
+      <path class="lead" d="M244 214 L262 240" /><text class="t" x="292" y="256" text-anchor="end">plasma membrane</text>
+      <text class="t" x="86" y="190" text-anchor="middle">nucleus</text>
+    </svg>
+    <svg viewBox="0 0 300 270" role="img" aria-labelledby="cyt-b-t cyt-b-d" xmlns="http://www.w3.org/2000/svg">
+      <title id="cyt-b-t">Cytokinesis in a plant cell</title>
+      <desc id="cyt-b-d">A rectangular plant cell with two new nuclei. Vesicles from the Golgi apparatus line up across the middle and fuse, forming a cell plate that grows outwards until it joins the existing wall. Its membranes become the plasma membranes of the two cells and the material between them becomes new cell wall.</desc>
+      <text class="h" x="150" y="22" text-anchor="middle">Plant cell</text>
+      <rect class="wall" x="40" y="36" width="220" height="208" rx="4" />
+      <rect class="cell" x="48" y="44" width="204" height="192" rx="3" />
+      <circle class="nuc" cx="150" cy="84" r="26" /><circle class="nuc" cx="150" cy="196" r="26" />
+      {vesicles.map((x) => <circle class="ves" cx={x} cy="140" r="7" />)}
+      <path class="plate" d="M118 140 H180" />
+      <path class="arrow" d="M92 140 H62 M62 140 l7 -5 M62 140 l7 5 M208 140 H238 M238 140 l-7 -5 M238 140 l-7 5" />
+      <path class="lead" d="M196 134 L236 112" /><text class="t" x="238" y="108" text-anchor="middle">vesicles</text>
+      <path class="lead" d="M150 146 L150 164 L196 164" /><text class="t" x="200" y="168">cell plate</text>
+      <text class="t" x="150" y="262" text-anchor="middle">cell wall</text><path class="lead" d="M150 252 V244" />
+    </svg>
+  </div>
+</div>
+
+<style>
+  .dfig { container-type: inline-size; }
+  .pair { display: grid; gap: var(--space-4); grid-template-columns: minmax(0, 1fr); }
+  @container (min-width: 34rem) { .pair { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .dfig svg { font-family: var(--font-sans); display: block; width: 100%; height: auto; }
+  .h { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .t { font-size: 14px; fill: var(--text); }
+  .cell { fill: color-mix(in srgb, var(--bio-head) 8%, var(--surface)); stroke: var(--bio-head); stroke-width: 2.2; }
+  .wall { fill: color-mix(in srgb, var(--bio-carb) 25%, var(--surface)); stroke: var(--bio-carb); stroke-width: 2; }
+  .nuc { fill: color-mix(in srgb, var(--bio-protein-2) 18%, var(--surface)); stroke: var(--bio-protein-2); stroke-width: 1.8; }
+  .ring { fill: none; stroke: var(--bio-chol); stroke-width: 3; stroke-dasharray: 6 4; }
+  .am { fill: var(--bio-chol); }
+  .ves { fill: color-mix(in srgb, var(--bio-carb) 35%, var(--surface)); stroke: var(--bio-carb); stroke-width: 1.6; }
+  .plate { stroke: var(--bio-carb); stroke-width: 7; stroke-linecap: round; }
+  .arrow { stroke: var(--text); stroke-width: 1.8; fill: none; }
+  .lead { stroke: var(--text-muted); stroke-width: 1.2; fill: none; }
+</style>

@@ -1,0 +1,352 @@
+---
+code: D2.1
+description: "IB Biology D2.1 revision: step through mitosis and meiosis in 3D, cytokinesis, non-disjunction, the cell cycle, cyclins and cancer, then self-test."
+updated: 2026-10-19
+related: [D1.1, D3.1, D3.2, A3.1]
+mustKnow:
+  - term: Cytokinesis
+    definition: "Division of the cytoplasm of a parent cell between the daughter cells, after nuclear division. Animal cells use a contracting ring of <strong>actin and myosin</strong> (cleavage furrow); plant cells build a <strong>cell plate</strong> from vesicles."
+    level: SL
+  - term: Sister chromatids
+    definition: "The two identical DNA molecules of a replicated chromosome, produced by DNA replication in interphase and held together at the <strong>centromere</strong> until anaphase (of mitosis or meiosis II)."
+    level: SL
+  - term: Mitosis
+    definition: "Division of the nucleus into two genetically identical nuclei with the same number of chromosomes as the parent nucleus. Phases: prophase, metaphase, anaphase, telophase."
+    level: SL
+  - term: Diploid and haploid
+    definition: "A <strong>diploid</strong> nucleus (2n) has two of each type of chromosome, in homologous pairs; a <strong>haploid</strong> nucleus (n) has one of each type. Humans: 2n = 46, n = 23."
+    level: SL
+  - term: Meiosis
+    definition: "A reduction division: two successive divisions of a diploid nucleus, after one round of DNA replication, giving four haploid nuclei that are genetically different from each other and from the parent."
+    level: SL
+  - term: Bivalent, crossing over and chiasma
+    definition: "In prophase I homologous chromosomes pair as a <strong>bivalent</strong>. Non-sister chromatids exchange corresponding sections (<strong>crossing over</strong>), and the point where they remain joined is a <strong>chiasma</strong>."
+    level: SL
+  - term: Random orientation
+    definition: "In metaphase I each bivalent lines up with either homologue facing either pole, independently of every other bivalent, giving 2<sup>n</sup> possible combinations of chromosomes in the gametes."
+    level: SL
+  - term: Non-disjunction
+    definition: "Failure of homologous chromosomes (anaphase I) or sister chromatids (anaphase II) to separate, giving gametes with one chromosome too many (n + 1) or too few (n − 1). Example: trisomy 21 (Down syndrome)."
+    level: SL
+  - term: Cell cycle
+    definition: "The sequence of events between one cell division and the next: interphase (G1, S, G2), then mitosis, then cytokinesis. Cells that stop dividing leave the cycle into G0."
+    level: AHL
+  - term: Cyclins
+    definition: "Proteins whose concentrations rise and fall during the cell cycle. A threshold level of a specific cyclin, bound to a cyclin-dependent kinase (CDK), is needed for the cell to pass each checkpoint."
+    level: AHL
+  - term: Mitotic index
+    definition: "The proportion of cells in a sample that are in mitosis: number of cells in mitosis ÷ total number of cells. A high value means rapid cell proliferation, as in a meristem or a fast-growing tumour."
+    level: AHL
+mistakes:
+  - wrong: "Interphase is the first phase of mitosis, or a resting phase."
+    right: "Interphase comes between divisions and is not part of mitosis. It is the most metabolically active stage: the cell grows, makes proteins and organelles, and replicates its DNA."
+    level: SL
+  - wrong: "Chromosomes (DNA) replicate during prophase."
+    right: "DNA replication happens before nuclear division, in the S phase of interphase. In prophase the already-replicated chromosomes condense and become visible as two chromatids."
+    level: SL
+  - wrong: "In metaphase of mitosis homologous chromosomes pair up on the equator."
+    right: "In mitosis each chromosome lines up on the equator individually. Homologues pair (as bivalents) only in prophase I and metaphase I of meiosis."
+    level: SL
+  - wrong: "Counting chromatids as chromosomes, for example saying a human cell in metaphase of mitosis has 92 chromosomes."
+    right: "Count centromeres to count chromosomes. A human cell in metaphase of mitosis has 46 chromosomes, each of two chromatids, so 92 chromatids."
+    level: SL
+  - wrong: "Sister chromatids separate in meiosis I."
+    right: "In anaphase I homologous chromosomes separate; each still has two chromatids. Sister chromatids separate in anaphase II."
+    level: SL
+  - wrong: "Crossing over happens between sister chromatids."
+    right: "Crossing over is between <strong>non-sister</strong> chromatids of homologous chromosomes in prophase I. Exchange between identical sister chromatids would produce no new combinations."
+    level: SL
+  - wrong: "Plant cells divide their cytoplasm by forming a cleavage furrow."
+    right: "Plant cells have a rigid cell wall, so vesicles collect at the equator and fuse to form a cell plate, which becomes the new plasma membranes and cell wall. The cleavage furrow (actin–myosin ring) is how animal cells divide."
+    level: SL
+  - wrong: "Meiosis halves the chromosome number in meiosis II."
+    right: "The chromosome number is halved in meiosis I, when homologues separate. Meiosis II separates sister chromatids, as in mitosis, without changing the chromosome number."
+    level: SL
+  - wrong: "Mitotic index = cells in mitosis ÷ cells in interphase."
+    right: "Divide by the <strong>total</strong> number of cells counted (interphase plus mitosis). Count every cell in prophase, metaphase, anaphase and telophase as in mitosis."
+    level: AHL
+  - wrong: "A benign tumour is a slow-growing cancer that spreads later."
+    right: "A benign tumour does not invade neighbouring tissue or spread, so it is not a cancer (although it can cause harm by pressing on organs). Only malignant tumours invade and metastasize to form secondary tumours."
+    level: AHL
+---
+
+<Section id="cytokinesis" title="Cell division and cytokinesis" level="SL" covers="D2.1.1 D2.1.2 D2.1.3">
+
+All new cells come from existing cells. In **cell division** a **parent cell** (often called the **mother cell**) divides to form two **daughter cells**. In eukaryotes this happens in two stages: first the nucleus divides (by mitosis or meiosis), then the cytoplasm divides. Division of the cytoplasm is **cytokinesis**.
+
+### Animal and plant cells divide differently
+
+- **Animal cells**: a ring of **actin** filaments and **myosin** forms just inside the plasma membrane at the equator. Myosin pulls the actin filaments past each other, so the ring contracts like a drawstring. The membrane is pulled inwards as a **cleavage furrow**, which deepens until it meets in the middle and the cell is pinched in two.
+- **Plant cells**: a rigid cell wall means the cell cannot be pinched. Instead, **vesicles** from the Golgi apparatus, carrying cell-wall materials, are guided by microtubules to the equator. They fuse to form a **cell plate**, which grows outwards until it joins the existing wall. The vesicle membranes become the plasma membranes of the two daughter cells, and their contents become the new cell wall between them.
+
+<Figure name="d2-1-cytokinesis" caption="Cytokinesis. Left: an animal cell is pinched in by a contractile ring of actin and myosin. Right: in a plant cell, vesicles fuse into a cell plate that becomes new plasma membrane and cell wall." />
+
+### Equal and unequal cytokinesis
+
+Cytokinesis usually divides the cytoplasm **equally**, but not always. Whatever the sizes, **both daughter cells must receive at least one mitochondrion** (and, in plants, a chloroplast or plastid), because these organelles cannot be made from scratch: they arise only by the growth and division of existing ones.
+
+- **Oogenesis in humans**: both divisions of meiosis are unequal. Nearly all the cytoplasm stays in one large cell, which becomes the egg, and the other nucleus is pushed out with very little cytoplasm in a tiny **polar body** that degenerates. The egg keeps the nutrients and organelles that the early embryo will need.
+- **Budding in yeast**: a yeast cell forms a small outgrowth (a **bud**). After mitosis one nucleus moves into the bud, which also receives mitochondria, and the bud pinches off while still much smaller than the parent cell.
+
+<Figure name="d2-1-unequal" caption="Unequal cytokinesis. Left: in oogenesis each division gives a large cell and a tiny polar body. Right: a budding yeast cell gives a small bud that still receives a nucleus and mitochondria." />
+
+<Callout type="exam">
+
+Name the proteins of the animal contractile ring (**actin and myosin**), and for plant cells say that **vesicles fuse to form a cell plate**. For unequal cytokinesis give a named example (oogenesis or budding in yeast) and say which cell is larger.
+
+</Callout>
+
+</Section>
+
+<Section id="mitosis-meiosis" title="Mitosis and meiosis: roles and shared features" level="SL" covers="D2.1.4 D2.1.5 D2.1.6">
+
+### Why the nucleus must divide first
+
+A eukaryotic cell divides its **nucleus** before its cytoplasm, so that each daughter cell gets a nucleus. A cell without a nucleus (an **anucleate** cell, such as a mature mammalian red blood cell) cannot make new proteins and cannot divide. There are two kinds of nuclear division:
+
+| | Mitosis | Meiosis |
+|---|---|---|
+| Number of divisions | One | Two (meiosis I and II) |
+| Daughter nuclei | Two | Four |
+| Chromosome number | Kept the same (2n → 2n) | Halved (2n → n) |
+| Genetic make-up | Identical to each other and to the parent | Different from each other and from the parent |
+| Roles | Growth, tissue repair and replacement, asexual reproduction | Producing gametes (or spores) for sexual reproduction |
+
+<Figure name="d2-1-compare" caption="The same diploid cell (2n = 4) after mitosis and after meiosis. Red and blue are the maternal and paternal homologues; the two-coloured chromosomes after meiosis have been changed by crossing over." />
+
+### DNA replication comes first
+
+Before either kind of division, the DNA of every chromosome is **replicated** (in the S phase of interphase). Afterwards each chromosome consists of **two chromatids**: two long, identical DNA molecules called **sister chromatids**, held together along their length and especially at the **centromere**. They stay together until anaphase. When they separate, each chromatid becomes a chromosome in its own right.
+
+### Condensation and movement are shared features
+
+During interphase the chromosomes are long, thin threads that cannot be seen with a light microscope. Long molecules like these would tangle and break if moved, so in both mitosis and meiosis the chromosomes **condense**. DNA is wound around groups of **histone** proteins to form nucleosomes, and this string of nucleosomes is then coiled again and again (**supercoiling**), until each chromosome is thousands of times shorter and much thicker.
+
+Condensed chromosomes are then moved by **microtubules**, the protein fibres of the **spindle**. Microtubules attach to the centromeres at **kinetochores**. **Microtubule motor proteins** (such as dynein and kinesin) use ATP to "walk" along microtubules, and the microtubules themselves shorten by losing tubulin subunits, pulling chromosomes or chromatids to the poles. See <TopicLink code="D1.1" /> for DNA replication.
+
+</Section>
+
+<Section id="mitosis" title="The phases of mitosis" level="SL" covers="D2.1.7 D2.1.8">
+
+<Viewer3D topic="d2-1" id="division" />
+
+Mitosis is one continuous process, divided for convenience into four phases. Interphase comes before it, and cytokinesis usually follows.
+
+1. **Prophase**: chromosomes condense by supercoiling and become visible, each as two sister chromatids joined at a centromere. The nucleolus disappears. In animal cells the two centrosomes move to opposite poles and the **spindle** of microtubules forms. At the end of prophase the **nuclear membrane breaks down**.
+2. **Metaphase**: microtubules from opposite poles attach to the centromere of each chromosome, one to each sister chromatid. The chromosomes are moved until they are lined up individually on the **equator**. A checkpoint ensures that every chromosome is attached before the cell continues.
+3. **Anaphase**: the centromeres divide, so the sister chromatids separate. Each is now a chromosome. Spindle microtubules pull them, centromere first, to **opposite poles**, so each pole receives one copy of every chromosome.
+4. **Telophase**: the chromosomes arrive at the poles and decondense. A **nuclear membrane re-forms** around each set, the nucleolus reappears and the spindle breaks down.
+
+### Why the daughter nuclei are genetically identical
+
+Replication made the two sister chromatids of each chromosome identical. In metaphase every chromosome is attached to both poles, and in anaphase exactly one chromatid of each chromosome goes to each pole. So each daughter nucleus receives a complete set with the same number and type of chromosomes as the parent nucleus, carrying the same alleles.
+
+### Identifying the phases
+
+In a stained root tip, most cells are in **interphase** (intact nucleus, grainy chromatin, a nucleolus). Then look at the chromosomes: long threads inside the nucleus (prophase); a single band across the middle (metaphase); two separating groups, often V-shaped (anaphase); two compact groups at opposite ends, perhaps with a cell plate between them (telophase).
+
+<Sim topic="d2-1" id="phase-id" />
+
+<Callout type="exam" title="Drawing and identifying phases">
+
+Use the **Exam diagram** view of the 3D model. In a drawing or a micrograph, base each identification on a feature you can actually see, for example "chromosomes aligned at the equator, so metaphase", not on the cell's size. Show sister chromatids joined at a centromere until anaphase, keep the chromosome number the same in both daughter nuclei, and never show homologues paired in mitosis.
+
+</Callout>
+
+</Section>
+
+<Section id="meiosis" title="Meiosis: a reduction division" level="SL" covers="D2.1.9">
+
+A **diploid** nucleus (2n) has two copies of each type of chromosome, one from each parent, forming **homologous pairs**. A **haploid** nucleus (n) has just one of each type. In humans 2n = 46 and n = 23.
+
+### Why meiosis is needed
+
+In a **sexual life cycle** two gametes fuse at fertilization. If the gametes were diploid, the chromosome number would double every generation. **Meiosis** halves the chromosome number, so haploid gametes (n) fuse to restore the diploid number (2n) in the zygote. Mitosis then copies this diploid set into every cell of the new organism. Gamete production and fertilization are covered in <TopicLink code="D3.1" />.
+
+### Two rounds of segregation
+
+DNA is replicated once, before meiosis, and the nucleus then divides twice. Switch the 3D model to **Meiosis** to follow the steps.
+
+**Meiosis I (separating homologues):**
+
+- **Prophase I**: chromosomes condense, and homologous chromosomes pair up to form **bivalents**. Non-sister chromatids **cross over**.
+- **Metaphase I**: bivalents line up on the equator, one homologue on each side. Both chromatids of each homologue are attached to the same pole.
+- **Anaphase I**: homologous chromosomes are pulled to opposite poles; the centromeres do not divide.
+- **Telophase I** and cytokinesis: two cells, each **haploid**, with one chromosome of each type, still made of two chromatids.
+
+**Meiosis II (separating sister chromatids)**, in each of the two cells, without any further DNA replication:
+
+- **Prophase II** and **metaphase II**: a new spindle forms and the chromosomes line up individually on the equator.
+- **Anaphase II**: centromeres divide and sister chromatids move to opposite poles.
+- **Telophase II** and cytokinesis: **four haploid cells**, each with one chromatid of every chromosome type.
+
+<Callout type="exam" title="Counting chromosomes and chromatids">
+
+Count **centromeres** to count chromosomes. For a cell with 2n = 4: after S phase it has 4 chromosomes and 8 chromatids; after meiosis I each cell has 2 chromosomes and 4 chromatids; after meiosis II each cell has 2 chromosomes and 2 chromatids.
+
+</Callout>
+
+</Section>
+
+<Section id="nondisjunction" title="Non-disjunction and Down syndrome" level="SL" covers="D2.1.10">
+
+Meiosis sometimes goes wrong. In **non-disjunction**, chromosomes fail to separate correctly:
+
+- in **anaphase I**, both homologues of a pair move to the same pole; or
+- in **anaphase II**, both sister chromatids of a chromosome move to the same pole.
+
+The resulting gametes have one chromosome too many (**n + 1**) or one too few (**n − 1**) of that type. Fertilization of an n + 1 gamete by a normal gamete gives a zygote with three copies of one chromosome, a **trisomy**.
+
+| Non-disjunction in | Gametes from that meiosis |
+|---|---|
+| Meiosis I | All four abnormal: two n + 1, two n − 1 |
+| Meiosis II (in one of the two cells) | Two normal (n), one n + 1, one n − 1 |
+
+### Down syndrome
+
+**Down syndrome** is caused by **trisomy 21**: the person has three copies of chromosome 21, so 47 chromosomes in each cell instead of 46. It is usually the result of non-disjunction during meiosis, and in most cases the extra chromosome comes from the egg. People with Down syndrome have some learning difficulties and characteristic facial features, and a higher risk of some conditions, such as heart defects; how strongly they are affected varies widely.
+
+<Anim topic="d2-1" id="nondisjunction" />
+
+### Maternal age
+
+The proportion of babies born with Down syndrome rises with the mother's age, slowly up to the early thirties and then steeply. One hypothesis: all of a woman's oocytes begin meiosis before she is born and stay paused in prophase I until ovulation, so in older women the chromosomes have been held as bivalents for decades, and the structures that keep them together may deteriorate. The data show a correlation; on their own they do not show the mechanism.
+
+<Callout type="exam">
+
+When interpreting a karyogram, count the chromosomes in each group: three copies of chromosome 21 (47 in total) indicates trisomy 21. See <TopicLink code="A3.1" /> for karyotypes and karyograms.
+
+</Callout>
+
+</Section>
+
+<Section id="variation" title="Meiosis as a source of variation" level="SL" covers="D2.1.11">
+
+The four cells produced by meiosis are genetically different from each other and from the parent cell. Two processes in meiosis cause this.
+
+### Random orientation of bivalents
+
+In **metaphase I** each bivalent lines up on the equator, with the maternal homologue facing either pole. The orientation of each bivalent is **random** and **independent** of the others. So each gamete gets a random mixture of maternal and paternal chromosomes.
+
+- With n pairs of homologous chromosomes there are **2<sup>n</sup>** possible combinations.
+- With n = 2 there are 2² = 4 combinations; humans (n = 23) can make 2²³, about 8.4 million.
+
+### Crossing over
+
+In **prophase I**, while homologues are paired, a **non-sister chromatid** from each homologue breaks at the same position and the two exchange the corresponding sections. The places where they remain joined are **chiasmata**. Each bivalent usually has at least one. Crossing over produces **recombinant** chromatids that carry new combinations of alleles of genes on the same chromosome (linked genes), for example A with b instead of A with B. Because crossover positions vary, the number of possible combinations becomes effectively unlimited.
+
+<Figure name="d2-1-variation" caption="Three sources of genetic variation in sexual reproduction. Random orientation and crossing over happen in meiosis I; random fertilization then combines any egg with any sperm." />
+
+### Random fertilization
+
+On top of this, any one egg can be fertilized by any one of millions of genetically different sperm. Counting random orientation alone, two parents could produce 2²³ × 2²³, about 7 × 10¹³, genetically different zygotes. This variation is the raw material for natural selection (<TopicLink code="D3.2" /> builds on how meiosis shuffles alleles in inheritance).
+
+<Callout type="exam">
+
+To "explain how meiosis generates variation", give **both** processes, each linked to its stage: **random orientation of bivalents in metaphase I** and **crossing over between non-sister chromatids in prophase I**. Random fertilization is not a process of meiosis.
+
+</Callout>
+
+</Section>
+
+<Section id="proliferation" title="Cell proliferation for growth, replacement and repair" level="AHL" covers="D2.1.12">
+
+**Cell proliferation** is an increase in the number of cells by repeated cell division (mitosis followed by cytokinesis). It is used in three ways.
+
+### Growth
+
+- **Plant meristems**: plants keep growing throughout life from regions of undifferentiated cells called **meristems**. In the **apical meristems** at the tips of roots and shoots, cells divide repeatedly; some daughter cells stay in the meristem while the others elongate and differentiate. This is why root tips are used to see mitosis.
+- **Early-stage animal embryos**: after fertilization the zygote divides by mitosis again and again (cleavage). At first the cells divide so fast that they do not grow in between, so the embryo becomes a ball of ever-smaller cells. Later, proliferation continues alongside growth and differentiation as tissues and organs form.
+
+### Cell replacement
+
+Some cells are lost continually and must be replaced. In the **skin**, cells in the deepest layer of the epidermis divide throughout life. The new cells are pushed towards the surface, where they die and are shed, so the outer layer of skin is continually renewed. The lining of the gut and the blood cells are replaced in a similar way.
+
+### Tissue repair
+
+After a **wound** to the skin, cells at the edge of the damaged area are stimulated to proliferate. The new cells fill the gap and restore a continuous protective layer, and proliferation stops again when the wound has closed.
+
+<Callout type="note">
+
+In each example the rate of division is **controlled**: fast where cells are needed, slow or stopped where they are not. The rest of the AHL content explains how the cell cycle is controlled and what happens when that control fails.
+
+</Callout>
+
+</Section>
+
+<Section id="cell-cycle" title="The cell cycle and its control" level="AHL" covers="D2.1.13 D2.1.14 D2.1.15">
+
+Proliferating cells pass repeatedly through the **cell cycle**:
+
+1. **G1** (first gap phase): growth of the cell.
+2. **S** (synthesis phase): replication of all the DNA in the nucleus.
+3. **G2** (second gap phase): further growth and preparation for division.
+4. **Mitosis**: division of the nucleus.
+5. **Cytokinesis**: division of the cytoplasm.
+
+G1, S and G2 together make up **interphase**, which takes up most of the cycle. Cells that stop dividing, such as most mature neurons, leave the cycle after G1 and enter **G0**.
+
+### Interphase is a busy time
+
+Interphase is not a resting stage. The cell is **metabolically active**, carrying out respiration, transcription and translation. Growth involves **biosynthesis** of cell components: proteins (including enzymes and the histones needed in S phase), membrane lipids, and **DNA**, which is replicated in S phase. **Mitochondria** (and **chloroplasts** in plant cells) also grow and then divide, increasing their number so that both daughter cells will receive some.
+
+### Cyclins control progress through the cycle
+
+The cell can only move on to the next stage when it passes a **checkpoint**. The main checkpoints are at the end of G1, at the end of G2, and during metaphase. Progress is controlled by **cyclins**, a group of proteins whose concentrations **rise and fall** during the cycle. Cyclins bind to and activate enzymes called **cyclin-dependent kinases (CDKs)**, which are present all the time but inactive on their own. Active cyclin–CDK complexes phosphorylate other proteins, which then carry out the tasks needed for the next stage.
+
+A **threshold** concentration of a **specific cyclin** is needed to pass each checkpoint. Once the cell has passed, that cyclin is broken down and its level falls, while the next one builds up. For example, a mitotic cyclin builds up through S and G2, triggers mitosis at the G2 checkpoint and is destroyed during mitosis, allowing the cell to complete division.
+
+<Anim topic="d2-1" id="cell-cycle" />
+
+<Callout type="exam">
+
+You need the principle, not the names of individual cyclins: **concentration of different cyclins rises and falls**, and **a threshold level of a specific cyclin must be reached to pass each checkpoint**.
+
+</Callout>
+
+</Section>
+
+<Section id="cancer" title="Mutations, tumours and the mitotic index" level="AHL" covers="D2.1.16 D2.1.17">
+
+### Genes that control the cell cycle
+
+Two types of gene control whether a cell divides:
+
+- **Proto-oncogenes** code for proteins that **stimulate** the cell cycle, for example receptors for growth factors or proteins in the signalling pathways that switch on cyclin production. A mutation can turn a proto-oncogene into an **oncogene**, whose product is overactive or made in excess, so the signal to divide is stuck "on". One mutated copy is enough to have an effect.
+- **Tumour suppressor genes** code for proteins that **stop** the cell cycle when conditions are not right, for example at a checkpoint when DNA is damaged. The best-known example is the gene for the protein **p53**. A mutation that inactivates a tumour suppressor gene removes this brake; usually both copies must be inactivated.
+
+A single mutation is rarely enough. **Several mutations** in different control genes must accumulate in one cell before it divides without control. Anything that increases mutation rates, such as **mutagens** and ionizing radiation, increases the chance of this.
+
+### Tumours
+
+A **tumour** is a mass of cells formed by uncontrolled cell division. The first tumour to form is the **primary tumour**.
+
+| | Benign tumour | Malignant tumour |
+|---|---|---|
+| Rate of division and growth | Usually slow | Usually rapid |
+| Boundary | Often enclosed in a capsule | Not contained |
+| Invasion of neighbouring tissue | No | Yes |
+| Spread to other parts of the body | No | Yes: **metastasis** |
+| Cancer? | No, though it can cause harm by pressure | Yes |
+
+In **metastasis**, cells break away from a malignant primary tumour, travel in the blood or lymph, and form **secondary tumours** elsewhere in the body.
+
+<Figure name="d2-1-tumours" level="AHL" caption="A benign tumour stays within a capsule; a malignant tumour invades the surrounding tissue, and cells that reach a blood vessel can form a secondary tumour elsewhere (metastasis)." />
+
+### The mitotic index
+
+The **mitotic index** is a measure of how fast a population of cells is proliferating:
+
+**mitotic index = number of cells in mitosis ÷ total number of cells**
+
+Count every cell in a field of view, and every cell that is in prophase, metaphase, anaphase or telophase. For example, if 18 of 120 cells are in mitosis, the mitotic index is 18 ÷ 120 = 0.15. Pathologists use it to assess how fast a tumour is growing: a high index suggests a fast-growing, more aggressive tumour.
+
+<Sim topic="d2-1" id="mitotic-index" />
+
+<Callout type="exam">
+
+Write out the calculation in full and divide by the **total** number of cells, including those in interphase. Give the answer as a decimal or a percentage, and compare samples by their mitotic indices, not by raw counts, when the totals differ.
+
+</Callout>
+
+</Section>

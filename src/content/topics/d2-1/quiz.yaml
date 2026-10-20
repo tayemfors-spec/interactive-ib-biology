@@ -1,0 +1,205 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: D2.1.2
+    stem: >-
+      Which statement correctly describes cytokinesis in a plant cell?
+    options:
+      - id: a
+        text: A ring of actin and myosin contracts and pinches the plasma membrane inwards.
+        why: This is how animal cells divide their cytoplasm (a cleavage furrow). The rigid cell wall prevents a plant cell being pinched in two.
+      - id: b
+        text: Vesicles gather at the equator and fuse to form a cell plate, which becomes new membrane and cell wall.
+        why: Correct. Vesicles from the Golgi apparatus fuse into a cell plate that grows outwards until it reaches the existing wall.
+      - id: c
+        text: The nuclear membrane re-forms across the middle of the cell and divides the cytoplasm.
+        why: The nuclear membrane re-forms around each set of chromosomes in telophase; it does not divide the cytoplasm.
+      - id: d
+        text: Spindle microtubules pull the two halves of the cytoplasm to opposite poles.
+        why: Spindle microtubules move chromosomes in nuclear division. Cytoplasm is divided by a cell plate in plants.
+    answer: b
+
+  - id: q2
+    level: SL
+    understanding: D2.1.3
+    stem: >-
+      In budding yeast, the bud is much smaller than the parent cell when it separates. Why must the bud still
+      receive at least one mitochondrion from the parent cell?
+    options:
+      - id: a
+        text: The bud is too small to need aerobic respiration, so it uses the mitochondrion for photosynthesis.
+        why: Mitochondria carry out aerobic respiration, not photosynthesis, and the bud does need ATP.
+      - id: b
+        text: Mitochondria are made by the nucleus, which stays in the parent cell.
+        why: The bud does receive a nucleus (after mitosis). New mitochondria are not assembled by the nucleus; they come from existing mitochondria.
+      - id: c
+        text: Cytokinesis is equal in yeast, so the organelles are shared equally.
+        why: Budding is an example of unequal cytokinesis — the bud is much smaller than the parent.
+      - id: d
+        text: New mitochondria can only be produced by growth and division of existing mitochondria.
+        why: Correct. A cell that received no mitochondria could never make any, so each daughter cell needs at least one.
+    answer: d
+
+  - id: q3
+    level: SL
+    understanding: D2.1.5
+    stem: >-
+      A human body cell (2n = 46) is in metaphase of mitosis. How many chromosomes and how many chromatids does it contain?
+    options:
+      - id: a
+        text: 46 chromosomes and 92 chromatids
+        why: Correct. DNA was replicated in S phase, so each of the 46 chromosomes consists of two sister chromatids joined at a centromere.
+      - id: b
+        text: 92 chromosomes and 92 chromatids
+        why: This counts each chromatid as a chromosome. Count centromeres — the chromatids are still joined, so there are 46 chromosomes.
+      - id: c
+        text: 46 chromosomes and 46 chromatids
+        why: This would be true in G1, before DNA replication. By metaphase every chromosome has two chromatids.
+      - id: d
+        text: 23 chromosomes and 46 chromatids
+        why: 23 is the haploid number. Mitosis keeps the diploid number; it does not halve it.
+    answer: a
+
+  - id: q4
+    level: SL
+    understanding: D2.1.8
+    stem: >-
+      In a stained onion root tip, a student sees a cell with no nuclear membrane and two groups of V-shaped
+      chromosomes, one in each half of the cell, with a clear gap between them. Which stage is the cell in?
+    options:
+      - id: a
+        text: Prophase
+        why: In prophase the chromosomes are long threads inside a nucleus that is only starting to break down; they have not separated.
+      - id: b
+        text: Metaphase
+        why: In metaphase the chromosomes form a single band across the equator, not two groups.
+      - id: c
+        text: Anaphase
+        why: Correct. The sister chromatids have separated and are being pulled towards the poles, centromere first, so their arms trail behind in a V shape.
+      - id: d
+        text: Telophase
+        why: In telophase the chromosomes have reached the poles, form compact masses and nuclear membranes re-form around them.
+    answer: c
+
+  - id: q5
+    level: SL
+    understanding: D2.1.9
+    stem: >-
+      A species has a diploid number of 24 (2n = 24). Which describes each nucleus at the end of meiosis I?
+    options:
+      - id: a
+        text: 24 chromosomes, each of one chromatid
+        why: Meiosis I separates homologues, so the chromosome number is halved, not kept at 24.
+      - id: b
+        text: 12 chromosomes, each of two chromatids
+        why: Correct. Homologous chromosomes separated in anaphase I, halving the number; the centromeres have not divided, so each chromosome still has two chromatids.
+      - id: c
+        text: 12 chromosomes, each of one chromatid
+        why: This describes the end of meiosis II, after sister chromatids have separated.
+      - id: d
+        text: 6 chromosomes, each of two chromatids
+        why: The chromosome number is halved only once, from 24 to 12. Meiosis II does not halve it again.
+    answer: b
+
+  - id: q6
+    level: SL
+    understanding: D2.1.10
+    stem: >-
+      A child has Down syndrome, with 47 chromosomes including three copies of chromosome 21. The father's sperm was
+      normal. Which event in the mother could explain this?
+    options:
+      - id: a
+        text: Crossing over between chromosome 21 and another chromosome in prophase I
+        why: Crossing over is between non-sister chromatids of homologous chromosomes and does not change the number of chromosomes.
+      - id: b
+        text: Random orientation of the chromosome 21 bivalent in metaphase I
+        why: Random orientation changes which homologue goes to which pole, but each pole still receives exactly one chromosome 21.
+      - id: c
+        text: Failure of DNA replication before meiosis
+        why: Without replication there would not be extra copies of chromosome 21; this would not give an egg with two copies.
+      - id: d
+        text: Both chromosome 21 homologues moving to the same pole in anaphase I
+        why: Correct. This non-disjunction gives an egg with two copies of chromosome 21 (24 chromosomes); fertilization by a normal sperm gives 47.
+    answer: d
+
+  - id: q7
+    level: SL
+    understanding: D2.1.11
+    stem: >-
+      An organism has a diploid number of 8 (2n = 8). Ignoring crossing over, how many genetically different
+      combinations of chromosomes can its gametes have because of random orientation?
+    options:
+      - id: a
+        text: "16"
+        why: Correct. There are n = 4 bivalents, each with two possible orientations, so 2⁴ = 16 combinations.
+      - id: b
+        text: "8"
+        why: This multiplies 2 × 4 instead of raising 2 to the power 4. Each bivalent's orientation doubles the number of combinations.
+      - id: c
+        text: "256"
+        why: This is 2⁸, using the diploid number. The number of bivalents is the haploid number, n = 4.
+      - id: d
+        text: "4"
+        why: This is the number of bivalents, not the number of possible combinations.
+    answer: a
+
+  - id: q8
+    level: AHL
+    understanding: D2.1.15
+    stem: >-
+      Which statement about the control of the cell cycle by cyclins is correct?
+    options:
+      - id: a
+        text: The concentration of each cyclin stays constant, and checkpoints are passed when the cell reaches a certain size.
+        why: Cyclin concentrations rise and fall during the cycle; that changing level is what controls passage through checkpoints.
+      - id: b
+        text: Cyclins replicate DNA in S phase and condense chromosomes in prophase.
+        why: Cyclins are regulatory proteins. DNA replication and condensation are carried out by other proteins (such as DNA polymerase and histones).
+      - id: c
+        text: A threshold concentration of a specific cyclin must be reached for the cell to pass each checkpoint.
+        why: Correct. The cyclin activates a cyclin-dependent kinase, which phosphorylates target proteins so the cell can move on; then the cyclin is broken down.
+      - id: d
+        text: A single cyclin, present throughout the cycle, controls all checkpoints.
+        why: Different cyclins peak at different stages, and their levels fall after each checkpoint is passed.
+    answer: c
+
+  - id: q9
+    level: AHL
+    understanding: D2.1.17
+    stem: >-
+      In a field of view of a tumour sample, a student counted 120 cells: 9 in prophase, 4 in metaphase, 3 in anaphase,
+      2 in telophase and the rest in interphase. What is the mitotic index?
+    options:
+      - id: a
+        text: "0.18"
+        why: This is 18 ÷ 102, dividing by the interphase cells only. The mitotic index uses the total number of cells.
+      - id: b
+        text: "0.15"
+        why: Correct. 9 + 4 + 3 + 2 = 18 cells in mitosis; 18 ÷ 120 = 0.15.
+      - id: c
+        text: "0.075"
+        why: This counts only the prophase cells (9 ÷ 120). Cells in all four phases are in mitosis.
+      - id: d
+        text: "0.85"
+        why: This is the proportion of cells in interphase (102 ÷ 120), not in mitosis.
+    answer: b
+
+  - id: q10
+    level: AHL
+    understanding: D2.1.16
+    stem: >-
+      Why can a mutation that inactivates a tumour suppressor gene contribute to the development of a tumour?
+    options:
+      - id: a
+        text: The gene's protein normally stops the cell cycle when conditions are not right, so without it the cell can keep dividing.
+        why: Correct. Tumour suppressor proteins such as p53 act as a brake at checkpoints; losing them removes a barrier to uncontrolled division.
+      - id: b
+        text: The mutation converts the gene into an oncogene that makes a cyclin.
+        why: Proto-oncogenes, not tumour suppressor genes, become oncogenes. Tumour suppressor mutations cause a loss of function.
+      - id: c
+        text: The mutated gene makes cells spread to other organs, forming a benign tumour.
+        why: Spreading (metastasis) is a feature of malignant tumours. Benign tumours do not spread.
+      - id: d
+        text: One such mutation in any cell is always enough to cause cancer.
+        why: Usually several mutations in different control genes must accumulate in the same cell before division becomes uncontrolled.
+    answer: a

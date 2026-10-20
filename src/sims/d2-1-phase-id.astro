@@ -1,0 +1,114 @@
+---
+import { LOOKS, NAMES, PHASES, drawCell, makeDeck } from './models/d2-1-phase-id';
+import { VIEWBOX, cellMarkup } from './d2-1-cell-draw';
+const N = 10;
+const deck = makeDeck(N, 1);
+const first = drawCell(deck[0]!.phase, deck[0]!.seed);
+---
+<div class="pid" data-pid>
+  <div class="layout">
+    <div class="view">
+      <svg viewBox={VIEWBOX} role="img" aria-labelledby="pid-t pid-d" xmlns="http://www.w3.org/2000/svg" data-cell>
+        <title id="pid-t" data-cell-title>Cell 1 of {N}</title>
+        <desc id="pid-d" data-cell-desc>{LOOKS[first.phase]}</desc>
+        <g data-cell-art set:html={cellMarkup(first)} />
+      </svg>
+      <p class="note">Stained onion root-tip cell (drawn, not a photograph). Onion: 2n = 16.</p>
+    </div>
+    <div class="panel">
+      <p class="progress" data-progress>Cell 1 of {N} · Score 0 / 0</p>
+      <p class="ask" id="pid-ask">Which stage is this cell in?</p>
+      <div class="answers" role="group" aria-labelledby="pid-ask">
+        {PHASES.map((p) => <button type="button" class="btn" data-answer={p}>{NAMES[p]}</button>)}
+      </div>
+      <p class="feedback" aria-live="polite" data-feedback>Look at the chromosomes: are they visible, where are they, and is there a nuclear membrane?</p>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" data-act="next">Next cell</button>
+        <button type="button" class="btn" data-act="restart">New set of cells</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { CLUES, LOOKS, NAMES, drawCell, makeDeck, record, type Phase, type Score } from './models/d2-1-phase-id';
+  import { cellMarkup } from './d2-1-cell-draw';
+
+  const N = 10;
+  document.querySelectorAll<HTMLElement>('[data-pid]').forEach((root) => {
+    const $ = <T extends Element = HTMLElement>(s: string) => root.querySelector<T>(s)!;
+    const art = $('[data-cell-art]'), title = $('[data-cell-title]'), desc = $('[data-cell-desc]');
+    const progress = $('[data-progress]'), feedback = $('[data-feedback]');
+    const answers = [...root.querySelectorAll<HTMLButtonElement>('[data-answer]')];
+    let seed = 1;
+    let deck = makeDeck(N, seed);
+    let i = 0;
+    let score: Score = { answered: 0, correct: 0 };
+    let answered = false;
+
+    const show = () => {
+      const card = deck[i]!;
+      art.innerHTML = cellMarkup(drawCell(card.phase, card.seed));
+      title.textContent = `Cell ${i + 1} of ${N}`;
+      desc.textContent = LOOKS[card.phase];
+      answered = false;
+      answers.forEach((b) => { delete b.dataset.state; b.setAttribute('aria-pressed', 'false'); });
+      progress.textContent = `Cell ${i + 1} of ${N} · Score ${score.correct} / ${score.answered}`;
+    };
+
+    const answer = (btn: HTMLButtonElement) => {
+      const truth = deck[i]!.phase;
+      const guess = btn.dataset.answer as Phase;
+      if (answered) { feedback.textContent = `${CLUES[truth]} Press “Next cell” to continue.`; return; }
+      answered = true;
+      score = record(score, guess, truth);
+      answers.forEach((b) => {
+        b.setAttribute('aria-pressed', String(b === btn));
+        if (b.dataset.answer === truth) b.dataset.state = 'right';
+        else if (b === btn) b.dataset.state = 'wrong';
+      });
+      feedback.textContent = (guess === truth ? 'Correct. ' : `Not quite — this cell is in ${NAMES[truth].toLowerCase()}. `) + CLUES[truth];
+      progress.textContent = `Cell ${i + 1} of ${N} · Score ${score.correct} / ${score.answered}`;
+      if (i === N - 1) feedback.textContent += ` That was the last cell: you scored ${score.correct} out of ${N}.`;
+    };
+
+    root.addEventListener('click', (e) => {
+      const t = e.target as HTMLElement;
+      const a = t.closest<HTMLButtonElement>('[data-answer]');
+      if (a) { answer(a); return; }
+      const act = t.closest<HTMLButtonElement>('[data-act]')?.dataset.act;
+      if (act === 'next') {
+        if (i < N - 1) { i++; show(); feedback.textContent = 'New cell. Which stage is it in?'; }
+        else feedback.textContent = `You have seen all ${N} cells (score ${score.correct} / ${score.answered}). Press “New set of cells” to practise again.`;
+      } else if (act === 'restart') {
+        seed++;
+        deck = makeDeck(N, seed);
+        i = 0;
+        score = { answered: 0, correct: 0 };
+        show();
+        feedback.textContent = 'A new set of 10 cells. Which stage is this one in?';
+      }
+    });
+  });
+</script>
+
+<style>
+  .pid { container-type: inline-size; }
+  .layout { display: grid; gap: var(--space-4); grid-template-columns: minmax(0, 1fr); }
+  @container (min-width: 34rem) { .layout { grid-template-columns: minmax(12rem, 16rem) minmax(0, 1fr); align-items: start; } }
+  .view svg { display: block; width: 100%; max-width: 16rem; height: auto; margin: 0 auto; background: color-mix(in srgb, var(--bio-protein-2) 6%, var(--surface)); border-radius: var(--radius-m); border: 1px solid var(--border); }
+  .note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; text-align: center; }
+  .progress { font-weight: 700; font-size: var(--step--1); margin: 0 0 var(--space-2); }
+  .ask { margin: 0 0 var(--space-2); font-weight: 650; }
+  .answers, .actions { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .answers .btn[data-state='right'] { border-color: var(--good); background: var(--good-soft); color: var(--good); }
+  .answers .btn[data-state='wrong'] { border-color: var(--bad); background: var(--bad-soft); color: var(--bad); }
+  .feedback { margin: var(--space-3) 0; padding: var(--space-2) var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); min-height: 4.5em; }
+  .pid :global(.pc-wall) { fill: color-mix(in srgb, var(--bio-protein-2) 10%, var(--surface)); stroke: color-mix(in srgb, var(--bio-protein-2) 55%, var(--text-muted)); stroke-width: 2.5; }
+  .pid :global(.pc-nuc) { fill: color-mix(in srgb, var(--bio-protein-2) 22%, var(--surface)); stroke: color-mix(in srgb, var(--bio-protein-2) 70%, var(--text)); stroke-width: 1.6; }
+  .pid :global(.pc-nuc.faint) { fill: color-mix(in srgb, var(--bio-protein-2) 10%, var(--surface)); stroke-dasharray: 5 6; stroke-width: 1.1; }
+  .pid :global(.pc-grain) { fill: color-mix(in srgb, var(--bio-protein-2) 75%, var(--text)); opacity: 0.55; }
+  .pid :global(.pc-nucleolus) { fill: color-mix(in srgb, var(--bio-protein-2) 60%, var(--text)); }
+  .pid :global(.pc-chrom) { fill: none; stroke: color-mix(in srgb, var(--bio-protein-2) 65%, var(--text)); stroke-linecap: round; stroke-linejoin: round; }
+  .pid :global(.pc-plate) { stroke: color-mix(in srgb, var(--bio-protein-2) 55%, var(--text-muted)); stroke-width: 2; stroke-dasharray: 3 2; }
+</style>

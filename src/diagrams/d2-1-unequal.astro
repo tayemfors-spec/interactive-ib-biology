@@ -1,0 +1,58 @@
+---
+/** Unequal cytokinesis: human oogenesis (polar bodies) and budding in yeast — D2.1.3. */
+---
+<div class="dfig">
+  <div class="pair">
+    <svg viewBox="0 0 300 290" role="img" aria-labelledby="uneq-a-t uneq-a-d" xmlns="http://www.w3.org/2000/svg">
+      <title id="uneq-a-t">Unequal cytokinesis in human oogenesis</title>
+      <desc id="uneq-a-d">A primary oocyte divides by meiosis I into a large secondary oocyte and a tiny first polar body. In meiosis II, completed only after fertilization, the secondary oocyte again divides unequally into a large ovum and a tiny second polar body. Almost all of the cytoplasm stays in the egg.</desc>
+      <text class="h" x="150" y="22" text-anchor="middle">Human oogenesis</text>
+      <circle class="egg" cx="60" cy="110" r="44" /><circle class="nuc" cx="60" cy="110" r="14" />
+      <text class="t" x="60" y="174" text-anchor="middle">primary</text><text class="t" x="60" y="190" text-anchor="middle">oocyte</text>
+      <path class="arrow" d="M108 110 H128 M128 110 l-7 -5 M128 110 l-7 5" /><text class="s" x="118" y="96" text-anchor="middle">MI</text>
+      <circle class="egg" cx="176" cy="110" r="40" /><circle class="nuc" cx="176" cy="110" r="12" />
+      <circle class="pb" cx="226" cy="76" r="9" />
+      <text class="t" x="176" y="170" text-anchor="middle">secondary</text><text class="t" x="176" y="186" text-anchor="middle">oocyte</text>
+      <path class="lead" d="M233 70 L250 54" /><text class="t" x="252" y="50" text-anchor="middle">polar body</text>
+      <path class="arrow" d="M176 196 V220 M176 220 l-5 -7 M176 220 l5 -7" /><text class="s" x="168" y="212" text-anchor="end">MII (after fertilization)</text>
+      <circle class="egg" cx="120" cy="252" r="34" /><circle class="nuc" cx="120" cy="252" r="10" />
+      <circle class="pb" cx="166" cy="236" r="8" />
+      <text class="t" x="70" y="286" text-anchor="end">ovum</text><path class="lead" d="M72 280 L94 268" />
+      <text class="s" x="180" y="262">egg keeps most</text><text class="s" x="180" y="277">of the cytoplasm</text>
+    </svg>
+    <svg viewBox="0 0 300 290" role="img" aria-labelledby="uneq-b-t uneq-b-d" xmlns="http://www.w3.org/2000/svg">
+      <title id="uneq-b-t">Budding in yeast</title>
+      <desc id="uneq-b-d">A yeast cell grows a small bud on its surface. The nucleus divides by mitosis and one daughter nucleus moves into the bud, which also receives mitochondria and other organelles. The bud is much smaller than the parent cell when it separates.</desc>
+      <text class="h" x="150" y="22" text-anchor="middle">Budding in yeast</text>
+      <ellipse class="yeast" cx="118" cy="150" rx="74" ry="64" />
+      <circle class="yeast" cx="214" cy="104" r="36" />
+      <ellipse class="nuc" cx="150" cy="134" rx="20" ry="13" /><circle class="nuc" cx="210" cy="104" r="11" />
+      <path class="nucbridge" d="M166 128 L200 109" />
+      {[[86, 168], [108, 186], [74, 138], [222, 122]].map(([x, y]) => <ellipse class="mito" cx={x} cy={y} rx="11" ry="5" />)}
+      <path class="lead" d="M228 74 L244 52" /><text class="t" x="246" y="48" text-anchor="middle">bud</text>
+      <text class="t" x="118" y="236" text-anchor="middle">parent (mother) cell</text>
+      <path class="lead" d="M222 128 L250 168" /><text class="t" x="252" y="184" text-anchor="middle">mitochondrion</text>
+      <path class="lead" d="M150 121 L134 70" /><text class="t" x="130" y="46" text-anchor="middle">nucleus dividing</text><text class="t" x="130" y="62" text-anchor="middle">by mitosis</text>
+      <text class="s" x="150" y="268" text-anchor="middle">each daughter must receive a nucleus and</text>
+      <text class="s" x="150" y="284" text-anchor="middle">at least one mitochondrion</text>
+    </svg>
+  </div>
+</div>
+
+<style>
+  .dfig { container-type: inline-size; }
+  .pair { display: grid; gap: var(--space-4); grid-template-columns: minmax(0, 1fr); }
+  @container (min-width: 34rem) { .pair { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .dfig svg { font-family: var(--font-sans); display: block; width: 100%; height: auto; }
+  .h { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .t { font-size: 14px; fill: var(--text); }
+  .s { font-size: 13px; fill: var(--text-muted); }
+  .egg { fill: color-mix(in srgb, var(--bio-head) 14%, var(--surface)); stroke: var(--bio-head); stroke-width: 2; }
+  .pb { fill: color-mix(in srgb, var(--bio-head) 30%, var(--surface)); stroke: var(--bio-head); stroke-width: 1.6; }
+  .nuc { fill: color-mix(in srgb, var(--bio-protein-2) 22%, var(--surface)); stroke: var(--bio-protein-2); stroke-width: 1.6; }
+  .nucbridge { stroke: var(--bio-protein-2); stroke-width: 5; stroke-linecap: round; }
+  .yeast { fill: color-mix(in srgb, var(--bio-glucose) 14%, var(--surface)); stroke: var(--bio-glucose); stroke-width: 2.4; }
+  .mito { fill: color-mix(in srgb, var(--bio-k) 28%, var(--surface)); stroke: var(--bio-k); stroke-width: 1.4; }
+  .arrow { stroke: var(--text); stroke-width: 1.8; fill: none; }
+  .lead { stroke: var(--text-muted); stroke-width: 1.2; fill: none; }
+</style>
