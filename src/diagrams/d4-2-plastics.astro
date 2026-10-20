@@ -1,0 +1,59 @@
+---
+/** Macroplastics, microplastics and nanoplastics in the oceans: sources and effects (D4.2.10). */
+const cards = [
+  {
+    h: 'Macroplastics', size: 'larger than 5 mm', cls: 'macro',
+    src: ['bags, bottles, packaging,', 'fishing nets and rope'],
+    eff: ['entangle seals, turtles,', 'whales and seabirds', '', 'turtles swallow bags', 'mistaken for jellyfish', '', 'albatross chicks are fed', 'plastic: blocked gut'],
+  },
+  {
+    h: 'Microplastics', size: 'smaller than 5 mm', cls: 'micro',
+    src: ['microbeads, pellets,', 'fibres, tyre dust'],
+    eff: ['eaten by zooplankton,', 'filter feeders and fish', '', 'carry toxins that stick', 'to them (e.g. PCBs)', '', 'passed along food chains,', 'including to humans'],
+  },
+  {
+    h: 'Nanoplastics', size: 'smaller than about 1 µm', cls: 'nano',
+    src: ['breakdown of', 'microplastics'],
+    eff: ['small enough to cross', 'membranes and enter', 'cells and tissues', '', 'harm to cells likely,', 'still being researched'],
+  },
+];
+const effY = (lines: string[]) => { let y = 0; return lines.map((l) => { const r = y; y += l ? 15 : 6; return r; }); };
+const X = (i: number) => 8 + i * 198, CW = 182, T = 44;
+---
+<svg viewBox="0 0 600 348" role="img" aria-labelledby="d42p-t d42p-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="d42p-t">Sizes, sources and effects of plastic pollution in the oceans</title>
+  <desc id="d42p-d">Three panels under an arrow labelled fragmentation by UV light, waves and abrasion. Macroplastics, larger than 5 millimetres, such as bags, bottles and fishing nets, entangle marine animals and are swallowed, for example by turtles that mistake bags for jellyfish and by albatross chicks fed plastic by their parents. Microplastics, smaller than 5 millimetres, such as microbeads, fibres and tyre dust, are eaten by zooplankton, filter feeders and fish, carry toxins and pass along food chains. Nanoplastics, smaller than about 1 micrometre, can enter cells; their effects are still being researched. A banner explains that plastics persist because they are not biodegradable.</desc>
+  <defs><marker id="d42p-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="hd" /></marker></defs>
+  <text class="ft" x="297" y="18" text-anchor="middle">fragmentation by UV light, waves and abrasion</text>
+  <path class="arr" d="M40 30 L556 30" marker-end="url(#d42p-a)" />
+  {cards.map((c, i) => (
+    <g>
+      <rect class={`card ${c.cls}`} x={X(i)} y={T} width={CW} height="244" rx="10" />
+      <text class="h" x={X(i) + 12} y={T + 24}>{c.h}</text>
+      <text class="sz" x={X(i) + 12} y={T + 42}>{c.size}</text>
+      <text class="sub" x={X(i) + 12} y={T + 66}>Sources</text>
+      {c.src.map((s, k) => <text class="t" x={X(i) + 12} y={T + 84 + k * 16}>{s}</text>)}
+      <text class="sub" x={X(i) + 12} y={T + 130}>Effects</text>
+      {c.eff.map((s, k) => s && <text class="t" x={X(i) + 12} y={T + 148 + effY(c.eff)[k]!}>{s}</text>)}
+    </g>
+  ))}
+  <rect class="banner" x="8" y="296" width="578" height="46" rx="10" />
+  <text class="bt" x="297" y="315" text-anchor="middle">Persistent: plastics are not biodegradable. Few decomposers have enzymes that</text>
+  <text class="bt" x="297" y="332" text-anchor="middle">can digest the polymers, so plastic only fragments and builds up for decades or longer.</text>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .card { stroke-width: 1.6; }
+  .macro { fill: color-mix(in srgb, var(--bio-head) 10%, var(--surface)); stroke: var(--bio-head); }
+  .micro { fill: color-mix(in srgb, var(--bio-water) 12%, var(--surface)); stroke: var(--bio-water); }
+  .nano { fill: color-mix(in srgb, var(--bio-protein-2) 10%, var(--surface)); stroke: var(--bio-protein-2); }
+  .h { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .sz { font-size: 12.5px; font-weight: 650; fill: var(--text-muted); }
+  .sub { font-size: 12.5px; font-weight: 800; fill: var(--text); text-transform: uppercase; letter-spacing: 0.04em; }
+  .t { font-size: 12px; fill: var(--text); }
+  .arr { stroke: var(--text-muted); stroke-width: 2.4; fill: none; }
+  .hd { fill: var(--text-muted); }
+  .banner { fill: var(--surface); stroke: var(--border-strong); }
+  .ft { font-size: 13px; font-weight: 700; font-style: italic; fill: var(--text-muted); }
+  .bt { font-size: 12.5px; font-weight: 650; fill: var(--text); }
+</style>

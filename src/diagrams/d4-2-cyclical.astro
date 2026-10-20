@@ -1,0 +1,47 @@
+---
+/** Cyclical succession in heather (Calluna vulgaris) heathland: four phases that repeat (D4.2.14). */
+const phases = [
+  { cx: 300, cy: 54, h: 'Pioneer', age: 'about 0–6 years', t: ['Seedlings or new shoots', 'establish in an open gap'], size: 0.35 },
+  { cx: 474, cy: 180, h: 'Building', age: 'about 6–15 years', t: ['Dense, vigorous heather:', 'closed canopy shades out', 'most other plants'], size: 0.8 },
+  { cx: 300, cy: 306, h: 'Mature', age: 'about 15–25 years', t: ['Growth slows and the', 'canopy opens; mosses and', 'other plants return'], size: 1 },
+  { cx: 126, cy: 180, h: 'Degenerate', age: 'over about 25 years', t: ['Old central stems die', 'and collapse, leaving a', 'gap for lichens and mosses'], size: 0.6 },
+];
+const BW = 196, BH = 92;
+const bush = (x: number, y: number, s: number) =>
+  `M${x - 18 * s} ${y} Q${x - 20 * s} ${y - 26 * s} ${x} ${y - 30 * s} Q${x + 20 * s} ${y - 26 * s} ${x + 18 * s} ${y} Z`;
+---
+<svg viewBox="0 0 600 360" role="img" aria-labelledby="d42c-t d42c-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="d42c-t">Cyclical succession in heather heathland</title>
+  <desc id="d42c-d">A cycle of four phases in a patch of heather, Calluna vulgaris. Pioneer phase, about 0 to 6 years: seedlings or new shoots establish in an open gap. Building phase, about 6 to 15 years: dense vigorous heather forms a closed canopy that shades out most other plants. Mature phase, about 15 to 25 years: growth slows and the canopy opens, so mosses and other plants return. Degenerate phase, over about 25 years: the old central stems die and collapse, leaving a gap colonized by lichens and mosses, where the pioneer phase starts again. The patch never reaches one permanent climax.</desc>
+  <defs><marker id="d42c-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="hd" /></marker></defs>
+  <path class="arc" d="M400 70 Q470 80 474 130" marker-end="url(#d42c-a)" />
+  <path class="arc" d="M474 230 Q470 290 400 296" marker-end="url(#d42c-a)" />
+  <path class="arc" d="M200 296 Q130 290 126 230" marker-end="url(#d42c-a)" />
+  <path class="arc" d="M126 130 Q130 70 198 62" marker-end="url(#d42c-a)" />
+  <text class="c1" x="300" y="174" text-anchor="middle">Heather</text>
+  <text class="c2" x="300" y="192" text-anchor="middle">(Calluna vulgaris)</text>
+  <text class="c3" x="300" y="212" text-anchor="middle">a repeating cycle,</text>
+  <text class="c3" x="300" y="228" text-anchor="middle">no permanent climax</text>
+  {phases.map((p) => (
+    <g>
+      <rect class="box" x={p.cx - BW / 2} y={p.cy - BH / 2} width={BW} height={BH} rx="10" />
+      <path class="bush" d={bush(p.cx + BW / 2 - 28, p.cy - BH / 2 + 38, p.size)} />
+      <text class="h" x={p.cx - BW / 2 + 10} y={p.cy - BH / 2 + 20}>{p.h}</text>
+      <text class="age" x={p.cx - BW / 2 + 10} y={p.cy - BH / 2 + 36}>{p.age}</text>
+      {p.t.map((s, i) => <text class="t" x={p.cx - BW / 2 + 10} y={p.cy - BH / 2 + 54 + i * 14}>{s}</text>)}
+    </g>
+  ))}
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .arc { fill: none; stroke: var(--text-muted); stroke-width: 2.4; }
+  .hd { fill: var(--text-muted); }
+  .box { fill: var(--surface); stroke: var(--bio-protein-2); stroke-width: 1.6; }
+  .bush { fill: color-mix(in srgb, var(--bio-protein-2) 45%, var(--surface)); stroke: var(--bio-protein-2); stroke-width: 1.2; }
+  .h { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .age { font-size: 12px; font-weight: 650; fill: var(--text-muted); }
+  .t { font-size: 12px; fill: var(--text); }
+  .c1 { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .c2 { font-size: 13px; font-style: italic; fill: var(--text); }
+  .c3 { font-size: 12.5px; fill: var(--text-muted); }
+</style>

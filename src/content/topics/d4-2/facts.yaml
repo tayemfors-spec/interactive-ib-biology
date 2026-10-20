@@ -1,0 +1,181 @@
+facts:
+  - id: f1
+    claim: Requirements for ecosystem stability are an energy supply, nutrient recycling, genetic diversity and climatic variables within tolerance.
+    where: [ "index.mdx#stability", "quiz.yaml:q7", "flashcards.yaml:c1", "index.mdx (mustKnow)" ]
+    confidence: high
+    basis: IB guide D4.2.2
+    status: checked
+  - id: f2
+    claim: The Daintree rainforest (Wet Tropics, Queensland) has persisted in the region, at least in refugia, for tens of millions of years and contains many ancient angiosperm lineages (e.g. Idiospermum, Austrobaileyaceae).
+    where: [ "index.mdx#stability", "flashcards.yaml:c2" ]
+    confidence: medium
+    basis: Wet Tropics World Heritage listing; Metcalfe & Ford (2009) on Wet Tropics floristics. Popular "oldest rainforest, 100+ million years" claims overstate continuity, so the page says "tens of millions of years".
+    status: open
+  - id: f3
+    claim: The Namib Desert has been arid or semi-arid for tens of millions of years (often quoted as at least ~55 million years).
+    where: [ "index.mdx#stability", "flashcards.yaml:c2" ]
+    confidence: medium
+    basis: Ward, Seely & Lancaster (1983) and later reviews of Namib palaeoclimate; estimates vary
+    status: open
+  - id: f4
+    claim: Amazon transpiration recycles water vapour that falls as rain further inland (west); deforestation reduces transpiration and rainfall and increases drought and fire, a positive feedback; the minimum forest area (tipping point) is uncertain, with ~20–25% loss suggested and ~17% already lost.
+    where: [ "index.mdx#tipping-point", "d4-2-amazon figure", "flashcards.yaml:c3", "index.mdx (mustKnow)" ]
+    confidence: medium
+    basis: IB guide D4.2.3; Lovejoy & Nobre (2018) Science Advances 4:eaat2340; Staal et al. (2018) on cascading moisture recycling. The role of condensation-driven air flow (biotic pump) is debated, so the page says so.
+    status: open
+  - id: f5
+    claim: PRODES annual deforestation in the Brazilian Legal Amazon was about 27,800 km² in 2004, 4,600 km² in 2012 and 13,000 km² in 2021 (rounded from 27,772; 4,571; 13,038).
+    where: [ "index.mdx#tipping-point (worked example)" ]
+    confidence: medium
+    basis: INPE PRODES annual rates; values rounded. Teacher should confirm against the current PRODES table.
+    status: open
+  - id: f6
+    claim: Percentage change = (final − initial) ÷ initial × 100; 52,000 → 39,000 km² is −25%.
+    where: [ "index.mdx#tipping-point", "quiz.yaml:q1", "flashcards.yaml:c4", "index.mdx (mistakes)" ]
+    confidence: high
+    basis: Arithmetic; IB guide D4.2.3 application of skills
+    status: checked
+  - id: f7
+    claim: Sealed glass mesocosms are closed systems (no exchange of matter, energy can enter as light and leave as heat); aquatic or microbial mesocosms work better than terrestrial ones; vertebrates should not be used.
+    where: [ "index.mdx#mesocosms", "d4-2-mesocosm figure", "quiz.yaml:q6", "flashcards.yaml:c5" ]
+    confidence: high
+    basis: IB guide D4.2.4 and IB animal experimentation policy
+    status: checked
+  - id: f8
+    claim: Paine (1966) removed Pisaster ochraceus from rocky-shore plots in Washington State; Mytilus californianus came to dominate and species number in the plots fell (from 15 to 8).
+    where: [ "index.mdx#keystone", "quiz.yaml:q2" ]
+    confidence: high
+    basis: Paine (1966) American Naturalist 100:65–75
+    status: checked
+  - id: f9
+    claim: Sea otters are a keystone species in North Pacific kelp forests; where they were hunted out, urchins increased and grazed kelp into urchin barrens; where otters returned, kelp recovered.
+    where: [ "index.mdx#keystone", "sim d4-2-keystone", "visuals.yaml:keystone", "flashcards.yaml:c6", "index.mdx (mustKnow)" ]
+    confidence: high
+    basis: Estes & Palmisano (1974) Science 185:1058; Estes et al. (1998); consistent with C4.1 page
+    status: checked
+  - id: f10
+    claim: Keystone sim model — crabs as alternative otter prey and rockfish dependent on kelp habitat; parameter values are illustrative (qualitative model). Removing otters gives urchins ~8–10× and kelp ~6%; removing crabs leaves kelp ~97%.
+    where: [ "sim d4-2-keystone", "src/sims/models/d4-2-keystone.ts", "tests/unit/d4-2.test.ts" ]
+    confidence: medium
+    basis: Model structure follows documented trophic cascade; numbers are not data and are labelled as a qualitative model on screen.
+    status: open
+  - id: f11
+    claim: Logistic harvest model — replacement rN(1 − N/K) is greatest at K/2, giving MSY = rK/4; a constant quota above MSY leads to collapse; a constant effort F gives yield F·K(1 − F/r), maximal at F = r/2.
+    where: [ "index.mdx#harvesting", "sim d4-2-harvest", "quiz.yaml:q3", "flashcards.yaml:c8", "tests/unit/d4-2.test.ts" ]
+    confidence: high
+    basis: Standard Schaefer surplus-production model (fisheries science textbooks)
+    status: checked
+  - id: f12
+    claim: Grand Banks (Newfoundland) cod collapsed through overfishing; Canada declared a moratorium on commercial fishing in 1992; the stock has not fully recovered.
+    where: [ "index.mdx#harvesting", "sim d4-2-harvest text", "flashcards.yaml:c9" ]
+    confidence: high
+    basis: Myers, Hutchings & Barrowman (1997); Fisheries and Oceans Canada
+    status: checked
+  - id: f13
+    claim: North Sea cod recovery measures — quotas based on stock surveys, larger mesh, closed areas, fleet reduction; stock increased afterwards.
+    where: [ "index.mdx#harvesting", "flashcards.yaml:c9" ]
+    confidence: medium
+    basis: ICES advice and EU cod recovery plan (2004 onward). Recent ICES assessments show the stock fluctuating again, so the page says only that it "has since increased".
+    status: open
+  - id: f14
+    claim: Brazil nut (Bertholletia excelsa) — wild-harvested in Amazon forest; seeds dispersed and cached by agoutis; heavily harvested populations lack juveniles (age-structure assessment); trees need large bees for pollination and crop poorly in plantations.
+    where: [ "index.mdx#harvesting", "flashcards.yaml:c9" ]
+    confidence: high
+    basis: Peres et al. (2003) Science 302:2112; Mori & Prance on Lecythidaceae pollination
+    status: checked
+  - id: f15
+    claim: Agricultural sustainability factors — soil erosion faster than soil formation (soil forms at roughly 1 cm per century or slower); Haber process uses natural gas; phosphate rock is finite; agrochemical pollution and resistance; carbon footprint from fuel, fertilizer manufacture, CH₄ and N₂O.
+    where: [ "index.mdx#agriculture", "flashcards.yaml:c10" ]
+    confidence: medium
+    basis: IB guide D4.2.7; FAO soil reports; IPCC AR6 WGIII (agriculture and land use). Soil formation rate varies widely.
+    status: open
+  - id: f16
+    claim: Eutrophication sequence; oxygen is depleted mainly by aerobic respiration of saprotrophic bacteria decomposing dead organic matter; BOD is measured over 5 days at 20 °C in the dark.
+    where: [ "index.mdx#eutrophication", "visuals.yaml:eutrophication", "quiz.yaml:q4", "flashcards.yaml:c11", "flashcards.yaml:c12", "index.mdx (mustKnow, mistakes)" ]
+    confidence: high
+    basis: IB guide D4.2.8; standard BOD₅ method (APHA Standard Methods 5210B)
+    status: checked
+  - id: f17
+    claim: Phosphate usually limits freshwater production and nitrogen limits coastal marine production; nutrient run-off from the Mississippi causes a seasonal hypoxic dead zone in the Gulf of Mexico.
+    where: [ "index.mdx#eutrophication" ]
+    confidence: high
+    basis: Schindler (1977); Rabalais et al. (2002); generalization with exceptions
+    status: checked
+  - id: f18
+    claim: DDT residues (ppm wet mass) in the Carmans River estuary, Long Island — water 0.00005, plankton 0.04, Atlantic silverside 0.23, needlefish 2.07, double-crested cormorant 26.4.
+    where: [ "d4-2-biomagnification figure", "index.mdx#biomagnification", "quiz.yaml:q5" ]
+    confidence: medium
+    basis: Woodwell, Wurster & Isaacson (1967) Science 156:821–824, Table 1, recalled values. Teacher should check against the original table before publication.
+    status: open
+  - id: f19
+    claim: DDE causes eggshell thinning in peregrine falcons, ospreys, bald eagles and brown pelicans; Silent Spring 1962; DDT banned for agricultural use in most countries from the 1970s; still permitted for indoor malaria control under the Stockholm Convention.
+    where: [ "index.mdx#biomagnification" ]
+    confidence: high
+    basis: Ratcliffe (1967); Hickey & Anderson (1968); Stockholm Convention (2001) Annex B
+    status: checked
+  - id: f20
+    claim: Minamata disease — methylmercury discharged by the Chisso factory into Minamata Bay (1930s–1960s), bioaccumulated in fish and shellfish; disease officially identified in 1956; congenital cases. Methylmercury is formed by bacteria from inorganic mercury (coal burning, gold mining); highest in swordfish, shark, some tuna.
+    where: [ "index.mdx#biomagnification", "flashcards.yaml:c13" ]
+    confidence: high
+    basis: WHO mercury fact sheet; Harada (1995); FDA/EPA fish advice
+    status: checked
+  - id: f21
+    claim: Microplastics are under 5 mm; nanoplastics under about 1 µm (definitions vary, some use 100 nm); albatross chicks on Midway Atoll are fed plastic; turtles ingest bags; microplastics adsorb PCBs.
+    where: [ "index.mdx#plastics", "d4-2-plastics figure", "flashcards.yaml:c14" ]
+    confidence: high
+    basis: GESAMP (2015); NOAA marine debris programme; Rios et al. (2007) on adsorbed POPs
+    status: checked
+  - id: f22
+    claim: Blue Planet II (BBC, 2017) is widely credited with shifting public attitudes to marine plastic ("Blue Planet effect"); UK microbead ban 2018.
+    where: [ "index.mdx#plastics (NOS callout)" ]
+    confidence: medium
+    basis: Media and policy reports (e.g. UK DEFRA); causal attribution is debated
+    status: open
+  - id: f23
+    claim: Hinewai Reserve, Banks Peninsula, South Island, New Zealand — former farmland regenerating since 1987; well over 1,000 ha; browsing mammals (goats, deer, possums) controlled; minimal interference; gorse (Ulex europaeus) used as a nurse canopy and shaded out by native trees; bird seed dispersal.
+    where: [ "index.mdx#rewilding", "flashcards.yaml:c15", "index.mdx (mustKnow)" ]
+    confidence: medium
+    basis: IB guide D4.2.11; Maurice White Native Forest Trust; Wilson (2002) Hinewai reports. Current area (~1,500 ha?) to be confirmed.
+    status: open
+  - id: f24
+    claim: Grey wolves reintroduced to Yellowstone in 1995; Eurasian beavers released in Scotland (Knapdale trial 2009).
+    where: [ "index.mdx#rewilding" ]
+    confidence: high
+    basis: US National Park Service; Scottish Beaver Trial reports; consistent with A4.2 page
+    status: checked
+  - id: f25
+    claim: Glacier Bay, Alaska — glaciers have retreated more than 100 km since the mid-1700s; sequence of pioneers (cyanobacterial crusts, lichens, mosses, Dryas) → alder (nitrogen-fixing Frankia nodules) → Sitka spruce → spruce–hemlock forest after about two centuries.
+    where: [ "index.mdx#succession", "flashcards.yaml:c16" ]
+    confidence: high
+    basis: Chapin et al. (1994) Ecological Monographs 64:149; Cooper (1923)
+    status: checked
+  - id: f26
+    claim: Triggers of succession — Surtsey (Iceland) formed 1963; beavers as a biotic trigger; ash dieback as a disease trigger.
+    where: [ "index.mdx#succession", "flashcards.yaml:c17" ]
+    confidence: high
+    basis: Surtsey Research Society; general ecology texts
+    status: checked
+  - id: f27
+    claim: Heather (Calluna vulgaris) cyclical phases — pioneer (~0–6 yr), building (~6–15), mature (~15–25), degenerate (25+), described by Watt (1947) and Gimingham.
+    where: [ "index.mdx#cyclical", "d4-2-cyclical figure", "quiz.yaml:q10", "flashcards.yaml:c18" ]
+    confidence: medium
+    basis: Watt (1947) J. Ecol. 35:1–22; Gimingham (1972) Ecology of Heathlands. Phase ages vary by site; labelled approximate.
+    status: open
+  - id: f28
+    claim: Californian chaparral is fire-adapted with fires every few decades; wood pasture in north-west Europe cycles between grassland and oak.
+    where: [ "index.mdx#cyclical" ]
+    confidence: medium
+    basis: Keeley & Davis on chaparral fire regimes (intervals ~30–150 years); Vera (2000) Grazing Ecology and Forest History. The study guide's "every 10–15 years" is too frequent and was not used.
+    status: open
+  - id: f29
+    claim: Grazing arrests succession at a grassland plagioclimax (grasses regrow from basal meristems; tree seedlings eaten); drainage of wetlands (e.g. the Fens of eastern England, from the 1600s) lowers the water table, peat oxidizes and the surface subsides by several metres.
+    where: [ "index.mdx#climax", "d4-2-arrested figure", "quiz.yaml:q9", "flashcards.yaml:c18", "visuals.yaml:succession step arrested" ]
+    confidence: high
+    basis: IB guide D4.2.15; Holme Fen post records ~4 m of subsidence since 1851
+    status: checked
+  - id: f30
+    claim: Succession trends — increase in plant size, biomass, primary production, diversity, food-web complexity, soil depth and nutrient cycling; secondary succession is faster because soil remains.
+    where: [ "index.mdx#succession", "visuals.yaml:succession", "quiz.yaml:q8", "flashcards.yaml:c16" ]
+    confidence: high
+    basis: IB guide D4.2.13; Odum (1969) Science 164:262
+    status: checked
