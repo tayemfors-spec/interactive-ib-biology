@@ -55,3 +55,8 @@ Reference material is in the scratchpad (not in the repo): guide extracts in `sc
 - Theme D built (12 topics), examiner-reviewed (0 critical, 7 major, 40 minor) and fixed.
 - Full verify on all 40 topics passed: astro check 0/0, 776 unit tests, 126 links, 732 e2e (desktop Chrome, Android Chrome, iPhone Safari; axe light + dark), Lighthouse on 46 pages (min: Perf 97, A11y 100, BP 100, SEO 100).
 - Remaining: Stage 8 deploy to GitHub Pages and Stage 9 Search Console both need the user (account, sign-in, approving the first push). Optional clean-ups listed in the final report.
+
+## Stages 8–9 — 2026-10-20: live and submitted to Google
+- Live site: https://tayemfors-spec.github.io/interactive-ib-biology/ (repo github.com/tayemfors-spec/interactive-ib-biology, deployed by .github/workflows/deploy.yml on every push to main).
+- Live checks: 131 links OK; Lighthouse on home, B2.1 and D3.3: 99–100 in all four categories.
+- Google Search Console: URL-prefix property verified by HTML tag (code in the GSC_VERIFICATION repository variable — keep it, or verification is lost); sitemap-index.xml submitted.
