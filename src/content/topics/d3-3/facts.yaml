@@ -1,0 +1,127 @@
+facts:
+  - id: f1
+    claim: Homeostatic variables in humans named by the guide are body temperature, blood pH, blood glucose concentration and blood osmotic concentration.
+    where: ["index.mdx#homeostasis", "quiz.yaml:q1", "flashcards.yaml:c1"]
+    confidence: high
+    basis: IB guide D3.3.1
+    status: checked
+  - id: f2
+    claim: Normal blood pH is 7.35–7.45; core temperature about 37 °C; plasma osmotic concentration about 0.3 osmol L⁻¹ (≈ 290 mOsm kg⁻¹).
+    where: ["index.mdx#homeostasis", "index.mdx#kidney", "quiz.yaml:q1"]
+    confidence: high
+    basis: Standard physiology (Guyton and Hall; Vander)
+    status: checked
+  - id: f3
+    claim: Blood glucose is held at about 4–8 mmol dm⁻³ through the day with a set point near 5 mmol dm⁻³.
+    where: ["index.mdx#homeostasis", "index.mdx#blood-glucose", "visuals.yaml:glucose"]
+    confidence: medium
+    basis: Typical fasting 4–5.5 and post-meal below about 7.8 mmol dm⁻³; the 4–8 band is a revision-guide simplification
+    status: open
+  - id: f4
+    claim: Insulin is secreted by β cells and glucagon by α cells of the islets of Langerhans; both are peptide hormones carried dissolved in plasma and detected by membrane receptors.
+    where: ["index.mdx#blood-glucose", "quiz.yaml:q3", "flashcards.yaml:c4"]
+    confidence: high
+    basis: Standard physiology; IB guide D3.3.3
+    status: checked
+  - id: f5
+    claim: Insulin increases glucose uptake into muscle and fat (GLUT4 insertion) and glycogenesis in liver and muscle, and reduces hepatic glucose output; glucagon acts mainly on the liver (glycogenolysis, gluconeogenesis), not on skeletal muscle.
+    where: ["index.mdx#blood-glucose", "index.mdx (mistakes)", "flashcards.yaml:c5", "flashcards.yaml:c6"]
+    confidence: high
+    basis: Standard physiology (skeletal muscle lacks glucagon receptors and glucose-6-phosphatase)
+    status: checked
+  - id: f6
+    claim: The renal threshold for glucose is about 10 mmol dm⁻³ (≈ 180 mg dL⁻¹).
+    where: ["index.mdx#diabetes", "visuals.yaml:glucose", "src/sims/models/d3-3-glucose.ts"]
+    confidence: high
+    basis: Standard physiology
+    status: checked
+  - id: f7
+    claim: Type 1 diabetes is autoimmune destruction of β cells, usually with onset in childhood or early adulthood, not currently preventable, treated with insulin; type 2 is insulin resistance with risk factors obesity, inactivity, diet, age, family history and ethnicity, and is about 90% of cases.
+    where: ["index.mdx#diabetes", "quiz.yaml:q4", "flashcards.yaml:c7", "flashcards.yaml:c8"]
+    confidence: high
+    basis: WHO / Diabetes UK fact sheets; IB guide D3.3.4
+    status: checked
+  - id: f8
+    claim: Fasting glucose of 7.0 mmol dm⁻³ or more is a diagnostic threshold for diabetes; the type 2 model gives a fasting value of about 7.7.
+    where: ["src/sims/models/d3-3-glucose.ts", "tests/unit/d3-3.test.ts"]
+    confidence: high
+    basis: WHO diagnostic criteria
+    status: checked
+  - id: f9
+    claim: Peripheral thermoreceptors in skin and central thermoreceptors (hypothalamus) feed the hypothalamus; cold raises TRH → TSH → thyroxin, which raises metabolic rate; thyroxin falls when overheated.
+    where: ["index.mdx#thermoregulation", "quiz.yaml:q5", "flashcards.yaml:c9", "visuals.yaml:thermoregulation"]
+    confidence: medium
+    basis: IB guide D3.3.5 includes thyroxin; in adult humans the cold-induced thyroxin rise is modest and slow
+    status: open
+  - id: f10
+    claim: Brown adipose tissue produces heat by uncoupled respiration (UCP1/thermogenin lets protons leak across the inner mitochondrial membrane); it is most abundant in newborns, with some retained in adults in the neck and upper chest.
+    where: ["index.mdx#mechanisms", "quiz.yaml:q6", "mustKnow"]
+    confidence: high
+    basis: Cannon and Nedergaard 2004; standard physiology
+    status: checked
+  - id: f11
+    claim: Skin blood flow is changed by vasodilation/vasoconstriction of arterioles (and shunt vessels), not by capillaries moving; sweating cools by evaporation (high latent heat of vaporization).
+    where: ["index.mdx#mechanisms", "mistakes", "visuals.yaml:thermoregulation"]
+    confidence: high
+    basis: Standard physiology
+    status: checked
+  - id: f12
+    claim: Thermoregulation sim treats about 24 °C as neutral for a lightly clothed adult at rest; values are qualitative.
+    where: ["src/sims/models/d3-3-thermo.ts"]
+    confidence: medium
+    basis: Thermoneutral zone for an unclothed adult is about 27–31 °C; lower when lightly clothed
+    status: open
+  - id: f13
+    claim: Each human kidney has about a million nephrons; glomerular filtrate is about 180 dm³ per day (≈ 125 cm³ min⁻¹); urine about 1.5 dm³ per day; about 20% of plasma is filtered.
+    where: ["index.mdx#ultrafiltration", "visuals.yaml:kidney"]
+    confidence: high
+    basis: Standard renal physiology (Guyton and Hall)
+    status: checked
+  - id: f14
+    claim: Glomerular fenestrations are up to about 100 nm (typically 70–100 nm); the basement membrane is the main filter, holding back most proteins by size and negative charge; podocyte foot processes form filtration slits.
+    where: ["index.mdx#ultrafiltration", "visuals.yaml:kidney", "flashcards.yaml:c13"]
+    confidence: high
+    basis: Standard renal histology; IB guide D3.3.8
+    status: checked
+  - id: f15
+    claim: The afferent arteriole is wider than the efferent arteriole, raising glomerular capillary pressure.
+    where: ["index.mdx#ultrafiltration", "quiz.yaml:q7", "visuals.yaml:kidney", "diagrams/d3-3-nephron"]
+    confidence: high
+    basis: Standard renal physiology
+    status: checked
+  - id: f16
+    claim: The PCT reabsorbs all filtered glucose and amino acids (Na⁺ cotransport) and around two-thirds or more of the water and Na⁺.
+    where: ["index.mdx#ultrafiltration", "flashcards.yaml:c14", "visuals.yaml:kidney"]
+    confidence: medium
+    basis: Physiology texts give about 65–70%; some revision guides give 80%
+    status: open
+  - id: f17
+    claim: The ascending limb is impermeable to water and actively transports Na⁺ out (Cl⁻ follows); the descending limb is permeable to water; medullary osmotic concentration rises to about 1.2 osmol L⁻¹ in humans.
+    where: ["index.mdx#loop-of-henle", "quiz.yaml:q8", "flashcards.yaml:c15", "visuals.yaml:kidney"]
+    confidence: high
+    basis: Standard renal physiology; IB guide D3.3.9
+    status: checked
+  - id: f18
+    claim: ADH is made by hypothalamic neurosecretory cells and released from the posterior pituitary; it causes aquaporin-containing vesicles to fuse with the apical membrane of collecting duct cells; with less ADH aquaporins are retrieved by endocytosis.
+    where: ["index.mdx#collecting-duct", "quiz.yaml:q9", "flashcards.yaml:c16", "visuals.yaml:osmoregulation"]
+    confidence: high
+    basis: Standard physiology (aquaporin-2 trafficking); IB guide D3.3.10
+    status: checked
+  - id: f19
+    claim: Blood flow at rest (cardiac output ≈ 5.8 dm³ min⁻¹) — muscle ≈ 1000, gut ≈ 1350, brain ≈ 750, kidneys ≈ 1100 cm³ min⁻¹; vigorous exercise (≈ 17.5 dm³ min⁻¹) — muscle ≈ 12 500, gut ≈ 600, brain ≈ 850, kidneys ≈ 600.
+    where: ["diagrams/d3-3-blood-supply", "index.mdx#blood-supply", "quiz.yaml:q10"]
+    confidence: medium
+    basis: Rounded from standard tables (Vander; Guyton and Hall); brain flow in exercise is roughly constant (slight rise in moderate exercise)
+    status: open
+  - id: f20
+    claim: Sleep values (cardiac output ≈ 4.5 dm³ min⁻¹; muscle ≈ 600, gut ≈ 1200, brain ≈ 700, kidneys ≈ 950 cm³ min⁻¹) are illustrative; cerebral flow falls in deep non-REM sleep and rises in REM sleep.
+    where: ["diagrams/d3-3-blood-supply", "index.mdx#blood-supply"]
+    confidence: low
+    basis: Qualitative trends from sleep physiology reviews; exact values not standardized
+    status: open
+  - id: f21
+    claim: At the hilum the renal vein lies anterior to the renal artery, with the pelvis/ureter posterior.
+    where: ["visuals.yaml:kidney (overview)", "src/scenes/d3-3-kidney-overview.ts"]
+    confidence: high
+    basis: Gray's Anatomy
+    status: checked

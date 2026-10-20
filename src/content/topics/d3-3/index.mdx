@@ -1,0 +1,383 @@
+---
+code: D3.3
+description: "IB Biology D3.3 homeostasis revision: simulate blood glucose and thermoregulation, explore a 3D nephron and ADH control, then test yourself."
+updated: 2026-10-19
+related: [B2.1, C3.1, C2.1, D2.3, B3.2]
+mustKnow:
+  - term: Homeostasis
+    definition: "Keeping the internal environment of an organism (the tissue fluid and blood around its cells) within narrow limits, despite changes in the external environment. Human examples: body temperature, blood pH, blood glucose concentration and blood osmotic concentration."
+    level: SL
+  - term: Negative feedback
+    definition: "A control system in which a change in a variable away from its <strong>set point</strong> triggers responses that reverse the change, returning the variable towards the set point whether it had risen above or fallen below it."
+    level: SL
+  - term: Insulin
+    definition: "A peptide hormone secreted by <strong>β cells</strong> in the islets of the pancreas when blood glucose rises. It travels in blood plasma and makes liver, muscle and fat cells take up glucose; liver and muscle store it as glycogen (glycogenesis). Blood glucose falls."
+    level: SL
+  - term: Glucagon
+    definition: "A peptide hormone secreted by <strong>α cells</strong> in the islets of the pancreas when blood glucose falls. It makes liver cells break glycogen down to glucose (glycogenolysis) and release it into the blood. Blood glucose rises."
+    level: SL
+  - term: Type 1 diabetes
+    definition: "The immune system destroys the β cells, so little or no insulin is secreted. Usually begins in childhood or early adulthood; treated by monitoring blood glucose and giving insulin by injection or pump."
+    level: SL
+  - term: Type 2 diabetes
+    definition: "Target cells become less sensitive to insulin (<strong>insulin resistance</strong>), so glucose uptake is reduced even though insulin is secreted. Risk is raised by obesity, inactivity, poor diet, age and family history; managed by diet, exercise, weight loss and drugs."
+    level: SL
+  - term: Thermoregulation
+    definition: "Negative feedback control of core body temperature (about 37 °C in humans). Peripheral and central thermoreceptors signal to the <strong>hypothalamus</strong>, which controls effectors by nerves and, through the pituitary gland, thyroxin secretion."
+    level: SL
+  - term: Uncoupled respiration
+    definition: "In brown adipose tissue, mitochondria oxidize fat but a protein in the inner membrane lets protons leak back without passing through ATP synthase, so the energy is released as heat instead of being used to make ATP."
+    level: SL
+  - term: Osmoregulation
+    definition: "Control of the osmotic concentration of body fluids (the total concentration of dissolved solutes that affect osmosis, measured in osmol L<sup>−1</sup>) by varying how much water and salt is lost in urine."
+    level: AHL
+  - term: Ultrafiltration
+    definition: "Filtration of blood plasma under high pressure in the glomerulus. Water and small solutes pass through the fenestrated capillary wall, the basement membrane (the filter) and the filtration slits between podocytes; blood cells and most proteins are held back."
+    level: AHL
+  - term: ADH and aquaporins
+    definition: "Antidiuretic hormone, secreted by the posterior pituitary when osmoreceptors in the hypothalamus detect a high blood solute concentration. It causes vesicles carrying <strong>aquaporins</strong> to fuse with the membranes of collecting duct cells, so more water is reabsorbed."
+    level: AHL
+mistakes:
+  - wrong: "Negative feedback means the response is negative, or reduces the variable."
+    right: "Negative feedback means the response <strong>opposes the change</strong>: if the variable rises it is brought down, and if it falls it is brought up, returning it towards the set point."
+    level: SL
+  - wrong: "Insulin converts glucose into glycogen."
+    right: "Insulin is a signal, not an enzyme. It binds to receptors on target cells, which then take up more glucose and activate their own enzymes to make glycogen."
+    level: SL
+  - wrong: "Glucagon makes muscle cells break down glycogen and release glucose into the blood."
+    right: "Glucagon acts mainly on <strong>liver</strong> cells. Muscle glycogen is broken down only for the muscle's own use; muscle cells do not release glucose into the blood."
+    level: SL
+  - wrong: "Confusing glucagon (the hormone) with glycogen (the storage polysaccharide)."
+    right: "<strong>Glucagon</strong> is a peptide hormone from α cells; <strong>glycogen</strong> is the branched polymer of glucose stored in liver and muscle. Glucagon causes glycogen to be broken down."
+    level: SL
+  - wrong: "Type 2 diabetes is caused by a lack of insulin, like type 1."
+    right: "In type 2, insulin is usually still secreted (often more than normal at first), but target cells respond weakly to it — <strong>insulin resistance</strong>. In type 1, the β cells are destroyed and insulin is not made."
+    level: SL
+  - wrong: "In heat, capillaries move closer to the skin surface (vasodilation of capillaries)."
+    right: "Capillaries do not move and have no muscle in their walls. The <strong>arterioles</strong> supplying the skin dilate, so more blood flows through the skin capillaries and more heat is lost."
+    level: SL
+  - wrong: "Sweat cools the body because it is cold, or simply because it is wet."
+    right: "Cooling happens when water in sweat <strong>evaporates</strong>: breaking hydrogen bonds takes a lot of heat energy (high latent heat of vaporization) from the skin."
+    level: SL
+  - wrong: "The glomerulus filters out proteins and glucose is not filtered."
+    right: "Glucose, amino acids, ions, urea and water are all filtered; it is mainly proteins and cells that are held back. Glucose is absent from normal urine because all of it is <strong>reabsorbed</strong> in the proximal convoluted tubule."
+    level: AHL
+  - wrong: "ADH makes the collecting duct actively pump water out of the filtrate."
+    right: "Water is never actively pumped. ADH increases the number of <strong>aquaporins</strong> in the membranes of collecting duct cells, and water moves passively by osmosis into the concentrated tissue fluid of the medulla."
+    level: AHL
+  - wrong: "The descending limb of the loop of Henle pumps out sodium ions."
+    right: "Na⁺ is actively transported out of the <strong>ascending</strong> limb, which is impermeable to water. The descending limb is permeable to water, which leaves it by osmosis."
+    level: AHL
+---
+
+<Section id="homeostasis" title="Homeostasis: a steady internal environment" level="SL" covers="D3.3.1">
+
+The cells of a multicellular animal are bathed in **tissue fluid**, which is formed from blood plasma. This fluid is the cells' immediate surroundings: their **internal environment**. **Homeostasis** is keeping the internal environment within narrow, preset limits, even when the external environment changes a lot.
+
+Why it matters:
+
+- **Enzymes** work best within a narrow range of temperature and pH; outside it, rates fall and proteins can denature.
+- **Water balance** of cells depends on the solute concentration of the fluid around them: if it is too high, cells lose water by osmosis; if too low, they swell.
+- **A steady fuel supply** (glucose) is needed by cells that respire constantly, especially brain cells.
+
+Keeping conditions stable costs energy, but it lets animals stay active in very different and changing environments.
+
+### Variables controlled in humans
+
+| Variable | Typical value | Main controller |
+|---|---|---|
+| Core body temperature | about 37 °C | hypothalamus (thermoregulation) |
+| Blood pH | 7.35–7.45 | ventilation (<TopicLink code="C3.1" />) and the kidneys |
+| Blood glucose concentration | about 4–8 mmol dm⁻³ through the day | pancreas (insulin and glucagon) |
+| Blood osmotic concentration | about 0.3 osmol L⁻¹ | hypothalamus, ADH and kidneys (AHL) |
+
+Each variable has a **set point** and limits either side of it. The body does not hold the value perfectly still: it fluctuates a little around the set point, and every deviation is corrected.
+
+<Callout type="exam">
+
+The guide names four homeostatic variables in humans: **body temperature, blood pH, blood glucose concentration and blood osmotic concentration**. Heart rate and ventilation rate are not on this list: they *change* in order to keep variables such as blood pH steady.
+
+</Callout>
+
+</Section>
+
+<Section id="negative-feedback" title="Negative feedback" level="SL" covers="D3.3.2">
+
+Homeostasis depends on **feedback control**: information about the result of a process is used to adjust the process. Every homeostatic loop has three parts:
+
+1. **Receptors** detect the value of the variable (for example thermoreceptors, or the β cells' own glucose sensing).
+2. A **control centre** (often in the brain, such as the hypothalamus) compares it with the set point.
+3. **Effectors** — muscles or glands — make a response.
+
+<Figure name="d3-3-feedback" caption="A negative feedback loop (left). The graph compares negative feedback, which keeps a variable near its set point, with positive feedback, which drives it further away." />
+
+### Negative, not positive
+
+In **negative feedback**, the response **opposes the change**. If the variable rises above the set point, the response brings it down; if it falls below, the response brings it up. The same loop therefore corrects deviations in **both directions**, and the variable stays within narrow limits.
+
+In **positive feedback**, the response **amplifies the change**, pushing the variable further from where it started. This is useful when a process must be completed quickly, such as the rising oxytocin release during childbirth, but it cannot hold a variable steady. That is why homeostasis uses negative feedback.
+
+Many variables have **separate mechanisms** that act in opposite directions, such as insulin and glucagon, or sweating and shivering. Having both gives finer and faster control than switching one mechanism on and off.
+
+<Callout type="exam">
+
+To explain why homeostasis uses negative feedback, say that it **reverses** any deviation from the set point and so **stabilizes** the variable, while positive feedback would **increase** the deviation and move the variable further from the set point.
+
+</Callout>
+
+</Section>
+
+<Section id="blood-glucose" title="Hormonal control of blood glucose" level="SL" covers="D3.3.3">
+
+Cells take glucose from the blood all the time, while glucose enters the blood in bursts after meals. Blood glucose concentration is held at about 5 mmol dm⁻³ by two **hormones** from the **pancreas**.
+
+Scattered through the pancreas are small groups of endocrine cells, the **islets of Langerhans**. They contain:
+
+- **β (beta) cells**, which secrete **insulin**;
+- **α (alpha) cells**, which secrete **glucagon**.
+
+These cells act as their own receptors: they detect the glucose concentration of the blood flowing past them and adjust their secretion. Both hormones are peptides, secreted by exocytosis into capillaries, carried **dissolved in blood plasma** to every part of the body and detected by **receptors on the plasma membrane** of target cells (<TopicLink code="C2.1" />).
+
+### When blood glucose is high (after a meal)
+
+- β cells secrete more insulin; α cells secrete less glucagon.
+- In **muscle and fat cells**, insulin causes more glucose transporter proteins to be inserted into the plasma membrane, so glucose uptake increases.
+- **Liver and muscle cells** convert glucose to **glycogen** (glycogenesis); liver cells also make less new glucose and release less.
+- Cells use more glucose in respiration, and fat cells convert glucose to fat.
+- Blood glucose falls back towards the set point, so insulin secretion falls again.
+
+### When blood glucose is low (fasting, exercise)
+
+- α cells secrete more glucagon; β cells secrete less insulin.
+- Glucagon acts on **liver cells**, which break glycogen down to glucose (**glycogenolysis**) and release it into the blood. The liver also makes glucose from other molecules such as amino acids.
+- Blood glucose rises back to the set point.
+
+<Sim topic="d3-3" id="glucose" />
+
+<Callout type="tip" title="Try this">
+
+With no diabetes, add a meal and drag the time slider: watch the insulin peak follow the glucose peak, then add exercise and see glucagon rise. Then switch to type 1 and type 2 diabetes.
+
+</Callout>
+
+<Callout type="exam">
+
+Keep the three similar words apart: **glucose** (the sugar in blood), **glycogen** (the storage polysaccharide in liver and muscle) and **glucagon** (the hormone that causes glycogen breakdown).
+
+</Callout>
+
+</Section>
+
+<Section id="diabetes" title="Type 1 and type 2 diabetes" level="SL" covers="D3.3.4">
+
+**Diabetes mellitus** is a condition in which blood glucose is often too high because insulin is lacking or does not work properly. When blood glucose rises above about 10 mmol dm⁻³ (the **renal threshold**), the kidneys cannot reabsorb it all and glucose appears in the urine. Persistently high glucose damages blood vessels, nerves, kidneys and the retina over many years.
+
+| | Type 1 | Type 2 |
+|---|---|---|
+| Physiological change | the immune system destroys β cells (**autoimmune**), so little or no insulin is made | target cells become **insulin resistant**: they respond weakly to insulin, so less glucose is taken up; β cells may later fail too |
+| Insulin in blood | very low or absent | normal or high at first |
+| Typical onset | usually childhood or early adulthood; can be sudden | usually later adulthood, gradual, often unnoticed for years; increasingly seen in younger people |
+| Risk factors | family history (genetic susceptibility); possibly environmental triggers such as viral infections | obesity (especially around the abdomen), physical inactivity, diet high in sugar and fat and low in fibre, increasing age, family history and ethnicity |
+| Prevention | not currently preventable | keep a healthy body mass, exercise regularly, eat a diet low in refined sugar and high in fibre |
+| Treatment | regular blood glucose testing and **insulin** by injection or pump, matched to meals | diet, exercise and weight loss; drugs that improve insulin sensitivity or glucose handling; insulin if needed later |
+
+About nine in ten people with diabetes have type 2. Insulin cannot be taken by mouth because it is a protein: it would be digested.
+
+<Callout type="exam">
+
+"Type 2 diabetes is caused by a lack of insulin" is a common wrong answer. The key physiological change is **reduced sensitivity of target cells** to insulin. In the simulation, compare the insulin curves: in type 2 they are *higher* than normal.
+
+</Callout>
+
+</Section>
+
+<Section id="thermoregulation" title="Thermoregulation by negative feedback" level="SL" covers="D3.3.5">
+
+**Thermoregulation** keeps core body temperature close to its set point of about 37 °C. It is a negative feedback loop:
+
+- **Receptors.** **Peripheral thermoreceptors** are nerve endings in the skin that detect skin temperature; because skin cools first, they give early warning of heat loss. **Central thermoreceptors** in the hypothalamus and elsewhere in the body core monitor the temperature of the blood.
+- **Control centre.** The **hypothalamus** integrates this information, compares it with the set point and sends out signals.
+- **Effectors.** Nerves carry signals to **skin arterioles, sweat glands, the erector muscles of hairs, skeletal muscle** and **brown adipose tissue**. The hypothalamus also controls hormone secretion by the **pituitary gland**.
+
+### Thyroxin
+
+When the body is cold, the hypothalamus secretes a releasing hormone (TRH) that causes the anterior **pituitary gland** to secrete TSH, which stimulates the thyroid gland to secrete **thyroxin**. Thyroxin increases the **metabolic rate** of most body cells, especially active tissues such as liver and muscle, so more heat is released by respiration. When the body is too warm, thyroxin secretion falls. This hormonal route is slower than the nervous responses but has longer-lasting effects.
+
+### Muscle and adipose tissue as effectors
+
+- **Skeletal muscle** generates heat when it contracts. In **shivering**, rapid involuntary contractions release heat without producing movement.
+- **Brown adipose tissue** generates heat by **uncoupled respiration** (see below).
+- **White adipose tissue** under the skin is a passive insulator rather than an effector.
+
+<Sim topic="d3-3" id="thermoregulation" />
+
+<Callout type="exam">
+
+For a "describe the role of the hypothalamus" question, include: receives impulses from **thermoreceptors**, compares core temperature with the **set point**, and sends impulses to effectors (and controls **thyroxin** secretion through the pituitary gland) to reverse the change.
+
+</Callout>
+
+</Section>
+
+<Section id="mechanisms" title="Temperature control mechanisms in humans" level="SL" covers="D3.3.6">
+
+Birds and mammals are **endotherms**: they keep their core temperature constant using both **physiological** responses (inside the body) and **behavioural** responses (seeking shade or sun, huddling, changing posture or activity; in humans, also clothing). Only the human physiological details are needed.
+
+| Response | When | How it works |
+|---|---|---|
+| **Vasodilation** | too hot | circular smooth muscle in the walls of arterioles supplying the skin relaxes, widening them; more blood flows through skin capillaries, the skin warms and loses more heat |
+| **Sweating** | too hot | sweat glands secrete sweat onto the skin; evaporation of its water absorbs a lot of heat (high latent heat of vaporization), cooling the skin and the blood flowing through it |
+| **Vasoconstriction** | too cold | arterioles supplying the skin constrict and shunt vessels divert blood away from skin capillaries; the skin cools and less heat is lost |
+| **Shivering** | too cold | rapid involuntary contractions of skeletal muscle release heat |
+| **Uncoupled respiration** | too cold | brown adipose tissue, rich in mitochondria, oxidizes fat; protons leak back across the inner mitochondrial membrane instead of driving ATP synthase, so energy is released as heat rather than as ATP |
+| **Hair erection** | too cold | erector muscles pull hairs upright, trapping a thicker layer of insulating air; in furry mammals this is effective, but humans have little body hair, so it only gives "goosebumps" |
+
+Brown adipose tissue is most abundant in newborn babies (and in hibernating mammals), but adults keep some, for example in the neck and around the upper chest.
+
+<Callout type="exam">
+
+Write "**arterioles** dilate/constrict", never "capillaries dilate" or "capillaries move to the surface". Capillaries have no muscle in their walls; it is the *rate of blood flow* through them that changes.
+
+</Callout>
+
+</Section>
+
+<Section id="kidney" title="The kidney: osmoregulation and excretion" level="AHL" covers="D3.3.7">
+
+The kidneys have two separate roles:
+
+- **Excretion** is the removal of the toxic waste products of **metabolism** from the body. The main example is **urea**, made in the liver when excess amino acids are broken down. Kidneys also remove other unwanted solutes such as drugs and some food pigments.
+- **Osmoregulation** is control of the **osmotic concentration** of the blood and tissue fluid — the total concentration of dissolved particles that affect osmosis. It is measured in **osmoles per litre (osmol L⁻¹)**; human blood plasma is about 0.3 osmol L⁻¹. The kidneys osmoregulate by varying the amounts of **water** and **salts** lost in urine.
+
+Egestion of faeces is not excretion: most of faeces never crossed a cell membrane into the body.
+
+Each kidney has an outer **cortex**, an inner **medulla** made of renal pyramids, and a **renal pelvis** that drains into the **ureter**. Blood arrives in the **renal artery** and leaves in the **renal vein**. The work is done by about a million microscopic tubules in each kidney, the **nephrons**. Each nephron starts in the cortex, dips into the medulla in a loop and drains into a **collecting duct** that carries urine to the pelvis.
+
+<Viewer3D topic="d3-3" id="kidney" />
+
+<Callout type="tip" title="Using the 3D model">
+
+Step through the **Nephron** model to follow blood and filtrate; enlarged insets appear for the filtration barrier and the wall of the proximal convoluted tubule. Switch to **Whole kidney** to see where nephrons sit. The **Exam diagram** view gives the labelled drawing with each part's function.
+
+</Callout>
+
+<Callout type="exam">
+
+Distinguish the two roles precisely: **excretion** removes **metabolic wastes** (such as urea); **osmoregulation** controls **water and solute balance**. Urine output can change a lot for osmoregulation while urea excretion carries on.
+
+</Callout>
+
+</Section>
+
+<Section id="ultrafiltration" title="Ultrafiltration and reabsorption: glomerulus, Bowman's capsule and PCT" level="AHL" covers="D3.3.8">
+
+### Ultrafiltration
+
+Each nephron begins with a **glomerulus**, a knot of capillaries, enclosed in a cup-shaped **Bowman's capsule**. Blood pressure in the glomerulus is much higher than in other capillaries because:
+
+- the **afferent arteriole** that brings blood in is **wider** than the **efferent arteriole** that takes it away;
+- the route through the coiled capillaries is long and contorted.
+
+The pressure forces plasma out through three layers:
+
+1. the **fenestrated** capillary wall: endothelial cells with many wide pores (up to about 100 nm), which hold back blood cells;
+2. the **basement membrane**, a mesh of negatively charged glycoproteins that acts as **the filter**, holding back most plasma proteins by size and charge;
+3. **podocytes**, cells of the inner wall of the capsule, whose foot processes wrap round the capillaries with narrow **filtration slits** between them.
+
+The **glomerular filtrate** contains water, glucose, amino acids, ions, urea and other small solutes at almost the same concentrations as in plasma, but almost no protein. Around 180 dm³ is produced per day, yet only about 1.5 dm³ of urine is excreted: most of the filtrate must be reabsorbed.
+
+### Selective reabsorption in the proximal convoluted tubule
+
+The **proximal convoluted tubule (PCT)** is long and coiled, giving the filtrate time and surface to be processed. Its wall is one layer of cells with **microvilli** facing the filtrate and many **mitochondria** near the base.
+
+- **Na⁺** is pumped out of the wall cells into the tissue fluid by Na⁺/K⁺ pumps using ATP; Na⁺ then diffuses into the cells from the filtrate. Cl⁻ follows by attraction to the positive charge.
+- **Glucose** and **amino acids** are taken up by **cotransport** with Na⁺ (indirect active transport, <TopicLink code="B2.1" />). Normally all of them are reabsorbed.
+- **Water** follows by **osmosis**, because solute reabsorption lowers the solute concentration of the filtrate.
+
+By the end of the PCT, all glucose and amino acids and around two-thirds or more of the water and Na⁺ have returned to the blood in the **peritubular capillaries**. Urea and other wastes are not reabsorbed (or only partly), so they become more concentrated in the filtrate.
+
+<Callout type="exam">
+
+When explaining high glomerular pressure, compare the arterioles: the **afferent is wider than the efferent**. For ultrafiltration, name all three layers and say the **basement membrane** is the filter. For the PCT, link **microvilli** to surface area and **mitochondria** to ATP for active transport.
+
+</Callout>
+
+</Section>
+
+<Section id="loop-of-henle" title="The loop of Henle" level="AHL" covers="D3.3.9">
+
+After the PCT, the filtrate flows down the **descending limb** of the **loop of Henle** into the medulla, turns in a hairpin and flows back up the **ascending limb** to the cortex.
+
+The ascending limb is **impermeable to water**, but it **actively transports Na⁺** out of the filtrate into the tissue fluid of the medulla (Cl⁻ follows). Because water cannot follow, this does two things:
+
+- the solute concentration of the **medulla** stays **high**, rising from about 0.3 osmol L⁻¹ at the boundary with the cortex to about 1.2 osmol L⁻¹ deep in the medulla in humans;
+- the filtrate leaving the ascending limb is **dilute**.
+
+The descending limb is permeable to water, so water leaves it by osmosis into the concentrated medulla and is carried away by the **vasa recta**. Because the two limbs carry filtrate in opposite directions side by side, the small concentration difference created at each level is multiplied along the loop. Longer loops can build a more concentrated medulla.
+
+The point of all this is what happens next: the **collecting ducts** pass through this hypertonic medulla, so water can be drawn out of them by osmosis.
+
+<Callout type="exam">
+
+The guide limits this to one idea: **active transport of Na⁺ out of the ascending limb maintains a high osmotic concentration in the medulla**, which allows water to be reabsorbed from the collecting ducts. Make sure you put the pump on the **ascending** limb.
+
+</Callout>
+
+</Section>
+
+<Section id="collecting-duct" title="Osmoregulation: ADH and the collecting duct" level="AHL" covers="D3.3.10">
+
+The water reabsorbed in the collecting ducts is adjusted to keep blood osmotic concentration at its set point — another negative feedback loop.
+
+- **Receptors:** **osmoreceptors** in the **hypothalamus** detect the solute concentration of the blood. When it is high, they lose water by osmosis and shrink.
+- **Hormone:** **antidiuretic hormone (ADH)** is made by neurosecretory cells in the hypothalamus and released from the **posterior pituitary gland** into the blood.
+- **Target:** cells of the **collecting duct** walls. ADH binds to receptors on them, and **vesicles** containing **aquaporins** fuse with the membrane facing the filtrate, so the duct becomes permeable to water. When ADH falls, aquaporins are removed from the membrane by endocytosis and stored in vesicles again.
+
+<Anim topic="d3-3" id="osmoregulation" />
+
+| Blood osmotic concentration | too high (dehydrated) | too low (excess water) |
+|---|---|---|
+| ADH secreted by the pituitary | more | less |
+| Aquaporins in collecting duct membranes | more (vesicles fuse with membrane) | fewer (taken into vesicles) |
+| Water reabsorbed | more | less |
+| Urine | small volume, concentrated (hypertonic) | large volume, dilute (hypotonic) |
+| Effect on blood | concentration falls to set point | concentration rises to set point |
+
+<Callout type="exam">
+
+ADH changes the **permeability** of the collecting duct to water by moving **aquaporins between intracellular vesicles and the plasma membrane**. Water then moves by **osmosis** into the hypertonic medulla — never "ADH pumps water".
+
+</Callout>
+
+</Section>
+
+<Section id="blood-supply" title="Blood supply to organs changes with activity" level="AHL" covers="D3.3.11">
+
+The heart cannot supply every organ at its maximum rate at the same time, so blood is redirected according to need. Circular smooth muscle in **arteriole** walls relaxes (**vasodilation**) to increase flow to an organ, or contracts (**vasoconstriction**) to reduce it. Sympathetic nerves, hormones such as adrenaline and local signals from active tissue (low O₂, high CO₂) control these changes. Cardiac output itself also changes (<TopicLink code="B3.2" />).
+
+<Figure name="d3-3-blood-supply" caption="Typical blood flow to four organs in a young adult during sleep, wakeful rest and vigorous exercise. Note how the total and its distribution both change." level="AHL" />
+
+- **Vigorous exercise.** Cardiac output rises about threefold (more in trained athletes). Arterioles in **skeletal muscle** dilate and flow to muscle rises over tenfold, supplying O₂ and glucose and removing CO₂ and heat. Flow to the **gut** and **kidneys** falls through vasoconstriction, as digestion and urine production can be reduced for a while. **Brain** flow is kept roughly constant (it may rise slightly).
+- **Wakeful rest.** The kidneys and gut together receive over two-fifths of the cardiac output; flow to the gut is higher after a meal. Muscles receive enough for posture and tone.
+- **Sleep.** Cardiac output is lower. Muscles are relaxed and receive less blood; kidney flow falls a little, so less urine is produced at night. Brain flow is maintained overall, though it varies between sleep stages.
+
+### Interpreting the data
+
+Percentages of cardiac output show the redistribution clearly:
+
+| Organ | At rest | Vigorous exercise |
+|---|---|---|
+| Skeletal muscle | 1000 / 5800 ≈ 17% | 12 500 / 17 500 ≈ 71% |
+| Gut | ≈ 23% | ≈ 3% |
+| Brain | ≈ 13% | ≈ 5% |
+| Kidneys | ≈ 19% | ≈ 3% |
+
+The brain's *share* falls during exercise even though its actual flow does not: always say whether you are comparing **absolute flow** (cm³ min⁻¹) or **percentage of cardiac output**.
+
+<Callout type="exam">
+
+In data questions, quote values with units, calculate a change (for example "muscle flow rose from 1000 to 12 500 cm³ min⁻¹, a 12.5-fold increase") and give the reason: **vasodilation** of arterioles to active muscle and **vasoconstriction** to the gut and kidneys.
+
+</Callout>
+
+</Section>

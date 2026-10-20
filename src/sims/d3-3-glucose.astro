@@ -1,0 +1,284 @@
+---
+/**
+ * D3.3.3 and D3.3.4: blood glucose regulation by insulin and glucagon, and type 1 / type 2 diabetes.
+ * The maths is in models/d3-3-glucose.ts. Readers add meals and exercise at a chosen time; the graph shows
+ * the whole 8-hour run and the pathway panel shows the state at the chosen time.
+ */
+import { linePath, range, sx, sy, type Frame } from './chart';
+import { DURATION, simulate, type GlucoseEvent } from './models/d3-3-glucose';
+
+const gFrame: Frame = {
+  w: 640, h: 260, left: 58, right: 18, top: 14, bottom: 46,
+  x: { min: 0, max: DURATION, ticks: range(0, DURATION, 60), label: 'Time (hours)' },
+  y: { min: 0, max: 25, ticks: range(0, 25, 5), label: 'Blood glucose (mmol dm⁻³)' },
+};
+const hFrame: Frame = {
+  w: 640, h: 170, left: 58, right: 18, top: 10, bottom: 40,
+  x: gFrame.x,
+  y: { min: 0, max: 5, ticks: range(0, 5, 1), label: 'Hormone (relative)' },
+};
+const events: GlucoseEvent[] = [{ kind: 'meal', t: 60 }];
+const r = simulate({ condition: 'healthy', treated: false, events });
+const cursor = 90;
+const s = r[cursor]!;
+const path = (f: Frame, k: 'glucose' | 'insulin' | 'glucagon') => linePath(f, (x) => r[Math.round(x)]![k], 160);
+const W = 100;
+const bar = (v: number, max: number) => (W * Math.min(1, v / max)).toFixed(1);
+const hours = range(0, 8, 1);
+---
+<div class="gl-sim" data-gl-sim data-gframe={JSON.stringify(gFrame)} data-hframe={JSON.stringify(hFrame)}>
+  <div class="controls">
+    <fieldset class="cond">
+      <legend>Person</legend>
+      <label><input type="radio" name="gl-cond" value="healthy" checked data-cond /> No diabetes</label>
+      <label><input type="radio" name="gl-cond" value="type1" data-cond /> Type 1 diabetes</label>
+      <label><input type="radio" name="gl-cond" value="type2" data-cond /> Type 2 diabetes</label>
+    </fieldset>
+    <label class="check"><input type="checkbox" data-treated /> Inject insulin (basal dose + a dose before each meal) — affects type 1 only</label>
+    <label class="slider">Time: <output data-out="time">1 h 30 min</output>
+      <input type="range" min="0" max={DURATION} step="10" value={cursor} data-time />
+    </label>
+    <div class="btns" role="group" aria-label="Add an event at the chosen time">
+      <button class="btn" type="button" data-add="meal">Eat a meal at this time</button>
+      <button class="btn" type="button" data-add="exercise">Exercise for 45 min from this time</button>
+      <button class="btn" type="button" data-clear>Clear meals and exercise</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <svg viewBox="0 0 640 200" class="flow" aria-hidden="true">
+      <defs><marker id="gl-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker></defs>
+      <g class="box"><rect x="4" y="6" width="190" height="92" rx="10" /></g>
+      <text x="14" y="25" class="b">Pancreas: islet cells</text>
+      <text x="14" y="44">β cells → insulin</text>
+      <rect class="track" x="14" y="50" width={W} height="8" rx="4" /><rect class="lvl ins" x="14" y="50" width={bar(s.insulin, 5)} height="8" rx="4" data-bar="ins" />
+      <text x="14" y="76">α cells → glucagon</text>
+      <rect class="track" x="14" y="82" width={W} height="8" rx="4" /><rect class="lvl glc" x="14" y="82" width={bar(s.glucagon, 3)} height="8" rx="4" data-bar="glc" />
+
+      <g class="box blood"><rect x="226" y="6" width="176" height="92" rx="10" /></g>
+      <text x="236" y="25" class="b">Blood</text>
+      <text x="236" y="46">glucose</text>
+      <text x="236" y="74" class="big" data-v="g">{s.glucose.toFixed(1)}</text>
+      <text x="300" y="74">mmol dm⁻³</text>
+      <text x="236" y="91" class="sign" data-v="gnote">set point ≈ 5</text>
+
+      <g class="box"><rect x="434" y="6" width="202" height="92" rx="10" /></g>
+      <text x="444" y="25" class="b">Liver and muscle</text>
+      <text x="444" y="46" data-v="liver1">little net change</text>
+      <text x="444" y="64" data-v="liver2">in glycogen</text>
+      <rect class="track" x="444" y="78" width="180" height="8" rx="4" />
+      <line class="mid" x1="534" x2="534" y1="74" y2="90" />
+      <rect class="lvl gly" x="534" y="78" width="0" height="8" data-bar="gly" />
+      <text x="444" y="98" class="tiny">breakdown</text><text x="624" y="98" class="tiny" text-anchor="end">storage</text>
+
+      <path class="arrow" d="M196 40 L222 40" marker-end="url(#gl-ah)" />
+      <path class="arrow" d="M404 40 L430 40" marker-end="url(#gl-ah)" />
+      <path class="arrow fb" d="M314 100 C314 150, 100 150, 100 104" marker-end="url(#gl-ah)" />
+      <text x="208" y="166" class="sign" text-anchor="middle">islet cells detect blood glucose (negative feedback)</text>
+
+      <g class="box urine" data-urine><rect x="434" y="118" width="202" height="56" rx="10" /></g>
+      <text x="444" y="138" class="b">Kidneys</text>
+      <text x="444" y="158" data-v="urine">no glucose in urine</text>
+      <g class="ex" data-ex style="opacity:0"><rect x="226" y="176" width="176" height="22" rx="11" /><text x="314" y="191" text-anchor="middle">exercising: muscles take up glucose</text></g>
+    </svg>
+  </div>
+
+  <svg class="chart" viewBox={`0 0 ${gFrame.w} ${gFrame.h}`} role="img" aria-labelledby="gl-chart-t">
+    <title id="gl-chart-t">Blood glucose concentration over 8 hours</title>
+    <rect class="band" x={gFrame.left} width={gFrame.w - gFrame.left - gFrame.right} y={sy(gFrame, 8)} height={sy(gFrame, 4) - sy(gFrame, 8)} />
+    <g class="grid">
+      {gFrame.x.ticks.map((t) => <line x1={sx(gFrame, t)} x2={sx(gFrame, t)} y1={gFrame.top} y2={gFrame.h - gFrame.bottom} />)}
+      {gFrame.y.ticks.map((t) => <line x1={gFrame.left} x2={gFrame.w - gFrame.right} y1={sy(gFrame, t)} y2={sy(gFrame, t)} />)}
+    </g>
+    <line class="thresh" x1={gFrame.left} x2={gFrame.w - gFrame.right} y1={sy(gFrame, 10)} y2={sy(gFrame, 10)} />
+    <text class="key-t" x={gFrame.w - gFrame.right - 4} y={sy(gFrame, 10) - 5} text-anchor="end">renal threshold: glucose appears in urine</text>
+    <text class="key-t" x={gFrame.left + 6} y={sy(gFrame, 8) + 14}>typical range</text>
+    <g class="ticks">
+      {gFrame.x.ticks.map((t) => <text x={sx(gFrame, t)} y={gFrame.h - gFrame.bottom + 18} text-anchor="middle">{t / 60}</text>)}
+      {gFrame.y.ticks.map((t) => <text x={gFrame.left - 8} y={sy(gFrame, t)} dy="0.35em" text-anchor="end">{t}</text>)}
+    </g>
+    <text class="axis" x={(gFrame.left + gFrame.w - gFrame.right) / 2} y={gFrame.h - 6} text-anchor="middle">{gFrame.x.label} →</text>
+    <text class="axis" transform={`translate(16 ${(gFrame.top + gFrame.h - gFrame.bottom) / 2}) rotate(-90)`} text-anchor="middle">Glucose (mmol dm⁻³) →</text>
+    <g data-events>
+      {events.map((e) => <g class={`ev ${e.kind}`}><line x1={sx(gFrame, e.t)} x2={sx(gFrame, e.t)} y1={gFrame.top} y2={gFrame.h - gFrame.bottom} /><text x={sx(gFrame, e.t) + 4} y={gFrame.top + 12}>{e.kind === 'meal' ? 'meal' : 'exercise'}</text></g>)}
+    </g>
+    <path class="line g" d={path(gFrame, 'glucose')} data-line="g" />
+    <line class="marker" data-marker="g" x1={sx(gFrame, cursor)} x2={sx(gFrame, cursor)} y1={gFrame.top} y2={gFrame.h - gFrame.bottom} />
+  </svg>
+
+  <svg class="chart" viewBox={`0 0 ${hFrame.w} ${hFrame.h}`} role="img" aria-labelledby="gl-chart-h">
+    <title id="gl-chart-h">Insulin and glucagon in the blood over 8 hours (relative to a healthy fasting level of 1)</title>
+    <g class="grid">
+      {hFrame.x.ticks.map((t) => <line x1={sx(hFrame, t)} x2={sx(hFrame, t)} y1={hFrame.top} y2={hFrame.h - hFrame.bottom} />)}
+      {hFrame.y.ticks.map((t) => <line x1={hFrame.left} x2={hFrame.w - hFrame.right} y1={sy(hFrame, t)} y2={sy(hFrame, t)} />)}
+    </g>
+    <g class="ticks">
+      {hFrame.x.ticks.map((t) => <text x={sx(hFrame, t)} y={hFrame.h - hFrame.bottom + 18} text-anchor="middle">{t / 60}</text>)}
+      {hFrame.y.ticks.map((t) => <text x={hFrame.left - 8} y={sy(hFrame, t)} dy="0.35em" text-anchor="end">{t}</text>)}
+    </g>
+    <text class="axis" x={(hFrame.left + hFrame.w - hFrame.right) / 2} y={hFrame.h - 4} text-anchor="middle">{hFrame.x.label} →</text>
+    <text class="axis sm" transform={`translate(16 ${(hFrame.top + hFrame.h - hFrame.bottom) / 2}) rotate(-90)`} text-anchor="middle">Relative level →</text>
+    <path class="line i" d={path(hFrame, 'insulin')} data-line="i" />
+    <path class="line n" d={path(hFrame, 'glucagon')} data-line="n" />
+    <line class="marker" data-marker="h" x1={sx(hFrame, cursor)} x2={sx(hFrame, cursor)} y1={hFrame.top} y2={hFrame.h - hFrame.bottom} />
+  </svg>
+  <p class="legend"><span class="key g"></span> Blood glucose <span class="key i"></span> Insulin <span class="key n"></span> Glucagon</p>
+
+  <p class="readout" aria-live="polite" data-readout>
+    No diabetes. At 1 h 30 min, 30 minutes after a meal, blood glucose is {s.glucose.toFixed(1)} mmol dm⁻³ and rising; β cells are secreting more insulin, so liver and muscle cells take up glucose and store it as glycogen.
+  </p>
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <thead><tr><th scope="col">Time (h)</th><th scope="col">Glucose (mmol dm⁻³)</th><th scope="col">Insulin (relative)</th><th scope="col">Glucagon (relative)</th></tr></thead>
+      <tbody data-tbody>{hours.map((h) => { const x = r[h * 60]!; return <tr><th scope="row">{h}</th><td>{x.glucose.toFixed(1)}</td><td>{x.insulin.toFixed(1)}</td><td>{x.glucagon.toFixed(1)}</td></tr>; })}</tbody>
+    </table>
+  </details>
+  <p class="model-note">Qualitative model: the sizes of changes are realistic but simplified. Hormone levels are relative to a healthy person's fasting level (1). In real exercise, adrenaline also stimulates glycogen breakdown.</p>
+</div>
+
+<script>
+  import { linePath, range, sx, type Frame } from './chart';
+  import { EXERCISE_MIN, RENAL_THRESHOLD, SET_POINT, conditionName, simulate, type Condition, type GlucoseEvent } from './models/d3-3-glucose';
+
+  const fmtTime = (m: number) => { const h = Math.floor(m / 60), mm = m % 60; return h === 0 ? `${mm} min` : mm === 0 ? `${h} h` : `${h} h ${mm} min`; };
+
+  document.querySelectorAll<HTMLElement>('[data-gl-sim]').forEach((root) => {
+    const gF = JSON.parse(root.dataset.gframe!) as Frame;
+    const hF = JSON.parse(root.dataset.hframe!) as Frame;
+    const q = <T extends Element>(sel: string) => root.querySelector<T>(sel)!;
+    const time = q<HTMLInputElement>('[data-time]');
+    const treated = q<HTMLInputElement>('[data-treated]');
+    const readout = q<HTMLElement>('[data-readout]');
+    const setText = (k: string, v: string) => (q(`[data-v="${k}"]`).textContent = v);
+    let events: GlucoseEvent[] = [{ kind: 'meal', t: 60 }];
+    let timer = 0;
+
+    const update = () => {
+      const condition = (root.querySelector<HTMLInputElement>('[data-cond]:checked')?.value ?? 'healthy') as Condition;
+      const cur = Number(time.value);
+      const r = simulate({ condition, treated: treated.checked, events });
+      const s = r[cur]!;
+      q('[data-out="time"]').textContent = fmtTime(cur);
+      q('[data-line="g"]').setAttribute('d', linePath(gF, (x) => r[Math.round(x)]!.glucose, 160));
+      q('[data-line="i"]').setAttribute('d', linePath(hF, (x) => Math.min(5, r[Math.round(x)]!.insulin), 160));
+      q('[data-line="n"]').setAttribute('d', linePath(hF, (x) => Math.min(5, r[Math.round(x)]!.glucagon), 160));
+      for (const [k, f] of [['g', gF], ['h', hF]] as const) {
+        const m = q(`[data-marker="${k}"]`); const x = sx(f, cur).toFixed(1); m.setAttribute('x1', x); m.setAttribute('x2', x);
+      }
+      q('[data-events]').innerHTML = events.map((e) => {
+        const x = sx(gF, e.t).toFixed(1);
+        const w = e.kind === 'exercise' ? (sx(gF, Math.min(480, e.t + EXERCISE_MIN)) - sx(gF, e.t)).toFixed(1) : '0';
+        return `<g class="ev ${e.kind}">${e.kind === 'exercise' ? `<rect x="${x}" y="${gF.top}" width="${w}" height="${gF.h - gF.top - gF.bottom}" />` : ''}<line x1="${x}" x2="${x}" y1="${gF.top}" y2="${gF.h - gF.bottom}" /><text x="${Number(x) + 4}" y="${gF.top + 12}">${e.kind}</text></g>`;
+      }).join('');
+
+      q('[data-bar="ins"]').setAttribute('width', (100 * Math.min(1, s.insulin / 5)).toFixed(1));
+      q('[data-bar="glc"]').setAttribute('width', (100 * Math.min(1, s.glucagon / 3)).toFixed(1));
+      const f = Math.max(-1, Math.min(1, s.glycogenFlux / 0.15));
+      const gly = q('[data-bar="gly"]');
+      gly.setAttribute('x', (534 + Math.min(0, f) * 90).toFixed(1));
+      gly.setAttribute('width', (Math.abs(f) * 90).toFixed(1));
+      gly.classList.toggle('neg', f < 0);
+      setText('g', s.glucose.toFixed(1));
+      const dev = s.glucose - SET_POINT;
+      setText('gnote', Math.abs(dev) < 0.3 ? 'at the set point (≈ 5)' : dev > 0 ? 'above the set point (≈ 5)' : 'below the set point (≈ 5)');
+      const [l1, l2] = f > 0.12 ? ['glucose taken up and stored', 'as glycogen (glycogenesis)'] : f < -0.12 ? ['glycogen broken down to', 'glucose (glycogenolysis)'] : ['little net change', 'in glycogen'];
+      setText('liver1', l1); setText('liver2', l2);
+      setText('urine', s.urine > 0 ? 'glucose lost in urine' : 'no glucose in urine');
+      q('[data-urine]').classList.toggle('on', s.urine > 0);
+      (q('[data-ex]') as SVGGElement).style.opacity = s.exercising ? '1' : '0';
+      q('[data-tbody]').innerHTML = range(0, 8, 1).map((h) => { const x = r[h * 60]!; return `<tr><th scope="row">${h}</th><td>${x.glucose.toFixed(1)}</td><td>${x.insulin.toFixed(1)}</td><td>${x.glucagon.toFixed(1)}</td></tr>`; }).join('');
+
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        const p: string[] = [];
+        let who = conditionName[condition];
+        who = who[0]!.toUpperCase() + who.slice(1);
+        if (condition === 'type1') who += treated.checked ? ', treated with insulin injections' : ', untreated';
+        p.push(`${who}. At ${fmtTime(cur)} blood glucose is ${s.glucose.toFixed(1)} mmol dm⁻³.`);
+        if (condition === 'type1' && !treated.checked) p.push(' The β cells have been destroyed, so no insulin is secreted: cells take up little glucose, the liver keeps releasing it and glucose stays high, with some lost in urine.');
+        else if (s.insulin > 1.3 && dev > 0.2) p.push(condition === 'type2' ? ' Insulin is high, but target cells respond weakly (insulin resistance), so glucose stays above the normal range for longer.' : ' Insulin is raised, so liver and muscle cells take up glucose and convert it to glycogen; glucagon is low.');
+        else if (s.glucagon > 1.15) p.push(' Glucose is below the set point, so α cells secrete more glucagon and insulin falls: liver cells break glycogen down and release glucose.');
+        else p.push(' Glucose is close to its set point and hormone secretion is near its fasting level.');
+        if (s.exercising) p.push(' Contracting muscles are taking up extra glucose.');
+        if (s.urine > 0) p.push(` It is above the renal threshold (about ${RENAL_THRESHOLD} mmol dm⁻³), so glucose appears in the urine.`);
+        readout.textContent = p.join('');
+      }, 350);
+    };
+
+    root.querySelectorAll<HTMLButtonElement>('[data-add]').forEach((b) => b.addEventListener('click', () => {
+      const t = Math.min(Number(time.value), 470);
+      const kind = b.dataset.add as GlucoseEvent['kind'];
+      if (!events.some((e) => e.kind === kind && Math.abs(e.t - t) < 10) && events.length < 8) events = [...events, { kind, t }].sort((a, c) => a.t - c.t);
+      update();
+    }));
+    q('[data-clear]').addEventListener('click', () => { events = []; update(); });
+    root.querySelectorAll('[data-cond], [data-treated], [data-time]').forEach((el) => el.addEventListener('input', update));
+    update();
+  });
+</script>
+
+<style>
+  .gl-sim { container-type: inline-size; display: grid; gap: var(--space-3); }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  @container (min-width: 40rem) { .controls { grid-template-columns: 1fr 1fr; } .btns { grid-column: 1 / -1; } }
+  .cond { border: 1px solid var(--border); border-radius: var(--radius-m); padding: var(--space-2) var(--space-3); margin: 0; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-3); }
+  .cond legend { font-weight: 700; padding: 0 0.3em; }
+  .cond label { display: flex; gap: 0.4em; align-items: center; min-height: 24px; font-weight: 600; }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  .check { display: flex; gap: var(--space-2); align-items: center; font-weight: 600; min-height: 24px; }
+  .check input, .cond input { width: 1.2rem; height: 1.2rem; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .btns { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .panel { background: var(--surface-2); border-radius: var(--radius-m); padding: var(--space-2); }
+  .flow { width: 100%; height: auto; font-family: var(--font-sans); }
+  .flow text { font-size: 13px; fill: var(--text); }
+  .flow .b { font-weight: 750; font-size: 14px; }
+  .flow .big { font-size: 26px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .flow .sign { font-style: italic; fill: var(--text-muted); }
+  .flow .tiny { font-size: 11.5px; fill: var(--text-muted); }
+  .box rect { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.2; }
+  .blood rect { stroke: var(--bio-k); stroke-width: 2; }
+  .urine.on rect { stroke: var(--bad); stroke-width: 2.5; }
+  .track { fill: var(--surface-3); }
+  .mid { stroke: var(--text-muted); stroke-width: 1.2; }
+  .lvl { transition: width 0.25s ease, x 0.25s ease; }
+  .ins { fill: var(--bio-protein); }
+  .glc { fill: var(--bio-carb); }
+  .gly { fill: var(--good); }
+  .gly.neg { fill: var(--bio-chol); }
+  .ex rect { fill: var(--accent-soft); }
+  .ex text { font-size: 12px; font-weight: 700; fill: var(--accent-strong); }
+  .arrow { stroke: var(--text-muted); stroke-width: 1.6; fill: none; }
+  .arrow.fb { stroke-dasharray: 5 4; }
+  .ah { fill: var(--text-muted); }
+  .chart { width: 100%; height: auto; font-family: var(--font-sans); }
+  .band { fill: var(--good-soft); }
+  .grid line { stroke: var(--border); stroke-width: 1; }
+  .thresh { stroke: var(--bad); stroke-width: 1.5; stroke-dasharray: 6 4; }
+  .ticks text { font-size: 15px; fill: var(--text-muted); }
+  .axis { font-size: 16px; font-weight: 650; fill: var(--text); }
+  .axis.sm { font-size: 14px; }
+  .key-t { font-size: 13px; fill: var(--text-muted); font-style: italic; }
+  .chart :global(.ev line) { stroke-width: 2; }
+  .chart :global(.ev.meal line) { stroke: var(--bio-glucose); }
+  .chart :global(.ev.exercise line) { stroke: var(--accent); stroke-dasharray: 2 3; }
+  .chart :global(.ev.exercise rect) { fill: var(--accent-soft); opacity: 0.6; }
+  .chart :global(.ev text) { font-size: 13px; font-weight: 700; fill: var(--text-muted); }
+  .line { fill: none; stroke-width: 3.5; stroke-linecap: round; }
+  .line.g { stroke: var(--bio-k); }
+  .line.i { stroke: var(--bio-protein); }
+  .line.n { stroke: var(--bio-carb); stroke-dasharray: 10 6; }
+  .marker { stroke: var(--text); stroke-width: 1.2; stroke-dasharray: 3 3; }
+  .legend { margin: 0; font-size: var(--step--1); display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap; }
+  .key { display: inline-block; width: 2rem; border-top: 3.5px solid; }
+  .key.g { border-color: var(--bio-k); }
+  .key.i { border-color: var(--bio-protein); margin-left: var(--space-3); }
+  .key.n { border-color: var(--bio-carb); border-top-style: dashed; margin-left: var(--space-3); }
+  .readout { margin: 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); min-height: 4.5rem; }
+  .table { font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  th, td { padding: 0.2rem 0.7rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: 0; }
+</style>

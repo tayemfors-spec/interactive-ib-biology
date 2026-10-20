@@ -1,0 +1,238 @@
+---
+/**
+ * D3.3.5 and D3.3.6: thermoregulation as negative feedback, and the human responses to heat and cold.
+ * The maths is in models/d3-3-thermo.ts. The left panel is the control pathway; the right panel is a section
+ * through skin and the tissues below it, drawn so that each effector visibly responds.
+ */
+import { activityNames, model } from './models/d3-3-thermo';
+
+const d = { air: 24, activity: 0, feedback: true };
+const s = model(d);
+const W = 92;
+const bar = (v: number) => (W * Math.max(0, Math.min(1, v))).toFixed(1);
+const surfY = 70;
+---
+<div class="th-sim" data-th-sim>
+  <div class="controls">
+    <label class="slider">Air temperature: <output data-out="air">{d.air} °C</output>
+      <input type="range" min="-10" max="45" step="1" value={d.air} data-param="air" />
+    </label>
+    <label class="slider">Activity: <output data-out="activity">{activityNames[d.activity]}</output>
+      <input type="range" min="0" max="2" step="1" value={d.activity} data-param="activity" />
+    </label>
+    <label class="check"><input type="checkbox" data-param="block" /> Switch off the hypothalamus's responses (thought experiment)</label>
+  </div>
+
+  <div class="panels">
+    <section class="panel" aria-labelledby="th-h1">
+      <h3 id="th-h1">Control pathway</h3>
+      <svg viewBox="0 0 300 300" class="flow" aria-hidden="true">
+        <defs><marker id="th-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker></defs>
+        <g class="box"><rect x="4" y="4" width="140" height="52" rx="8" /><text x="12" y="22" class="b">Peripheral</text><text x="12" y="37">thermoreceptors</text><text x="12" y="50">in the skin</text></g>
+        <g class="box"><rect x="156" y="4" width="140" height="52" rx="8" /><text x="164" y="22" class="b">Central</text><text x="164" y="37">thermoreceptors</text><text x="164" y="50">(hypothalamus, core)</text></g>
+        <path class="arrow" d="M74 58 L118 84" marker-end="url(#th-ah)" /><path class="arrow" d="M226 58 L182 84" marker-end="url(#th-ah)" />
+        <g class="box centre"><rect x="62" y="88" width="176" height="44" rx="8" /><text x="150" y="106" text-anchor="middle" class="b">Hypothalamus</text><text x="150" y="122" text-anchor="middle" data-v="hyp">core at set point (37 °C)</text></g>
+        <g class="blocked" data-blocked style="opacity:0"><path d="M60 136 l24 18 M84 136 l-24 18 M216 136 l24 18 M240 136 l-24 18" /></g>
+        <path class="arrow" d="M100 134 L60 162" marker-end="url(#th-ah)" />
+        <path class="arrow" d="M200 134 L240 162" marker-end="url(#th-ah)" />
+        <text x="236" y="146" class="sign">TRH</text>
+        <g class="box"><rect x="4" y="164" width="134" height="56" rx="8" /><text x="12" y="182" class="b">Nerves to effectors</text><text x="12" y="197">skin arterioles, sweat</text><text x="12" y="211">glands, muscles, fat</text></g>
+        <g class="box"><rect x="150" y="164" width="146" height="40" rx="8" /><text x="158" y="181" class="b">Pituitary gland</text><text x="158" y="196">(TSH) → thyroid</text></g>
+        <path class="arrow" d="M224 206 L224 226" marker-end="url(#th-ah)" />
+        <g class="box"><rect x="150" y="228" width="146" height="66" rx="8" /><text x="158" y="246" class="b">Thyroxin</text><text x="158" y="261">raises metabolic rate</text><text x="158" y="275">(slower response)</text></g>
+        <rect class="track" x="158" y="282" width={W} height="6" rx="3" /><rect class="lvl thy" x="158" y="282" width={bar(s.thyroxin / 2)} height="6" rx="3" data-bar="thy" />
+        <text x="70" y="248" text-anchor="middle" class="sign">responses oppose</text>
+        <text x="70" y="263" text-anchor="middle" class="sign">the change:</text>
+        <text x="70" y="278" text-anchor="middle" class="sign">negative feedback</text>
+      </svg>
+    </section>
+
+    <section class="panel" aria-labelledby="th-h2">
+      <h3 id="th-h2">Effectors in the skin and below</h3>
+      <svg viewBox="0 0 320 300" class="skin" aria-hidden="true">
+        <g class="heat" data-heat style="opacity:0.35">
+          {[60, 150, 240].map((x) => <path d={`M${x} 52 L${x} 22`} marker-end="url(#th-ah2)" />)}
+        </g>
+        <defs><marker id="th-ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="heat-ah" /></marker></defs>
+        <text x="314" y="16" text-anchor="end" class="tiny" data-v="heatloss">heat loss: normal</text>
+        <rect class="epi" x="0" y={surfY} width="320" height="14" />
+        <rect class="dermis" x="0" y={surfY + 14} width="320" height="120" />
+        <rect class="fat" x="0" y="204" width="320" height="30" />
+        <text x="6" y="224" class="tiny">subcutaneous fat (insulation)</text>
+        <!-- hair, follicle and erector muscle -->
+        <path class="follicle" d="M74 168 L80 74" />
+        <path class="hair" d="M76 162 L80 72" />
+        <g data-hair transform="rotate(-62 80 72)"><path class="hair" d="M80 72 L80 22" /></g>
+        <path class="erector" data-erector d="M80 142 L118 88" />
+        <text x="6" y="112" class="tiny">hair and</text><text x="6" y="126" class="tiny">erector</text><text x="6" y="140" class="tiny">muscle</text>
+        <!-- sweat gland and duct -->
+        <path class="duct" d="M130 176 C130 140, 136 110, 130 84" />
+        <path class="gland" d="M120 178 q10 -12 20 0 q-10 12 -20 0 M122 188 q8 -10 16 0" />
+        <g data-sweat style="opacity:0">{[116, 130, 144].map((x, i) => <path class="drop" d={`M${x} ${surfY - 2 - i * 3} q-5 -2 0 -10 q5 8 0 10z`} />)}</g>
+        <text x="98" y="200" class="tiny">sweat gland</text>
+        <!-- capillary loop under the epidermis, arteriole and shunt -->
+        <path class="cap" data-cap d="M222 186 C222 120, 228 92, 248 92 C268 92, 274 120, 274 186" />
+        <path class="art" data-art d="M200 190 L222 190" />
+        <path class="vein" d="M274 190 L316 190" />
+        <path class="shunt" data-shunt d="M222 194 C240 200, 256 200, 274 194" />
+        <text x="198" y="180" class="tiny" text-anchor="end">arteriole</text>
+        <text x="248" y="114" class="tiny" text-anchor="middle" data-v="vaso">normal flow</text>
+        <!-- skeletal muscle and brown adipose tissue -->
+        <rect class="muscle" x="6" y="244" width="170" height="44" rx="10" />
+        <path class="shiver" data-shiver d="M14 266 L176 266" />
+        <text x="91" y="282" text-anchor="middle" class="tiny strong">skeletal muscle</text>
+        <rect class="bat" x="190" y="244" width="124" height="44" rx="10" />
+        <g data-batglow style="opacity:0">{[214, 252, 290].map((x) => <circle class="glow" cx={x} cy="258" r="7" />)}</g>
+        <text x="252" y="282" text-anchor="middle" class="tiny strong">brown adipose tissue</text>
+      </svg>
+    </section>
+  </div>
+
+  <dl class="read">
+    <div><dt>Core temperature</dt><dd data-v="core">{s.core.toFixed(1)} °C</dd></div>
+    <div><dt>Skin blood flow</dt><dd data-v="flow">{Math.round(s.skinFlow * 100)}% of maximum</dd></div>
+    <div><dt>Sweat rate</dt><dd data-v="sweat">{s.sweat.toFixed(1)} dm³ h⁻¹</dd></div>
+    <div><dt>Shivering</dt><dd data-v="shiver">none</dd></div>
+    <div><dt>Brown fat heat</dt><dd data-v="bat">none</dd></div>
+    <div><dt>Thyroxin</dt><dd data-v="thy">normal</dd></div>
+  </dl>
+  <p class="readout" aria-live="polite" data-readout>
+    At 24 °C and at rest the body is in heat balance: core temperature is {s.core.toFixed(1)} °C and only small changes in skin blood flow are needed.
+  </p>
+  <p class="model-note">Qualitative model of a lightly clothed adult; values are simplified. The thyroxin response takes hours to days, much slower than the nervous responses. Behavioural responses (clothing, shade, activity) are not included.</p>
+</div>
+
+<script>
+  import { activityNames, model } from './models/d3-3-thermo';
+  import { prefersReducedMotion } from '../lib/prefs';
+
+  const level = (v: number) => (v < 0.05 ? 'none' : v < 0.35 ? 'slight' : v < 0.7 ? 'moderate' : 'strong');
+
+  document.querySelectorAll<HTMLElement>('[data-th-sim]').forEach((root) => {
+    const q = <T extends Element>(sel: string) => root.querySelector<T>(sel)!;
+    const input = (k: string) => q<HTMLInputElement>(`[data-param="${k}"]`);
+    const setText = (k: string, v: string) => (q(`[data-v="${k}"]`).textContent = v);
+    const readout = q<HTMLElement>('[data-readout]');
+    let timer = 0, raf = 0, shiverAmp = 0;
+
+    const drawShiver = (time: number) => {
+      const pts: string[] = [];
+      for (let i = 0; i <= 20; i++) {
+        const x = 14 + i * 8.1;
+        const wob = prefersReducedMotion() ? 1 : Math.sin(time / 40 + i);
+        pts.push(`${i ? 'L' : 'M'}${x.toFixed(1)} ${(266 + (i % 2 ? 1 : -1) * shiverAmp * 9 * Math.abs(wob)).toFixed(1)}`);
+      }
+      q('[data-shiver]').setAttribute('d', pts.join(' '));
+    };
+    const loop = (time: number) => { drawShiver(time); raf = shiverAmp > 0 && !prefersReducedMotion() ? requestAnimationFrame(loop) : 0; };
+
+    const update = () => {
+      const air = Number(input('air').value);
+      const activity = Number(input('activity').value);
+      const feedback = !input('block').checked;
+      const s = model({ air, activity, feedback });
+      q('[data-out="air"]').textContent = `${air} °C`;
+      q('[data-out="activity"]').textContent = activityNames[activity] ?? 'rest';
+      q<SVGGElement>('[data-blocked]').style.opacity = feedback ? '0' : '1';
+      const dev = s.core - 37;
+      setText('hyp', Math.abs(dev) < 0.15 ? 'core at set point (37 °C)' : dev > 0 ? 'core above set point' : 'core below set point');
+      q('[data-bar="thy"]').setAttribute('width', (92 * Math.min(1, s.thyroxin / 2)).toFixed(1));
+      q('[data-hair]').setAttribute('transform', `rotate(${(-62 + 56 * s.hair).toFixed(1)} 80 72)`);
+      q<SVGPathElement>('[data-erector]').style.strokeWidth = (3 + 5 * s.hair).toFixed(1);
+      q<SVGGElement>('[data-sweat]').style.opacity = Math.min(1, s.sweat / 1.2).toFixed(2);
+      q<SVGPathElement>('[data-art]').style.strokeWidth = (3 + 9 * s.skinFlow).toFixed(1);
+      q<SVGPathElement>('[data-cap]').style.opacity = (0.2 + 0.8 * s.skinFlow).toFixed(2);
+      q<SVGPathElement>('[data-shunt]').style.opacity = (s.skinFlow < 0.3 ? 1 : 0.25).toString();
+      setText('vaso', s.skinFlow > 0.55 ? 'vasodilation' : s.skinFlow < 0.3 ? 'vasoconstriction' : 'normal flow');
+      const loss = Math.min(1, s.skinFlow * 0.7 + s.sweat * 0.3);
+      q<SVGGElement>('[data-heat]').style.opacity = (0.15 + 0.85 * loss).toFixed(2);
+      setText('heatloss', `heat loss from skin: ${loss > 0.6 ? 'high' : loss < 0.25 ? 'low' : 'normal'}`);
+      q<SVGGElement>('[data-batglow]').style.opacity = s.brownFat.toFixed(2);
+      shiverAmp = s.shiver;
+      drawShiver(0);
+      if (shiverAmp > 0 && !raf && !prefersReducedMotion()) raf = requestAnimationFrame(loop);
+
+      setText('core', `${s.core.toFixed(1)} °C`);
+      setText('flow', `${Math.round(s.skinFlow * 100)}% of maximum`);
+      setText('sweat', `${s.sweat.toFixed(1)} dm³ h⁻¹`);
+      setText('shiver', level(s.shiver));
+      setText('bat', level(s.brownFat));
+      setText('thy', s.thyroxin > 1.05 ? 'increased' : s.thyroxin < 0.95 ? 'decreased' : 'normal');
+
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        const p: string[] = [`At ${air} °C during ${activityNames[activity]}, core temperature is ${s.core.toFixed(1)} °C.`];
+        if (!feedback) {
+          p.push(' With no responses from the hypothalamus, nothing opposes the change.');
+          if (s.core < 35) p.push(' Core temperature has fallen below 35 °C: hypothermia.');
+          else if (s.core > 40) p.push(' Core temperature is above 40 °C: dangerous hyperthermia.');
+        } else if (s.stress > 0.15) {
+          p.push(' Warm thermoreceptors signal to the hypothalamus. Skin arterioles dilate so more blood flows near the surface and loses heat, and sweat glands secrete sweat, which cools the skin as it evaporates.');
+        } else if (s.stress < -0.1) {
+          p.push(' Cold thermoreceptors signal to the hypothalamus. Skin arterioles constrict so less heat is lost, and erector muscles raise the hairs.');
+          if (s.brownFat > 0.05) p.push(' Brown adipose tissue releases heat by uncoupled respiration.');
+          if (s.shiver > 0.05) p.push(' Skeletal muscles shiver, generating heat.');
+          if (s.thyroxin > 1.05) p.push(' More thyroxin is secreted, raising the metabolic rate.');
+        } else p.push(' Heat gain and heat loss are balanced, so only small changes in skin blood flow are needed.');
+        readout.textContent = p.join('');
+      }, 350);
+    };
+    root.querySelectorAll('[data-param]').forEach((el) => el.addEventListener('input', update));
+    update();
+  });
+</script>
+
+<style>
+  .th-sim { container-type: inline-size; display: grid; gap: var(--space-3); }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  @container (min-width: 40rem) { .controls { grid-template-columns: 1fr 1fr; } .check { grid-column: 1 / -1; } }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  .check { display: flex; gap: var(--space-2); align-items: center; font-weight: 600; min-height: 24px; }
+  .check input { width: 1.2rem; height: 1.2rem; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .panels { display: grid; gap: var(--space-3); }
+  @container (min-width: 40rem) { .panels { grid-template-columns: 1fr 1fr; } }
+  .panel { display: grid; gap: var(--space-2); align-content: start; background: var(--surface-2); border-radius: var(--radius-m); padding: var(--space-3); }
+  .panel h3 { margin: 0; font-size: var(--step-0); }
+  svg { width: 100%; height: auto; font-family: var(--font-sans); }
+  .flow text { font-size: 12px; fill: var(--text); }
+  .flow .b { font-weight: 750; font-size: 13px; }
+  .sign { font-style: italic; fill: var(--text-muted) !important; }
+  .box rect { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.2; }
+  .centre rect { stroke: var(--accent); stroke-width: 2; }
+  .track { fill: var(--surface-3); }
+  .lvl { transition: width 0.25s ease; }
+  .thy { fill: var(--bio-chol); }
+  .arrow { stroke: var(--text-muted); stroke-width: 1.6; fill: none; }
+  .ah { fill: var(--text-muted); }
+  .blocked path { stroke: var(--bad); stroke-width: 4; stroke-linecap: round; }
+  .skin text { fill: var(--text); }
+  .tiny { font-size: 12px; }
+  .strong { font-weight: 700; }
+  .heat path { stroke: var(--bio-k); stroke-width: 3; }
+  .heat-ah { fill: var(--bio-k); }
+  .epi { fill: color-mix(in srgb, var(--bio-head) 45%, var(--surface)); }
+  .dermis { fill: color-mix(in srgb, var(--bio-head) 14%, var(--surface)); }
+  .fat { fill: color-mix(in srgb, var(--bio-glucose) 30%, var(--surface)); }
+  .follicle { stroke: var(--text-muted); stroke-width: 7; stroke-linecap: round; opacity: 0.5; }
+  .hair { stroke: var(--text); stroke-width: 3; stroke-linecap: round; }
+  .erector { stroke: var(--bio-chol); stroke-width: 3; stroke-linecap: round; transition: stroke-width 0.25s; }
+  .duct { stroke: var(--bio-water); stroke-width: 3; fill: none; }
+  .gland { stroke: var(--bio-water); stroke-width: 4; fill: none; }
+  .drop { fill: var(--bio-water); }
+  .cap { stroke: var(--bio-k); stroke-width: 6; fill: none; transition: opacity 0.25s; }
+  .art { stroke: var(--bio-k); stroke-linecap: round; transition: stroke-width 0.25s; }
+  .vein { stroke: var(--bio-protein); stroke-width: 8; stroke-linecap: round; }
+  .shunt { stroke: var(--bio-k); stroke-width: 4; fill: none; stroke-dasharray: 4 3; }
+  .muscle { fill: color-mix(in srgb, var(--bio-k) 30%, var(--surface)); }
+  .shiver { stroke: var(--bio-k); stroke-width: 2.5; fill: none; }
+  .bat { fill: color-mix(in srgb, var(--bio-chol) 35%, var(--surface)); }
+  .glow { fill: var(--bio-chol); transition: opacity 0.25s; }
+  [data-batglow], [data-sweat], [data-heat] { transition: opacity 0.25s; }
+  .read { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: var(--space-1) var(--space-3); margin: 0; font-size: var(--step--1); }
+  .read div { display: grid; }
+  .read dt { color: var(--text-muted); font-weight: 600; }
+  .read dd { margin: 0; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .readout { margin: 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); min-height: 4.5rem; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: 0; }
+</style>

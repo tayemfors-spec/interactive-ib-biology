@@ -1,0 +1,66 @@
+---
+/** D3.3.2: a negative feedback loop, and a graph comparing negative with positive feedback. */
+const wave = Array.from({ length: 121 }, (_, i) => {
+  const x = i / 120;
+  const y = Math.sin(x * Math.PI * 4) * Math.exp(-x * 1.2) * 26 * (x < 0.06 ? x / 0.06 : 1);
+  return `${i ? 'L' : 'M'}${(440 + x * 300).toFixed(1)} ${(150 - y).toFixed(1)}`;
+}).join(' ');
+const runaway = Array.from({ length: 61 }, (_, i) => {
+  const x = i / 60;
+  return `${i ? 'L' : 'M'}${(440 + x * 160).toFixed(1)} ${(150 - (Math.exp(x * 3) - 1) * 6).toFixed(1)}`;
+}).join(' ');
+---
+<div class="exam-diagram">
+  <svg viewBox="0 0 760 300" role="img" aria-labelledby="fb-t fb-d" xmlns="http://www.w3.org/2000/svg">
+    <title id="fb-t">A negative feedback loop, and negative compared with positive feedback</title>
+    <desc id="fb-d">Left: a change in a variable away from its set point is detected by receptors, which send signals to a control centre; the control centre sends signals to effectors, whose response reverses the change, so the variable returns to the set point. The same loop works whether the variable rises or falls. Right: a graph of a variable against time. Under negative feedback it rises above and falls below the set point but each deviation is reversed and it stays within narrow limits. Under positive feedback a deviation is amplified and the variable moves further and further from the set point.</desc>
+    <defs><marker id="fb-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker></defs>
+    <g class="box"><rect x="130" y="10" width="160" height="50" rx="10" /></g>
+    <text class="b" x="210" y="32" text-anchor="middle">Variable changes</text><text class="s" x="210" y="49" text-anchor="middle">away from set point</text>
+    <g class="box"><rect x="262" y="104" width="140" height="50" rx="10" /></g>
+    <text class="b" x="332" y="126" text-anchor="middle">Receptors</text><text class="s" x="332" y="143" text-anchor="middle">detect the change</text>
+    <g class="box centre"><rect x="130" y="200" width="160" height="56" rx="10" /></g>
+    <text class="b" x="210" y="222" text-anchor="middle">Control centre</text><text class="s" x="210" y="240" text-anchor="middle">compares with set point</text>
+    <g class="box"><rect x="8" y="104" width="140" height="50" rx="10" /></g>
+    <text class="b" x="78" y="126" text-anchor="middle">Effectors</text><text class="s" x="78" y="143" text-anchor="middle">muscles or glands</text>
+    <path class="arrow" d="M290 44 C330 56 340 78 336 100" marker-end="url(#fb-ah)" />
+    <path class="arrow" d="M336 156 C336 186 316 210 294 222" marker-end="url(#fb-ah)" />
+    <text class="xs" x="344" y="194">nerve impulses</text>
+    <path class="arrow" d="M128 226 C96 214 78 190 78 158" marker-end="url(#fb-ah)" />
+    <text class="xs" x="8" y="210">nerves or hormones</text>
+    <path class="arrow" d="M80 102 C84 70 100 50 126 40" marker-end="url(#fb-ah)" />
+    <text class="xs" x="10" y="64">response reverses</text><text class="xs" x="10" y="78">the change</text>
+    <text class="neg" x="210" y="290" text-anchor="middle">negative feedback loop</text>
+
+    <!-- graph -->
+    <line class="axis" x1="440" x2="440" y1="30" y2="270" /><line class="axis" x1="440" x2="750" y1="270" y2="270" />
+    <rect class="band" x="440" y="118" width="310" height="64" />
+    <line class="set" x1="440" x2="750" y1="150" y2="150" />
+    <text class="xs" x="744" y="114" text-anchor="end">upper limit</text>
+    <text class="xs" x="744" y="196" text-anchor="end">lower limit</text>
+    <text class="xs" x="744" y="170" text-anchor="end">set point</text>
+    <path class="nf" d={wave} />
+    <path class="pf" d={runaway} />
+    <text class="lab" x="606" y="56">positive feedback:</text><text class="xs" x="606" y="70">change is amplified</text>
+    <text class="lab" x="560" y="222">negative feedback:</text><text class="xs" x="560" y="237">each change is reversed,</text><text class="xs" x="560" y="251">so it stays near the set point</text>
+    <text class="xs" x="595" y="292" text-anchor="middle">time →</text>
+    <text class="xs" transform="translate(426 150) rotate(-90)" text-anchor="middle">variable →</text>
+  </svg>
+</div>
+<style>
+  .exam-diagram svg { font-family: var(--font-sans); }
+  .box rect { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.4; }
+  .centre rect { stroke: var(--accent); stroke-width: 2.2; }
+  .b { font-size: 14px; font-weight: 750; fill: var(--text); }
+  .s { font-size: 12.5px; fill: var(--text); }
+  .xs { font-size: 12px; fill: var(--text-muted); }
+  .lab { font-size: 12.5px; font-weight: 700; fill: var(--text); }
+  .neg { font-size: 13px; font-weight: 700; font-style: italic; fill: var(--accent-strong); }
+  .arrow { stroke: var(--text-muted); stroke-width: 1.8; fill: none; }
+  .ah { fill: var(--text-muted); }
+  .axis { stroke: var(--text); stroke-width: 1.5; }
+  .band { fill: var(--good-soft); }
+  .set { stroke: var(--text-muted); stroke-width: 1.2; stroke-dasharray: 5 4; }
+  .nf { fill: none; stroke: var(--bio-protein); stroke-width: 3; }
+  .pf { fill: none; stroke: var(--bio-chol); stroke-width: 3; stroke-dasharray: 8 5; }
+</style>
