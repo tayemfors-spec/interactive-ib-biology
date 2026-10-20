@@ -1,0 +1,357 @@
+---
+code: D1.1
+description: "IB Biology D1.1 DNA replication revision: a 3D replication fork, the Meselson–Stahl experiment, PCR and gel electrophoresis simulations, plus self-tests."
+updated: 2026-10-19
+related: [A1.2, D1.2, D1.3, D2.1]
+mustKnow:
+  - term: DNA replication
+    definition: "The production of new DNA molecules with exactly the same base sequence as the original. It happens before every cell division, so it is needed for reproduction and, in multicellular organisms, for growth and tissue replacement."
+    level: SL
+  - term: Semi-conservative replication
+    definition: "Each new DNA molecule consists of <strong>one strand from the parent molecule</strong> (conserved) and <strong>one newly synthesised strand</strong>, made using the parental strand as a template."
+    level: SL
+  - term: Complementary base pairing
+    definition: "Adenine pairs only with thymine and guanine only with cytosine, so the base sequence of each new strand is set by its template. This makes copying highly accurate: each new strand is identical to the other parental strand."
+    level: SL
+  - term: Helicase
+    definition: "An enzyme that moves along DNA at the replication fork, <strong>unwinding the double helix</strong> and <strong>breaking the hydrogen bonds</strong> between complementary bases so that the two strands separate. It uses energy from ATP."
+    level: SL
+  - term: DNA polymerase
+    definition: "An enzyme that builds a new DNA strand on a template: it adds free nucleotides one at a time by complementary base pairing and links each to the growing strand with a covalent bond in the sugar–phosphate backbone."
+    level: SL
+  - term: Polymerase chain reaction (PCR)
+    definition: "A technique for making many copies of a chosen DNA sequence, using repeated cycles of denaturation (~95 °C), primer annealing (~55–65 °C) and extension (~72 °C) by heat-stable <strong>Taq polymerase</strong>. Each cycle doubles the number of copies."
+    level: SL
+  - term: Gel electrophoresis
+    definition: "Separation of DNA fragments by <strong>size</strong>: negatively charged DNA moves through a gel towards the positive electrode, and shorter fragments move through the mesh faster and so travel farther in the same time."
+    level: SL
+  - term: Directionality of DNA polymerase
+    definition: "DNA polymerases only add a nucleotide to the free <strong>3′ end</strong> of a strand, bonding the phosphate on carbon 5′ of the incoming nucleotide to the –OH on carbon 3′ of the strand. Strands therefore grow 5′→3′."
+    level: AHL
+  - term: Leading and lagging strands
+    definition: "The <strong>leading strand</strong> is synthesised continuously towards the fork from one RNA primer. The <strong>lagging strand</strong> is synthesised discontinuously away from the fork, as <strong>Okazaki fragments</strong> that each need their own primer."
+    level: AHL
+  - term: Proofreading
+    definition: "DNA polymerase III checks each base pair as it is formed; if the nucleotide just added at the 3′ end is mismatched, it removes it and replaces it with a correctly matched nucleotide."
+    level: AHL
+mistakes:
+  - wrong: "In semi-conservative replication, each new DNA molecule is half new because each strand is a mixture of old and new pieces."
+    right: "Each new molecule has one <strong>complete</strong> parental strand and one <strong>complete</strong> new strand. A mixture of old and new pieces within each strand is the dispersive model, which Meselson and Stahl ruled out."
+    level: SL
+  - wrong: "The new strand has the same base sequence as its template strand."
+    right: "The new strand is <strong>complementary</strong> to its template, so it has the same base sequence as the <strong>other</strong> parental strand. The two daughter molecules are identical to each other and to the original."
+    level: SL
+  - wrong: "Helicase breaks the DNA strands apart by breaking the sugar–phosphate backbone."
+    right: "Helicase breaks the <strong>hydrogen bonds between complementary bases</strong>, separating the two strands. The covalent bonds of each backbone stay intact, so each strand can act as a template."
+    level: SL
+  - wrong: "DNA moves towards the negative electrode in gel electrophoresis."
+    right: "DNA is negatively charged (its phosphate groups), so it moves away from the wells at the negative electrode <strong>towards the positive electrode</strong>."
+    level: SL
+  - wrong: "Smaller DNA fragments move faster in a gel because they carry more charge."
+    right: "Every nucleotide carries one negative charge, so charge is proportional to length. Smaller fragments move faster because they pass through the pores of the gel mesh more easily."
+    level: SL
+  - wrong: "Taq polymerase is used in PCR because it works faster at body temperature."
+    right: "Taq polymerase comes from <em>Thermus aquaticus</em>, a bacterium of hot springs, so it is <strong>not denatured</strong> by the repeated heating to about 95 °C, and its optimum (about 72 °C) is used for extension."
+    level: SL
+  - wrong: "If a man shares a band with a child, he must be the father."
+    right: "Every band in the child must come from the mother or the father. Remove the bands that match the mother; the biological father must have <strong>all</strong> of the remaining (paternal) bands, at every locus tested."
+    level: SL
+  - wrong: "The lagging strand is made 3′→5′, in the same direction as the fork."
+    right: "Both new strands are made <strong>5′→3′</strong>. On the lagging strand this means working away from the fork, so it is made in short Okazaki fragments, each started from a new RNA primer."
+    level: AHL
+  - wrong: "DNA polymerase I joins the Okazaki fragments together."
+    right: "DNA polymerase I <strong>replaces the RNA primers</strong> with DNA but leaves a nick; <strong>DNA ligase</strong> seals each nick by forming the last covalent bond in the sugar–phosphate backbone."
+    level: AHL
+  - wrong: "Primers in DNA replication are short pieces of DNA, just like PCR primers."
+    right: "In the cell, DNA primase makes <strong>RNA</strong> primers (which are later replaced by DNA). The primers added to a PCR mixture are short single-stranded <strong>DNA</strong> sequences made artificially."
+    level: AHL
+---
+
+<Section id="exact-copies" title="Replication makes exact copies of DNA" level="SL" covers="D1.1.1">
+
+**DNA replication** is the production of new DNA molecules with exactly the same **base sequence** as the original. A cell replicates all of its DNA before it divides, so that each daughter cell receives a complete copy of the genome. (In eukaryotes this happens during the S phase of interphase.)
+
+Cell division, and therefore replication, is needed for:
+
+- **Reproduction**: unicellular organisms reproduce by cell division, and multicellular organisms use cell division to produce the cells that become gametes. Base sequences are passed from generation to generation.
+- **Growth**: a multicellular organism grows by producing more cells, each with the same genome.
+- **Tissue replacement**: cells lost through damage or wear, such as skin and gut lining cells, are replaced by division of other cells.
+
+Because the copies are so accurate, the genetic information in every body cell is (almost) identical, and offspring inherit the same base sequences their parents carried. Replication is a process of **continuity** rather than change. Rare copying errors are one source of mutations (see <TopicLink code="D1.3" />).
+
+The base sequence carries the information that is transcribed and translated into polypeptides (<TopicLink code="D1.2" />). Because copies must be faithful, replication has several safeguards built in: the two strands are used as templates, bases pair only in complementary pairs, and (higher level) DNA polymerase checks its own work.
+
+<Callout type="exam">
+
+"Exact copies" means **identical base sequences**. When you explain why replication is needed, link it to cell division and then to reproduction, growth or tissue repair; do not say that replication is needed so DNA can be "read" or transcribed.
+
+</Callout>
+
+</Section>
+
+<Section id="semi-conservative" title="Semi-conservative replication and complementary base pairing" level="SL" covers="D1.1.2">
+
+Replication begins by separating the two strands of the parent molecule. Each single strand is then used as a **template** for a new strand. Every new DNA molecule therefore consists of:
+
+- **one strand conserved from the parent molecule**, and
+- **one newly synthesised strand**.
+
+This is **semi-conservative replication** ("half-conserving").
+
+### Why the copies are identical
+
+New strands are assembled by **complementary base pairing**: adenine pairs only with thymine and guanine only with cytosine. So the base sequence of each new strand is decided by its template:
+
+| Strand | Base sequence (written base for base under each other) |
+|---|---|
+| Parental strand 1 | A C G T T G C |
+| Parental strand 2 | T G C A A C G |
+| New strand on template 1 | T G C A A C G (same as strand 2) |
+| New strand on template 2 | A C G T T G C (same as strand 1) |
+
+Each new strand is complementary to its template and identical to the other parental strand. Both daughter molecules therefore have the same base sequence as the original.
+
+### How this gives high accuracy
+
+- Only one base fits opposite each template base, so the chance of inserting the wrong one is very small.
+- A complete parental strand is kept in each molecule, so the original sequence is never lost: it is the reference against which the new strand is made (and, at higher level, checked).
+
+### Evidence: the Meselson–Stahl experiment
+
+In 1958 Matthew Meselson and Franklin Stahl grew *E. coli* on the heavy isotope of nitrogen, ¹⁵N, then moved them to ordinary ¹⁴N and separated their DNA by density.
+
+<Anim topic="d1-1" id="meselson-stahl" />
+
+The single hybrid band after one generation ruled out **conservative** replication; the two bands (hybrid and light) after two generations ruled out **dispersive** replication.
+
+<Callout type="exam">
+
+To predict the bands after more generations in ¹⁴N, remember that the two original ¹⁵N strands are never broken up: after *n* generations from one molecule there are always **2 hybrid** molecules out of 2ⁿ, and all the rest are light. After 3 generations: 2 hybrid, 6 light (1 : 3).
+
+</Callout>
+
+</Section>
+
+<Section id="helicase-polymerase" title="Helicase and DNA polymerase" level="SL" covers="D1.1.3">
+
+<Viewer3D topic="d1-1" id="replication" />
+
+Replication is carried out by a team of enzymes working together at a **replication fork**, the Y-shaped region where the parent molecule is being separated. The fork moves along the molecule as copying proceeds. At standard level you need the roles of two enzymes.
+
+### Helicase
+
+- Moves along the DNA at the fork.
+- **Unwinds the double helix**.
+- **Breaks the hydrogen bonds** between complementary bases, separating the two strands.
+- Uses energy from ATP.
+
+Only hydrogen bonds are broken: the covalent bonds of each sugar–phosphate backbone stay intact, so each strand remains a continuous template.
+
+### DNA polymerase
+
+- Moves along each template strand.
+- Adds **free nucleotides** one at a time, each with the base that is complementary to the next base on the template.
+- Links each new nucleotide to the end of the growing strand by a **covalent bond** between the sugar of one nucleotide and the phosphate of the next, forming the new sugar–phosphate backbone.
+
+After synthesis, each template strand and its new partner wind together into a double helix, giving two daughter DNA molecules.
+
+<Callout type="tip" title="Using the 3D model">
+
+Open the **3D model** and step through the replication fork: watch helicase break the hydrogen bonds (two per A–T pair, three per G–C pair), then DNA polymerase build red new strands against the dark parental ones. Higher level students can switch to **Prokaryotic fork (AHL)** for primers, Okazaki fragments and proofreading.
+
+</Callout>
+
+<Callout type="exam">
+
+"Outline the roles of helicase and DNA polymerase" needs a clear verb for each: helicase **unwinds** and **separates** the strands by **breaking hydrogen bonds**; DNA polymerase **adds/links** nucleotides to form a new strand using **complementary base pairing** with the template.
+
+</Callout>
+
+</Section>
+
+<Section id="pcr-gel" title="PCR and gel electrophoresis" level="SL" covers="D1.1.4">
+
+### The polymerase chain reaction (PCR)
+
+**PCR** amplifies a chosen DNA sequence, turning a tiny sample into millions or billions of copies. The tube contains:
+
+- the **DNA sample** (the template);
+- **primers**: two short, single-stranded DNA sequences complementary to the two ends of the target sequence, one for each strand;
+- **free nucleotides** with all four bases;
+- **Taq polymerase**, a DNA polymerase from *Thermus aquaticus*, a bacterium that lives in hot springs. It is heat-stable, so it is not denatured at 95 °C.
+
+A **thermocycler** repeats a cycle of temperature changes, typically 25–35 times:
+
+| Stage | Temperature | What happens |
+|---|---|---|
+| Denaturation | about 95 °C | Hydrogen bonds break and the strands separate |
+| Primer annealing | about 55–65 °C | Primers bind to complementary sequences on each single strand |
+| Extension | about 72 °C | Taq polymerase extends each primer, building a complementary strand |
+
+Each cycle **doubles** the number of copies of the target: after *n* cycles, one molecule gives 2ⁿ copies (2³⁰ is over a billion).
+
+<Sim topic="d1-1" id="pcr" />
+
+### Gel electrophoresis
+
+**Gel electrophoresis** separates DNA fragments by **size** (length).
+
+1. Samples are loaded into **wells** at one end of an agarose gel, a mesh of polymer fibres in a buffer solution.
+2. A voltage is applied. DNA is **negatively charged** because of its phosphate groups, so it moves towards the **positive electrode**. The wells are therefore placed at the negative end.
+3. The gel mesh slows larger fragments more than smaller ones, so **shorter fragments travel farther** in the same time. Charge does not separate them, because it is proportional to length.
+4. The current is switched off before the smallest fragments run off the end; the DNA is stained so the **bands** can be seen. Each band is many fragments of the same length.
+5. A **DNA ladder** of fragments of known sizes is run in one lane, so the sizes of other bands can be estimated.
+
+<Callout type="exam">
+
+Explain the basis of separation in two steps: DNA moves because it is **negatively charged** (attracted to the positive electrode); fragments separate because **smaller ones move more easily through the pores** of the gel. Size, not charge, determines the distance travelled.
+
+</Callout>
+
+</Section>
+
+<Section id="applications" title="Applications: DNA profiling and more" level="SL" covers="D1.1.5">
+
+PCR and gel electrophoresis are used together in many fields. The most important example is **DNA profiling**.
+
+### DNA profiling
+
+Human DNA contains **short tandem repeats (STRs)**: places where a short sequence of a few bases is repeated many times. The number of repeats at each locus varies greatly between people, and each person has two versions (alleles), one from each parent.
+
+1. DNA is extracted from a sample (blood, hair roots, skin cells, saliva or semen). Only a tiny amount is needed.
+2. PCR amplifies a set of STR loci, using primers that bind either side of each repeat.
+3. Gel electrophoresis separates the products by length: more repeats make a longer fragment, which moves less far. The pattern of bands is the **DNA profile**.
+
+<Sim topic="d1-1" id="gel" />
+
+- **Forensic investigations**: a profile from a crime scene is compared with profiles from suspects (and victims). A match is strong evidence that the DNA came from that person; a mismatch at any locus excludes them.
+- **Paternity cases**: every band in a child's profile must come from either the mother or the biological father. Ignore the child's bands that match the mother; a man can be the father only if he has **all** the remaining bands.
+
+<Callout type="note" title="Nature of science: more measurements, more reliable conclusions">
+
+Two unrelated people may share the same alleles at one STR locus, so one marker would often give a false match. The chance of matching at every one of many independent loci is the product of the separate chances, so increasing the number of markers makes a false match extremely unlikely. National databases use about 13–20 markers.
+
+</Callout>
+
+### Other applications
+
+- **Diagnosing infections**: tests for COVID-19 used **RT-PCR**, in which reverse transcriptase first copies the viral RNA into DNA, which PCR then amplifies; other pathogens are detected in the same way.
+- **Genetic testing** for alleles that cause disease, before birth or in adults.
+- Amplifying DNA for **sequencing**, for **genetic modification**, and from tiny or ancient samples in **evolutionary studies**.
+
+<Callout type="exam">
+
+When interpreting a profile, state the evidence band by band: "the child has bands at … ; the band at … is not present in the mother, so it must be from the father; man B has it and man A does not, so man A is excluded".
+
+</Callout>
+
+</Section>
+
+<Section id="directionality" title="DNA polymerases work in one direction" level="AHL" covers="D1.1.6">
+
+Each strand of DNA has two different ends (see <TopicLink code="A1.2" />):
+
+- the **5′ end** has a phosphate group attached to carbon 5′ of the last deoxyribose;
+- the **3′ end** has a free –OH group on carbon 3′ of the last deoxyribose.
+
+All the nucleotides in a strand point the same way, because every link in the backbone joins carbon 3′ of one sugar to the phosphate on carbon 5′ of the next.
+
+### The rule for DNA polymerases
+
+DNA polymerases can **only add nucleotides to the 3′ end** of a strand. The phosphate on carbon 5′ of the incoming nucleotide is bonded to the –OH on carbon 3′ of the last nucleotide in the strand. So:
+
+- new strands always grow in the **5′→3′ direction**;
+- because the new strand is antiparallel to its template, the polymerase moves along the template in the 3′→5′ direction;
+- the 5′ end of a strand is never extended.
+
+Free nucleotides arrive as deoxynucleoside **triphosphates**. Two of the three phosphates are released as each nucleotide is added, which supplies the energy for the reaction.
+
+A DNA polymerase also cannot start a new strand from nothing: it needs an existing 3′ end to add to. In the cell this is provided by an **RNA primer**.
+
+<Callout type="exam">
+
+Use the exact wording: DNA polymerase adds the **5′ (phosphate) end of a free nucleotide to the 3′ (–OH) end** of the growing strand. Saying "the polymerase moves 5′→3′" without saying which strand is ambiguous.
+
+</Callout>
+
+</Section>
+
+<Section id="leading-lagging" title="Leading and lagging strands" level="AHL" covers="D1.1.7">
+
+At a replication fork the two template strands are antiparallel, but both new strands must be built 5′→3′. The two strands are therefore made in different ways.
+
+### Leading strand: continuous
+
+On one template, synthesis in the 5′→3′ direction runs **towards the fork**. DNA polymerase III can follow the fork as it opens, adding nucleotides without stopping. The **leading strand** is synthesised **continuously**, and an RNA primer is needed **only once**, at the start.
+
+### Lagging strand: discontinuous
+
+On the other template, synthesis in the 5′→3′ direction runs **away from the fork**. As the fork opens, a new stretch of template is exposed behind the polymerase. Synthesis must keep restarting close to the fork with a **new RNA primer**, and each section is extended away from the fork until it meets the previous one. The **lagging strand** is therefore made **discontinuously**, as short sections called **Okazaki fragments** (about 1000–2000 nucleotides long in bacteria and 100–200 in eukaryotes).
+
+| | Leading strand | Lagging strand |
+|---|---|---|
+| Direction of synthesis relative to the fork | towards | away from |
+| Synthesis | continuous | discontinuous (Okazaki fragments) |
+| RNA primers needed | one | one per Okazaki fragment |
+| Joining needed | no | yes, by DNA ligase |
+
+In bacteria replication starts at a single origin on the circular chromosome and two forks move away from it in opposite directions, each with its own leading and lagging strand.
+
+<Callout type="tip">
+
+"Lagging" does not mean the strand is made 3′→5′ or more slowly at a different time: both strands are made at the same time, both 5′→3′. The name reflects that its synthesis always starts a little behind the fork.
+
+</Callout>
+
+</Section>
+
+<Section id="enzymes" title="Primase, DNA polymerase III, DNA polymerase I and ligase" level="AHL" covers="D1.1.8">
+
+In prokaryotes, the main enzymes at the fork are:
+
+| Enzyme | Function |
+|---|---|
+| **Helicase** | Unwinds the double helix and breaks hydrogen bonds between bases at the fork |
+| **DNA primase** | Makes **RNA primers** — short RNA sequences complementary to the template — giving a free 3′ end to build on: once on the leading strand, repeatedly on the lagging strand |
+| **DNA polymerase III** | The main replicating enzyme: adds DNA nucleotides to the 3′ end of a primer and then of the growing strand, building the leading strand continuously and each Okazaki fragment |
+| **DNA polymerase I** | Removes the RNA nucleotides of each primer and **replaces them with DNA nucleotides**, extending the 3′ end of the next fragment; it leaves a nick |
+| **DNA ligase** | Seals each **nick** by forming the missing covalent (sugar–phosphate) bond, joining Okazaki fragments into a continuous strand |
+
+### Order of events on the lagging strand
+
+1. Primase lays an RNA primer near the fork.
+2. DNA polymerase III extends it away from the fork, making an Okazaki fragment, until it reaches the previous fragment's primer.
+3. DNA polymerase I replaces that primer with DNA.
+4. DNA ligase seals the nick that remains.
+
+Because the primers were made of RNA (with uracil and ribose), replacing them leaves the finished strand made entirely of DNA.
+
+<Callout type="exam">
+
+Distinguish the two polymerases precisely: **Pol III** extends primers and makes most of the new DNA (and proofreads); **Pol I** removes and replaces primers. Neither can join the fragments: that is **ligase**.
+
+</Callout>
+
+</Section>
+
+<Section id="proofreading" title="Proofreading by DNA polymerase III" level="AHL" covers="D1.1.9">
+
+DNA polymerase III usually adds the correct nucleotide, but occasionally it inserts one whose base does not pair with the template, for example guanine opposite thymine. A mismatched base pair does not have the correct shape and hydrogen bonding.
+
+**Proofreading** happens straight away:
+
+1. DNA polymerase III detects that the base pair it has just made is mismatched.
+2. It moves back and **removes the incorrect nucleotide from the 3′ end** of the new strand.
+3. It then adds a nucleotide with the **correctly matched base** and carries on.
+
+Proofreading reduces the error rate of replication by roughly a hundredfold, to about one wrong base in ten million added. Other repair systems correct many of the remaining errors, but you only need to know proofreading by DNA polymerase III. Replication errors that are not corrected become mutations that are passed on when the cell divides (see <TopicLink code="D1.3" />).
+
+The last step of the AHL model shows proofreading at the 3′ end of the leading strand.
+
+<Callout type="note" title="Linking question: what relies on directionality?">
+
+Proofreading works only because synthesis is directional: the most recently added nucleotide is always at the 3′ end, where the polymerase is. Transcription (<TopicLink code="D1.2" />) also builds RNA 5′→3′.
+
+</Callout>
+
+</Section>

@@ -1,0 +1,137 @@
+---
+/**
+ * Meselson–Stahl experiment (D1.1.2 evidence), drawn in its step-1 start state; animated by d1-1-meselson-stahl.ts.
+ * Left: CsCl density-gradient tubes after centrifugation for generations 0, 1 and 2 (light DNA settles higher,
+ * heavy DNA lower). Right: the DNA molecules in each generation. Heavy (¹⁵N) strands are solid dark blue;
+ * light (¹⁴N) strands are dashed orange, so colour is not the only cue. Bottom (step 4): the band patterns
+ * predicted by the semi-conservative, conservative and dispersive models.
+ */
+const tubes = [50, 122, 194];
+const T = { y: 54, h: 190, w: 40 };
+// band heights in a big tube: light, hybrid, heavy (density increases downwards)
+const LV = { light: 112, hybrid: 148, heavy: 184 };
+// molecules per generation: [x, y, strand 1 heavy?, strand 2 heavy?]
+type Mol = [number, number, boolean, boolean];
+const mols: Mol[][] = [
+  [[352, 132, true, true]],
+  [[352, 100, true, false], [352, 160, false, true]],
+  [[290, 96, true, false], [290, 150, false, false], [404, 96, false, true], [404, 150, false, false]],
+];
+const caps = ['all DNA heavy (¹⁵N/¹⁵N)', 'every molecule hybrid (¹⁵N/¹⁴N)', 'half hybrid, half light (¹⁴N/¹⁴N)'];
+const capY = [176, 206, 206];
+const rungX = [0, 1, 2, 3, 4, 5, 6].map((k) => 6 + k * 12);
+// predictions: relative band positions in a mini tube (0 = top, 1 = bottom)
+const R = { light: 0.3, quarter: 0.42, hybrid: 0.52, heavy: 0.74 };
+const rows = [
+  { name: 'Semi-conservative', g1: [R.hybrid], g2: [R.hybrid, R.light], result: '✓ matches the results', ok: true },
+  { name: 'Conservative', g1: [R.heavy, R.light], g2: [R.heavy, R.light], result: '✗ ruled out by generation 1', ok: false },
+  { name: 'Dispersive', g1: [R.hybrid], g2: [R.quarter], result: '✗ ruled out by generation 2', ok: false },
+];
+---
+<svg viewBox="0 0 520 452" xmlns="http://www.w3.org/2000/svg" class="ms">
+  <defs>
+    <linearGradient id="ms-cscl" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" style="stop-color: var(--surface)" />
+      <stop offset="1" style="stop-color: color-mix(in srgb, var(--bio-water) 30%, var(--surface))" />
+    </linearGradient>
+  </defs>
+  <g class="legend">
+    <line class="st heavy" x1="12" y1="14" x2="40" y2="14" />
+    <text x="46" y="19">¹⁵N strand (heavy)</text>
+    <line class="st light" x1="190" y1="14" x2="218" y2="14" />
+    <text x="224" y="19">¹⁴N strand (light)</text>
+    <text x="356" y="19" class="muted">CsCl density gradient</text>
+  </g>
+  <!-- tubes -->
+  {tubes.map((cx, i) => (
+    <g data-el={`tube${i}`} style={i ? 'opacity:0.35' : ''}>
+      <rect class="tube" x={cx - T.w / 2} y={T.y} width={T.w} height={T.h} rx="14" />
+      <text class="tube-lbl" x={cx} y={T.y + T.h + 18} text-anchor="middle">Gen {i}</text>
+    </g>
+  ))}
+  <g class="levels">
+    {Object.entries(LV).map(([k, y]) => <g><line x1="26" x2="216" y1={y} y2={y} /><text x="222" y={y} dy="0.35em">{k}</text></g>)}
+  </g>
+  <text class="muted small" x="12" y={T.y - 8}>lower density ↑</text>
+  <text class="muted small" x="12" y={T.y + T.h + 32}>higher density ↓</text>
+  <rect data-el="b0" class="band" x={tubes[0]! - 16} y={LV.heavy - 4} width="32" height="8" rx="3" style="opacity:0" />
+  <rect data-el="b1" class="band" x={tubes[1]! - 16} y={LV.hybrid - 4} width="32" height="8" rx="3" style="opacity:0" />
+  <rect data-el="b2h" class="band" x={tubes[2]! - 16} y={LV.hybrid - 4} width="32" height="8" rx="3" style="opacity:0" />
+  <rect data-el="b2l" class="band" x={tubes[2]! - 16} y={LV.light - 4} width="32" height="8" rx="3" style="opacity:0" />
+
+  <!-- molecules -->
+  <rect class="panel" x="276" y="34" width="236" height="230" rx="8" />
+  <text class="medium" data-el="medium" x="288" y="56">Many generations in ¹⁵N</text>
+  {mols.map((ms, g) => (
+    <g data-el={`mol${g}`} style={g ? 'opacity:0' : ''}>
+      {ms.map(([x, y, a, b]) => (
+        <g>
+          <line class={a ? 'st heavy' : 'st light'} x1={x} y1={y} x2={x + 84} y2={y} />
+          <line class={b ? 'st heavy' : 'st light'} x1={x} y1={y + 12} x2={x + 84} y2={y + 12} />
+          {rungX.map((dx) => <line class="rung" x1={x + dx} y1={y + 3} x2={x + dx} y2={y + 9} />)}
+        </g>
+      ))}
+      <text class="cap" x="394" y={capY[g]} text-anchor="middle">{caps[g]}</text>
+    </g>
+  ))}
+  <text class="cap muted" style="opacity:0" data-el="molnote" x="394" y="248" text-anchor="middle">Parental strands stay intact.</text>
+
+  <!-- key (steps 1–3) -->
+  <g data-el="key">
+    <text class="note" x="12" y="304">Spinning makes the CsCl solution denser towards the bottom of the tube.</text>
+    <text class="note" x="12" y="324">Each DNA molecule settles where its density equals that of the solution,</text>
+    <text class="note" x="12" y="344">so DNA containing ¹⁵N forms a band lower down than DNA with only ¹⁴N.</text>
+    <text class="note" x="12" y="374">Heavy band: both strands ¹⁵N. Hybrid band: one ¹⁵N and one ¹⁴N strand.</text>
+    <text class="note" x="12" y="394">Light band: both strands ¹⁴N.</text>
+  </g>
+
+  <!-- predictions (step 4) -->
+  <g data-el="pred" style="opacity:0">
+    <text class="th" x="12" y="302">Model</text>
+    <text class="th" x="196" y="302" text-anchor="middle">Gen 1</text>
+    <text class="th" x="248" y="302" text-anchor="middle">Gen 2</text>
+    <text class="th" x="282" y="302">Predicted vs observed</text>
+    {rows.map((r, i) => {
+      const y = 310 + i * 46;
+      return (
+        <g>
+          <text class="row-name" x="12" y={y + 22}>{r.name}</text>
+          {[r.g1, r.g2].map((bands, j) => (
+            <g>
+              <rect class="mini" x={183 + j * 52} y={y} width="26" height="40" rx="7" />
+              {bands.map((b) => <rect class="band" x={186 + j * 52} y={y + b * 40 - 2.5} width="20" height="5" rx="2" />)}
+            </g>
+          ))}
+          <text class={r.ok ? 'verdict ok' : 'verdict bad'} x="282" y={y + 24}>{r.result}</text>
+        </g>
+      );
+    })}
+  </g>
+</svg>
+<style>
+  .ms { font-family: var(--font-sans); }
+  .legend text { font-size: 13px; font-weight: 650; fill: var(--text); }
+  .muted { fill: var(--text-muted); }
+  .legend .muted { font-weight: 500; font-style: italic; }
+  .small { font-size: 12px; }
+  .st { stroke-width: 5; stroke-linecap: round; }
+  .st.heavy { stroke: var(--bio-protein); }
+  .st.light { stroke: var(--bio-head); stroke-dasharray: 7 4; }
+  .rung { stroke: var(--text-muted); stroke-width: 1.5; }
+  .tube { fill: url(#ms-cscl); stroke: var(--border-strong); stroke-width: 2; }
+  .mini { fill: url(#ms-cscl); stroke: var(--border-strong); stroke-width: 1.5; }
+  .tube-lbl { font-size: 13px; font-weight: 800; fill: var(--text); }
+  .levels line { stroke: var(--text-muted); stroke-width: 1; stroke-dasharray: 2 4; }
+  .levels text { font-size: 12px; font-weight: 650; fill: var(--text-muted); }
+  .band { fill: var(--bio-protein-2); }
+  .panel { fill: var(--surface-2); stroke: var(--border); }
+  .medium { font-size: 13px; font-weight: 800; fill: var(--text); }
+  .cap { font-size: 12.5px; font-weight: 650; fill: var(--text); }
+  .cap.muted { font-weight: 500; font-style: italic; fill: var(--text-muted); }
+  .note { font-size: 13px; fill: var(--text); }
+  .th { font-size: 12.5px; font-weight: 800; fill: var(--text-muted); }
+  .row-name { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .verdict { font-size: 13px; font-weight: 700; }
+  .verdict.ok { fill: var(--good, var(--text)); }
+  .verdict.bad { fill: var(--bad, var(--text)); }
+</style>

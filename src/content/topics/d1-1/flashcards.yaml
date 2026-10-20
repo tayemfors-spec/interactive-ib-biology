@@ -1,0 +1,69 @@
+cards:
+  - id: c1
+    level: SL
+    front: Why must DNA be replicated in living organisms?
+    back: So that each daughter cell produced by cell division receives a complete, identical copy of the genome. Cell division is needed for reproduction, and in multicellular organisms for growth and for replacing damaged or worn-out cells.
+  - id: c2
+    level: SL
+    front: What does "semi-conservative" replication mean?
+    back: Each new DNA molecule is made of one strand from the original molecule (conserved) and one newly synthesised strand, built using the old strand as a template.
+  - id: c3
+    level: SL
+    front: How does complementary base pairing make replication accurate?
+    back: Each base can only pair with one other (A with T, G with C), so the template fixes the sequence of the new strand. Each new strand is identical to the other parental strand, so both daughter molecules match the original.
+  - id: c4
+    level: SL
+    front: Role of helicase
+    back: Unwinds the double helix at the replication fork and separates the two strands by breaking the hydrogen bonds between complementary bases (using ATP). The sugar–phosphate backbones are not broken.
+  - id: c5
+    level: SL
+    front: Role of DNA polymerase
+    back: Adds free nucleotides one at a time to form a new strand, choosing each by complementary base pairing with the template, and links them with covalent bonds into a sugar–phosphate backbone.
+  - id: c6
+    level: SL
+    front: Meselson–Stahl — what was seen after one and after two generations in ¹⁴N?
+    back: One generation — a single band of intermediate (hybrid) density, ruling out conservative replication. Two generations — two equal bands, hybrid and light, ruling out dispersive replication. Only semi-conservative replication fits both.
+  - id: c7
+    level: SL
+    front: The three temperature stages of a PCR cycle
+    back: Denaturation at about 95 °C (strands separate); primer annealing at about 55–65 °C (primers bind to each single strand); extension at about 72 °C (Taq polymerase builds new strands from the primers).
+  - id: c8
+    level: SL
+    front: Why are primers needed in PCR, and why two of them?
+    back: DNA polymerase can only extend an existing strand, so a primer gives it a 3′ end to start from; the primers also select which sequence is copied. Two are needed, one complementary to each strand at either end of the target.
+  - id: c9
+    level: SL
+    front: Why is Taq polymerase used in PCR?
+    back: It comes from Thermus aquaticus, a hot-spring bacterium, so it is heat-stable — it is not denatured at 95 °C — and works best at about 72 °C, the extension temperature.
+  - id: c10
+    level: SL
+    front: How many copies of a target sequence does PCR give from one molecule after n cycles?
+    back: 2ⁿ, because the number doubles every cycle. After 30 cycles that is about 1.07 × 10⁹ — over a billion.
+  - id: c11
+    level: SL
+    front: What is the basis of separation in gel electrophoresis?
+    back: Size (length). DNA is negatively charged (phosphate groups), so it moves towards the positive electrode; smaller fragments pass more easily through the pores of the gel, so they travel farther in the same time.
+  - id: c12
+    level: SL
+    front: How is a DNA profile used in a paternity case?
+    back: Every band in the child must come from the mother or the father. After removing the bands that match the mother, the remaining (paternal) bands must all be present in a man for him to be the possible father. One missing band excludes him.
+  - id: c13
+    level: SL
+    front: Why do DNA profiles use many STR markers?
+    back: Unrelated people may share alleles at one locus by chance. The probability of sharing every one of many independent loci is the product of the individual probabilities, so more markers make a false match far less likely — reliability increases with the number of measurements.
+  - id: c14
+    level: AHL
+    front: In which direction do DNA polymerases build strands, and why?
+    back: 5′→3′. They can only add the 5′ phosphate of a free nucleotide to the free 3′ –OH at the end of the growing strand.
+  - id: c15
+    level: AHL
+    front: Leading vs lagging strand
+    back: Leading — made continuously, towards the fork, from one RNA primer. Lagging — made discontinuously, away from the fork, as Okazaki fragments, each started from a new RNA primer.
+  - id: c16
+    level: AHL
+    front: Functions of DNA primase, DNA polymerase III, DNA polymerase I and DNA ligase
+    back: Primase makes RNA primers. Pol III extends primers by adding DNA nucleotides to the 3′ end (and proofreads). Pol I removes RNA primers and replaces them with DNA. Ligase seals the nicks between fragments by forming a sugar–phosphate bond.
+  - id: c17
+    level: AHL
+    front: What is DNA proofreading?
+    back: DNA polymerase III detects a mismatched base on the nucleotide it has just added, removes that nucleotide from the 3′ end of the new strand, and replaces it with a nucleotide carrying the correctly matched base.

@@ -1,0 +1,172 @@
+---
+import { GEL_LENGTH, LADDER, SCENARIOS, distance } from './models/d1-1-gel';
+
+// gel geometry (SVG units)
+const G = { w: 500, top: 64, len: 300, laneW: 80, left: 96 };
+const yOf = (d: number) => G.top + (d / GEL_LENGTH) * G.len;
+const sc = SCENARIOS[0]!;
+const minutes = 60;
+const lanes = [{ id: 'ladder', name: 'Ladder', bands: LADDER }, ...sc.lanes];
+const laneX = (i: number) => G.left + i * G.laneW;
+const visible = (bp: number) => distance(bp, minutes) <= GEL_LENGTH;
+---
+<div class="sim-gel" data-sim-gel data-g={JSON.stringify(G)}>
+  <div class="layout">
+    <svg class="gel" viewBox={`0 0 ${G.w} ${G.top + G.len + 40}`} role="img" aria-labelledby="gel-t gel-d" data-gel>
+      <title id="gel-t">Agarose gel with a DNA ladder and four DNA profiles</title>
+      <desc id="gel-d" data-desc>Wells at the top, next to the negative electrode. DNA fragments have moved down towards the positive electrode; the smallest fragments have moved farthest.</desc>
+      <text class="electrode" x="12" y="20">− negative electrode (wells)</text>
+      <rect class="gel-body" x={G.left - 44} y={G.top - 14} width={lanes.length * G.laneW + 14} height={G.len + 22} rx="6" />
+      <g data-lane-names>
+        {lanes.map((l, i) => <text class="lane-name" x={laneX(i)} y={G.top - 22} text-anchor="middle">{l.name}</text>)}
+      </g>
+      <g data-wells>{lanes.map((_, i) => <rect class="well" x={laneX(i) - 22} y={G.top - 10} width="44" height="8" rx="2" />)}</g>
+      <g data-bands>
+        {lanes.map((l, i) => l.bands.filter(visible).map((bp) => <rect class={i === 0 ? 'band ladder' : 'band'} x={laneX(i) - 21} y={yOf(distance(bp, minutes)) - 2.5} width="42" height="5" rx="2" />))}
+      </g>
+      <g data-ladder-labels>
+        {LADDER.filter(visible).map((bp) => <text class="bp" x={G.left - 30} y={yOf(distance(bp, minutes))} dy="0.35em" text-anchor="end">{bp}</text>)}
+      </g>
+      <text class="bp-head" x="8" y={G.top - 22}>bp</text>
+      <line class="ruler" data-ruler x1={G.left - 26} x2={G.left + lanes.length * G.laneW - 26} y1={yOf(50)} y2={yOf(50)} />
+      <text class="electrode" x="12" y={G.top + G.len + 30}>+ positive electrode</text>
+      <text class="arrow-note" x={G.w - 8} y={G.top + G.len + 30} text-anchor="end">DNA moves this way ↓</text>
+    </svg>
+
+    <div class="controls">
+      <div class="scen" role="group" aria-label="Case">
+        {SCENARIOS.map((s, i) => <button type="button" class="btn" data-scenario={s.id} aria-pressed={i === 0 ? 'true' : 'false'}>{s.name}</button>)}
+      </div>
+      <label class="slider">Run time: <output data-out="time">{minutes} min</output>
+        <input type="range" min="0" max="90" step="5" value={minutes} data-param="time" />
+      </label>
+      <label class="slider">Measuring line (distance from the wells): <output data-out="ruler">50</output>
+        <input type="range" min="0" max="100" step="1" value="50" data-param="ruler" />
+      </label>
+      <p class="measure" data-measure>Move the measuring line onto a band to estimate its size from the ladder.</p>
+      <label class="slider">STR markers used in the profile: <output data-out="markers">13</output>
+        <input type="range" min="1" max="20" step="1" value="13" data-param="markers" />
+      </label>
+      <p class="measure" data-rmp>Chance that an unrelated person matches at all 13 markers: about 1 in 10¹³.</p>
+    </div>
+  </div>
+  <p class="readout" aria-live="polite" data-readout>After {minutes} minutes the fragments have separated by size. Ladder bands run from 3000 bp nearest the wells to 100 bp farthest away.</p>
+  <details class="check">
+    <summary>Check your conclusion</summary>
+    <p data-conclusion>Suspect 2 has every band that is in the crime-scene sample, and no others, so their DNA profile matches. Suspects 1 and 3 share some bands with the sample but not all, so they are excluded as the source.</p>
+  </details>
+  <p class="model-note">Qualitative model with invented profiles at three STR loci (two bands per person per locus). Distance travelled is taken to fall in proportion to log(fragment length), which is roughly true over the working range of an agarose gel. The match probability assumes each marker is shared by chance 1 time in 10 (illustrative).</p>
+</div>
+
+<script>
+  import { GEL_LENGTH, LADDER, SCENARIOS, distance, estimateSize, paternityExclusions, profilesMatch, randomMatchProbability, type Lane } from './models/d1-1-gel';
+
+  const SUP: Record<string, string> = { '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' };
+  const oneIn = (p: number) => {
+    const x = 1 / p;
+    if (x < 1e4) return Math.round(x).toLocaleString('en-GB');
+    const e = Math.round(Math.log10(x));
+    return `10${String(e).split('').map((d) => SUP[d]).join('')}`;
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-sim-gel]').forEach((root) => {
+    const G = JSON.parse(root.dataset.g!) as { w: number; top: number; len: number; laneW: number; left: number };
+    const yOf = (d: number) => G.top + (d / GEL_LENGTH) * G.len;
+    const laneX = (i: number) => G.left + i * G.laneW;
+    const q = <T extends Element>(sel: string) => root.querySelector<T>(sel)!;
+    const param = (k: string) => Number(q<HTMLInputElement>(`[data-param="${k}"]`).value);
+    const out = (k: string, v: string) => (q(`[data-out="${k}"]`).textContent = v);
+    const readout = q<HTMLElement>('[data-readout]');
+    let scen = SCENARIOS[0]!;
+    let timer = 0;
+
+    const conclusion = () => {
+      if (scen.id === 'forensic') {
+        const sample = scen.lanes[0]!;
+        const m = scen.lanes.slice(1).filter((l) => profilesMatch(l, sample)).map((l) => l.name);
+        return `${m.join(', ')} has every band that is in the crime-scene sample, and no others, so their DNA profile matches. Suspects 1 and 3 share some bands with the sample but not all, so they are excluded as its source. A match is strong evidence, not proof of guilt: it shows the DNA came from that person (or an identical twin).`;
+      }
+      const lane = (id: string) => scen.lanes.find((l) => l.id === id)!;
+      const ex1 = paternityExclusions(lane('child'), lane('mother'), lane('man1'));
+      const ex2 = paternityExclusions(lane('child'), lane('mother'), lane('man2'));
+      return `Every band in the child must come from the mother or the biological father. Removing the child's bands that match the mother leaves one band per locus from the father. Man 1 ${ex1.length ? `does not have the child's paternal band at locus ${ex1.map((l) => l + 1).join(', ')} (about 400 bp), so he is excluded` : 'could be the father'}. Man 2 ${ex2.length ? 'is excluded' : 'has all of the paternal bands, so he could be the father'}; with many more markers the chance of a false match becomes very small.`;
+    };
+
+    const draw = () => {
+      const minutes = param('time');
+      const ruler = param('ruler');
+      const markers = param('markers');
+      out('time', `${minutes} min`); out('ruler', String(ruler)); out('markers', String(markers));
+      const lanes: Lane[] = [{ id: 'ladder', name: 'Ladder', bands: LADDER }, ...scen.lanes];
+      q('[data-lane-names]').innerHTML = lanes.map((l, i) => `<text class="lane-name" x="${laneX(i)}" y="${G.top - 22}" text-anchor="middle">${l.name}</text>`).join('');
+      const vis = (bp: number) => distance(bp, minutes) <= GEL_LENGTH;
+      q('[data-bands]').innerHTML = lanes.map((l, i) => l.bands.filter(vis).map((bp) =>
+        `<rect class="band${i === 0 ? ' ladder' : ''}" x="${laneX(i) - 21}" y="${(yOf(distance(bp, minutes)) - 2.5).toFixed(1)}" width="42" height="5" rx="2"></rect>`).join('')).join('');
+      // ladder labels only where they will not overlap
+      let lastY = -99;
+      q('[data-ladder-labels]').innerHTML = LADDER.filter(vis).slice().reverse().map((bp) => {
+        const y = yOf(distance(bp, minutes));
+        if (y - lastY < 13) return '';
+        lastY = y;
+        return `<text class="bp" x="${G.left - 30}" y="${y.toFixed(1)}" dy="0.35em" text-anchor="end">${bp}</text>`;
+      }).join('');
+      const ry = yOf(ruler).toFixed(1);
+      q('[data-ruler]').setAttribute('y1', ry); q('[data-ruler]').setAttribute('y2', ry);
+
+      const est = estimateSize(ruler, minutes);
+      const near = scen.lanes.flatMap((l) => l.bands.filter((bp) => vis(bp) && Math.abs(distance(bp, minutes) - ruler) < 1.3).map(() => l.name));
+      const ranOff = LADDER.filter((bp) => !vis(bp));
+      q('[data-measure]').textContent = minutes === 0
+        ? 'The current is off: all the DNA is still in the wells.'
+        : est
+          ? `At distance ${ruler} the ladder gives about ${Math.round(est / 10) * 10} bp.${near.length ? ` Bands on this line: ${[...new Set(near)].join(', ')}.` : ''}`
+          : 'This distance is outside the range of the ladder bands, so a size cannot be read here.';
+      q('[data-rmp]').textContent = `Chance that an unrelated person matches at all ${markers} marker${markers === 1 ? '' : 's'}: about 1 in ${oneIn(randomMatchProbability(markers))}.`;
+      q('[data-conclusion]').textContent = conclusion();
+      q('[data-desc]').textContent = `Wells at the top, next to the negative electrode. Lanes: ${lanes.map((l) => l.name).join(', ')}. After ${minutes} minutes the fragments have moved towards the positive electrode, the smallest farthest.`;
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        readout.textContent = minutes === 0
+          ? 'No current has flowed yet, so the DNA has not moved out of the wells.'
+          : `After ${minutes} minutes the fragments have separated by size: larger fragments are nearer the wells, smaller ones farther towards the positive electrode.` +
+            (ranOff.length ? ` The ${ranOff.join(' and ')} bp ladder band${ranOff.length > 1 ? 's have' : ' has'} run off the end of the gel — the run was too long.` : '') +
+            (minutes < 15 ? ' The bands are still close together: run the gel for longer to separate them.' : '');
+      }, 350);
+    };
+
+    root.querySelectorAll<HTMLButtonElement>('[data-scenario]').forEach((b) => b.addEventListener('click', () => {
+      scen = SCENARIOS.find((s) => s.id === b.dataset.scenario)!;
+      root.querySelectorAll('[data-scenario]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      draw();
+    }));
+    root.querySelectorAll('[data-param]').forEach((el) => el.addEventListener('input', draw));
+    draw();
+  });
+</script>
+
+<style>
+  .sim-gel { container-type: inline-size; display: grid; gap: var(--space-3); }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 46rem) { .layout { grid-template-columns: minmax(0, 1.4fr) minmax(15rem, 1fr); align-items: start; } }
+  .gel { width: 100%; height: auto; font-family: var(--font-sans); }
+  .gel-body { fill: color-mix(in srgb, var(--bio-water) 10%, var(--surface)); stroke: var(--border-strong); }
+  .well { fill: var(--surface); stroke: var(--text-muted); stroke-width: 1.5; }
+  .gel :global(.band) { fill: var(--bio-protein-2); }
+  .gel :global(.band.ladder) { fill: var(--text-muted); }
+  .gel :global(.lane-name) { font-size: 12px; font-weight: 700; fill: var(--text); }
+  .gel :global(.bp) { font-size: 12px; fill: var(--text-muted); font-variant-numeric: tabular-nums; }
+  .bp-head { font-size: 12px; font-weight: 700; fill: var(--text-muted); }
+  .electrode { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .arrow-note { font-size: 13px; fill: var(--text-muted); font-style: italic; }
+  .ruler { stroke: var(--bio-k); stroke-width: 1.5; stroke-dasharray: 5 4; }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .scen { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .measure { margin: 0; padding: var(--space-2) var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); }
+  .readout { margin: 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .check { font-size: var(--step--1); }
+  .check summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  .check p { margin: var(--space-2) 0 0; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: 0; }
+</style>
