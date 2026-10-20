@@ -1,0 +1,142 @@
+---
+import { PEDIGREES } from './models/d3-2-pedigree';
+import { chartSvg, describe, patternButtons, questionsHtml } from './d3-2-pedigree-view';
+const first = PEDIGREES[0]!;
+const c = chartSvg(first, false);
+---
+<div class="ped" data-pedigree>
+  <div class="choices" role="radiogroup" aria-label="Choose a family">
+    {PEDIGREES.map((p, i) => (
+      <button type="button" class="btn" role="radio" aria-checked={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-ped={p.id}>{p.title}: {p.condition}</button>
+    ))}
+  </div>
+  <div class="layout">
+    <div class="chart-wrap">
+      <svg class="chart" viewBox={`0 0 ${c.w} ${c.h}`} role="img" aria-labelledby="ped-t ped-d" data-chart>
+        <title id="ped-t" data-chart-title>Pedigree chart: {first.title}, {first.condition}</title>
+        <desc id="ped-d" data-chart-desc>{describe(first)}</desc>
+        <g data-chart-g set:html={c.svg} />
+      </svg>
+      <ul class="key" aria-label="Key">
+        <li><svg viewBox="0 0 20 20" aria-hidden="true"><rect class="sym" x="2" y="2" width="16" height="16" /></svg> unaffected male</li>
+        <li><svg viewBox="0 0 20 20" aria-hidden="true"><circle class="sym" cx="10" cy="10" r="8" /></svg> unaffected female</li>
+        <li><svg viewBox="0 0 20 20" aria-hidden="true"><rect class="sym aff" x="2" y="2" width="16" height="16" /></svg> affected male</li>
+        <li><svg viewBox="0 0 20 20" aria-hidden="true"><circle class="sym aff" cx="10" cy="10" r="8" /></svg> affected female</li>
+        <li><svg viewBox="0 0 20 20" aria-hidden="true"><circle class="sym" cx="10" cy="10" r="8" /><circle class="carrier" cx="10" cy="10" r="3" /></svg> carrier (shown after you reveal genotypes)</li>
+        <li><svg viewBox="0 0 28 20" aria-hidden="true"><path class="line" d="M2 7 H26 M2 13 H26" /></svg> marriage between relatives</li>
+      </ul>
+    </div>
+    <div class="tasks">
+      <p class="step-t" id="ped-pat">1. Which pattern of inheritance does this family show?</p>
+      <div class="opts" role="group" aria-labelledby="ped-pat" data-patterns set:html={patternButtons()} />
+      <p class="fb" aria-live="polite" data-pattern-fb>Look for two key clues: unaffected parents with an affected child, and whether affected daughters have affected fathers.</p>
+      <p class="step-t">2. Deduce genotypes</p>
+      <p class="notation" data-notation>Use A for the allele that makes the working enzyme and a for the PKU allele.</p>
+      <div data-questions set:html={questionsHtml(first)} />
+      <button type="button" class="btn" aria-pressed="false" data-reveal>Show deduced genotypes</button>
+    </div>
+  </div>
+  <p class="model-note">The genotypes shown are worked out by testing every possible combination against the chart. Where two genotypes are shown (for example AA / Aa) the chart does not contain enough information to decide.</p>
+</div>
+
+<script>
+  import { PEDIGREES, PATTERN_NAMES, type Pattern } from './models/d3-2-pedigree';
+  import { chartSvg, describe, questionsHtml } from './d3-2-pedigree-view';
+
+  const notation: Record<Pattern, string> = {
+    'autosomal-recessive': 'Use A for the allele that makes the working enzyme and a for the PKU allele.',
+    'autosomal-dominant': 'Use D for the dominant allele that causes Huntington’s disease and d for the normal allele.',
+    'x-linked-recessive': 'Use Xᴴ for an X chromosome with the normal clotting allele, Xʰ for one with the haemophilia allele, and Y for the Y chromosome.',
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-pedigree]').forEach((root) => {
+    const pedBtns = [...root.querySelectorAll<HTMLButtonElement>('[data-ped]')];
+    const svg = root.querySelector<SVGSVGElement>('[data-chart]')!;
+    const g = root.querySelector<SVGGElement>('[data-chart-g]')!;
+    const reveal = root.querySelector<HTMLButtonElement>('[data-reveal]')!;
+    const qs = root.querySelector<HTMLElement>('[data-questions]')!;
+    const fb = root.querySelector<HTMLElement>('[data-pattern-fb]')!;
+    let ped = PEDIGREES[0]!;
+    let shown = false;
+
+    const draw = () => {
+      const c = chartSvg(ped, shown);
+      svg.setAttribute('viewBox', `0 0 ${c.w} ${c.h}`);
+      g.innerHTML = c.svg;
+      root.querySelector('[data-chart-title]')!.textContent = `Pedigree chart: ${ped.title}, ${ped.condition}`;
+      root.querySelector('[data-chart-desc]')!.textContent = describe(ped);
+      reveal.setAttribute('aria-pressed', String(shown));
+      reveal.textContent = shown ? 'Hide deduced genotypes' : 'Show deduced genotypes';
+    };
+    const wireQuestions = () => {
+      qs.innerHTML = questionsHtml(ped);
+      qs.querySelectorAll<HTMLElement>('[data-q]').forEach((box) => {
+        const q = ped.questions.find((x) => x.id === box.dataset.q)!;
+        box.querySelectorAll<HTMLButtonElement>('[data-opt]').forEach((b) => b.addEventListener('click', () => {
+          box.querySelectorAll('[data-opt]').forEach((o) => o.setAttribute('aria-pressed', String(o === b)));
+          const right = b.dataset.opt === q.answer;
+          const out = box.querySelector<HTMLElement>('[data-fb]')!;
+          out.dataset.ok = String(right);
+          out.textContent = `${right ? 'Correct.' : 'Not quite.'} ${q.why}`;
+        }));
+      });
+    };
+    const choose = (btn: HTMLButtonElement, focus = false) => {
+      ped = PEDIGREES.find((p) => p.id === btn.dataset.ped)!;
+      pedBtns.forEach((b) => { const on = b === btn; b.setAttribute('aria-checked', String(on)); b.tabIndex = on ? 0 : -1; });
+      if (focus) btn.focus();
+      shown = false;
+      root.querySelectorAll('[data-pattern]').forEach((o) => o.setAttribute('aria-pressed', 'false'));
+      fb.textContent = 'Look for two key clues: unaffected parents with an affected child, and whether affected daughters have affected fathers.';
+      delete fb.dataset.ok;
+      root.querySelector('[data-notation]')!.textContent = notation[ped.pattern];
+      draw();
+      wireQuestions();
+    };
+    pedBtns.forEach((b, i) => {
+      b.addEventListener('click', () => choose(b));
+      b.addEventListener('keydown', (e) => {
+        const d = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+        if (d) { e.preventDefault(); choose(pedBtns[(i + d + pedBtns.length) % pedBtns.length]!, true); }
+      });
+    });
+    root.querySelectorAll<HTMLButtonElement>('[data-pattern]').forEach((b) => b.addEventListener('click', () => {
+      root.querySelectorAll('[data-pattern]').forEach((o) => o.setAttribute('aria-pressed', String(o === b)));
+      const pat = b.dataset.pattern as Pattern;
+      fb.dataset.ok = String(pat === ped.pattern);
+      fb.textContent = `${PATTERN_NAMES[pat]}: ${ped.feedback[pat]}`;
+    }));
+    reveal.addEventListener('click', () => { shown = !shown; draw(); });
+    wireQuestions();
+  });
+</script>
+
+<style>
+  .ped { container-type: inline-size; }
+  .choices { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); }
+  .choices .btn[aria-checked='true'] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-strong); }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 44rem) { .layout { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: start; } }
+  .chart { width: 100%; max-width: 34rem; margin: 0 auto; height: auto; display: block; background: var(--surface-2); border-radius: var(--radius-m); font-family: var(--font-sans); }
+  .ped :global(.sym) { fill: var(--surface); stroke: var(--text); stroke-width: 2; }
+  .ped :global(.sym.aff) { fill: var(--text); }
+  .ped :global(.carrier) { fill: var(--text); }
+  .ped :global(.line) { stroke: var(--text); stroke-width: 2; fill: none; }
+  .chart :global(.id) { font-size: 13px; fill: var(--text-muted); font-weight: 600; }
+  .chart :global(.gen) { font-size: 14px; fill: var(--text-muted); font-weight: 800; }
+  .chart :global(.geno) { font-size: 13px; fill: var(--accent-strong); font-weight: 800; }
+  .chart :global(.sup) { font-size: 10px; }
+  .key { list-style: none; padding: 0; margin: var(--space-2) 0 0; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-3); font-size: 0.8rem; }
+  .key li { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .key svg { width: 1.2rem; height: 1.1rem; }
+  .step-t { font-weight: 750; margin: 0 0 var(--space-2); }
+  .opts, .tasks :global(.pq-opts) { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .small, .tasks :global(.small) { min-height: 2.1rem; padding: 0.3rem 0.65rem; }
+  .fb, .tasks :global(.pq-fb) { font-size: var(--step--1); margin: var(--space-2) 0 var(--space-3); }
+  .fb[data-ok='true'], .tasks :global(.pq-fb[data-ok='true']) { color: var(--good); }
+  .fb[data-ok='false'], .tasks :global(.pq-fb[data-ok='false']) { color: var(--bad); }
+  .notation { font-size: var(--step--1); color: var(--text-muted); margin: 0 0 var(--space-2); }
+  .tasks :global(.pq-prompt) { margin: 0 0 var(--space-1); font-size: var(--step--1); font-weight: 650; }
+  .tasks :global(.pq-fb:empty) { margin: 0 0 var(--space-2); }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-3) 0 0; }
+</style>

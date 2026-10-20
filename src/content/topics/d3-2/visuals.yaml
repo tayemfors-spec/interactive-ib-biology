@@ -1,0 +1,90 @@
+# Visuals for D3.2. Step captions here are what readers see in the animation and the text description.
+visuals:
+  - id: fertilization
+    kind: anim
+    module: d3-2-fertilization
+    title: From parents to zygote, genotype to phenotype
+    alt: Diploid parents make haploid gametes by meiosis; an egg and sperm fuse into a diploid zygote whose genotype and environment give its phenotype.
+    description: >-
+      Two diploid body cells, one from each parent, each contain a homologous pair of chromosomes carrying one
+      gene. The mother is heterozygous, Aa, and the father is homozygous, AA. Meiosis halves the chromosome
+      number, so each parent makes haploid gametes carrying just one allele of the gene: here an egg with a and
+      a sperm with A. At fertilization the sperm and egg fuse to form a diploid zygote with genotype Aa, one allele
+      from each parent. Because A is dominant, the phenotype of Aa is the same as that of AA. A final panel shows
+      phenotypic plasticity: skin with the same genotype makes more melanin and darkens after more exposure to
+      sunlight, then becomes paler again when exposure falls, without any change in genotype.
+    steps:
+      - id: parents
+        title: Diploid parents
+        caption: Body cells of both parents are diploid (2n). Each has two copies of every autosomal gene, one on each chromosome of a homologous pair. The mother here is Aa; the father is AA.
+      - id: meiosis
+        title: Meiosis makes haploid gametes
+        caption: Meiosis halves the chromosome number, so each gamete is haploid (n) and carries just one allele of each gene. Half of this mother's eggs carry A and half carry a; all of the father's sperm carry A.
+      - id: fertilization
+        title: Fertilization
+        caption: The nucleus of a sperm fuses with the nucleus of an egg. The zygote is diploid again, with one allele from each parent, so its genotype is Aa. Mitosis copies this genotype into every body cell.
+      - id: phenotype
+        title: Genotype and phenotype
+        caption: Aa is heterozygous. A is dominant, because one copy makes enough of the functional protein, so the phenotype of Aa is the same as that of AA. The recessive allele a has no effect in a heterozygote.
+      - id: plasticity
+        title: Phenotypic plasticity
+        caption: Phenotype also depends on the environment. More UV light changes gene expression in skin so that more melanin is made and the skin darkens. When exposure falls the skin becomes paler again. The genotype never changed.
+
+  - id: punnett
+    kind: sim
+    module: d3-2-punnett
+    title: Punnett grid generator
+    alt: Choose a pattern of inheritance and the genotypes of two parents to see a Punnett grid with genotype and phenotype ratios.
+    description: >-
+      A Punnett grid builder for monohybrid crosses. Choose one of four patterns: dominant and recessive alleles
+      (pea seed shape, S and s), incomplete dominance (four o'clock flower, Mirabilis jalapa, with red, pink and
+      white flowers), multiple alleles with codominance (human ABO blood groups, alleles IA, IB and i) or sex
+      linkage (haemophilia, with alleles written as superscripts on X). Pick each parent's genotype from a list.
+      The gametes of each parent are placed along the edges of a 2 × 2 grid, each box shows an equally likely
+      offspring genotype and phenotype, and the genotype and phenotype ratios are listed, for example
+      1 : 2 : 1 and 3 : 1 for two heterozygotes with complete dominance.
+
+  - id: pedigree
+    kind: sim
+    module: d3-2-pedigree
+    title: Pedigree chart analyser
+    alt: Three family pedigree charts; decide the pattern of inheritance and deduce genotypes, with feedback on each answer.
+    description: >-
+      Three pedigree charts drawn with standard symbols: squares for males, circles for females, filled symbols
+      for affected people, horizontal lines joining parents and vertical lines to their children, and a double
+      line for a marriage between relatives. Family A shows phenylketonuria (autosomal recessive), with an
+      affected daughter born to unaffected first cousins. Family B shows Huntington's disease (autosomal dominant),
+      with an unaffected son born to two affected parents. Family C shows haemophilia (X-linked recessive), with
+      only males affected and carrier mothers. For each chart, choose the pattern of inheritance and answer
+      questions about the genotypes of individuals; feedback explains the reasoning. A button reveals every
+      genotype that can be deduced, with carriers marked by a dot.
+
+  - id: boxplot
+    kind: sim
+    module: d3-2-boxplot
+    title: Box-and-whisker plot builder
+    alt: A box plot of student heights with mean, median, mode, quartiles, IQR and outliers calculated; data can be edited.
+    description: >-
+      A box-and-whisker plot drawn above an axis, with every data value shown as a dot. Choose a data set
+      (student heights, heights with one very tall student, or skin melanin index) or type your own values.
+      The box runs from the lower quartile (Q1) to the upper quartile (Q3) and is split at the median. The
+      outlier limits are 1.5 × IQR below Q1 and above Q3; values beyond them are plotted as separate outlier
+      points, and the whiskers end at the smallest and largest values that are not outliers. The mean, median,
+      mode, quartiles, interquartile range and outliers are listed. A slider changes the largest value so you can
+      watch it become an outlier.
+
+  - id: dihybrid
+    kind: sim
+    module: d3-2-dihybrid
+    level: AHL
+    title: Dihybrid crosses, linkage and the chi-squared test
+    alt: Dihybrid Punnett grids for unlinked and linked genes, with simulated offspring and a chi-squared test against 9:3:3:1 or 1:1:1:1.
+    description: >-
+      Three dihybrid crosses. In pea plants (round R / wrinkled r, yellow Y / green y, genes on different
+      chromosomes) a double heterozygote self-cross gives a 16-box grid and a 9 : 3 : 3 : 1 phenotype ratio, and a
+      test cross with a double recessive gives 1 : 1 : 1 : 1. In fruit flies (grey G / black g body, long L /
+      vestigial l wings, genes linked on chromosome 2) a test cross gives many more parental types than
+      recombinants; a slider sets the recombination frequency from 0 to 50%, and a chromosome diagram shows how
+      crossing over makes the recombinant gametes. Below, a sample of offspring can be bred (or typed in, or
+      Mendel's own F2 data loaded) and tested with chi-squared: expected values from the Mendelian ratio,
+      (O − E)² ÷ E for each class, degrees of freedom 3 and a critical value of 7.815 at p = 0.05.

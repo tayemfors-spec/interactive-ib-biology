@@ -1,0 +1,137 @@
+---
+import { MODE_INFO, PARENT_GENOTYPES, type Mode } from './models/d3-2-punnett';
+import { gridHtml, optionsHtml, ratiosHtml, summary } from './d3-2-punnett-view';
+const modes = Object.keys(MODE_INFO) as Mode[];
+const mode: Mode = 'dominant';
+const p1 = PARENT_GENOTYPES[mode].p1[1]!, p2 = PARENT_GENOTYPES[mode].p2[1]!;
+const info = MODE_INFO[mode];
+---
+<div class="pun" data-punnett>
+  <div class="choices" role="radiogroup" aria-label="Choose a pattern of inheritance">
+    {modes.map((m, i) => (
+      <button type="button" class="btn" role="radio" aria-checked={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-mode={m}>{MODE_INFO[m].title}</button>
+    ))}
+  </div>
+  <p class="organism"><strong data-organism>{info.organism}</strong></p>
+  <p class="key" data-key set:html={info.key} />
+  <div class="parents">
+    <label><span data-p1-label>{info.p1}</span>
+      <select data-parent="p1" set:html={optionsHtml(mode, 'p1', 'Ss')} />
+    </label>
+    <span class="cross" aria-hidden="true">×</span>
+    <label><span data-p2-label>{info.p2}</span>
+      <select data-parent="p2" set:html={optionsHtml(mode, 'p2', 'Ss')} />
+    </label>
+  </div>
+  <div class="presets" role="group" aria-label="Quick crosses">
+    <button type="button" class="btn small" data-preset="p">P cross: homozygote × homozygote</button>
+    <button type="button" class="btn small" data-preset="f1">F1 × F1 (two heterozygotes)</button>
+  </div>
+  <div class="layout">
+    <table class="grid" data-grid set:html={gridHtml(mode, p1, p2)} />
+    <div class="ratios" data-ratios set:html={ratiosHtml(mode, p1, p2)} />
+  </div>
+  <p class="readout" aria-live="polite" data-readout>{summary(mode, p1, p2)}</p>
+  <p class="model-note">Ratios are probabilities for each offspring. Real families and small samples rarely match them exactly; large numbers of offspring (as in pea crosses) come close.</p>
+</div>
+
+<script>
+  import { MODE_INFO, type Mode } from './models/d3-2-punnett';
+  import { findGenotype, gridHtml, optionsHtml, ratiosHtml, summary } from './d3-2-punnett-view';
+
+  document.querySelectorAll<HTMLElement>('[data-punnett]').forEach((root) => {
+    const modeBtns = [...root.querySelectorAll<HTMLButtonElement>('[data-mode]')];
+    const s1 = root.querySelector<HTMLSelectElement>('[data-parent="p1"]')!;
+    const s2 = root.querySelector<HTMLSelectElement>('[data-parent="p2"]')!;
+    const q = <T extends Element>(sel: string) => root.querySelector<T>(sel)!;
+    let mode: Mode = 'dominant';
+    let timer = 0;
+
+    const draw = () => {
+      const p1 = findGenotype(mode, 'p1', s1.value), p2 = findGenotype(mode, 'p2', s2.value);
+      q('[data-grid]').innerHTML = gridHtml(mode, p1, p2);
+      q('[data-ratios]').innerHTML = ratiosHtml(mode, p1, p2);
+      clearTimeout(timer);
+      timer = window.setTimeout(() => (q('[data-readout]').textContent = summary(mode, p1, p2)), 250);
+    };
+    const setParents = (k1: string, k2: string) => {
+      s1.innerHTML = optionsHtml(mode, 'p1', k1);
+      s2.innerHTML = optionsHtml(mode, 'p2', k2);
+      draw();
+    };
+    const defaults: Record<Mode, { p: [string, string]; f1: [string, string] }> = {
+      dominant: { p: ['SS', 'ss'], f1: ['Ss', 'Ss'] },
+      incomplete: { p: ['CRCR', 'CWCW'], f1: ['CRCW', 'CRCW'] },
+      abo: { p: ['IAIA', 'IBIB'], f1: ['IAi', 'IBi'] },
+      sexlinked: { p: ['XHXH', 'XhY'], f1: ['XHXh', 'XHY'] },
+    };
+    const setMode = (btn: HTMLButtonElement, focus = false) => {
+      mode = btn.dataset.mode as Mode;
+      modeBtns.forEach((b) => { const on = b === btn; b.setAttribute('aria-checked', String(on)); b.tabIndex = on ? 0 : -1; });
+      if (focus) btn.focus();
+      const info = MODE_INFO[mode];
+      q('[data-organism]').textContent = info.organism;
+      q('[data-key]').innerHTML = info.key;
+      q('[data-p1-label]').textContent = info.p1;
+      q('[data-p2-label]').textContent = info.p2;
+      q('[data-preset="p"]').textContent = mode === 'sexlinked' ? 'Unaffected mother × father with haemophilia' : mode === 'abo' ? 'Homozygous A × homozygous B' : 'P cross: homozygote × homozygote';
+      q('[data-preset="f1"]').textContent = mode === 'sexlinked' ? 'Carrier mother × unaffected father' : mode === 'abo' ? 'Heterozygous A × heterozygous B' : 'F1 × F1 (two heterozygotes)';
+      const [k1, k2] = defaults[mode].f1;
+      setParents(k1, k2);
+    };
+    modeBtns.forEach((b, i) => {
+      b.addEventListener('click', () => setMode(b));
+      b.addEventListener('keydown', (e) => {
+        const d = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+        if (d) { e.preventDefault(); setMode(modeBtns[(i + d + modeBtns.length) % modeBtns.length]!, true); }
+      });
+    });
+    root.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach((b) => b.addEventListener('click', () => {
+      const [k1, k2] = defaults[mode][b.dataset.preset as 'p' | 'f1'];
+      setParents(k1, k2);
+    }));
+    [s1, s2].forEach((s) => s.addEventListener('change', draw));
+  });
+</script>
+
+<style>
+  .pun { container-type: inline-size; }
+  .choices, .presets { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); }
+  .choices .btn[aria-checked='true'] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-strong); }
+  .small { min-height: 2.1rem; padding: 0.3rem 0.65rem; }
+  .organism { margin: 0 0 var(--space-1); }
+  .key { margin: 0 0 var(--space-3); font-size: var(--step--1); color: var(--text-muted); }
+  .parents { display: flex; flex-wrap: wrap; align-items: end; gap: var(--space-3); margin-bottom: var(--space-3); }
+  .parents label { display: grid; gap: var(--space-1); font-size: var(--step--1); font-weight: 650; }
+  .parents select { min-height: 2.5rem; }
+  .cross { font-size: 1.5rem; font-weight: 700; padding-bottom: 0.3rem; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 40rem) { .layout { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); align-items: start; } }
+  .grid { border-collapse: collapse; width: 100%; font-size: var(--step--1); table-layout: fixed; }
+  .grid :global(caption) { caption-side: bottom; text-align: left; font-size: 0.8rem; color: var(--text-muted); padding-top: var(--space-1); }
+  .grid :global(th), .grid :global(td) { border: 1px solid var(--border-strong); padding: 0.4rem; text-align: center; vertical-align: middle; }
+  .grid :global(thead th), .grid :global(tbody th) { background: var(--surface-2); }
+  .grid :global(.corner) { background: var(--surface-2); font-size: 0.72rem; color: var(--text-muted); }
+  .grid :global(.gam) { display: inline-flex; align-items: center; justify-content: center; min-width: 2.2rem; min-height: 2.2rem; border-radius: 999px; border: 2px solid var(--accent); font-weight: 800; padding: 0 0.3rem; }
+  .grid :global(.geno) { display: block; font-weight: 800; font-size: var(--step-0); }
+  .grid :global(.pheno) { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.8rem; }
+  .pun :global(.dot) { width: 0.85rem; height: 0.85rem; border-radius: 999px; border: 1px solid var(--text); flex: none; background: var(--surface); }
+  .pun :global(.ph-smooth-seeds) { background: var(--bio-tail); }
+  .pun :global(.ph-wrinkled-seeds) { background: var(--bio-tail); border-style: dashed; border-width: 2px; }
+  .pun :global(.ph-red-flowers) { background: var(--bio-k); }
+  .pun :global(.ph-pink-flowers) { background: color-mix(in srgb, var(--bio-k) 40%, var(--surface)); }
+  .pun :global(.ph-white-flowers) { background: var(--surface); }
+  .pun :global(.ph-group-a) { background: var(--bio-protein); }
+  .pun :global(.ph-group-b) { background: var(--bio-carb); }
+  .pun :global(.ph-group-ab) { background: linear-gradient(90deg, var(--bio-protein) 50%, var(--bio-carb) 50%); }
+  .pun :global(.ph-group-o) { background: var(--surface); }
+  .pun :global(.ph-unaffected-male), .pun :global(.ph-unaffected-female) { background: var(--surface); }
+  .pun :global(.ph-carrier-female-unaffected) { background: radial-gradient(circle, var(--text) 30%, var(--surface) 34%); }
+  .pun :global(.ph-male-with-haemophilia), .pun :global(.ph-female-with-haemophilia) { background: var(--text); }
+  .ratios { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .ratios :global(.rt) { margin: 0 0 var(--space-1); }
+  .ratios :global(ul) { margin: 0; padding-left: 1.1rem; }
+  .ratios :global(.n) { font-variant-numeric: tabular-nums; font-weight: 700; display: inline-block; min-width: 2.2rem; }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

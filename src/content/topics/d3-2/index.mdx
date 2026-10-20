@@ -1,0 +1,431 @@
+---
+code: D3.2
+description: "IB Biology D3.2 inheritance revision: build Punnett grids, analyse pedigrees, draw box plots and test dihybrid crosses with chi-squared."
+updated: 2026-10-19
+related: [D2.1, D3.1, D4.1, D1.3]
+mustKnow:
+  - term: Gene and allele
+    definition: "A <strong>gene</strong> is a heritable factor: a length of DNA at a particular locus that influences a characteristic. <strong>Alleles</strong> are different versions of the same gene, differing slightly in base sequence (often by single nucleotides)."
+    level: SL
+  - term: Genotype and phenotype
+    definition: "<strong>Genotype</strong> is the combination of alleles of a gene that an organism has. <strong>Phenotype</strong> is its observable characteristics, which result from the genotype and its interaction with the environment."
+    level: SL
+  - term: Homozygous and heterozygous
+    definition: "<strong>Homozygous</strong>: two identical alleles of a gene (e.g. AA or aa), so all gametes get the same allele. <strong>Heterozygous</strong>: two different alleles (Aa), so half the gametes get each."
+    level: SL
+  - term: Dominant and recessive alleles
+    definition: "A <strong>dominant</strong> allele determines the phenotype even when only one copy is present (in a heterozygote). A <strong>recessive</strong> allele affects the phenotype only when there is no dominant allele, i.e. in the homozygous recessive."
+    level: SL
+  - term: Codominance and incomplete dominance
+    definition: "In <strong>codominance</strong> both alleles are expressed and the heterozygote shows both phenotypes at once (I<sup>A</sup>I<sup>B</sup>, blood group AB). In <strong>incomplete dominance</strong> the heterozygote has an intermediate phenotype (pink C<sup>R</sup>C<sup>W</sup> <em>Mirabilis jalapa</em>)."
+    level: SL
+  - term: Sex linkage
+    definition: "The pattern of inheritance of a gene on a sex chromosome, usually the X. Males have one X, so a recessive X-linked allele such as the haemophilia allele X<sup>h</sup> is always expressed in males; females can be carriers (X<sup>H</sup>X<sup>h</sup>)."
+    level: SL
+  - term: Phenotypic plasticity
+    definition: "The capacity of an organism to develop different traits in different environments by changing patterns of gene expression, without any change in genotype. The changes may be reversible, as in tanning of skin."
+    level: SL
+  - term: Polygenic inheritance
+    definition: "Control of one characteristic by many genes, each with a small additive effect. With environmental effects added, it produces continuous variation, as in human skin colour."
+    level: SL
+  - term: Independent assortment
+    definition: "Alleles of genes on different chromosomes are distributed to gametes independently of each other, because each bivalent orients randomly in metaphase I. A double heterozygote makes four gamete types in equal proportions."
+    level: AHL
+  - term: Linked genes and recombinants
+    definition: "<strong>Linked genes</strong> have loci on the same chromosome, so their alleles tend to be inherited together. <strong>Recombinants</strong> have a new combination of alleles, made by crossing over between the loci in prophase I."
+    level: AHL
+  - term: Chi-squared test
+    definition: "A statistical test of whether observed counts differ significantly from those expected under a null hypothesis: χ² = Σ (O − E)² ÷ E. For four phenotype classes, df = 3 and the critical value at p = 0.05 is 7.815."
+    level: AHL
+mistakes:
+  - wrong: "Using “gene” and “allele” as if they mean the same thing (“he has the blue-eye gene”)."
+    right: "Everyone has the gene; people differ in which <strong>alleles</strong> of it they carry. An allele is one version of a gene."
+    level: SL
+  - wrong: "A dominant allele is the most common allele in the population, or it “overpowers” the recessive allele."
+    right: "Dominance only describes which phenotype a heterozygote shows. A dominant allele can be rare (the Huntington’s allele is), and the recessive allele is still present and can be passed on."
+    level: SL
+  - wrong: "Writing haemophilia genotypes as Hh or X<sub>h</sub>, or leaving out the Y in males."
+    right: "Write X-linked alleles as superscripts on a capital X, and show the Y: X<sup>H</sup>X<sup>h</sup> for a carrier female, X<sup>h</sup>Y for an affected male."
+    level: SL
+  - wrong: "If two carriers have had one child with PKU, their next three children will be unaffected."
+    right: "Each child is a separate fertilization, so each has the same 1 in 4 chance of being aa. A 3 : 1 ratio is a probability, not a schedule."
+    level: SL
+  - wrong: "The AB blood group is an example of incomplete dominance because it is “in between” A and B."
+    right: "AB is codominance: red cells carry both the A and the B antigens. Incomplete dominance gives an intermediate phenotype, such as pink flowers from red and white parents."
+    level: SL
+  - wrong: "A haemophiliac father can pass haemophilia to his son."
+    right: "A father gives his son a Y chromosome, not his X, so sons never inherit an X-linked allele from their father. All of his daughters inherit his X<sup>h</sup> and are carriers."
+    level: SL
+  - wrong: "Phenotypic plasticity means the alleles change to suit the environment."
+    right: "Plasticity involves changes in which genes are expressed and how much; the genotype (base sequence) stays the same, and the change can often be reversed."
+    level: SL
+  - wrong: "Drawing whiskers to the outliers, or calling any extreme value an outlier."
+    right: "An outlier is more than 1.5 × IQR below Q1 or above Q3. Plot it as a separate point; the whisker stops at the most extreme value that is not an outlier."
+    level: SL
+  - wrong: "Linked genes are the same as sex-linked genes."
+    right: "Linked genes are any genes with loci close together on the same chromosome (usually an autosome). Sex-linked genes are on a sex chromosome."
+    level: AHL
+  - wrong: "A χ² value below the critical value proves the genes are unlinked."
+    right: "It means the null hypothesis is not rejected: the differences could be due to chance. Statistics cannot prove a hypothesis, and genes far apart on one chromosome also give a 1 : 1 : 1 : 1 ratio."
+    level: AHL
+---
+
+<Section id="gametes" title="Gametes, zygotes and genotypes" level="SL" covers="D3.2.1 D3.2.3">
+
+Offspring resemble their parents because they inherit genes from them, and in every eukaryote with a sexual life cycle the route is the same:
+
+1. Body cells of the parents are **diploid** (2n): they have two sets of chromosomes, so they carry **two copies of each autosomal gene**, one on each chromosome of a homologous pair.
+2. **Meiosis** halves the chromosome number to make **haploid** (n) **gametes**, each with only **one copy** of each gene (see <TopicLink code="D2.1" />).
+3. At **fertilization** a male and a female gamete fuse to form a **zygote**, which is diploid again. Every body cell of the new organism is made from it by mitosis, so they all have the zygote's alleles.
+
+Because both gametes carry the same number of chromosomes, the two parents make an equal contribution to the nuclear genes of their offspring.
+
+<Anim topic="d3-2" id="fertilization" />
+
+### Genes, alleles and genotypes
+
+A **gene** is a heritable factor at a particular **locus** (position) on a chromosome. **Alleles** are different versions of the same gene. A diploid organism has two alleles of each autosomal gene, and the combination it has is its **genotype**.
+
+| Genotype | Term | Gametes made |
+|---|---|---|
+| AA | **homozygous** (dominant) | all A |
+| aa | **homozygous** (recessive) | all a |
+| Aa | **heterozygous** | ½ A, ½ a |
+
+Separation of the two alleles of a gene into different gametes is called **segregation**. A heterozygous parent therefore passes on each allele with a probability of ½.
+
+<Callout type="exam">
+
+In genetics answers, choose one letter for each gene and use the upper case for the dominant allele and the lower case for the recessive allele (A and a, not A and B). Always give a key, and state genotypes of parents, gametes (circled) and offspring.
+
+</Callout>
+
+</Section>
+
+<Section id="plant-crosses" title="Carrying out crosses in flowering plants" level="SL" covers="D3.2.2">
+
+Patterns of inheritance were worked out by **crossing** plants with different characteristics, as Gregor Mendel did with **pea plants** (*Pisum sativum*). In a flowering plant, **pollen** grains made in the anthers contain the **male gametes**, and the **female gametes** are in ovules inside the **ovary**. Pollination (transfer of pollen to a stigma) is therefore needed before fertilization can happen.
+
+Peas carry anthers and an ovary in the same flower, so they **self-pollinate** and therefore **self-fertilize** unless prevented. To cross two chosen plants, the breeder controls which pollen reaches each stigma.
+
+<Figure name="d3-2-pollination" caption="Making a controlled cross: the female parent's anthers are removed before they shed pollen, the flower is bagged, pollen from the chosen male parent is brushed onto the stigma, and the resulting seeds are the F1 generation." />
+
+### Naming the generations
+
+- **P generation**: the parents, usually two **pure-breeding** (homozygous) varieties.
+- **F1 generation**: the offspring of the P cross, grown from the seeds produced.
+- **F2 generation**: offspring of the F1, often obtained by letting F1 plants self-pollinate.
+
+The results of a cross are predicted with a **Punnett grid**: the possible gametes of one parent go along the top and those of the other down the side, and each box shows one equally likely offspring genotype.
+
+The same technique of controlled cross-pollination is used by plant breeders to combine useful characteristics and so produce new **crop varieties** (for example higher yield or disease resistance) and new **ornamental** flower varieties.
+
+<Callout type="tip">
+
+Self-pollination of a pure-breeding plant gives offspring identical to the parent for the trait, because a homozygote can only make one type of gamete. This is why Mendel began with true-breeding lines.
+
+</Callout>
+
+</Section>
+
+<Section id="phenotype" title="Phenotype, dominance and plasticity" level="SL" covers="D3.2.4 D3.2.5 D3.2.6">
+
+The **phenotype** is the set of observable characteristics of an organism: structural features such as seed shape and functional ones such as an enzyme's activity. Phenotype depends on the genotype and on the environment.
+
+| Cause | Human examples |
+|---|---|
+| Genotype only | ABO blood group, haemophilia, PKU (if untreated) |
+| Environment only | scars, tattoos, the language a person speaks |
+| Genotype and environment | height, body mass, skin colour |
+
+### Dominant and recessive alleles
+
+Mendel crossed pure-breeding round-seeded and wrinkled-seeded peas. All the F1 were round, and when the F1 self-pollinated about **3 round : 1 wrinkled** appeared in the F2. The allele for round (smooth) seeds, S, is **dominant** and the allele for wrinkled seeds, s, is **recessive**.
+
+Why do SS and Ss plants look the same? The S allele codes for a working **starch-branching enzyme**; the s allele codes for a non-functional version. A heterozygote has one working allele, which makes **enough enzyme** for normal starch synthesis, so its phenotype is identical to SS. Only ss seeds lack the enzyme, store more sugar, take up more water and wrinkle as they dry. This is a common reason for recessiveness: the recessive allele codes for a non-functional product and one functional allele is enough.
+
+<Sim topic="d3-2" id="punnett" />
+
+### Phenotypic plasticity
+
+**Phenotypic plasticity** is the capacity of an organism to develop traits that suit the environment it experiences, by **changing patterns of gene expression**. The genotype does not change, and many plastic changes are **reversible** during the organism's lifetime:
+
+- **Tanning**: more ultraviolet light on the skin increases expression of genes for melanin synthesis, so skin darkens; it becomes paler when exposure falls.
+- **Altitude**: people who move to high altitude make more red blood cells, which falls again when they return to sea level.
+
+Plasticity is useful where the environment varies over the lifetime of an individual.
+
+<Callout type="exam">
+
+To explain why a heterozygote has the dominant phenotype, refer to the product: one dominant allele produces enough functional protein (enzyme) for the trait, so the recessive allele has no effect on the phenotype.
+
+</Callout>
+
+</Section>
+
+<Section id="pku" title="Phenylketonuria: a recessive genetic disease" level="SL" covers="D3.2.7">
+
+**Phenylketonuria (PKU)** is caused by a recessive allele of an **autosomal** gene, *PAH*, that codes for the enzyme **phenylalanine hydroxylase**. This liver enzyme converts the amino acid **phenylalanine** into **tyrosine**.
+
+- People with one or two normal alleles (AA or Aa) make enough working enzyme, so heterozygotes are unaffected **carriers**.
+- People with two PKU alleles (aa) make no working enzyme. Phenylalanine from protein in food builds up in the blood and **damages the developing brain**, causing intellectual disability if untreated. Less tyrosine is made, and tyrosine is needed for melanin, so untreated patients often have lighter skin and hair.
+
+<Figure name="d3-2-pku" caption="In PKU the reaction phenylalanine → tyrosine is blocked. Two carrier parents have a 1 in 4 chance, for each child, of a child with PKU." />
+
+Most babies are tested for PKU a few days after birth using a **heel-prick blood sample**. An affected child who follows a **diet low in phenylalanine** develops normally. PKU is therefore a clear example of a phenotype that depends on genotype and environment together: the aa genotype causes harm only if the diet contains normal amounts of phenylalanine.
+
+Many single-gene disorders in humans are caused by recessive alleles, because the usual mutation destroys the function of a protein and a carrier's other allele still works.
+
+<Callout type="exam">
+
+Name the enzyme (phenylalanine hydroxylase) and the conversion (phenylalanine → tyrosine), and say that PKU is **autosomal recessive**: affected people are homozygous recessive and both of their parents must carry the allele.
+
+</Callout>
+
+</Section>
+
+<Section id="multiple-alleles" title="SNPs, multiple alleles and codominance" level="SL" covers="D3.2.8 D3.2.9 D3.2.10">
+
+### Single-nucleotide polymorphisms and multiple alleles
+
+New alleles arise by mutation (see <TopicLink code="D1.3" />). Most alleles of a gene differ from each other at only one or a few positions in the base sequence. A position where different bases are found in different members of a species is a **single-nucleotide polymorphism (SNP)**. One gene can contain many SNPs, so the **gene pool** of a species (all the alleles of all its genes) can contain many alleles of a gene: **multiple alleles**. Any number of alleles can exist in the population, but a diploid individual has only **two**.
+
+### ABO blood groups
+
+The ABO blood groups are controlled by one gene with three common alleles, written **I<sup>A</sup>**, **I<sup>B</sup>** and **i**. I<sup>A</sup> and I<sup>B</sup> code for slightly different enzymes that add different sugars to a glycoprotein on red blood cells, giving the **A antigen** or the **B antigen**. The i allele codes for a non-functional enzyme, so neither antigen is added.
+
+| Genotype | Blood group |
+|---|---|
+| I<sup>A</sup>I<sup>A</sup> or I<sup>A</sup>i | A |
+| I<sup>B</sup>I<sup>B</sup> or I<sup>B</sup>i | B |
+| I<sup>A</sup>I<sup>B</sup> | AB |
+| ii | O |
+
+Six genotypes give four phenotypes. Parents of groups A and B who are both heterozygous (I<sup>A</sup>i × I<sup>B</sup>i) can have children of all four groups; try this in the Punnett grid generator above.
+
+### Codominance and incomplete dominance
+
+Not every pair of alleles shows simple dominance. The difference lies in the **phenotype of the heterozygote**:
+
+- **Codominance**: both alleles are fully expressed, so the heterozygote has a **dual phenotype**. I<sup>A</sup>I<sup>B</sup> red cells carry both A and B antigens: group **AB** is not halfway between A and B, it is both.
+- **Incomplete dominance**: the heterozygote has an **intermediate phenotype**. In the four o'clock flower (*Mirabilis jalapa*, also called marvel of Peru), red C<sup>R</sup>C<sup>R</sup> × white C<sup>W</sup>C<sup>W</sup> gives pink C<sup>R</sup>C<sup>W</sup> F1 plants, because one C<sup>R</sup> allele makes less red pigment than two. Pink × pink gives **1 red : 2 pink : 1 white**.
+
+<Figure name="d3-2-dominance" caption="The heterozygote (outlined) is what distinguishes the patterns: identical to one homozygote (complete dominance), intermediate (incomplete dominance) or showing both phenotypes (codominance)." />
+
+<Callout type="exam">
+
+With codominant alleles, use a capital letter for the gene with different superscripts for the alleles (I<sup>A</sup>, I<sup>B</sup>, C<sup>R</sup>, C<sup>W</sup>). Write the recessive ABO allele as a lower-case i, with no superscript.
+
+</Callout>
+
+</Section>
+
+<Section id="sex-linkage" title="Sex determination and haemophilia" level="SL" covers="D3.2.11 D3.2.12">
+
+### Sex determination in humans
+
+Humans have 22 pairs of autosomes and one pair of **sex chromosomes**. Females are usually **XX**, so every egg contains an X. Males are usually **XY**, so half their sperm carry an X and half a Y. **The sex chromosome in the sperm therefore decides** the sex of the zygote, and about equal numbers of each are expected.
+
+The Y chromosome carries the **SRY** gene. Early in development, its product causes the embryonic gonads to develop as **testes**, which secrete **testosterone**; this hormone causes male-typical features to develop. In an embryo without a Y, the gonads develop as **ovaries** and female-typical features develop.
+
+The X chromosome is much larger and carries **far more genes** than the Y: several hundred, many of them needed by both sexes, against only a few dozen on the Y.
+
+<Figure name="d3-2-sex" caption="XX × XY gives a 1 : 1 ratio of girls to boys. The Y carries SRY but very few other genes, so most genes on the X have no partner allele in males." />
+
+### Haemophilia: a sex-linked disorder
+
+A gene on the X chromosome shows **sex linkage**. Males have only one allele of each X-linked gene (they are **hemizygous**), so a recessive allele on their X is always expressed. Females have two, so they are affected only if both are recessive and are otherwise **carriers**.
+
+**Haemophilia** is caused by a recessive allele of a gene on the X chromosome for a **blood-clotting protein** (factor VIII in the commonest form). Without it, blood clots slowly and bleeding is prolonged. Alleles are written as superscripts on X: **X<sup>H</sup>** (normal clotting) and **X<sup>h</sup>** (haemophilia).
+
+| Cross | Daughters | Sons |
+|---|---|---|
+| carrier X<sup>H</sup>X<sup>h</sup> × X<sup>H</sup>Y | ½ X<sup>H</sup>X<sup>H</sup>, ½ carriers | ½ unaffected, **½ haemophilia** |
+| X<sup>H</sup>X<sup>H</sup> × affected X<sup>h</sup>Y | **all carriers** | all unaffected |
+
+Haemophilia is much commoner in males, sons inherit it from their mothers, and an affected father cannot pass it to his sons.
+
+<Callout type="exam">
+
+In sex-linked crosses, include the Y chromosome in male genotypes and gametes, give the sex of each offspring, and answer the exact question asked: “the probability that a **son** is affected” (½) is different from “the probability that a **child** is an affected son” (¼).
+
+</Callout>
+
+</Section>
+
+<Section id="pedigrees" title="Pedigree charts" level="SL" covers="D3.2.13">
+
+A **pedigree chart** records the phenotypes of members of a family over several generations:
+
+- squares are males and circles are females; affected individuals are shaded
+- a horizontal line joins two parents, and a vertical line leads down to their children
+- generations are numbered I, II, III… and individuals 1, 2, 3… from left to right
+
+### Clues to the pattern of inheritance
+
+| Pattern | Key evidence |
+|---|---|
+| **Autosomal recessive** | Unaffected parents have an affected child; can skip generations; affects both sexes |
+| **Autosomal dominant** | Every affected person has an affected parent; two affected parents can have an unaffected child |
+| **X-linked recessive** | Mostly males affected, through unaffected carrier mothers; no father-to-son transmission; affected daughters only if the father is affected |
+
+<Sim topic="d3-2" id="pedigree" />
+
+### Inductive and deductive reasoning
+
+Working with pedigrees uses both kinds of reasoning. **Inductive reasoning** draws a general conclusion from a limited set of observations: noticing that only males are affected in a family leads to the hypothesis that the condition is X-linked recessive. **Deductive reasoning** applies a general rule to a particular case: if the condition is X-linked recessive, the unaffected mother of an affected son must be X<sup>H</sup>X<sup>h</sup>. Inductive conclusions can be wrong, which is why they are tested against further cases.
+
+### Marriage between close relatives
+
+Rare recessive alleles are usually hidden in carriers. Close relatives share many alleles inherited from common ancestors, so if they have children together, both parents are much more likely to carry the **same** recessive allele, and the chance of a homozygous recessive child with a genetic disease rises. This is the genetic basis for the prohibition of marriage between close relatives in many societies. Family A in the analyser shows this: the PKU allele reaches both of the cousins' children from a shared grandparent.
+
+<Callout type="exam">
+
+When asked to deduce a pattern, quote the individuals that prove it (“II-1 and II-2 are both affected but their son III-1 is not, so the allele must be dominant”). One counter-example is enough to rule a pattern out.
+
+</Callout>
+
+</Section>
+
+<Section id="variation" title="Continuous variation and box-and-whisker plots" level="SL" covers="D3.2.14 D3.2.15">
+
+### Discrete and continuous variation
+
+- **Discrete (discontinuous) variation**: individuals fall into a few distinct categories with nothing in between, such as ABO blood group. It is usually controlled by one or a few genes, with little effect of the environment.
+- **Continuous variation**: any value within a range is possible, as for height or skin colour. It results from **polygenic inheritance** (many genes, each with a small additive effect), from the **environment**, or from both.
+
+**Human skin colour** is the classic example. The amount of the pigment **melanin** in the skin is influenced by alleles of many genes, some increasing and some decreasing melanin, so many different combinations are possible. Exposure to sunlight also increases melanin production. The combined effects give a continuous range from very pale to very dark skin.
+
+For a continuous variable, a frequency distribution is often roughly bell-shaped (normal). Three **measures of central tendency** summarise it:
+
+- **Mean**: sum of all values ÷ number of values.
+- **Median**: the middle value when the data are placed in order (the mean of the two middle values if there is an even number). It is less affected by outliers than the mean.
+- **Mode**: the most frequent value or category; the only one that can be used for discrete categories such as blood groups.
+
+### Box-and-whisker plots
+
+A **box-and-whisker plot** shows the spread of continuous data, such as the heights of students in a class, using six features: the **minimum**, the **lower quartile (Q1)**, the **median**, the **upper quartile (Q3)**, the **maximum** and any **outliers**. The box spans the **interquartile range** (IQR = Q3 − Q1), which contains the middle half of the data.
+
+A value is an **outlier** if it is more than **1.5 × IQR** below Q1 or above Q3.
+
+<Sim topic="d3-2" id="boxplot" />
+
+<Callout type="exam">
+
+Worked check: Q1 = 161.5 cm and Q3 = 169.5 cm, so IQR = 8 cm and 1.5 × IQR = 12 cm. Outliers are below 149.5 cm or above 181.5 cm, so a 198 cm student is an outlier, while 175 cm is the end of the upper whisker. Show these steps in an answer.
+
+</Callout>
+
+</Section>
+
+<Section id="assortment" title="Segregation, independent assortment and dihybrid crosses" level="AHL" covers="D3.2.16 D3.2.17">
+
+A **dihybrid cross** follows two genes at once. The outcome depends on how chromosomes move in **meiosis** (<TopicLink code="D2.1" />):
+
+- **Segregation**: in anaphase I, the homologous chromosomes of each bivalent move to opposite poles, so the two alleles of each gene end up in different gametes.
+- **Independent assortment**: if two genes are on **different chromosomes** (unlinked), the orientation of one bivalent at the equator in metaphase I is random and does not affect the orientation of the other. A double heterozygote AaBb therefore makes four types of gamete, **AB, Ab, aB and ab, in equal proportions (25% each)**.
+
+<Figure name="d3-2-assortment" level="AHL" caption="Two bivalents can line up in two equally likely ways in metaphase I, so the alleles of unlinked genes are assorted independently into four gamete types." />
+
+### Predicting dihybrid ratios
+
+Mendel crossed pure-breeding round yellow peas (RRYY) with wrinkled green peas (rryy). The F1 were all RrYy, round and yellow. Each F1 plant makes four types of gamete, so the F2 Punnett grid has 4 × 4 = 16 equally likely boxes, giving phenotypes in the ratio **9 round yellow : 3 round green : 3 wrinkled yellow : 1 wrinkled green**. This is (3 : 1) × (3 : 1): each gene still gives 3 : 1 on its own.
+
+A **test cross** of the double heterozygote with a double recessive (RrYy × rryy) gives **1 : 1 : 1 : 1**, because the rryy parent contributes only ry and the four gamete types of the heterozygote appear directly in the offspring.
+
+<Sim topic="d3-2" id="dihybrid" />
+
+These ratios rest on what is often called **Mendel's second law** (the law of independent assortment). It only holds if the genes are on different chromosomes, or so far apart on one chromosome that crossing over between them happens in nearly every meiosis (recombination near 50%). Like many biological “laws”, it has exceptions; linked genes are the main one.
+
+<Callout type="exam">
+
+To derive 9 : 3 : 3 : 1, show the four gametes of each parent along the edges of a 4 × 4 grid, fill in all 16 genotypes, then count phenotypes: 9 have at least one R and one Y, 3 have R but yy, 3 have rr and Y, 1 is rryy.
+
+</Callout>
+
+</Section>
+
+<Section id="gene-loci" title="Loci of human genes and their products" level="AHL" covers="D3.2.18">
+
+The human genome has roughly 20 000 protein-coding genes. Each has a **locus**, a fixed position on one of the 22 autosomes or on the X or Y chromosome. Loci are written as chromosome, arm (p short, q long) and band: **11p15.4** is band 15.4 on the short arm of chromosome 11.
+
+Online databases such as **NCBI Gene** and **Ensembl** let you search for a gene by name and find its locus, its base sequence, its alleles and the **polypeptide** it codes for. Some examples:
+
+| Gene | Polypeptide product | Locus |
+|---|---|---|
+| *HBB* | β-globin (subunit of haemoglobin) | 11p15.4 |
+| *HBD* | δ-globin (subunit of a minor adult haemoglobin) | 11p15.4 |
+| *INS* | insulin (made as preproinsulin) | 11p15.5 |
+| *PAH* | phenylalanine hydroxylase | 12q23.2 |
+| *CFTR* | CFTR chloride channel protein | 7q31.2 |
+| *ABO* | glycosyltransferase that adds A or B sugar | 9q34.2 |
+| *F8* | blood-clotting factor VIII | Xq28 |
+| *OPN1LW* | red-sensitive (long-wavelength) cone opsin | Xq28 |
+| *SRY* | sex-determining region Y protein | Yp11.2 |
+
+- **Different chromosomes**: *PAH* (chromosome 12) and *CFTR* (chromosome 7) are unlinked and assort independently.
+- **Close together on one chromosome**: *HBB* and *HBD* sit next to each other in the β-globin gene cluster on chromosome 11, and *F8* and *OPN1LW* are both in band Xq28. Alleles of such neighbours are rarely separated by crossing over, so they are strongly linked.
+
+<Callout type="tip" title="Searching a database">
+
+In NCBI Gene, type a gene symbol such as PAH with “human”; the summary gives the full name, the location (e.g. 12q23.2) and links to the protein. In Ensembl, choose Human, search the symbol, and the location view shows neighbouring genes. Databases are redesigned from time to time, but these searches always start from the gene symbol.
+
+</Callout>
+
+</Section>
+
+<Section id="linkage" title="Gene linkage and recombinants" level="AHL" covers="D3.2.19 D3.2.20">
+
+**Linked genes** have loci on the same chromosome. In most cases this is an autosome, so the pattern is **autosomal gene linkage** (not to be confused with sex linkage). Alleles of linked genes are carried together on one chromosome, so they tend to be inherited together and **do not assort independently**.
+
+In crosses with linked genes, show the alleles beside **vertical lines** that represent the homologous chromosomes, so that it is clear which alleles are on the same chromosome.
+
+<Figure name="d3-2-linkage" level="AHL" caption="Linked alleles stay together unless a chiasma forms between the two loci. Crossing over between non-sister chromatids produces recombinant chromatids, Ab and aB." />
+
+### Recombinants
+
+Linkage is rarely complete. In prophase I, **crossing over** between non-sister chromatids can exchange the alleles between the two loci, making chromatids with new combinations. **Recombinants** are gametes, offspring genotypes or offspring phenotypes with a combination of alleles or characters that differs from those of both original (P generation) parents.
+
+The clearest way to detect recombinants is a **test cross** between a double heterozygote and a double homozygous recessive:
+
+- **Unlinked genes**: four offspring phenotypes in a **1 : 1 : 1 : 1** ratio; the two recombinant classes make up 50%.
+- **Linked genes**: the two **parental** classes are much commoner and the two **recombinant** classes are rarer. In fruit flies (*Drosophila melanogaster*), GgLl females (grey body, long wings, with G and L on the same chromosome) crossed with ggll males give mostly grey long and black vestigial offspring, with a smaller number of grey vestigial and black long recombinants.
+
+**Recombination frequency** = number of recombinants ÷ total offspring. It is higher for loci further apart, because a crossover is more likely to fall between them, but it cannot exceed 50%.
+
+<Callout type="exam">
+
+To identify recombinants, first work out the parental combinations from the P generation (or from the vertical-line genotype of the heterozygote), then pick out the offspring whose phenotypes combine one parent's character for gene 1 with the other parent's character for gene 2.
+
+</Callout>
+
+</Section>
+
+<Section id="chi-squared" title="The chi-squared test for dihybrid crosses" level="AHL" covers="D3.2.21">
+
+Real results never match a predicted ratio exactly, because which gametes fuse is a matter of chance. The **chi-squared (χ²) test** decides whether the difference between **observed (O)** and **expected (E)** results is small enough to be due to chance. The F2 (or test-cross) offspring are a **sample** that stands for all the offspring the cross could produce.
+
+1. State the **null hypothesis (H₀)**: there is no significant difference between observed and expected results; the genes assort independently (9 : 3 : 3 : 1 or 1 : 1 : 1 : 1). The **alternative hypothesis (H₁)**: there is a significant difference (for example because the genes are linked).
+2. Calculate expected numbers from the ratio and the total, e.g. 9/16 × total.
+3. Calculate χ² = Σ (O − E)² ÷ E.
+4. **Degrees of freedom** = number of classes − 1 = 4 − 1 = **3**.
+5. Compare with the **critical value** at the **p = 0.05** significance level: **7.815** for df = 3.
+6. If χ² > 7.815, reject H₀: there is a less than 5% probability that a difference this large arose by chance. Otherwise, H₀ is not rejected.
+
+### Worked example: linked genes
+
+A test cross of 1000 fruit flies gave 415 grey long, 88 grey vestigial, 92 black long and 405 black vestigial. H₀ predicts 1 : 1 : 1 : 1, so E = 250 for each class.
+
+χ² = (165² + 162² + 158² + 155²) ÷ 250 = 409.8
+
+409.8 is far above 7.815, so H₀ is rejected (p < 0.05): the genes do not assort independently. Parental types are commoner than recombinants, so the genes are linked. Recombination frequency = (88 + 92) ÷ 1000 = 18%.
+
+By contrast, Mendel's F2 data (315 : 108 : 101 : 32 from 556 seeds) give χ² ≈ 0.47, well below 7.815, so they fit 9 : 3 : 3 : 1. The dihybrid simulation above runs this test on any data you enter or breed.
+
+<Callout type="exam">
+
+Always state both hypotheses, the df, the critical value and the significance level, then make the decision in words (“χ² = 409.8 > 7.815, so reject H₀”). A non-significant result does not prove H₀ — it only means there is no evidence against it.
+
+</Callout>
+
+</Section>

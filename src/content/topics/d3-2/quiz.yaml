@@ -1,0 +1,209 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: D3.2.10
+    stem: >-
+      In the four o'clock flower (Mirabilis jalapa), plants with red flowers are crossed with plants with
+      white flowers. All the F1 plants have pink flowers. Two F1 plants are crossed. What ratio of flower
+      colours is expected in the F2?
+    options:
+      - id: a
+        text: "3 red : 1 white"
+        why: This is the ratio for complete dominance. The pink F1 shows that neither allele is dominant, so heterozygotes are not red.
+      - id: b
+        text: "1 red : 2 pink : 1 white"
+        why: Correct. CᴿCᵂ × CᴿCᵂ gives ¼ CᴿCᴿ, ½ CᴿCᵂ and ¼ CᵂCᵂ. With incomplete dominance each genotype has its own phenotype, so the phenotype ratio equals the genotype ratio.
+      - id: c
+        text: All pink
+        why: Only a cross of two homozygotes (red × white) gives all pink. Each pink parent passes Cᴿ to half its gametes and Cᵂ to the other half, so homozygotes reappear.
+      - id: d
+        text: "1 red : 1 white"
+        why: This ignores the heterozygotes, which are the most common class (2 in 4) in a cross of two heterozygotes.
+    answer: b
+
+  - id: q2
+    level: SL
+    understanding: D3.2.9
+    stem: >-
+      A man with blood group A and a woman with blood group B have a child with blood group O. What are the
+      genotypes of the parents?
+    options:
+      - id: a
+        text: Man IᴬIᴬ, woman IᴮIᴮ
+        why: These parents could only have IᴬIᴮ children, all group AB, because neither carries i.
+      - id: b
+        text: Man Iᴬi, woman IᴮIᴮ
+        why: The woman must also carry i, because a group O child (ii) receives one i from each parent.
+      - id: c
+        text: Man Iᴬi, woman Iᴮi
+        why: Correct. A group O child is ii, so each parent must have passed on an i allele. A heterozygous group A man and a heterozygous group B woman can have children of all four groups.
+      - id: d
+        text: Man IᴬIᴮ, woman ii
+        why: An IᴬIᴮ man is group AB and an ii woman is group O, which do not match the parents' blood groups.
+    answer: c
+
+  - id: q3
+    level: SL
+    understanding: D3.2.12
+    stem: >-
+      A woman who is a carrier of haemophilia (XᴴXʰ) has children with a man who does not have haemophilia
+      (XᴴY). What proportion of their sons are expected to have haemophilia?
+    options:
+      - id: a
+        text: "50%"
+        why: Correct. Every son gets his Y from his father and one of his mother's two X chromosomes, so half of the sons are XʰY.
+      - id: b
+        text: "25%"
+        why: 25% is the proportion of all children who are affected sons. The question asks about sons only.
+      - id: c
+        text: "0%"
+        why: The father's X is not passed to sons, but the mother passes Xʰ to half of her sons, who have no second X to mask it.
+      - id: d
+        text: "100%"
+        why: The mother is heterozygous, so only half of her eggs carry Xʰ.
+    answer: a
+
+  - id: q4
+    level: SL
+    understanding: D3.2.13
+    stem: >-
+      In a pedigree chart, two unaffected parents have an affected daughter and an unaffected son. The
+      condition is caused by a single gene. Which pattern of inheritance does this show?
+    options:
+      - id: a
+        text: Autosomal dominant
+        why: With a dominant allele, an affected child must have at least one affected parent. Both parents here are unaffected.
+      - id: b
+        text: X-linked recessive
+        why: An affected daughter would be XʰXʰ and must have received Xʰ from her father, who would then be XʰY and affected. He is unaffected.
+      - id: c
+        text: X-linked dominant
+        why: A dominant allele cannot appear in a child of two unaffected parents (ignoring new mutations).
+      - id: d
+        text: Autosomal recessive
+        why: Correct. Unaffected parents with an affected child must both be carriers of a recessive allele, and an affected daughter of an unaffected father rules out X-linkage.
+    answer: d
+
+  - id: q5
+    level: SL
+    understanding: D3.2.7
+    stem: Which statement describes the cause of phenylketonuria (PKU)?
+    options:
+      - id: a
+        text: A dominant allele on the X chromosome codes for an enzyme that converts tyrosine into phenylalanine.
+        why: PKU is autosomal recessive, and the enzyme converts phenylalanine into tyrosine, not the reverse.
+      - id: b
+        text: Two copies of a recessive allele of an autosomal gene mean that phenylalanine hydroxylase does not work, so phenylalanine is not converted to tyrosine.
+        why: Correct. Affected people are homozygous recessive; without functional phenylalanine hydroxylase, phenylalanine accumulates and harms brain development.
+      - id: c
+        text: Eating too much protein in childhood changes the gene for phenylalanine hydroxylase.
+        why: Diet does not change the alleles. PKU is inherited; a low-phenylalanine diet prevents the symptoms but does not alter the genotype.
+      - id: d
+        text: One copy of the PKU allele is enough to cause the disease, so carriers are mildly affected.
+        why: Carriers (heterozygotes) have one functional allele, which makes enough enzyme, so they are unaffected.
+    answer: b
+
+  - id: q6
+    level: SL
+    understanding: D3.2.15
+    stem: >-
+      The heights of a group of students have a lower quartile of 150 cm and an upper quartile of 170 cm.
+      Which of these heights would be plotted as an outlier on a box-and-whisker plot?
+    options:
+      - id: a
+        text: 125 cm
+        why: IQR = 20 cm, so 1.5 × IQR = 30 cm and the lower limit is 150 − 30 = 120 cm. 125 cm is inside the limit.
+      - id: b
+        text: 198 cm
+        why: The upper limit is 170 + 30 = 200 cm. 198 cm is very tall but not more than 1.5 × IQR above Q3.
+      - id: c
+        text: 202 cm
+        why: Correct. IQR = 20 cm, 1.5 × IQR = 30 cm, so the upper limit is 200 cm. 202 cm is above it.
+      - id: d
+        text: 145 cm
+        why: 145 cm is below Q1 but well above the lower limit of 120 cm. Values outside the box are not automatically outliers.
+    answer: c
+
+  - id: q7
+    level: SL
+    understanding: D3.2.11
+    stem: What determines whether a human zygote develops male-typical features?
+    options:
+      - id: a
+        text: Whether the sperm that fertilized the egg carried a Y chromosome, with the SRY gene
+        why: Correct. Every egg carries an X. A Y-bearing sperm gives an XY zygote; SRY on the Y makes the gonads develop as testes, whose testosterone causes male-typical development.
+      - id: b
+        text: Whether the egg carried an X or a Y chromosome
+        why: Females are XX, so every egg carries an X chromosome. Eggs never carry a Y.
+      - id: c
+        text: The number of X chromosomes, because genes on the second X cause female development
+        why: Female development happens when there is no Y (no SRY); it is the presence of SRY, not a second X, that causes male development.
+      - id: d
+        text: Testosterone from the mother during pregnancy
+        why: Testosterone that causes male development is secreted by the embryo's own testes, which develop only if SRY is present.
+    answer: a
+
+  - id: q8
+    level: AHL
+    understanding: D3.2.17
+    stem: >-
+      Pea plants heterozygous for two unlinked genes, RrYy (round, yellow seeds), are crossed with rryy plants
+      (wrinkled, green). What proportion of the offspring are expected to have wrinkled green seeds?
+    options:
+      - id: a
+        text: 1/16
+        why: 1/16 is the proportion of rryy in an F2 from RrYy × RrYy, not in a test cross.
+      - id: b
+        text: 9/16
+        why: 9/16 is the round yellow class of a dihybrid F2, not of a test cross.
+      - id: c
+        text: 1/2
+        why: Half the offspring are wrinkled (rr) and half are green (yy), but only a quarter are both.
+      - id: d
+        text: 1/4
+        why: Correct. The RrYy parent makes RY, Ry, rY and ry gametes in equal proportions by independent assortment; the rryy parent makes only ry. So ¼ of offspring are rryy.
+    answer: d
+
+  - id: q9
+    level: AHL
+    understanding: D3.2.21
+    stem: >-
+      An F2 of 160 plants from a dihybrid cross contained 80, 38, 32 and 10 plants in the four phenotype
+      classes. The expected values for a 9 : 3 : 3 : 1 ratio are 90, 30, 30 and 10, and χ² = 3.38. The critical
+      value for p = 0.05 and 3 degrees of freedom is 7.815. What is the correct conclusion?
+    options:
+      - id: a
+        text: The null hypothesis is rejected, so the genes are linked.
+        why: H₀ is rejected only if χ² is greater than the critical value. 3.38 is less than 7.815.
+      - id: b
+        text: "The null hypothesis is not rejected; the results are consistent with a 9 : 3 : 3 : 1 ratio."
+        why: Correct. 3.38 < 7.815, so the differences between observed and expected could be due to chance, and there is no evidence against independent assortment.
+      - id: c
+        text: The results prove that the genes assort independently.
+        why: A statistical test can fail to reject H₀, but it cannot prove it; with a larger sample a real difference might be detected.
+      - id: d
+        text: The degrees of freedom should be 159, so the critical value is wrong.
+        why: Degrees of freedom are the number of categories minus one (4 − 1 = 3), not the number of individuals minus one.
+    answer: b
+
+  - id: q10
+    level: AHL
+    understanding: D3.2.20
+    stem: >-
+      Female fruit flies heterozygous for two linked genes, with G (grey body) and L (long wings) on the same
+      chromosome, are test-crossed with ggll males. The offspring are 372 grey long, 63 grey vestigial,
+      57 black long and 308 black vestigial. What is the recombination frequency?
+    options:
+      - id: a
+        text: "15%"
+        why: Correct. The recombinants are the grey vestigial and black long flies, combinations not found on either parental chromosome. (63 + 57) ÷ 800 = 0.15.
+      - id: b
+        text: "85%"
+        why: 85% is the proportion of parental types, (372 + 308) ÷ 800. Recombination frequency counts the recombinants.
+      - id: c
+        text: "25%"
+        why: 25% is the proportion of each class expected with independent assortment, not a calculation from these data.
+      - id: d
+        text: "7.5%"
+        why: 7.5% is the frequency of one recombinant class only. Both recombinant classes must be added.
+    answer: a

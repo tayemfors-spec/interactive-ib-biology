@@ -1,0 +1,192 @@
+---
+import { MENDEL_F2 } from './models/d3-2-dihybrid';
+import { chiBody, expectedText, gridHtml, parentsText, verdict } from './d3-2-dihybrid-view';
+const kinds = [
+  { id: 'f2', label: 'F2: unlinked genes' },
+  { id: 'test', label: 'Test cross: unlinked genes' },
+  { id: 'linked', label: 'Test cross: linked genes' },
+] as const;
+---
+<div class="dih" data-dihybrid>
+  <div class="choices" role="radiogroup" aria-label="Choose a cross">
+    {kinds.map((k, i) => (
+      <button type="button" class="btn" role="radio" aria-checked={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-kind={k.id}>{k.label}</button>
+    ))}
+  </div>
+  <p class="parents"><strong data-parents>{parentsText.f2}</strong></p>
+  <p class="key" data-key-pea>R = round seed, r = wrinkled; Y = yellow seed, y = green (pea, <i>Pisum sativum</i>).</p>
+  <p class="key" data-key-fly hidden>G = grey body, g = black body; L = long wings, l = vestigial wings (fruit fly, <i>Drosophila melanogaster</i>, both genes on chromosome 2).</p>
+
+  <div data-linked-slot></div>
+  <template data-linked-tpl>
+  <div class="linked">
+    <svg viewBox="0 0 450 150" role="img" aria-labelledby="dih-chr-t" class="chr">
+      <title id="dih-chr-t">The double heterozygote has G and L on one chromosome of a homologous pair and g and l on the other. A crossover between the two loci gives recombinant chromatids G l and g L.</title>
+      <text class="cap" x="60" y="16" text-anchor="middle">parent</text>
+      <path class="ch c1" d="M48 28 V128" /><path class="ch c2" d="M72 28 V128" />
+      <text class="al" x="38" y="58" text-anchor="end">G</text><text class="al" x="82" y="58">g</text>
+      <text class="al" x="38" y="108" text-anchor="end">L</text><text class="al" x="82" y="108">l</text>
+      <path class="tick" d="M44 54 H52 M68 54 H76 M44 104 H52 M68 104 H76" />
+      <path class="arrow" d="M110 78 H150" /><path class="arrow-h" d="M150 78 l-8 -5 v10 z" />
+      <text class="cap" x="296" y="16" text-anchor="middle">gametes</text>
+      {[
+        { x: 180, a: 'G', b: 'L', rec: false, t: 'c1', u: 'c1' }, { x: 255, a: 'G', b: 'l', rec: true, t: 'c1', u: 'c2' },
+        { x: 330, a: 'g', b: 'L', rec: true, t: 'c2', u: 'c1' }, { x: 405, a: 'g', b: 'l', rec: false, t: 'c2', u: 'c2' },
+      ].map((g) => (
+        <g>
+          <path class={`ch ${g.t}`} d={`M${g.x} 28 V80`} /><path class={`ch ${g.u}`} d={`M${g.x} 80 V128`} />
+          <text class="al" x={g.x + 9} y="58">{g.a}</text><text class="al" x={g.x + 9} y="108">{g.b}</text>
+          <text class="lab" x={g.x + 4} y="146" text-anchor="middle">{g.rec ? 'recombinant' : 'parental'}</text>
+        </g>
+      ))}
+    </svg>
+    <label class="slider">Recombination frequency between the loci: <output data-r-out>17%</output>
+      <input type="range" min="0" max="50" step="1" value="17" data-r />
+    </label>
+    <p class="hint">0% = loci so close that crossing over between them almost never happens; 50% = so far apart (or on different chromosomes) that they assort independently. These two Drosophila genes give about 17% recombinants. The heterozygote must be female, because male fruit flies do not undergo crossing over.</p>
+  </div>
+  </template>
+
+  <div class="table-wrap"><table class="grid" data-grid set:html={gridHtml('f2', 0.17)} /></div>
+  <p class="expect" data-expect>{expectedText('f2', 0.17)}</p>
+
+  <div class="chi">
+    <p class="chi-t">Chi-squared test on the offspring</p>
+    <div class="chi-controls">
+      <label class="slider">Number of offspring: <output data-n-out>400</output>
+        <input type="range" min="40" max="1000" step="20" value="400" data-n />
+      </label>
+      <div class="chi-btns">
+        <button type="button" class="btn btn-primary" data-breed>Breed a new sample</button>
+        <button type="button" class="btn" data-mendel>Use Mendel’s data</button>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table class="chi-table">
+        <caption>Observed (O) numbers can be typed in. Expected (E) values come from the ratio predicted by independent assortment.</caption>
+        <thead><tr><th scope="col">Phenotype</th><th scope="col">O</th><th scope="col">E</th><th scope="col">(O − E)² ÷ E</th></tr></thead>
+        <tbody data-chi set:html={chiBody('f2', MENDEL_F2)} />
+      </table>
+    </div>
+    <p class="readout" aria-live="polite" data-verdict>{verdict('f2', MENDEL_F2)}</p>
+  </div>
+  <p class="model-note">Samples are simulated with a seeded random generator from the true probabilities of the cross chosen (for linked genes, using the recombination frequency set above). Chance alone gives a significant result in about 1 sample in 20 when H₀ is true.</p>
+</div>
+
+<script>
+  import { MENDEL_F2, breed, classProbs, type CrossKind } from './models/d3-2-dihybrid';
+  import { chiBody, expectedText, gridHtml, parentsText, verdict } from './d3-2-dihybrid-view';
+
+  document.querySelectorAll<HTMLElement>('[data-dihybrid]').forEach((root) => {
+    const q = <T extends Element>(s: string) => root.querySelector<T>(s)!;
+    const kindBtns = [...root.querySelectorAll<HTMLButtonElement>('[data-kind]')];
+    const nIn = q<HTMLInputElement>('[data-n]');
+    const slot = q<HTMLElement>('[data-linked-slot]');
+    const tpl = q<HTMLTemplateElement>('[data-linked-tpl]');
+    let rVal = 17;
+    const mendel = q<HTMLButtonElement>('[data-mendel]');
+    let kind: CrossKind = 'f2';
+    let seed = 7;
+    let obs = [...MENDEL_F2];
+    let timer = 0;
+    const r = () => rVal / 100;
+
+    const drawChi = () => {
+      q('[data-chi]').innerHTML = chiBody(kind, obs);
+      root.querySelectorAll<HTMLInputElement>('[data-obs]').forEach((inp) => inp.addEventListener('change', () => {
+        obs[Number(inp.dataset.obs)] = Math.max(0, Math.min(5000, Math.round(Number(inp.value)) || 0));
+        drawChi();
+      }));
+      clearTimeout(timer);
+      timer = window.setTimeout(() => (q('[data-verdict]').textContent = verdict(kind, obs)), 250);
+    };
+    const sample = () => { seed += 1; obs = breed(classProbs(kind, r()), Number(nIn.value), seed); drawChi(); };
+    const drawCross = () => {
+      q('[data-grid]').innerHTML = gridHtml(kind, r());
+      q('[data-expect]').textContent = expectedText(kind, r());
+      const out = slot.querySelector('[data-r-out]');
+      if (out) out.textContent = `${rVal}%`;
+    };
+    const setKind = (btn: HTMLButtonElement, focus = false) => {
+      kind = btn.dataset.kind as CrossKind;
+      kindBtns.forEach((b) => { const on = b === btn; b.setAttribute('aria-checked', String(on)); b.tabIndex = on ? 0 : -1; });
+      if (focus) btn.focus();
+      q('[data-parents]').textContent = parentsText[kind];
+      slot.innerHTML = '';
+      if (kind === 'linked') {
+        slot.append(tpl.content.cloneNode(true));
+        const rIn = slot.querySelector<HTMLInputElement>('[data-r]')!;
+        rIn.value = String(rVal);
+        rIn.addEventListener('input', () => { rVal = Number(rIn.value); drawCross(); });
+        rIn.addEventListener('change', sample);
+      }
+      q<HTMLElement>('[data-key-pea]').hidden = kind === 'linked';
+      q<HTMLElement>('[data-key-fly]').hidden = kind !== 'linked';
+      mendel.hidden = kind !== 'f2';
+      drawCross();
+      if (kind === 'f2') { obs = [...MENDEL_F2]; drawChi(); } else sample();
+    };
+    kindBtns.forEach((b, i) => {
+      b.addEventListener('click', () => setKind(b));
+      b.addEventListener('keydown', (e) => {
+        const d = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+        if (d) { e.preventDefault(); setKind(kindBtns[(i + d + kindBtns.length) % kindBtns.length]!, true); }
+      });
+    });
+    nIn.addEventListener('input', () => { q('[data-n-out]').textContent = nIn.value; });
+    nIn.addEventListener('change', sample);
+    q('[data-breed]').addEventListener('click', sample);
+    mendel.addEventListener('click', () => { obs = [...MENDEL_F2]; drawChi(); });
+    drawChi();
+  });
+</script>
+
+<style>
+  .dih { container-type: inline-size; }
+  .choices { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); }
+  .choices .btn[aria-checked='true'] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-strong); }
+  .parents { margin: 0 0 var(--space-1); }
+  .key { margin: 0 0 var(--space-3); font-size: var(--step--1); color: var(--text-muted); }
+  .linked { display: grid; gap: var(--space-2); margin-bottom: var(--space-3); }
+  .chr { width: 100%; max-width: 30rem; height: auto; background: var(--surface-2); border-radius: var(--radius-m); font-family: var(--font-sans); }
+  .chr .ch { stroke-width: 5; stroke-linecap: round; }
+  .chr .c1 { stroke: var(--bio-protein); }
+  .chr .c2 { stroke: var(--bio-head); stroke-dasharray: 9 3; }
+  .chr .tick { stroke: var(--text); stroke-width: 2; }
+  .chr .al { font-size: 16px; font-weight: 800; fill: var(--text); dominant-baseline: middle; }
+  .chr .cap, .chr .lab { font-size: 12px; fill: var(--text-muted); font-weight: 650; }
+  .chr .lab { font-size: 10.5px; }
+  .chr .arrow { stroke: var(--text-muted); stroke-width: 2; }
+  .chr .arrow-h { fill: var(--text-muted); }
+  .slider { display: grid; gap: var(--space-1); font-size: var(--step--1); font-weight: 650; }
+  .hint { font-size: 0.8rem; color: var(--text-muted); margin: 0; }
+  .table-wrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: var(--step--1); font-variant-numeric: tabular-nums; }
+  table :global(caption) { caption-side: bottom; text-align: left; font-size: 0.8rem; color: var(--text-muted); padding-top: var(--space-1); }
+  .grid :global(th), .grid :global(td) { border: 1px solid var(--border-strong); padding: 0.3rem; text-align: center; }
+  .grid :global(thead th), .grid :global(tbody th), .grid :global(.corner) { background: var(--surface-2); }
+  .grid :global(.corner) { font-size: 0.75rem; color: var(--text-muted); }
+  .grid :global(.gam) { display: block; font-weight: 800; }
+  .grid :global(.gp) { display: block; font-size: 0.72rem; color: var(--text-muted); }
+  .grid :global(.rec) { display: block; font-size: 0.72rem; font-weight: 700; color: var(--ahl); }
+  .grid :global(.geno) { display: block; font-weight: 800; }
+  .grid :global(.ph) { display: block; font-size: 0.72rem; }
+  .grid :global(.k0) { background: color-mix(in srgb, var(--bio-glucose) 22%, var(--surface)); }
+  .grid :global(.k1) { background: color-mix(in srgb, var(--bio-carb) 18%, var(--surface)); }
+  .grid :global(.k2) { background: color-mix(in srgb, var(--bio-protein) 16%, var(--surface)); }
+  .grid :global(.k3) { background: var(--surface); }
+  .grid :global(.is-rec) { outline: 2px dashed var(--ahl); outline-offset: -4px; }
+  .expect { font-size: var(--step--1); margin: var(--space-2) 0 var(--space-4); }
+  .chi { border-top: 1px solid var(--border); padding-top: var(--space-3); }
+  .chi-t { font-weight: 750; margin: 0 0 var(--space-2); }
+  .chi-controls { display: grid; gap: var(--space-3); margin-bottom: var(--space-3); }
+  @container (min-width: 36rem) { .chi-controls { grid-template-columns: minmax(0, 1fr) auto; align-items: end; } }
+  .chi-btns { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .chi-btns .btn[hidden] { display: none; }
+  .chi-table :global(th), .chi-table :global(td) { padding: 0.3rem 0.45rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .chi-table :global(th[scope='row']), .chi-table thead th:first-child { text-align: left; }
+  .chi-table :global(.tot) { font-weight: 700; }
+  .chi-table :global(input) { width: 4.6rem; min-height: 2rem; font: inherit; text-align: right; padding: 0.2rem 0.35rem; color: var(--text); background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-s); }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>
