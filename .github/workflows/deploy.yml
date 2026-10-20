@@ -33,6 +33,9 @@ jobs:
           echo "PUBLIC_REPO_URL=${{ github.server_url }}/${{ github.repository }}" >> "$GITHUB_ENV"
       - run: npm ci --no-audit --no-fund
       - run: npm run build
+        env:
+          # Google Search Console verification code (a public value), set as a repository variable.
+          PUBLIC_GSC_VERIFICATION: ${{ vars.GSC_VERIFICATION }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
