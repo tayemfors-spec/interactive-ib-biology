@@ -1,0 +1,198 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: D1.1.2
+    stem: >-
+      A DNA molecule consists of strands X and Y. It is replicated once. Which describes the base sequence of the new
+      strand that was built using strand X as its template?
+    options:
+      - id: a
+        text: Identical to strand X
+        why: The new strand is complementary to its template, not a copy of it. A copy of X would pair A with A, which does not happen.
+      - id: b
+        text: Complementary to strand Y
+        why: A strand complementary to Y has the same sequence as X — this is the strand built on template Y, not on X.
+      - id: c
+        text: Identical to strand Y
+        why: Correct. Complementary base pairing makes the new strand complementary to X, and the only sequence complementary to X is that of strand Y.
+      - id: d
+        text: Partly identical to X and partly identical to Y
+        why: This describes dispersive replication, in which strands would be mixtures of old and new DNA. Meselson and Stahl showed this does not happen.
+    answer: c
+
+  - id: q2
+    level: SL
+    understanding: D1.1.2
+    stem: >-
+      In the Meselson–Stahl experiment, E. coli grown for many generations in ¹⁵N medium were transferred to ¹⁴N medium.
+      If replication is semi-conservative, what fraction of the DNA molecules will be hybrid (¹⁵N/¹⁴N) after three
+      generations in ¹⁴N?
+    options:
+      - id: a
+        text: One half
+        why: This is the fraction after two generations. Each further generation doubles the number of molecules but not the number of hybrids.
+      - id: b
+        text: One quarter
+        why: Correct. The two original ¹⁵N strands from each molecule stay intact, so there are always 2 hybrid molecules; after 3 generations there are 2³ = 8 molecules, so 2/8 = 1/4.
+      - id: c
+        text: One eighth
+        why: This counts only one hybrid per original molecule. There are two original ¹⁵N strands, so there are two hybrids.
+      - id: d
+        text: None — all the DNA is light by then
+        why: The original ¹⁵N strands are never broken down or diluted; they remain in hybrid molecules in every generation.
+    answer: b
+
+  - id: q3
+    level: SL
+    understanding: D1.1.3
+    stem: Which bonds are broken by helicase during DNA replication?
+    options:
+      - id: a
+        text: Covalent bonds between sugars and phosphates in each backbone
+        why: The backbones stay intact — each strand must remain whole to act as a template.
+      - id: b
+        text: Covalent bonds between each base and its deoxyribose sugar
+        why: Breaking these would remove the bases from the strands and destroy the information they carry.
+      - id: c
+        text: Hydrogen bonds between adjacent nucleotides in the same strand
+        why: Adjacent nucleotides in a strand are joined by covalent bonds, not hydrogen bonds.
+      - id: d
+        text: Hydrogen bonds between complementary bases on the two strands
+        why: Correct. Helicase unwinds the helix and breaks these weak bonds, so the two strands separate.
+    answer: d
+
+  - id: q4
+    level: SL
+    understanding: D1.1.4
+    stem: Why is Taq polymerase, rather than DNA polymerase from human cells, used in the polymerase chain reaction?
+    options:
+      - id: a
+        text: It is not denatured by the repeated heating to about 95 °C.
+        why: Correct. Taq comes from Thermus aquaticus, which lives in hot springs. It survives every denaturation step and works best near 72 °C, the extension temperature.
+      - id: b
+        text: It works fastest at 37 °C, the temperature used for annealing.
+        why: Annealing is done at about 55–65 °C, and Taq works best at about 72 °C. A human enzyme would be denatured in the first heating step.
+      - id: c
+        text: It does not need primers to start new strands.
+        why: Like all DNA polymerases, Taq needs a primer with a free 3′ end. That is why primers are added to the PCR mixture.
+      - id: d
+        text: It separates the two DNA strands as well as building new ones.
+        why: In PCR the strands are separated by heat (denaturation), not by an enzyme.
+    answer: a
+
+  - id: q5
+    level: SL
+    understanding: D1.1.4
+    stem: Why do DNA fragments of different lengths end up at different distances along an electrophoresis gel?
+    options:
+      - id: a
+        text: Shorter fragments have a greater negative charge per nucleotide.
+        why: Every nucleotide carries one negative charge on its phosphate, so charge per nucleotide is the same for all fragments.
+      - id: b
+        text: Shorter fragments pass more easily through the pores of the gel, so they travel farther.
+        why: Correct. All DNA is pulled towards the positive electrode; the gel mesh slows longer molecules more, which separates them by size.
+      - id: c
+        text: Longer fragments are attracted towards the negative electrode.
+        why: All DNA is negatively charged, so every fragment moves towards the positive electrode.
+      - id: d
+        text: Fragments with more G–C pairs are heavier, so they sink further into the gel.
+        why: Separation is by length, not by base composition, and fragments move along the gel, not down into it.
+    answer: b
+
+  - id: q6
+    level: SL
+    understanding: D1.1.5
+    stem: >-
+      STR fragments at one locus were separated by gel electrophoresis. The mother has bands at 150 and 320 bp; the
+      child at 150 and 410 bp. Man A has bands at 200 and 320 bp, man B at 410 and 500 bp, and man C at 150 and 270 bp.
+      Which man could be the child's biological father?
+    options:
+      - id: a
+        text: Man A
+        why: Man A shares the 320 bp band with the mother, not with the child. He lacks the child's 410 bp band, so he is excluded.
+      - id: b
+        text: Man C
+        why: Man C shares the 150 bp band, but the child received that band from the mother. He lacks the paternal 410 bp band.
+      - id: c
+        text: Man B
+        why: Correct. The 150 bp band is from the mother, so the 410 bp band must be from the father. Only man B has it (more loci would be tested to confirm).
+      - id: d
+        text: Man B or man C, because each shares a band with the child
+        why: Sharing any band is not enough. Every band not from the mother must be present in the father — man C does not have 410 bp.
+    answer: c
+
+  - id: q7
+    level: AHL
+    understanding: D1.1.6
+    stem: When DNA polymerase III adds a nucleotide to a growing strand, the phosphate of the incoming nucleotide is bonded to which part of the last nucleotide in the strand?
+    options:
+      - id: a
+        text: The phosphate group on carbon 5′
+        why: The 5′ end of a strand is never extended. This reverses the direction of synthesis.
+      - id: b
+        text: The nitrogenous base
+        why: Bases form hydrogen bonds with the template strand; they are not part of the backbone linkage.
+      - id: c
+        text: The –OH group on carbon 2′
+        why: Deoxyribose has only –H on carbon 2′. Confusing it with ribose does not change where the bond forms.
+      - id: d
+        text: The –OH group on carbon 3′
+        why: Correct. Nucleotides are only added at the free 3′ –OH, so new strands grow 5′→3′.
+    answer: d
+
+  - id: q8
+    level: AHL
+    understanding: D1.1.7
+    stem: Which statement about the lagging strand is correct?
+    options:
+      - id: a
+        text: It is made discontinuously as Okazaki fragments, each started from its own RNA primer.
+        why: Correct. Synthesis runs 5′→3′ away from the fork, so it has to restart repeatedly near the fork with new primers.
+      - id: b
+        text: It is made continuously, but more slowly than the leading strand.
+        why: 'The name "lagging" does not mean slow continuous synthesis. The strand is made in separate fragments that are later joined.'
+      - id: c
+        text: It is made 3′→5′, in the same direction as the fork moves.
+        why: No DNA polymerase can build a strand 3′→5′. Both new strands are made 5′→3′.
+      - id: d
+        text: It needs only one primer, laid at the origin of replication.
+        why: This describes the leading strand. Each Okazaki fragment of the lagging strand needs its own primer.
+    answer: a
+
+  - id: q9
+    level: AHL
+    understanding: D1.1.8
+    stem: A mutant bacterium makes a non-functional DNA ligase but its other replication enzymes work normally. What would be found in its newly replicated DNA?
+    options:
+      - id: a
+        text: RNA primers left in the lagging strand
+        why: Primers are removed and replaced by DNA polymerase I, which still works. A primer-replacement defect would be a Pol I mutation.
+      - id: b
+        text: No leading strand
+        why: The leading strand is made by DNA polymerase III from one primer and needs no joining by ligase.
+      - id: c
+        text: Okazaki fragments that are not joined, with nicks in the lagging strand
+        why: Correct. Ligase forms the last covalent bond in the backbone between fragments; without it the nicks remain.
+      - id: d
+        text: Many mismatched base pairs in both new strands
+        why: Mismatches are removed by proofreading by DNA polymerase III, not by ligase.
+    answer: c
+
+  - id: q10
+    level: AHL
+    understanding: D1.1.9
+    stem: During replication, DNA polymerase III adds a nucleotide with cytosine opposite adenine on the template. What happens next?
+    options:
+      - id: a
+        text: DNA ligase cuts out the incorrect nucleotide and seals the gap.
+        why: Ligase only joins adjacent nucleotides by sealing nicks; it does not detect or remove mismatches.
+      - id: b
+        text: DNA polymerase III removes the nucleotide from the 3′ end and adds one with thymine instead.
+        why: Correct. This is proofreading — the mismatched nucleotide is removed from the 3′ terminal and replaced with the correctly matched one (T pairs with A).
+      - id: c
+        text: DNA polymerase I later replaces the nucleotide with one containing guanine.
+        why: Pol I replaces RNA primers, and guanine would not pair with adenine either — the correct base is thymine.
+      - id: d
+        text: The whole Okazaki fragment is removed and made again.
+        why: Proofreading removes only the mismatched nucleotide at the 3′ end, not a whole fragment.
+    answer: b

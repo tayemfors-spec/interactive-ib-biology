@@ -1,0 +1,158 @@
+---
+/**
+ * Exam-style drawings for D1.1. Panel 1 (SL): the replication fork with helicase, template strands, free
+ * nucleotides, DNA polymerase and new strands. Panel 2 (AHL): the prokaryotic fork with 5′/3′ ends, the leading
+ * strand (one primer, continuous) and the lagging strand (Okazaki fragments) with primase, Pol III, Pol I and ligase.
+ * Geometry: the fork is at x = 400 and moves right. Upper template runs 5′ (left) → 3′ (right); lower template
+ * runs 3′ (left) → 5′ (right). New strands are antiparallel to their templates.
+ */
+const helix = (x0: number, x1: number, y: number, amp: number, phase: number) => {
+  let d = '';
+  for (let x = x0; x <= x1; x += 2) d += `${x === x0 ? 'M' : 'L'}${x} ${(y + amp * Math.sin((x - x0) / 14 + phase)).toFixed(1)}`;
+  return d;
+};
+const rungs = (x0: number, x1: number, y0: number, y1: number, step = 12) => {
+  const out: string[] = [];
+  for (let x = x0; x <= x1; x += step) out.push(`M${x} ${y0}V${y1}`);
+  return out.join('');
+};
+// free nucleotides for panel 1: [x, y, angle]
+const free: [number, number, number][] = [[60, 128], [120, 140], [178, 122], [236, 136], [292, 126], [96, 156], [212, 158]].map(([x, y], i) => [x!, y!, (i * 47) % 180]);
+---
+<div class="exam-diagram">
+  <div class="panels">
+    <svg class="p1" viewBox="0 0 520 270" role="img" aria-labelledby="rf-t1 rf-d1" xmlns="http://www.w3.org/2000/svg">
+      <title id="rf-t1">A replication fork</title>
+      <desc id="rf-d1">On the right, the parental double helix. At the fork, helicase unwinds it and breaks the hydrogen bonds between the bases. To the left, each separated parental strand is a template: DNA polymerase links free nucleotides into a new strand complementary to it. Each daughter molecule has one parental strand and one new strand.</desc>
+      <text class="head" x="12" y="22">1 · The replication fork</text>
+      <!-- parental double helix -->
+      <path class="old" d={helix(404, 508, 140, 9, 0)} />
+      <path class="old" d={helix(404, 508, 140, 9, Math.PI)} />
+      <!-- templates -->
+      <path class="old" d="M404 134 L364 74 H20" />
+      <path class="old" d="M404 146 L364 206 H20" />
+      <path class="rung" d={rungs(26, 340, 78, 92)} />
+      <path class="rung" d={rungs(26, 340, 188, 202)} />
+      <!-- new strands -->
+      <path class="new" d="M20 96 H340" />
+      <path class="new" d="M20 184 H340" />
+      <!-- helicase -->
+      <ellipse class="helicase" cx="402" cy="128" rx="14" ry="20" />
+      <!-- polymerases -->
+      <ellipse class="pol" cx="300" cy="96" rx="24" ry="14" />
+      <ellipse class="pol" cx="340" cy="184" rx="24" ry="14" />
+      <!-- free nucleotides -->
+      {free.map(([x, y, a]) => (
+        <g transform={`translate(${x} ${y}) rotate(${a})`}>
+          <circle class="phos" cx="-11" cy="0" r="4" />
+          <line class="link" x1="-7" y1="0" x2="-2" y2="0" />
+          <rect class="sug" x="-2" y="-4" width="8" height="8" />
+          <rect class="nb" x="6" y="-3" width="11" height="6" />
+        </g>
+      ))}
+      <!-- labels -->
+      <text class="lbl" x="512" y="108" text-anchor="end">parental DNA</text>
+      <text class="lbl" x="512" y="124" text-anchor="end">(double helix)</text>
+      <text class="lbl" x="370" y="44">helicase: unwinds,</text>
+      <text class="lbl" x="370" y="60">breaks H-bonds</text>
+      <line class="lead" x1="398" y1="64" x2="401" y2="110" />
+      <text class="lbl" x="20" y="64">template (parental) strand</text>
+      <text class="lbl" x="20" y="228">template (parental) strand</text>
+      <text class="lbl" x="130" y="112">new strand</text>
+      <text class="lbl" x="130" y="178">new strand</text>
+      <text class="lbl" x="250" y="64" text-anchor="middle">DNA polymerase</text>
+      <line class="lead" x1="282" y1="68" x2="294" y2="84" />
+      <text class="lbl" x="372" y="232">DNA polymerase</text>
+      <line class="lead" x1="372" y1="226" x2="350" y2="196" />
+      <text class="lbl" x="250" y="160">free nucleotides</text>
+      <text class="lbl" x="412" y="190">replication fork</text>
+      <line class="lead" x1="410" y1="186" x2="398" y2="158" />
+      <text class="note" x="20" y="252">Each daughter molecule = one parental strand + one new strand (semi-conservative).</text>
+    </svg>
+
+    <svg class="p2" viewBox="0 0 520 324" role="img" aria-labelledby="rf-t2 rf-d2" xmlns="http://www.w3.org/2000/svg" data-level-block="AHL">
+      <title id="rf-t2">Leading and lagging strands in prokaryotes</title>
+      <desc id="rf-d2">The fork moves to the right. The lower new strand, the leading strand, is made continuously by DNA polymerase III from one RNA primer, towards the fork. The upper new strand, the lagging strand, is made away from the fork as Okazaki fragments, each started from an RNA primer laid by DNA primase. DNA polymerase I replaces primers with DNA, and DNA ligase seals the nicks between fragments. All new strands are built 5′ to 3′.</desc>
+      <text class="head" x="12" y="22">2 · Leading and lagging strands (AHL)</text>
+      <!-- parental -->
+      <path class="old" d="M404 140 H488" />
+      <path class="old" d="M404 152 H488" />
+      <path class="rung" d={rungs(410, 486, 141, 151, 10)} />
+      <path class="old" d="M404 140 L364 80 H20" />
+      <path class="old" d="M404 152 L364 212 H20" />
+      <text class="end" x="1" y="85">5′</text><text class="end" x="494" y="145">3′</text>
+      <text class="end" x="1" y="217">3′</text><text class="end" x="494" y="161">5′</text>
+      <!-- lagging strand (upper, 5′→3′ right to left): fragments a, b, c, d -->
+      <path class="new" d="M20 100 H116" />
+      <path class="new" d="M117 100 H194" />
+      <path class="primer" d="M194 100 H202" />
+      <path class="new" d="M203 100 H262" />
+      <path class="primer" d="M262 100 H278" />
+      <path class="new" d="M296 100 H330" />
+      <path class="primer" d="M330 100 H346" />
+      <text class="end" x="1" y="104">3′</text>
+      <!-- leading strand (lower, 5′→3′ left to right) -->
+      <path class="primer" d="M20 192 H38" />
+      <path class="new" d="M38 192 H350" />
+      <text class="end" x="1" y="196">5′</text>
+      <path class="arrow" d="M310 178 H346" /><path class="ah" d="M346 173 L355 178 L346 183Z" />
+      <path class="arrow" d="M326 114 H292" /><path class="ah" d="M292 109 L283 114 L292 119Z" />
+      <!-- enzymes -->
+      <ellipse class="helicase" cx="402" cy="134" rx="14" ry="20" />
+      <ellipse class="pol" cx="356" cy="192" rx="20" ry="12" />
+      <ellipse class="pol" cx="292" cy="100" rx="20" ry="12" />
+      <ellipse class="pol1" cx="198" cy="100" rx="15" ry="10" />
+      <ellipse class="lig" cx="116" cy="100" rx="12" ry="9" />
+      <ellipse class="prim" cx="356" cy="104" rx="12" ry="9" />
+      <!-- labels: lagging (above) -->
+      <text class="lbl" x="20" y="54">lagging strand: discontinuous (Okazaki fragments)</text>
+      <text class="lbl" x="420" y="56">helicase</text><line class="lead" x1="420" y1="58" x2="408" y2="116" />
+      <text class="lbl" x="356" y="132" text-anchor="middle">primase</text>
+      <text class="lbl" x="272" y="132" text-anchor="middle">DNA pol III</text>
+      <text class="lbl" x="198" y="132" text-anchor="middle">DNA pol I</text>
+      <text class="sm" x="198" y="146" text-anchor="middle">replaces primer</text>
+      <text class="lbl" x="116" y="132" text-anchor="middle">DNA ligase</text>
+      <text class="sm" x="116" y="146" text-anchor="middle">seals nick</text>
+      <text class="lbl" x="250" y="74">RNA primers</text>
+      <line class="lead" x1="262" y1="78" x2="270" y2="94" /><line class="lead" x1="300" y1="78" x2="338" y2="94" />
+      <text class="sm" x="160" y="74" text-anchor="middle">Okazaki fragment</text>
+      <line class="lead" x1="160" y1="78" x2="150" y2="94" />
+      <!-- labels: leading (below) -->
+      <text class="lbl" x="20" y="246">leading strand: continuous, towards the fork</text>
+      <text class="lbl" x="20" y="176">RNA primer</text>
+      <text class="lbl" x="330" y="236">DNA pol III</text><line class="lead" x1="350" y1="226" x2="356" y2="206" />
+      <path class="arrow" d="M440 268 H496" /><path class="ah" d="M496 263 L505 268 L496 273Z" />
+      <text class="lbl" x="434" y="272" text-anchor="end">fork moves</text>
+      <text class="note" x="20" y="292">Every new strand is built 5′ → 3′: nucleotides are added to the 3′ end.</text>
+      <text class="note" x="20" y="312">Template strands: parental (dark). New DNA: red. RNA primers: amber.</text>
+    </svg>
+  </div>
+  <p class="must">Parental strands are dark and new DNA is red, so each daughter molecule shows one of each.</p>
+</div>
+<style>
+  .exam-diagram { font-family: var(--font-sans); }
+  .panels { display: grid; gap: var(--space-3); }
+  .panels svg { display: block; width: 100%; height: auto; background: var(--surface); border-radius: var(--radius-m); }
+  .head { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .lbl { font-size: 13px; font-weight: 650; fill: var(--text); }
+  .sm { font-size: 12px; fill: var(--text-muted); }
+  .note { font-size: 12.5px; fill: var(--text-muted); font-style: italic; }
+  .end { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .old { fill: none; stroke: var(--text); stroke-width: 5; stroke-linejoin: round; stroke-linecap: round; }
+  .new { fill: none; stroke: var(--bio-k); stroke-width: 5; stroke-dasharray: 12 3; }
+  .primer { fill: none; stroke: var(--bio-glucose); stroke-width: 7; }
+  .rung { stroke: var(--text-muted); stroke-width: 1.5; }
+  .helicase { fill: color-mix(in srgb, var(--bio-na) 45%, transparent); stroke: var(--bio-na); stroke-width: 2; }
+  .pol { fill: color-mix(in srgb, var(--bio-water) 40%, transparent); stroke: var(--bio-water); stroke-width: 2; }
+  .pol1 { fill: color-mix(in srgb, var(--bio-chol) 40%, transparent); stroke: var(--bio-chol); stroke-width: 2; }
+  .lig { fill: color-mix(in srgb, var(--bio-carb) 40%, transparent); stroke: var(--bio-carb); stroke-width: 2; }
+  .prim { fill: color-mix(in srgb, var(--bio-tail) 60%, transparent); stroke: var(--bio-glucose); stroke-width: 2; }
+  .phos { fill: var(--bio-k); }
+  .link { stroke: var(--bio-k); stroke-width: 2; }
+  .sug { fill: var(--border-strong); }
+  .nb { fill: var(--bio-protein); }
+  .lead { stroke: var(--text-muted); stroke-width: 1.2; }
+  .arrow { stroke: var(--text); stroke-width: 2; fill: none; }
+  .ah { fill: var(--text); }
+  .must { font-size: var(--step--1); margin: var(--space-2) 0 0; padding-bottom: 3.4rem; color: var(--text); }
+</style>

@@ -1,0 +1,237 @@
+# Visuals for D1.1. Label and step text here is what readers see in the 3D viewer and the text descriptions,
+# so it is written to exam standard. Label ids must match anchors in the scene modules (src/scenes).
+visuals:
+  - id: replication
+    kind: viewer3d
+    title: The replication fork in 3D
+    alt: A DNA double helix being unwound at a replication fork, with each parental strand used as a template for a new strand.
+    description: >-
+      A DNA molecule 24 base pairs long lies across the screen. On the right it is still a right-handed double helix of
+      two antiparallel strands; the parental strands have dark backbones and bases coloured as in A1.2 (adenine blue,
+      thymine orange, guanine green, cytosine purple), with two hydrogen bonds (dashed yellow) in each A–T pair and three
+      in each G–C pair. A purple ring of helicase moves from left to right along the molecule, unwinding the helix and
+      breaking the hydrogen bonds, so the two strands separate into the two arms of a Y-shaped replication fork. Free
+      nucleotides gather, and DNA polymerase (blue) links nucleotides with bases complementary to each template strand
+      into a new strand with a red backbone. When the whole molecule has been copied there are two double helices, each
+      with one dark parental strand and one red new strand: replication is semi-conservative. A second model (higher
+      level) shows the prokaryotic fork in detail — RNA primers (amber, with uracil) laid by DNA primase, the leading
+      strand made continuously towards the fork, the lagging strand made away from the fork as Okazaki fragments, DNA
+      polymerase I replacing primers with DNA, DNA ligase sealing the nick, and DNA polymerase III proofreading a
+      mismatched base.
+    scenes:
+      - id: fork
+        module: d1-1-fork
+        title: Replication fork
+        labels:
+          - id: helicase
+            name: Helicase
+            steps: [unwind, templates, polymerase]
+            text: A ring-shaped enzyme that moves along the DNA at the fork. It unwinds the double helix and breaks the hydrogen bonds between complementary bases, separating the two strands. It uses energy from ATP.
+          - id: fork
+            name: Replication fork
+            steps: [unwind, templates, polymerase]
+            text: The Y-shaped region where the parental double helix is being separated into two single strands. It moves along the molecule as replication proceeds.
+          - id: parent
+            name: Parental double helix
+            steps: [unwind, templates, polymerase]
+            text: The part of the original molecule not yet copied. Its two strands are antiparallel and held together by hydrogen bonds between complementary bases.
+          - id: hbonds
+            name: Hydrogen bonds
+            steps: [unwind]
+            text: Dashed yellow sticks — two in each A–T pair and three in each G–C pair. They are weak individually, so helicase can break them without breaking the covalent bonds of the sugar–phosphate backbones.
+          - id: template
+            name: Template strand
+            steps: [templates, polymerase]
+            text: Each separated parental strand is a template. Its exposed bases determine the order of bases in the new strand, because each base can only pair with its complementary base.
+          - id: free-nucleotides
+            name: Free nucleotides
+            steps: [templates, polymerase]
+            text: Nucleotides carrying all four bases are present in the nucleoplasm (or cytoplasm in prokaryotes). They are the raw material for the new strands.
+          - id: polymerase
+            name: DNA polymerase
+            steps: [polymerase]
+            text: Moves along a template strand, adding nucleotides whose bases are complementary to the template and linking each one to the end of the new strand by a covalent bond in the sugar–phosphate backbone.
+          - id: new-strand
+            name: New strand
+            steps: [polymerase, result]
+            text: Built from free nucleotides (red backbone). Its base sequence is complementary to its template and identical to the other parental strand.
+          - id: old-strand
+            name: Conserved parental strand
+            steps: [result]
+            text: Each daughter molecule keeps one complete strand from the parent molecule (dark backbone). It was not broken up or copied — it acted as the template.
+          - id: daughter
+            name: Two daughter DNA molecules
+            steps: [result]
+            text: Both daughter molecules have exactly the same base sequence as the original molecule and as each other. Each is one parental and one new strand.
+          - id: at-pair
+            name: A–T pair
+            steps: [result]
+            text: Adenine (blue) pairs only with thymine (orange), held by two hydrogen bonds.
+          - id: gc-pair
+            name: G–C pair
+            steps: [result]
+            text: Guanine (green) pairs only with cytosine (purple), held by three hydrogen bonds.
+        steps:
+          - id: unwind
+            title: Helicase unwinds the helix
+            caption: Helicase moves along the DNA, unwinding the double helix and breaking the hydrogen bonds between the complementary bases. The two strands separate, forming a Y-shaped replication fork. The covalent sugar–phosphate backbones are not broken.
+          - id: templates
+            title: Each strand is a template
+            caption: The bases on each separated strand are now exposed. Each parental strand acts as a template for a new strand. Free nucleotides with all four bases are available nearby.
+          - id: polymerase
+            title: DNA polymerase builds new strands
+            caption: DNA polymerase adds nucleotides one at a time, choosing each by complementary base pairing (A with T, G with C), and joins it to the new strand with a covalent bond. The two new strands are built in opposite directions because the templates are antiparallel.
+          - id: result
+            title: Two identical daughter molecules
+            caption: When the whole molecule has been copied, each daughter DNA molecule consists of one parental strand (dark) and one new strand (red), which wind back into a double helix. This is semi-conservative replication. Both molecules have the same base sequence as the original.
+      - id: enzymes
+        module: d1-1-enzymes
+        title: Prokaryotic fork (AHL)
+        level: AHL
+        labels:
+          - id: helicase
+            name: Helicase
+            level: AHL
+            text: Unwinds the double helix and breaks the hydrogen bonds at the fork. In bacteria it is a ring of six subunits that encircles one template strand and moves along it towards the fork.
+          - id: direction
+            name: Direction of the fork
+            level: AHL
+            text: The arrow shows the fork moving to the right. The upper template runs 5′→3′ towards the fork; the lower template runs 3′→5′ towards the fork.
+          - id: primase
+            name: DNA primase
+            level: AHL
+            steps: [primers, lagging]
+            text: Makes an RNA primer — a short length of RNA nucleotides — by complementary base pairing with the template. DNA polymerase III cannot start a new strand without one.
+          - id: rna-primer
+            name: RNA primer
+            level: AHL
+            text: A short RNA sequence (amber backbone; uracil instead of thymine) with a free 3′ end to which DNA polymerase III can add DNA nucleotides. The leading strand needs only this one primer.
+          - id: pol3
+            name: DNA polymerase III (leading strand)
+            level: AHL
+            steps: [leading, lagging, pol1, ligase, proofreading]
+            text: Adds DNA nucleotides to the 3′ end of the primer and then of the growing strand, moving in the same direction as the fork, so the leading strand is made continuously.
+          - id: pol3-lag
+            name: DNA polymerase III (lagging strand)
+            level: AHL
+            steps: [leading, lagging]
+            text: Extends each lagging-strand primer 5′→3′, which means moving away from the fork, until it reaches the previous fragment. Then it starts again at a new primer near the fork.
+          - id: leading
+            name: Leading strand
+            level: AHL
+            steps: [leading, lagging, pol1, ligase, proofreading]
+            text: The new strand whose 5′→3′ direction is towards the fork. It is synthesised continuously and needs only one RNA primer.
+          - id: three-end
+            name: 3′ end of the leading strand
+            level: AHL
+            steps: [leading, proofreading]
+            text: New nucleotides are only ever added here. The phosphate on carbon 5′ of the incoming nucleotide is bonded to the –OH on carbon 3′ of the last nucleotide in the strand.
+          - id: lagging
+            name: Lagging strand
+            level: AHL
+            steps: [lagging, pol1, ligase]
+            text: The new strand whose 5′→3′ direction is away from the fork. It is synthesised discontinuously, as a series of Okazaki fragments, each needing its own primer.
+          - id: okazaki
+            name: Okazaki fragment
+            level: AHL
+            steps: [lagging, pol1, ligase]
+            text: A short section of lagging strand made from one RNA primer (about 1000–2000 nucleotides in bacteria; much shorter here). Each fragment is started close to the fork and extended away from it.
+          - id: pol1
+            name: DNA polymerase I
+            level: AHL
+            steps: [pol1]
+            text: Removes the RNA nucleotides of a primer and replaces them with DNA nucleotides, working from the 3′ end of the next fragment. It cannot join the last nucleotide to the strand ahead, so it leaves a nick.
+          - id: nick
+            name: Nick
+            level: AHL
+            steps: [pol1]
+            text: A break in the sugar–phosphate backbone between two adjacent nucleotides on the lagging strand — a missing covalent bond between a 3′–OH and the 5′ phosphate next to it.
+          - id: ligase
+            name: DNA ligase
+            level: AHL
+            steps: [ligase]
+            text: Seals each nick by forming the missing covalent (phosphodiester) bond in the sugar–phosphate backbone, joining the Okazaki fragments into one continuous strand.
+          - id: mismatch
+            name: Mismatched nucleotide
+            level: AHL
+            steps: [proofreading]
+            text: A nucleotide with guanine was added opposite thymine. It does not pair properly, so DNA polymerase III removes it from the 3′ end before adding the correct nucleotide, with adenine.
+        steps:
+          - id: primers
+            title: Primase lays RNA primers
+            level: AHL
+            caption: Helicase opens the fork. DNA primase makes a short RNA primer on each template, by complementary base pairing (uracil pairs with adenine). DNA polymerase III can only add nucleotides to an existing 3′ end, so it cannot start a strand without a primer.
+          - id: leading
+            title: Leading strand — continuous
+            level: AHL
+            caption: DNA polymerase III adds DNA nucleotides to the 3′ end of the leading-strand primer. Because this strand is made 5′→3′ towards the fork, the polymerase can follow the fork and synthesise it continuously. On the other template, Pol III extends the first lagging-strand primer away from the fork.
+          - id: lagging
+            title: Lagging strand — Okazaki fragments
+            level: AHL
+            caption: As the fork opens more of the upper template, primase lays a new primer close to the fork. DNA polymerase III extends it away from the fork until it reaches the previous fragment. The lagging strand is made discontinuously, as Okazaki fragments, each with its own primer.
+          - id: pol1
+            title: DNA polymerase I replaces primers
+            level: AHL
+            caption: DNA polymerase I removes the RNA nucleotides of the earlier primer one by one and replaces them with DNA nucleotides, extending the 3′ end of the newer fragment. It cannot join its last nucleotide to the DNA ahead, so a nick is left in the backbone.
+          - id: ligase
+            title: DNA ligase seals the nick
+            level: AHL
+            caption: DNA ligase forms the missing covalent bond between the sugar of one nucleotide and the phosphate of the next, so the Okazaki fragments are joined into one continuous DNA strand.
+          - id: proofreading
+            title: Proofreading by DNA polymerase III
+            level: AHL
+            caption: DNA polymerase III adds a nucleotide with guanine opposite thymine — a mismatch. It detects the mispairing, removes the incorrect nucleotide from the 3′ end of the new strand, and then adds a nucleotide with the correct base (adenine). This greatly reduces errors in replication.
+
+  - id: meselson-stahl
+    kind: anim
+    module: d1-1-meselson-stahl
+    title: The Meselson–Stahl experiment
+    alt: Density-gradient tubes showing DNA bands after 0, 1 and 2 generations, compared with predictions of three models of replication.
+    description: >-
+      Bacteria (E. coli) were grown for many generations in a medium whose only nitrogen source was the heavy isotope
+      ¹⁵N, so all their DNA was heavy. They were then moved to a medium containing only ¹⁴N. DNA was extracted at
+      intervals and spun at high speed in a caesium chloride solution, which forms a density gradient; each type of DNA
+      settles as a band where its density matches the solution. Generation 0 gives one low (heavy) band. After one
+      generation in ¹⁴N there is a single band of intermediate (hybrid) density. After two generations there are two
+      bands of equal size, one hybrid and one light. The last step compares these results with the predictions of the
+      conservative model (heavy and light bands after one generation, no hybrid) and the dispersive model (a single band
+      that becomes lighter each generation): only semi-conservative replication fits.
+    steps:
+      - id: heavy
+        title: Generation 0 — all ¹⁵N
+        caption: After many generations in ¹⁵N medium, all the bacterial DNA contains heavy nitrogen in both strands. Centrifuged in caesium chloride, it forms a single band low in the tube (heavy).
+      - id: gen1
+        title: One generation in ¹⁴N
+        caption: The bacteria are moved to ¹⁴N medium and allowed to divide once. All the DNA now forms a single band halfway between heavy and light — every molecule is a hybrid of one ¹⁵N strand and one ¹⁴N strand.
+      - id: gen2
+        title: Two generations in ¹⁴N
+        caption: After a second division there are two bands of equal size — one hybrid and one light (¹⁴N only). The original ¹⁵N strands are still intact, each now paired with a new ¹⁴N strand.
+      - id: models
+        title: Which model fits?
+        caption: Conservative replication predicts heavy and light bands after one generation, but there was only a hybrid band. Dispersive replication predicts a single band after two generations, but there were two. Only semi-conservative replication predicts both results.
+
+  - id: pcr
+    kind: sim
+    module: d1-1-pcr
+    title: The polymerase chain reaction
+    alt: Step through the three temperature stages of a PCR cycle and watch the number of copies of the target DNA double each cycle.
+    description: >-
+      A schematic of one DNA molecule in a PCR tube with a thermometer, and a counter. Pressing "Next stage" steps through
+      a cycle: denaturation at about 95 °C separates the strands; primer annealing at about 60 °C lets two primers bind
+      to the 3′ ends of the target sequence, one on each strand; extension at about 72 °C lets Taq polymerase build new
+      strands from the primers. After each complete cycle the number of copies of the target doubles (start × 2ⁿ), shown
+      on a graph with a logarithmic scale; after 30 cycles one molecule has become over a billion. Sliders set the number
+      of cycles, the starting number of copies and the efficiency of each cycle.
+
+  - id: gel
+    kind: sim
+    module: d1-1-gel
+    title: Gel electrophoresis and DNA profiling
+    alt: An agarose gel with a DNA ladder and four DNA profiles; run the gel, measure band sizes and decide which profiles match.
+    description: >-
+      An agarose gel seen from above, with wells at the top next to the negative electrode. A DNA ladder of fragments of
+      known size runs in the first lane next to four DNA profiles. Increasing the run time moves the negatively charged
+      DNA towards the positive electrode, the smallest fragments farthest; if the gel runs too long the smallest fragments
+      run off the end. A measuring line estimates the size of a band from the ladder. In the forensic case the crime-scene
+      sample is compared with three suspects; in the paternity case a child is compared with the mother and two men. A
+      slider shows how using more STR markers makes a chance match between unrelated people less likely.

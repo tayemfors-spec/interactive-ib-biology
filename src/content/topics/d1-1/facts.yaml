@@ -1,0 +1,145 @@
+facts:
+  - id: f1
+    claim: DNA replication produces molecules with identical base sequences; it is needed before cell division for reproduction, growth and tissue replacement.
+    where: ["index.mdx#exact-copies", "flashcards.yaml:c1"]
+    confidence: high
+    basis: IB guide D1.1.1; standard cell biology (Alberts)
+    status: checked
+  - id: f2
+    claim: In eukaryotes, replication of nuclear DNA happens in the S phase of interphase.
+    where: ["index.mdx#exact-copies"]
+    confidence: high
+    basis: Alberts, Molecular Biology of the Cell (cell cycle)
+    status: checked
+  - id: f3
+    claim: Replication is semi-conservative; each new strand is complementary to its template and identical in sequence to the other parental strand.
+    where: ["index.mdx#semi-conservative", "quiz.yaml:q1", "flashcards.yaml:c2", "flashcards.yaml:c3", "visuals.yaml:replication/fork"]
+    confidence: high
+    basis: IB guide D1.1.2; Watson and Crick 1953; Meselson and Stahl 1958
+    status: checked
+  - id: f4
+    claim: Meselson and Stahl (1958) grew E. coli in ¹⁵N, transferred to ¹⁴N and used CsCl density-gradient centrifugation; generation 1 gave one hybrid band, generation 2 equal hybrid and light bands.
+    where: ["index.mdx#semi-conservative", "visuals.yaml:meselson-stahl", "quiz.yaml:q2", "flashcards.yaml:c6"]
+    confidence: high
+    basis: Meselson & Stahl, PNAS 44:671 (1958)
+    status: checked
+  - id: f5
+    claim: Conservative replication predicts heavy + light (no hybrid) after one generation; dispersive predicts a single band that becomes lighter each generation (between hybrid and light after two).
+    where: ["visuals.yaml:meselson-stahl", "index.mdx#semi-conservative"]
+    confidence: high
+    basis: Standard textbook treatment (Campbell Biology)
+    status: checked
+  - id: f6
+    claim: After n generations in ¹⁴N, 2 of the 2ⁿ molecules descended from one ¹⁵N molecule are hybrid (1/4 after three generations).
+    where: ["index.mdx#semi-conservative", "quiz.yaml:q2"]
+    confidence: high
+    basis: Arithmetic of semi-conservative replication
+    status: checked
+  - id: f7
+    claim: Helicase unwinds DNA and breaks hydrogen bonds between bases, using ATP; bacterial replicative helicase (DnaB) is a hexameric ring that encircles the lagging-strand template and moves 5′→3′ along it.
+    where: ["index.mdx#helicase-polymerase", "visuals.yaml:replication helicase labels", "flashcards.yaml:c4", "quiz.yaml:q3"]
+    confidence: high
+    basis: Alberts; Kornberg & Baker, DNA Replication
+    status: checked
+  - id: f8
+    claim: A–T pairs have two hydrogen bonds and G–C pairs three (consistent with A1.2).
+    where: ["visuals.yaml:replication/fork", "scenes d1-1-kit.ts"]
+    confidence: high
+    basis: Standard structural biology; matches A1.2 page
+    status: checked
+  - id: f9
+    claim: Typical PCR temperatures are ~95 °C denaturation (94–98), ~55–65 °C annealing (depends on primer sequence; 50–65 commonly quoted) and 72 °C extension.
+    where: ["index.mdx#pcr-gel", "sims/models/d1-1-pcr.ts", "flashcards.yaml:c7", "mustKnow"]
+    confidence: high
+    basis: Standard PCR protocols; IB guide D1.1.4 (temperature changes)
+    status: checked
+  - id: f10
+    claim: Taq polymerase comes from Thermus aquaticus, a thermophilic hot-spring bacterium; it is heat-stable and its optimum is about 72–80 °C.
+    where: ["index.mdx#pcr-gel", "quiz.yaml:q4", "flashcards.yaml:c9", "mistakes"]
+    confidence: high
+    basis: Brock & Freeze 1969; Saiki et al. 1988
+    status: checked
+  - id: f11
+    claim: Ideal PCR doubles copies every cycle (2ⁿ); 2³⁰ ≈ 1.07 × 10⁹; exact-length products from one template number 2ⁿ − 2n and first appear in cycle 3.
+    where: ["index.mdx#pcr-gel", "sims/models/d1-1-pcr.ts", "flashcards.yaml:c10"]
+    confidence: high
+    basis: Standard PCR kinetics
+    status: checked
+  - id: f12
+    claim: PCR primers are short single-stranded DNA (synthetic); primers in cellular replication are RNA made by primase.
+    where: ["index.mdx#pcr-gel", "mistakes"]
+    confidence: high
+    basis: Alberts; standard PCR methods
+    status: checked
+  - id: f13
+    claim: In gel electrophoresis DNA moves to the positive electrode because phosphate groups are negatively charged; charge is proportional to length, so separation is by size through the gel mesh, smaller fragments farther.
+    where: ["index.mdx#pcr-gel", "quiz.yaml:q5", "flashcards.yaml:c11", "visuals.yaml:gel"]
+    confidence: high
+    basis: IB guide D1.1.4; standard molecular biology methods
+    status: checked
+  - id: f14
+    claim: Over the working range of an agarose gel, migration distance is roughly linear in log(fragment length); the gel sim model is qualitative.
+    where: ["sims/models/d1-1-gel.ts", "sims/d1-1-gel.astro"]
+    confidence: medium
+    basis: Sambrook & Russell, Molecular Cloning (semi-log relationship over a limited range)
+    status: checked
+  - id: f15
+    claim: DNA profiles use STR loci; the US CODIS core set is 20 loci (13 before 2017) and the UK uses DNA-17 (16 STRs plus a sex marker) — summarised as "about 13–20 markers".
+    where: ["index.mdx#applications"]
+    confidence: medium
+    basis: FBI CODIS core loci (2017 expansion); UK Forensic Science Regulator
+    status: open
+  - id: f16
+    claim: RT-PCR (reverse transcription then PCR) was used for COVID-19 diagnosis. The IB guide does not name this example; it is included as one of the "broad range of applications".
+    where: ["index.mdx#applications"]
+    confidence: high
+    basis: WHO/CDC SARS-CoV-2 testing guidance
+    status: open
+  - id: f17
+    claim: DNA polymerases add the 5′ phosphate of an incoming deoxynucleoside triphosphate to the 3′ –OH of the strand; two phosphates (pyrophosphate) are released.
+    where: ["index.mdx#directionality", "quiz.yaml:q7", "flashcards.yaml:c14", "visuals.yaml:replication/enzymes three-end"]
+    confidence: high
+    basis: IB guide D1.1.6; Alberts
+    status: checked
+  - id: f18
+    claim: Leading strand is continuous from one primer; lagging strand discontinuous as Okazaki fragments, each with its own primer. Okazaki fragments are ~1000–2000 nt in bacteria and ~100–200 nt in eukaryotes.
+    where: ["index.mdx#leading-lagging", "quiz.yaml:q8", "flashcards.yaml:c15", "visuals.yaml:replication/enzymes okazaki"]
+    confidence: high
+    basis: IB guide D1.1.7; Alberts (fragment lengths)
+    status: checked
+  - id: f19
+    claim: Roles in prokaryotes — primase makes RNA primers; Pol III is the main replicative polymerase (extends primers, proofreads with 3′→5′ exonuclease); Pol I removes RNA primers (5′→3′ exonuclease) and replaces them with DNA, leaving a nick; ligase seals nicks.
+    where: ["index.mdx#enzymes", "quiz.yaml:q9", "flashcards.yaml:c16", "visuals.yaml:replication/enzymes"]
+    confidence: high
+    basis: IB guide D1.1.8; Kornberg & Baker
+    status: checked
+  - id: f20
+    claim: Bacteria replicate a circular chromosome from a single origin with two forks moving in opposite directions.
+    where: ["index.mdx#leading-lagging"]
+    confidence: high
+    basis: Alberts (oriC, bidirectional replication)
+    status: checked
+  - id: f21
+    claim: Proofreading by Pol III removes a mismatched nucleotide from the 3′ end and replaces it; it improves fidelity about 100-fold, to roughly 1 error in 10⁷ nucleotides added.
+    where: ["index.mdx#proofreading", "quiz.yaml:q10", "flashcards.yaml:c17", "visuals.yaml:replication/enzymes proofreading"]
+    confidence: medium
+    basis: Alberts (error rates ~10⁻⁵ without, ~10⁻⁷ with proofreading; ~10⁻⁹ after mismatch repair)
+    status: open
+  - id: f22
+    claim: In the 3D AHL scene, the upper template (A) runs 5′→3′ towards the fork, so its new strand is lagging; the lower template runs 3′→5′ towards the fork, so its new strand is leading. Primers use U opposite A.
+    where: ["scenes d1-1-enzymes.ts", "diagrams d1-1-fork.astro", "visuals.yaml:replication/enzymes direction"]
+    confidence: high
+    basis: Geometry check against D1.1.6–D1.1.7
+    status: checked
+  - id: f23
+    claim: G opposite T is a mismatch corrected by proofreading (a wobble pair, not Watson–Crick).
+    where: ["visuals.yaml:replication/enzymes mismatch", "index.mdx#proofreading"]
+    confidence: high
+    basis: Standard structural biology
+    status: checked
+  - id: f24
+    claim: The random match probability in the gel sim (0.1 per marker) is illustrative only; real genotype frequencies vary by locus and population.
+    where: ["sims/d1-1-gel.astro", "sims/models/d1-1-gel.ts"]
+    confidence: high
+    basis: Stated on screen as illustrative
+    status: checked

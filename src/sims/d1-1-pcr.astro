@@ -1,0 +1,270 @@
+---
+import { range, sx, sy, type Frame } from './chart';
+import { MAX_CYCLES, STAGES, copies, formatCount } from './models/d1-1-pcr';
+
+const frame: Frame = {
+  w: 640, h: 330, left: 70, right: 18, top: 16, bottom: 50,
+  x: { min: 0, max: MAX_CYCLES, ticks: range(0, MAX_CYCLES, 5), label: 'Number of cycles' },
+  y: { min: 0, max: 14, ticks: range(0, 14, 2), label: 'Copies of target DNA (log scale)' },
+};
+const pathFor = (start: number, eff: number) =>
+  range(0, MAX_CYCLES, 1).map((n, i) => `${i ? 'L' : 'M'}${sx(frame, n).toFixed(1)} ${sy(frame, Math.log10(copies(n, start, eff))).toFixed(1)}`).join('');
+const SUPS = ['⁰', '¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹', '¹⁰', '¹¹', '¹²', '¹³', '¹⁴'];
+const table = range(0, MAX_CYCLES, 5).map((n) => ({ n, c: formatCount(copies(n, 1, 1)) }));
+---
+<div class="sim-pcr" data-sim-pcr data-frame={JSON.stringify(frame)}>
+  <div class="layout">
+    <div class="stage-panel">
+      <svg class="schematic" viewBox="0 0 420 230" role="img" aria-labelledby="pcr-st pcr-sd" data-schematic>
+        <title id="pcr-st">What is happening to one DNA molecule in this stage</title>
+        <desc id="pcr-sd" data-desc>A double-stranded DNA molecule before the first cycle, with the target sequence between the two primer sites.</desc>
+        <text class="stage-name" x="12" y="24" data-stage-name>Ready: DNA, primers, nucleotides, Taq</text>
+        <!-- thermometer -->
+        <g class="thermo">
+          <rect class="tube" x="372" y="44" width="22" height="150" rx="11" />
+          <rect class="fill" data-thermo x="377" y="150" width="12" height="40" rx="6" />
+          <circle class="bulb" cx="383" cy="200" r="15" />
+          <text class="temp" x="383" y="225" text-anchor="middle" data-temp>25 °C</text>
+        </g>
+        <!-- target region shading -->
+        <rect class="target" x="96" y="48" width="200" height="150" rx="6" />
+        <text class="note" x="196" y="214" text-anchor="middle">target sequence (between the primer sites)</text>
+        <!-- top strand: 5′ left → 3′ right; bottom strand 3′ left → 5′ right -->
+        <g data-top transform="translate(0 0)">
+          <line class="strand old" x1="40" y1="100" x2="350" y2="100" />
+          <text class="end" x="28" y="105" text-anchor="middle">5′</text>
+          <text class="end" x="362" y="105" text-anchor="middle">3′</text>
+        </g>
+        <g data-bot transform="translate(0 0)">
+          <line class="strand old" x1="40" y1="130" x2="350" y2="130" />
+          <text class="end" x="28" y="135" text-anchor="middle">3′</text>
+          <text class="end" x="362" y="135" text-anchor="middle">5′</text>
+        </g>
+        <g class="rungs" data-rungs>{range(52, 340, 12).map((x) => <line x1={x} y1="102" x2={x} y2="128" />)}</g>
+        <!-- primers: forward pairs with the bottom strand at its 3′ end (left); reverse with the top strand at its 3′ end (right) -->
+        <g data-primers style="opacity:0">
+          <line class="primer" x1="70" y1="147" x2="110" y2="147" />
+          <line class="primer" x1="282" y1="83" x2="322" y2="83" />
+          <text class="lbl" x="58" y="184">primer</text>
+          <text class="lbl" x="290" y="54">primer</text>
+        </g>
+        <!-- new strands, built 5′→3′ from each primer -->
+        <g data-new style="opacity:0">
+          <line class="strand new" x1="110" y1="147" x2="350" y2="147" data-new-bot />
+          <line class="strand new" x1="282" y1="83" x2="40" y2="83" data-new-top />
+          <g data-taq>
+            <ellipse class="taq" cx="350" cy="147" rx="18" ry="11" data-taq-bot />
+            <ellipse class="taq" cx="40" cy="83" rx="18" ry="11" data-taq-top />
+          </g>
+          <text class="lbl" x="200" y="184">new strand (5′→3′) →</text>
+          <text class="lbl" x="96" y="54">← new strand (5′→3′)</text>
+        </g>
+      </svg>
+      <dl class="counter">
+        <div><dt>Cycles completed</dt><dd data-c="cycles">0</dd></div>
+        <div><dt>Stage</dt><dd data-c="stage">—</dd></div>
+        <div><dt>Temperature</dt><dd data-c="temp">25 °C</dd></div>
+        <div class="big"><dt>Copies of the target</dt><dd data-c="copies">1</dd></div>
+      </dl>
+      <div class="btns" role="group" aria-label="Step through PCR">
+        <button type="button" class="btn btn-primary" data-act="stage">Next stage</button>
+        <button type="button" class="btn" data-act="cycle">Run one cycle</button>
+        <button type="button" class="btn" data-act="reset">Reset</button>
+      </div>
+    </div>
+    <div class="controls">
+      <label class="slider">Jump to cycles completed: <output data-out="cycles">0</output>
+        <input type="range" min="0" max={MAX_CYCLES} step="1" value="0" data-param="cycles" />
+      </label>
+      <label class="slider">Starting copies of the target: <output data-out="start">1</output>
+        <input type="range" min="0" max="3" step="1" value="0" data-param="start" />
+      </label>
+      <label class="slider">Efficiency (share of molecules copied per cycle): <output data-out="eff">100%</output>
+        <input type="range" min="50" max="100" step="5" value="100" data-param="eff" />
+      </label>
+      <ol class="cycle-list">
+        {STAGES.map((s) => <li><strong>{s.name}, about {s.tempC} °C.</strong> {s.what}</li>)}
+      </ol>
+    </div>
+  </div>
+
+  <svg class="chart" viewBox={`0 0 ${frame.w} ${frame.h}`} role="img" aria-labelledby="pcr-gt" data-chart>
+    <title id="pcr-gt">Copies of the target DNA against number of PCR cycles, on a logarithmic scale</title>
+    <g class="grid">
+      {frame.x.ticks.map((t) => <line x1={sx(frame, t)} x2={sx(frame, t)} y1={frame.top} y2={frame.h - frame.bottom} />)}
+      {frame.y.ticks.map((t) => <line x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, t)} y2={sy(frame, t)} />)}
+    </g>
+    <g class="ticks">
+      {frame.x.ticks.map((t) => <text x={sx(frame, t)} y={frame.h - frame.bottom + 18} text-anchor="middle">{t}</text>)}
+      {frame.y.ticks.map((t) => <text x={frame.left - 8} y={sy(frame, t)} dy="0.35em" text-anchor="end">10{SUPS[t]}</text>)}
+    </g>
+    <text class="axis" x={(frame.left + frame.w - frame.right) / 2} y={frame.h - 8} text-anchor="middle">{frame.x.label} →</text>
+    <text class="axis" transform={`translate(16 ${(frame.top + frame.h - frame.bottom) / 2}) rotate(-90)`} text-anchor="middle">{frame.y.label} →</text>
+    <path class="line ideal" d={pathFor(1, 1)} data-line="ideal" style="display:none" />
+    <path class="line actual" d={pathFor(1, 1)} data-line="actual" />
+    <circle class="dot" r="6" cx={sx(frame, 0)} cy={sy(frame, 0)} data-dot />
+  </svg>
+  <p class="legend-note"><span class="key actual"></span> this run <span class="key ideal"></span> perfect doubling (shown when efficiency is below 100%)</p>
+
+  <p class="readout" aria-live="polite" data-readout>Before the first cycle: 1 copy of the target sequence.</p>
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <thead><tr><th scope="col">Cycles</th><th scope="col">Copies</th></tr></thead>
+      <tbody data-tbody>{table.map((r) => <tr><th scope="row">{r.n}</th><td>{r.c}</td></tr>)}</tbody>
+    </table>
+  </details>
+  <p class="model-note">Simplified model. Each completed cycle copies a set share of the molecules (perfect PCR doubles them: start × 2ⁿ). Real reactions slow to a plateau after about 30 cycles as primers and nucleotides are used up. Temperatures are typical: the annealing temperature (about 50–65 °C) is chosen to suit the primers.</p>
+</div>
+
+<script>
+  import { range, sx, sy, type Frame } from './chart';
+  import { MAX_CYCLES, STAGES, completedCycles, copies, formatCount, nextStage, type StepPos } from './models/d1-1-pcr';
+  import { prefersReducedMotion } from '../lib/prefs';
+
+  document.querySelectorAll<HTMLElement>('[data-sim-pcr]').forEach((root) => {
+    const frame = JSON.parse(root.dataset.frame!) as Frame;
+    const q = <T extends Element>(sel: string) => root.querySelector<T>(sel)!;
+    const param = (k: string) => q<HTMLInputElement>(`[data-param="${k}"]`);
+    const out = (k: string, v: string) => (q(`[data-out="${k}"]`).textContent = v);
+    const c = (k: string, v: string) => (q(`[data-c="${k}"]`).textContent = v);
+    const readout = q<HTMLElement>('[data-readout]');
+    let pos: StepPos = { cycle: 0, stage: -1 };
+    let timer = 0;
+    let anim = 0;
+
+    const pathFor = (start: number, eff: number) =>
+      range(0, MAX_CYCLES, 1).map((n, i) => `${i ? 'L' : 'M'}${sx(frame, n).toFixed(1)} ${sy(frame, Math.log10(copies(n, start, eff))).toFixed(1)}`).join('');
+
+    /** Draw the schematic for a stage; u ∈ [0, 1] is progress through it (for a short transition). */
+    const drawStage = (stage: number, u: number) => {
+      const sep = stage < 0 ? 0 : stage === 0 ? u : 1;
+      q('[data-top]').setAttribute('transform', `translate(0 ${(-30 * sep).toFixed(1)})`);
+      q('[data-bot]').setAttribute('transform', `translate(0 ${(30 * sep).toFixed(1)})`);
+      (q('[data-rungs]') as SVGGElement).style.opacity = String(1 - sep);
+      (q('[data-primers]') as SVGGElement).style.opacity = String(stage >= 1 ? (stage === 1 ? u : 1) : 0);
+      (q('[data-new]') as SVGGElement).style.opacity = String(stage === 2 ? 1 : 0);
+      const g = stage === 2 ? u : 0;
+      const xb = 110 + (350 - 110) * g, xt = 282 - (282 - 40) * g;
+      q('[data-new-bot]').setAttribute('x2', xb.toFixed(1));
+      q('[data-new-top]').setAttribute('x2', xt.toFixed(1));
+      q('[data-taq-bot]').setAttribute('cx', xb.toFixed(1));
+      q('[data-taq-top]').setAttribute('cx', xt.toFixed(1));
+      const temp = stage < 0 ? 25 : STAGES[stage]!.tempC;
+      q('[data-thermo]').setAttribute('y', String(190 - (temp / 100) * 140));
+      q('[data-thermo]').setAttribute('height', String((temp / 100) * 140));
+      q('[data-temp]').textContent = `${temp} °C`;
+      const st = STAGES[stage];
+      q('[data-stage-name]').textContent = st ? `${st.name} (about ${st.tempC} °C)` : 'Ready: DNA, primers, nucleotides, Taq';
+      q('[data-desc]').textContent = st ? st.what : 'A double-stranded DNA molecule before the first cycle, with the target sequence between the two primer sites.';
+    };
+
+    const update = (animate = false) => {
+      const start = Math.pow(10, Number(param('start').value));
+      const eff = Number(param('eff').value) / 100;
+      const n = completedCycles(pos);
+      const count = copies(n, start, eff);
+      param('cycles').value = String(n);
+      out('cycles', String(n)); out('start', formatCount(start)); out('eff', `${Math.round(eff * 100)}%`);
+      c('cycles', String(n));
+      c('stage', pos.stage < 0 ? '—' : `${STAGES[pos.stage]!.name} (cycle ${pos.cycle})`);
+      c('temp', pos.stage < 0 ? '25 °C' : `${STAGES[pos.stage]!.tempC} °C`);
+      c('copies', formatCount(count));
+      q('[data-line="actual"]').setAttribute('d', pathFor(start, eff));
+      const ideal = q<SVGPathElement>('[data-line="ideal"]');
+      ideal.setAttribute('d', pathFor(start, 1));
+      ideal.style.display = eff < 1 ? '' : 'none';
+      const dot = q('[data-dot]');
+      dot.setAttribute('cx', sx(frame, n).toFixed(1));
+      dot.setAttribute('cy', sy(frame, Math.log10(count)).toFixed(1));
+      q('[data-tbody]').innerHTML = range(0, MAX_CYCLES, 5).map((k) => `<tr><th scope="row">${k}</th><td>${formatCount(copies(k, start, eff))}</td></tr>`).join('');
+
+      cancelAnimationFrame(anim);
+      if (animate && !prefersReducedMotion()) {
+        const t0 = performance.now();
+        const tick = (now: number) => {
+          const u = Math.min(1, (now - t0) / 700);
+          drawStage(pos.stage, u);
+          if (u < 1) anim = requestAnimationFrame(tick);
+        };
+        anim = requestAnimationFrame(tick);
+      } else drawStage(pos.stage, 1);
+
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        const st = STAGES[pos.stage];
+        readout.textContent = (st ? `Cycle ${pos.cycle}, ${st.name.toLowerCase()} at about ${st.tempC} °C. ${st.what} ` : 'Before the first cycle. ') +
+          `${n} cycle${n === 1 ? '' : 's'} completed: ${formatCount(count)} cop${count === 1 ? 'y' : 'ies'} of the target sequence` +
+          (eff < 1 ? ` (perfect doubling would give ${formatCount(copies(n, start, 1))}).` : ` (start × 2ⁿ with n = ${n}).`);
+      }, 350);
+    };
+
+    q('[data-act="stage"]').addEventListener('click', () => {
+      pos = completedCycles(pos) >= MAX_CYCLES && pos.stage === 2 ? { cycle: 0, stage: -1 } : nextStage(pos);
+      update(true);
+    });
+    q('[data-act="cycle"]').addEventListener('click', () => {
+      const n = Math.min(MAX_CYCLES, completedCycles(pos) + 1);
+      pos = { cycle: n, stage: 2 };
+      update(true);
+    });
+    q('[data-act="reset"]').addEventListener('click', () => { pos = { cycle: 0, stage: -1 }; update(); });
+    param('cycles').addEventListener('input', () => {
+      const n = Number(param('cycles').value);
+      pos = n === 0 ? { cycle: 0, stage: -1 } : { cycle: n, stage: 2 };
+      update();
+    });
+    param('start').addEventListener('input', () => update());
+    param('eff').addEventListener('input', () => update());
+  });
+</script>
+
+<style>
+  .sim-pcr { container-type: inline-size; display: grid; gap: var(--space-3); }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 46rem) { .layout { grid-template-columns: minmax(0, 1.3fr) minmax(15rem, 1fr); align-items: start; } }
+  .stage-panel { display: grid; gap: var(--space-2); }
+  .schematic { width: 100%; height: auto; font-family: var(--font-sans); background: var(--surface-2); border-radius: var(--radius-m); }
+  .stage-name { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .end { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .lbl { font-size: 13px; font-weight: 650; fill: var(--text); }
+  .note { font-size: 12px; fill: var(--text-muted); font-style: italic; }
+  .target { fill: color-mix(in srgb, var(--bio-carb) 12%, transparent); stroke: var(--bio-carb); stroke-dasharray: 4 4; }
+  .strand { stroke-width: 7; stroke-linecap: round; }
+  .strand.old { stroke: var(--text); }
+  .strand.new { stroke: var(--bio-k); stroke-dasharray: 14 4; }
+  .primer { stroke: var(--bio-glucose); stroke-width: 9; stroke-linecap: round; }
+  .rungs line { stroke: var(--text-muted); stroke-width: 2; stroke-dasharray: 3 2; }
+  .taq { fill: color-mix(in srgb, var(--bio-water) 55%, transparent); stroke: var(--bio-water); stroke-width: 2; }
+  .thermo .tube { fill: var(--surface); stroke: var(--border-strong); stroke-width: 2; }
+  .thermo .fill, .thermo .bulb { fill: var(--bio-k); }
+  .temp { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .counter { display: grid; grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); gap: var(--space-2); margin: 0; }
+  .counter div { background: var(--surface-2); border-radius: var(--radius-m); padding: var(--space-2) var(--space-3); }
+  .counter dt { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .counter dd { margin: 0; font-size: var(--step-0); font-weight: 800; color: var(--accent-strong); }
+  .counter .big dd { font-size: var(--step-1); }
+  .btns { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .controls { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .slider { display: grid; gap: var(--space-1); font-weight: 600; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .cycle-list { margin: 0; padding-left: 1.2rem; display: grid; gap: var(--space-1); }
+  .chart { width: 100%; height: auto; font-family: var(--font-sans); }
+  .grid line { stroke: var(--border); stroke-width: 1; }
+  .ticks text { font-size: 14px; fill: var(--text-muted); }
+  .axis { font-size: 15px; font-weight: 650; fill: var(--text); }
+  .line { fill: none; stroke-width: 3.5; stroke-linejoin: round; }
+  .line.actual { stroke: var(--bio-k); }
+  .line.ideal { stroke: var(--text-muted); stroke-dasharray: 8 6; stroke-width: 2.5; }
+  .dot { fill: var(--bio-k); stroke: var(--surface); stroke-width: 2; }
+  .legend-note { margin: 0; font-size: var(--step--1); display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .key { display: inline-block; width: 2rem; height: 0; border-top: 3.5px solid; }
+  .key.actual { border-color: var(--bio-k); }
+  .key.ideal { border-color: var(--text-muted); border-top-style: dashed; margin-left: var(--space-3); }
+  .readout { margin: 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .table { font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  table :global(th), table :global(td) { padding: 0.2rem 0.7rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: 0; }
+</style>
