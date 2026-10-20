@@ -138,7 +138,7 @@ visuals:
             steps: [trna-arrives, peptide-bond, translocation, elongation]
           - id: peptide-bond
             name: Peptide bond
-            text: A covalent bond between the carboxyl group of one amino acid and the amino group of the next, made by a condensation reaction. It is catalysed by rRNA in the large subunit.
+            text: A covalent bond between the carboxyl group of one amino acid and the amine group of the next, made by a condensation reaction. It is catalysed by rRNA in the large subunit.
             steps: [peptide-bond, translocation]
           - id: polypeptide
             name: Growing polypeptide
@@ -148,6 +148,10 @@ visuals:
             name: Stop codon (UAA)
             text: UAA, UAG and UGA are stop codons. No tRNA has an anticodon for them, so when one reaches the A site, translation stops and the polypeptide is released.
             steps: [elongation, termination]
+          - id: release-factor
+            name: Release factor
+            text: A protein (not a tRNA) that binds in the A site when a stop codon arrives there. It causes the bond between the polypeptide and the last tRNA to be broken, so the chain is released.
+            steps: [termination]
         steps:
           - id: mrna-binds
             title: mRNA binds to the small subunit

@@ -54,7 +54,7 @@ facts:
     basis: Auerbach & Robson (1940s) first chemical mutagen; toxicology texts
     status: checked
   - id: f10
-    claim: UVB and UVC are absorbed by DNA bases and form pyrimidine dimers (e.g. thymine dimers) between adjacent pyrimidines; UV in sunlight is the main cause of skin cancer.
+    claim: UVB (sunlight) and UVC (germicidal lamps; filtered out by atmospheric ozone) are absorbed by DNA bases and form pyrimidine dimers (e.g. thymine dimers) between adjacent pyrimidines; UV in sunlight is the main cause of skin cancer.
     where: [ "index.mdx#causes", "visuals.yaml:causes/radiation", "quiz.yaml:q4", "quiz.yaml:q6" ]
     confidence: high
     basis: Standard DNA damage biology (Alberts); WHO on UV and skin cancer

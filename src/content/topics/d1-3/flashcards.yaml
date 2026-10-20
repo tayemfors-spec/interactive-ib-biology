@@ -34,7 +34,7 @@ cards:
   - id: c9
     level: SL
     front: What is a mutagen? Give examples of each type.
-    back: An agent that increases the mutation rate. Chemical — benzo[a]pyrene and nitrosamines in tobacco smoke, mustard gas. Radiation — UV (UVB, UVC), X-rays, gamma rays, and alpha and beta particles from radioactive isotopes.
+    back: An agent that increases the mutation rate. Chemical — benzo[a]pyrene and nitrosamines in tobacco smoke, mustard gas. Radiation — UV (UVB in sunlight, UVC from lamps), X-rays, gamma rays, and alpha and beta particles from radioactive isotopes.
   - id: c10
     level: SL
     front: Apart from mutagens, what causes gene mutations?
@@ -50,7 +50,7 @@ cards:
   - id: c13
     level: SL
     front: Why is mutation essential for evolution even though most mutations are neutral or harmful?
-    back: Mutation is the original source of all genetic variation — it creates new alleles. Natural selection can only act on variation, so the rare beneficial mutations allow species to adapt over many generations.
+    back: Every new allele ultimately arises by mutation, so mutation supplies the raw variation. Natural selection can only act on variation, so the rare beneficial mutations allow species to adapt over many generations.
   - id: c14
     level: AHL
     front: How is gene knockout used to investigate gene function?

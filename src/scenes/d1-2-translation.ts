@@ -131,7 +131,7 @@ const scene: SceneModule = {
     const an = {
       mrna: A('mrna'), five: A('five-prime'), small: A('small-subunit'), large: A('large-subunit'), start: A('start-codon'),
       codon: A('codon'), anticodon: A('anticodon'), trna: A('trna'), a: A('a-site'), p: A('p-site'), e: A('e-site'),
-      bond: A('peptide-bond'), chain: A('polypeptide'), stop: A('stop-codon'),
+      bond: A('peptide-bond'), chain: A('polypeptide'), stop: A('stop-codon'), rf: A('release-factor'),
     };
     an.five.position.set(xOf(0) - 0.5, -0.3, 0.4);
     an.mrna.position.set(xOf(N - 2), 0.1, 0.5);
@@ -189,6 +189,8 @@ const scene: SceneModule = {
       // release factor in the A site at termination
       rf.visible = sn.rf > 0.001;
       rf.position.copy(v(xCodon(5), 0, 0).add(v(2.2, 5.5, 2.5).multiplyScalar(1 - sn.rf)).add(v(0, 0.3, 0).multiplyScalar(sn.separate)));
+      // label sits on the front face of the capsule, upper half (clear of the stop-codon label below)
+      an.rf.position.copy(rf.position).add(v(0.55, AC_Y + 2.4, 0.6));
 
       // amino acids: free ones sit on their tRNA; the chain is on tRNA chainOn (moving to chainOn+1)
       const chainPos = (attach: THREE.Vector3, d: number) => attach.clone().add(v(-0.42 * d, 0.62 * d, (d % 2 ? 0.25 : -0.05)));
@@ -249,6 +251,7 @@ const scene: SceneModule = {
         'peptide-bond': { object: an.bond, highlight: [pepBonds.mesh] },
         polypeptide: { object: an.chain, highlight: aaPools.map((p) => p.mesh) },
         'stop-codon': { object: an.stop, highlight: [] },
+        'release-factor': { object: an.rf, highlight: [rfBody] },
       },
       durations: [4, 6, 4, 4, 4, 12, 7],
       render,

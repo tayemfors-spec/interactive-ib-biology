@@ -40,7 +40,7 @@ visuals:
         caption: A mutagen is an agent that increases the mutation rate. Tobacco smoke contains chemical mutagens such as benzo[a]pyrene and nitrosamines. Benzo[a]pyrene (after it is processed in the body) bonds to guanine and changes its shape, so when the DNA is copied the wrong base can be paired with it, giving a substitution. Mustard gas is another chemical mutagen.
       - id: radiation
         title: Mutagenic radiation
-        caption: Ultraviolet radiation (UVB and UVC) is absorbed by DNA bases and can join two adjacent pyrimidines, such as two thymines, into a dimer that causes errors when the DNA is copied or repaired. Ionizing radiation — X-rays, gamma rays, and alpha and beta particles from radioactive isotopes — can break one or both DNA strands and damage bases; faulty repair can delete or insert bases.
+        caption: Ultraviolet radiation (UVB in sunlight; UVC from lamps, since the ozone layer blocks it outdoors) is absorbed by DNA bases and can join two adjacent pyrimidines, such as two thymines, into a dimer that causes errors when the DNA is copied or repaired. Ionizing radiation — X-rays, gamma rays, and alpha and beta particles from radioactive isotopes — can break one or both DNA strands and damage bases; faulty repair can delete or insert bases.
       - id: random
         title: Mutation is random
         caption: Mutations can occur at any base in the genome, in genes and between them, and different cells get different mutations. Some sites are more likely to mutate than others (hotspots), such as cytosines next to guanine. But no natural mechanism directs a mutation to a particular base in order to produce a useful trait.

@@ -120,6 +120,20 @@ describe('D1.3 classifying mutations', () => {
     expect(c.effect).toBe('in-frame');
     expect(polypeptide(translate(transcribe(m)))).toEqual(['Met', 'Val', 'His', 'Leu', 'Thr', 'Pro', 'Glu', 'Lys', 'Ser', 'Ala', 'Val']);
   });
+  it('an in-frame indel that spans two codons also reports the changed neighbouring amino acid', () => {
+    // deleting CTG (bases 16–18) joins the C of codon 5 (CCT, Pro) to AG of codon 6 (GAG, Glu): CAG, Gln
+    const del = remove(HBB_START, 16, 3);
+    expect(classify(HBB_START, del).effect).toBe('in-frame');
+    expect(describeChange(HBB_START, del)).toContain('proline and glutamic acid (codons 5–6) are replaced by glutamine');
+    // inserting GCC inside codon 6 (G|AG) gives GGC CAG: Glu is replaced by Gly and Gln
+    const ins = insert(HBB_START, 19, 'GCC');
+    expect(classify(HBB_START, ins).effect).toBe('in-frame');
+    expect(describeChange(HBB_START, ins)).toContain('glutamic acid (codon 6) is replaced by glycine and glutamine');
+    // a whole-codon deletion changes no neighbour
+    const clean = describeChange(HBB_START, remove(HBB_START, 18, 3));
+    expect(clean).not.toContain('codon boundary');
+    expect(clean).toContain('is lost');
+  });
   it('a frameshift can create a premature stop codon', () => {
     // inserting a T before codon 8 (AAG) puts TAA in frame: …GAG GAG TAA …
     const c = classify(HBB_START, insert(HBB_START, 24, 'T'));

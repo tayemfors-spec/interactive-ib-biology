@@ -240,10 +240,30 @@ function describeRaw(original: string, mutated: string, c: Classification): stri
       const n = Math.abs(c.lengthChange) / 3;
       const verb = c.lengthChange > 0 ? 'inserted' : 'deleted';
       const aa = `${n} amino acid${n > 1 ? 's' : ''} ${c.lengthChange > 0 ? 'more' : 'fewer'}`;
+      let detail = '';
+      if (!c.prematureStop && first !== undefined) {
+        // Align the two chains from the end as well as from the start (changedCodons gives the first
+        // difference); what lies between is the stretch of amino acids that was actually altered.
+        const pa = polypeptide(a);
+        const pb = polypeptide(b);
+        let tail = 0;
+        while (tail < Math.min(pa.length, pb.length) - first && pa[pa.length - 1 - tail] === pb[pb.length - 1 - tail]) tail++;
+        const lost = pa.slice(first, pa.length - tail);
+        const gained = pb.slice(first, pb.length - tail);
+        const names = (xs: string[]) => xs.map(aaName).join(xs.length > 2 ? ', ' : ' and ');
+        const span = (i: number, n: number) => (n > 1 ? `codons ${codonLabel(i)}–${codonLabel(i + n - 1)}` : at(i));
+        if (lost.length > 0 && gained.length > 0) {
+          detail = ` The ${verb} bases fall across a codon boundary, so the neighbouring amino acid changes too: ${names(lost)} (${span(first, lost.length)}) ${lost.length > 1 ? 'are' : 'is'} replaced by ${names(gained)}.`;
+        } else if (gained.length > 0) {
+          detail = ` The new codon${gained.length > 1 ? 's add' : ' adds'} ${names(gained)} at ${span(first, gained.length)}.`;
+        } else if (lost.length > 0) {
+          detail = ` ${names(lost).charAt(0).toUpperCase() + names(lost).slice(1)} (${span(first, lost.length)}) ${lost.length > 1 ? 'are' : 'is'} lost.`;
+        }
+      }
       const stop = c.prematureStop
         ? ' The change has also created a stop codon, so translation ends early.'
         : ' The reading frame is kept, so the codons further on are read normally.';
-      return `${Math.abs(c.lengthChange)} bases ${verb} (a multiple of 3), so the polypeptide has ${aa}.${stop}`;
+      return `${Math.abs(c.lengthChange)} bases ${verb} (a multiple of 3), so the polypeptide has ${aa}.${detail}${stop}`;
     }
     case 'frameshift': {
       const stop = c.prematureStop
