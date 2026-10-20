@@ -14,7 +14,7 @@ const markPath = (kind: (typeof marks)[number], x: number, y: number) =>
   kind === 'circle' ? `M${x - 4} ${y} a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0` : kind === 'square' ? `M${x - 4} ${y - 4} h8 v8 h-8 z` : `M${x} ${y - 5} L${x + 5} ${y + 4} L${x - 5} ${y + 4} z`;
 const pts = marks.map((m, r) => times.map((t) => markPath(m, sx(frame, t), sy(frame, reading(r, t, d.enzyme)))).join(' '));
 const g0 = gradient(d.at, d.enzyme);
-const t10 = timeTo(10, d.enzyme);
+const t10 = Math.round(timeTo(10, d.enzyme) * 10) / 10; // shown to 0.1 s; 1/time uses this shown value
 ---
 <div class="sim-meas" data-sim-meas data-frame={JSON.stringify(frame)}>
   <p class="setup">Catalase breaks down hydrogen peroxide: 2 H₂O₂ → 2 H₂O + O₂. The oxygen is collected in a gas syringe and its volume is read every 10 s. Each enzyme concentration is tested three times.</p>
@@ -56,7 +56,7 @@ const t10 = timeTo(10, d.enzyme);
       <dl class="results">
         <div><dt>Gradient of tangent</dt><dd data-r="grad">{g0.toFixed(2)} cm³ s⁻¹</dd></div>
         <div><dt>Initial rate (tangent at 0 s)</dt><dd data-r="init">{gradient(0, d.enzyme).toFixed(2)} cm³ s⁻¹</dd></div>
-        <div><dt>Time to collect 10 cm³</dt><dd data-r="t10">{t10.toFixed(0)} s</dd></div>
+        <div><dt>Time to collect 10 cm³</dt><dd data-r="t10">{t10.toFixed(1)} s</dd></div>
         <div><dt>Rate as 1 / time</dt><dd data-r="inv">{(1000 / t10).toFixed(1)} × 10⁻³ s⁻¹</dd></div>
       </dl>
       <p class="visually-hidden" aria-live="polite" data-live></p>
@@ -111,10 +111,10 @@ const t10 = timeTo(10, d.enzyme);
       lab.setAttribute('x', (x2 + 6).toFixed(1));
       lab.setAttribute('y', ((y1 + y2) / 2).toFixed(1));
       lab.textContent = `${(g * run).toFixed(1)} cm³ ÷ ${run} s`;
-      const t10 = timeTo(10, e);
+      const t10 = Math.round(timeTo(10, e) * 10) / 10; // the displayed time, so 1/time can be checked
       q('[data-r="grad"]').textContent = `${g.toFixed(2)} cm³ s⁻¹`;
       q('[data-r="init"]').textContent = `${gradient(0, e).toFixed(2)} cm³ s⁻¹`;
-      q('[data-r="t10"]').textContent = `${t10.toFixed(0)} s`;
+      q('[data-r="t10"]').textContent = `${t10.toFixed(1)} s`;
       q('[data-r="inv"]').textContent = `${(1000 / t10).toFixed(1)} × 10⁻³ s⁻¹`;
       q('[data-tbody]').innerHTML = times.map((t) => {
         const r = [0, 1, 2].map((k) => reading(k, t, e));
@@ -122,7 +122,7 @@ const t10 = timeTo(10, d.enzyme);
       }).join('');
       clearTimeout(timer);
       timer = window.setTimeout(() => {
-        q('[data-live]').textContent = (`Tangent at ${at} seconds has a gradient of ${g.toFixed(2)} cubic centimetres per second; initial rate ${gradient(0, e).toFixed(2)}; 10 cubic centimetres collected after ${t10.toFixed(0)} seconds.`);
+        q('[data-live]').textContent = (`Tangent at ${at} seconds has a gradient of ${g.toFixed(2)} cubic centimetres per second; initial rate ${gradient(0, e).toFixed(2)}; 10 cubic centimetres collected after ${t10.toFixed(1)} seconds.`);
       }, 300);
     };
     root.querySelectorAll('[data-param]').forEach((el) => el.addEventListener('input', update));

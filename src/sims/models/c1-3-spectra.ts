@@ -75,3 +75,28 @@ export function peakWavelength(fn: (nm: number) => number, from: number, to: num
 
 /** Rate of photosynthesis from a measured volume of oxygen (or CO₂ taken up) over a time. */
 export const rateFrom = (volume: number, minutes: number) => volume / minutes;
+
+/** Highest absorption (0–100) of any of the three pigments at this wavelength. */
+export const maxAbsorption = (nm: number) => Math.max(absorption('chlA', nm), absorption('chlB', nm), absorption('car', nm));
+
+/**
+ * True where the action spectrum sits clearly above every pigment's absorption curve (mainly green and
+ * yellow light). Two reasons: in a leaf, light is scattered and reflected between many chloroplasts, so its
+ * path is long and even weakly absorbed light is mostly absorbed in the end; and accessory pigments plus the
+ * weak shoulders of the chlorophyll bands absorb a little green light and pass the energy to chlorophyll a.
+ */
+export const actionAboveAbsorption = (nm: number) => action(nm) > maxAbsorption(nm) + 10;
+
+/** The explanation sentence for the readout at this wavelength. */
+export function explainSpectra(nm: number): string {
+  const a = absorption('chlA', nm), b = absorption('chlB', nm), c = absorption('car', nm), r = action(nm);
+  const most = Math.max(a, b, c);
+  let msg = `At ${nm} nm (${colourName(nm)} light): `;
+  if (most < 12) msg += `the chlorophylls${c < 12 ? ' and carotenoids' : ''} absorb very little in solution, and much of this light is reflected, which is why leaves look green.`;
+  else if (c > a && c > b) msg += 'carotenoids absorb strongly here and pass the energy on to chlorophyll, extending the range of wavelengths used.';
+  else msg += `${a >= b ? 'chlorophyll a' : 'chlorophyll b'} absorbs strongly; photons of this wavelength have the right energy to excite its electrons.`;
+  msg += ` Relative rate of photosynthesis: about ${r.toFixed(0)}% of the maximum.`;
+  if (actionAboveAbsorption(nm))
+    msg += ' The rate is well above zero, and above the absorption curves, because in a leaf this light is scattered back and forth through many chloroplasts, so its long path means much of it is absorbed in the end; accessory pigments and the weak edges of the chlorophyll bands also absorb a little of it.';
+  return msg;
+}

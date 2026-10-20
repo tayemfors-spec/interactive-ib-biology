@@ -60,7 +60,7 @@ visuals:
             caption: A water molecule is used to split off the terminal phosphate. ATP becomes ADP (adenosine diphosphate) and inorganic phosphate (Pi), and energy is released — enough for many tasks such as active transport, synthesis and movement, with little wasted.
           - id: phosphorylation
             title: Making ATP needs energy
-            caption: Energy released by cell respiration is used to join Pi back onto ADP. This condensation (phosphorylation) reaction re-forms ATP and releases a molecule of water. ATP and ADP are converted back and forth continuously.
+            caption: Energy released by cell respiration is used to join Pi back onto ADP. This condensation reaction phosphorylates ADP, re-forming ATP, and releases a molecule of water. ATP and ADP are converted back and forth continuously.
       - id: mitochondrion
         module: c1-2-mitochondrion
         title: Stages in a mitochondrion

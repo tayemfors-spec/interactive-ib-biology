@@ -204,8 +204,9 @@ const scene: SceneModule = {
     }
 
     // fixed places
-    const lumenPts = Array.from({ length: 18 }, () => v(-8.6 + rand() * 17.2, -2.4 - rand() * 1.8, -1.6 + rand() * 3.6));
-    const stromaPts = Array.from({ length: 6 }, () => v(-8.4 + rand() * 12.5, 2.6 + rand() * 1.9, -1.6 + rand() * 2.4));
+    const lumenPts = Array.from({ length: 30 }, () => v(-8.6 + rand() * 17.2, -2.4 - rand() * 1.8, -1.6 + rand() * 3.6));
+    // only a few free H⁺ are drawn in the stroma: once pumping starts the lumen always holds far more
+    const stromaPts = Array.from({ length: 6 }, () => v(-8.4 + rand() * 12.5, 2.6 + rand() * 1.9, -1.6 + rand() * 2.4)).slice(0, 4);
     const E_EXIT = [v(-5.15, -0.5, 1.8), v(-4.7, -0.5, 1.8), v(-5.15, -0.95, 1.8), v(-4.7, -0.95, 1.8)];
     const PS1_WAIT = [v(0.55, -0.6, 1.95), v(1.35, -0.6, 1.95), v(0.55, -1.0, 1.85), v(1.35, -1.0, 1.85)];
     const FD_WAIT = [v(1.75, 2.45, 1.75), v(2.55, 2.45, 1.75), v(1.85, 2.85, 1.55), v(2.5, 2.85, 1.55)];
@@ -245,16 +246,16 @@ const scene: SceneModule = {
       [
         ...statics('h', lum(0, 9)), ...statics('h', stromaPts),
         ...[0, 1, 2, 3].map((i): P => ({ k: 'e', p: ETC(E_EXIT[i]!, PS1_WAIT[i]!), t0: 0.04 + i * 0.07, t1: 0.7 + i * 0.07 })),
-        ...lum(9, 13).map((p, i): P => ({ k: 'h', p: [v(-4.9 + i * 0.35, 3.6 + (i % 2) * 0.5, 1.6), v(-4.4 + i * 0.15, 1.2, 1.6), v(-3.0, 0, 1.75), v(-3.0, -1.5, 1.8), p], t0: 0.12 + i * 0.08, t1: 0.65 + i * 0.08 })),
+        ...lum(9, 17).map((p, i): P => ({ k: 'h', p: [v(-5.2 + i * 0.3, 3.6 + (i % 2) * 0.5, 1.6), v(-4.4 + i * 0.1, 1.2, 1.6), v(-3.0, 0, 1.75), v(-3.0, -1.5, 1.8), p], t0: 0.12 + i * 0.06, t1: 0.6 + i * 0.05 })),
       ],
       // 3 · light absorbed by PSI: electrons re-excited at P700 and passed to ferredoxin
       [
-        ...statics('h', lum(0, 13)), ...statics('h', stromaPts),
+        ...statics('h', lum(0, 17)), ...statics('h', stromaPts),
         ...[0, 1, 2, 3].flatMap((c) => harvest(0.04 + c * 0.23, arr1, P700, [0, 9, 4, 13][c]!, PS1_WAIT[c]!, [P700, v(1.7, 1.5, 1.9), FD_WAIT[c]!]).map((p) => (p.k === 'e' ? { ...p, on: [0, 1] as [number, number] } : p))),
       ],
       // 4 · NADP reductase: NADP + 2e⁻ + H⁺ → reduced NADP, in the stroma
       [
-        ...statics('h', lum(0, 13)), ...statics('h', stromaPts),
+        ...statics('h', lum(0, 17)), ...statics('h', stromaPts),
         ...[0, 1, 2, 3].map((i): P => ({ k: 'e', p: [FD_WAIT[i]!, v(3.2, 2.4, 1.8), v(FNR_SITE.x + 0.15 * (i - 1.5), FNR_SITE.y, FNR_SITE.z + 0.3)], t0: 0.15 + i * 0.05, t1: 0.5, on: [0, 0.56] })),
         { k: 'nadp', p: [v(5.6, 4.6, 1.4), v(FNR_SITE.x - 0.35, FNR_SITE.y + 0.25, FNR_SITE.z + 0.2)], t0: 0, t1: 0.42, on: [0, 0.56] },
         { k: 'nadp', p: [v(3.0, 4.7, 1.9), v(FNR_SITE.x + 0.35, FNR_SITE.y + 0.55, FNR_SITE.z + 0.2)], t0: 0.05, t1: 0.45, on: [0, 0.56] },
@@ -265,8 +266,10 @@ const scene: SceneModule = {
       ],
       // 5 · chemiosmosis: H⁺ diffuse from the lumen back to the stroma through ATP synthase, which makes ATP
       [
-        ...statics('h', lum(0, 7)), ...statics('h', stromaPts),
-        ...lum(7, 13).map((p, i): P => ({ k: 'h', p: [p, v(X.atp - 0.45, -1.7, ZP + 1.0), v(X.atp - 0.75, -0.5, ZP + 0.75), v(X.atp - 0.75, 0.6, ZP + 0.75), v(X.atp - 1.0, 1.8, ZP + 1.1), v(5.4 + (i % 3) * 0.5, 2.6 + (i % 2) * 0.9, 1.6)], t0: 0.04 + i * 0.1, t1: 0.42 + i * 0.1 })),
+        // H⁺ that reach the stroma fade into it (the stroma is large and H⁺ there is used or buffered),
+        // so the end state still shows far more H⁺ in the lumen than in the stroma
+        ...statics('h', lum(0, 11)), ...statics('h', stromaPts),
+        ...lum(11, 17).map((p, i): P => ({ k: 'h', p: [p, v(X.atp - 0.45, -1.7, ZP + 1.0), v(X.atp - 0.75, -0.5, ZP + 0.75), v(X.atp - 0.75, 0.6, ZP + 0.75), v(X.atp - 1.0, 1.8, ZP + 1.1), v(5.4 + (i % 3) * 0.5, 2.6 + (i % 2) * 0.9, 1.6)], t0: 0.04 + i * 0.1, t1: 0.42 + i * 0.1, on: [0, 0.48 + i * 0.1] })),
         { k: 'adp', p: [v(8.3, 4.4, 1.2), ATP_HEAD], t0: 0, t1: 0.35, on: [0, 0.5] },
         { k: 'pi', p: [v(8.3, 4.9, 1.6), v(ATP_HEAD.x + 0.25, ATP_HEAD.y + 0.2, ATP_HEAD.z)], t0: 0.03, t1: 0.36, on: [0, 0.5] },
         { k: 'adp', p: [v(5.9, 4.6, 1.3), v(ATP_HEAD.x - 0.3, ATP_HEAD.y, ATP_HEAD.z + 0.1)], t0: 0.3, t1: 0.62, on: [0, 0.78] },
@@ -276,17 +279,20 @@ const scene: SceneModule = {
       ],
       // 6 · cyclic: electrons from PSI return via ferredoxin to the cytochrome complex; ATP made, no NADP reduced, no O₂
       [
-        ...statics('h', lum(0, 7)), ...statics('h', stromaPts),
+        ...statics('h', lum(0, 11)), ...statics('h', stromaPts),
         ...[0, 1].map((i): P => ({ k: 'e', p: [FD_WAIT[i]!, v(0.2, 2.6, 2.0), v(-2.4, 1.6, 1.9), v(-3.0, 0, 1.9), v(-3.0, -0.9, 1.9), v(-2.1, -1.75, 1.55), v(-0.55, -1.55, 1.6), v(P700.x + 0.2 * (i - 0.5), P700.y - 0.25, P700.z + 0.15)], t0: 0.02 + i * 0.06, t1: 0.5 + i * 0.06, on: [0, 0.6] })),
         ...harvest(0.58, arr1, P700, 4, P700, [v(1.7, 1.5, 1.9), FD_WAIT[0]!]).map((p) => (p.k === 'e' ? { ...p, t1: 0.9 } : p)),
         { k: 'e', p: [P700, v(1.7, 1.5, 1.9), FD_WAIT[1]!], t0: 0.75, t1: 0.95, on: [0.74, 1] },
-        ...lum(7, 9).map((p, i): P => ({ k: 'h', p: [v(-4.6 + i * 0.5, 3.6, 1.6), v(-4.2, 1.2, 1.6), v(-3.0, 0, 1.75), v(-3.0, -1.5, 1.8), p], t0: 0.1 + i * 0.1, t1: 0.55 + i * 0.1 })),
-        ...lum(3, 6).map((p, i): P => ({ k: 'h', p: [p, v(X.atp - 0.45, -1.7, ZP + 1.0), v(X.atp - 0.75, -0.5, ZP + 0.75), v(X.atp - 0.75, 0.6, ZP + 0.75), v(X.atp - 1.0, 1.8, ZP + 1.1), v(5.6 + i * 0.5, 2.8 + (i % 2) * 0.8, 1.6)], t0: 0.3 + i * 0.12, t1: 0.65 + i * 0.12 })),
+        ...lum(11, 15).map((p, i): P => ({ k: 'h', p: [v(-4.9 + i * 0.4, 3.6 + (i % 2) * 0.4, 1.6), v(-4.2, 1.2, 1.6), v(-3.0, 0, 1.75), v(-3.0, -1.5, 1.8), p], t0: 0.1 + i * 0.08, t1: 0.5 + i * 0.08 })),
+        ...lum(3, 6).map((p, i): P => ({ k: 'h', p: [p, v(X.atp - 0.45, -1.7, ZP + 1.0), v(X.atp - 0.75, -0.5, ZP + 0.75), v(X.atp - 0.75, 0.6, ZP + 0.75), v(X.atp - 1.0, 1.8, ZP + 1.1), v(5.6 + i * 0.5, 2.8 + (i % 2) * 0.8, 1.6)], t0: 0.3 + i * 0.12, t1: 0.65 + i * 0.12, on: [0, 0.71 + i * 0.12] })),
         { k: 'adp', p: [v(8.3, 4.4, 1.2), ATP_HEAD], t0: 0.2, t1: 0.5, on: [0, 0.66] },
         { k: 'pi', p: [v(8.3, 4.9, 1.6), v(ATP_HEAD.x + 0.25, ATP_HEAD.y + 0.2, ATP_HEAD.z)], t0: 0.22, t1: 0.52, on: [0, 0.66] },
         { k: 'atp', p: [ATP_HEAD, v(8.2, 4.1, 1.6)], t0: 0.68, t1: 0.95, on: [0.66, 1] },
       ],
     ];
+    // a background H⁺ excess in the lumen, left from light-driven pumping that runs continuously, is drawn in
+    // every step, so the lumen always holds clearly more H⁺ than the stroma (also after H⁺ flow out)
+    for (const st of steps) st.unshift(...statics('h', lum(17, 25)));
     // in the cyclic step the lumen H⁺ that leave through ATP synthase must not also be drawn as statics
     steps[6] = steps[6]!.filter((p, _i, all) => !(p.k === 'h' && p.jig && all.some((q) => q !== p && !q.jig && q.p[0] === p.p[0])));
 

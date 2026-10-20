@@ -86,7 +86,8 @@ visuals:
       pH curve is bell-shaped around each enzyme's optimum (about pH 2 for pepsin, pH 7 for salivary amylase,
       pH 8 for trypsin). The substrate curve rises steeply and then levels off when all active sites are
       occupied. Heating the enzyme above its optimum and then cooling it shows that heat denaturation is
-      irreversible. A particle view shows substrate molecules moving at random and reacting when they
+      irreversible. In the same way, taking the pH far from the optimum and then back again shows that
+      denaturation by extreme pH is not undone, while small pH shifts are reversed. A particle view shows substrate molecules moving at random and reacting when they
       collide with a free active site.
 
   - id: measuring

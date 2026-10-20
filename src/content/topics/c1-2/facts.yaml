@@ -139,7 +139,7 @@ facts:
     status: checked
   - id: f24
     claim: Total ATP from aerobic respiration is about 30–32 per glucose; the figure is approximate (depends on shuttle used and H⁺/ATP ratio). Oxidative phosphorylation gives about 26–28.
-    where: ["index.mdx#chemiosmosis", "anims/c1-2-stages ledger", "visuals.yaml:stages", "index.mdx#aerobic-anaerobic (about 30 or more)"]
+    where: ["index.mdx#chemiosmosis", "anims/c1-2-stages ledger", "visuals.yaml:stages", "index.mdx#aerobic-anaerobic (about 30–32)"]
     confidence: high
     basis: Berg (≈30); Alberts (≈30); study guide 30–32; older texts give 36–38
     status: checked

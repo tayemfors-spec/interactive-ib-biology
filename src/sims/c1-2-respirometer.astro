@@ -56,8 +56,9 @@ const fmt = (v: number, dp = 1) => v.toFixed(dp);
         <line class="start" x1={dropX(START_READING)} x2={dropX(START_READING)} y1={cap.y - 16} y2={cap.y + 6} />
         <text class="small" x={dropX(START_READING)} y={cap.y - 20} text-anchor="middle">start</text>
         <rect class="drop" data-drop x={dropX(readingAt(defaults, minutes)) - 7} y={cap.y - 4} width="14" height="8" rx="3" />
-        <text class="small" x="420" y="150">◀ drop moves towards the tube</text>
-        <text class="small" x="420" y="168">as O₂ is used</text>
+        <text class="small" x="420" y="146">◀ drop moves</text>
+        <text class="small" x="420" y="164">towards the tube</text>
+        <text class="small" x="420" y="182">as O₂ is used</text>
         <text class="reading" data-reading-label x="300" y="244">Reading after {minutes} min: {fmt(readingAt(defaults, minutes))} mm</text>
       </svg>
       <svg class="chart" viewBox={`0 0 ${frame.w} ${frame.h}`} role="img" aria-labelledby="rc-t">

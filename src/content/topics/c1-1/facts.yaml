@@ -138,7 +138,7 @@ facts:
     basis: Standard microbiology (e.g. altered PBP2x in Streptococcus pneumoniae; PBP2a in MRSA)
     status: open
   - id: f24
-    claim: Sim models are qualitative — temperature (Q10 = 2 × sigmoid denaturation, Tm 44 °C giving an optimum ≈ 40 °C; thermophile Tm 78 °C giving ≈ 74 °C), Gaussian pH curves, Michaelis–Menten saturation, standard competitive/non-competitive equations, and exponential approach to a fixed O₂ volume.
+    claim: Sim models are qualitative — temperature (Q10 = 2 × sigmoid denaturation, Tm 44 °C giving an optimum ≈ 40 °C; thermophile Tm 78 °C giving ≈ 74 °C), Gaussian pH binding curves (reversible) multiplied by an irreversible pH-denaturation sigmoid that depends on the most extreme pH reached, Michaelis–Menten saturation, standard competitive/non-competitive equations, and exponential approach to a fixed O₂ volume.
     where: ["sims/models/c1-1-rate.ts", "sims/models/c1-1-inhibition.ts", "sims/models/c1-1-measuring.ts", "tests/unit/c1-1.test.ts"]
     confidence: high
     basis: Model design; labelled "qualitative model" on screen

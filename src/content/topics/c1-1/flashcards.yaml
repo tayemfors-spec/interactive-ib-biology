@@ -6,7 +6,7 @@ cards:
   - id: c2
     level: SL
     front: What is metabolism, and why does it need so many different enzymes?
-    back: The complex network of interdependent chemical reactions in an organism. Each enzyme is specific to one reaction (or a few similar ones), so almost every reaction needs its own enzyme.
+    back: All the chemical reactions in an organism, linked so that products of one reaction are reactants of others. Each enzyme is specific to one reaction (or a few similar ones), so almost every reaction needs its own enzyme.
   - id: c3
     level: SL
     front: Give two examples each of anabolism and catabolism.

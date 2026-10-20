@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   CURRENT_CO2, FACE_CO2, T_OPT, bubblesPerMinute, intensityAt, lampDistance, limitingFactor, rate, tempFactor,
 } from '../../src/sims/models/c1-3-limiting';
-import { absorption, action, colourName, peakWavelength, rateFrom } from '../../src/sims/models/c1-3-spectra';
+import { absorption, action, actionAboveAbsorption, colourName, explainSpectra, maxAbsorption, peakWavelength, rateFrom } from '../../src/sims/models/c1-3-spectra';
 import { identify, pigments, rf, round2, spotDistance } from '../../src/sims/models/c1-3-chromatography';
 
 describe('C1.3 limiting factors model', () => {
@@ -76,6 +76,19 @@ describe('C1.3 absorption and action spectra', () => {
     expect(action(670)).toBeGreaterThan(50);
     expect(Math.max(action(440), action(670))).toBeGreaterThan(2 * action(550));
   });
+  it('in green-yellow light the action spectrum is above the absorption curves, and the readout says why', () => {
+    for (const nm of [530, 550, 570, 590]) {
+      expect(action(nm)).toBeGreaterThan(maxAbsorption(nm));
+      expect(actionAboveAbsorption(nm)).toBe(true);
+      const msg = explainSpectra(nm);
+      expect(msg).toMatch(/path/);
+      expect(msg).toMatch(/accessory pigments/);
+    }
+    // at the blue and red peaks absorption is high and no extra explanation is given
+    expect(actionAboveAbsorption(430)).toBe(false);
+    expect(actionAboveAbsorption(662)).toBe(false);
+  });
+
   it('names colours from wavelength', () => {
     expect(colourName(430)).toBe('violet');
     expect(colourName(470)).toBe('blue');
