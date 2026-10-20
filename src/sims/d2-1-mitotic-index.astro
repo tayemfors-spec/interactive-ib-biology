@@ -1,0 +1,211 @@
+---
+import { TISSUES, TOTAL, field } from './models/d2-1-mitotic-index';
+import { drawCell } from './models/d2-1-phase-id';
+import { VIEWBOX, cellMarkup } from './d2-1-cell-draw';
+
+const first = TISSUES[0]!;
+const cells = field(first.id, 1);
+const cellSvg = (phase: Parameters<typeof drawCell>[0], seed: number, round: boolean) => {
+  const d = drawCell(phase, seed);
+  if (round) d.plate = null;
+  return `<svg viewBox="${VIEWBOX}" aria-hidden="true" focusable="false">${cellMarkup(d, { round })}</svg>`;
+};
+---
+<div class="mi" data-mi>
+  <div class="tissues" role="radiogroup" aria-label="Choose a tissue sample">
+    {TISSUES.map((t, i) => (
+      <button type="button" class="btn small" role="radio" aria-checked={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-tissue={t.id}>{t.name}</button>
+    ))}
+  </div>
+
+  <p class="status" aria-live="polite" data-status>Select every cell you think is in mitosis (prophase, metaphase, anaphase or telophase). The field contains {TOTAL} cells.</p>
+
+  <div class="field" role="group" aria-label="Field of view: select the cells that are in mitosis" data-field>
+    {cells.map((c, i) => (
+      <button type="button" class="cellbtn" aria-pressed="false" tabindex={i === 0 ? 0 : -1} data-cell={c.i} aria-label={`Cell ${c.i + 1}`}>
+        <Fragment set:html={cellSvg(c.phase, c.seed, first.round)} />
+      </button>
+    ))}
+  </div>
+
+  <div class="bar">
+    <p class="count" data-count>Marked as in mitosis: 0 of {TOTAL} cells</p>
+    <div class="actions">
+      <button type="button" class="btn btn-primary" data-act="calc">Calculate mitotic index</button>
+      <button type="button" class="btn" data-act="auto">Count for me</button>
+      <button type="button" class="btn" data-act="clear">Clear marks</button>
+      <button type="button" class="btn" data-act="new">New field</button>
+    </div>
+  </div>
+  <p class="result" aria-live="polite" data-result>Mitotic index = number of cells in mitosis ÷ total number of cells.</p>
+
+  <table class="data">
+    <caption>Your results (correct counts)</caption>
+    <thead><tr><th scope="col">Tissue</th><th scope="col">Cells in mitosis</th><th scope="col">Total cells</th><th scope="col">Mitotic index</th></tr></thead>
+    <tbody data-rows><tr class="empty"><td colspan="4">Calculate a mitotic index to add a row.</td></tr></tbody>
+  </table>
+  <p class="model-note">Drawn, not real micrographs; the proportions of dividing cells are invented to show the typical pattern. Keyboard: arrow keys move between cells, Enter or Space selects.</p>
+</div>
+
+<script>
+  import { TISSUES, check, field, fmt, inMitosis, tissueById, type FieldCell, type TissueId } from './models/d2-1-mitotic-index';
+  import { drawCell } from './models/d2-1-phase-id';
+  import { VIEWBOX, cellMarkup } from './d2-1-cell-draw';
+
+  document.querySelectorAll<HTMLElement>('[data-mi]').forEach((root) => {
+    const $ = <T extends Element = HTMLElement>(s: string) => root.querySelector<T>(s)!;
+    const fieldEl = $('[data-field]'), status = $('[data-status]'), count = $('[data-count]'), result = $('[data-result]'), rows = $('[data-rows]');
+    let tissue: TissueId = 'meristem';
+    let seed = 1;
+    let cells: FieldCell[] = field(tissue, seed);
+    let marked = new Set<number>();
+    const results = new Map<TissueId, { m: number; n: number }>();
+    const btns = () => [...fieldEl.querySelectorAll<HTMLButtonElement>('[data-cell]')];
+
+    const draw = () => {
+      const round = tissueById(tissue).round;
+      fieldEl.innerHTML = cells.map((c, i) => {
+        const d = drawCell(c.phase, c.seed);
+        if (round) d.plate = null;
+        return `<button type="button" class="cellbtn" aria-pressed="false" tabindex="${i === 0 ? 0 : -1}" data-cell="${c.i}" aria-label="Cell ${c.i + 1}"><svg viewBox="${VIEWBOX}" aria-hidden="true" focusable="false">${cellMarkup(d, { round })}</svg></button>`;
+      }).join('');
+      fieldEl.classList.toggle('round', round);
+    };
+    const updateCount = () => (count.textContent = `Marked as in mitosis: ${marked.size} of ${cells.length} cells`);
+    const clearMarks = () => btns().forEach((b) => delete b.dataset.state);
+
+    const load = (id: TissueId, s: number) => {
+      tissue = id; seed = s;
+      cells = field(tissue, seed);
+      marked = new Set();
+      draw();
+      updateCount();
+      result.textContent = 'Mitotic index = number of cells in mitosis ÷ total number of cells.';
+    };
+
+    const toggle = (b: HTMLButtonElement) => {
+      const i = Number(b.dataset.cell);
+      if (marked.has(i)) marked.delete(i); else marked.add(i);
+      b.setAttribute('aria-pressed', String(marked.has(i)));
+      delete b.dataset.state;
+      updateCount();
+    };
+
+    const calc = () => {
+      const r = check(cells, marked);
+      clearMarks();
+      for (const i of r.missed) btns()[i]!.dataset.state = 'missed';
+      for (const i of r.wrong) btns()[i]!.dataset.state = 'wrong';
+      const name = tissueById(tissue).name.toLowerCase();
+      const ok = r.missed.length === 0 && r.wrong.length === 0;
+      result.textContent = `Your count: ${r.marked} ÷ ${cells.length} = ${fmt(r.yourIndex)}. ` +
+        (ok ? `Correct — the mitotic index of this ${name} field is ${fmt(r.trueIndex)}.`
+          : `The real count is ${r.trueCount}, so the mitotic index is ${r.trueCount} ÷ ${cells.length} = ${fmt(r.trueIndex)}.` +
+            (r.missed.length ? ` You missed ${r.missed.length} dividing cell${r.missed.length > 1 ? 's' : ''} (dashed outline).` : '') +
+            (r.wrong.length ? ` ${r.wrong.length} marked cell${r.wrong.length > 1 ? 's are' : ' is'} in interphase (✗).` : ''));
+      results.set(tissue, { m: r.trueCount, n: cells.length });
+      renderRows();
+    };
+
+    const renderRows = () => {
+      rows.innerHTML = TISSUES.filter((t) => results.has(t.id)).map((t) => {
+        const { m, n } = results.get(t.id)!;
+        return `<tr><th scope="row">${t.name}</th><td>${m}</td><td>${n}</td><td>${(m / n).toFixed(2)}</td></tr>`;
+      }).join('') || '<tr class="empty"><td colspan="4">Calculate a mitotic index to add a row.</td></tr>';
+    };
+
+    const chooseTissue = (b: HTMLButtonElement) => {
+      root.querySelectorAll<HTMLButtonElement>('[data-tissue]').forEach((x) => {
+        const on = x === b;
+        x.setAttribute('aria-checked', String(on));
+        x.tabIndex = on ? 0 : -1;
+      });
+      load(b.dataset.tissue as TissueId, 1);
+      status.textContent = `${tissueById(tissue).name}: ${cells.length} cells. Select every cell that is in mitosis.`;
+    };
+
+    root.addEventListener('click', (e) => {
+      const t = e.target as HTMLElement;
+      const c = t.closest<HTMLButtonElement>('[data-cell]');
+      if (c) { toggle(c); return; }
+      const tb = t.closest<HTMLButtonElement>('[data-tissue]');
+      if (tb) { chooseTissue(tb); return; }
+      const act = t.closest<HTMLButtonElement>('[data-act]')?.dataset.act;
+      if (act === 'calc') calc();
+      else if (act === 'auto') {
+        marked = new Set(cells.filter((x) => inMitosis(x.phase)).map((x) => x.i));
+        btns().forEach((b) => b.setAttribute('aria-pressed', String(marked.has(Number(b.dataset.cell)))));
+        updateCount();
+        calc();
+      } else if (act === 'clear') {
+        marked = new Set();
+        btns().forEach((b) => b.setAttribute('aria-pressed', 'false'));
+        clearMarks();
+        updateCount();
+        result.textContent = 'Marks cleared.';
+      } else if (act === 'new') {
+        load(tissue, seed + 1);
+        status.textContent = `A new ${tissueById(tissue).name.toLowerCase()} field of ${cells.length} cells.`;
+      }
+    });
+
+    root.addEventListener('keydown', (e) => {
+      const t = e.target as HTMLElement;
+      if (t.matches('[data-tissue]')) {
+        const group = [...root.querySelectorAll<HTMLButtonElement>('[data-tissue]')];
+        const d = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+        if (!d) return;
+        e.preventDefault();
+        const next = group[(group.indexOf(t as HTMLButtonElement) + d + group.length) % group.length]!;
+        next.focus();
+        chooseTissue(next);
+        return;
+      }
+      if (!t.matches('[data-cell]')) return;
+      const all = btns();
+      const cols = getComputedStyle(fieldEl).gridTemplateColumns.split(' ').filter(Boolean).length || 10;
+      const i = all.indexOf(t as HTMLButtonElement);
+      const moves: Record<string, number> = { ArrowRight: 1, ArrowLeft: -1, ArrowDown: cols, ArrowUp: -cols };
+      let j = i;
+      if (e.key in moves) j = Math.min(all.length - 1, Math.max(0, i + moves[e.key]!));
+      else if (e.key === 'Home') j = 0;
+      else if (e.key === 'End') j = all.length - 1;
+      else return;
+      e.preventDefault();
+      all.forEach((b, k) => (b.tabIndex = k === j ? 0 : -1));
+      all[j]!.focus();
+    });
+  });
+</script>
+
+<style>
+  .mi { container-type: inline-size; }
+  .tissues, .actions { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .tissues { margin-bottom: var(--space-2); }
+  .tissues .btn[aria-checked='true'] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-strong); }
+  .btn.small { min-height: 2rem; padding: 0.3rem 0.7rem; }
+  .status, .result { margin: 0 0 var(--space-3); padding: var(--space-2) var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .result { margin-top: var(--space-2); min-height: 3em; }
+  .field { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 3px; padding: 6px; border-radius: var(--radius-l); background: color-mix(in srgb, var(--bio-protein-2) 6%, var(--surface)); border: 1px solid var(--border-strong); }
+  @container (max-width: 28rem) { .field { grid-template-columns: repeat(7, minmax(0, 1fr)); } }
+  .mi :global(.cellbtn) { display: block; padding: 1px; min-width: 24px; min-height: 24px; border: 2px solid transparent; border-radius: 6px; background: transparent; cursor: pointer; }
+  .mi :global(.cellbtn svg) { display: block; width: 100%; height: auto; }
+  .mi :global(.cellbtn:hover) { background: var(--surface-3); }
+  .mi :global(.cellbtn[aria-pressed='true']) { border-color: var(--focus); background: color-mix(in srgb, var(--focus) 16%, transparent); }
+  .mi :global(.cellbtn[data-state='missed']) { border-color: var(--warn); border-style: dashed; }
+  .mi :global(.cellbtn[data-state='wrong']) { border-color: var(--bad); background: var(--bad-soft); }
+  .bar { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); align-items: center; justify-content: space-between; margin-top: var(--space-3); }
+  .count { margin: 0; font-weight: 700; font-size: var(--step--1); }
+  .data { width: 100%; border-collapse: collapse; font-size: var(--step--1); margin-top: var(--space-2); }
+  .data caption { text-align: left; font-weight: 700; color: var(--text-muted); padding-bottom: var(--space-1); }
+  .data th, .data td { border-bottom: 1px solid var(--border); padding: 0.3rem 0.4rem; text-align: left; }
+  .data :global(.empty td) { color: var(--text-muted); }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+  .mi :global(.pc-wall) { fill: color-mix(in srgb, var(--bio-protein-2) 10%, var(--surface)); stroke: color-mix(in srgb, var(--bio-protein-2) 55%, var(--text-muted)); stroke-width: 6; }
+  .mi :global(.pc-nuc) { fill: color-mix(in srgb, var(--bio-protein-2) 30%, var(--surface)); stroke: color-mix(in srgb, var(--bio-protein-2) 70%, var(--text)); stroke-width: 4; }
+  .mi :global(.pc-nuc.faint) { fill: color-mix(in srgb, var(--bio-protein-2) 12%, var(--surface)); stroke-dasharray: 10 10; stroke-width: 3; }
+  .mi :global(.pc-grain) { fill: color-mix(in srgb, var(--bio-protein-2) 75%, var(--text)); opacity: 0.6; }
+  .mi :global(.pc-nucleolus) { fill: color-mix(in srgb, var(--bio-protein-2) 60%, var(--text)); }
+  .mi :global(.pc-chrom polyline) { fill: none; stroke: color-mix(in srgb, var(--bio-protein-2) 65%, var(--text)); stroke-width: 7px; stroke-linecap: round; stroke-linejoin: round; }
+  .mi :global(.pc-plate) { stroke: color-mix(in srgb, var(--bio-protein-2) 55%, var(--text-muted)); stroke-width: 5; }
+</style>

@@ -1,0 +1,272 @@
+# Visuals for D2.1. Label/step text here is what readers see in the 3D viewer and the text descriptions.
+# Label ids must match anchors in the scene modules (src/scenes/d2-1-*.ts).
+# Both models use an animal cell with 2n = 4: a long and a short homologous pair, one homologue of each
+# pair maternal (red) and one paternal (blue).
+visuals:
+  - id: division
+    kind: viewer3d
+    title: Mitosis and meiosis in 3D
+    alt: A model animal cell with four chromosomes stepping through mitosis, and a second model stepping through the two divisions of meiosis.
+    description: >-
+      Two step-through models of an animal cell whose nucleus has four chromosomes (2n = 4): a long pair and a
+      short pair of homologous chromosomes, with the maternal homologue of each pair coloured red and the paternal one
+      blue. The mitosis model shows interphase (DNA replication, so each chromosome becomes two sister chromatids joined
+      at a centromere), prophase (chromosomes condense, the nuclear membrane breaks down and a spindle forms between two
+      centrosomes), metaphase (the four chromosomes line up on the equator, with microtubules from opposite poles attached
+      to the two sister chromatids of each chromosome), anaphase (the sister chromatids separate and four move to each
+      pole), telophase (nuclear membranes re-form around the two identical sets of four chromosomes) and cytokinesis
+      (a ring of actin and myosin pinches the cell in two). The meiosis model shows homologous chromosomes pairing into
+      two bivalents, crossing over at chiasmata, random orientation of the bivalents on the equator, separation of
+      homologues in anaphase I to give two haploid cells whose chromosomes still have two chromatids, and separation of
+      sister chromatids in meiosis II to give four haploid cells with two chromosomes each, all genetically different.
+    scenes:
+      - id: mitosis
+        module: d2-1-mitosis
+        title: Mitosis
+        labels:
+          - id: membrane
+            name: Plasma membrane
+            text: The boundary of the cell. In cytokinesis it is pulled inwards at the equator until the cell is split into two daughter cells.
+          - id: nucleus
+            name: Nuclear membrane
+            steps: [interphase, prophase]
+            text: The double membrane (nuclear envelope) around the chromosomes. It breaks down at the end of prophase so that spindle microtubules can reach the chromosomes.
+          - id: chromatin
+            name: Chromatin (uncondensed chromosomes)
+            steps: [interphase]
+            text: In interphase each chromosome is a long, thin, uncoiled DNA molecule wrapped around histones, so it can be transcribed and replicated. After S phase it is two identical sister chromatids joined at the centromere.
+          - id: centrosome
+            name: Centrosome
+            steps: [interphase, prophase, metaphase]
+            text: The microtubule-organizing centre of an animal cell. It is duplicated in interphase, and in prophase the two centrosomes move to opposite poles, where they organize the spindle.
+          - id: sister-chromatids
+            name: Sister chromatids
+            steps: [prophase, metaphase]
+            text: The two identical DNA molecules made by replication in S phase. They stay held together until anaphase. Condensation by supercoiling has made them short and thick enough to move without tangling.
+          - id: centromere
+            name: Centromere
+            steps: [prophase, metaphase]
+            text: The region where sister chromatids are held together. Spindle microtubules attach here, to protein structures called kinetochores, one on each chromatid.
+          - id: spindle
+            name: Spindle microtubules
+            steps: [prophase, metaphase, anaphase]
+            text: Protein fibres that grow from the centrosomes. Some attach to the centromeres; in anaphase motor proteins and shortening of these microtubules pull the chromatids to the poles.
+          - id: equator
+            name: Equator (metaphase plate)
+            steps: [metaphase]
+            text: The plane midway between the two poles. In metaphase every chromosome lines up here on its own, with its two sister chromatids attached to microtubules from opposite poles.
+          - id: homologues
+            name: Homologous chromosomes
+            steps: [metaphase]
+            text: The red and blue chromosomes of the same length are homologues (one maternal, one paternal). In mitosis they do not pair up; each one lines up on the equator independently.
+          - id: daughter-chromosomes
+            name: Separated chromatids (now chromosomes)
+            steps: [anaphase]
+            text: Once the centromeres divide, each chromatid is a chromosome in its own right. One of each pair of sisters goes to each pole, so the two poles receive identical sets of four.
+          - id: new-nuclei
+            name: Daughter nucleus
+            steps: [telophase, cytokinesis]
+            text: A nuclear membrane re-forms around each set of four chromosomes, which decondense. Each nucleus has exactly the same chromosomes as the parent nucleus.
+          - id: furrow
+            name: Cleavage furrow and contractile ring
+            steps: [telophase, cytokinesis]
+            text: A ring of actin filaments and myosin just inside the plasma membrane contracts, pulling the membrane inwards to form a furrow that deepens until the cell divides.
+        steps:
+          - id: interphase
+            title: Interphase (S phase)
+            caption: Interphase is not part of mitosis but must come before it. The chromosomes are uncondensed, inside an intact nucleus. In S phase each DNA molecule is replicated, so each of the 4 chromosomes becomes two sister chromatids joined at a centromere (4 chromosomes, 8 chromatids). The centrosome is also duplicated.
+          - id: prophase
+            title: Prophase
+            caption: The chromosomes condense by supercoiling (with histones) and become visible as 4 X-shaped chromosomes, each of two sister chromatids. The two centrosomes move to opposite poles and spindle microtubules grow between them. At the end of prophase the nuclear membrane breaks down.
+          - id: metaphase
+            title: Metaphase
+            caption: Spindle microtubules attach to the centromere of every chromosome — one sister chromatid to each pole. The 4 chromosomes are moved until they line up individually on the equator. Homologous chromosomes do not pair.
+          - id: anaphase
+            title: Anaphase
+            caption: The centromeres divide and the sister chromatids separate. Each is now a chromosome, giving 8 in the cell. Microtubules shorten and motor proteins pull them, centromere first, to opposite poles, so each pole receives one copy of every chromosome — 4, the same set as the parent.
+          - id: telophase
+            title: Telophase
+            caption: The 4 chromosomes at each pole decondense and a nuclear membrane re-forms around each set, giving two genetically identical nuclei (each 2n = 4). The spindle breaks down and the cleavage furrow begins to form.
+          - id: cytokinesis
+            title: Cytokinesis
+            caption: The contractile ring of actin and myosin tightens, pinching the plasma membrane inwards until the cytoplasm is divided. Result — two daughter cells, each with a nucleus containing the same 4 chromosomes as the parent cell.
+      - id: meiosis
+        module: d2-1-meiosis
+        title: Meiosis
+        labels:
+          - id: membrane
+            name: Plasma membrane
+            text: The cell divides twice in meiosis. Cytokinesis after meiosis I gives two cells; cytokinesis after meiosis II gives four.
+          - id: nucleus
+            name: Nuclear membrane
+            steps: [pairing, crossing-over, telophase-2]
+            text: Present while the homologues pair. It breaks down before metaphase I and re-forms around each of the four haploid nuclei at the end of meiosis II.
+          - id: bivalent
+            name: Bivalent (homologous pair)
+            steps: [pairing, crossing-over, metaphase-1]
+            text: Two homologous chromosomes paired along their length — one maternal, one paternal, carrying the same genes in the same order. A bivalent has 2 chromosomes and 4 chromatids.
+          - id: sister-chromatids
+            name: Sister chromatids
+            steps: [pairing]
+            text: DNA was replicated in the interphase before meiosis, so each chromosome is already two identical sister chromatids joined at a centromere.
+          - id: chiasma
+            name: Chiasma (crossover point)
+            steps: [crossing-over, metaphase-1]
+            text: Where two non-sister chromatids have broken and rejoined, exchanging corresponding sections of DNA. The chiasma holds the homologues together until anaphase I.
+          - id: equator
+            name: Equator
+            steps: [metaphase-1, metaphase-2]
+            text: In metaphase I bivalents line up here, one homologue on each side. In metaphase II single chromosomes line up, as in mitosis.
+          - id: spindle
+            name: Spindle microtubules
+            steps: [metaphase-1, anaphase-1, metaphase-2, anaphase-2]
+            text: In meiosis I both chromatids of a chromosome attach to microtubules from the same pole, so whole homologues are pulled apart. In meiosis II the sister chromatids attach to opposite poles.
+          - id: homologues-separate
+            name: Homologues separate
+            steps: [anaphase-1]
+            text: The two chromosomes of each bivalent move to opposite poles. The centromeres do not divide, so each chromosome still has two chromatids. This first round of segregation halves the chromosome number.
+          - id: haploid
+            name: Haploid cell (n = 2)
+            steps: [telophase-1]
+            text: Each cell now has one chromosome of each type, one long and one short, so it is haploid. Each chromosome still consists of two chromatids, which may differ because of crossing over.
+          - id: recombinant
+            name: Recombinant chromatid
+            steps: [telophase-1, telophase-2]
+            text: A chromatid with sections from both the maternal and the paternal homologue, produced by crossing over. It carries a new combination of alleles.
+          - id: chromatids-separate
+            name: Sister chromatids separate
+            steps: [anaphase-2]
+            text: The second round of segregation. Centromeres divide and the chromatids move to opposite poles. The chromosome number stays at n = 2 per cell.
+          - id: gametes
+            name: Four haploid cells
+            steps: [telophase-2]
+            text: Meiosis has produced four haploid nuclei (n = 2) from one diploid nucleus (2n = 4). Each has a different combination of chromosomes and chromosome segments.
+        steps:
+          - id: pairing
+            title: Prophase I — homologues pair
+            caption: DNA was replicated before meiosis, so the cell has 4 chromosomes, each of two sister chromatids. The chromosomes condense and homologous chromosomes pair up side by side, forming 2 bivalents (4 chromosomes, 8 chromatids).
+          - id: crossing-over
+            title: Prophase I — crossing over
+            caption: Non-sister chromatids in each bivalent break at the same point and swap corresponding sections (crossing over), forming a chiasma. Two chromatids of each bivalent are now recombinant. The nuclear membrane breaks down and the spindle forms.
+          - id: metaphase-1
+            title: Metaphase I — random orientation
+            caption: Bivalents line up on the equator. Which homologue faces which pole is random and independent for each bivalent. Here the long pair has its maternal homologue facing left but the short pair has its paternal homologue facing left.
+          - id: anaphase-1
+            title: Anaphase I — homologues separate
+            caption: The homologous chromosomes of each bivalent are pulled to opposite poles. Sister chromatids stay joined at their centromeres, so 2 chromosomes, each of two chromatids, go to each pole.
+          - id: telophase-1
+            title: Telophase I and cytokinesis
+            caption: The cell divides into two haploid cells (n = 2). Each has one long and one short chromosome, and each chromosome still has two chromatids. The chromosome number has been halved, so meiosis is a reduction division. DNA does not replicate again.
+          - id: metaphase-2
+            title: Metaphase II
+            caption: After a short prophase II, a new spindle forms in each cell at right angles to the first. The 2 chromosomes in each cell line up on its equator, with the sister chromatids attached to opposite poles.
+          - id: anaphase-2
+            title: Anaphase II — chromatids separate
+            caption: The centromeres divide and sister chromatids are pulled to opposite poles. Because of crossing over, the two chromatids of each chromosome are not identical.
+          - id: telophase-2
+            title: Telophase II and cytokinesis
+            caption: Nuclear membranes re-form and both cells divide. Result — four haploid cells, each with 2 chromosomes (one long, one short), and every one genetically different because of random orientation and crossing over.
+
+  - id: nondisjunction
+    kind: anim
+    module: d2-1-nondisjunction
+    title: Non-disjunction and trisomy 21
+    alt: Chromosome 21 fails to separate in meiosis I of egg formation, giving an egg with two copies that is fertilized to make a zygote with three.
+    description: >-
+      A step-through diagram that follows only chromosome 21 during egg formation. In the primary oocyte the mother's
+      two copies of chromosome 21, each of two chromatids, pair as a bivalent. In anaphase I they fail to separate
+      (non-disjunction) and both move to the same pole, so one cell receives two copies and the other none. Meiosis II
+      then separates the sister chromatids, giving cells with 24 chromosomes (n + 1) or 22 (n − 1). If an egg with two
+      copies of chromosome 21 is fertilized by a normal sperm (23 chromosomes), the zygote has 47 chromosomes, including
+      three copies of chromosome 21: trisomy 21, the cause of Down syndrome. The last step is a bar chart of the
+      approximate proportion of births with Down syndrome by mother's age, which rises steeply after about 35.
+    steps:
+      - id: oocyte
+        title: Homologues pair in the oocyte
+        caption: In a primary oocyte (in the ovary) the two homologous copies of chromosome 21 — each already replicated into two chromatids — pair up as a bivalent in prophase I.
+      - id: fail
+        title: Non-disjunction in anaphase I
+        caption: Normally the two homologues are pulled to opposite poles. Here they fail to separate (non-disjunction) and both move to the same pole.
+      - id: meiosis-1
+        title: End of meiosis I
+        caption: One cell has both copies of chromosome 21 (24 chromosomes in all) and the other has none (22). In oogenesis the cytoplasm is divided unequally, but both cells are abnormal.
+      - id: meiosis-2
+        title: Meiosis II
+        caption: Sister chromatids separate normally in meiosis II. Two products have two copies of chromosome 21 (n + 1 = 24) and two have none (n − 1 = 22). In a woman only one of the four becomes the egg; the rest are polar bodies. (Non-disjunction can also happen in meiosis II, when sister chromatids fail to separate.)
+      - id: fertilization
+        title: Fertilization gives trisomy 21
+        caption: An egg with 24 chromosomes is fertilized by a normal sperm with 23. The zygote has 47 chromosomes, with three copies of chromosome 21 (trisomy 21). Every cell of the person that develops has this extra chromosome, causing Down syndrome.
+      - id: age
+        title: Link with maternal age
+        caption: "The chance of a baby having Down syndrome rises with the mother's age: roughly 1 in 1450 births at 20 but about 1 in 85 at 40. Oocytes are formed before birth and stay paused in prophase I for decades, which may make errors in chromosome separation more likely. Approximate values; correlation alone does not prove the cause."
+
+  - id: phase-id
+    kind: sim
+    module: d2-1-phase-id
+    title: Identify the stage of mitosis
+    alt: A quiz showing drawn, micrograph-style onion root-tip cells; choose interphase, prophase, metaphase, anaphase or telophase for each.
+    description: >-
+      A practice quiz with ten drawn cells from a stained onion root tip, each in interphase or one of the four phases of
+      mitosis. For each cell, choose the stage from five buttons. Feedback explains the features to look for: an intact
+      nucleus with grainy chromatin and a nucleolus in interphase; long, thin chromosomes inside a breaking-down nucleus
+      in prophase; a single band of condensed chromosomes across the equator in metaphase; two groups of V-shaped
+      chromosomes moving apart in anaphase; and two compact groups at opposite ends with a forming cell plate in
+      telophase. Each drawing also has a text description of what is visible.
+
+  - id: cell-cycle
+    kind: anim
+    module: d2-1-cell-cycle
+    level: AHL
+    title: The cell cycle and its control by cyclins
+    alt: A cell cycle wheel (G1, S, G2, mitosis, cytokinesis, with G0) beside a graph of two cyclins rising past a threshold at checkpoints.
+    description: >-
+      A wheel shows the cell cycle as a loop: interphase (G1, S and G2) followed by mitosis and cytokinesis, with
+      G0 as an exit from G1 for cells that stop dividing. Checkpoints are marked at the end of G1, the end of G2 and in
+      metaphase. Beside it, a qualitative graph shows the concentration of two cyclins through one cycle, with CDK at a
+      constant level and a dashed threshold line. A G1/S cyclin peaks as the cell passes the G1 checkpoint; a mitotic
+      cyclin builds up through S and G2, passes the threshold at the G2 checkpoint and is destroyed after metaphase. A
+      marker moves around the wheel as the steps play. The last step shows what happens when mutations in proto-oncogenes
+      or tumour suppressor genes remove this control.
+    steps:
+      - id: g1
+        title: G1 — growth
+        caption: After division the daughter cell grows. It makes proteins, including enzymes, and new organelles; mitochondria (and chloroplasts in plants) grow and divide. The level of a G1/S cyclin rises.
+        level: AHL
+      - id: g1-checkpoint
+        title: G1 checkpoint
+        caption: When the G1/S cyclin reaches a threshold concentration it binds to and activates a cyclin-dependent kinase (CDK). The active complex phosphorylates target proteins, so the cell passes the checkpoint and enters S phase. The cyclin is then broken down.
+        level: AHL
+      - id: s-phase
+        title: S phase — DNA replication
+        caption: All the DNA in the nucleus is replicated, so each chromosome becomes two sister chromatids. Histones are made to package the new DNA. The mitotic cyclin starts to build up.
+        level: AHL
+      - id: g2
+        title: G2 and the G2 checkpoint
+        caption: The cell continues to grow and makes the proteins needed for division, such as tubulin for microtubules. When the mitotic cyclin passes its threshold, the active cyclin–CDK complex triggers the start of mitosis.
+        level: AHL
+      - id: mitosis
+        title: Mitosis and cytokinesis
+        caption: The nucleus divides by mitosis and then the cytoplasm divides. At the metaphase checkpoint the cell waits until every chromosome is attached to the spindle; then the mitotic cyclin is destroyed, allowing anaphase and the end of division. Two cells enter G1.
+        level: AHL
+      - id: g0
+        title: G0 — leaving the cycle
+        caption: Many cells leave the cycle after G1 and enter G0, a non-dividing state in which they carry out their specialized functions. Most neurons and muscle fibres stay in G0; some cells, such as liver cells, can re-enter the cycle when needed.
+        level: AHL
+      - id: mutations
+        title: When control is lost
+        caption: Mutations can turn a proto-oncogene, which stimulates division, into an oncogene that is permanently active, or inactivate a tumour suppressor gene, which normally stops the cycle at checkpoints. Several such mutations in one cell allow it to divide repeatedly without control, forming a tumour.
+        level: AHL
+
+  - id: mitotic-index
+    kind: sim
+    module: d2-1-mitotic-index
+    level: AHL
+    title: Measuring the mitotic index
+    alt: A field of view of 70 drawn cells; select those in mitosis to calculate the mitotic index and compare tissues.
+    description: >-
+      A virtual field of view of 70 drawn cells from one of four samples: a root tip meristem, the zone of elongation
+      behind it, a normal epithelium and a tumour biopsy. Select every cell that is in prophase, metaphase, anaphase or
+      telophase, then calculate the mitotic index (cells in mitosis divided by the total number of cells). The sim checks
+      your count, marks cells you missed or wrongly selected, and adds the correct value to a results table so the tissues
+      can be compared. The meristem and the tumour have much higher mitotic indices than the zone of elongation and the
+      normal tissue. The proportions are invented practice values.

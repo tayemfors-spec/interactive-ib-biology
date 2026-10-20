@@ -1,0 +1,169 @@
+facts:
+  - id: f1
+    claim: Animal cytokinesis uses a contractile ring of actin filaments and myosin that forms a cleavage furrow; plant cytokinesis uses Golgi-derived vesicles, guided by microtubules (phragmoplast), that fuse into a cell plate forming new plasma membranes and cell wall.
+    where: ["index.mdx#cytokinesis", "quiz.yaml:q1", "flashcards.yaml:c1", "visuals.yaml:division", "d2-1-cytokinesis.astro"]
+    confidence: high
+    basis: Alberts, Molecular Biology of the Cell (cytokinesis chapter); IB guide D2.1.2
+    status: checked
+  - id: f2
+    claim: Both meiotic divisions in human oogenesis are unequal, producing a large oocyte/ovum and small polar bodies; meiosis II is completed only after fertilization.
+    where: ["index.mdx#cytokinesis", "flashcards.yaml:c2", "d2-1-unequal.astro", "visuals.yaml:nondisjunction"]
+    confidence: high
+    basis: Standard human reproductive biology (Campbell Biology); IB guide D2.1.3
+    status: checked
+  - id: f3
+    claim: Budding yeast (Saccharomyces cerevisiae) divides by unequal cytokinesis; the bud receives a nucleus after mitosis and mitochondria.
+    where: ["index.mdx#cytokinesis", "quiz.yaml:q2", "d2-1-unequal.astro"]
+    confidence: high
+    basis: Alberts; IB guide D2.1.3
+    status: checked
+  - id: f4
+    claim: Mitochondria and chloroplasts arise only by growth and division of existing organelles, so each daughter cell needs at least one.
+    where: ["index.mdx#cytokinesis", "index.mdx#cell-cycle", "quiz.yaml:q2", "flashcards.yaml:c3"]
+    confidence: high
+    basis: Endosymbiotic organelles divide by fission (Alberts); IB guide D2.1.3, D2.1.14
+    status: checked
+  - id: f5
+    claim: Mature mammalian red blood cells are anucleate.
+    where: ["index.mdx#mitosis-meiosis"]
+    confidence: high
+    basis: Standard histology
+    status: checked
+  - id: f6
+    claim: After S phase each chromosome consists of two sister chromatids held together (cohesion, especially at the centromere) until anaphase.
+    where: ["index.mdx#mitosis-meiosis", "quiz.yaml:q3", "flashcards.yaml:c5", "visuals.yaml:division"]
+    confidence: high
+    basis: Alberts; IB guide D2.1.5
+    status: checked
+  - id: f7
+    claim: Chromosome condensation involves DNA wrapping around histones (nucleosomes) and further supercoiling, making mitotic chromosomes thousands of times shorter than the DNA molecule.
+    where: ["index.mdx#mitosis-meiosis", "flashcards.yaml:c6"]
+    confidence: high
+    basis: Alberts (mitotic chromosome is roughly 10,000-fold more compact than extended DNA); IB guide D2.1.6
+    status: checked
+  - id: f8
+    claim: Chromosomes are moved by spindle microtubules attached at kinetochores, by motor proteins (dynein, kinesin) and by depolymerization of microtubules.
+    where: ["index.mdx#mitosis-meiosis", "visuals.yaml:division"]
+    confidence: high
+    basis: Alberts; IB guide D2.1.6
+    status: checked
+  - id: f9
+    claim: Phases of mitosis named by the IB are prophase, metaphase, anaphase and telophase; nuclear membrane breaks down at the end of prophase and re-forms in telophase; interphase is not part of mitosis.
+    where: ["index.mdx#mitosis", "d2-1-mitosis.astro", "visuals.yaml:division", "flashcards.yaml:c7"]
+    confidence: high
+    basis: IB guide D2.1.7; prometaphase deliberately not used as a separate phase
+    status: checked
+  - id: f10
+    claim: In mitosis homologous chromosomes do not pair; each chromosome aligns individually at the metaphase plate.
+    where: ["index.mdx#mitosis", "visuals.yaml:division", "mustKnow/mistakes"]
+    confidence: high
+    basis: Standard cell biology
+    status: checked
+  - id: f11
+    claim: Allium cepa (onion) has 2n = 16, so drawn root-tip cells show 16 chromosomes in prophase and metaphase and 16 per anaphase group.
+    where: ["d2-1-phase-id.astro", "src/sims/models/d2-1-phase-id.ts", "tests/unit/d2-1.test.ts"]
+    confidence: high
+    basis: Standard cytogenetics of Allium cepa (2n = 2x = 16)
+    status: checked
+  - id: f12
+    claim: Humans have 2n = 46 and n = 23; a human metaphase cell has 46 chromosomes and 92 chromatids.
+    where: ["index.mdx#meiosis", "quiz.yaml:q3", "flashcards.yaml:c9", "mustKnow"]
+    confidence: high
+    basis: Standard human genetics
+    status: checked
+  - id: f13
+    claim: In meiosis I homologues separate (reduction of chromosome number); in meiosis II sister chromatids separate; there is no DNA replication between the divisions.
+    where: ["index.mdx#meiosis", "quiz.yaml:q5", "flashcards.yaml:c10", "visuals.yaml:division"]
+    confidence: high
+    basis: Standard; IB guide D2.1.9
+    status: checked
+  - id: f14
+    claim: In meiosis I both sister kinetochores of a homologue attach to microtubules from the same pole (mono-orientation); in meiosis II sisters attach to opposite poles.
+    where: ["visuals.yaml:division (meiosis spindle label)", "src/scenes/d2-1-meiosis.ts"]
+    confidence: high
+    basis: Alberts (meiosis chapter)
+    status: checked
+  - id: f15
+    claim: Spindles of meiosis II are shown at right angles to the spindle of meiosis I.
+    where: ["visuals.yaml:division (metaphase-2 caption)", "src/scenes/d2-1-meiosis.ts"]
+    confidence: medium
+    basis: Common in animal cells and textbook diagrams, but orientation varies between species
+    status: open
+  - id: f16
+    claim: Crossing over occurs between non-sister chromatids of homologous chromosomes in prophase I; each bivalent usually has at least one chiasma.
+    where: ["index.mdx#variation", "visuals.yaml:division", "d2-1-variation.astro", "mistakes"]
+    confidence: high
+    basis: Obligate crossover (Alberts); IB guide D2.1.11
+    status: checked
+  - id: f17
+    claim: Random orientation gives 2ⁿ combinations; 2²³ = 8,388,608 (about 8.4 million); 2²³ × 2²³ ≈ 7.0 × 10¹³.
+    where: ["index.mdx#variation", "d2-1-variation.astro", "quiz.yaml:q7", "flashcards.yaml:c13"]
+    confidence: high
+    basis: Arithmetic
+    status: checked
+  - id: f18
+    claim: Down syndrome is trisomy 21 (47 chromosomes), usually from non-disjunction in meiosis, with the extra chromosome most often of maternal origin (around 90% of non-disjunction cases), mostly from maternal meiosis I.
+    where: ["index.mdx#nondisjunction", "quiz.yaml:q6", "visuals.yaml:nondisjunction"]
+    confidence: medium
+    basis: Hassold & Hunt 2001 (Nat Rev Genet); the page only says "in most cases from the egg"
+    status: open
+  - id: f19
+    claim: Non-disjunction in meiosis I gives all four gametes abnormal (two n + 1, two n − 1); in meiosis II (one cell) gives two normal, one n + 1 and one n − 1.
+    where: ["index.mdx#nondisjunction", "visuals.yaml:nondisjunction"]
+    confidence: high
+    basis: Standard genetics textbooks
+    status: checked
+  - id: f20
+    claim: Approximate live-birth prevalence of Down syndrome by maternal age — 20 about 1 in 1450, 25 about 1 in 1350, 30 about 1 in 950, 35 about 1 in 350, 40 about 1 in 85, 45 about 1 in 30.
+    where: ["src/anims/d2-1-nondisjunction.ts (chart)", "visuals.yaml:nondisjunction (age caption)"]
+    confidence: medium
+    basis: Rounded from Morris, Mutton & Alberman 2002 (J Med Screen) and Hook 1981; published estimates vary by population and era — teacher to confirm figures
+    status: open
+  - id: f21
+    claim: Human oocytes enter meiosis I before birth and arrest in prophase I until ovulation; deterioration of cohesion with age is one hypothesis for the maternal-age effect.
+    where: ["index.mdx#nondisjunction", "visuals.yaml:nondisjunction"]
+    confidence: high
+    basis: Hassold & Hunt 2001; Nagaoka et al. 2012 (Nat Rev Genet)
+    status: checked
+  - id: f22
+    claim: Plant growth comes from apical meristems; early animal embryos undergo cleavage divisions with little growth between them, so cells get smaller; the basal layer of the epidermis divides continually to replace shed cells and proliferates to heal wounds.
+    where: ["index.mdx#proliferation"]
+    confidence: high
+    basis: Campbell Biology; IB guide D2.1.12
+    status: checked
+  - id: f23
+    claim: Cell cycle order G1, S, G2, mitosis, cytokinesis; G0 is a non-dividing state entered from G1; most neurons stay in G0, liver cells can re-enter the cycle.
+    where: ["index.mdx#cell-cycle", "visuals.yaml:cell-cycle", "flashcards.yaml:c14"]
+    confidence: high
+    basis: Alberts; IB guide D2.1.13
+    status: checked
+  - id: f24
+    claim: Cyclins activate cyclin-dependent kinases (CDKs, present throughout the cycle); a G1/S cyclin peaks at the G1 checkpoint; a mitotic cyclin rises through S and G2, triggers mitosis and is destroyed (by the anaphase-promoting complex) after the metaphase checkpoint.
+    where: ["index.mdx#cell-cycle", "visuals.yaml:cell-cycle", "src/anims/d2-1-cell-cycle.ts", "quiz.yaml:q8"]
+    confidence: high
+    basis: Alberts (cell-cycle control); IB guide D2.1.15 (curves are qualitative)
+    status: checked
+  - id: f25
+    claim: Proto-oncogenes become oncogenes by gain-of-function mutation (one allele sufficient); tumour suppressor genes such as TP53 (p53) are usually inactivated in both alleles; several mutations are needed for cancer.
+    where: ["index.mdx#cancer", "quiz.yaml:q10", "flashcards.yaml:c16", "visuals.yaml:cell-cycle"]
+    confidence: high
+    basis: Weinberg, The Biology of Cancer; IB guide D2.1.16
+    status: checked
+  - id: f26
+    claim: Benign tumours do not invade or metastasize and are not cancers; malignant tumours invade neighbouring tissue and metastasize via blood or lymph to form secondary tumours.
+    where: ["index.mdx#cancer", "d2-1-tumours.astro", "flashcards.yaml:c17", "mistakes"]
+    confidence: high
+    basis: IB guide D2.1.17; standard pathology
+    status: checked
+  - id: f27
+    claim: Mitotic index = cells in mitosis ÷ total cells; worked example 18 ÷ 120 = 0.15.
+    where: ["index.mdx#cancer", "quiz.yaml:q9", "src/sims/models/d2-1-mitotic-index.ts"]
+    confidence: high
+    basis: IB guide D2.1.17; arithmetic
+    status: checked
+  - id: f28
+    claim: Mitotic-index sim fields (meristem 13/70, elongation zone 1/70, normal epithelium 2/70, tumour 11/70) are invented practice values that show the expected pattern, not measured data.
+    where: ["src/sims/models/d2-1-mitotic-index.ts", "visuals.yaml:mitotic-index"]
+    confidence: medium
+    basis: Typical onion root-tip meristem mitotic indices in school practicals are roughly 0.1–0.25; values labelled as invented on screen
+    status: open

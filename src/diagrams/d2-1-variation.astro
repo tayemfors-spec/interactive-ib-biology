@@ -1,0 +1,98 @@
+---
+/** Sources of genetic variation from meiosis and sexual reproduction — D2.1.11 (and random fertilization). */
+type B = { t: 'L' | 'S'; c: 'm' | 'p' };
+const H = { L: 34, S: 20 };
+// a homologue in metaphase I: two sister chromatids side by side
+const hom = (x: number, cy: number, b: B) => [0, 8].map((dx) => ({ x: x + dx, y: cy - H[b.t] / 2, h: H[b.t], c: b.c }));
+const arrangements = [
+  { y: 74, left: [{ t: 'L', c: 'm' }, { t: 'S', c: 'm' }] as B[], right: [{ t: 'L', c: 'p' }, { t: 'S', c: 'p' }] as B[] },
+  { y: 178, left: [{ t: 'L', c: 'm' }, { t: 'S', c: 'p' }] as B[], right: [{ t: 'L', c: 'p' }, { t: 'S', c: 'm' }] as B[] },
+];
+const gamete = (x: number, y: number, set: B[]) => set.map((b, i) => ({ x: x - 9 + i * 11, y: y - H[b.t] / 2, h: H[b.t], c: b.c }));
+// crossing over panel: four chromatids, inner two exchange the segment carrying gene B
+const lanes = [
+  { x: 96, top: 'm', bot: 'm', a: 'A', b: 'B' },
+  { x: 112, top: 'm', bot: 'p', a: 'A', b: 'b' },
+  { x: 128, top: 'p', bot: 'm', a: 'a', b: 'B' },
+  { x: 144, top: 'p', bot: 'p', a: 'a', b: 'b' },
+];
+---
+<div class="dfig">
+  <div class="three">
+    <svg viewBox="0 0 300 290" role="img" aria-labelledby="var-a-t var-a-d" xmlns="http://www.w3.org/2000/svg">
+      <title id="var-a-t">Random orientation of bivalents</title>
+      <desc id="var-a-d">In metaphase I each bivalent lines up on the equator with either homologue facing either pole, independently of the other bivalents. With two pairs there are two equally likely arrangements, giving four kinds of gamete: 2 to the power n combinations, which for humans (n = 23) is about 8.4 million.</desc>
+      <text class="h" x="150" y="22" text-anchor="middle">1. Random orientation</text>
+      {arrangements.map((a) => (
+        <>
+          <path class="eq" d={`M100 ${a.y - 44} V${a.y + 44}`} />
+          {a.left.flatMap((b, i) => hom(78, a.y - 22 + i * 44, b)).map((r) => <rect class:list={['bar', r.c]} x={r.x - 7} y={r.y} width="7" height={r.h} rx="3.5" />)}
+          {a.right.flatMap((b, i) => hom(108, a.y - 22 + i * 44, b)).map((r) => <rect class:list={['bar', r.c]} x={r.x} y={r.y} width="7" height={r.h} rx="3.5" />)}
+          <path class="arrow" d={`M144 ${a.y - 12} L170 ${a.y - 26} M144 ${a.y + 12} L170 ${a.y + 26}`} />
+          <circle class="cell" cx="196" cy={a.y - 26} r="20" /><circle class="cell" cx="196" cy={a.y + 28} r="20" />
+          {gamete(196, a.y - 26, a.left).map((r) => <rect class:list={['bar', r.c]} x={r.x} y={r.y} width="7" height={r.h} rx="3.5" />)}
+          {gamete(196, a.y + 28, a.right).map((r) => <rect class:list={['bar', r.c]} x={r.x} y={r.y} width="7" height={r.h} rx="3.5" />)}
+        </>
+      ))}
+      <text class="s" x="100" y="130" text-anchor="middle">or</text>
+      <text class="s" x="262" y="132" text-anchor="middle">4 kinds</text><text class="s" x="262" y="147" text-anchor="middle">of gamete</text>
+      <text class="t" x="150" y="262" text-anchor="middle">2ⁿ combinations: n = 2 gives 4;</text>
+      <text class="t" x="150" y="280" text-anchor="middle">humans, n = 23: 2²³ ≈ 8.4 million</text>
+    </svg>
+    <svg viewBox="0 0 300 290" role="img" aria-labelledby="var-b-t var-b-d" xmlns="http://www.w3.org/2000/svg">
+      <title id="var-b-t">Crossing over</title>
+      <desc id="var-b-d">In prophase I, non-sister chromatids of a bivalent exchange corresponding segments at a chiasma. Here the maternal chromosome carries alleles A and B and the paternal one a and b. After crossing over, two of the four chromatids are recombinant, carrying the new combinations A b and a B.</desc>
+      <text class="h" x="150" y="22" text-anchor="middle">2. Crossing over</text>
+      {lanes.map((l) => (
+        <>
+          <rect class:list={['bar', l.top]} x={l.x - 4} y="44" width="9" height="110" rx="4.5" />
+          <rect class:list={['bar', l.bot]} x={l.x - 4} y="150" width="9" height="74" rx="4" />
+          <text class="g" x={l.x + 0.5} y="40" text-anchor="middle">{l.a}</text>
+          <text class="g" x={l.x + 0.5} y="242" text-anchor="middle">{l.b}</text>
+        </>
+      ))}
+      <circle class="chi" cx="120" cy="152" r="16" />
+      <path class="lead" d="M137 152 H184" /><text class="t" x="188" y="156">chiasma</text>
+      <path class="lead" d="M112 100 L184 92 M128 196 L184 204" />
+      <text class="t" x="188" y="96">recombinant</text><text class="t" x="188" y="208">recombinant</text>
+      <text class="t" x="150" y="266" text-anchor="middle">new combinations of alleles</text>
+      <text class="t" x="150" y="284" text-anchor="middle">(A b, a B) on one chromosome</text>
+    </svg>
+    <svg viewBox="0 0 300 290" role="img" aria-labelledby="var-c-t var-c-d" xmlns="http://www.w3.org/2000/svg">
+      <title id="var-c-t">Random fertilization</title>
+      <desc id="var-c-d">Any one of the genetically different eggs can be fertilized by any one of the genetically different sperm. Considering random orientation alone, each parent can make about 8.4 million kinds of gamete, so one couple could produce about 70 million million different zygotes, and crossing over increases this further.</desc>
+      <text class="h" x="150" y="22" text-anchor="middle">3. Random fertilization</text>
+      <circle class="egg" cx="80" cy="110" r="44" /><text class="t" x="80" y="114" text-anchor="middle">egg</text>
+      <ellipse class="sperm" cx="220" cy="110" rx="16" ry="11" /><path class="tail" d="M236 110 q 14 -10 26 0 t 26 0" />
+      <text class="t" x="220" y="146" text-anchor="middle">sperm</text>
+      <text class="big" x="150" y="118" text-anchor="middle">×</text>
+      <text class="s" x="80" y="178" text-anchor="middle">≈ 8.4 million</text><text class="s" x="80" y="194" text-anchor="middle">kinds</text>
+      <text class="s" x="220" y="178" text-anchor="middle">≈ 8.4 million</text><text class="s" x="220" y="194" text-anchor="middle">kinds</text>
+      <text class="t" x="150" y="240" text-anchor="middle">2²³ × 2²³ ≈ 7 × 10¹³ zygotes</text>
+      <text class="t" x="150" y="260" text-anchor="middle">before crossing over is counted</text>
+    </svg>
+  </div>
+</div>
+
+<style>
+  .dfig { container-type: inline-size; }
+  .three { display: grid; gap: var(--space-4); grid-template-columns: minmax(0, 1fr); }
+  @container (min-width: 44rem) { .three { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .dfig svg { font-family: var(--font-sans); display: block; width: 100%; max-width: 26rem; margin: 0 auto; height: auto; }
+  .h { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .t { font-size: 14px; fill: var(--text); }
+  .s { font-size: 13px; fill: var(--text-muted); }
+  .g { font-size: 13px; font-weight: 800; fill: var(--text); }
+  .big { font-size: 34px; font-weight: 700; fill: var(--text); }
+  .eq { stroke: var(--text-muted); stroke-dasharray: 4 4; stroke-width: 1.2; }
+  .cell { fill: color-mix(in srgb, var(--bio-head) 8%, var(--surface)); stroke: var(--bio-head); stroke-width: 1.8; }
+  .egg { fill: color-mix(in srgb, var(--bio-head) 14%, var(--surface)); stroke: var(--bio-head); stroke-width: 2; }
+  .sperm { fill: color-mix(in srgb, var(--bio-protein) 22%, var(--surface)); stroke: var(--bio-protein); stroke-width: 1.8; }
+  .tail { fill: none; stroke: var(--bio-protein); stroke-width: 1.8; }
+  .bar { stroke: var(--text); stroke-width: 0.8; }
+  .m { fill: var(--bio-k); }
+  .p { fill: var(--bio-protein); }
+  .chi { fill: none; stroke: var(--text); stroke-width: 2; stroke-dasharray: 3 3; }
+  .arrow { stroke: var(--text); stroke-width: 1.6; fill: none; }
+  .lead { stroke: var(--text-muted); stroke-width: 1.2; fill: none; }
+</style>

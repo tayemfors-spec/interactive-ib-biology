@@ -1,0 +1,58 @@
+---
+/** Benign vs malignant tumours; primary and secondary tumours; metastasis — D2.1.17. */
+const ring = (cx: number, cy: number, n: number, r: number) => Array.from({ length: n }, (_, i) => {
+  const a = (i / n) * Math.PI * 2;
+  return [cx + Math.cos(a) * r, cy + Math.sin(a) * r] as const;
+});
+const benign = [[150, 140], ...ring(150, 140, 6, 17), ...ring(150, 140, 11, 33)];
+const tissue = Array.from({ length: 9 }, (_, i) => i);
+const malignant: (readonly [number, number])[] = [[92, 120], ...ring(92, 120, 6, 17), ...ring(92, 120, 9, 33), [128, 96], [136, 132], [122, 156], [58, 150]];
+---
+<div class="dfig">
+  <div class="pair">
+    <svg viewBox="0 0 300 280" role="img" aria-labelledby="tum-a-t tum-a-d" xmlns="http://www.w3.org/2000/svg">
+      <title id="tum-a-t">A benign tumour</title>
+      <desc id="tum-a-d">A rounded mass of abnormal cells inside a normal tissue, surrounded by a capsule. The cells divide relatively slowly and stay in one place: they do not invade the surrounding tissue or spread. A benign tumour is not a cancer, although it can cause harm by pressing on nearby organs.</desc>
+      <text class="h" x="150" y="22" text-anchor="middle">Benign tumour</text>
+      {tissue.map((i) => tissue.map((j) => <rect class="norm" x={14 + i * 31} y={44 + j * 21} width="28" height="18" rx="4" />))}
+      <circle class="capsule" cx="150" cy="140" r="54" />
+      {benign.map(([x, y]) => <circle class="tum" cx={x} cy={y} r="9" />)}
+      <path class="lead" d="M196 112 L232 74" /><rect class="tag" x="186" y="54" width="104" height="22" rx="4" /><text class="t" x="238" y="70" text-anchor="middle">capsule</text>
+      <text class="s" x="150" y="252" text-anchor="middle">grows slowly · stays in one place</text>
+      <text class="s" x="150" y="270" text-anchor="middle">does not invade or spread: not cancer</text>
+    </svg>
+    <svg viewBox="0 0 300 280" role="img" aria-labelledby="tum-b-t tum-b-d" xmlns="http://www.w3.org/2000/svg">
+      <title id="tum-b-t">A malignant tumour and metastasis</title>
+      <desc id="tum-b-d">A primary malignant tumour with no capsule. Its rapidly dividing cells invade the neighbouring tissue. Some cells break away, enter a blood vessel and are carried to another part of the body, where they leave the vessel and divide to form a secondary tumour. This spread is called metastasis. Malignant tumours are cancers.</desc>
+      <text class="h" x="150" y="22" text-anchor="middle">Malignant tumour (cancer)</text>
+      {tissue.map((i) => tissue.slice(0, 7).map((j) => <rect class="norm" x={14 + i * 31} y={44 + j * 21} width="28" height="18" rx="4" />))}
+      <path class="vessel" d="M8 214 C 90 196, 200 232, 292 206 L292 236 C 200 262, 90 226, 8 244 Z" />
+      {malignant.map(([x, y]) => <circle class="tum" cx={x} cy={y} r="9" />)}
+      <circle class="tum" cx="150" cy="200" r="8" /><circle class="tum" cx="196" cy="226" r="8" />
+      <path class="arrow" d="M118 162 L144 192 M144 192 l-1 -9 M144 192 l-8 -3 M206 228 H250 M250 228 l-7 -5 M250 228 l-7 5" />
+      <circle class="tum" cx="264" cy="166" r="8" /><circle class="tum" cx="252" cy="152" r="8" /><circle class="tum" cx="274" cy="148" r="8" />
+      <path class="arrow" d="M258 218 L262 180" />
+      <text class="t" x="48" y="194" text-anchor="middle">primary</text>
+      <text class="t" x="262" y="122" text-anchor="middle">secondary</text>
+      <text class="s" x="150" y="262" text-anchor="middle">blood vessel</text>
+      <text class="s" x="150" y="278" text-anchor="middle">invades tissue · cells spread (metastasis)</text>
+    </svg>
+  </div>
+</div>
+
+<style>
+  .dfig { container-type: inline-size; }
+  .pair { display: grid; gap: var(--space-4); grid-template-columns: minmax(0, 1fr); }
+  @container (min-width: 34rem) { .pair { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .dfig svg { font-family: var(--font-sans); display: block; width: 100%; height: auto; }
+  .h { font-size: 16px; font-weight: 800; fill: var(--text); }
+  .t { font-size: 14px; font-weight: 700; fill: var(--text); }
+  .s { font-size: 13px; fill: var(--text-muted); }
+  .norm { fill: color-mix(in srgb, var(--bio-carb) 12%, var(--surface)); stroke: color-mix(in srgb, var(--bio-carb) 50%, var(--surface)); stroke-width: 1; }
+  .tum { fill: color-mix(in srgb, var(--bio-k) 40%, var(--surface)); stroke: var(--bio-k); stroke-width: 1.4; }
+  .capsule { fill: var(--surface); stroke: var(--text); stroke-width: 3; }
+  .tag { fill: var(--surface); }
+  .vessel { fill: color-mix(in srgb, var(--bio-chol) 16%, var(--surface)); stroke: var(--bio-chol); stroke-width: 1.6; }
+  .arrow { stroke: var(--text); stroke-width: 1.8; fill: none; }
+  .lead { stroke: var(--text); stroke-width: 1.2; fill: none; }
+</style>

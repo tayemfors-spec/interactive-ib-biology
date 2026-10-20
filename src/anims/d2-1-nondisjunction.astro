@@ -1,0 +1,99 @@
+---
+/** Non-disjunction → trisomy 21. Animated by d2-1-nondisjunction.ts; drawn in its step-1 state. */
+import { chromatids, maternalAge, positions, shown } from './d2-1-nondisjunction';
+const op = (k: string) => `opacity:${shown[k]![0]}`;
+const cellsMII = [70, 190, 330, 450];
+const labelsMII = ['n + 1 (24)', 'n + 1 (24)', 'n − 1 (22)', 'n − 1 (22)'];
+const base = 292, top = 92, max = 35;
+const sy = (v: number) => base - ((base - top) * v) / max;
+---
+<svg viewBox="0 0 520 330" xmlns="http://www.w3.org/2000/svg" class="ndj">
+  <text class="key" x="10" y="20"><tspan class="ka">■</tspan> <tspan class="kb">■</tspan> the mother's two copies of chromosome 21 · <tspan class="ks">■</tspan> the sperm's copy</text>
+  <text class="key" x="10" y="38">Only chromosome 21 is drawn; each bar is one chromatid.</text>
+
+  <g data-el="oocyte" style={op('oocyte')}>
+    <circle class="cell" cx="260" cy="170" r="95" />
+    <text class="ttl" x="260" y="292" text-anchor="middle">Primary oocyte (2n = 46)</text>
+    <text class="sub" x="260" y="310" text-anchor="middle">two homologues of chromosome 21 paired as a bivalent</text>
+  </g>
+  <g data-el="ndj" style={op('ndj')}>
+    <path class="arrow" d="M232 120 L206 130 M232 216 L206 206" />
+    <text class="bad" x="300" y="150">Anaphase I: both</text>
+    <text class="bad" x="300" y="167">homologues move</text>
+    <text class="bad" x="300" y="184">to the same pole</text>
+  </g>
+  <g data-el="mi" style={op('mi')}>
+    <circle class="cell" cx="155" cy="170" r="80" />
+    <circle class="cell" cx="372" cy="170" r="70" />
+    <text class="bad" x="155" y="272" text-anchor="middle">2 copies of 21 (24 chromosomes)</text>
+    <text class="bad" x="372" y="272" text-anchor="middle">0 copies of 21 (22 chromosomes)</text>
+  </g>
+  <g data-el="mii" style={op('mii')}>
+    {cellsMII.map((x, i) => (
+      <>
+        <circle class="cell" cx={x} cy="170" r="52" />
+        <text class="bad" x={x} y="246" text-anchor="middle">{labelsMII[i]}</text>
+      </>
+    ))}
+    <text class="sub" x="260" y="282" text-anchor="middle">Meiosis II separates the sister chromatids: all four products are abnormal</text>
+  </g>
+  <g data-el="fert" style={op('fert')}>
+    <circle class="cell" cx="260" cy="170" r="90" />
+    <path class="sperm" d="M470 70 m-10 0 a10 7 0 1 0 20 0 a10 7 0 1 0 -20 0 M480 70 q 14 -8 26 2" />
+    <text class="sub" x="440" y="100" text-anchor="end">normal sperm: n = 23</text>
+    <text class="ttl" x="260" y="290" text-anchor="middle">Zygote: 47 chromosomes</text>
+    <text class="bad" x="260" y="308" text-anchor="middle">three copies of chromosome 21 (trisomy 21)</text>
+  </g>
+  <g data-el="chart" style={op('chart')}>
+    <text class="ttl" x="260" y="68" text-anchor="middle">Down syndrome births by mother's age (approximate)</text>
+    <path class="axis" d={`M60 ${top - 8} V${base} H500`} />
+    {[0, 10, 20, 30].map((v) => (
+      <>
+        <path class="grid" d={`M60 ${sy(v)} H500`} />
+        <text class="tick" x="54" y={sy(v) + 4} text-anchor="end">{v}</text>
+      </>
+    ))}
+    <text class="tick" x="16" y="190" transform="rotate(-90 16 190)" text-anchor="middle">per 1000 births</text>
+    {maternalAge.map((d, i) => {
+      const x = 105 + i * 70;
+      return (
+        <>
+          <rect class="bar" x={x - 22} y={sy(d.per1000)} width="44" height={base - sy(d.per1000)} />
+          <text class="val" x={x} y={sy(d.per1000) - 6} text-anchor="middle">1 in {d.oneIn}</text>
+          <text class="tick" x={x} y={base + 16} text-anchor="middle">{d.age}</text>
+        </>
+      );
+    })}
+    <text class="tick" x="280" y={base + 32} text-anchor="middle">maternal age / years</text>
+  </g>
+
+  {Object.entries(chromatids).map(([k, c]) => (
+    <g data-el={k} transform={`translate(${positions[k]![0]![0]} ${positions[k]![0]![1]})`} style={op(k)}>
+      <rect class:list={['chr', c.cls]} x="-4.5" y="-22" width="9" height="44" rx="4.5" />
+      <circle class="cen" cx="0" cy="-8" r="3" />
+    </g>
+  ))}
+</svg>
+<style>
+  .ndj { font-family: var(--font-sans); }
+  .cell { fill: none; stroke: var(--border-strong); stroke-width: 2; }
+  .ttl { font-size: 15px; font-weight: 750; fill: var(--text); }
+  .sub { font-size: 13px; fill: var(--text-muted); }
+  .bad { font-size: 13px; fill: var(--bad); font-weight: 700; }
+  .key { font-size: 12.5px; fill: var(--text-muted); }
+  .ka { fill: var(--bio-protein); }
+  .kb { fill: var(--bio-protein-2); }
+  .ks { fill: var(--bio-k); }
+  .chr { stroke: var(--text); stroke-width: 1.2; }
+  .ma { fill: var(--bio-protein); }
+  .mb { fill: var(--bio-protein-2); }
+  .sp { fill: var(--bio-k); }
+  .cen { fill: var(--text); }
+  .arrow { stroke: var(--bad); stroke-width: 2; fill: none; marker-end: none; }
+  .sperm { fill: none; stroke: var(--text-muted); stroke-width: 1.6; }
+  .axis { stroke: var(--text); stroke-width: 1.4; fill: none; }
+  .grid { stroke: var(--border); stroke-width: 1; }
+  .tick { font-size: 12.5px; fill: var(--text-muted); }
+  .val { font-size: 12px; font-weight: 700; fill: var(--text); }
+  .bar { fill: color-mix(in srgb, var(--bio-protein-2) 55%, var(--surface)); stroke: var(--bio-protein-2); stroke-width: 1.2; }
+</style>
