@@ -7,12 +7,14 @@ const Diagram = diagrams[`../../diagrams/${name}.astro`]?.default;
 if (!Diagram) throw new Error(`Figure: missing src/diagrams/${name}.astro`);
 ---
 <figure class="fig" data-level-block={level}>
-  <div class="art"><Diagram /></div>
+  <div class="art" tabindex="0" role="region" aria-label={`Diagram: ${caption}`}><Diagram /></div>
   <figcaption>{caption}</figcaption>
 </figure>
 <style>
   .fig { margin: var(--space-5) 0; }
   .art { padding: var(--space-3); border-radius: var(--radius-m); background: var(--surface-2); border: 1px solid var(--border); }
   .art :global(svg) { display: block; width: 100%; height: auto; }
+  /* phones: keep diagram text readable by scrolling sideways instead of shrinking it */
+  @media (max-width: 34rem) { .art { overflow-x: auto; } .art :global(svg) { min-width: 30rem; } }
   figcaption { font-size: var(--step--1); color: var(--text-muted); margin-top: var(--space-2); }
 </style>

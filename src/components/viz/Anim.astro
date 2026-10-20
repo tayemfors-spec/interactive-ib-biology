@@ -69,6 +69,7 @@ const uid = `a-${topic}-${id}`;
   .viz-title { font-weight: 750; display: flex; gap: var(--space-2); align-items: center; margin-bottom: var(--space-3); }
   .art { border-radius: var(--radius-m); background: var(--surface-2); padding: var(--space-2); }
   .art :global(svg) { display: block; width: 100%; height: auto; }
+  @media (max-width: 34rem) { .art { overflow-x: auto; } .art :global(svg) { min-width: 30rem; } }
   .desc { margin-top: var(--space-3); font-size: var(--step--1); }
   .desc summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
 </style>
