@@ -338,7 +338,7 @@ visuals:
       - id: positive-loop
         title: A hormone chain with positive feedback
         level: AHL
-        caption: Late in the follicular phase of the menstrual cycle, developing follicles in the ovary secrete more and more oestradiol. High oestradiol stimulates GnRH secretion by the hypothalamus and makes the pituitary more responsive to it, so more LH is secreted.
+        caption: Late in the follicular phase of the menstrual cycle, developing follicles in the ovary secrete more and more oestradiol. High oestradiol stimulates GnRH secretion by the hypothalamus and makes the pituitary more responsive to it, so more LH (and FSH) is secreted.
       - id: positive-surge
         title: The LH surge
         level: AHL

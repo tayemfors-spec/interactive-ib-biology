@@ -55,3 +55,20 @@ export function totalLight(density: number, o: QuorumOptions = {}): number {
 export const AI_MAX = autoinducer(DENSITY.max);
 export const aiPercent = (density: number, o: QuorumOptions = {}) => (100 * autoinducer(density, o)) / AI_MAX;
 export const THRESHOLD_PERCENT = (100 * THRESHOLD) / AI_MAX;
+
+/**
+ * Autoinducer concentration at which the population actually switches on. Because induced cells make more
+ * autoinducer (positive feedback), the lower steady state disappears before the half-maximal THRESHOLD is
+ * reached: once autoinducer reaches this level, a slight rise in density makes it jump to the upper branch.
+ * This is the "autoinducer threshold" drawn on the graph.
+ */
+export const SWITCH_AI = (() => {
+  let prev = autoinducer(DENSITY.min);
+  for (let d = DENSITY.min + 0.05; d <= DENSITY.max; d += 0.05) {
+    const a = autoinducer(d);
+    if (a - prev > 0.2) return prev;
+    prev = a;
+  }
+  return THRESHOLD;
+})();
+export const SWITCH_PERCENT = (100 * SWITCH_AI) / AI_MAX;

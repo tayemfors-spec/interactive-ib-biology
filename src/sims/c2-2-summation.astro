@@ -115,7 +115,7 @@ const markerY = frame.h - frame.bottom + 30;
       if (s.train > 1) what.push(`${s.train} impulses from E1 ${s.interval} ms apart (${s.interval <= 4 ? 'close enough for temporal summation' : 'EPSPs partly fade between impulses'})`);
       if (inh > 0) what.push(`${inh} inhibitory neuron${inh > 1 ? 's' : ''} releasing GABA (IPSPs)`);
       const cause = what.length ? `With ${what.join(', ')}: ` : '';
-      if (ex === 0) return `${cause}the IPSPs hyperpolarise the membrane to ${mv(r.min)} mV, further from threshold.`;
+      if (ex === 0) return `${cause}the IPSPs hyperpolarize the membrane to ${mv(r.min)} mV, further from threshold.`;
       if (r.fired) return `${cause}the summed potential reaches −50 mV at ${r.tFire!.toFixed(1)} ms, so an action potential fires and rises to +35 mV. A larger input would not make it bigger (all or nothing).`;
       return `${cause}the summed potential peaks at ${mv(r.peakSub)} mV, below the threshold of −50 mV, so no action potential fires.`;
     };

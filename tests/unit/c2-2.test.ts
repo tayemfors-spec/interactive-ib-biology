@@ -28,6 +28,14 @@ describe('C2.2 action potential trace', () => {
     expect(kChannelOpen(1.0)).toBe(false);
     expect(kChannelOpen(5)).toBe(false);
   });
+  it('inactivates Na⁺ channels and opens K⁺ channels at the peak, not after it', () => {
+    expect(naChannel(T_PEAK - 0.01)).toBe('open');
+    expect(naChannel(T_PEAK)).toBe('inactivated');
+    expect(kChannelOpen(T_PEAK - 0.01)).toBe(false);
+    expect(kChannelOpen(T_PEAK)).toBe(true);
+    // the potential only falls once K⁺ channels are open
+    expect(membranePotential(T_PEAK + 0.1)).toBeLessThan(membranePotential(T_PEAK));
+  });
   it('step windows run in order and cover the whole trace', () => {
     expect(STEP_WINDOWS[0]![0]).toBe(0);
     for (let i = 1; i < STEP_WINDOWS.length; i++) expect(STEP_WINDOWS[i]![0]).toBe(STEP_WINDOWS[i - 1]![1]);
@@ -76,7 +84,7 @@ describe('C2.2 summation', () => {
     expect(r.fired).toBe(false);
     for (const [, v] of r.points) expect(v).toBeCloseTo(-70);
   });
-  it('one EPSP depolarises but stays below threshold', () => {
+  it('one EPSP depolarizes but stays below threshold', () => {
     const r = simulate({ ...none, train: 1 });
     expect(r.fired).toBe(false);
     expect(r.peakSub).toBeCloseTo(-70 + EPSP_MV, 1);
@@ -90,7 +98,7 @@ describe('C2.2 summation', () => {
     expect(simulate({ ...none, train: 3, interval: 2 }).fired).toBe(true);
     expect(simulate({ ...none, train: 3, interval: 15 }).fired).toBe(false);
   });
-  it('an IPSP hyperpolarises the membrane below the resting potential', () => {
+  it('an IPSP hyperpolarizes the membrane below the resting potential', () => {
     const r = simulate({ ...none, inhibitory: 1 });
     expect(r.fired).toBe(false);
     expect(r.min).toBeCloseTo(-70 + IPSP_MV, 1);

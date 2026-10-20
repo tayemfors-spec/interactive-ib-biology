@@ -4,7 +4,7 @@ type XY = [number, number];
 /** Base of the bending zone of the shoot; the stem below it stays straight. */
 export const P0: XY = [120, 200];
 const BEND_LEN = 80;
-export const MAX_BEND = 0.75; // radians ≈ 43°
+export const MAX_BEND = Math.PI / 4; // radians = 45°, matching the tropism-measure figure
 
 /** Point and direction angle on the bending part of the shoot (s from 0 at P0 to 1 at the tip). */
 export function onShoot(theta: number, s: number): { p: XY; phi: number } {

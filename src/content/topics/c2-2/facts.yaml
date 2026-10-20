@@ -54,11 +54,17 @@ facts:
     basis: Hursh 1939; Rushton 1951; Kandel table of fibre classes
     status: checked
   - id: f10
-    claim: The correlation figure uses illustrative (invented) data around 6 m s⁻¹ per µm, giving r ≈ 0.98 and R² ≈ 0.97; this is labelled as illustrative on the page.
+    claim: The correlation figure uses illustrative (invented) data around 6 m s⁻¹ per µm, giving r ≈ +0.984 and R² ≈ 0.97 (0.984² = 0.968); this is labelled as illustrative on the page.
     where: [ "src/diagrams/c2-2-correlation.astro", "index.mdx#speed" ]
     confidence: high
     basis: Computed in src/sims/models/c2-2-correlation.ts (unit-tested r function)
     status: checked
+  - id: f10b
+    claim: Negative-correlation example — time for an impulse to travel a fixed distance falls as fibre diameter rises (inverse relationship); cross-species comparisons such as conduction speed against body size give weak correlations confounded by myelination and temperature.
+    where: [ "index.mdx#speed" ]
+    confidence: medium
+    basis: Follows from speed rising with diameter (time = distance / speed); cross-species point is qualitative
+    status: open
   - id: f11
     claim: r ranges from −1 to +1 (sign = direction, magnitude = strength of linear correlation); R² = r² is the proportion of variation in the dependent variable explained by the independent variable; correlation does not establish causation.
     where: [ "index.mdx#speed", "quiz.yaml:q3", "flashcards.yaml:c7" ]
@@ -66,13 +72,13 @@ facts:
     basis: Standard statistics; IB guide C2.2.4 application of skills
     status: checked
   - id: f12
-    claim: Chemical synapses transmit in one direction because only the presynaptic side has vesicles and only the postsynaptic membrane has receptors; the cleft is about 20 nm wide at most synapses (wider, ~50 nm, at neuromuscular junctions).
+    claim: Chemical synapses transmit in one direction because only the presynaptic side has vesicles and only the postsynaptic membrane has receptors; the cleft is about 20–40 nm wide (wider, ~50 nm, at neuromuscular junctions).
     where: [ "index.mdx#synapses", "visuals.yaml:neuron (cleft, ach labels)", "flashcards.yaml:c8" ]
     confidence: high
     basis: Kandel; IB guide C2.2.5
     status: checked
   - id: f13
-    claim: Depolarisation of the presynaptic membrane opens voltage-gated Ca²⁺ channels; Ca²⁺ (higher outside) diffuses in and triggers vesicle fusion and exocytosis; Ca²⁺ is then pumped out.
+    claim: Depolarization of the presynaptic membrane opens voltage-gated Ca²⁺ channels; Ca²⁺ (higher outside) diffuses in and triggers vesicle fusion and exocytosis; Ca²⁺ is then pumped out.
     where: [ "index.mdx#synapses", "visuals.yaml:neuron (synapse steps)", "quiz.yaml:q4", "flashcards.yaml:c9" ]
     confidence: high
     basis: Katz & Miledi; Kandel; IB guide C2.2.6
@@ -90,13 +96,13 @@ facts:
     basis: Standard (Kandel; Alberts)
     status: checked
   - id: f16
-    claim: Threshold triggers positive feedback (Na⁺ entry opens more Na⁺ channels), making action potentials all or nothing; Na⁺ channels inactivate at the peak; K⁺ channels open more slowly and close slowly, causing hyperpolarisation; the refractory period prevents backward propagation.
+    claim: Threshold triggers positive feedback (Na⁺ entry opens more Na⁺ channels), making action potentials all or nothing; Na⁺ channels inactivate at the peak; K⁺ channels open more slowly and close slowly, causing hyperpolarization; the refractory period prevents backward propagation.
     where: [ "index.mdx#depol-repol", "index.mdx#local-currents", "visuals.yaml:action-potential", "quiz.yaml:q7", "flashcards.yaml:c11" ]
     confidence: high
     basis: Hodgkin–Huxley model; Kandel
     status: checked
   - id: f17
-    claim: Local currents — Na⁺ diffuses along the inside from the depolarised region to the adjacent resting region, and along the outside towards the depolarised region, bringing the adjacent region to threshold.
+    claim: Local currents — Na⁺ diffuses along the inside from the depolarized region to the adjacent resting region, and along the outside towards the depolarized region, bringing the adjacent region to threshold.
     where: [ "index.mdx#local-currents", "visuals.yaml:action-potential (local-currents step)", "flashcards.yaml:c12" ]
     confidence: high
     basis: IB guide C2.2.9 wording (diffusion of Na⁺ inside and outside); cable theory
@@ -114,10 +120,10 @@ facts:
     basis: Kandel; IB guide C2.2.11
     status: checked
   - id: f20
-    claim: Neonicotinoids (e.g. imidacloprid) are nicotine-like insecticides that bind nicotinic ACh receptors, much more strongly in insects than mammals; acetylcholinesterase does not break them down, so binding is effectively irreversible, causing overstimulation then blocked transmission, paralysis and death.
+    claim: Neonicotinoids (e.g. imidacloprid) are nicotine-like insecticides that bind nicotinic ACh receptors, much more strongly in insects than mammals; they bind strongly and are not broken down by acetylcholinesterase, so they stay bound for a long time, causing overstimulation then blocked transmission, paralysis and death.
     where: [ "index.mdx#exogenous", "src/diagrams/c2-2-drugs.astro", "flashcards.yaml:c15", "index.mdx (mistakes)" ]
     confidence: medium
-    basis: Tomizawa & Casida 2005 (selective toxicity); "irreversible" follows IB teaching texts — pharmacologically they are agonists with very slow dissociation
+    basis: Tomizawa & Casida 2005 (selective toxicity); pharmacologically they are agonists with very slow dissociation (long-lasting, not covalent)
     status: open
   - id: f21
     claim: The EU banned outdoor use of imidacloprid, clothianidin and thiamethoxam in 2018 because of risks to bees.
@@ -132,10 +138,10 @@ facts:
     basis: Kandel; Volkow et al. (reduced D2 receptor availability in cocaine users)
     status: checked
   - id: f23
-    claim: GABA is the main inhibitory transmitter in the brain; GABA-A receptors are Cl⁻ channels; Cl⁻ entry hyperpolarises the membrane (IPSP) in mature neurons.
+    claim: GABA is the main inhibitory transmitter in the brain; GABA-A receptors are Cl⁻ channels; Cl⁻ entry hyperpolarizes the membrane (IPSP) in mature neurons.
     where: [ "index.mdx#summation", "visuals.yaml:summation", "flashcards.yaml:c16", "quiz.yaml:q10" ]
     confidence: high
-    basis: Kandel; IB guide C2.2.13 (postsynaptic membrane hyperpolarised)
+    basis: Kandel; IB guide C2.2.13 (postsynaptic membrane hyperpolarized)
     status: checked
   - id: f24
     claim: Spatial summation (several neurons at once) and temporal summation (repeated impulses from one neuron) combine EPSPs and IPSPs at the axon hillock; firing is all or nothing. The sim scales single PSPs up (+9/−5 mV) for clarity; real single EPSPs are often < 1 mV.
