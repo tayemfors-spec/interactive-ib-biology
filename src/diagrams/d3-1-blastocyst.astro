@@ -1,0 +1,77 @@
+---
+/** D3.1.16: early development to a blastocyst and implantation in the endometrium. Timings approximate; not to scale. */
+const ring = (cx: number, cy: number, r: number, n: number) =>
+  Array.from({ length: n }, (_, k) => { const a = (k / n) * Math.PI * 2; return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a), a }; });
+const ball = (cx: number, cy: number) => [[-8, -8], [8, -8], [-8, 8], [8, 8], [0, 0], [-14, 0], [14, 0], [0, -14], [0, 14]].map(([x, y]) => ({ x: cx + x!, y: cy + y! }));
+const B = { cx: 360, cy: 236, r: 62 };
+const troph = ring(B.cx, B.cy, B.r, 30);
+const icm = [[-22, 44], [-8, 46], [6, 46], [20, 44], [-14, 34], [0, 34], [14, 34], [-6, 24], [8, 24]].map(([x, y]) => ({ x: B.cx + x!, y: B.cy + y! }));
+const smallTroph = ring(470, 70, 26, 16);
+---
+<svg viewBox="0 0 720 360" role="img" aria-labelledby="d31-bl-t d31-bl-d" class="bla">
+  <title id="d31-bl-t">From zygote to blastocyst, and implantation of the blastocyst in the endometrium</title>
+  <desc id="d31-bl-d">Top: the zygote divides by mitosis as it is moved along the oviduct, becoming two cells after about a day and a solid ball of cells after about three days. By about day five it is a blastocyst: a hollow ball with an outer layer of cells, a fluid-filled cavity and an inner cell mass. Bottom: at about day seven the blastocyst, having escaped from the zona pellucida, sinks into the endometrium. The outer layer invades the endometrium and will help form the placenta; the inner cell mass will become the embryo.</desc>
+  <defs><marker id="d31-bl-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker></defs>
+  <!-- top: stages along the oviduct -->
+  <rect class="tube" x="20" y="34" width="560" height="72" rx="36" />
+  <text class="t muted" x="30" y="24">in the oviduct, moved by cilia and muscle contractions →</text>
+  <text class="t muted" x="602" y="24">uterus</text>
+  <rect class="uter" x="596" y="30" width="118" height="80" rx="12" />
+  {["M104 70 H152", "M230 70 H282", "M360 70 H426", "M502 70 H632"].map((d) => <path class="arr" d={d} marker-end="url(#d31-bl-ah)" />)}
+  <!-- zygote -->
+  <circle class="zp" cx="70" cy="70" r="27" /><circle class="cell" cx="70" cy="70" r="21" /><circle class="nuc" cx="70" cy="70" r="6" />
+  <!-- 2-cell -->
+  <circle class="zp" cx="196" cy="70" r="27" /><circle class="cell" cx="186" cy="70" r="11" /><circle class="cell" cx="207" cy="70" r="11" />
+  <!-- ball of cells -->
+  <circle class="zp" cx="326" cy="70" r="27" />{ball(326, 70).map((c) => <circle class="cell" cx={c.x} cy={c.y} r="7" />)}
+  <!-- blastocyst, hatching from the zona -->
+  <path class="zp" d="M452 46 A30 30 0 1 0 494 56" />
+  {smallTroph.map((c) => <circle class="tr" cx={c.x.toFixed(1)} cy={c.y.toFixed(1)} r="4.8" />)}
+  {[[-6, 14], [4, 14], [-1, 6]].map(([x, y]) => <circle class="icm" cx={470 + x!} cy={70 + y!} r="5" />)}
+  <!-- in the uterus: implanting -->
+  <circle class="tr" cx="650" cy="96" r="12" />
+  <text class="t sm" x="70" y="126" text-anchor="middle">zygote, day 0</text>
+  <text class="t sm" x="196" y="126" text-anchor="middle">2 cells, ~day 1</text>
+  <text class="t sm" x="326" y="126" text-anchor="middle">ball of cells, ~day 3</text>
+  <text class="t sm b" x="470" y="126" text-anchor="middle">blastocyst, ~day 5</text>
+  <text class="t sm" x="655" y="126" text-anchor="middle">implants, ~day 7</text>
+  <path class="endoT" d="M600 104 H710" />
+
+  <!-- bottom: enlarged implantation -->
+  <rect class="endo" x="120" y="270" width="480" height="86" />
+  <path class="surf" d="M120 270 H600" />
+  {[170, 250, 470, 550].map((x) => <path class="ves" d={`M${x} 356 q-10 -20 0 -40 t0 -30`} />)}
+  <circle class="cav" cx={B.cx} cy={B.cy} r={B.r - 6} />
+  {troph.map((c) => <ellipse class="tr" cx={c.x.toFixed(1)} cy={c.y.toFixed(1)} rx="8" ry="5.5" transform={`rotate(${((c.a * 180) / Math.PI + 90).toFixed(0)} ${c.x.toFixed(1)} ${c.y.toFixed(1)})`} />)}
+  {icm.map((c) => <circle class="icm" cx={c.x} cy={c.y} r="7.5" />)}
+  <path class="inv" d="M318 284 l-10 22 M336 296 l-6 26 M360 300 v28 M384 296 l6 26 M402 284 l10 22" />
+  <!-- labels -->
+  <path class="lead" d={`M${B.cx - 60} ${B.cy - 20} L232 196`} /><text class="t b" x="20" y="186">trophoblast (outer layer)</text><text class="t" x="20" y="202">invades the endometrium;</text><text class="t" x="20" y="218">forms part of the placenta</text><text class="t" x="20" y="234">and secretes hCG</text>
+  <path class="lead" d={`M${B.cx - 12} ${B.cy - 18} L232 254`} /><text class="t b" x="20" y="252">fluid-filled cavity</text>
+  <path class="lead" d={`M${B.cx + 20} ${B.cy + 40} L492 196`} /><text class="t b" x="496" y="186">inner cell mass</text><text class="t" x="496" y="202">will develop into the embryo;</text><text class="t" x="496" y="218">faces the endometrium</text>
+  <path class="lead" d="M560 300 L604 300" /><text class="t b" x="608" y="296">endometrium</text><text class="t" x="608" y="312">thick, with many</text><text class="t" x="608" y="328">blood vessels</text>
+  <text class="t muted" x="20" y="300">enlarged:</text><text class="t muted" x="20" y="316">implantation</text>
+</svg>
+<style>
+  .bla { font-family: var(--font-sans); }
+  .tube { fill: color-mix(in srgb, var(--bio-chol) 12%, var(--surface)); stroke: color-mix(in srgb, var(--bio-chol) 50%, var(--surface)); stroke-width: 2; }
+  .uter { fill: color-mix(in srgb, var(--bio-chol) 16%, var(--surface)); stroke: color-mix(in srgb, var(--bio-chol) 50%, var(--surface)); stroke-width: 2; }
+  .endoT { stroke: color-mix(in srgb, var(--bio-k) 60%, var(--surface)); stroke-width: 6; }
+  .zp { fill: none; stroke: color-mix(in srgb, var(--bio-carb) 55%, var(--surface)); stroke-width: 4; }
+  .cell { fill: color-mix(in srgb, var(--bio-tail) 30%, var(--surface)); stroke: var(--text); stroke-width: 1.1; }
+  .nuc { fill: color-mix(in srgb, var(--bio-protein-2) 50%, var(--surface)); stroke: var(--text); }
+  .tr { fill: color-mix(in srgb, var(--bio-head) 40%, var(--surface)); stroke: var(--text); stroke-width: 1; }
+  .icm { fill: color-mix(in srgb, var(--bio-protein) 50%, var(--surface)); stroke: var(--text); stroke-width: 1; }
+  .cav { fill: color-mix(in srgb, var(--bio-water) 16%, var(--surface)); }
+  .endo { fill: color-mix(in srgb, var(--bio-k) 22%, var(--surface)); }
+  .surf { stroke: var(--bio-k); stroke-width: 2; }
+  .ves { fill: none; stroke: var(--bio-k); stroke-width: 2.4; }
+  .inv { stroke: var(--bio-head); stroke-width: 3; stroke-linecap: round; }
+  .arr { fill: none; stroke: var(--text); stroke-width: 1.8; }
+  .ah { fill: var(--text); }
+  .lead { stroke: var(--text); stroke-width: 1.1; }
+  .t { font-size: 13.5px; fill: var(--text); }
+  .t.b { font-weight: 750; }
+  .t.sm { font-size: 13px; }
+  .t.muted { fill: var(--text-muted); font-size: 13px; }
+</style>

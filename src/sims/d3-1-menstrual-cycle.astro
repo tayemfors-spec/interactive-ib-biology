@@ -1,0 +1,327 @@
+---
+/**
+ * D3.1.5: the menstrual cycle. A day slider moves along a 28-day hormone graph and shows the ovary,
+ * the endometrium and the feedback acting in each phase. Maths in models/d3-1-menstrual.ts.
+ */
+import { linePath, range, sx, sy, type Frame } from './chart';
+import { CYCLE, endometrium, levels, ovary, phaseAt, type Levels } from './models/d3-1-menstrual';
+
+const frame: Frame = {
+  w: 640, h: 400, left: 58, right: 18, top: 14, bottom: 124,
+  x: { min: 1, max: CYCLE, ticks: [1, 7, 14, 21, 28], label: 'Day of cycle' },
+  y: { min: 0, max: 100, ticks: range(0, 100, 20), label: 'Relative level' },
+};
+const H: { key: keyof Levels; name: string }[] = [
+  { key: 'fsh', name: 'FSH' },
+  { key: 'lh', name: 'LH' },
+  { key: 'oestradiol', name: 'Oestradiol' },
+  { key: 'progesterone', name: 'Progesterone' },
+];
+const day0 = 3;
+const paths = Object.fromEntries(H.map((h) => [h.key, linePath(frame, (x) => levels(x)[h.key], 270)]));
+const L0 = levels(day0);
+const ph0 = phaseAt(day0);
+const ov0 = ovary(day0);
+const en0 = endometrium(day0);
+const plotB = frame.h - frame.bottom;
+const band1 = plotB + 54, band2 = plotB + 86, bandH = 26;
+const jumps = [
+  { day: 3, label: 'Menstruation' }, { day: 9, label: 'Follicular' }, { day: 12.5, label: 'Oestradiol peak' },
+  { day: 14, label: 'Ovulation' }, { day: 20, label: 'Luteal' }, { day: 26, label: 'Late luteal' },
+];
+const rows = [1, 4, 7, 10, 12, 13, 14, 15, 18, 21, 24, 26, 28].map((d) => ({ d, ...levels(d) }));
+const fmt = (v: number) => Math.round(v);
+// ovary geometry (shared with the browser script via data attributes)
+const FX = 178, FY = 80;
+const folR = (f: number) => 12 + 34 * f;
+const clR = (c: number) => 8 + 32 * c;
+const endoTop = (t: number) => 112 - 84 * t;
+---
+<div class="mc-sim" data-mc-sim data-frame={JSON.stringify(frame)}>
+  <div class="layout">
+    <div class="graph">
+      <svg class="chart" viewBox={`0 0 ${frame.w} ${frame.h}`} role="img" aria-labelledby="mc-t mc-d" data-chart>
+        <title id="mc-t">Levels of FSH, LH, oestradiol and progesterone across a 28-day menstrual cycle</title>
+        <desc id="mc-d">FSH rises early in the cycle, then falls; oestradiol peaks just before day 14; LH surges sharply to a peak at ovulation on about day 14, with a smaller FSH peak; progesterone is high in the second half of the cycle and falls before day 28. Bands below show menstruation, thickening and maintenance of the endometrium, and follicle growth then the corpus luteum in the ovary.</desc>
+        <g class="grid">
+          {frame.x.ticks.map((t) => <line x1={sx(frame, t)} x2={sx(frame, t)} y1={frame.top} y2={plotB} />)}
+          {frame.y.ticks.map((t) => <line x1={frame.left} x2={frame.w - frame.right} y1={sy(frame, t)} y2={sy(frame, t)} />)}
+        </g>
+        <line class="ovl" x1={sx(frame, 14)} x2={sx(frame, 14)} y1={frame.top} y2={band2 + bandH} />
+        <g class="ticks">
+          {frame.x.ticks.map((t) => <text x={sx(frame, t)} y={plotB + 18} text-anchor="middle">{t}</text>)}
+          {frame.y.ticks.map((t) => <text x={frame.left - 8} y={sy(frame, t)} dy="0.35em" text-anchor="end">{t}</text>)}
+        </g>
+        <text class="axis" x={(frame.left + frame.w - frame.right) / 2} y={plotB + 40} text-anchor="middle">{frame.x.label} →</text>
+        <text class="axis" transform={`translate(16 ${(frame.top + plotB) / 2}) rotate(-90)`} text-anchor="middle">{frame.y.label} →</text>
+        {H.map((h) => <path class={`line ${h.key}`} d={paths[h.key]} data-line={h.key} />)}
+        <line class="marker" data-marker x1={sx(frame, day0)} x2={sx(frame, day0)} y1={frame.top} y2={band2 + bandH} />
+        {H.map((h) => <circle class={`dot ${h.key}`} r="6" cx={sx(frame, day0)} cy={sy(frame, L0[h.key])} data-dot={h.key} />)}
+        <!-- uterine and ovarian cycle bands -->
+        <text class="bl" x="4" y={band1 + 18}>Uterus</text>
+        <g class="band">
+          <rect class="b-mens" x={sx(frame, 1)} y={band1} width={sx(frame, 5.5) - sx(frame, 1)} height={bandH} />
+          <rect class="b-thick" x={sx(frame, 5.5)} y={band1} width={sx(frame, 14) - sx(frame, 5.5)} height={bandH} />
+          <rect class="b-keep" data-band-keep x={sx(frame, 14)} y={band1} width={sx(frame, 28) - sx(frame, 14)} height={bandH} />
+          <text x={(sx(frame, 1) + sx(frame, 5.5)) / 2} y={band1 + 18} text-anchor="middle">shed</text>
+          <text x={(sx(frame, 5.5) + sx(frame, 14)) / 2} y={band1 + 18} text-anchor="middle">thickening</text>
+          <text x={(sx(frame, 14) + sx(frame, 28)) / 2} y={band1 + 18} text-anchor="middle">thick, maintained</text>
+        </g>
+        <text class="bl" x="4" y={band2 + 18}>Ovary</text>
+        <g class="band">
+          <rect class="b-foll" x={sx(frame, 1)} y={band2} width={sx(frame, 13.6) - sx(frame, 1)} height={bandH} />
+          <rect class="b-cl" x={sx(frame, 14.4)} y={band2} width={sx(frame, 28) - sx(frame, 14.4)} height={bandH} />
+          <text x={(sx(frame, 1) + sx(frame, 13.6)) / 2} y={band2 + 18} text-anchor="middle">follicle growing</text>
+          <text x={(sx(frame, 14.4) + sx(frame, 28)) / 2} y={band2 + 18} text-anchor="middle">corpus luteum</text>
+        </g>
+      </svg>
+      <fieldset class="legend">
+        <legend>Show</legend>
+        {H.map((h) => <label><input type="checkbox" data-show={h.key} checked /> <span class={`key ${h.key}`}></span> {h.name}</label>)}
+      </fieldset>
+    </div>
+
+    <div class="side">
+      <label class="slider">Day of the cycle: <output data-out="day">{day0}</output>
+        <input type="range" min="1" max={CYCLE} step="0.5" value={day0} data-param="day" />
+      </label>
+      <div class="jumps" role="group" aria-label="Jump to a phase">
+        {jumps.map((j) => <button type="button" data-jump={j.day}>{j.label}</button>)}
+      </div>
+      <label class="check"><input type="checkbox" data-param="pregnant" /> An embryo implants this cycle (hCG keeps the corpus luteum alive)</label>
+
+      <div class="states">
+        <div class="state">
+          <p class="sh">Ovary</p>
+          <svg viewBox="0 0 260 160" aria-hidden="true" class="pic">
+            <ellipse class="ovary" cx="128" cy="80" rx="112" ry="64" />
+            {[[60, 58], [44, 96], [78, 122], [96, 40], [112, 112], [70, 82]].map(([x, y]) => <g class="prim"><circle cx={x} cy={y} r="7" /><circle class="oo" cx={x} cy={y} r="2.6" /></g>)}
+            <g data-follicle style={ov0.follicle > 0 ? '' : 'opacity:0'}>
+              <circle class="foll" data-foll cx={FX} cy={FY} r={folR(ov0.follicle)} />
+              <circle class="antrum" data-antrum cx={FX + 4} cy={FY} r={Math.max(0, folR(ov0.follicle) - 14)} style={ov0.follicle > 0.45 ? '' : 'opacity:0'} />
+              <circle class="oocyte" data-oocyte cx={FX - folR(ov0.follicle) + 12} cy={FY} r="7" />
+            </g>
+            <g data-rupture style="opacity:0">
+              <path class="foll" d={`M${FX + 30} ${FY - 34} A46 46 0 1 0 ${FX + 40} ${FY + 22}`} />
+              <circle class="oocyte" cx="246" cy="30" r="7" />
+              <path class="mv" d="M222 52 L238 38" />
+            </g>
+            <circle class="cl" data-cl cx={FX} cy={FY} r={clR(ov0.corpusLuteum)} style={ov0.corpusLuteum > 0 ? '' : 'opacity:0'} />
+            <text class="pt" data-ovary-tag x="128" y="156" text-anchor="middle">follicles start to develop</text>
+          </svg>
+        </div>
+        <div class="state">
+          <p class="sh">Endometrium (uterus lining)</p>
+          <svg viewBox="0 0 260 160" aria-hidden="true" class="pic">
+            <rect class="lumen" x="0" y="0" width="260" height="112" />
+            <rect class="endo" data-endo x="0" y={endoTop(en0)} width="260" height={112 - endoTop(en0)} />
+            <g data-vessels>
+              {[30, 80, 130, 180, 230].map((x) => <path class="vessel" data-vessel={x} d={`M${x} 112 q-8 -${(112 - endoTop(en0)) * 0.25} 0 -${(112 - endoTop(en0)) * 0.5} t0 -${(112 - endoTop(en0)) * 0.4}`} />)}
+            </g>
+            <g data-shed style={en0 < 0.9 && ph0.id === 'menstruation' ? '' : 'opacity:0'}>
+              {[[40, 30], [96, 18], [150, 36], [206, 22], [70, 50], [180, 54], [124, 60]].map(([x, y]) => <ellipse class="shed" cx={x} cy={y} rx="9" ry="5" />)}
+            </g>
+            <rect class="myo" x="0" y="112" width="260" height="32" />
+            <text class="pt inv" x="130" y="133" text-anchor="middle">muscle wall (myometrium)</text>
+            <text class="pt" data-uterus-tag x="130" y="156" text-anchor="middle">lining shed (menstruation)</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase" data-phase>
+    <p class="pn"><strong data-ph="name">{ph0.name}</strong> <span data-ph="days">({ph0.days})</span></p>
+    <dl>
+      <div><dt>Ovary</dt><dd data-ph="ovary">{ph0.ovary}</dd></div>
+      <div><dt>Uterus</dt><dd data-ph="uterus">{ph0.uterus}</dd></div>
+      <div><dt>Feedback</dt><dd data-ph="feedback">{ph0.feedback}</dd></div>
+    </dl>
+  </div>
+  <p class="readout" aria-live="polite" data-readout>Day {day0}: FSH {fmt(L0.fsh)}, LH {fmt(L0.lh)}, oestradiol {fmt(L0.oestradiol)}, progesterone {fmt(L0.progesterone)} (relative units). {ph0.name}.</p>
+  <details class="table">
+    <summary>Show data table</summary>
+    <table>
+      <thead><tr><th scope="col">Day</th><th scope="col">FSH</th><th scope="col">LH</th><th scope="col">Oestradiol</th><th scope="col">Progesterone</th></tr></thead>
+      <tbody data-tbody>{rows.map((r) => <tr><th scope="row">{r.d}</th><td>{fmt(r.fsh)}</td><td>{fmt(r.lh)}</td><td>{fmt(r.oestradiol)}</td><td>{fmt(r.progesterone)}</td></tr>)}</tbody>
+    </table>
+  </details>
+  <p class="model-note">Qualitative model: the curve shapes and timings follow a typical 28-day cycle, but the units are relative: the four hormones are not drawn on a common scale, so compare the timing of their rises and falls, not their heights. Real cycles vary in length, mostly in the follicular phase.</p>
+</div>
+
+<script>
+  import { linePath, sx, sy, type Frame } from './chart';
+  import { CYCLE, endometrium, levels, ovary, phaseAt, type Levels } from './models/d3-1-menstrual';
+
+  const KEYS: (keyof Levels)[] = ['fsh', 'lh', 'oestradiol', 'progesterone'];
+  const FX = 178;
+  const folR = (f: number) => 12 + 34 * f;
+  const clR = (c: number) => 8 + 32 * c;
+  const endoTop = (t: number) => 112 - 84 * t;
+  const OVARY_TAG: Record<string, string> = {
+    'follicles-start': 'follicles start to develop',
+    'dominant-follicle': 'one follicle becomes dominant',
+    'mature-follicle': 'mature follicle with fluid cavity',
+    ovulation: 'ovulation: follicle bursts',
+    'corpus-luteum': 'corpus luteum secretes progesterone',
+    'corpus-luteum-breakdown': 'corpus luteum degenerating',
+    'corpus-luteum-maintained': 'corpus luteum kept by hCG',
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-mc-sim]').forEach((root) => {
+    const frame = JSON.parse(root.dataset.frame!) as Frame;
+    const q = <T extends Element>(s: string) => root.querySelector<T>(s)!;
+    const slider = q<HTMLInputElement>('[data-param="day"]');
+    const preg = q<HTMLInputElement>('[data-param="pregnant"]');
+    const readout = q<HTMLElement>('[data-readout]');
+    const fmt = (v: number) => Math.round(v);
+    let timer = 0;
+
+    const redrawLines = () => {
+      const opts = { pregnant: preg.checked };
+      for (const k of KEYS) q<SVGPathElement>(`[data-line="${k}"]`).setAttribute('d', linePath(frame, (x) => levels(x, opts)[k], 270));
+      q<SVGRectElement>('[data-band-keep]').classList.toggle('preg', opts.pregnant);
+      const rows = [1, 4, 7, 10, 12, 13, 14, 15, 18, 21, 24, 26, 28];
+      q<HTMLElement>('[data-tbody]').innerHTML = rows.map((d) => {
+        const L = levels(d, opts);
+        return `<tr><th scope="row">${d}</th><td>${fmt(L.fsh)}</td><td>${fmt(L.lh)}</td><td>${fmt(L.oestradiol)}</td><td>${fmt(L.progesterone)}</td></tr>`;
+      }).join('');
+    };
+
+    const update = () => {
+      const day = Math.max(1, Math.min(CYCLE, Number(slider.value)));
+      const opts = { pregnant: preg.checked };
+      const L = levels(day, opts);
+      q('[data-out="day"]').textContent = String(day);
+      const mx = sx(frame, day).toFixed(1);
+      const m = q<SVGLineElement>('[data-marker]');
+      m.setAttribute('x1', mx); m.setAttribute('x2', mx);
+      for (const k of KEYS) {
+        const dot = q<SVGCircleElement>(`[data-dot="${k}"]`);
+        dot.setAttribute('cx', mx); dot.setAttribute('cy', sy(frame, L[k]).toFixed(1));
+      }
+      // ovary
+      const ov = ovary(day, opts);
+      const r = folR(ov.follicle);
+      q<SVGGElement>('[data-follicle]').style.opacity = ov.follicle > 0 ? '1' : '0';
+      q('[data-foll]').setAttribute('r', r.toFixed(1));
+      q('[data-antrum]').setAttribute('r', Math.max(0, r - 14).toFixed(1));
+      q<SVGCircleElement>('[data-antrum]').style.opacity = ov.follicle > 0.45 ? '1' : '0';
+      q('[data-oocyte]').setAttribute('cx', (FX - r + 12).toFixed(1));
+      q<SVGGElement>('[data-rupture]').style.opacity = ov.state === 'ovulation' ? '1' : '0';
+      const cl = q<SVGCircleElement>('[data-cl]');
+      cl.setAttribute('r', clR(ov.corpusLuteum).toFixed(1));
+      cl.style.opacity = ov.corpusLuteum > 0 && ov.state !== 'ovulation' ? '1' : '0';
+      cl.classList.toggle('fading', ov.state === 'corpus-luteum-breakdown');
+      q('[data-ovary-tag]').textContent = OVARY_TAG[ov.state] ?? '';
+      // uterus
+      const th = endometrium(day, opts);
+      const top = endoTop(th), depth = 112 - top;
+      const endo = q<SVGRectElement>('[data-endo]');
+      endo.setAttribute('y', top.toFixed(1)); endo.setAttribute('height', depth.toFixed(1));
+      root.querySelectorAll<SVGPathElement>('[data-vessel]').forEach((v) => {
+        const x = Number(v.dataset.vessel);
+        v.setAttribute('d', `M${x} 112 q-8 -${(depth * 0.25).toFixed(1)} 0 -${(depth * 0.5).toFixed(1)} t0 -${(depth * 0.4).toFixed(1)}`);
+      });
+      const ph = phaseAt(day, opts);
+      const shedding = ph.id === 'menstruation';
+      q<SVGGElement>('[data-shed]').style.opacity = shedding ? '1' : '0';
+      q('[data-uterus-tag]').textContent = shedding ? 'lining shed (menstruation)' : ph.id === 'follicular' || ph.id === 'pre-ovulation' || ph.id === 'ovulation' ? 'lining repaired and thickening' : ph.id === 'late-luteal' ? 'thick, but progesterone falling' : 'thick lining maintained';
+      // phase card
+      q('[data-ph="name"]').textContent = ph.name;
+      q('[data-ph="days"]').textContent = `(${ph.days})`;
+      q('[data-ph="ovary"]').textContent = ph.ovary;
+      q('[data-ph="uterus"]').textContent = ph.uterus;
+      q('[data-ph="feedback"]').textContent = ph.feedback;
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        readout.textContent = `Day ${day}: FSH ${fmt(L.fsh)}, LH ${fmt(L.lh)}, oestradiol ${fmt(L.oestradiol)}, progesterone ${fmt(L.progesterone)} (relative units). ${ph.name}.`;
+      }, 350);
+    };
+
+    slider.addEventListener('input', update);
+    preg.addEventListener('change', () => { redrawLines(); update(); });
+    root.querySelectorAll<HTMLButtonElement>('[data-jump]').forEach((b) => b.addEventListener('click', () => { slider.value = b.dataset.jump!; update(); }));
+    root.querySelectorAll<HTMLInputElement>('[data-show]').forEach((cb) => cb.addEventListener('change', () => {
+      const show = cb.checked ? '' : 'none';
+      q<SVGPathElement>(`[data-line="${cb.dataset.show}"]`).style.display = show;
+      q<SVGCircleElement>(`[data-dot="${cb.dataset.show}"]`).style.display = show;
+    }));
+  });
+</script>
+
+<style>
+  .mc-sim { container-type: inline-size; }
+  .layout { display: grid; gap: var(--space-4); }
+  @container (min-width: 50rem) { .layout { grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 1fr); align-items: start; } }
+  .chart { width: 100%; height: auto; font-family: var(--font-sans); display: block; }
+  .grid line { stroke: var(--border); stroke-width: 1; }
+  .ovl { stroke: var(--text-muted); stroke-width: 1; stroke-dasharray: 1 4; }
+  .ticks text { font-size: 16px; fill: var(--text-muted); }
+  .axis { font-size: 16px; font-weight: 650; fill: var(--text); }
+  .line { fill: none; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+  .fsh { stroke: var(--bio-protein); }
+  .lh { stroke: var(--bio-protein-2); stroke-dasharray: 12 6; }
+  .oestradiol { stroke: var(--bio-head); stroke-dasharray: 2 6; }
+  .progesterone { stroke: var(--bio-carb); stroke-dasharray: 14 5 3 5; }
+  .dot { fill: var(--surface); stroke-width: 3; stroke-dasharray: none; }
+  .marker { stroke: var(--text); stroke-width: 1.4; stroke-dasharray: 4 3; }
+  .bl { font-size: 15px; font-weight: 700; fill: var(--text-muted); }
+  .band rect { stroke: var(--surface); stroke-width: 2; }
+  .band text { font-size: 15px; font-weight: 650; fill: var(--text); }
+  .b-mens { fill: color-mix(in srgb, var(--bio-k) 40%, var(--surface)); }
+  .b-thick { fill: color-mix(in srgb, var(--bio-head) 28%, var(--surface)); }
+  .b-keep { fill: color-mix(in srgb, var(--bio-carb) 30%, var(--surface)); }
+  .b-foll { fill: color-mix(in srgb, var(--bio-protein) 25%, var(--surface)); }
+  .b-cl { fill: color-mix(in srgb, var(--bio-glucose) 35%, var(--surface)); }
+  .legend { border: 0; padding: 0; margin: var(--space-2) 0 0; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); font-size: var(--step--1); }
+  .legend legend { font-weight: 700; color: var(--text-muted); margin-bottom: var(--space-1); }
+  .legend label { display: flex; align-items: center; gap: var(--space-2); min-height: 24px; }
+  .key { display: inline-block; width: 2rem; height: 0; border-top: 3.5px solid; }
+  .key.fsh { border-color: var(--bio-protein); }
+  .key.lh { border-color: var(--bio-protein-2); border-top-style: dashed; }
+  .key.oestradiol { border-color: var(--bio-head); border-top-style: dotted; }
+  .key.progesterone { border-color: var(--bio-carb); border-top-style: double; border-top-width: 5px; }
+  .side { display: grid; gap: var(--space-3); font-size: var(--step--1); }
+  .slider { display: grid; gap: var(--space-1); font-weight: 650; }
+  output { font-weight: 800; color: var(--accent-strong); }
+  .jumps { display: flex; flex-wrap: wrap; gap: var(--space-1); }
+  .jumps button { min-height: 2rem; padding: 0.2rem 0.6rem; border-radius: 999px; border: 1px solid var(--border-strong); background: var(--surface-2); color: var(--text); font: inherit; font-size: 0.82rem; font-weight: 650; cursor: pointer; }
+  .jumps button:hover { background: var(--accent-soft); }
+  .check { display: flex; gap: var(--space-2); align-items: start; }
+  .check input { margin-top: 0.2rem; }
+  .states { display: grid; gap: var(--space-2); }
+  @container (min-width: 32rem) { .states { grid-template-columns: 1fr 1fr; } }
+  @container (min-width: 50rem) { .states { grid-template-columns: 1fr; } }
+  .state { border: 1px solid var(--border); border-radius: var(--radius-m); padding: var(--space-2); background: var(--surface-2); }
+  .sh { margin: 0 0 var(--space-1); font-weight: 750; font-size: 0.82rem; }
+  .pic { width: 100%; height: auto; display: block; font-family: var(--font-sans); }
+  .ovary { fill: color-mix(in srgb, var(--bio-head) 18%, var(--surface)); stroke: var(--bio-head); stroke-width: 2; }
+  .prim circle { fill: color-mix(in srgb, var(--bio-glucose) 25%, var(--surface)); stroke: var(--text-muted); stroke-width: 1; }
+  .prim .oo, .oocyte { fill: color-mix(in srgb, var(--bio-na) 55%, var(--surface)); stroke: var(--text); stroke-width: 1; }
+  .foll { fill: color-mix(in srgb, var(--bio-glucose) 30%, var(--surface)); stroke: var(--text); stroke-width: 1.4; }
+  .antrum { fill: color-mix(in srgb, var(--bio-water) 25%, var(--surface)); stroke: var(--text-muted); stroke-width: 1; }
+  .cl { fill: color-mix(in srgb, var(--bio-glucose) 70%, var(--surface)); stroke: var(--text); stroke-width: 1.4; stroke-dasharray: 6 2; transition: fill 0.2s; }
+  .cl.fading { fill: color-mix(in srgb, var(--bio-glucose) 25%, var(--surface)); }
+  .mv { stroke: var(--text); stroke-width: 1.6; fill: none; }
+  .lumen { fill: var(--surface); }
+  .endo { fill: color-mix(in srgb, var(--bio-k) 32%, var(--surface)); }
+  .vessel { fill: none; stroke: var(--bio-k); stroke-width: 2; }
+  .shed { fill: color-mix(in srgb, var(--bio-k) 70%, var(--surface)); }
+  .myo { fill: color-mix(in srgb, var(--bio-chol) 55%, var(--surface)); }
+  .pt { font-size: 14px; font-weight: 650; fill: var(--text); }
+  .pt.inv { font-size: 13px; fill: var(--text); }
+  .phase { margin-top: var(--space-3); padding: var(--space-3); border-radius: var(--radius-m); border: 1px solid var(--border); background: var(--surface); font-size: var(--step--1); }
+  .pn { margin: 0 0 var(--space-2); }
+  .phase dl { margin: 0; display: grid; gap: var(--space-2); }
+  .phase dl div { display: grid; gap: 0.1rem; }
+  @container (min-width: 40rem) { .phase dl div { grid-template-columns: 6rem 1fr; } }
+  .phase dt { font-weight: 750; color: var(--accent-strong); }
+  .phase dd { margin: 0; }
+  .readout { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface-2); border-radius: var(--radius-m); font-size: var(--step--1); }
+  .table { margin-top: var(--space-2); font-size: var(--step--1); }
+  .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
+  table :global(th), table :global(td) { padding: 0.2rem 0.6rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
+</style>

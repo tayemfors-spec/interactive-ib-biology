@@ -1,0 +1,73 @@
+cards:
+  - id: c1
+    level: SL
+    front: Asexual vs sexual reproduction — the advantage of each
+    back: Asexual reproduction gives genetically identical offspring, suited to a stable environment the parent is already adapted to. Sexual reproduction gives new combinations of alleles, providing variation for adaptation when the environment changes.
+  - id: c2
+    level: SL
+    front: Roles of meiosis and fertilization in a sexual life cycle
+    back: Meiosis halves the chromosome number and breaks up the parents' combinations of alleles. Fertilization (fusion of gametes) restores the diploid number and creates new combinations.
+  - id: c3
+    level: SL
+    front: Why are male gametes small and numerous?
+    back: The male gamete travels to the female gamete, so it is small with few food reserves. Each costs little to make, so huge numbers are produced. The stationary egg is large, with food for the embryo, and far fewer are made.
+  - id: c4
+    level: SL
+    front: Path of sperm from the testis out of the body
+    back: Testis → epididymis (storage and maturation) → sperm duct → joins the seminal vesicle duct → through the prostate gland into the urethra → out through the penis.
+  - id: c5
+    level: SL
+    front: Functions of the oviduct
+    back: Its fimbriae collect the egg at ovulation; it is the usual site of fertilization; cilia and muscle contractions move the embryo to the uterus.
+  - id: c6
+    level: SL
+    front: Source and role of each menstrual-cycle hormone
+    back: FSH (pituitary) — follicle development. LH (pituitary) — surge triggers ovulation, then corpus luteum formation. Oestradiol (follicle) — rebuilds the endometrium; peak triggers the LH surge. Progesterone (corpus luteum) — maintains the endometrium, inhibits FSH and LH.
+  - id: c7
+    level: SL
+    front: Give one example each of positive and negative feedback in the menstrual cycle.
+    back: Positive — peak oestradiol stimulates the LH surge (also oestradiol raises FSH receptors on follicle cells). Negative — progesterone (with oestradiol) inhibits FSH and LH secretion in the luteal phase.
+  - id: c8
+    level: SL
+    front: What happens to the sperm and egg nuclei at fertilization?
+    back: The sperm nucleus enters the egg (tail and mitochondria are destroyed). Both nuclear membranes break down and all the condensed chromosomes take part in one joint mitosis, producing two diploid nuclei.
+  - id: c9
+    level: SL
+    front: The three hormone steps in IVF
+    back: 1 Down-regulation suspends the woman's own FSH/LH secretion. 2 FSH injections cause superovulation (many follicles). 3 hCG injection matures the eggs about 36 h before collection.
+  - id: c10
+    level: SL
+    front: Name and give the function of the parts of a carpel.
+    back: Stigma — sticky, traps pollen. Style — holds up the stigma; the pollen tube grows through it. Ovary — contains ovules (each with an egg cell); becomes the fruit.
+  - id: c11
+    level: SL
+    front: Three ways plants promote cross-pollination (other than self-incompatibility)
+    back: Pollen and stigma mature at different times; separate male and female flowers on a plant; separate male and female plants. Animals or wind carry pollen between plants.
+  - id: c12
+    level: SL
+    front: What happens in germination?
+    back: The seed absorbs water; enzymes (e.g. amylase) digest stored starch to sugars, which are moved to the growing tips for respiration and growth; the embryo root emerges, then the shoot.
+  - id: c13
+    level: AHL
+    front: Sequence of hormones that starts puberty
+    back: Increased GnRH from the hypothalamus → more LH and FSH from the anterior pituitary → more steroid sex hormones (testosterone, oestradiol, progesterone) from the gonads → changes of puberty.
+  - id: c14
+    level: AHL
+    front: Spermatogenesis vs oogenesis — products of one cell entering meiosis
+    back: Spermatogenesis — equal divisions, 4 sperm with little cytoplasm. Oogenesis — unequal divisions, 1 egg with lots of cytoplasm plus polar bodies (meiosis II completed only after a sperm enters).
+  - id: c15
+    level: AHL
+    front: Acrosome reaction vs cortical reaction
+    back: Acrosome reaction (sperm) — enzymes digest a path through the zona pellucida. Cortical reaction (egg) — cortical granules release enzymes that harden the zona and stop more sperm binding, preventing polyspermy.
+  - id: c16
+    level: AHL
+    front: Structure of a blastocyst
+    back: A hollow ball of cells formed by about day 5 — outer trophoblast (helps form the placenta, invades the endometrium, secretes hCG), fluid-filled cavity, and inner cell mass (becomes the embryo). Implants at about day 7.
+  - id: c17
+    level: AHL
+    front: Why does a placenta need villi, and what crosses it?
+    back: Villi give a very large surface area with a thin barrier for exchange. To the foetus — O₂, glucose, amino acids, water, ions, antibodies. To the mother — CO₂, urea. The bloods do not mix.
+  - id: c18
+    level: AHL
+    front: Hormonal control of pregnancy and childbirth
+    back: Progesterone maintains pregnancy — from the corpus luteum (kept by hCG), then the placenta. At term progesterone falls, allowing oxytocin to rise; contractions stretch the cervix, causing more oxytocin (positive feedback).

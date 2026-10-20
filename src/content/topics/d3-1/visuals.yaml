@@ -1,0 +1,121 @@
+# Visuals for D3.1. Step captions are what readers see under each animation, so they are written to exam standard.
+visuals:
+  - id: menstrual-cycle
+    kind: sim
+    module: d3-1-menstrual-cycle
+    title: The menstrual cycle, day by day
+    alt: A 28-day graph of FSH, LH, oestradiol and progesterone with a day slider showing the ovary, the endometrium and the feedback acting.
+    description: >-
+      A line graph of the relative levels of four hormones across a 28-day menstrual cycle, with day 1 as the
+      first day of menstruation. FSH is raised early in the cycle and then falls; oestradiol rises as a follicle
+      grows and peaks just before day 14; LH rises in a sharp surge that peaks at ovulation on about day 14, with a
+      smaller FSH peak; progesterone stays low until ovulation, is high in the luteal phase while the corpus luteum
+      is active and falls before day 28. Bands under the graph show the uterine cycle (shedding, thickening, thick
+      lining maintained) and the ovarian cycle (follicle growing, corpus luteum). A slider moves a marker through
+      the cycle; drawings of the ovary and the endometrium change with the day, and a panel explains what is
+      happening in the ovary and uterus and which positive or negative feedback is acting. A checkbox shows what
+      changes if an embryo implants: hCG keeps the corpus luteum alive, so progesterone stays high and the lining is
+      not shed. The model is qualitative.
+
+  - id: plant-reproduction
+    kind: anim
+    module: d3-1-plant-reproduction
+    title: From pollination to germination
+    alt: Step-by-step diagrams of cross-pollination by an insect, pollen tube growth, self-incompatibility, fertilization, seed dispersal and germination.
+    description: >-
+      Seven steps in the sexual reproduction of a flowering plant. Two flowers on different plants, A and B; a bee
+      collects pollen from the anthers of A and carries it to the stigma of B. A section through the carpel of B shows
+      a pollen tube growing from the pollen grain down the style to an ovule. A pollen grain from plant B itself lands
+      on the same stigma, but its tube is stopped (self-incompatibility). Male gametes travel down the tube and one
+      fuses with the egg cell to form a zygote; the ovule develops into a seed and the ovary into a fruit. Winged
+      fruits are carried away from the parent plant by the wind. Finally a seed in the soil absorbs water, its stored
+      food is mobilised and the embryo root and shoot grow out.
+    steps:
+      - id: gametes
+        title: Gametes in flowers
+        caption: Anthers contain cells that divide by meiosis to form haploid pollen grains; each pollen grain contains male gametes. Ovules inside the ovary each contain a haploid female gamete, the egg cell. A bee arrives at a flower on plant A to feed on nectar, and pollen sticks to its body.
+      - id: pollination
+        title: Cross-pollination
+        caption: Pollination is the transfer of pollen from an anther to a stigma. The bee flies to a flower on a different plant, B, and pollen rubs off onto the sticky stigma. Because the pollen comes from another plant, this is cross-pollination.
+      - id: pollen-tube
+        title: The pollen tube grows
+        caption: The pollen grain germinates on the stigma. A pollen tube grows down through the style to the ovary and enters an ovule through a small opening (the micropyle), carrying the male gametes.
+      - id: self-incompatibility
+        title: Self-pollen is rejected
+        caption: A pollen grain from plant B itself lands on the stigma. It carries the same self-incompatibility (S) allele as the stigma, so the plant recognises it as self and its pollen tube stops growing. Self-fertilization, and so inbreeding, is prevented.
+      - id: fertilization
+        title: Fertilization
+        caption: The male gametes move down the pollen tube into the ovule. One fuses with the egg cell, forming a diploid zygote that grows by mitosis into an embryo. (The other fuses with the central cell and forms a food store.) The ovule develops into a seed and the ovary wall into a fruit.
+      - id: dispersal
+        title: Seed dispersal
+        caption: Seeds are carried away from the parent plant, here by wind acting on winged fruits; animals disperse other fruits. Dispersal reduces competition with the parent and between seedlings, and lets the species colonise new areas. It moves seeds after fertilization, whereas pollination moves pollen before it.
+      - id: germination
+        title: Germination
+        caption: The seed absorbs water and the embryo becomes active. Enzymes such as amylase digest stored starch into sugars, which are carried with other food reserves to the growing tips and used in aerobic respiration and growth. The embryo root (radicle) grows down first, then the embryo shoot grows up towards the light.
+
+  - id: gametogenesis
+    kind: anim
+    module: d3-1-gametogenesis
+    level: AHL
+    title: Spermatogenesis and oogenesis compared
+    alt: Two rows comparing how sperm and eggs are made through mitosis, growth, meiosis I, meiosis II and differentiation, with ploidy at each stage.
+    description: >-
+      Two rows, sperm production in the testis above and egg production in the ovary below, revealed one stage at a
+      time. Mitosis produces diploid spermatogonia and oogonia. They grow into primary spermatocytes and primary
+      oocytes (2n); the primary oocyte sits in a follicle and pauses in meiosis I. Meiosis I gives two equal haploid
+      secondary spermatocytes, but one large secondary oocyte and a tiny first polar body. Meiosis II gives four
+      spermatids, but only one ovum and a second polar body, and only after a sperm has entered. Spermatids differentiate
+      into four sperm with little cytoplasm; the single egg keeps a large food store and the polar bodies degenerate.
+    steps:
+      - id: mitosis
+        title: Mitosis
+        caption: Germ cells divide by mitosis to make many diploid (2n) cells. In the testis, spermatogonia in the wall of the seminiferous tubules divide continuously from puberty onwards. In the ovary, oogonia divide only before birth, in the foetus.
+      - id: growth
+        title: Cell growth
+        caption: Cells grow into primary spermatocytes and primary oocytes, still diploid. A primary oocyte grows much larger and is surrounded by follicle cells, forming a primary follicle. It starts meiosis I before birth and then pauses until puberty.
+      - id: meiosis-1
+        title: Meiosis I
+        caption: Meiosis I halves the chromosome number, so the products are haploid (n), though each chromosome still has two chromatids. A primary spermatocyte divides equally into two secondary spermatocytes. A primary oocyte divides unequally, just before ovulation, into one large secondary oocyte and a small first polar body.
+      - id: meiosis-2
+        title: Meiosis II
+        caption: Meiosis II separates the chromatids. Two secondary spermatocytes give four haploid spermatids. The secondary oocyte pauses in metaphase II and only completes meiosis II if a sperm enters it, again dividing unequally into one ovum and a second polar body.
+      - id: differentiation
+        title: Differentiation
+        caption: Each spermatid differentiates, helped by nurse (Sertoli) cells, into a sperm with an acrosome, mitochondria and a tail, losing most of its cytoplasm. So one primary spermatocyte gives four sperm and millions are made each day. One primary oocyte gives only one egg, which keeps almost all the cytoplasm as a food store; the polar bodies degenerate.
+
+  - id: fertilization
+    kind: anim
+    module: d3-1-fertilization
+    level: AHL
+    title: Fertilization and the block to polyspermy
+    alt: Step-by-step diagram of a sperm passing the zona pellucida, fusing with the egg, the cortical reaction and the first mitosis.
+    description: >-
+      A human egg (secondary oocyte) surrounded by its plasma membrane, cortical granules just inside the membrane,
+      the zona pellucida and an outer layer of follicle cells, with three sperm approaching. The lead sperm releases
+      enzymes from its acrosome and digests a path through the zona pellucida. Its plasma membrane fuses with the egg
+      membrane and its nucleus enters. Cortical granules release their contents, hardening the zona pellucida so the
+      other sperm cannot get through. The egg completes meiosis II, producing a second polar body; the sperm tail and
+      mitochondria are broken down and two haploid nuclei form. Their nuclear membranes break down, the chromosomes
+      from both join one mitotic spindle, and two diploid nuclei are produced.
+    steps:
+      - id: reach
+        title: Sperm reach the egg
+        caption: Sperm swim up the oviduct towards the secondary oocyte released at ovulation. They push between the follicle cells around it and reach the zona pellucida, a layer of glycoproteins. Sperm have receptors that bind to specific zona glycoproteins.
+      - id: acrosome
+        title: Acrosome reaction
+        caption: Binding to the zona triggers the acrosome reaction. The acrosome releases its digestive enzymes by exocytosis, and they digest a narrow path through the zona pellucida. The sperm swims through it to the egg's plasma membrane.
+      - id: fusion
+        title: Membranes fuse
+        caption: Proteins on the sperm's plasma membrane bind to the egg membrane and the two membranes fuse. The sperm nucleus enters the egg cytoplasm. This is the moment of fertilization.
+      - id: cortical
+        title: Cortical reaction
+        caption: Fusion triggers the cortical reaction. Cortical granules just inside the egg membrane release enzymes by exocytosis. These alter the zona glycoproteins so that sperm can no longer bind, and harden the zona, so no other sperm can pass through. This prevents polyspermy.
+      - id: nuclei
+        title: Two haploid nuclei
+        caption: The egg now completes meiosis II, and the second polar body is pushed out. The sperm's tail and mitochondria are broken down, so mitochondria are inherited from the mother only. A nuclear membrane forms around each haploid set of chromosomes, giving separate sperm and egg nuclei (23 chromosomes each).
+      - id: joint-mitosis
+        title: Joint mitosis
+        caption: Both nuclear membranes break down. The condensed chromosomes from the sperm (blue) and the egg (red), 23 from each parent, line up together on one shared spindle. (Only a few of the 46 are drawn.)
+      - id: two-cells
+        title: Two diploid nuclei
+        caption: The chromosomes divide in this single, joint mitosis, producing two diploid nuclei (2n = 46), one in each of the first two cells of the embryo. Each nucleus contains one set of chromosomes from each parent.

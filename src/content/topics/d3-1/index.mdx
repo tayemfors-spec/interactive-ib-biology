@@ -1,0 +1,464 @@
+---
+code: D3.1
+description: "IB Biology D3.1 reproduction revision: menstrual cycle hormone simulator, labelled reproductive systems and flower, IVF, gametogenesis and self-test."
+updated: 2026-10-19
+related: [D2.1, D3.2, C2.1, B2.3]
+mustKnow:
+  - term: Sexual vs asexual reproduction
+    definition: "<strong>Asexual</strong> reproduction produces genetically identical offspring from one parent, which suits a stable environment the parent is already adapted to. <strong>Sexual</strong> reproduction combines gametes from two parents, producing offspring with new combinations of alleles: the variation needed to adapt if the environment changes."
+    level: SL
+  - term: Fertilization
+    definition: "Fusion of a male and a female gamete (each haploid) to form a diploid zygote. Meiosis breaks up the parents' combinations of alleles; fertilization creates new ones."
+    level: SL
+  - term: Menstrual cycle
+    definition: "The ovarian cycle (follicle growth, ovulation, corpus luteum) and the uterine cycle (shedding, rebuilding and maintenance of the endometrium) together, regulated by FSH, LH, oestradiol and progesterone through positive and negative feedback. Day 1 is the first day of menstruation."
+    level: SL
+  - term: Corpus luteum
+    definition: "The remains of the follicle after ovulation, which develops under the influence of LH and secretes progesterone (and some oestradiol). It degenerates after about 10–14 days unless hCG from an embryo keeps it alive."
+    level: SL
+  - term: IVF hormone treatment
+    definition: "The woman's own FSH and LH secretion is first suspended (down-regulation, e.g. with a GnRH analogue); then injections of FSH cause <strong>superovulation</strong> (many follicles mature) and an hCG injection about 36 hours before collection makes the eggs complete their maturation."
+    level: SL
+  - term: Pollination
+    definition: "Transfer of pollen from an anther to a stigma. <strong>Cross-pollination</strong> is between flowers on different plants, usually by animals or wind; it is different from <strong>seed dispersal</strong>, which moves seeds away from the parent after fertilization."
+    level: SL
+  - term: Self-incompatibility
+    definition: "A genetic mechanism (in many species controlled by S-alleles) by which a plant recognises its own pollen and stops it from fertilizing its ovules, so only gametes from different plants fuse. It prevents inbreeding and so maintains genetic diversity and vigour."
+    level: SL
+  - term: Germination
+    definition: "Growth of the embryo in a seed into a seedling. The seed absorbs water, enzymes digest stored food (for example starch to sugars) and the food is moved to the growing root and shoot tips."
+    level: SL
+  - term: Cortical reaction
+    definition: "After the first sperm fuses with the egg, cortical granules release enzymes by exocytosis that alter and harden the zona pellucida so no more sperm can bind or pass through, preventing <strong>polyspermy</strong>."
+    level: AHL
+  - term: Human chorionic gonadotropin (hCG)
+    definition: "A hormone secreted by the embryo and then the developing placenta (trophoblast). It keeps the corpus luteum secreting progesterone in early pregnancy, and it appears in urine, where pregnancy tests detect it with <strong>monoclonal antibodies</strong>."
+    level: AHL
+  - term: Oxytocin positive feedback
+    definition: "In childbirth, stretching of the cervix causes more oxytocin secretion from the posterior pituitary, which causes stronger uterine contractions, which stretch the cervix further. The loop continues until the baby is born."
+    level: AHL
+mistakes:
+  - wrong: "Reproduction in a hermaphrodite plant that pollinates itself is asexual."
+    right: "It is still sexual: gametes are made by meiosis and fuse at fertilization. Asexual reproduction involves no gametes and no fertilization, so the offspring are clones."
+    level: SL
+  - wrong: "LH peaks at the same time as oestradiol."
+    right: "Oestradiol peaks <strong>just before</strong> ovulation; its high level stimulates the LH surge by positive feedback, so LH peaks slightly later, at ovulation (about day 14)."
+    level: SL
+  - wrong: "Progesterone is made by the follicle before ovulation and causes ovulation."
+    right: "Progesterone is secreted mainly by the <strong>corpus luteum</strong> after ovulation. The LH surge causes ovulation; progesterone maintains the endometrium and inhibits FSH and LH."
+    level: SL
+  - wrong: "Menstruation is caused by a rise in progesterone."
+    right: "Menstruation is caused by a <strong>fall</strong> in progesterone (and oestradiol) when the corpus luteum degenerates, so the endometrium can no longer be maintained."
+    level: SL
+  - wrong: "In IVF, FSH injections are given to stop the woman's natural cycle."
+    right: "The natural cycle is stopped first by down-regulation (a drug that suspends the pituitary's own FSH and LH secretion). FSH injections are then given to stimulate many follicles (superovulation)."
+    level: SL
+  - wrong: "Pollination and seed dispersal both mean moving seeds to new places."
+    right: "Pollination moves <strong>pollen</strong> (male gametes) to a stigma <strong>before</strong> fertilization; seed dispersal moves <strong>seeds</strong> (embryos) away from the parent <strong>after</strong> fertilization."
+    level: SL
+  - wrong: "Drawing the sperm duct going straight from the testis to the penis, or joining the bladder."
+    right: "The sperm duct starts at the epididymis, loops up over the bladder and joins the urethra inside the prostate gland, after the seminal vesicle duct has joined it."
+    level: SL
+  - wrong: "In oogenesis meiosis produces four eggs, just as spermatogenesis produces four sperm."
+    right: "Cytokinesis in oogenesis is unequal: each meiotic division gives one large cell and a small polar body, so one primary oocyte gives only one egg (plus polar bodies that degenerate)."
+    level: AHL
+  - wrong: "Progesterone rises at the end of pregnancy to start contractions."
+    right: "Progesterone, which inhibits contractions, falls at the end of pregnancy; this allows oxytocin secretion to increase, and contractions build up by positive feedback."
+    level: AHL
+  - wrong: "Because HRT users had less heart disease, HRT must protect the heart."
+    right: "That was a correlation caused by a confounding factor: HRT users tended to have higher socioeconomic status, which itself lowers CHD risk. Randomised controlled trials found HRT slightly <strong>increases</strong> CHD risk."
+    level: AHL
+---
+
+<Section id="sexual-asexual" title="Sexual and asexual reproduction" level="SL" covers="D3.1.1 D3.1.2">
+
+All living things reproduce, but there are two fundamentally different ways of doing it.
+
+| | Asexual reproduction | Sexual reproduction |
+|---|---|---|
+| Parents | one | usually two |
+| Gametes and fertilization | none | haploid gametes fuse |
+| Offspring | genetically identical (clones) | genetically different from each other and from the parents |
+| Main advantage | quick; every individual can reproduce; a combination of alleles that works is copied exactly | produces **variation**, so some offspring may suit a changed environment |
+
+**Asexual reproduction** suits an organism that is already well adapted to a stable environment: its offspring inherit exactly the same well-adapted genes. If the environment changes, though, all the clones are equally vulnerable. **Sexual reproduction** produces offspring with **new combinations of alleles**. Some will be better suited than their parents if conditions change, for example when a new disease or a change of climate arrives, so natural selection has variation to act on.
+
+### Meiosis and fertilization in the life cycle
+
+In a sexual life cycle two processes alternate:
+
+- **Meiosis** halves the chromosome number, making haploid (n) gametes from diploid (2n) cells. Through crossing over and independent assortment it **breaks up the combinations of alleles** that each parent inherited.
+- **Fertilization** (fusion of gametes) restores the diploid number and brings together alleles from two different parents, creating **new combinations**.
+
+<Figure name="d3-1-life-cycle" caption="An animal sexual life cycle. Meiosis makes haploid gametes and shuffles the parental alleles; fertilization restores the diploid number with a new combination. The zygote grows by mitosis, so every body cell of the new individual has the same diploid set." />
+
+<Callout type="exam">
+
+If asked why sexual reproduction is an advantage, link **variation** to **a changing environment**. "Sexual reproduction produces variation" alone is not enough; say what the variation allows (adaptation and natural selection when conditions change).
+
+</Callout>
+
+</Section>
+
+<Section id="sexes" title="Differences between the sexes" level="SL" covers="D3.1.3">
+
+In sexual reproduction the biological difference between the **male** and the **female** role is defined by the gametes. The key fact is that **the male gamete travels to the female gamete**. Everything else follows from this.
+
+- **Male gametes** must move, so they are **small**, often with a tail, and carry **few food reserves**. Because each one is cheap to make, males produce them in **enormous numbers**: millions of sperm per day in human testes.
+- **Female gametes** stay where they are, so they can be **large**, with a big store of food for the early embryo. Each is costly to make, so **far fewer** are produced: in humans usually one egg per menstrual cycle.
+
+The same pattern is found in flowering plants: pollen grains carrying male gametes are tiny and produced in huge numbers, while each ovule holds one egg cell and develops into a seed with a food store.
+
+### Different reproductive strategies
+
+Because of the difference in investment per gamete, the sexes often follow different strategies:
+
+- Males can, in principle, fertilize many females, so male reproductive success is often limited by the number of matings. In many species males compete for mates, or display to attract them.
+- Females invest much more in each offspring (a large egg, and in mammals pregnancy and lactation), so their reproductive success is limited by resources rather than by matings. Females are often more selective about mates.
+
+<Callout type="note">
+
+There is wide variation between species, and in some (such as seahorses, where males brood the young) the usual roles in caring for offspring are reversed. The gamete difference, small mobile male gametes and large stationary female gametes, still holds.
+
+</Callout>
+
+</Section>
+
+<Section id="anatomy" title="The human reproductive systems" level="SL" covers="D3.1.4">
+
+You need to be able to draw and annotate diagrams of the **male-typical** and **female-typical** reproductive systems. Annotations should give the **name** and the **function** of each structure.
+
+<Figure name="d3-1-male" caption="Male-typical reproductive system, side view with the front of the body on the left. Only one testis and sperm duct are shown. The pathway of sperm is testis → epididymis → sperm duct → urethra (joined by fluids from the seminal vesicles and prostate gland) → out through the penis." />
+
+<Figure name="d3-1-female" caption="Female-typical reproductive system, front view. An egg released from an ovary is collected by the fimbriae of the oviduct, where fertilization can happen; the embryo then moves down to the uterus and implants in the endometrium." />
+
+### How the parts work together
+
+- **Semen** is sperm plus the fluids from the seminal vesicles and the prostate gland. The fluids provide fructose for respiration, make the semen alkaline to neutralise the acidic vagina, and help the sperm move.
+- During intercourse, erectile tissue in the **penis** fills with blood. At ejaculation, muscle contractions in the sperm ducts and urethra propel semen into the **vagina**.
+- Sperm swim through the **cervix** and **uterus** into the **oviducts**. Fertilization normally happens in an oviduct, close to the ovary.
+
+<Callout type="exam" title="Your diagrams must include">
+
+Male: testis, scrotum, epididymis, sperm duct, seminal vesicle, prostate gland, urethra, penis (bladder for orientation). Female: ovary, oviduct (with fimbriae), uterus with endometrium, cervix, vagina. Each label should have a function, and lines must show correct connections: for example, the sperm duct joins the urethra at the prostate, not the bladder.
+
+</Callout>
+
+</Section>
+
+<Section id="menstrual-cycle" title="Hormones of the menstrual cycle" level="SL" covers="D3.1.5">
+
+The **menstrual cycle** lasts about 28 days and is made of two linked cycles:
+
+- the **ovarian cycle**: a follicle grows, releases an egg at **ovulation**, then becomes the **corpus luteum**
+- the **uterine cycle**: the **endometrium** (lining of the uterus) is shed, rebuilt and then kept thick, ready for an embryo.
+
+Day 1 is the first day of menstruation. Four hormones control the cycle:
+
+| Hormone | Secreted by | Main effects |
+|---|---|---|
+| **FSH** (follicle-stimulating hormone) | anterior pituitary | stimulates follicles to develop and to secrete oestradiol |
+| **LH** (luteinizing hormone) | anterior pituitary | the LH surge triggers ovulation; then LH stimulates formation of the corpus luteum |
+| **Oestradiol** | follicle wall (and corpus luteum) | repair and thickening of the endometrium; regulates FSH and LH (see below) |
+| **Progesterone** | corpus luteum | maintains the thickened endometrium; inhibits FSH and LH |
+
+<Sim topic="d3-1" id="menstrual-cycle" />
+
+### Feedback
+
+- **Negative feedback**: moderate oestradiol inhibits FSH secretion in the follicular phase; high progesterone (with oestradiol) inhibits FSH and LH in the luteal phase, so no new follicles develop.
+- **Positive feedback**: oestradiol increases the number of FSH receptors on follicle cells, boosting oestradiol output further; and when oestradiol reaches its **peak** it stimulates a surge of LH from the pituitary, causing ovulation.
+
+If no embryo implants, the corpus luteum degenerates after about 10–14 days. Progesterone and oestradiol fall, the endometrium breaks down (menstruation) and, with the negative feedback removed, FSH rises to start the next cycle.
+
+<Callout type="exam">
+
+Hormone graphs are common in Paper 1. Learn the order: FSH rises first → oestradiol peaks → LH surge (peak at ovulation, about day 14) → progesterone high in the second half → progesterone falls → menstruation. Name the source of each hormone and say which feedback is acting.
+
+</Callout>
+
+</Section>
+
+<Section id="fertilization" title="Fertilization in humans" level="SL" covers="D3.1.6">
+
+Fertilization normally happens in an **oviduct**, within about a day of ovulation. The cell released at ovulation is a **secondary oocyte**, surrounded by a glycoprotein layer, the **zona pellucida**, and by follicle cells. Many sperm reach it, but only one fertilizes it.
+
+The key events are:
+
+1. **Membrane fusion.** The plasma membrane of one sperm fuses with the plasma membrane of the egg.
+2. **Entry of the sperm nucleus.** The sperm nucleus enters the egg cytoplasm. The sperm's **tail and mitochondria are destroyed**, so the zygote's mitochondria all come from the mother.
+3. **Two separate nuclei.** The egg completes its second meiotic division, and the haploid chromosomes from the egg and from the sperm each become enclosed in a nucleus. The two nuclei do not fuse directly.
+4. **Joint mitosis.** The membranes of **both** nuclei break down. All the condensed chromosomes, 23 from each parent, line up on one shared spindle and take part in a single mitosis. This produces **two diploid nuclei** (2n = 46) in the first two cells of the embryo.
+
+<Figure name="d3-1-zygote" caption="Fertilization from membrane fusion to the first division. The sperm and egg chromosomes first meet on the spindle of the zygote's first mitosis, not inside a fused nucleus." />
+
+<Callout type="tip">
+
+AHL students: the **Fertilization and the block to polyspermy** animation in the polyspermy section below shows these events together with the acrosome and cortical reactions.
+
+</Callout>
+
+</Section>
+
+<Section id="ivf" title="Hormones in IVF treatment" level="SL" covers="D3.1.7">
+
+**In vitro fertilization (IVF)** means fertilization "in glass": eggs and sperm are brought together in a dish outside the body. It is used, for example, when the oviducts are blocked or the sperm count is low. Hormones are used to collect several eggs at once.
+
+| Stage | What is given | Why |
+|---|---|---|
+| 1. **Down-regulation** | a drug (often a GnRH analogue, by injection or nasal spray) for about 2–3 weeks | **suspends** the woman's normal secretion of FSH and LH by the pituitary, so the clinic, not her own cycle, controls the timing |
+| 2. **Superovulation** | daily injections of **FSH** (sometimes with LH) for about 8–14 days | far more FSH than in a normal cycle, so **many follicles** mature at once rather than one |
+| 3. **Final maturation** | one injection of **hCG** | acts like the LH surge: the eggs complete meiosis I and mature; they are collected about 36 hours later, just before they would be released |
+
+The eggs are then collected from the follicles with a fine needle, mixed with sperm (or a sperm is injected directly into each egg), and after 2–5 days one or two embryos are placed in the uterus. Progesterone is often given to support the endometrium.
+
+<Callout type="exam">
+
+The guide's key idea in one sentence: the body's **normal hormone secretion is suspended**, then **artificial doses of hormones induce superovulation**. Make sure you can explain why each step is needed.
+
+</Callout>
+
+</Section>
+
+<Section id="flowering-plants" title="Sexual reproduction in flowering plants" level="SL" covers="D3.1.8 D3.1.9">
+
+Flowers are the reproductive organs of flowering plants. The stages are the same as in animals: **meiosis**, **gamete production** and **fertilization**.
+
+- **Gametes.** In the **anthers**, cells divide by meiosis to form haploid pollen grains; each pollen grain contains the **male gametes**. Each **ovule** inside the ovary contains a haploid **female gamete** (the egg cell).
+- **Pollination.** Pollen is transferred from an anther to a **stigma**, by insects, other animals or wind.
+- **Pollen development.** The pollen grain germinates on the stigma and grows a **pollen tube** down the style to an ovule, carrying the male gametes.
+- **Fertilization.** A male gamete fuses with the egg cell to form a zygote, which develops into an **embryo**. The ovule becomes a **seed** and the ovary becomes a **fruit**.
+
+Many flowers are **hermaphrodite**: they have both stamens and carpels, so one plant can be a male and a female parent. Even if a plant fertilizes itself, the reproduction is still **sexual**, because gametes are made by meiosis and fuse at fertilization.
+
+<Figure name="d3-1-flower" caption="Half-flower of a generalised insect-pollinated flower. Insect-pollinated flowers attract animals with large coloured petals, scent and nectar, and have sticky pollen and stigmas inside the flower where visiting insects brush against them." />
+
+<Anim topic="d3-1" id="plant-reproduction" />
+
+<Callout type="exam" title="Your flower drawing must include">
+
+Petals, sepals, nectaries, **stamen** (anther and filament) and **carpel** (stigma, style and ovary with ovules), each labelled with a function. Draw the style connecting stigma to ovary, and the ovules inside the ovary, not floating free.
+
+</Callout>
+
+</Section>
+
+<Section id="cross-pollination" title="Promoting cross-pollination" level="SL" covers="D3.1.10 D3.1.11">
+
+**Self-pollination** (pollen reaching a stigma on the same plant) leads to **inbreeding**. Inbred offspring are more likely to inherit two copies of a harmful recessive allele, and the population loses **genetic diversity** and **vigour**. **Cross-pollination** between different plants keeps variation high. Plants have several ways of promoting it.
+
+### Structural and timing methods
+
+| Method | How it works |
+|---|---|
+| Pollen and stigma mature at **different times** | if the anthers release pollen before the stigma is receptive (or the other way round), a flower cannot pollinate itself |
+| Separate **male and female flowers** on one plant | anthers and stigmas are in different flowers (e.g. maize) |
+| Separate **male and female plants** | each plant has only stamens or only carpels (e.g. holly, kiwifruit), so self-pollination is impossible |
+| **Animals** or **wind** carry pollen | insects visiting flower after flower carry pollen between plants; wind spreads light pollen over long distances |
+
+### Self-incompatibility
+
+Many species (for example in the cabbage family, the rose family, which includes apples and cherries, and the potato family) also have a genetic block. A **self-incompatibility** gene, often called the **S-locus**, has many alleles. When a pollen grain lands on a stigma, proteins made by the pollen and the stigma are compared:
+
+- If the pollen carries an S-allele that **matches** one in the stigma, it is recognised as **self** (or from a close relative). It fails to germinate, or its tube stops growing in the stigma or style.
+- If the S-alleles are **different**, the pollen tube grows normally and fertilization can occur.
+
+This ensures that the male and female gametes that fuse at fertilization come from **different plants**, increasing genetic variation within the species.
+
+<Callout type="exam">
+
+Self-incompatibility is a **genetic recognition** mechanism, not a structural one. Answers should say that the plant detects pollen with matching alleles and stops it, so fertilization only happens with pollen from a genetically different plant.
+
+</Callout>
+
+</Section>
+
+<Section id="seeds" title="Seed dispersal and germination" level="SL" covers="D3.1.12">
+
+### Dispersal is not pollination
+
+| | Pollination | Seed dispersal |
+|---|---|---|
+| What moves | pollen (male gametes) | seeds (each containing an embryo) |
+| When | before fertilization | after fertilization |
+| Purpose | brings gametes together | spreads offspring away from the parent |
+
+Dispersing seeds **reduces competition** for light, water and minerals between the seedlings and the parent, and lets the species **colonise new areas**. Seeds are carried by wind (winged or feathery fruits), by animals (fleshy fruits eaten and the seeds passed out in faeces, or hooked fruits caught on fur), by water, or thrown out by exploding fruits.
+
+### Germination
+
+A seed contains an embryo (embryo root, embryo shoot and one or two seed leaves, the cotyledons) and a **food store**. It stays dormant until conditions are suitable. **Germination** then needs:
+
+- **water**, absorbed through the seed coat, which rehydrates the tissues and activates enzymes
+- **oxygen**, for aerobic respiration to supply ATP for growth
+- a suitable **temperature**, for enzyme activity.
+
+Once water is absorbed, a growth regulator (gibberellin) stimulates the production of enzymes such as **amylase**. These **mobilise the food reserves**: starch is hydrolysed to sugars (and proteins to amino acids), which are transported to the growing regions. The embryo root emerges first, to anchor the seedling and absorb water; then the shoot grows up. Once its leaves reach the light, the seedling can photosynthesise and no longer depends on the food store.
+
+</Section>
+
+<Section id="puberty" title="Hormonal control of puberty" level="AHL" covers="D3.1.13">
+
+**Puberty** is the period in which the body becomes able to reproduce. It is started by a change in the brain:
+
+1. From late childhood, the **hypothalamus** increases its release of **gonadotropin-releasing hormone (GnRH)**.
+2. GnRH travels in portal blood vessels to the **anterior pituitary**, stimulating it to secrete more **LH** and **FSH** (the gonadotropins).
+3. LH and FSH stimulate the **gonads**. The testes secrete more **testosterone** and start producing sperm; the ovaries secrete more **oestradiol** and **progesterone**, and follicles start to mature.
+4. The increased **steroid sex hormones** cause the developmental changes of puberty.
+
+<Figure name="d3-1-puberty" level="AHL" caption="The hormonal sequence that starts puberty. GnRH from the hypothalamus is the trigger; the steroid sex hormones from the gonads cause the body changes." />
+
+Sex hormones are steroids: they are lipid-soluble, diffuse through the plasma membrane and bind to receptors inside target cells, changing which genes are expressed. This is why their effects (growth of tissues, development of secondary sexual characteristics) take weeks to years.
+
+<Callout type="note">
+
+The guide limits this understanding to the sequence GnRH → LH and FSH → sex hormones → puberty. You do not need to know what makes GnRH secretion rise.
+
+</Callout>
+
+</Section>
+
+<Section id="gametogenesis" title="Spermatogenesis and oogenesis" level="AHL" covers="D3.1.14">
+
+**Gametogenesis** is gamete production. In both sexes it has four stages: **mitosis**, **cell growth**, **two divisions of meiosis** and **differentiation**.
+
+<Anim topic="d3-1" id="gametogenesis" />
+
+### Spermatogenesis (testes)
+
+Sperm are made in the walls of the **seminiferous tubules**. The outer layer, the germinal epithelium, divides by mitosis continuously from puberty. Cells grow into primary spermatocytes, which undergo meiosis I and II to form four haploid **spermatids**. These differentiate into sperm, helped by nurse (Sertoli) cells, losing most of their cytoplasm and gaining an acrosome, a mitochondria-packed mid-piece and a tail.
+
+### Oogenesis (ovaries)
+
+Oogonia multiply by mitosis **only in the foetus**. They grow into primary oocytes, start meiosis I and then pause, each inside a primary follicle. From puberty, a few follicles develop each cycle. Just before ovulation, the dominant one completes meiosis I, dividing **unequally** into a large secondary oocyte and a small **polar body**. The secondary oocyte starts meiosis II and is released at ovulation, but completes meiosis II only if a sperm enters it, again forming one large cell and a polar body.
+
+### Why such different numbers and sizes?
+
+| | Spermatogenesis | Oogenesis |
+|---|---|---|
+| Gametes per cell entering meiosis | 4 sperm | 1 egg (+ polar bodies) |
+| Cytokinesis in meiosis | equal | unequal |
+| Production | millions per day, from puberty throughout life | usually one egg per cycle, from puberty to menopause |
+| Cytoplasm | almost none (small, streamlined) | very large (food reserves for the embryo) |
+
+Unequal division puts almost all the cytoplasm into a single egg, so it can supply the early embryo. Sperm only need to deliver a nucleus, so they shed cytoplasm and are produced in vast numbers.
+
+</Section>
+
+<Section id="polyspermy" title="Preventing polyspermy" level="AHL" covers="D3.1.15">
+
+**Polyspermy**, fertilization of an egg by more than one sperm, would give a zygote with too many chromosome sets, which cannot develop normally. Two mechanisms ensure only one sperm gets through.
+
+### The acrosome reaction
+
+The **acrosome** is a vesicle-like cap on the sperm head, full of digestive enzymes. When a sperm binds to glycoproteins of the **zona pellucida**, the acrosome releases its enzymes by exocytosis. They digest a narrow route through the zona, allowing that sperm to reach and fuse with the egg membrane.
+
+### The cortical reaction
+
+The egg has **cortical granules**, vesicles just inside its plasma membrane. As soon as the first sperm fuses, a wave of Ca²⁺ release spreads through the egg and the cortical granules release their contents by exocytosis into the space beneath the zona. Their enzymes:
+
+- **alter the zona glycoproteins** to which sperm bind, so other sperm can no longer attach
+- **harden the zona pellucida**, so no other sperm can digest a way through it.
+
+<Anim topic="d3-1" id="fertilization" />
+
+<Callout type="exam">
+
+Keep the two reactions straight: the **acrosome** reaction happens in the **sperm** and lets one sperm **in**; the **cortical** reaction happens in the **egg** and keeps all other sperm **out**.
+
+</Callout>
+
+</Section>
+
+<Section id="implantation" title="Blastocyst, implantation and pregnancy tests" level="AHL" covers="D3.1.16 D3.1.17">
+
+### From zygote to blastocyst
+
+The zygote divides by mitosis as it is moved along the oviduct by cilia and muscle contractions. After about 5 days it has become a **blastocyst**: a hollow ball of cells with
+
+- an outer layer, the **trophoblast**, which will help form the placenta
+- a fluid-filled cavity
+- an **inner cell mass**, which will develop into the embryo.
+
+The blastocyst reaches the uterus, escapes from the zona pellucida and, at around day 7, **implants**: it attaches to the **endometrium** and the trophoblast grows into it, giving the embryo access to the mother's blood supply.
+
+<Figure name="d3-1-blastocyst" level="AHL" caption="Development from zygote to blastocyst as the embryo travels down the oviduct, and implantation of the blastocyst in the endometrium at about day 7. Timings vary by a day or two." />
+
+### hCG and pregnancy testing
+
+Soon after implantation, the trophoblast (and then the developing placenta) secretes **human chorionic gonadotropin (hCG)**. hCG keeps the **corpus luteum** alive, so it continues to secrete progesterone and the endometrium is not shed.
+
+hCG is excreted in urine, and pregnancy tests detect it using **monoclonal antibodies**: antibodies made by a clone of identical cells, all binding the same specific site on hCG.
+
+<Figure name="d3-1-pregnancy-test" level="AHL" caption="A pregnancy test strip. A coloured test line forms only when hCG is trapped between a mobile antibody (carrying a dye) and a fixed antibody; the control line confirms that the urine has flowed through the strip." />
+
+<Callout type="exam">
+
+Explain why **two** different antibodies are needed at the test line: the mobile one labels hCG with a dye, and the fixed one, binding a different part of hCG, holds the hCG–dye complex in place so a line appears. The control line shows the test worked whatever the result.
+
+</Callout>
+
+</Section>
+
+<Section id="placenta" title="The placenta" level="AHL" covers="D3.1.18">
+
+The **placenta** develops from the trophoblast together with the endometrium. It is connected to the foetus by the **umbilical cord**, which contains two umbilical arteries (carrying blood from the foetus) and one umbilical vein (carrying blood back to it).
+
+Exchange happens across the **placental villi**: finger-like, branched projections of foetal tissue that contain foetal capillaries and are bathed in maternal blood. The villi give a very **large surface area**, and the barrier between the bloods is thin, so diffusion is rapid. Maternal and foetal blood **do not mix**.
+
+<Figure name="d3-1-placenta" level="AHL" caption="Placental villi project into spaces filled with maternal blood. Substances cross the thin layers between maternal blood and foetal capillaries; the two bloods never mix." />
+
+| From mother to foetus | From foetus to mother |
+|---|---|
+| oxygen, glucose, amino acids, fatty acids, vitamins, mineral ions, water | carbon dioxide |
+| antibodies (by endocytosis), giving temporary immunity | urea and other wastes |
+
+Some harmful substances can also cross, such as alcohol, nicotine, some drugs and some viruses.
+
+### Why the placenta matters
+
+The placenta lets a mammal **keep its foetus in the uterus to a much later stage of development** than mammals without a placenta. Marsupials, for example, give birth to a tiny, very undeveloped young after a short pregnancy, which completes its development attached to a teat. A placental foetus is supplied continuously with food and oxygen, has its wastes removed and is protected inside the mother, so it can be born well developed. The placenta also secretes hormones, including progesterone (see below).
+
+</Section>
+
+<Section id="pregnancy-birth" title="Hormones in pregnancy and childbirth" level="AHL" covers="D3.1.19">
+
+**Progesterone maintains pregnancy.** It keeps the endometrium thick and stops the muscle of the uterus wall (the myometrium) contracting. Its source changes:
+
+- **Early pregnancy**: the **corpus luteum**, kept alive by hCG from the embryo.
+- **From about 8–12 weeks** (by the end of the first trimester): the **placenta**, which secretes enough progesterone (and oestrogen) that the corpus luteum is no longer needed and degenerates.
+
+<Figure name="d3-1-birth" level="AHL" caption="Left: progesterone rises through pregnancy, supplied first by the corpus luteum and then by the placenta (qualitative). Right: the positive feedback loop in childbirth." />
+
+**Childbirth** is triggered when **progesterone levels fall** at the end of pregnancy. With its inhibition removed, **oxytocin** secretion from the posterior pituitary can increase, and the myometrium starts to contract. Contractions push the baby against the cervix; stretch receptors detect this and send nerve impulses to the hypothalamus, causing more oxytocin to be secreted, which causes stronger and more frequent contractions. This is **positive feedback**: the response increases the stimulus. It continues until the baby, and then the placenta, are delivered, which removes the stretch stimulus.
+
+<Callout type="note">
+
+Positive feedback is rare in the body because it drives change rather than keeping conditions stable. It is useful here because birth needs a rapid build-up to a definite end point.
+
+</Callout>
+
+</Section>
+
+<Section id="hrt" title="HRT and coronary heart disease" level="AHL" covers="D3.1.20">
+
+**Hormone replacement therapy (HRT)** gives oestrogen (often with a progestogen) to relieve symptoms after the menopause, when the ovaries stop secreting these hormones. Its story is a classic lesson in the nature of science: **correlation does not prove causation**.
+
+### What happened
+
+- **Early epidemiological (observational) studies** compared women who chose to take HRT with women who did not. HRT users had a **lower incidence of coronary heart disease (CHD)**, and this was taken to mean that HRT protected the heart.
+- **Randomised controlled trials** later allocated women at random to HRT or a placebo, such as the Women's Health Initiative (results published 2002). These found that HRT caused a **small increase** in CHD risk.
+
+### Why the observational studies were misleading
+
+Women who took HRT tended to have **higher socioeconomic status**. Higher socioeconomic status is itself causally linked to lower CHD risk (better diet, more exercise, less smoking, better health care). It was a **confounding variable**: it made HRT and low CHD occur together without HRT causing the reduced risk. Random allocation in a trial spreads such factors evenly between the groups, so any remaining difference can be attributed to the treatment.
+
+<Figure name="d3-1-hrt" level="AHL" caption="A confounding variable (socioeconomic status) produced a correlation between HRT and low CHD. A randomised controlled trial removed its effect and showed a small increase in risk." />
+
+<Callout type="exam">
+
+For "distinguish correlation from causation" questions, name the **confounding variable**, explain how it affects both of the correlated variables, and say how a **randomised controlled trial** removes it.
+
+</Callout>
+
+</Section>

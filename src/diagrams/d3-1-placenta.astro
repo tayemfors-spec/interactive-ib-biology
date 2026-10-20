@@ -1,0 +1,63 @@
+---
+/** D3.1.18: placental villi and the exchange across them. Schematic; only the large surface area of the villi is required. */
+const villi = [70, 150, 230, 310, 390];
+const finger = (x: number) => `M${x - 20} 70 V196 C${x - 20} 226 ${x + 20} 226 ${x + 20} 196 V70`;
+const cap = (x: number) => `M${x - 8} 70 V196 C${x - 8} 210 ${x + 8} 210 ${x + 8} 196 V70`;
+const cells = [[40, 120], [104, 150], [190, 236], [272, 126], [350, 180], [430, 236], [118, 250], [262, 250], [432, 110]];
+---
+<svg viewBox="0 0 720 350" role="img" aria-labelledby="d31-pl-t d31-pl-d" class="plc">
+  <title id="d31-pl-t">Placental villi bathed in maternal blood, with the substances exchanged</title>
+  <desc id="d31-pl-d">Finger-like placental villi project from the foetal side of the placenta into spaces filled with maternal blood, which enters from arteries in the uterus wall and leaves by veins. Each villus contains foetal capillaries connected to the umbilical arteries and vein. Oxygen, glucose, amino acids, water, ions and antibodies pass from the mother's blood into the foetal blood; carbon dioxide and urea pass from the foetal blood to the mother's blood. The two bloods do not mix.</desc>
+  <defs>
+    <marker id="d31-pl-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker>
+    <marker id="d31-pl-ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="3.5" markerHeight="3.5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker>
+  </defs>
+  <!-- maternal blood space and uterus wall -->
+  <rect class="mblood" x="20" y="70" width="440" height="200" />
+  {cells.map(([x, y]) => <ellipse class="rbc" cx={x} cy={y} rx="8" ry="5" />)}
+  <rect class="wall" x="20" y="270" width="440" height="66" />
+  <path class="mart" d="M120 336 C110 316 128 300 118 272" marker-end="url(#d31-pl-ah)" />
+  <path class="mvein" d="M350 274 C360 300 344 316 356 334" marker-end="url(#d31-pl-ah)" />
+  <!-- foetal side: chorionic plate and cord -->
+  <rect class="plate" x="20" y="44" width="440" height="28" rx="4" />
+  <path class="ua" d="M236 0 V44" /><path class="uv" d="M250 0 V44" /><path class="ua" d="M264 0 V44" />
+  {villi.map((x) => <><path class="villus" d={finger(x)} /><path class="cap" d={cap(x)} /></>)}
+  <!-- exchange arrows at one villus -->
+  <path class="ex in" d="M340 150 H370" marker-end="url(#d31-pl-ah2)" />
+  <path class="ex out" d="M370 186 H340" marker-end="url(#d31-pl-ah2)" />
+
+  <!-- labels -->
+  <text class="t b" x="280" y="16">umbilical cord</text><text class="t" x="280" y="32">2 arteries carry blood from the foetus, 1 vein back to it</text>
+  <path class="lead" d="M410 90 L486 80" /><text class="t b" x="490" y="76">placental villus</text><text class="t" x="490" y="92">finger-like; branched, giving</text><text class="t" x="490" y="108">a very large surface area</text>
+  <path class="lead" d="M398 160 L486 140" /><text class="t b" x="490" y="136">foetal capillaries</text><text class="t" x="490" y="152">thin barrier, short diffusion</text><text class="t" x="490" y="168">distance to maternal blood</text>
+  <path class="lead" d="M440 236 L486 206" /><text class="t b" x="490" y="202">maternal blood</text><text class="t" x="490" y="218">fills the spaces around the</text><text class="t" x="490" y="234">villi; never mixes with foetal blood</text>
+  <path class="lead" d="M440 300 L486 270" /><text class="t b" x="490" y="266">uterus wall</text><text class="t" x="490" y="282">maternal arteries bring blood</text><text class="t" x="490" y="298">in; veins take it away</text>
+  <g class="key">
+    <rect x="480" y="312" width="12" height="4" class="in" /><text class="t" x="498" y="318">to foetus: O₂, glucose, amino acids,</text>
+    <text class="t" x="498" y="334">water, ions, antibodies</text>
+    <rect x="480" y="340" width="12" height="4" class="out" /><text class="t" x="498" y="347">to mother: CO₂, urea</text>
+  </g>
+  <text class="t muted" x="28" y="62">foetal side</text>
+  <text class="t muted" x="28" y="330">mother's side</text>
+</svg>
+<style>
+  .plc { font-family: var(--font-sans); }
+  .mblood { fill: color-mix(in srgb, var(--bio-k) 16%, var(--surface)); }
+  .rbc { fill: color-mix(in srgb, var(--bio-k) 55%, var(--surface)); }
+  .wall { fill: color-mix(in srgb, var(--bio-chol) 35%, var(--surface)); }
+  .plate { fill: color-mix(in srgb, var(--bio-head) 30%, var(--surface)); stroke: var(--text); stroke-width: 1.2; }
+  .villus { fill: color-mix(in srgb, var(--bio-head) 22%, var(--surface)); stroke: var(--text); stroke-width: 1.5; }
+  .cap { fill: none; stroke: var(--bio-protein-2); stroke-width: 3; }
+  .ua { stroke: var(--bio-protein); stroke-width: 5; }
+  .uv { stroke: var(--bio-k); stroke-width: 7; }
+  .mart, .mvein { fill: none; stroke: var(--text); stroke-width: 2; }
+  .ex { stroke-width: 3; fill: none; }
+  .ex.in, .key .in { stroke: var(--bio-carb); fill: var(--bio-carb); }
+  .ex.out, .key .out { stroke: var(--bio-protein); fill: var(--bio-protein); }
+  .ex { fill: none !important; }
+  .ah { fill: var(--text); }
+  .lead { stroke: var(--text); stroke-width: 1.1; }
+  .t { font-size: 13.5px; fill: var(--text); }
+  .t.b { font-weight: 750; }
+  .t.muted { fill: var(--text-muted); font-size: 13px; }
+</style>

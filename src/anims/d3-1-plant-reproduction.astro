@@ -1,0 +1,145 @@
+---
+/**
+ * D3.1.8–D3.1.12: pollination, pollen tube growth, self-incompatibility, fertilization, seed dispersal and
+ * germination. Drawn in the step-1 state; animated by d3-1-plant-reproduction.ts. Schematic, not to scale.
+ */
+const petals = () => Array.from({ length: 5 }, (_, k) => (k * 72) - 90);
+const stamens = (cx: number, cy: number) => Array.from({ length: 6 }, (_, k) => { const a = ((k * 60 + 30) * Math.PI) / 180; return { x: cx + 22 * Math.cos(a), y: cy + 22 * Math.sin(a) }; });
+const flower = (cx: number, cy: number) => ({ cx, cy, petals: petals(), stamens: stamens(cx, cy) });
+const FA = flower(130, 170), FB = flower(430, 170);
+const seeds = [0, 1, 2, 3];
+---
+<svg viewBox="0 0 560 380" xmlns="http://www.w3.org/2000/svg" class="prp">
+  <!-- A: two flowers on different plants -->
+  <g data-el="sceneA">
+    <rect class="ground" x="0" y="350" width="560" height="30" />
+    {[FA, FB].map((f, i) => <g>
+      <path class="stem" d={`M${f.cx} 350 V${f.cy + 20}`} />
+      <path class="leaf" d={`M${f.cx} 300 c-30 -6 -44 -22 -50 -36 c22 2 40 14 50 36 Z`} />
+      {f.petals.map((a) => <ellipse class="petal" cx={f.cx} cy={f.cy - 34} rx="17" ry="30" transform={`rotate(${a + 90} ${f.cx} ${f.cy})`} />)}
+      <circle class="centre" cx={f.cx} cy={f.cy} r="16" />
+      {f.stamens.map((s) => <><path class="fil" d={`M${f.cx} ${f.cy} L${s.x.toFixed(1)} ${s.y.toFixed(1)}`} /><circle class="anth" cx={s.x.toFixed(1)} cy={s.y.toFixed(1)} r="5" /></>)}
+      <circle class="stig" cx={f.cx} cy={f.cy} r="6" />
+      <text class="lab" x={f.cx + 12} y="340">{i === 0 ? 'plant A' : 'plant B'}</text>
+    </g>)}
+    <g data-el="pollenB" style="opacity:0">{[[-3, -2], [3, -3], [0, 3]].map(([x, y]) => <circle class="pollen" cx={430 + x!} cy={170 + y!} r="2.6" />)}</g>
+    <text class="lab" x="130" y="94" text-anchor="middle">anthers make pollen</text>
+    <text class="lab" x="430" y="94" text-anchor="middle">stigma receives pollen</text>
+    <g data-el="bee" transform="translate(40 60)">
+      <ellipse class="wing" cx="-4" cy="-12" rx="9" ry="6" /><ellipse class="wing" cx="6" cy="-12" rx="9" ry="6" />
+      <ellipse class="bee" cx="0" cy="0" rx="16" ry="10" />
+      <path class="stripe" d="M-5 -9 V9 M3 -10 V10" />
+      <g data-el="beePollen" style="opacity:0">{[[-10, 7], [-2, 9], [8, 7], [12, 2]].map(([x, y]) => <circle class="pollen" cx={x} cy={y} r="2.6" />)}</g>
+    </g>
+  </g>
+
+  <!-- B: carpel in section -->
+  <g data-el="sceneB" style="opacity:0">
+    <ellipse class="ovary" cx="280" cy="292" rx="120" ry="76" />
+    <path class="styleT" d="M268 58 V226 H292 V58 Z" />
+    <path class="stigB" d="M246 58 C250 36 266 40 270 48 C274 34 286 34 290 48 C294 40 310 36 314 58 Z" />
+    <path class="funicle" d="M280 344 V366" />
+    <ellipse class="ovule" cx="280" cy="292" rx="48" ry="54" />
+    <ellipse class="sac" cx="280" cy="292" rx="30" ry="40" />
+    <path class="micro" d="M272 240 L280 248 L288 240" />
+    <circle class="egg" data-el="egg" cx="280" cy="262" r="10" />
+    <circle class="pollen big" cx="262" cy="46" r="8" />
+    <path class="tube" data-el="tube" pathLength="1" d="M262 50 C266 80 272 96 273 130 V230 C275 240 279 246 280 254" style="stroke-dasharray:0 1" />
+    <g data-el="self" style="opacity:0">
+      <circle class="pollen self" cx="302" cy="44" r="8" />
+      <path class="tube self" data-el="selfTube" pathLength="1" d="M302 50 C299 70 291 86 288 104" style="stroke-dasharray:0 1" />
+      <path class="no" data-el="selfX" d="M281 102 l14 14 M295 102 l-14 14" style="opacity:0" />
+      <text class="lab" x="316" y="96">own pollen (same</text><text class="lab" x="316" y="112">S-allele): tube stopped</text>
+    </g>
+    <circle class="mg" data-el="mg1" cx="262" cy="50" r="4" style="opacity:0" />
+    <circle class="mg" data-el="mg2" cx="262" cy="50" r="4" style="opacity:0" />
+    <text class="lab" x="18" y="52">pollen grain on stigma</text>
+    <text class="lab" x="18" y="150">pollen tube grows</text><text class="lab" x="18" y="166">down the style</text>
+    <text class="lab" x="420" y="236">ovary</text>
+    <text class="lab" x="336" y="322">ovule</text>
+    <text class="lab" data-el="eggLab" x="186" y="252" text-anchor="end">egg cell (n)</text>
+    <g data-el="fate" style="opacity:0">
+      <text class="lab b" x="420" y="262">ovary wall → fruit</text>
+      <text class="lab b" x="336" y="340">ovule → seed</text>
+    </g>
+    <path class="lead" d="M190 248 L268 260" />
+  </g>
+
+  <!-- C: seed dispersal -->
+  <g data-el="sceneC" style="opacity:0">
+    <rect class="ground" x="0" y="340" width="560" height="40" />
+    <rect class="trunk" x="62" y="200" width="20" height="140" />
+    <circle class="crown" cx="72" cy="160" r="66" />
+    {seeds.map((i) => <g data-el={`seed${i}`} transform="translate(90 150)"><ellipse class="seedC" cx="0" cy="0" rx="5" ry="4" /><path class="wingS" d="M2 -2 C14 -12 26 -10 30 -4 C22 -2 12 2 2 2 Z" /></g>)}
+    <path class="wind" d="M170 70 h60 M200 90 h70 M160 110 h50" />
+    <text class="lab" x="300" y="60">wind carries the winged fruits</text>
+    <text class="lab" x="300" y="76">away from the parent plant</text>
+    <text class="lab" x="18" y="372">parent plant</text>
+  </g>
+
+  <!-- D: germination -->
+  <g data-el="sceneD" style="opacity:0">
+    <rect class="soil" x="0" y="180" width="560" height="200" />
+    <text class="lab" x="16" y="172">soil surface</text>
+    <path class="shoot" data-el="plumule" pathLength="1" d="M292 224 C296 200 300 170 300 140 C300 120 288 112 280 118" style="stroke-dasharray:0 1" />
+    <g data-el="leaves" style="opacity:0"><path class="leaf" d="M282 118 c-22 -6 -30 -18 -32 -28 c16 0 28 10 32 28 Z" /><path class="leaf" d="M282 118 c4 -18 18 -26 30 -26 c-2 14 -14 24 -30 26 Z" /></g>
+    <path class="root" data-el="radicle" pathLength="1" d="M268 258 C262 290 262 320 258 366" style="stroke-dasharray:0 1" />
+    <g data-el="hairs" style="opacity:0"><path class="hair" d="M262 320 l-12 4 M262 334 l12 4 M260 348 l-12 5 M262 306 l12 3" /></g>
+    <ellipse class="coat" data-el="seedD" cx="280" cy="240" rx="36" ry="24" />
+    <path class="cot" d="M248 240 C252 222 300 220 312 236" />
+    {[[200, 300], [350, 310], [190, 230], [372, 250]].map(([x, y], i) => <circle class="water" data-el={`w${i}`} cx={x} cy={y} r="5" />)}
+    <g data-el="food" style="opacity:0">
+      <path class="foodA" d="M300 232 C318 210 316 180 304 160" />
+      <path class="foodA" d="M262 252 C246 280 250 300 256 320" />
+      <text class="lab" x="330" y="200">starch → sugars:</text><text class="lab" x="330" y="216">food carried to the</text><text class="lab" x="330" y="232">growing tips</text>
+    </g>
+    <text class="lab" x="330" y="290" data-el="radLab" style="opacity:0">embryo root (radicle)</text>
+    <text class="lab" x="320" y="128" data-el="plumLab" style="opacity:0">embryo shoot</text>
+    <text class="lab" x="16" y="270">seed absorbs water</text>
+  </g>
+</svg>
+<style>
+  .prp { font-family: var(--font-sans); }
+  .lab { font-size: 13.5px; font-weight: 650; fill: var(--text); }
+  .lab.b { font-weight: 800; fill: var(--accent-strong); }
+  .ground { fill: color-mix(in srgb, var(--bio-head) 22%, var(--surface)); }
+  .stem { stroke: var(--bio-carb); stroke-width: 5; fill: none; }
+  .leaf { fill: color-mix(in srgb, var(--bio-carb) 70%, var(--surface)); stroke: var(--text); stroke-width: 1; }
+  .petal { fill: color-mix(in srgb, var(--bio-protein-2) 45%, var(--surface)); stroke: var(--text); stroke-width: 1.2; }
+  .centre { fill: color-mix(in srgb, var(--bio-glucose) 45%, var(--surface)); stroke: var(--text); stroke-width: 1; }
+  .fil { stroke: var(--text); stroke-width: 1.4; }
+  .anth { fill: var(--bio-head); stroke: var(--text); stroke-width: 1; }
+  .stig, .stigB { fill: color-mix(in srgb, var(--bio-carb) 70%, var(--surface)); stroke: var(--text); stroke-width: 1.2; }
+  .pollen { fill: var(--bio-glucose); stroke: var(--text); stroke-width: 0.8; }
+  .pollen.big { stroke-width: 1.2; }
+  .pollen.self { fill: var(--bio-chol); }
+  .bee { fill: var(--bio-glucose); stroke: var(--text); stroke-width: 1.2; }
+  .stripe { stroke: var(--text); stroke-width: 3; }
+  .wing { fill: color-mix(in srgb, var(--bio-water) 25%, var(--surface)); stroke: var(--text); stroke-width: 0.8; }
+  .ovary { fill: color-mix(in srgb, var(--bio-carb) 25%, var(--surface)); stroke: var(--text); stroke-width: 1.6; }
+  .styleT { fill: color-mix(in srgb, var(--bio-carb) 32%, var(--surface)); stroke: var(--text); stroke-width: 1.4; }
+  .funicle { stroke: var(--text); stroke-width: 3; }
+  .ovule { fill: color-mix(in srgb, var(--bio-tail) 45%, var(--surface)); stroke: var(--text); stroke-width: 1.5; }
+  .sac { fill: color-mix(in srgb, var(--bio-tail) 18%, var(--surface)); stroke: var(--text-muted); stroke-width: 1; }
+  .micro { fill: none; stroke: var(--surface); stroke-width: 4; }
+  .egg { fill: color-mix(in srgb, var(--bio-k) 45%, var(--surface)); stroke: var(--text); stroke-width: 1.2; transition: fill 0.2s; }
+  .egg.zyg { fill: color-mix(in srgb, var(--bio-protein-2) 60%, var(--surface)); }
+  .tube { fill: none; stroke: var(--bio-head); stroke-width: 3.5; stroke-linecap: round; }
+  .tube.self { stroke: var(--bio-chol); }
+  .no { stroke: var(--bad); stroke-width: 3.5; stroke-linecap: round; }
+  .mg { fill: var(--bio-protein); stroke: var(--text); stroke-width: 1; }
+  .lead { stroke: var(--text); stroke-width: 1; }
+  .trunk { fill: color-mix(in srgb, var(--bio-head) 55%, var(--text)); }
+  .crown { fill: color-mix(in srgb, var(--bio-carb) 55%, var(--surface)); stroke: var(--text); stroke-width: 1; }
+  .seedC { fill: color-mix(in srgb, var(--bio-head) 70%, var(--text)); }
+  .wingS { fill: color-mix(in srgb, var(--bio-tail) 60%, var(--surface)); stroke: var(--text); stroke-width: 1; }
+  .wind { stroke: var(--text-muted); stroke-width: 2; stroke-dasharray: 8 6; fill: none; }
+  .soil { fill: color-mix(in srgb, var(--bio-head) 20%, var(--surface)); }
+  .coat { fill: color-mix(in srgb, var(--bio-tail) 50%, var(--surface)); stroke: var(--text); stroke-width: 1.6; }
+  .cot { fill: none; stroke: var(--text-muted); stroke-width: 1.2; }
+  .shoot { fill: none; stroke: var(--bio-carb); stroke-width: 5; stroke-linecap: round; }
+  .root { fill: none; stroke: color-mix(in srgb, var(--bio-tail) 70%, var(--text)); stroke-width: 5; stroke-linecap: round; }
+  .hair { stroke: color-mix(in srgb, var(--bio-tail) 70%, var(--text)); stroke-width: 1.5; }
+  .water { fill: var(--bio-water); }
+  .foodA { fill: none; stroke: var(--bio-glucose); stroke-width: 3; stroke-dasharray: 4 4; }
+</style>

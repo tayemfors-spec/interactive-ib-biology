@@ -1,0 +1,47 @@
+---
+/** D3.1.13: hormonal cascade that starts puberty (limited to GnRH → LH/FSH → sex steroids, as in the guide). */
+const box = (x: number, y: number, w: number, h: number) => ({ x, y, w, h });
+const B = {
+  hyp: box(170, 8, 300, 52),
+  pit: box(170, 92, 300, 52),
+  tes: box(16, 182, 290, 60),
+  ova: box(334, 182, 290, 60),
+  m: box(16, 280, 290, 76),
+  f: box(334, 280, 290, 76),
+};
+---
+<svg viewBox="0 0 640 366" role="img" aria-labelledby="d31-pu-t d31-pu-d" class="pub">
+  <title id="d31-pu-t">How rising GnRH starts puberty</title>
+  <desc id="d31-pu-d">A flow chart. From late childhood the hypothalamus releases more gonadotropin-releasing hormone (GnRH). GnRH stimulates the anterior pituitary to secrete more LH and FSH. LH and FSH stimulate the testes to secrete testosterone, or the ovaries to secrete oestradiol and progesterone. These sex hormones cause the changes of puberty.</desc>
+  <defs><marker id="d31-pu-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker></defs>
+  {Object.entries(B).map(([k, b]) => <rect class={`bx ${k}`} x={b.x} y={b.y} width={b.w} height={b.h} rx="10" />)}
+  <text class="t b" x="320" y="30" text-anchor="middle">Hypothalamus</text>
+  <text class="t" x="320" y="48" text-anchor="middle">releases more GnRH from late childhood</text>
+  <text class="t b" x="320" y="114" text-anchor="middle">Anterior pituitary gland</text>
+  <text class="t" x="320" y="132" text-anchor="middle">secretes more LH and FSH into the blood</text>
+  <text class="t b" x="161" y="204" text-anchor="middle">Testes</text>
+  <text class="t" x="161" y="222" text-anchor="middle">secrete testosterone;</text><text class="t" x="161" y="236" text-anchor="middle">sperm production begins</text>
+  <text class="t b" x="479" y="204" text-anchor="middle">Ovaries</text>
+  <text class="t" x="479" y="222" text-anchor="middle">secrete oestradiol and progesterone;</text><text class="t" x="479" y="236" text-anchor="middle">follicles mature, cycles begin</text>
+  <text class="t b" x="161" y="300" text-anchor="middle">Male-typical puberty changes</text>
+  <text class="t" x="161" y="318" text-anchor="middle">penis and testes enlarge, voice deepens,</text><text class="t" x="161" y="334" text-anchor="middle">facial and body hair, more muscle;</text><text class="t" x="161" y="350" text-anchor="middle">growth spurt</text>
+  <text class="t b" x="479" y="300" text-anchor="middle">Female-typical puberty changes</text>
+  <text class="t" x="479" y="318" text-anchor="middle">breasts develop, hips widen,</text><text class="t" x="479" y="334" text-anchor="middle">menstruation starts;</text><text class="t" x="479" y="350" text-anchor="middle">growth spurt</text>
+  <path class="arr" d="M320 60 V88" marker-end="url(#d31-pu-ah)" /><text class="t sm" x="330" y="80">GnRH</text>
+  <path class="arr" d="M260 144 L190 178" marker-end="url(#d31-pu-ah)" />
+  <path class="arr" d="M380 144 L450 178" marker-end="url(#d31-pu-ah)" /><text class="t sm" x="300" y="166" text-anchor="middle">LH, FSH</text>
+  <path class="arr" d="M161 242 V276" marker-end="url(#d31-pu-ah)" /><text class="t sm" x="170" y="264">testosterone</text>
+  <path class="arr" d="M479 242 V276" marker-end="url(#d31-pu-ah)" /><text class="t sm" x="488" y="264">oestradiol</text>
+</svg>
+<style>
+  .pub { font-family: var(--font-sans); }
+  .bx { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.5; }
+  .bx.hyp, .bx.pit { fill: color-mix(in srgb, var(--bio-protein) 12%, var(--surface)); }
+  .bx.tes, .bx.m { fill: color-mix(in srgb, var(--bio-water) 10%, var(--surface)); }
+  .bx.ova, .bx.f { fill: color-mix(in srgb, var(--bio-k) 9%, var(--surface)); }
+  .t { font-size: 13.5px; fill: var(--text); }
+  .t.b { font-weight: 750; }
+  .t.sm { font-size: 13px; fill: var(--accent-strong); font-weight: 700; }
+  .arr { fill: none; stroke: var(--text); stroke-width: 2; }
+  .ah { fill: var(--text); }
+</style>

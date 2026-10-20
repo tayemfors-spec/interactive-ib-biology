@@ -1,0 +1,63 @@
+---
+/** D3.1.4: female-typical reproductive system, front view. Schematic proportions. Drawing is centred on x = 350. */
+const fimbriae = (x: number, y: number, dir: 1 | -1) =>
+  [-28, -10, 8, 26, 44].map((a) => {
+    const r = (a * Math.PI) / 180;
+    return `M${x} ${y} l${(dir * -16 * Math.cos(r)).toFixed(1)} ${(16 * Math.sin(r) + 6).toFixed(1)}`;
+  }).join(' ');
+const follicles = (cx: number) => [[-14, -4, 4], [2, 6, 3.5], [14, -6, 3], [-4, -8, 2.5]].map(([dx, dy, r]) => ({ x: cx + dx!, y: 210 + dy!, r: r! }));
+---
+<svg viewBox="0 0 770 430" role="img" aria-labelledby="d31-f-t d31-f-d" class="frs">
+  <title id="d31-f-t">Female-typical reproductive system seen from the front, with structures labelled and their functions</title>
+  <desc id="d31-f-d">Front view. The pear-shaped uterus is in the centre, with a thick muscular wall and an inner lining, the endometrium. From each upper corner an oviduct curves outwards and ends in finger-like fimbriae next to an ovary. Each ovary contains follicles. The lower, narrow end of the uterus is the cervix, which opens into the muscular tube of the vagina.</desc>
+  <g transform="translate(30 0)">
+    <!-- oviducts -->
+    <path class="ovi" d="M254 124 C220 108 186 112 168 136 C158 150 156 166 160 180" />
+    <path class="ovi" d="M386 124 C420 108 454 112 472 136 C482 150 484 166 480 180" />
+    <path class="fim" d={fimbriae(160, 180, 1)} />
+    <path class="fim" d={fimbriae(480, 180, -1)} />
+    <!-- ovaries and ligaments -->
+    <path class="lig" d="M212 206 C236 196 246 180 254 168 M428 206 C404 196 394 180 386 168" />
+    <ellipse class="ovary" cx="186" cy="210" rx="30" ry="18" />
+    <ellipse class="ovary" cx="454" cy="210" rx="30" ry="18" />
+    {[...follicles(186), ...follicles(454)].map((f) => <circle class="foll" cx={f.x} cy={f.y} r={f.r} />)}
+    <!-- uterus: myometrium, endometrium, cavity -->
+    <path class="myo" d="M250 124 C248 98 392 98 390 124 C392 190 362 248 346 276 L346 304 L294 304 L294 276 C278 248 248 190 250 124 Z" />
+    <path class="endo" d="M272 130 C300 118 340 118 368 130 C362 180 338 236 328 266 L312 266 C302 236 278 180 272 130 Z" />
+    <path class="cavity" d="M290 140 C310 134 330 134 350 140 C342 178 328 224 320 258 C312 224 298 178 290 140 Z" />
+    <!-- cervix and cervical canal -->
+    <path class="cervix" d="M290 296 H350 V322 H290 Z" />
+    <path class="canal" d="M320 258 V322" />
+    <!-- vagina -->
+    <path class="vag" d="M296 322 L290 414 H350 L344 322 Z" />
+    <path class="rug" d="M304 340 h32 M302 356 h36 M300 372 h40 M298 388 h44" />
+  </g>
+
+  <!-- labels (absolute coordinates) -->
+  <path class="lead" d="M246 112 L200 80" /><text class="t b" x="6" y="22">oviduct (fallopian tube)</text><text class="t" x="6" y="38">fimbriae collect the egg at</text><text class="t" x="6" y="54">ovulation; site of fertilization;</text><text class="t" x="6" y="70">moves the embryo to the uterus</text>
+  <path class="lead" d="M180 188 L120 146" /><text class="t muted" x="6" y="140">fimbriae</text>
+  <path class="lead" d="M200 224 L150 262" /><text class="t b" x="6" y="262">ovary</text><text class="t" x="6" y="278">follicles develop and release</text><text class="t" x="6" y="294">eggs; secretes oestradiol</text><text class="t" x="6" y="310">and progesterone</text>
+  <path class="lead" d="M326 196 L150 346" /><text class="t b" x="6" y="350">endometrium</text><text class="t" x="6" y="366">blood-rich lining, thickened</text><text class="t" x="6" y="382">each cycle; the embryo</text><text class="t" x="6" y="398">implants here</text>
+  <path class="lead" d="M412 150 L530 128" /><text class="t b" x="534" y="124">uterus wall (myometrium)</text><text class="t" x="534" y="140">muscle that contracts</text><text class="t" x="534" y="156">strongly during birth;</text><text class="t" x="534" y="172">the foetus develops inside</text>
+  <path class="lead" d="M378 310 L530 290" /><text class="t b" x="534" y="286">cervix</text><text class="t" x="534" y="302">neck of the uterus with a</text><text class="t" x="534" y="318">mucus plug; protects the foetus,</text><text class="t" x="534" y="334">dilates during birth</text>
+  <path class="lead" d="M376 396 L530 380" /><text class="t b" x="534" y="376">vagina</text><text class="t" x="534" y="392">receives the penis and semen</text><text class="t" x="534" y="408">during intercourse; birth canal</text>
+</svg>
+<style>
+  .frs { font-family: var(--font-sans); }
+  .t { font-size: 13.5px; fill: var(--text); }
+  .t.b { font-weight: 750; }
+  .t.muted { fill: var(--text-muted); }
+  .lead { stroke: var(--text); stroke-width: 1.1; }
+  .ovi { fill: none; stroke: color-mix(in srgb, var(--bio-chol) 60%, var(--surface)); stroke-width: 9; stroke-linecap: round; }
+  .fim { fill: none; stroke: color-mix(in srgb, var(--bio-chol) 60%, var(--surface)); stroke-width: 3.5; stroke-linecap: round; }
+  .lig { fill: none; stroke: var(--text-muted); stroke-width: 1.5; stroke-dasharray: 3 3; }
+  .ovary { fill: color-mix(in srgb, var(--bio-head) 22%, var(--surface)); stroke: var(--text); stroke-width: 1.6; }
+  .foll { fill: color-mix(in srgb, var(--bio-glucose) 35%, var(--surface)); stroke: var(--text-muted); stroke-width: 1; }
+  .myo { fill: color-mix(in srgb, var(--bio-chol) 45%, var(--surface)); stroke: var(--text); stroke-width: 1.8; }
+  .endo { fill: color-mix(in srgb, var(--bio-k) 25%, var(--surface)); }
+  .cavity { fill: var(--surface); }
+  .cervix { fill: color-mix(in srgb, var(--bio-chol) 62%, var(--surface)); stroke: var(--text); stroke-width: 1.6; }
+  .canal { stroke: var(--text); stroke-width: 1.5; }
+  .vag { fill: color-mix(in srgb, var(--bio-head) 20%, var(--surface)); stroke: var(--text); stroke-width: 1.6; }
+  .rug { stroke: var(--text-muted); stroke-width: 1; }
+</style>

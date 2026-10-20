@@ -1,0 +1,80 @@
+---
+/** D3.1.17: lateral-flow pregnancy test using monoclonal antibodies to hCG. Schematic. */
+const Y = (x: number, y: number, up = true, cls = 'ab') => {
+  const s = up ? 1 : -1;
+  return { d: `M${x} ${y} v${-10 * s} M${x} ${y - 10 * s} l-6 ${-8 * s} M${x} ${y - 10 * s} l6 ${-8 * s}`, cls };
+};
+const mobile = [150, 178, 206, 234].map((x, i) => ({ x, y: i % 2 ? 92 : 80 }));
+const testAbs = [62, 78, 94].map((y) => Y(420, y + 8));
+const ctrlAbs = [62, 78, 94].map((y) => Y(540, y + 8));
+---
+<svg viewBox="0 0 720 330" role="img" aria-labelledby="d31-pt-t d31-pt-d" class="pt">
+  <title id="d31-pt-t">How a pregnancy test strip detects hCG using monoclonal antibodies</title>
+  <desc id="d31-pt-d">A test strip. Urine is added to the sample pad and soaks along the strip. It first passes a zone of mobile monoclonal antibodies against hCG, each attached to a coloured dye or particle; any hCG binds to them. At the test line, immobilised antibodies bind a different part of the hCG molecule, trapping the hCG with its coloured antibody, so a coloured line appears only if hCG is present. At the control line, immobilised antibodies bind the mobile antibodies themselves, so this line appears whenever the test has worked. Two lines mean pregnant; one control line means not pregnant.</desc>
+  <defs><marker id="d31-pt-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker></defs>
+  <!-- strip -->
+  <rect class="strip" x="20" y="54" width="680" height="56" rx="8" />
+  <rect class="pad" x="20" y="54" width="110" height="56" rx="8" />
+  <rect class="conj" x="134" y="54" width="120" height="56" />
+  <rect class="abs" x="600" y="54" width="100" height="56" rx="8" />
+  <rect class="line test" x="408" y="54" width="24" height="56" />
+  <rect class="line ctrl" x="528" y="54" width="24" height="56" />
+  {mobile.map((m) => <><path class="ab" d={Y(m.x, m.y, false).d} /><circle class="dye" cx={m.x} cy={m.y + 4} r="4.5" /></>)}
+  {[...testAbs, ...ctrlAbs].map((a) => <path class="ab fixed" d={a.d} />)}
+  <path class="flow" d="M60 128 H640" marker-end="url(#d31-pt-ah)" /><text class="t muted" x="330" y="146" text-anchor="middle">urine soaks along the strip by capillary action</text>
+  <text class="t b" x="75" y="26" text-anchor="middle">sample pad</text><text class="t" x="75" y="44" text-anchor="middle">urine added</text>
+  <text class="t b" x="204" y="26" text-anchor="middle">mobile antibodies</text><text class="t" x="204" y="44" text-anchor="middle">anti-hCG + coloured dye</text>
+  <text class="t b" x="420" y="26" text-anchor="middle">test line</text><text class="t" x="420" y="44" text-anchor="middle">fixed anti-hCG</text>
+  <text class="t b" x="540" y="26" text-anchor="middle">control line</text><text class="t" x="540" y="44" text-anchor="middle">fixed anti-antibody</text>
+  <text class="t" x="650" y="86" text-anchor="middle">absorbent</text>
+
+  <!-- zoom: sandwich at the test line -->
+  <rect class="panel" x="20" y="164" width="320" height="156" rx="10" />
+  <text class="t b" x="34" y="186">At the test line (hCG present)</text>
+  <path class="base" d="M60 300 H300" />
+  <path class="ab fixed big" d="M120 300 v-26 M120 274 l-16 -20 M120 274 l16 -20" />
+  <path class="hcg" d="M120 236 l14 12 l-14 12 l-14 -12 Z" />
+  <path class="ab big" d="M120 222 v26 M120 222 l-16 -20 M120 222 l16 -20" transform="translate(0 0) rotate(180 120 230)" />
+  <circle class="dye" cx="120" cy="205" r="7" />
+  <text class="t" x="154" y="292">fixed monoclonal antibody</text>
+  <text class="t" x="154" y="252">hCG (from the embryo)</text>
+  <text class="t" x="154" y="214">mobile antibody + dye</text>
+  <path class="lead" d="M132 290 L150 288 M138 248 L150 248 M128 206 L150 210" />
+
+  <!-- results -->
+  <rect class="panel" x="360" y="164" width="340" height="156" rx="10" />
+  <text class="t b" x="374" y="186">Reading the result</text>
+  {[{ y: 206, label: 'Pregnant: test line and control line', test: true }, { y: 262, label: 'Not pregnant: control line only', test: false }].map((r) => <>
+    <rect class="win" x="374" y={r.y} width="140" height="34" rx="6" />
+    <rect class={`res ${r.test ? 'on' : 'off'}`} x="410" y={r.y + 4} width="10" height="26" />
+    <rect class="res on" x="470" y={r.y + 4} width="10" height="26" />
+    <text class="t" x="522" y={r.y + 15}>{r.label.split(': ')[0]}</text>
+    <text class="t muted" x="522" y={r.y + 31}>{r.label.split(': ')[1]}</text>
+  </>)}
+  <text class="t muted" x="374" y="312">No control line: the test has failed.</text>
+</svg>
+<style>
+  .pt { font-family: var(--font-sans); }
+  .strip { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.5; }
+  .pad { fill: color-mix(in srgb, var(--bio-glucose) 20%, var(--surface)); stroke: var(--border-strong); }
+  .conj { fill: color-mix(in srgb, var(--bio-protein-2) 10%, var(--surface)); }
+  .abs { fill: var(--surface-3); stroke: var(--border-strong); }
+  .line.test { fill: color-mix(in srgb, var(--bio-protein) 14%, var(--surface)); }
+  .line.ctrl { fill: color-mix(in srgb, var(--bio-carb) 14%, var(--surface)); }
+  .ab { fill: none; stroke: var(--bio-protein-2); stroke-width: 2.2; stroke-linecap: round; }
+  .ab.fixed { stroke: var(--bio-protein); }
+  .ab.big { stroke-width: 4; }
+  .dye { fill: var(--bio-k); }
+  .hcg { fill: var(--bio-glucose); stroke: var(--text); stroke-width: 1.2; }
+  .base { stroke: var(--text-muted); stroke-width: 4; }
+  .flow { stroke: var(--text-muted); stroke-width: 1.6; }
+  .ah { fill: var(--text-muted); }
+  .panel { fill: var(--surface); stroke: var(--border); }
+  .win { fill: var(--surface-2); stroke: var(--border-strong); }
+  .res.on { fill: var(--bio-k); }
+  .res.off { fill: none; stroke: var(--border-strong); stroke-dasharray: 2 2; }
+  .lead { stroke: var(--text-muted); stroke-width: 1; }
+  .t { font-size: 13.5px; fill: var(--text); }
+  .t.b { font-weight: 750; }
+  .t.muted { fill: var(--text-muted); }
+</style>

@@ -1,0 +1,47 @@
+---
+/** D3.1.2: meiosis and fertilization in a sexual life cycle (an animal life cycle, e.g. human). */
+---
+<svg viewBox="0 0 600 330" role="img" aria-labelledby="d31-lc-t d31-lc-d" class="lc">
+  <title id="d31-lc-t">A sexual life cycle: meiosis halves the chromosome number and fertilization restores it</title>
+  <desc id="d31-lc-d">A cycle diagram. Diploid adults (2n) make haploid gametes (n) by meiosis, which breaks up the parental combinations of alleles. A sperm from one parent and an egg from another fuse at fertilization to form a diploid zygote (2n) with a new combination of alleles. The zygote grows by mitosis into a new diploid adult.</desc>
+  <defs><marker id="d31-lc-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah" /></marker></defs>
+  <!-- diploid half / haploid half -->
+  <rect class="dip" x="8" y="8" width="584" height="140" rx="12" />
+  <rect class="hap" x="8" y="182" width="584" height="140" rx="12" />
+  <text class="zone" x="20" y="30">Diploid (2n): two sets of chromosomes</text>
+  <text class="zone" x="20" y="314">Haploid (n): one set of chromosomes</text>
+  <!-- parents -->
+  <g><circle class="cell" cx="110" cy="88" r="34" /><rect class="cA" x="96" y="70" width="7" height="34" rx="3" /><rect class="cB" x="116" y="70" width="7" height="34" rx="3" /><text class="t b" x="110" y="140" text-anchor="middle">parent 1 (2n)</text></g>
+  <g><circle class="cell" cx="490" cy="88" r="34" /><rect class="cC" x="476" y="70" width="7" height="34" rx="3" /><rect class="cD" x="496" y="70" width="7" height="34" rx="3" /><text class="t b" x="490" y="140" text-anchor="middle">parent 2 (2n)</text></g>
+  <!-- gametes -->
+  <g><circle class="cell" cx="150" cy="248" r="22" /><rect class="cA" x="146" y="234" width="7" height="28" rx="3" /><text class="t" x="150" y="292" text-anchor="middle">sperm (n)</text></g>
+  <g><circle class="cell" cx="450" cy="248" r="30" /><rect class="cD" x="446" y="232" width="7" height="32" rx="3" /><text class="t" x="450" y="296" text-anchor="middle">egg (n)</text></g>
+  <!-- zygote -->
+  <g><circle class="cell" cx="300" cy="88" r="36" /><rect class="cA" x="286" y="70" width="7" height="34" rx="3" /><rect class="cD" x="306" y="70" width="7" height="34" rx="3" /><text class="t b" x="300" y="44" text-anchor="middle">zygote (2n)</text></g>
+  <!-- arrows -->
+  <path class="arr" d="M110 124 C110 180 120 210 128 226" marker-end="url(#d31-lc-ah)" />
+  <path class="arr" d="M490 124 C490 180 480 200 474 218" marker-end="url(#d31-lc-ah)" />
+  <path class="arr" d="M172 240 C220 210 250 170 280 126" marker-end="url(#d31-lc-ah)" />
+  <path class="arr" d="M420 238 C380 210 350 170 322 126" marker-end="url(#d31-lc-ah)" />
+  <text class="t lab" x="24" y="196">meiosis</text>
+  <text class="t lab" x="508" y="196">meiosis</text>
+  <text class="t lab" x="300" y="226" text-anchor="middle">fertilization</text>
+  <text class="t sm" x="300" y="244" text-anchor="middle">(fusion of gametes)</text><text class="t sm" x="300" y="262" text-anchor="middle">gives a new combination of alleles</text>
+  <path class="arr dash" d="M262 76 C220 60 180 64 150 70" marker-end="url(#d31-lc-ah)" />
+  <text class="t sm" x="206" y="58" text-anchor="middle">mitosis and growth</text>
+</svg>
+<style>
+  .lc { font-family: var(--font-sans); }
+  .dip { fill: color-mix(in srgb, var(--bio-protein) 9%, var(--surface)); stroke: var(--border); }
+  .hap { fill: color-mix(in srgb, var(--bio-glucose) 10%, var(--surface)); stroke: var(--border); }
+  .zone { font-size: 13px; font-weight: 700; fill: var(--text-muted); }
+  .cell { fill: var(--surface); stroke: var(--text); stroke-width: 1.6; }
+  .cA { fill: var(--bio-protein); } .cB { fill: var(--bio-water); } .cC { fill: var(--bio-k); } .cD { fill: var(--bio-chol); }
+  .t { font-size: 14px; fill: var(--text); }
+  .t.b { font-weight: 750; }
+  .t.lab { font-weight: 750; fill: var(--accent-strong); font-size: 15px; }
+  .t.sm { font-size: 13px; fill: var(--text-muted); }
+  .arr { fill: none; stroke: var(--text); stroke-width: 2; }
+  .arr.dash { stroke-dasharray: 5 4; }
+  .ah { fill: var(--text); }
+</style>
