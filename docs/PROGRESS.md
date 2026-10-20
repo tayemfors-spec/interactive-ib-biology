@@ -42,3 +42,11 @@ Reference material is in the scratchpad (not in the repo): guide extracts in `sc
 2. Launch D4.1, D4.2, D4.3 builders (ports 4450–4452, same brief template).
 3. Merge all Theme D, verify, 3 examiner reviews (align D2.3 osmosis "solvation" wording with B2.1), fixes, commit "Stage 6".
 4. Final full verify, update REVIEW.md/PROGRESS.md, final report. Do NOT deploy (needs user).
+
+## Checkpoint — 2026-10-20 (later)
+- Stage 5 committed (d6c4762): Theme C complete, reviewed and fixed; full verify passed (627 unit, 639 e2e, 106 links, Lighthouse assertions).
+- Shared fixes committed: phone sideways scroll for wide diagrams (18e0407); 3D label occlusion ignores hidden/transparent meshes (9936a10).
+- All 12 Theme D topics merged; main builds (astro check 0/0, 755 unit tests before D4.2).
+- Uncommitted: tests/e2e/interactives.spec.ts skips hidden sliders (to verify in the Stage 6 run).
+- Running: 4 Theme D examiner reviews (D1, D2, D3, D4 groups). Screenshots in screenshots/<slug>/; server on port 4462.
+- Next: fixers per group (D2 group must align D2.3 osmosis wording with B2.1), npm run verify, REVIEW.md Theme D claims + log, commit "Stage 6: Theme D complete", final report. No deploy without the user.
