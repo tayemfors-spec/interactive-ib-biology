@@ -128,7 +128,7 @@ export function selectionText(history: GenRecord[], p: SelectionParams): string 
   const born = last.born.reduce((a, b) => a + b, 0);
   const surv = last.survived.reduce((a, b) => a + b, 0);
   let t = `Generation ${last.gen}: ${born} young were born but food supports only ${surv}, so ${born - surv} died before breeding. `;
-  if (born <= surv) t = `Generation ${last.gen}: with only 2 young per pair there is no overproduction, so every young moth survives and there is no selection. `;
+  if (born <= surv) t = `Generation ${last.gen}: with only 2 young per pair there is no surplus. In this model predation only decides which young win the limited places, so every young moth breeds and there is no selection; in nature, predators would still kill moths and the population would shrink. `;
   else if (p.strength === 0) t += 'With no selection pressure, which ones died was a matter of chance. ';
   else {
     const diff = Number(last.meanShade.toFixed(1)) - Number(last.bornMean.toFixed(1));

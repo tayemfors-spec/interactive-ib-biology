@@ -89,7 +89,7 @@ visuals:
         level: AHL
       - id: climax
         title: Climax community
-        caption: Trees grow up and a forest forms — the climax community for this climate. Plant size, biomass, primary production and nutrient cycling are now at their highest, and the community stays broadly stable as long as conditions do not change.
+        caption: Trees grow up and a forest forms — the climax community for this climate. Plant size, biomass, gross primary production and nutrient cycling are high, while net production levels off, and the community stays broadly stable as long as conditions do not change.
         level: AHL
       - id: secondary
         title: Secondary succession

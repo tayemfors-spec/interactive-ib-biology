@@ -51,7 +51,7 @@ questions:
         why: Faster growth increases photosynthesis and carbon uptake, which would strengthen the sink, not turn it into a source.
       - id: b
         text: Winter snowfall increases, insulating the soil.
-        why: The guide describes the opposite — warmer temperatures and decreased winter snowfall, which bring summer drought.
+        why: This is the reverse of what happens. Warming brings less winter snow, so soils dry out and summers are drier, which favours fire and pests and pushes the forest towards being a source.
       - id: c
         text: The forest stores the same amount of carbon in wood each year as it loses in leaf litter.
         why: Litter is still part of the forest's carbon store and decomposes slowly in the cold. This does not describe a net loss to the atmosphere.
@@ -176,7 +176,7 @@ questions:
         why: The change happens within warm years and reverses in cool ones, so it is a direct effect of temperature on development, not evolution.
       - id: c
         text: Warmer winters let the larvae keep feeding through the winter.
-        why: The extra generation comes from faster development and an earlier spring flight in summer, not from winter feeding. Adults overwinter.
+        why: The extra generation comes from an earlier spring flight and faster summer development, not from winter feeding. Adults overwinter.
       - id: d
         text: Drought makes the beetles lay twice as many eggs in each generation.
         why: Drought weakens the trees' resin defences, making them easier to attack, but it does not double the number of generations.

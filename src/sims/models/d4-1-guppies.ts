@@ -8,8 +8,9 @@
  *     exp(PREF × preference × spots);
  *   • natural selection by predators that hunt by sight: an adult male survives with probability
  *     exp(−PRED × predation × spots). The pike cichlid (Crenicichla) is a strong predator of adult guppies;
- *     Rivulus hartii is a weak one that mostly takes juveniles (here: RIVULUS_FACTOR of the cichlid's effect
- *     on spotty males, plus random juvenile losses); "none" pools have no predator.
+ *     Rivulus hartii is a weak one that mostly takes juveniles. Its juvenile predation is not modelled
+ *     separately: here Rivulus acts only as RIVULUS_FACTOR of the cichlid's effect on spotty adult males.
+ *     "None" pools have no predator.
  * Every generation all juveniles are equally likely to survive to adulthood (density regulation), so the only
  * selection on spots comes from the two pressures above.
  *

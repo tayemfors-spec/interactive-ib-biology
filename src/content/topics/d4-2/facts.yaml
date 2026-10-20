@@ -102,10 +102,10 @@ facts:
     basis: Schindler (1977); Rabalais et al. (2002); generalization with exceptions
     status: checked
   - id: f18
-    claim: DDT residues (ppm wet mass) in the Carmans River estuary, Long Island — water 0.00005, plankton 0.04, Atlantic silverside 0.23, needlefish 2.07, double-crested cormorant 26.4.
+    claim: DDT residues (ppm wet mass) in the Carmans River estuary, Long Island — water 0.00005, plankton (mostly zooplankton) 0.04, Atlantic silverside 0.23, needlefish 2.07, double-crested cormorant 26.4.
     where: [ "d4-2-biomagnification figure", "index.mdx#biomagnification", "quiz.yaml:q5" ]
     confidence: medium
-    basis: Woodwell, Wurster & Isaacson (1967) Science 156:821–824, Table 1, recalled values. Teacher should check against the original table before publication.
+    basis: Woodwell, Wurster & Isaacson (1967) Science 156:821–824, Table 1, recalled values. Check every value, and the plankton sample's composition (labelled mostly zooplankton), against the primary table before publication.
     status: open
   - id: f19
     claim: DDE causes eggshell thinning in peregrine falcons, ospreys, bald eagles and brown pelicans; Silent Spring 1962; DDT banned for agricultural use in most countries from the 1970s; still permitted for indoor malaria control under the Stockholm Convention.

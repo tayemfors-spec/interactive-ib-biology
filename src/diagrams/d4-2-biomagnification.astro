@@ -7,7 +7,7 @@ const rows = [
   { name: 'Fish-eating bird', ex: 'double-crested cormorant', ppm: 26.4, v: '26.4' },
   { name: 'Predatory fish', ex: 'needlefish', ppm: 2.07, v: '2.07' },
   { name: 'Small fish', ex: 'Atlantic silverside', ppm: 0.23, v: '0.23' },
-  { name: 'Plankton', ex: 'phyto- and zooplankton', ppm: 0.04, v: '0.04' },
+  { name: 'Plankton', ex: 'mostly zooplankton', ppm: 0.04, v: '0.04' },
   { name: 'Water', ex: '', ppm: 0.00005, v: '0.00005' },
 ];
 const X0 = 186, X1 = 500, LMIN = -5, LMAX = 2;
@@ -21,7 +21,7 @@ const factors = [
 ---
 <svg viewBox="0 0 560 330" role="img" aria-labelledby="d42b-t d42b-d" xmlns="http://www.w3.org/2000/svg">
   <title id="d42b-t">Biomagnification of DDT in an estuary food chain</title>
-  <desc id="d42b-d">Horizontal bars on a logarithmic scale of DDT concentration in parts per million. Water 0.00005; plankton 0.04; small fish (Atlantic silverside) 0.23; predatory fish (needlefish) 2.07; fish-eating bird (double-crested cormorant) 26.4. The concentration increases about 6 to 13 times at each step up the food chain, and is about half a million times higher in the cormorant than in the water.</desc>
+  <desc id="d42b-d">Horizontal bars on a logarithmic scale of DDT concentration in parts per million. Water 0.00005; plankton (mostly zooplankton) 0.04; small fish (Atlantic silverside) 0.23; predatory fish (needlefish) 2.07; fish-eating bird (double-crested cormorant) 26.4. The concentration increases about 6 to 13 times at each step up the food chain, and is about half a million times higher in the cormorant than in the water.</desc>
   {ticks.map((e) => (
     <g>
       <line class="grid" x1={xs(10 ** e)} x2={xs(10 ** e)} y1="18" y2="272" />

@@ -102,7 +102,7 @@ facts:
     basis: Chavez & Messié 2009 Prog Oceanogr; IPCC SROCC 2019 ch. 5; FAO. NOTE — share of fish catch often quoted 20% (some sources up to 50%); page avoids a number.
     status: open
   - id: f18
-    claim: New Guinea birds — Karkar Island (Diamond 1969; resurveyed 2013) upper limits rose 152 m on average (17 species up, 5 down); Mt Karimui (1965; 2012) upper limits rose 113 m.
+    claim: New Guinea birds — Karkar Island (Diamond 1969; resurveyed 2013) upper limits rose 152 m on average (per-species up/down counts removed from the page as unconfirmed); Mt Karimui (1965; 2012) upper limits rose 113 m.
     where: [ "index.mdx#ranges", "diagram d4-3-range-shift", "quiz.yaml:q5", "flashcards.yaml:c10" ]
     confidence: high
     basis: Freeman & Class Freeman 2014 PNAS 111:4490–4494. Quiz q5 species values are illustrative.

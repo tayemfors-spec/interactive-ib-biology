@@ -43,7 +43,7 @@ const ff = freqFrame(0);
       </label>
       <label class="slider">Young produced per pair: <output data-out="offspring">{d.offspring}</output>
         <input type="range" min="2" max="10" step="1" value={d.offspring} data-param="offspring" />
-        <span class="hint">food supports only 200 adults; 2 young per pair just replaces the parents</span>
+        <span class="hint">food supports only 200 adults; 2 young per pair just replaces the parents (no surplus)</span>
       </label>
       <label class="check"><input type="checkbox" data-acquired /> Survivors darken during adult life (an acquired change, not in their genes)</label>
       <div class="actions">

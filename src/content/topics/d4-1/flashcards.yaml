@@ -26,7 +26,7 @@ cards:
   - id: c7
     level: SL
     front: Define fitness.
-    back: The survival value and reproductive potential of a genotype in a particular environment — the number of offspring it contributes to the next generation compared with other genotypes. It is not strength or size.
+    back: How well a genotype survives and reproduces in a given environment — measured by the number of offspring it contributes to the next generation compared with other genotypes. It is not strength or size.
   - id: c8
     level: SL
     front: Why are acquired characteristics not inherited?
@@ -58,7 +58,7 @@ cards:
   - id: c15
     level: AHL
     front: A recessive condition affects 1 in 2500 people. Find q, p and the carrier frequency.
-    back: q² = 0.0004, so q = 0.02 and p = 0.98. Carriers 2pq = 2 × 0.98 × 0.02 = 0.0392 (about 1 in 25).
+    back: q² = 0.0004, so q = 0.02 and p = 0.98. Carriers 2pq = 2 × 0.98 × 0.02 = 0.0392 (about 1 in 25–26).
   - id: c16
     level: AHL
     front: List the Hardy–Weinberg conditions for genetic equilibrium.

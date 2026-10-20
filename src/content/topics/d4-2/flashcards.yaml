@@ -38,7 +38,7 @@ cards:
   - id: c10
     level: SL
     front: Five factors affecting the sustainability of agriculture
-    back: Soil erosion; leaching of nutrients; supply of fertilizers and other inputs (Haber process uses natural gas, phosphate rock is finite); pollution by agrochemicals such as pesticides; carbon footprint (fuel, fertilizer manufacture, methane, N₂O).
+    back: Loss of soil by erosion; nutrients washed out of soil by leaching; dependence on inputs such as fertilizers (the Haber process uses natural gas, phosphate rock is finite); agrochemical pollution, e.g. pesticides; carbon footprint (fuel, fertilizer manufacture, methane, N₂O).
   - id: c11
     level: SL
     front: Sequence of events in eutrophication
