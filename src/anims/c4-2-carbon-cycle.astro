@@ -20,19 +20,20 @@ const pools = [
 interface Flux { id: string; step: number; kind: string; paths: string[]; label?: string; lx?: number; ly?: number }
 const fluxes: Flux[] = [
   { id: 'photo', step: 0, kind: 'photo', paths: ['M178 36 C90 36 60 90 60 164'], label: 'photosynthesis', lx: 88, ly: 74 },
-  { id: 'feed', step: 1, kind: 'feed', paths: ['M142 194 L196 194'], label: 'feeding', lx: 170, ly: 194 },
+  { id: 'feed', step: 1, kind: 'feed', paths: ['M142 194 L196 194'], label: 'feeding', lx: 170, ly: 176 },
   { id: 'death', step: 2, kind: 'dead', paths: ['M82 222 C82 270 122 291 166 291', 'M260 222 L260 262'], label: 'death, egestion', lx: 260, ly: 242 },
   { id: 'decompose', step: 2, kind: 'dead', paths: ['M352 291 C400 291 450 272 450 224'], label: 'digestion by saprotrophs', lx: 424, ly: 288 },
-  { id: 'resp', step: 3, kind: 'resp', paths: ['M118 166 C128 122 175 96 204 66', 'M266 166 L266 66', 'M452 166 C442 112 362 84 320 66'], label: 'cell respiration', lx: 396, ly: 104 },
+  { id: 'resp', step: 3, kind: 'resp', paths: ['M132 166 C140 122 178 96 206 66', 'M266 166 L266 66', 'M452 166 C442 112 362 84 320 66'], label: 'cell respiration', lx: 396, ly: 104 },
   { id: 'fossilize', step: 4, kind: 'fossil', paths: ['M260 318 L260 358'], label: 'fossilization', lx: 260, ly: 338 },
   { id: 'combust', step: 5, kind: 'burn', paths: ['M118 387 C22 387 8 300 8 200 C8 92 62 22 176 22'], label: 'combustion', lx: 46, ly: 330 },
+  { id: 'fire', step: 5, kind: 'burn', paths: ['M88 166 L180 68'], label: 'fires', lx: 112, ly: 128 },
   { id: 'ocean', step: 6, kind: 'ocean', paths: ['M342 28 L396 28', 'M398 46 L344 46'], label: 'exchange', lx: 470, ly: 78 },
 ];
 const pill = (s: string) => s.length * 6.7 + 12;
 ---
 <svg viewBox="0 0 520 420" xmlns="http://www.w3.org/2000/svg" class:list={['cc', { exam }]} role={exam ? 'img' : undefined} aria-labelledby={exam ? 'cx-t cx-d' : undefined}>
   {exam && <title id="cx-t">Carbon cycle diagram</title>}
-  {exam && <desc id="cx-d">Boxes for the carbon pools: carbon dioxide in the atmosphere, CO₂ and hydrogen carbonate dissolved in water, producers, consumers, decomposers, dead organic matter, and peat, coal, oil and natural gas. Arrows: photosynthesis from the atmosphere to producers; feeding from producers to consumers; death and egestion from producers and consumers to dead organic matter; digestion of dead matter by saprotrophs; cell respiration from producers, consumers and decomposers back to the atmosphere; fossilization of dead organic matter; combustion of peat and fossil fuels releasing CO₂; and exchange of CO₂ between the air and the oceans.</desc>}
+  {exam && <desc id="cx-d">Boxes for the carbon pools: carbon dioxide in the atmosphere, CO₂ and hydrogen carbonate dissolved in water, producers, consumers, decomposers, dead organic matter, and peat, coal, oil and natural gas. Arrows: photosynthesis from the atmosphere to producers; feeding from producers to consumers; death and egestion from producers and consumers to dead organic matter; digestion of dead matter by saprotrophs; cell respiration from producers, consumers and decomposers back to the atmosphere; fossilization of dead organic matter; combustion of peat and fossil fuels, and of producers' biomass in fires, both releasing CO₂ to the atmosphere; and exchange of CO₂ between the air and the oceans, where aquatic producers (part of the producers box) take up dissolved carbon.</desc>}
   <defs>
     {['photo', 'feed', 'dead', 'resp', 'fossil', 'burn', 'ocean'].map((k) => (
       <marker id={`${pid}-m-${k}`} viewBox="0 0 10 10" refX="7" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0 L10 5 L0 10 z" class={`mk ${k}`} /></marker>

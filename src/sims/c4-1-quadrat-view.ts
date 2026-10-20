@@ -1,7 +1,7 @@
 /** Field and running-estimate chart markup for the quadrat sim, shared by server and browser. */
 import { chartSvg, niceAxis, sx, sy } from './c4-1-chart';
 import type { Frame } from './chart';
-import { FIELD, QUADRAT, makeField, runningEstimates, summarize, type Pattern, type Plant, type Quadrat } from './models/c4-1-quadrat';
+import { FIELD, QUADRAT, dispersion, makeField, runningEstimates, summarize, type Pattern, type Plant, type Quadrat } from './models/c4-1-quadrat';
 import { mulberry32 } from './models/c4-1-rng';
 
 export const PX = 20; // px per metre
@@ -61,7 +61,15 @@ export function statsText(counts: number[], trueN: number, reveal: boolean): str
   const s = summarize(counts, trueN);
   let t = `${s.n} quadrat${s.n === 1 ? '' : 's'}: mean ${s.mean.toFixed(2)} plants per m², standard deviation ${s.sd.toFixed(2)}. Estimate = ${s.mean.toFixed(2)} × ${FIELD * FIELD} m² ÷ 1 m² = ${Math.round(s.estimate)} plants.`;
   if (reveal) t += ` True population ${trueN}, so the sampling error is ${s.error >= 0 ? '+' : '−'}${Math.abs(Math.round(s.error))} (${Math.abs(s.errorPct).toFixed(0)}%).`;
-  if (s.n >= 5) t += s.sd > s.mean ? ' The standard deviation is larger than the mean: counts vary a lot between quadrats, so the plants are clumped and the estimate is less reliable.' : ' The standard deviation is smaller than the mean: counts are fairly similar from quadrat to quadrat, so the plants are spread fairly evenly.';
+  const dsp = s.n >= 5 ? dispersion(counts) : null;
+  if (dsp) {
+    const vr = `Variance ÷ mean = ${dsp.variance.toFixed(2)} ÷ ${s.mean.toFixed(2)} = ${dsp.ratio.toFixed(2)}`;
+    t += dsp.pattern === 'clumped'
+      ? ` ${vr}, well above 1: counts vary more between quadrats than chance alone would give, which suggests the plants are clumped (and the estimate is less reliable).`
+      : dsp.pattern === 'even'
+        ? ` ${vr}, well below 1: counts vary less than chance alone would give, which suggests the plants are spread evenly.`
+        : ` ${vr}, close to 1: counts vary about as much as chance alone would give, which suggests the plants are randomly distributed.`;
+  }
   if (s.n >= MAX_Q) t += ` Maximum of ${MAX_Q} quadrats reached.`;
   return t;
 }

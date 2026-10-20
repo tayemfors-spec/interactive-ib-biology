@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { PRIMARY, SECONDARY, firstExposureSummary, response, secondExposureSummary, titre } from '../../src/sims/models/c3-2-antibody-titre';
-import { N, SEEDS, State, simulate as herd, stateAt, threshold } from '../../src/sims/models/c3-2-herd-immunity';
+import { N, SEEDS, State, compareToThreshold, simulate as herd, stateAt, threshold } from '../../src/sims/models/c3-2-herd-immunity';
 import { GENERATIONS, K, STRAINS, TREAT_FROM, drugsAt, finalResistantFraction, simulate as resist } from '../../src/sims/models/c3-2-resistance';
 
 describe('C3.2 primary and secondary immune responses', () => {
@@ -48,6 +48,15 @@ describe('C3.2 herd immunity model', () => {
     expect(threshold(4)).toBeCloseTo(0.75);
     expect(threshold(2)).toBeCloseTo(0.5);
     expect(threshold(1)).toBe(0);
+  });
+
+  it('compares coverage with the threshold strictly, with an "at" band for equality', () => {
+    expect(compareToThreshold(0.5, threshold(2))).toBe('at');
+    expect(compareToThreshold(0.75, threshold(4))).toBe('at');
+    expect(compareToThreshold(0.67, threshold(3))).toBe('above');
+    expect(compareToThreshold(0.66, threshold(3))).toBe('below');
+    expect(compareToThreshold(0.51, threshold(2))).toBe('above');
+    expect(compareToThreshold(0.49, threshold(2))).toBe('below');
   });
 
   it('is deterministic for a given seed', () => {

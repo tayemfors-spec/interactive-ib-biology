@@ -43,6 +43,9 @@ export const duckweed: ReadonlyArray<{ day: number; fronds: number }> = [
   [14, 230], [16, 256], [18, 289], [20, 309], [22, 300], [24, 301], [26, 327],
 ].map(([day, fronds]) => ({ day: day!, fronds: fronds! }));
 
+/** Best-fitting logistic parameters for the duckweed data (grid search: r in 0.01 steps, K in 10s). Used as the sim's defaults. */
+export const DUCKWEED_FIT = { r: 0.3, k: 320 } as const;
+
 /** Root-mean-square difference between the logistic model and the duckweed data (goodness of fit). */
 export function rmsError(r: number, k: number, n0 = duckweed[0]!.fronds): number {
   const sq = duckweed.map((p) => (logistic(n0, r, k, p.day) - p.fronds) ** 2);

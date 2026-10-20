@@ -188,7 +188,8 @@ visuals:
       meets R₀ randomly chosen people while infectious, and infects any of them who are not immune. Sliders set the
       basic reproduction number R₀ and the percentage vaccinated, and a third slider steps through the generations
       of the outbreak. A bar compares vaccination coverage with the herd immunity threshold, 1 − 1/R₀. Below the
-      threshold the infection spreads through most unvaccinated people; above it, each case leads on average to
+      threshold each case causes more than one new case on average, so the infection keeps spreading; the further
+      below the threshold, the more unvaccinated people are infected. Above it, each case leads on average to
       fewer than one new case, so outbreaks die out quickly and most unvaccinated people are protected too.
 
   - id: resistance

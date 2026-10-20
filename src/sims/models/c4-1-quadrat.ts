@@ -67,3 +67,22 @@ export function summarize(counts: number[], trueN: number, size = FIELD, q = QUA
 /** Running estimate after each successive quadrat (to show how sampling error shrinks with sample size). */
 export const runningEstimates = (counts: number[], size = FIELD, q = QUADRAT) =>
   counts.map((_, i) => estimate(mean(counts.slice(0, i + 1)), size * size, q * q));
+
+/**
+ * Variance-to-mean ratio of quadrat counts, an index of dispersion. For a random (Poisson) pattern the
+ * variance is about equal to the mean (ratio ≈ 1); clumping raises it well above 1 and even spacing lowers
+ * it well below 1. Cut-offs (1.5 and 0.67) are rules of thumb, so the result only *suggests* a pattern.
+ */
+export const CLUMPED_ABOVE = 1.5;
+export const EVEN_BELOW = 0.67;
+export interface Dispersion { variance: number; ratio: number; pattern: Pattern }
+
+export function dispersion(counts: number[]): Dispersion | null {
+  if (counts.length < 2) return null;
+  const m = mean(counts);
+  if (m <= 0) return null;
+  const variance = sd(counts) ** 2;
+  const ratio = variance / m;
+  const pattern: Pattern = ratio > CLUMPED_ABOVE ? 'clumped' : ratio < EVEN_BELOW ? 'even' : 'random';
+  return { variance, ratio, pattern };
+}

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { mean, mulberry32, sampleIndices, sd } from '../../src/sims/models/c4-1-rng';
-import { absoluteRate, duckweed, exponential, logistic, perCapita, phaseOf, rmsError, timeToFraction } from '../../src/sims/models/c4-1-growth';
-import { FIELD, countIn, estimate, makeField, placeQuadrats, summarize } from '../../src/sims/models/c4-1-quadrat';
+import { DUCKWEED_FIT, absoluteRate, duckweed, exponential, logistic, perCapita, phaseOf, rmsError, timeToFraction } from '../../src/sims/models/c4-1-growth';
+import { FIELD, countIn, dispersion, estimate, makeField, placeQuadrats, summarize } from '../../src/sims/models/c4-1-quadrat';
 import { lincoln, runCmr, trials } from '../../src/sims/models/c4-1-capture';
 import { DEFAULTS, peaks, predatorEquilibrium, preyEquilibrium, simulate } from '../../src/sims/models/c4-1-predator-prey';
 import { CRITICAL_05_DF1, WORKED, chiSquared, df, expected, survey, totals, verdict } from '../../src/sims/models/c4-1-chi';
@@ -59,6 +59,12 @@ describe('C4.1 population growth', () => {
     expect(rmsError(0.3, 320)).toBeLessThan(15);
     expect(rmsError(0.15, 600)).toBeGreaterThan(50);
   });
+  it('the default parameters are the best fit to the duckweed data, so the curve fits on load', () => {
+    const { r, k } = DUCKWEED_FIT;
+    expect(rmsError(r, k)).toBeLessThan(10);
+    for (let rr = 0.05; rr <= 0.6001; rr += 0.01)
+      for (let kk = 100; kk <= 600; kk += 10) expect(rmsError(Number(rr.toFixed(2)), kk)).toBeGreaterThanOrEqual(rmsError(r, k) - 1e-9);
+  });
 });
 
 describe('C4.1 quadrat sampling', () => {
@@ -89,6 +95,22 @@ describe('C4.1 quadrat sampling', () => {
       sd(placeQuadrats(makeField(21, pattern, 600), mulberry32(4), 300).map((c) => c.count));
     expect(sdOf('clumped')).toBeGreaterThan(sdOf('random'));
     expect(sdOf('random')).toBeGreaterThan(sdOf('even'));
+  });
+  it('the variance-to-mean ratio suggests the pattern: ≫1 clumped, ≈1 random, ≪1 even', () => {
+    const ratioOf = (pattern: 'random' | 'clumped' | 'even') =>
+      dispersion(placeQuadrats(makeField(21, pattern, 600), mulberry32(4), 300).map((c) => c.count))!;
+    expect(ratioOf('clumped').pattern).toBe('clumped');
+    expect(ratioOf('random').pattern).toBe('random');
+    expect(ratioOf('even').pattern).toBe('even');
+    expect(ratioOf('random').ratio).toBeGreaterThan(0.67);
+    expect(ratioOf('random').ratio).toBeLessThan(1.5);
+  });
+  it('the variance-to-mean ratio uses sample variance and handles empty data', () => {
+    const d = dispersion([2, 4, 6])!; // mean 4, sample variance 4
+    expect(d.variance).toBeCloseTo(4);
+    expect(d.ratio).toBeCloseTo(1);
+    expect(dispersion([0, 0, 0])).toBeNull();
+    expect(dispersion([3])).toBeNull();
   });
 });
 

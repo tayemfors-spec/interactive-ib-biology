@@ -96,7 +96,7 @@ facts:
     basis: Taiz & Zeiger, Plant Physiology; IB guide C4.1.12
     status: checked
   - id: f17
-    claim: Orchid mycorrhizal hyphae penetrate root cell walls but not plasma membranes, forming coils; fungus supplies water and mineral ions, and sugars to seedlings (tiny seeds with almost no reserves); adult green orchids supply photosynthetic sugars to the fungus.
+    claim: Orchid mycorrhizal hyphae penetrate root cell walls but not plasma membranes, forming coils; fungus supplies water and mineral ions, and sugars to seedlings (tiny seeds with almost no reserves); adult green orchids can pass some photosynthetic sugars to the fungus (shown in some species).
     where: ["index.mdx#mutualism-invasive", "figure c4-1-mutualism", "flashcards.yaml:c13"]
     confidence: medium
     basis: Smith & Read, Mycorrhizal Symbiosis; Cameron et al. (2006) New Phytologist 171, 405–416 (carbon transfer from adult Goodyera repens to fungus). Carbon flow to the fungus has been shown in only some species.

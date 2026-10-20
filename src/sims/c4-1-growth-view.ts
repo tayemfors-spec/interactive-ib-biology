@@ -1,12 +1,12 @@
 /** Chart markup and reader text for the population growth sim, shared by server and browser. */
 import { chartSvg, linePath, sx, sy } from './c4-1-chart';
 import type { Frame } from './chart';
-import { EXP_END, PLATEAU_START, duckweed, exponential, logistic, phaseOf, rmsError, timeToFraction, type Phase } from './models/c4-1-growth';
+import { DUCKWEED_FIT, EXP_END, PLATEAU_START, duckweed, exponential, logistic, phaseOf, rmsError, timeToFraction, type Phase } from './models/c4-1-growth';
 
 export const N0 = duckweed[0]!.fronds;
 export const DAYS = 30;
 export interface GrowthState { r: number; k: number; log: boolean; exp: boolean; logi: boolean; data: boolean; at: number }
-export const DEFAULT_GROWTH: GrowthState = { r: 0.2, k: 450, log: false, exp: true, logi: true, data: true, at: 6 };
+export const DEFAULT_GROWTH: GrowthState = { r: DUCKWEED_FIT.r, k: DUCKWEED_FIT.k, log: false, exp: true, logi: true, data: true, at: 6 };
 
 const base = { w: 640, h: 380, left: 64, right: 18, top: 16, bottom: 52 };
 const xAxis = { min: 0, max: DAYS, ticks: [0, 5, 10, 15, 20, 25, 30], label: 'Time / days' };
