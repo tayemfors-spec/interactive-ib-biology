@@ -39,7 +39,7 @@ const surfY = 70;
         <g class="box"><rect x="4" y="164" width="134" height="56" rx="8" /><text x="12" y="182" class="b">Nerves to effectors</text><text x="12" y="197">skin arterioles, sweat</text><text x="12" y="211">glands, muscles, fat</text></g>
         <g class="box"><rect x="150" y="164" width="146" height="40" rx="8" /><text x="158" y="181" class="b">Pituitary gland</text><text x="158" y="196">(TSH) → thyroid</text></g>
         <path class="arrow" d="M224 206 L224 226" marker-end="url(#th-ah)" />
-        <g class="box"><rect x="150" y="228" width="146" height="66" rx="8" /><text x="158" y="246" class="b">Thyroxin</text><text x="158" y="261">raises metabolic rate</text><text x="158" y="275">(slower response)</text></g>
+        <g class="box"><rect x="150" y="228" width="146" height="66" rx="8" /><text x="158" y="246" class="b">Thyroxine</text><text x="158" y="261">raises metabolic rate</text><text x="158" y="275">(slower response)</text></g>
         <rect class="track" x="158" y="282" width={W} height="6" rx="3" /><rect class="lvl thy" x="158" y="282" width={bar(s.thyroxin / 2)} height="6" rx="3" data-bar="thy" />
         <text x="70" y="248" text-anchor="middle" class="sign">responses oppose</text>
         <text x="70" y="263" text-anchor="middle" class="sign">the change:</text>
@@ -94,12 +94,12 @@ const surfY = 70;
     <div><dt>Sweat rate</dt><dd data-v="sweat">{s.sweat.toFixed(1)} dm³ h⁻¹</dd></div>
     <div><dt>Shivering</dt><dd data-v="shiver">none</dd></div>
     <div><dt>Brown fat heat</dt><dd data-v="bat">none</dd></div>
-    <div><dt>Thyroxin</dt><dd data-v="thy">normal</dd></div>
+    <div><dt>Thyroxine</dt><dd data-v="thy">normal</dd></div>
   </dl>
   <p class="readout" aria-live="polite" data-readout>
     At 24 °C and at rest the body is in heat balance: core temperature is {s.core.toFixed(1)} °C and only small changes in skin blood flow are needed.
   </p>
-  <p class="model-note">Qualitative model of a lightly clothed adult; values are simplified. The thyroxin response takes hours to days, much slower than the nervous responses. Behavioural responses (clothing, shade, activity) are not included.</p>
+  <p class="model-note">Qualitative model of a lightly clothed adult; values are simplified. The thyroxine response takes hours to days, much slower than the nervous responses. Behavioural responses (clothing, shade, activity) are not included.</p>
 </div>
 
 <script>
@@ -172,7 +172,7 @@ const surfY = 70;
           p.push(' Cold thermoreceptors signal to the hypothalamus. Skin arterioles constrict so less heat is lost, and erector muscles raise the hairs.');
           if (s.brownFat > 0.05) p.push(' Brown adipose tissue releases heat by uncoupled respiration.');
           if (s.shiver > 0.05) p.push(' Skeletal muscles shiver, generating heat.');
-          if (s.thyroxin > 1.05) p.push(' More thyroxin is secreted, raising the metabolic rate.');
+          if (s.thyroxin > 1.05) p.push(' More thyroxine is secreted, raising the metabolic rate.');
         } else p.push(' Heat gain and heat loss are balanced, so only small changes in skin blood flow are needed.');
         readout.textContent = p.join('');
       }, 350);

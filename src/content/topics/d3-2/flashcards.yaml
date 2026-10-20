@@ -22,7 +22,7 @@ cards:
   - id: c6
     level: SL
     front: What is phenotypic plasticity? Give an example.
-    back: The capacity to develop traits suited to the environment by changing gene expression, with no change in genotype; often reversible. Example — skin darkens with more sunlight because more melanin is made, then pales again.
+    back: The ability of one genotype to produce different phenotypes, suited to its surroundings, by changing gene expression, with no change in genotype; often reversible. Example — skin darkens with more sunlight because more melanin is made, then pales again.
   - id: c7
     level: SL
     front: What causes phenylketonuria?

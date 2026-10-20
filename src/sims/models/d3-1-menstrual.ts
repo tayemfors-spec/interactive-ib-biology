@@ -93,7 +93,7 @@ export const PHASES: Phase[] = [
     id: 'pre-ovulation', name: 'Late follicular phase', days: 'days 12–13',
     ovary: 'The mature follicle, with a large fluid-filled cavity, bulges from the surface of the ovary.',
     uterus: 'The endometrium continues to thicken under the influence of oestradiol.',
-    feedback: 'Positive feedback: oestradiol reaches a peak, and at this high level it stimulates the pituitary to release more LH (and some FSH), starting the LH surge.',
+    feedback: 'Positive feedback: oestradiol reaches a peak. At this high level it increases GnRH secretion by the hypothalamus and makes the anterior pituitary more sensitive to GnRH, so the pituitary releases much more LH (and some FSH), starting the LH surge.',
   },
   {
     id: 'ovulation', name: 'Ovulation', days: 'about day 14',

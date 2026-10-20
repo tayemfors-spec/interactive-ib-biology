@@ -60,7 +60,7 @@ mistakes:
     right: "Plasticity involves changes in which genes are expressed and how much; the genotype (base sequence) stays the same, and the change can often be reversed."
     level: SL
   - wrong: "Drawing whiskers to the outliers, or calling any extreme value an outlier."
-    right: "An outlier is more than 1.5 × IQR below Q1 or above Q3. Plot it as a separate point; the whisker stops at the most extreme value that is not an outlier."
+    right: "Only values further than 1.5 × IQR beyond Q1 or Q3 are outliers. Plot it as a separate point; the whisker stops at the most extreme value that is not an outlier."
     level: SL
   - wrong: "Linked genes are the same as sex-linked genes."
     right: "Linked genes are any genes with loci close together on the same chromosome (usually an autosome). Sex-linked genes are on a sex chromosome."
@@ -134,7 +134,7 @@ The **phenotype** is the set of observable characteristics of an organism: struc
 
 | Cause | Human examples |
 |---|---|
-| Genotype only | ABO blood group, haemophilia, PKU (if untreated) |
+| Genotype only | ABO blood group, haemophilia, cystic fibrosis |
 | Environment only | scars, tattoos, the language a person speaks |
 | Genotype and environment | height, body mass, skin colour |
 
@@ -277,7 +277,7 @@ Working with pedigrees uses both kinds of reasoning. **Inductive reasoning** dra
 
 ### Marriage between close relatives
 
-Rare recessive alleles are usually hidden in carriers. Close relatives share many alleles inherited from common ancestors, so if they have children together, both parents are much more likely to carry the **same** recessive allele, and the chance of a homozygous recessive child with a genetic disease rises. This is the genetic basis for the prohibition of marriage between close relatives in many societies. Family A in the analyser shows this: the PKU allele reaches both of the cousins' children from a shared grandparent.
+Rare recessive alleles are usually hidden in carriers. Close relatives share many alleles inherited from common ancestors, so if they have children together, both parents are much more likely to carry the **same** recessive allele, and the chance of a homozygous recessive child with a genetic disease rises. This raised risk helps explain why many cultures and legal systems forbid close relatives to marry. Family A in the analyser shows this: the PKU allele reaches both of the cousins' children from a shared grandparent.
 
 <Callout type="exam">
 
@@ -306,7 +306,7 @@ For a continuous variable, a frequency distribution is often roughly bell-shaped
 
 A **box-and-whisker plot** shows the spread of continuous data, such as the heights of students in a class, using six features: the **minimum**, the **lower quartile (Q1)**, the **median**, the **upper quartile (Q3)**, the **maximum** and any **outliers**. The box spans the **interquartile range** (IQR = Q3 − Q1), which contains the middle half of the data.
 
-A value is an **outlier** if it is more than **1.5 × IQR** below Q1 or above Q3.
+Any value lying further than **1.5 × IQR** below Q1, or further than 1.5 × IQR above Q3, counts as an **outlier**.
 
 <Sim topic="d3-2" id="boxplot" />
 

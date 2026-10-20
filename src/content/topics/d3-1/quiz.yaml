@@ -11,8 +11,8 @@ questions:
         text: P is progesterone, which inhibits Q (LH) by negative feedback until P falls.
         why: Progesterone is low before ovulation; it is secreted by the corpus luteum after day 14. A hormone that peaks before day 14 is oestradiol.
       - id: b
-        text: P is oestradiol, and its high level stimulates the pituitary to release a surge of Q (LH) by positive feedback.
-        why: Correct. Oestradiol from the growing follicle peaks just before ovulation, and at this high level it stimulates the LH surge that causes ovulation.
+        text: P is oestradiol, and its high level causes a surge of Q (LH) from the pituitary by positive feedback.
+        why: Correct. Oestradiol from the growing follicle peaks just before ovulation. At this high level it raises GnRH secretion from the hypothalamus and makes the anterior pituitary more sensitive to GnRH, so the pituitary releases the LH surge that causes ovulation.
       - id: c
         text: P is FSH, which is converted into Q (LH) in the follicle.
         why: FSH and LH are separate hormones, both secreted by the anterior pituitary; one is not converted into the other.
