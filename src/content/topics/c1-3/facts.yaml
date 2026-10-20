@@ -126,7 +126,7 @@ facts:
     basis: IB guide C1.3.13; biochemistry texts
     status: checked
   - id: f22
-    claim: RuBP + CO₂ → unstable 6C → 2 glycerate 3-phosphate; Rubisco most abundant enzyme on Earth, slow and poor at low CO₂ (it also reacts with O₂).
+    claim: RuBP + CO₂ → unstable 6C → 2 glycerate 3-phosphate; Rubisco is the most plentiful enzyme on Earth (paraphrased on page), slow and poor at low CO₂ (it also reacts with O₂).
     where: ["index.mdx#calvin", "visuals.yaml:calvin", "flashcards.yaml:c14"]
     confidence: high
     basis: IB guide C1.3.15; Ellis 1979 Trends Biochem. Sci.; Bar-On & Milo 2019 PNAS

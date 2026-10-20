@@ -20,7 +20,7 @@ const DELTAS = [
   ['4 ATP formed:', 'net gain 2 ATP;', '2 pyruvate (3C)'],
   ['×2: +2 CO₂', '+2 reduced NAD', '2 acetyl CoA formed'],
   ['×2 turns: +4 CO₂,', '+6 reduced NAD,', '+2 reduced FAD, +2 ATP'],
-  ['NAD and FAD regenerated;', 'O₂ + e⁻ + H⁺ → water;', 'about 26–28 ATP made'],
+  ['NAD and FAD regenerated;', 'O₂ + 4e⁻ + 4H⁺ → 2H₂O;', 'about 26–28 ATP made'],
 ];
 const KREBS_OUT: { el: string; deg: number }[] = [
   { el: 'k-co2a', deg: 40 }, { el: 'k-nad1', deg: 72 }, { el: 'k-co2b', deg: 108 }, { el: 'k-nad2', deg: 140 },

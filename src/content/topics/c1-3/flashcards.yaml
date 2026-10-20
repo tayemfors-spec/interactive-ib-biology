@@ -18,7 +18,7 @@ cards:
   - id: c5
     level: SL
     front: List the leaf pigments in order from the top of a typical chromatogram.
-    back: Carotene (orange-yellow, near the solvent front), then chlorophyll a (blue-green), chlorophyll b (yellow-green) and xanthophylls (yellow). Grey phaeophytin may appear between carotene and chlorophyll a.
+    back: Carotene (orange-yellow, near the solvent front), then chlorophyll a (blue-green), chlorophyll b (yellow-green) and xanthophylls (yellow). Grey phaeophytin may appear between carotene and chlorophyll a. This is the order with a typical non-polar solvent; other solvents can change it.
   - id: c6
     level: SL
     front: Why do pigments absorb only certain wavelengths, and why do leaves look green?
@@ -54,7 +54,7 @@ cards:
   - id: c14
     level: AHL
     front: What does Rubisco catalyse, and why is so much of it needed?
-    back: RuBP + CO₂ → 2 glycerate 3-phosphate (carbon fixation). It works slowly and is not effective at low CO₂ concentrations, so high concentrations are needed in the stroma; it is the most abundant enzyme on Earth.
+    back: RuBP + CO₂ → 2 glycerate 3-phosphate (carbon fixation). Each molecule fixes CO₂ slowly and binds it poorly when CO₂ is scarce, so the stroma must hold a very high concentration of Rubisco. No enzyme on Earth is more plentiful.
   - id: c15
     level: AHL
     front: How is triose phosphate made, and what happens to it?

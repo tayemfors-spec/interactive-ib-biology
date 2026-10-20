@@ -1,6 +1,6 @@
 ---
 import { linePath, range, sx, sy, type Frame } from './chart';
-import { RANGE, absorption, action, colourBands, colourName, wavelengthToRgb } from './models/c1-3-spectra';
+import { RANGE, absorption, action, colourBands, colourName, explainSpectra, wavelengthToRgb } from './models/c1-3-spectra';
 
 const frame: Frame = {
   w: 640, h: 400, left: 58, right: 18, top: 16, bottom: 92,
@@ -57,7 +57,7 @@ const table = range(400, 700, 20).map((n) => ({ n, c: colourName(n), vals: serie
     </div>
   </div>
   <p class="readout" aria-live="polite" data-readout>
-    At {nm0} nm ({colourName(nm0)} light) the chlorophylls absorb very little: most of this light is reflected or passes through, which is why leaves look green. The rate of photosynthesis is still about {action(nm0).toFixed(0)}% of the maximum.
+    {explainSpectra(nm0)}
   </p>
   <details class="table">
     <summary>Show data table</summary>
@@ -66,12 +66,13 @@ const table = range(400, 700, 20).map((n) => ({ n, c: colourName(n), vals: serie
       <tbody>{table.map((r) => <tr><th scope="row">{r.n}</th><td>{r.c}</td>{r.vals.map((v) => <td>{v.toFixed(0)}</td>)}</tr>)}</tbody>
     </table>
   </details>
+  <p class="green-note"><strong>Why is the action spectrum above zero in green light?</strong> The absorption curves are for pigments extracted into a solvent, where light passes through only once. In a leaf, light is scattered and reflected between cells, so it travels a long path through many chloroplasts and even weakly absorbed green light is largely absorbed in the end. Accessory pigments and the weak edges of the chlorophyll bands also absorb some green light and pass the energy to chlorophyll a. So photosynthesis in green light is slower than in blue or red, but not zero.</p>
   <p class="model-note">Approximate shapes for pigments dissolved in an organic solvent (each scaled to 100% at its own peak) and a typical action spectrum. Exact peak positions shift a little inside the leaf.</p>
 </div>
 
 <script>
   import { sx, type Frame } from './chart';
-  import { absorption, action, colourName, wavelengthToRgb } from './models/c1-3-spectra';
+  import { absorption, action, colourName, explainSpectra, wavelengthToRgb } from './models/c1-3-spectra';
 
   document.querySelectorAll<HTMLElement>('[data-sim-spec]').forEach((root) => {
     const frame = JSON.parse(root.dataset.frame!) as Frame;
@@ -94,13 +95,7 @@ const table = range(400, 700, 20).map((n) => ({ n, c: colourName(n), vals: serie
       q('[data-stat="action"]').textContent = `${r.toFixed(0)}%`;
       clearTimeout(timer);
       timer = window.setTimeout(() => {
-        const most = Math.max(a, b, c);
-        let msg = `At ${nm} nm (${col} light): `;
-        if (most < 12) msg += `the chlorophylls${c < 12 ? ' and carotenoids' : ''} absorb very little, so most of this light is reflected or passes through. This is why leaves look green.`;
-        else if (c > a && c > b) msg += 'carotenoids absorb strongly here and pass the energy on to chlorophyll, extending the range of wavelengths used.';
-        else msg += `${a >= b ? 'chlorophyll a' : 'chlorophyll b'} absorbs strongly; photons of this wavelength have the right energy to excite its electrons.`;
-        msg += ` Relative rate of photosynthesis: about ${r.toFixed(0)}% of the maximum.`;
-        readout.textContent = msg;
+        readout.textContent = explainSpectra(nm);
       }, 350);
     };
     input.addEventListener('input', update);
@@ -146,5 +141,6 @@ const table = range(400, 700, 20).map((n) => ({ n, c: colourName(n), vals: serie
   .table summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
   table { border-collapse: collapse; margin-top: var(--space-2); font-variant-numeric: tabular-nums; }
   th, td { padding: 0.2rem 0.6rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .green-note { margin: var(--space-3) 0 0; padding: var(--space-3); border-left: 4px solid var(--bio-carb); background: var(--surface-2); border-radius: var(--radius-s); font-size: var(--step--1); }
   .model-note { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
 </style>

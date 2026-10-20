@@ -30,11 +30,11 @@ export function create(svg: SVGSVGElement) {
   const humanEnd = () => { move('h-pyr', [198, 0]); nad('h-nadbox', 'h-nadt', false); show('h-lac-t', true); show('h-pyr-t', false); show('h-note', true); };
   const yeastStart = () => {
     move('y-pyr', [0, 0]); move('y-co2', [380, 240]); show('y-co2-t', false); nad('y-nadbox', 'y-nadt', true);
-    show('y-pyr-t', true); show('y-eth-t', false); show('y-ol-t', false);
+    show('y-pyr-t', true); show('y-eth', false); show('y-eth-t', false); show('y-ol-t', false); show('y-nadconv', false);
   };
   const yeastEnd = () => {
     move('y-pyr', [222, 0]); move('y-co2', [440, 200]); show('y-co2-t', true); nad('y-nadbox', 'y-nadt', false);
-    show('y-pyr-t', false); show('y-eth-t', false); show('y-ol-t', true);
+    show('y-pyr-t', false); show('y-eth', 0.45); show('y-eth-t', true); show('y-ol-t', true); show('y-nadconv', true);
   };
 
   function render(index: number, t: number) {
@@ -70,8 +70,9 @@ export function create(svg: SVGSVGElement) {
         if (b > 0) move('y-pyr', mix([106, 0], [222, 0], b));
         move('y-co2', mix([380, 240], [440, 200], a));
         show('y-co2-t', t >= 0.3);
-        show('y-pyr-t', t < 0.1); show('y-eth-t', t >= 0.35 && t < 0.8); show('y-ol-t', t >= 0.8);
-        nad('y-nadbox', 'y-nadt', t < 0.75);
+        // ethanal stays labelled as the intermediate once it has formed
+        show('y-pyr-t', t < 0.1); show('y-eth', t >= 0.45 ? 0.45 : 0); show('y-eth-t', t >= 0.35); show('y-ol-t', t >= 0.8);
+        nad('y-nadbox', 'y-nadt', t < 0.75); show('y-nadconv', t >= 0.75);
         meter(ease(phase(t, 0.7, 0.95)), t >= 0.8 ? 'NAD regenerated in yeast too:' : '', t >= 0.8 ? 'net 2 ATP per glucose.' : '');
         break;
       }

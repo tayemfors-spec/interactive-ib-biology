@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { PRESETS, activeFraction, optimumTemp, preset, rate } from '../../src/sims/models/c1-1-rate';
+import { PRESETS, activeFraction, optimumTemp, pHActiveFraction, preset, rate } from '../../src/sims/models/c1-1-rate';
 import { V_FINAL, gradient, initialRate, mean, reading, timeTo, volume } from '../../src/sims/models/c1-1-measuring';
 import { VMAX, competitive, none, nonCompetitive, states } from '../../src/sims/models/c1-1-inhibition';
 
@@ -42,6 +42,34 @@ describe('C1.1 enzyme activity model', () => {
     }
     expect(preset('pepsin').optPH).toBeLessThan(3);
     expect(rate({ ...base, ph: 2 }, preset('pepsin'))).toBeGreaterThan(rate({ ...base, ph: 7 }, preset('pepsin')));
+  });
+
+  it('extreme pH denatures irreversibly: returning to the optimum does not restore the rate', () => {
+    const fresh = rate({ ...base }, amylase);
+    // taken down to pH 2, then back to pH 7
+    expect(rate({ ...base, phLow: 2 }, amylase)).toBeLessThan(fresh * 0.05);
+    // taken up to pH 13, then back to pH 7
+    expect(rate({ ...base, phHigh: 13 }, amylase)).toBeLessThan(fresh * 0.05);
+    expect(pHActiveFraction(7, 7, amylase.phWidth, 2, 7)).toBeLessThan(0.05);
+    // pepsin is denatured by neutral or alkaline conditions, not by its own acidic optimum
+    const pep = preset('pepsin');
+    const pepBase = { ...base, ph: 2 };
+    expect(rate({ ...pepBase, phHigh: 8 }, pep)).toBeLessThan(rate(pepBase, pep) * 0.05);
+  });
+
+  it('small pH shifts are reversible: the rate recovers at the optimum', () => {
+    const fresh = rate({ ...base }, amylase);
+    expect(rate({ ...base, phLow: 6, phHigh: 8 }, amylase)).toBeGreaterThan(fresh * 0.95);
+    // but the rate is lower while the pH is shifted
+    expect(rate({ ...base, ph: 6 }, amylase)).toBeLessThan(fresh);
+  });
+
+  it('pH history: the most extreme pH reached sets the damage, not the pH now', () => {
+    const a = rate({ ...base, phLow: 3 }, amylase);
+    const b = rate({ ...base, phLow: 2 }, amylase);
+    expect(b).toBeLessThanOrEqual(a);
+    // fresh enzyme (no history) equals history at the current pH
+    expect(rate({ ...base, ph: 5, phLow: 5, phHigh: 5 }, amylase)).toBeCloseTo(rate({ ...base, ph: 5 }, amylase), 9);
   });
 
   it('substrate concentration: rate rises then levels off when active sites are saturated', () => {

@@ -104,12 +104,12 @@ const tables: Record<Key, number[]> = { temp: range(0, 100, 10), ph: range(0, 14
       ))}
     </div>
   </details>
-  <p class="model-note">Qualitative model: each graph shows the rate as one factor changes while the others stay at the slider values. Rate is on a scale where 100 is the fastest this enzyme can work (10 units of enzyme, saturating substrate, optimum temperature and pH). The temperature curve is for fresh enzyme; the dot shows the enzyme you have now.</p>
+  <p class="model-note">Qualitative model: each graph shows the rate as one factor changes while the others stay at the slider values. Rate is on a scale where 100 is the fastest this enzyme can work (10 units of enzyme, saturating substrate, optimum temperature and pH). The temperature and pH curves are for fresh enzyme. Denaturation by heat or by extreme pH is treated as irreversible, so the dot shows the enzyme you have now: it drops below the curve if earlier heating or an extreme pH denatured it. Small shifts in pH only change charges in the active site and are reversed when the pH returns to the optimum.</p>
 </div>
 
 <script>
   import { linePath, range, sx, sy, type Frame } from './chart';
-  import { PRESETS, activeFraction, kinetic, label, occupancy, optimumTemp, pHFactor, preset, rate, type RateParams } from './models/c1-1-rate';
+  import { PRESETS, activeFraction, kinetic, label, occupancy, optimumTemp, pHActiveFraction, pHBinding, preset, rate, type RateParams } from './models/c1-1-rate';
   import { prefersReducedMotion } from '../lib/prefs';
 
   const NS = 'http://www.w3.org/2000/svg';
@@ -125,11 +125,14 @@ const tables: Record<Key, number[]> = { temp: range(0, 100, 10), ph: range(0, 14
     const select = q<HTMLSelectElement>('[data-enzyme]');
     const readout = q<HTMLElement>('[data-readout]');
     let maxTemp = Number(input('temp').value);
+    let phLow = Number(input('ph').value);
+    let phHigh = phLow;
     let timer = 0;
+    const freshStart = () => { maxTemp = Number(input('temp').value); phLow = phHigh = Number(input('ph').value); };
 
     const params = (): RateParams => ({
       temp: Number(input('temp').value), ph: Number(input('ph').value),
-      substrate: Number(input('substrate').value), enzyme: Number(input('enzyme').value), maxTemp,
+      substrate: Number(input('substrate').value), enzyme: Number(input('enzyme').value), maxTemp, phLow, phHigh,
     });
 
     const explain = (p: RateParams) => {
@@ -143,7 +146,12 @@ const tables: Record<Key, number[]> = { temp: range(0, 100, 10), ph: range(0, 14
       else if (p.temp < opt - 2) parts.push('Below the optimum, raising the temperature makes molecules move faster, so substrate–active site collisions are more frequent and more energetic.');
       else parts.push('This is close to the optimum temperature.');
       const dph = Math.abs(p.ph - e.optPH);
-      if (dph >= 3) parts.push(`pH ${p.ph} is far from the optimum (pH ${e.optPH}): the active site's charges and shape are altered and the enzyme is denatured.`);
+      const phAf = pHActiveFraction(p.ph, e.optPH, e.phWidth, phLow, phHigh);
+      const phAfNow = pHActiveFraction(p.ph, e.optPH, e.phWidth);
+      const worst = e.optPH - phLow > phHigh - e.optPH ? phLow : phHigh;
+      if (phAf < 0.6 && phAfNow > 0.9)
+        parts.push(`The enzyme was exposed to pH ${worst} earlier. That denatured most of its molecules, and returning to pH ${p.ph} does not refold them — press "Use fresh enzyme".`);
+      else if (dph >= 3) parts.push(`pH ${p.ph} is far from the optimum (pH ${e.optPH}): the active site's charges and shape are altered and the enzyme is denatured.`);
       else if (dph >= 1) parts.push(`pH ${p.ph} is away from the optimum (pH ${e.optPH}), which changes the charges on amino acids in the active site, so the substrate binds less well.`);
       const occ = occupancy(p.substrate);
       if (p.substrate === 0) parts.push('With no substrate there is nothing to react.');
@@ -155,7 +163,9 @@ const tables: Record<Key, number[]> = { temp: range(0, 100, 10), ph: range(0, 14
     const update = () => {
       const p = params();
       maxTemp = Math.max(maxTemp, p.temp);
-      p.maxTemp = maxTemp;
+      phLow = Math.min(phLow, p.ph);
+      phHigh = Math.max(phHigh, p.ph);
+      p.maxTemp = maxTemp; p.phLow = phLow; p.phHigh = phHigh;
       const e = preset(select.value);
       q('[data-out="temp"]').textContent = `${p.temp} °C`;
       q('[data-out="ph"]').textContent = String(p.ph);
@@ -163,10 +173,11 @@ const tables: Record<Key, number[]> = { temp: range(0, 100, 10), ph: range(0, 14
       q('[data-out="enzyme"]').textContent = String(p.enzyme);
       q('[data-where]').textContent = `Works in the ${e.where}. Optimum about pH ${e.optPH} and ${Math.round(optimumTemp(e))} °C.`;
       const now = rate(p, e);
-      const fresh = { ...p, maxTemp: undefined };
+      // temperature and pH curves are for fresh enzyme; the substrate curve is for the enzyme you have now
+      const fresh = { ...p, maxTemp: undefined, phLow: undefined, phHigh: undefined };
       const fn: Record<Key, (x: number) => number> = {
         temp: (x) => rate({ ...fresh, temp: x }, e),
-        ph: (x) => rate({ ...p, ph: x }, e),
+        ph: (x) => rate({ ...fresh, ph: x }, e),
         substrate: (x) => rate({ ...p, substrate: x }, e),
       };
       for (const k of KEYS) {
@@ -206,11 +217,11 @@ const tables: Record<Key, number[]> = { temp: range(0, 100, 10), ph: range(0, 14
 
       const configure = (p: RateParams, e: ReturnType<typeof preset>) => {
         const n = p.enzyme;
-        const af = activeFraction(p.temp, e.tm, p.maxTemp ?? p.temp);
+        const af = activeFraction(p.temp, e.tm, p.maxTemp ?? p.temp) * pHActiveFraction(p.ph, e.optPH, e.phWidth, p.phLow, p.phHigh);
         const nActive = Math.round(n * af);
         speed = Math.sqrt(kinetic(p.temp));
         turnover = 0.7 / kinetic(p.temp);
-        bindP = pHFactor(p.ph, e.optPH, e.phWidth);
+        bindP = pHBinding(p.ph, e.optPH, e.phWidth);
         if (enz.length !== n || enz.filter((x) => x.active).length !== nActive) {
           gE.replaceChildren();
           enz = positions.slice(0, n).map((pos, i) => {
@@ -303,10 +314,10 @@ const tables: Record<Key, number[]> = { temp: range(0, 100, 10), ph: range(0, 14
     select.addEventListener('change', () => {
       const e = preset(select.value);
       input('ph').value = String(e.optPH);
-      maxTemp = Number(input('temp').value);
+      freshStart();
       update();
     });
-    q('[data-fresh]').addEventListener('click', () => { maxTemp = Number(input('temp').value); update(); });
+    q('[data-fresh]').addEventListener('click', () => { freshStart(); update(); });
     void PRESETS;
     update();
   });

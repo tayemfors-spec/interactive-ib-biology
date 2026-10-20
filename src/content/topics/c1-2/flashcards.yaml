@@ -14,7 +14,7 @@ cards:
   - id: c4
     level: SL
     front: ATP ⇌ ADP + Pi — which direction releases energy?
-    back: Hydrolysis of ATP to ADP + Pi releases energy (water is used). Making ATP from ADP + Pi is a condensation (phosphorylation) that requires energy, from respiration.
+    back: Hydrolysis of ATP to ADP + Pi releases energy (water is used). Making ATP from ADP + Pi is a condensation reaction that phosphorylates ADP; it requires energy, from respiration.
   - id: c5
     level: SL
     front: How is cell respiration different from gas exchange?
