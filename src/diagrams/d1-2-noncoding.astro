@@ -1,0 +1,74 @@
+---
+/**
+ * D1.2.14: DNA sequences that do not code for polypeptides, limited to the four required kinds:
+ * regulators of gene expression, introns, telomeres, and genes for tRNA and rRNA (eukaryotes).
+ * Top: part of a chromosome with telomeres at the ends and three kinds of gene. Bottom: one
+ * protein-coding gene enlarged.
+ */
+const C = { y: 58, x0: 24, x1: 496 };
+const rrna = [356, 372, 388, 404, 420];
+---
+<svg viewBox="0 0 520 330" role="img" aria-labelledby="nc-title nc-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="nc-title">Non-coding DNA sequences in a eukaryotic chromosome</title>
+  <desc id="nc-desc">A chromosome with telomeres, repeated short non-coding sequences, at both ends. Along it are a protein-coding gene, a gene for transfer RNA and a cluster of repeated genes for ribosomal RNA; the tRNA and rRNA genes are transcribed but their RNA is never translated. The protein-coding gene is enlarged below: a regulatory sequence such as an enhancer and the promoter control its expression and are not transcribed into mRNA that is translated; the gene itself is made of exons, which code for the polypeptide, separated by introns, which are transcribed but removed before translation.</desc>
+
+  <!-- chromosome -->
+  <rect class="chrom" x={C.x0} y={C.y - 14} width={C.x1 - C.x0} height="28" rx="14" />
+  <path class="telo" d={`M${C.x0 + 4} ${C.y} h30 M${C.x1 - 34} ${C.y} h30`} />
+  <rect class="g-prot" x="120" y={C.y - 14} width="70" height="28" />
+  <rect class="g-trna" x="272" y={C.y - 14} width="20" height="28" />
+  {rrna.map((x) => <rect class="g-rrna" x={x} y={C.y - 14} width="11" height="28" />)}
+  <text class="lbl" x={C.x0} y="22">telomere</text>
+  <text class="lbl" x={C.x1} y="22" text-anchor="end">telomere</text>
+  <text class="lbl" x="155" y="102" text-anchor="middle">protein-coding gene</text>
+  <text class="lbl" x="282" y="102" text-anchor="middle">tRNA gene</text>
+  <text class="lbl" x="393" y="102" text-anchor="middle">rRNA genes</text>
+  <text class="sm" x="393" y="117" text-anchor="middle">(many repeated copies)</text>
+  <path class="zoom" d={`M120 ${C.y + 14} L30 160 M190 ${C.y + 14} L490 160`} />
+
+  <!-- enlarged gene -->
+  <path class="dna" d="M20 186 H500" />
+  <rect class="reg" x="30" y="174" width="50" height="24" rx="3" />
+  <rect class="prom" x="110" y="174" width="50" height="24" rx="3" />
+  <rect class="exon" x="166" y="174" width="70" height="24" rx="3" />
+  <path class="intron" d="M236 186 q10 -10 20 0 t20 0 t20 0" />
+  <rect class="exon" x="296" y="174" width="56" height="24" rx="3" />
+  <path class="intron" d="M352 186 q10 -10 20 0 t20 0" />
+  <rect class="exon" x="392" y="174" width="80" height="24" rx="3" />
+  <text class="t" x="55" y="191" text-anchor="middle">enh.</text>
+  <text class="t" x="135" y="191" text-anchor="middle">prom.</text>
+  <text class="t" x="201" y="191" text-anchor="middle">exon</text>
+  <text class="t" x="324" y="191" text-anchor="middle">exon</text>
+  <text class="t" x="432" y="191" text-anchor="middle">exon</text>
+
+  <g class="notes">
+    <path class="lead" d="M55 200 V226 M135 200 V226" />
+    <text class="lbl" x="20" y="242">Regulators of gene expression</text>
+    <text class="sm" x="20" y="258">enhancers and the promoter, where proteins</text>
+    <text class="sm" x="20" y="273">bind to switch transcription on or off</text>
+    <path class="lead" d="M266 194 V226 M372 194 V226" />
+    <text class="lbl" x="300" y="242">Introns</text>
+    <text class="sm" x="300" y="258">transcribed, then cut out of the</text>
+    <text class="sm" x="300" y="273">pre-mRNA before translation</text>
+    <text class="sm" x="20" y="306">Telomeres: repeated sequences that protect the chromosome ends.</text>
+    <text class="sm" x="20" y="322">tRNA and rRNA genes: transcribed, but the RNA is not translated.</text>
+  </g>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .chrom { fill: color-mix(in srgb, var(--text-muted) 20%, var(--surface)); stroke: var(--text-muted); stroke-width: 1.4; }
+  .telo { stroke: var(--bio-head); stroke-width: 22; stroke-dasharray: 3 3; }
+  .g-prot { fill: color-mix(in srgb, var(--bio-carb) 55%, var(--surface)); }
+  .g-trna { fill: color-mix(in srgb, var(--bio-tail) 80%, var(--surface)); }
+  .g-rrna { fill: color-mix(in srgb, var(--bio-protein-2) 55%, var(--surface)); stroke: var(--surface); stroke-width: 1; }
+  .zoom { stroke: var(--text-muted); stroke-width: 1; stroke-dasharray: 4 4; fill: none; }
+  .dna { stroke: var(--text); stroke-width: 3; }
+  .reg { fill: color-mix(in srgb, var(--bio-protein) 25%, var(--surface)); stroke: var(--bio-protein); stroke-width: 1.4; }
+  .prom { fill: color-mix(in srgb, var(--bio-chol) 22%, var(--surface)); stroke: var(--bio-chol); stroke-width: 1.4; }
+  .exon { fill: color-mix(in srgb, var(--bio-carb) 45%, var(--surface)); stroke: var(--bio-carb); stroke-width: 1.4; }
+  .intron { stroke: var(--text-muted); stroke-width: 3; fill: none; }
+  .t { font-size: 12px; font-weight: 800; fill: var(--text); }
+  .lbl { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .sm { font-size: 12.5px; fill: var(--text-muted); }
+  .lead { stroke: var(--text-muted); stroke-width: 1.2; }
+</style>

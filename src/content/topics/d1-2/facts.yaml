@@ -1,0 +1,163 @@
+facts:
+  - id: f1
+    claim: RNA polymerase binds at the promoter, separates the DNA strands, links RNA nucleotides complementary to the template strand and needs no primer.
+    where: ["index.mdx#transcription", "visuals.yaml:protein-synthesis", "quiz.yaml:q2", "flashcards.yaml:c1"]
+    confidence: high
+    basis: Alberts, Molecular Biology of the Cell, ch. 6; IB guide D1.2.1
+    status: checked
+  - id: f2
+    claim: In transcription A on the template pairs with U, T with A, G with C and C with G; A–U/A–T pairs have two hydrogen bonds and G–C pairs three.
+    where: ["index.mdx#transcription", "visuals.yaml:protein-synthesis", "diagrams/d1-2-transcription", "quiz.yaml:q1", "flashcards.yaml:c3"]
+    confidence: high
+    basis: Standard base-pairing rules; IB guide D1.2.2
+    status: checked
+  - id: f3
+    claim: RNA is synthesized 5′→3′ (nucleotides added to the 3′–OH); the template is read 3′→5′; energy comes from the release of pyrophosphate from ribonucleoside triphosphates.
+    where: ["index.mdx#directionality", "visuals.yaml:protein-synthesis", "diagrams/d1-2-direction", "quiz.yaml:q7", "flashcards.yaml:c13"]
+    confidence: high
+    basis: Alberts ch. 6; IB guide D1.2.12
+    status: checked
+  - id: f4
+    claim: About eight to nine RNA nucleotides remain paired with the template in the transcription bubble (RNA–DNA hybrid); the bubble is roughly 12–14 base pairs.
+    where: ["visuals.yaml:protein-synthesis (mrna label)", "scenes/d1-2-transcription"]
+    confidence: medium
+    basis: Structural studies of RNA polymerase (Alberts ch. 6; Lodish, Molecular Cell Biology); values vary slightly between polymerases
+    status: open
+  - id: f5
+    claim: Transcription does not change the base sequence of the template; non-dividing somatic cells (e.g. neurons) must conserve their DNA sequences throughout life.
+    where: ["index.mdx#templates-expression", "flashcards.yaml:c4"]
+    confidence: high
+    basis: IB guide D1.2.3
+    status: checked
+  - id: f6
+    claim: mRNA binds to the small ribosomal subunit; the large subunit holds two tRNAs at once (A and P sites) and its rRNA catalyses peptide bond formation (peptidyl transferase is a ribozyme).
+    where: ["index.mdx#translation", "index.mdx#elongation", "visuals.yaml:protein-synthesis", "flashcards.yaml:c6"]
+    confidence: high
+    basis: Alberts ch. 6 (ribosome structure; Nissen et al. 2000, Science); IB guide D1.2.6
+    status: checked
+  - id: f7
+    claim: Codon–anticodon pairing is antiparallel; codon 5′-AUG-3′ pairs with anticodon 3′-UAC-5′, codon 5′-GCA-3′ with 3′-CGU-5′.
+    where: ["index.mdx#translation", "visuals.yaml:protein-synthesis", "visuals.yaml:initiation", "quiz.yaml:q6", "flashcards.yaml:c7"]
+    confidence: high
+    basis: Standard base pairing (wobble at the third codon position not covered)
+    status: checked
+  - id: f8
+    claim: The standard genetic code has 64 codons, 61 coding for 20 amino acids and three stop codons (UAA, UAG, UGA); AUG codes for Met and is the start codon; Leu, Ser and Arg have six codons; Met and Trp one each.
+    where: ["index.mdx#genetic-code", "sims/models/d1-2-codon-table.ts", "tests/unit/d1-2.test.ts", "quiz.yaml:q3", "flashcards.yaml:c10"]
+    confidence: high
+    basis: NCBI genetic code table 1 (standard code); checked against an independent table in the unit tests
+    status: checked
+  - id: f9
+    claim: The genetic code is nearly universal; minor variants exist, e.g. UGA codes for tryptophan in vertebrate mitochondria.
+    where: ["index.mdx#genetic-code", "flashcards.yaml:c9", "mustKnow"]
+    confidence: high
+    basis: NCBI genetic code table 2 (vertebrate mitochondrial code)
+    status: checked
+  - id: f10
+    claim: Doublet codons would give 16 combinations (fewer than 20 amino acids); triplets give 64.
+    where: ["index.mdx#genetic-code", "quiz.yaml:q4", "flashcards.yaml:c8"]
+    confidence: high
+    basis: Arithmetic; IB guide D1.2.8
+    status: checked
+  - id: f11
+    claim: The ribosome moves along mRNA one codon (three nucleotides) at a time; translation is 5′→3′ and the polypeptide is made N-terminus to C-terminus.
+    where: ["index.mdx#elongation", "index.mdx#directionality", "visuals.yaml:protein-synthesis", "diagrams/d1-2-direction"]
+    confidence: high
+    basis: Alberts ch. 6; IB guide D1.2.10, D1.2.12
+    status: checked
+  - id: f12
+    claim: At a stop codon a release factor protein (not a tRNA) binds in the A site and the polypeptide is released; subunits then separate.
+    where: ["visuals.yaml:protein-synthesis (termination)", "index.mdx#elongation", "mistakes"]
+    confidence: high
+    basis: Alberts ch. 6
+    status: checked
+  - id: f13
+    claim: Sickle-cell allele HbS — HBB coding strand GAG→GTG (template CTC→CAC, mRNA GAG→GUG) in the codon for amino acid 6 of mature β-globin; glutamic acid replaced by valine (HGVS numbering including Met is p.Glu7Val, c.20A>T).
+    where: ["index.mdx#mutations", "diagrams/d1-2-sickle-cell", "sims/models/d1-2-codon-table.ts", "quiz.yaml:q5", "flashcards.yaml:c12"]
+    confidence: high
+    basis: OMIM 603903 (HBB); NCBI RefSeq NM_000518
+    status: checked
+  - id: f14
+    claim: The start of HBB coding sequence is ATG GTG CAC CTG ACT CCT GAG GAG AAG TCT, coding Met-Val-His-Leu-Thr-Pro-Glu-Glu-Lys-Ser; the initiator Met is removed from mature β-globin.
+    where: ["sims/models/d1-2-codon-table.ts (HBB_NORMAL)", "sim codon-table"]
+    confidence: high
+    basis: NCBI RefSeq NM_000518 / NP_000509 (β-globin begins VHLTPEEKS after Met)
+    status: open
+  - id: f15
+    claim: HbS molecules polymerize into fibres at low oxygen concentration, deforming red blood cells into a sickle shape; glutamic acid is polar and negatively charged, valine non-polar.
+    where: ["index.mdx#mutations", "diagrams/d1-2-sickle-cell"]
+    confidence: high
+    basis: Standard biochemistry (Berg, Biochemistry)
+    status: checked
+  - id: f16
+    claim: In eukaryotes transcription factors bind the promoter before RNA polymerase (II) can bind; in prokaryotes RNA polymerase (with sigma factor) binds the promoter directly; the promoter is upstream and not transcribed.
+    where: ["index.mdx#promoter", "diagrams/d1-2-promoter", "flashcards.yaml:c14"]
+    confidence: high
+    basis: Alberts ch. 6; IB guide D1.2.13. Simplification — some core promoter elements lie just downstream of the start point.
+    status: checked
+  - id: f17
+    claim: Only about 1–2% of the human genome codes for polypeptides; humans have about 20 000 protein-coding genes.
+    where: ["index.mdx#non-coding", "index.mdx#mrna-processing"]
+    confidence: high
+    basis: Human genome assemblies (GENCODE, ~19–20 000 protein-coding genes; coding exons ≈1.5% of the genome)
+    status: checked
+  - id: f18
+    claim: Human telomeres are tandem repeats of TTAGGG (several kilobases); some telomeric DNA is lost at each replication.
+    where: ["index.mdx#non-coding", "diagrams/d1-2-noncoding"]
+    confidence: high
+    basis: Alberts ch. 5 (telomeres and telomerase)
+    status: checked
+  - id: f19
+    claim: rRNA genes are present in many tandem copies in eukaryotes; tRNA and rRNA genes are transcribed but not translated.
+    where: ["index.mdx#non-coding", "diagrams/d1-2-noncoding"]
+    confidence: high
+    basis: Alberts ch. 6 (human cells have ~200 copies of the rRNA gene in clusters on five chromosomes)
+    status: checked
+  - id: f20
+    claim: Eukaryotic pre-mRNA receives a 5′ cap (7-methylguanosine) and a poly-A tail (about 100–250 A in mammals) and introns are spliced out in the nucleus; cap and tail stabilize mRNA and the cap aids ribosome binding.
+    where: ["index.mdx#mrna-processing", "visuals.yaml:splicing", "quiz.yaml:q8", "flashcards.yaml:c16"]
+    confidence: high
+    basis: Alberts ch. 6; IB guide D1.2.15
+    status: checked
+  - id: f21
+    claim: Alternative splicing joins different exon combinations so one gene codes for several polypeptides; most human multi-exon genes are alternatively spliced.
+    where: ["index.mdx#mrna-processing", "visuals.yaml:splicing"]
+    confidence: high
+    basis: Wang et al. 2008 (Nature) — ~95% of multi-exon human genes; IB guide D1.2.16 (no examples required)
+    status: checked
+  - id: f22
+    claim: Eukaryotic initiation — small subunit (with initiator Met-tRNA) binds the 5′ cap and scans to the first AUG; initiator tRNA ends in the P site; the large subunit joins; the second tRNA enters the A site. A, P, E roles as stated.
+    where: ["index.mdx#initiation", "visuals.yaml:initiation", "visuals.yaml:protein-synthesis (translation)", "quiz.yaml:q9", "flashcards.yaml:c17"]
+    confidence: high
+    basis: Alberts ch. 6 (scanning model). In bacteria the small subunit binds a Shine–Dalgarno sequence near the AUG instead, and the initiator carries formyl-methionine; not shown.
+    status: checked
+  - id: f23
+    claim: Pre-proinsulin is 110 amino acids with a 24-amino-acid signal peptide; proinsulin is 86 (B 30 + RR + C peptide 31 + KR + A 21); insulin has A chain 21 and B chain 30 linked by two interchain disulfide bonds (A7–B7, A20–B19) plus one intrachain bond (A6–A11).
+    where: ["index.mdx#modification", "visuals.yaml:insulin", "anims/d1-2-insulin", "quiz.yaml:q10", "flashcards.yaml:c18"]
+    confidence: high
+    basis: UniProt P01308 (INS_HUMAN)
+    status: checked
+  - id: f24
+    claim: The signal peptide is removed by signal peptidase in the rough ER; proinsulin folds and forms its disulfide bonds in the ER; the C peptide is removed by prohormone convertases (and carboxypeptidase E) in the Golgi and immature secretory granules.
+    where: ["index.mdx#modification", "visuals.yaml:insulin"]
+    confidence: high
+    basis: Standard endocrine biochemistry (e.g. Alberts ch. 13; Steiner's work on proinsulin processing)
+    status: checked
+  - id: f25
+    claim: Proteins for degradation are tagged with a polyubiquitin chain and digested by the ATP-dependent 26S proteasome into short peptides; ubiquitin is recycled and peptides are hydrolysed to amino acids that are reused.
+    where: ["index.mdx#proteasomes", "diagrams/d1-2-proteasome", "flashcards.yaml:c18", "mustKnow"]
+    confidence: high
+    basis: Alberts ch. 6 (protein degradation); IB guide D1.2.19
+    status: checked
+  - id: f26
+    claim: In prokaryotes ribosomes can start translating mRNA before transcription is complete, and most prokaryotic genes lack introns.
+    where: ["index.mdx#elongation", "index.mdx#mrna-processing"]
+    confidence: high
+    basis: Alberts ch. 6
+    status: checked
+  - id: f27
+    claim: The example gene in the 3D models is invented for teaching (mRNA 5′-GACCAUGGCAUUCAAAGUGUAAG-3′, coding Met–Ala–Phe–Lys–Val then stop); the promoter is shown schematically.
+    where: ["scenes/d1-2-transcription", "scenes/d1-2-translation", "visuals.yaml:protein-synthesis"]
+    confidence: high
+    basis: Model design choice; codons decoded with the standard table
+    status: checked

@@ -1,0 +1,67 @@
+---
+/**
+ * D1.2.19: recycling of amino acids. A cycle: ribosomes make proteins → proteins that are damaged,
+ * misfolded or no longer needed are tagged with a chain of ubiquitin → a proteasome (a barrel of protease
+ * subunits) unfolds and digests them using ATP → short peptides → amino acids → reused in translation.
+ */
+const ub = [[150, 92], [162, 80], [176, 72], [190, 66]];
+const peptides = [[372, 150], [396, 168], [380, 186]];
+const free = [[260, 260], [236, 270], [212, 262], [248, 286], [222, 292]];
+---
+<svg viewBox="0 0 520 330" role="img" aria-labelledby="ps-title ps-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="ps-title">Proteins are broken down by proteasomes and their amino acids reused</title>
+  <desc id="ps-desc">A cycle. Ribosomes join amino acids to make new proteins. A protein that is damaged, misfolded or no longer needed is tagged with a chain of ubiquitin molecules. The tagged protein enters a proteasome, a barrel-shaped complex of protease enzymes, which uses energy from ATP to unfold it and cut it into short peptides; the ubiquitin is released and reused. The peptides are broken down further into amino acids, which return to the pool used by ribosomes to make new proteins.</desc>
+  <!-- cycle arrows -->
+  <path class="arrow" d="M150 250 C80 230 60 160 98 120" marker-end="url(#ps-ah)" />
+  <path class="arrow" d="M210 86 H286" marker-end="url(#ps-ah)" />
+  <path class="arrow" d="M408 120 C440 140 440 170 420 186" marker-end="url(#ps-ah)" />
+  <path class="arrow" d="M362 200 C340 240 310 262 282 268" marker-end="url(#ps-ah)" />
+
+  <!-- protein with ubiquitin tag -->
+  <path class="prot" d="M96 112 C80 90 116 70 130 88 C146 70 168 100 146 112 C162 128 120 140 112 124 C96 134 84 120 96 112 Z" />
+  {ub.map(([x, y]) => <circle class="ub" cx={x} cy={y} r="7" />)}
+  <text class="lbl" x="20" y="30">Damaged, misfolded or</text>
+  <text class="lbl" x="20" y="46">unneeded protein</text>
+  <text class="sm" x="150" y="60">ubiquitin tag</text>
+
+  <!-- proteasome barrel -->
+  <rect class="cap" x="296" y="58" width="22" height="58" rx="6" />
+  <rect class="barrel" x="318" y="62" width="76" height="50" rx="4" />
+  <path class="ring" d="M337 62 V112 M356 62 V112 M375 62 V112" />
+  <rect class="cap" x="394" y="58" width="22" height="58" rx="6" />
+  <text class="lbl" x="356" y="40" text-anchor="middle">proteasome</text>
+  <text class="sm" x="356" y="134" text-anchor="middle">uses ATP</text>
+
+  {peptides.map(([x, y]) => <path class="pep" d={`M${x} ${y} l8 -4 l8 4 l8 -4`} />)}
+  <text class="sm" x="436" y="216" text-anchor="middle">short peptides</text>
+
+  <!-- amino acid pool -->
+  {free.map(([x, y]) => <circle class="aa" cx={x} cy={y} r="7" />)}
+  <text class="lbl" x="236" y="318" text-anchor="middle">amino acids reused</text>
+
+  <!-- ribosome making protein -->
+  <ellipse class="ribo" cx="150" cy="262" rx="30" ry="15" />
+  <ellipse class="ribo" cx="150" cy="282" rx="22" ry="9" />
+  <text class="lbl" x="60" y="302" text-anchor="middle">ribosomes make</text>
+  <text class="lbl" x="60" y="318" text-anchor="middle">new proteins</text>
+  <path class="arrow" d="M204 270 H188" marker-end="url(#ps-ah)" />
+  <circle class="ub" cx="304" cy="158" r="6" /><circle class="ub" cx="318" cy="152" r="6" />
+  <text class="sm" x="296" y="180">ubiquitin</text>
+  <text class="sm" x="296" y="195">released</text>
+  <defs><marker id="ps-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" class="ah" /></marker></defs>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .arrow { stroke: var(--text); stroke-width: 1.8; fill: none; }
+  .ah { fill: var(--text); }
+  .prot { fill: color-mix(in srgb, var(--bio-protein) 45%, var(--surface)); stroke: var(--bio-protein); stroke-width: 1.4; }
+  .ub { fill: color-mix(in srgb, var(--bio-glucose) 70%, var(--surface)); stroke: var(--bio-glucose); stroke-width: 1.2; }
+  .barrel { fill: color-mix(in srgb, var(--bio-protein-2) 40%, var(--surface)); stroke: var(--bio-protein-2); stroke-width: 1.4; }
+  .ring { stroke: var(--bio-protein-2); stroke-width: 1.2; }
+  .cap { fill: color-mix(in srgb, var(--bio-protein-2) 65%, var(--surface)); stroke: var(--bio-protein-2); stroke-width: 1.4; }
+  .pep { stroke: var(--bio-k); stroke-width: 3; fill: none; stroke-linejoin: round; }
+  .aa { fill: color-mix(in srgb, var(--bio-k) 50%, var(--surface)); stroke: var(--bio-k); stroke-width: 1.2; }
+  .ribo { fill: color-mix(in srgb, var(--text-muted) 25%, var(--surface)); stroke: var(--text-muted); stroke-width: 1.4; }
+  .lbl { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .sm { font-size: 12.5px; fill: var(--text-muted); }
+</style>

@@ -1,0 +1,410 @@
+---
+code: D1.2
+description: "IB Biology D1.2 protein synthesis revision: step through transcription and translation in 3D, decode mRNA with a codon table, then self-test."
+updated: 2026-10-19
+related: [A1.2, D1.1, D1.3, D2.2, B1.2]
+mustKnow:
+  - term: Transcription
+    definition: "The synthesis of RNA using one strand of DNA, the <strong>template strand</strong>, as a guide. <strong>RNA polymerase</strong> separates the DNA strands and links RNA nucleotides that pair with the template bases, making an RNA with the same sequence as the <strong>coding strand</strong> (U in place of T)."
+    level: SL
+  - term: Complementary base pairing in transcription
+    definition: "Free RNA nucleotides are held opposite template bases by hydrogen bonds: A on the template pairs with U, T with A, G with C and C with G. This makes the RNA base sequence an exact complement of the template."
+    level: SL
+  - term: Translation
+    definition: "The synthesis of a polypeptide on a ribosome, in which the base sequence of mRNA, read as codons, sets the sequence of amino acids. mRNA binds to the small subunit; tRNAs bring the amino acids."
+    level: SL
+  - term: Codon and anticodon
+    definition: "A <strong>codon</strong> is a sequence of three bases on mRNA that codes for one amino acid (or stop). An <strong>anticodon</strong> is the complementary triplet on a tRNA; codon and anticodon pair by hydrogen bonds."
+    level: SL
+  - term: Degeneracy of the genetic code
+    definition: "Most amino acids are coded for by more than one codon (for example leucine by six). There are 64 codons but only 20 amino acids, so the code has redundancy."
+    level: SL
+  - term: Universality of the genetic code
+    definition: "Almost all organisms use the same codons for the same amino acids, with only a few minor variations (for example in mitochondria). This is evidence of common ancestry."
+    level: SL
+  - term: Point mutation (base substitution)
+    definition: "A change in a single base in DNA. It can change one codon and so one amino acid, as in sickle cell anaemia, where GAG becomes GTG in the coding strand and glutamic acid is replaced by valine."
+    level: SL
+  - term: Promoter and transcription factors
+    definition: "The <strong>promoter</strong> is a non-transcribed DNA sequence at the start of a gene. In eukaryotes, <strong>transcription factors</strong> (proteins) bind to it, allowing RNA polymerase to bind and begin transcription."
+    level: AHL
+  - term: Post-transcriptional modification
+    definition: "Changes to eukaryotic pre-mRNA in the nucleus: a <strong>5′ cap</strong> and a <strong>3′ poly-A tail</strong> are added, which stabilize the mRNA, and <strong>introns</strong> are removed while <strong>exons</strong> are spliced together."
+    level: AHL
+  - term: Alternative splicing
+    definition: "Joining different combinations of exons from the same pre-mRNA, so that one gene can code for more than one polypeptide."
+    level: AHL
+  - term: Proteasome
+    definition: "A large barrel-shaped complex of protease enzymes that breaks down proteins tagged with ubiquitin into short peptides, so their amino acids can be reused. Constant breakdown and synthesis maintain a working proteome."
+    level: AHL
+mistakes:
+  - wrong: "RNA polymerase copies both strands of the DNA."
+    right: "Only one strand, the <strong>template (antisense) strand</strong>, is transcribed. The RNA has the same base sequence as the other, <strong>coding (sense)</strong> strand, except that it has U where the coding strand has T."
+    level: SL
+  - wrong: "The mRNA has the same sequence as the template strand."
+    right: "The mRNA is <strong>complementary</strong> to the template strand. It matches the <strong>coding</strong> strand (with U for T)."
+    level: SL
+  - wrong: "Adenine on the DNA template pairs with thymine in the RNA."
+    right: "RNA contains uracil, not thymine, so adenine on the template pairs with <strong>uracil</strong>. Thymine on the template pairs with adenine."
+    level: SL
+  - wrong: "Transcription uses up or damages the DNA, so a gene can only be copied a few times."
+    right: "The DNA strands separate only temporarily, and the base sequence of the template is not changed. It rewinds afterwards and can be transcribed many times — which matters in cells such as neurons that never divide."
+    level: SL
+  - wrong: "Each amino acid has exactly one codon."
+    right: "The code is <strong>degenerate</strong>: most amino acids have two, three, four or six codons. Only methionine (AUG) and tryptophan (UGG) have just one."
+    level: SL
+  - wrong: "tRNA anticodons are found on the mRNA; codons are on the tRNA."
+    right: "<strong>Codons</strong> are on the mRNA and <strong>anticodons</strong> are on tRNA. When using a codon table, always look up the mRNA codon, not the anticodon or the DNA triplet."
+    level: SL
+  - wrong: "Stop codons code for a special amino acid that ends the chain."
+    right: "Stop codons (UAA, UAG, UGA) code for no amino acid. No tRNA pairs with them; a release factor binds and the polypeptide is released."
+    level: SL
+  - wrong: "In sickle cell anaemia, valine is replaced by glutamic acid."
+    right: "The direction is the other way: <strong>glutamic acid</strong> (polar, charged) at position 6 of β-globin is replaced by <strong>valine</strong> (non-polar), because GAG becomes GUG in the mRNA."
+    level: SL
+  - wrong: "Transcription runs 3′ → 5′ because the template is read 3′ → 5′."
+    right: "The RNA is made <strong>5′ → 3′</strong>: each nucleotide is added to the 3′ end of the chain. The template is read 3′ → 5′ because the two are antiparallel."
+    level: AHL
+  - wrong: "Introns are removed from the DNA before transcription."
+    right: "Introns stay in the DNA and are transcribed into pre-mRNA. They are removed from the RNA by splicing in the nucleus, after transcription."
+    level: AHL
+---
+
+<Section id="transcription" title="Transcription: making RNA from a DNA template" level="SL" covers="D1.2.1 D1.2.2">
+
+<Viewer3D topic="d1-2" id="protein-synthesis" />
+
+The information in a gene is stored as a sequence of bases in DNA. To use it, the cell first copies the sequence into RNA. **Transcription** is the synthesis of RNA using DNA as a template. It happens in the nucleus of eukaryotic cells and in the cytoplasm of prokaryotes.
+
+### The roles of RNA polymerase
+
+The enzyme **RNA polymerase** carries out every stage:
+
+1. It **binds** to the DNA at the start of a gene, at a sequence called the **promoter**.
+2. It **separates the two DNA strands** over a short stretch by breaking the hydrogen bonds between the bases, exposing the bases of one strand.
+3. It moves along that strand, the **template strand**, and **links RNA nucleotides** that have paired with the template bases, forming covalent bonds between the ribose of one nucleotide and the phosphate of the next.
+4. At the end of the gene it **releases the RNA** and detaches.
+
+Only one strand is copied. The RNA is complementary to the **template (antisense) strand**, so it has the same base sequence as the other strand, the **coding (sense) strand**, except that RNA has **uracil (U)** where DNA has thymine (T). No primer is needed.
+
+### Hydrogen bonds and complementary base pairing
+
+The free nucleotides in the nucleoplasm carry the bases A, U, G and C. Each one can only form stable **hydrogen bonds** with one kind of exposed template base, so the RNA sequence is set by the template:
+
+| Base on the DNA template | Base in the RNA |
+|---|---|
+| A (adenine) | **U** (uracil) |
+| T (thymine) | A (adenine) |
+| G (guanine) | C (cytosine) |
+| C (cytosine) | G (guanine) |
+
+The hydrogen bonds hold each nucleotide in position while RNA polymerase joins it to the chain. Behind the polymerase they break again: the RNA peels away from the template and the two DNA strands re-form the double helix.
+
+<Callout type="exam">
+
+To write the RNA made from a template, pair each base (A→U, T→A, G→C, C→G). To write it from the **coding** strand, just copy the sequence and change every T to U. Say which strand you were given before you start.
+
+</Callout>
+
+<Callout type="tip" title="Using the 3D model">
+
+Step through **Transcription** to watch the bubble move along the gene, then switch to **Translation** to see the same mRNA read by a ribosome. The **Exam diagram** view shows the 2D drawing to learn.
+
+</Callout>
+
+</Section>
+
+<Section id="templates-expression" title="Stable templates and switching genes on" level="SL" covers="D1.2.3 D1.2.4">
+
+### DNA templates are not changed
+
+A single DNA strand can be used as a template again and again. During transcription the two strands are separated only by breaking hydrogen bonds, which re-form behind the polymerase. The covalent sugar–phosphate backbone and the **base sequence** of the template are left exactly as they were. A gene that is needed in large amounts can therefore be transcribed many times, often by several RNA polymerases one behind another.
+
+This stability matters most in **somatic cells that do not divide**, such as most neurons and heart muscle cells. They cannot replace damaged DNA by making a new copy from a dividing parent cell, so the base sequences of their genes must be conserved for the whole life of the cell, which may be many decades. DNA repair enzymes help by correcting damage to the template.
+
+### Transcription is the first stage of gene expression
+
+**Gene expression** means using the information in a gene to make its product, usually a protein. Its first stage is transcription, and the second is translation.
+
+- **Not all genes are expressed** at any one time. A liver cell and a skin cell contain the same genes, but they transcribe different sets of them, and a cell changes which genes it transcribes as conditions change.
+- A gene that is not transcribed makes no mRNA, so its protein cannot be made. Because transcription comes first, it is a **key point at which genes are switched on or off**, for example by controlling whether RNA polymerase can bind to the promoter.
+
+Regulation can also happen later, but controlling transcription avoids wasting energy and nucleotides on RNA that is not needed. How cells control gene expression is covered in <TopicLink code="D2.2" />.
+
+<Callout type="exam">
+
+Use precise language: the base sequence of the template is **conserved**; the strands **separate temporarily** and **rewind**. "The DNA is used up" or "the DNA is copied into mRNA and then lost" will lose marks.
+
+</Callout>
+
+</Section>
+
+<Section id="translation" title="Translation: mRNA, ribosomes and tRNA" level="SL" covers="D1.2.5 D1.2.6 D1.2.7">
+
+**Translation** is the synthesis of a polypeptide using the base sequence of mRNA. The sequence of bases is "translated" into a sequence of amino acids, in the same order. It happens on **ribosomes** in the cytoplasm (free, or bound to the rough endoplasmic reticulum).
+
+### Three kinds of RNA, three roles
+
+| Component | Role in translation |
+|---|---|
+| **mRNA** (messenger RNA) | Carries the base sequence of a gene from the DNA to the ribosome; read in **codons** of three bases |
+| **Ribosome** (rRNA + protein) | Brings mRNA and tRNAs together and catalyses peptide bonds between amino acids |
+| **tRNA** (transfer RNA) | Carries a specific amino acid and has an **anticodon** that pairs with the matching codon |
+
+A ribosome has two subunits. The **mRNA binds to the small subunit**. The **large subunit** has binding sites for tRNA, so **two tRNAs can be bound at the same time**, each paired with an adjacent codon. This lets the ribosome hold the growing chain on one tRNA while the next amino acid arrives on another. The large subunit's ribosomal RNA also catalyses the peptide bond.
+
+### Codon–anticodon pairing
+
+Each tRNA molecule is a single RNA strand folded into a precise shape. At one end it has an **anticodon**, three bases complementary to one codon; at the other end it carries the amino acid that codon specifies. Enzymes load each tRNA with the right amino acid.
+
+On the ribosome, a tRNA stays bound only if its anticodon forms **complementary base pairs** with the codon, using hydrogen bonds (A–U and G–C). Codon and anticodon are **antiparallel**: the codon 5′-GCA-3′ pairs with the anticodon 3′-CGU-5′. This pairing is what makes sure the right amino acid is added each time.
+
+<Callout type="exam">
+
+Use the terms correctly: **codons** are on mRNA, **anticodons** are on tRNA. When asked for the anticodon that pairs with a codon, give the complementary bases and, ideally, the 3′/5′ ends.
+
+</Callout>
+
+</Section>
+
+<Section id="genetic-code" title="The genetic code and codon tables" level="SL" covers="D1.2.8 D1.2.9">
+
+The **genetic code** is the set of rules by which the base sequence of mRNA is translated into an amino acid sequence.
+
+### Why a triplet code?
+
+There are four different bases and twenty amino acids. A code using one base per amino acid gives only 4 combinations, and two bases only 4 × 4 = 16, which is still too few. Three bases give 4 × 4 × 4 = **64** codons, enough for all twenty amino acids. So each **codon** is a triplet of bases, read one after another without gaps or overlaps.
+
+### Features of the code
+
+- **Degenerate**: there are 64 codons for 20 amino acids, so most amino acids have more than one codon. Leucine, serine and arginine have six each; only methionine and tryptophan have one. Codons for the same amino acid often differ only in the third base, so some base substitutions do not change the protein.
+- **Start and stop**: **AUG** codes for methionine and is also the **start codon**. **UAA, UAG and UGA** are **stop codons**, which code for no amino acid. That leaves 61 codons for amino acids.
+- **Universal**: almost every organism, from bacteria to humans, uses the same codons for the same amino acids. There are a few minor variations, for example in mitochondria. This is why bacteria given a copy of the human insulin gene (without its introns) can make human insulin, and it is strong evidence that all life shares a common origin.
+
+### Using a codon table
+
+To deduce an amino acid sequence:
+
+1. If you are given DNA, convert it to **mRNA** first (pair the template, or copy the coding strand with U for T).
+2. Find the **start codon** (AUG) if the question involves one, then split the mRNA into triplets from there.
+3. Look up each codon: first base in the row, second base in the column, third base within the box.
+4. Stop at the first **stop codon**; it adds nothing to the chain.
+
+<Sim topic="d1-2" id="codon-table" />
+
+<Callout type="exam">
+
+Codon tables are always written for **mRNA** codons. The most common error is looking up the DNA triplet or the tRNA anticodon instead. Check that your sequence contains U, not T, before you look anything up.
+
+</Callout>
+
+</Section>
+
+<Section id="elongation" title="Ribosome movement and peptide bonds" level="SL" covers="D1.2.10">
+
+Once a ribosome has assembled at the start codon, the polypeptide grows by repeating the same cycle for every codon. This stage is **elongation**.
+
+1. A tRNA with an anticodon complementary to the next codon binds to the ribosome, carrying its amino acid. Two tRNAs are now bound side by side, each paired with a codon.
+2. The amino acid (or growing chain) on the first tRNA is transferred to the amino acid on the new tRNA, and they are joined by a **peptide bond**. This is a condensation reaction between the carboxyl group of one amino acid and the amino group of the next. It is catalysed by the ribosome, in fact by its rRNA.
+3. The ribosome moves along the mRNA by **one codon** (three bases). The tRNA carrying the chain shifts along with its codon, and the empty tRNA is released to collect another amino acid.
+4. The next codon is now in position and the cycle repeats.
+
+The ribosome therefore moves along the mRNA **stepwise**, one codon at a time, and the chain grows by one amino acid per step. The order of codons on the mRNA determines the order of amino acids in the polypeptide, its **primary structure** (see <TopicLink code="B1.2" />).
+
+When a **stop codon** reaches the ribosome, no tRNA can pair with it. The finished polypeptide is released, and the ribosome subunits separate.
+
+<Callout type="note" title="Many ribosomes at once">
+
+Several ribosomes can translate the same mRNA at the same time, one behind another, each making its own copy of the polypeptide. In prokaryotes, ribosomes can even start on an mRNA that is still being transcribed.
+
+</Callout>
+
+</Section>
+
+<Section id="mutations" title="Mutations that change protein structure" level="SL" covers="D1.2.11">
+
+A **mutation** is a change in the base sequence of DNA. Because the sequence of codons determines the amino acid sequence, a mutation in a gene can change the protein it codes for. A **point mutation** affects a single base. In a **base substitution**, one base is replaced by another, which changes one codon. The effect depends on the new codon:
+
+- it may code for the **same amino acid** (thanks to degeneracy), so the protein is unchanged;
+- it may code for a **different amino acid**, which can change how the polypeptide folds and functions;
+- it may become a **stop codon**, so the polypeptide is shorter and usually does not work.
+
+### Sickle cell anaemia
+
+The best-known example is in the gene for the **β-globin** polypeptide of haemoglobin (*HBB*). In the sickle-cell allele (Hb<sup>S</sup>) one base is substituted in the codon for the **sixth amino acid**:
+
+<Figure name="d1-2-sickle-cell" caption="One base substitution in the β-globin gene changes one amino acid. (Amino acids are numbered from the first one after the initial methionine, which is removed from mature β-globin.)" />
+
+- DNA coding strand: **GAG → GTG** (template CTC → CAC)
+- mRNA codon: **GAG → GUG**
+- amino acid 6: **glutamic acid → valine**
+
+Glutamic acid has a polar, negatively charged R group; valine's is non-polar. The non-polar valine on the surface of haemoglobin S makes the molecules stick together into long fibres when the oxygen concentration is low. The fibres distort red blood cells into a rigid **sickle shape**, and the cells block capillaries and are destroyed early, causing anaemia. Try the sickle-cell switch in the codon-table simulation above.
+
+<Callout type="exam">
+
+For a mutation question, follow the whole chain: **base change → codon change → amino acid change → protein shape/property change → effect on the organism**. Give the bases and amino acids by name.
+
+</Callout>
+
+</Section>
+
+<Section id="directionality" title="Directionality of transcription and translation" level="AHL" covers="D1.2.12">
+
+Every nucleic acid strand has a **5′ end** (with a phosphate on carbon 5′ of the sugar) and a **3′ end** (with a hydroxyl group on carbon 3′). Both stages of protein synthesis work in one direction only.
+
+### 5′ → 3′ transcription
+
+RNA polymerase can only add a nucleotide to the **3′ end** of the growing RNA. The 5′ phosphate of the incoming nucleotide is linked to the free 3′–OH of the last nucleotide in the chain. The RNA is therefore synthesized in the **5′ → 3′ direction**. Because the RNA is antiparallel to the template strand, the polymerase moves along the template from its 3′ end towards its 5′ end.
+
+### 5′ → 3′ translation
+
+The ribosome binds near the **5′ end** of the mRNA and moves towards the **3′ end**, translating one codon at a time. So translation also proceeds **5′ → 3′**. The first amino acid, methionine, ends up at the free amino end of the polypeptide (the **N-terminus**), and each new amino acid is added at the carboxyl end (the **C-terminus**).
+
+<Figure name="d1-2-direction" caption="RNA grows by adding nucleotides to its 3′ end; ribosomes read mRNA from 5′ to 3′ and build the polypeptide from N-terminus to C-terminus." />
+
+<Callout type="exam">
+
+"5′ to 3′ transcription" refers to the direction in which the **RNA** is built, not the direction in which the template is read. Explain it in terms of nucleotides being added to the **3′ end**.
+
+</Callout>
+
+</Section>
+
+<Section id="promoter" title="Initiation of transcription at the promoter" level="AHL" covers="D1.2.13">
+
+Each gene has a **promoter**, a base sequence just upstream of (before) the point where transcription starts. The promoter is where transcription is initiated, but it is **not itself transcribed** and does not code for any amino acids.
+
+- In **prokaryotes**, RNA polymerase can bind directly to the promoter.
+- In **eukaryotes**, RNA polymerase cannot bind on its own. Proteins called **transcription factors** must first bind to the promoter (and to nearby sequences). The polymerase then binds to this complex, separates the DNA strands at the start point and begins transcription, moving away from the promoter along the gene.
+
+<Figure name="d1-2-promoter" caption="Transcription factors bind to the promoter, and RNA polymerase then binds to begin transcription at the start point." />
+
+Several transcription factors are usually needed, and some only bind after they have been activated, for example by a hormone. Other proteins (repressors) can bind and prevent transcription. Because different genes have different promoter sequences and need different combinations of factors, a cell can switch some genes on while leaving others off. You do not need to name specific transcription factors.
+
+<Callout type="exam">
+
+State the order: transcription factors bind to the promoter **first**, then RNA polymerase binds. The promoter is **upstream** of the gene and is **not transcribed**.
+
+</Callout>
+
+</Section>
+
+<Section id="non-coding" title="Non-coding sequences in DNA" level="AHL" covers="D1.2.14">
+
+Only a small fraction of eukaryotic DNA codes for polypeptides; in humans it is roughly 1–2% of the genome. Many other sequences have functions even though they are never translated. Four kinds are required:
+
+- **Regulators of gene expression**: promoters, and enhancers and silencers further away. Transcription factors and other proteins bind to them to control whether, and how much, a gene is transcribed.
+- **Introns**: sequences within genes that are transcribed into pre-mRNA but removed before translation. Exons are the parts that remain.
+- **Telomeres**: repeated short sequences at the ends of chromosomes (TTAGGG repeated hundreds or thousands of times in humans). They protect the coding DNA near the ends, because a little of the end is lost each time the DNA is replicated.
+- **Genes for tRNA and rRNA**: these genes are transcribed, but the RNA made is used directly, as transfer RNA or as ribosomal RNA, without being translated. Eukaryotes have many copies of the rRNA genes, so ribosomes can be made quickly.
+
+<Figure name="d1-2-noncoding" caption="Non-coding sequences: telomeres, regulatory sequences, introns, and genes for tRNA and rRNA." />
+
+<Callout type="exam">
+
+"Non-coding" means **not coding for a polypeptide**, not "useless". Genes for tRNA and rRNA are transcribed but not translated; promoters and telomeres are not transcribed into mRNA at all.
+
+</Callout>
+
+</Section>
+
+<Section id="mrna-processing" title="Processing pre-mRNA and alternative splicing" level="AHL" covers="D1.2.15 D1.2.16">
+
+In eukaryotes, transcription produces **pre-mRNA** (the primary transcript), which is modified in the nucleus before it is exported to the cytoplasm. Prokaryotes do not do this: their mRNA can be translated while it is still being made, and most of their genes have no introns.
+
+### Post-transcriptional modification
+
+- **5′ cap**: a modified guanine nucleotide is added to the 5′ end.
+- **Poly-A tail**: a long chain of adenine nucleotides (often 100–250) is added to the 3′ end.
+- **Splicing**: the **introns** are cut out and the **exons** are joined together, giving a continuous coding sequence. The removed introns are broken down in the nucleus.
+
+The cap and tail **stabilize** the mRNA, protecting it from enzymes that break RNA down from its ends, so it lasts longer and can be translated more times. The cap also helps the ribosome bind. The finished molecule is **mature mRNA**.
+
+<Anim topic="d1-2" id="splicing" />
+
+### Alternative splicing
+
+The exons of one pre-mRNA do not always have to be joined in the same way. By including some exons and leaving out others, a cell can make **different mature mRNAs from a single gene**, which are translated into different polypeptides: **variants of a protein**. This is called **alternative splicing**. It is one reason why humans make many more different proteins than they have genes (about 20 000 protein-coding genes). Which variant is made can differ between tissues or with conditions. You do not need specific examples.
+
+<Callout type="exam">
+
+Introns are removed from the **RNA**, not from the DNA. When describing alternative splicing, say that **different combinations of exons** are joined, so **one gene codes for more than one polypeptide**.
+
+</Callout>
+
+</Section>
+
+<Section id="initiation" title="Initiation of translation and the A, P and E sites" level="AHL" covers="D1.2.17">
+
+Translation begins with the assembly of a ribosome at the start codon:
+
+1. The **small ribosomal subunit** attaches to the **5′ end** of the mRNA (in eukaryotes it recognizes the 5′ cap).
+2. It **moves along the mRNA** towards the 3′ end until it reaches the **start codon**, AUG.
+3. The **initiator tRNA**, with anticodon UAC and carrying methionine, pairs with the start codon.
+4. The **large subunit** attaches, completing the ribosome, with the initiator tRNA in the **P site**.
+5. **Another tRNA** with the anticodon for the second codon binds in the **A site**, and elongation begins.
+
+<Anim topic="d1-2" id="initiation" />
+
+### The three tRNA binding sites
+
+| Site | Role during elongation |
+|---|---|
+| **A** (aminoacyl) | A tRNA carrying a new amino acid binds here, if its anticodon matches the codon |
+| **P** (peptidyl) | Holds the tRNA attached to the growing polypeptide; the chain is transferred from here to the amino acid on the A-site tRNA |
+| **E** (exit) | The empty tRNA moves here after translocation, then leaves the ribosome |
+
+After each peptide bond forms, the ribosome moves one codon towards the 3′ end (**translocation**): the tRNA in the A site moves to the P site, the empty tRNA in the P site moves to the E site and leaves, and the A site is free for the next tRNA.
+
+<Callout type="exam">
+
+Learn the order **A → P → E** for one tRNA's journey, and that the growing chain is always held by the tRNA in the **P site** just before a peptide bond forms.
+
+</Callout>
+
+</Section>
+
+<Section id="modification" title="Modifying polypeptides into their functional state" level="AHL" covers="D1.2.18">
+
+The polypeptide released from a ribosome is often not yet a working protein. It may need to be folded, cut, joined to other polypeptides, or have non-amino-acid groups attached, such as carbohydrate chains in the Golgi apparatus. Many proteins are made as longer, inactive precursors that are activated by removing part of the chain.
+
+### Pre-proinsulin to insulin
+
+Insulin, the hormone secreted by β cells of the pancreas, is the required example. It is modified in **two stages**:
+
+1. **Pre-proinsulin** (110 amino acids) is made by ribosomes on the rough ER. Its N-terminal **signal peptide** (24 amino acids) directs it into the rough ER, where the signal peptide is cut off. The result is **proinsulin** (86 amino acids). Proinsulin folds and forms **three disulfide bonds**.
+2. Proinsulin is carried to the Golgi apparatus and packaged into secretory vesicles, where protease enzymes remove the **C peptide** (31 amino acids, plus two amino acids at each junction). What remains is **insulin**: an **A chain** of 21 amino acids and a **B chain** of 30, held together by **two disulfide bonds**, with a third bond within the A chain.
+
+<Anim topic="d1-2" id="insulin" />
+
+Insulin is then stored in the vesicles until it is released by exocytosis. Making it as an inactive precursor allows it to fold correctly before it is cut, which is how the A and B chains end up correctly linked.
+
+<Callout type="exam">
+
+Name **both stages** and what is removed in each: the **signal peptide** (giving proinsulin), then the **C peptide** (giving insulin of two chains linked by disulfide bonds).
+
+</Callout>
+
+</Section>
+
+<Section id="proteasomes" title="Recycling amino acids by proteasomes" level="AHL" covers="D1.2.19">
+
+The **proteome** is the full set of proteins a cell makes at a given time. Keeping it working needs not only constant protein synthesis but also constant **protein breakdown**:
+
+- proteins that are **damaged or misfolded** would not work and might stick together, so they must be removed;
+- proteins that are **no longer needed**, such as enzymes or regulatory proteins whose job is done, must be removed so the cell can change what it is doing.
+
+Proteins for breakdown are tagged with a chain of small proteins called **ubiquitin**. **Proteasomes**, large barrel-shaped complexes of protease enzymes, recognize the tag, unfold the protein using energy from ATP, and cut it into short peptides inside the barrel. The ubiquitin is released and reused. The peptides are broken down further into **amino acids**, which are returned to the pool used for translation.
+
+<Figure name="d1-2-proteasome" caption="Proteins tagged with ubiquitin are digested by proteasomes, and their amino acids are reused to make new proteins." />
+
+Recycling amino acids in this way saves the energy and resources that would be needed to obtain new ones. The balance between synthesis and breakdown sets the amount of each protein in the cell.
+
+<Callout type="exam">
+
+Link the two processes: a functional proteome depends on **continuous synthesis and breakdown**. Proteasomes break proteins down so that amino acids are **recycled** into new proteins.
+
+</Callout>
+
+</Section>

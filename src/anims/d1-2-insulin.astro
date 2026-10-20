@@ -1,0 +1,81 @@
+---
+/**
+ * Two-stage modification of pre-proinsulin into insulin (D1.2.18). Drawn in the step-1 state: the
+ * pre-proinsulin chain as made by the ribosome, 4 px per amino acid. Animated by d1-2-insulin.ts.
+ * Folded proinsulin is drawn so that the disulfide bonds line up: B7–A7, B19–A20 (between chains) and A6–A11.
+ */
+const L = { y: 120, sig: [40, 136], B: [136, 256], rr: [256, 264], C: [264, 388], kr: [388, 396], A: [396, 480] } as const;
+const bx = (n: number) => 120 + (n - 1) * 8; // B chain residue n (folded)
+const ax = (n: number) => 124 + (n - 1) * 7.4; // A chain residue n (folded)
+const BY = 190;
+const AY = 250;
+---
+<svg viewBox="0 0 520 330" xmlns="http://www.w3.org/2000/svg" class="ins">
+  <text class="loc" data-el="loc0" x="12" y="24">On a ribosome bound to the rough ER</text>
+  <text class="loc" data-el="loc1" x="12" y="24" style="opacity:0">Inside the rough ER</text>
+  <text class="loc" data-el="loc3" x="12" y="24" style="opacity:0">In the Golgi apparatus and secretory vesicles</text>
+
+  <text class="name" data-el="nPre" x="40" y="64">Pre-proinsulin: 110 amino acids</text>
+  <text class="name" data-el="nPro" x="40" y="64" style="opacity:0">Proinsulin: 86 amino acids</text>
+  <text class="name" data-el="nIns" x="40" y="64" style="opacity:0">Insulin: 51 amino acids in two chains</text>
+
+  <!-- linear chain -->
+  <g data-el="lin">
+    <text class="nt" x="30" y={L.y + 5} text-anchor="end">N</text>
+    <path class="seg B" d={`M${L.B[0]} ${L.y} H${L.B[1]}`} />
+    <path class="seg link" d={`M${L.rr[0]} ${L.y} H${L.rr[1]} M${L.kr[0]} ${L.y} H${L.kr[1]}`} />
+    <path class="seg C" d={`M${L.C[0]} ${L.y} H${L.C[1]}`} />
+    <path class="seg A" d={`M${L.A[0]} ${L.y} H${L.A[1]}`} />
+    <text class="nt" x="488" y={L.y + 5}>C</text>
+    <text class="lbl" x={(L.B[0] + L.B[1]) / 2} y={L.y - 16} text-anchor="middle">B chain (30)</text>
+    <text class="lbl" x={(L.C[0] + L.C[1]) / 2} y={L.y - 16} text-anchor="middle">C peptide (31)</text>
+    <text class="lbl" x={(L.A[0] + L.A[1]) / 2} y={L.y - 16} text-anchor="middle">A chain (21)</text>
+  </g>
+  <g data-el="sig" transform="translate(0 0)">
+    <path class="seg sig" d={`M${L.sig[0]} ${L.y} H${L.sig[1]}`} />
+    <text class="lbl" x={(L.sig[0] + L.sig[1]) / 2} y={L.y + 28} text-anchor="middle">signal peptide (24)</text>
+  </g>
+  <g data-el="cut1" style="opacity:0">
+    <path class="cut" d={`M${L.sig[1]} ${L.y - 14} l-5 -9 h10 Z`} />
+    <text class="note" x={L.sig[1] + 10} y={L.y + 44}>cut off by a protease (signal peptidase)</text>
+  </g>
+
+  <!-- folded proinsulin / insulin -->
+  <g data-el="fold" style="opacity:0">
+    <path class="seg B" d={`M${bx(1)} ${BY} H${bx(30)}`} />
+    <path class="seg A" d={`M${ax(1)} ${AY} H${ax(21)}`} />
+    <text class="nt" x={bx(1) - 8} y={BY + 5} text-anchor="end">B chain</text>
+    <text class="nt" x={ax(21) + 10} y={AY + 5}>A chain</text>
+    <g data-el="ss" style="opacity:0">
+      <path class="ss" d={`M${bx(7)} ${BY + 4} V${AY - 4} M${bx(19)} ${BY + 4} V${AY - 4}`} />
+      <path class="ss" d={`M${ax(6)} ${AY + 4} Q${(ax(6) + ax(11)) / 2} ${AY + 24} ${ax(11)} ${AY + 4}`} />
+      <text class="sst" x={bx(7) + 6} y={(BY + AY) / 2 + 4}>S–S</text>
+      <text class="sst" x={bx(19) + 6} y={(BY + AY) / 2 + 4}>S–S</text>
+      <text class="note" x="300" y={(BY + AY) / 2 + 4}>disulfide bonds</text>
+    </g>
+  </g>
+  <g data-el="cpep" style="opacity:0">
+    <path class="seg C" d={`M${bx(30)} ${BY} C440 ${BY} 440 300 360 300 H150 C104 300 100 ${AY} ${ax(1)} ${AY}`} />
+    <text class="lbl" x="452" y="250">C peptide</text>
+  </g>
+  <g data-el="cut2" style="opacity:0">
+    <path class="cut" d={`M${bx(30) + 8} ${BY - 12} l-5 -9 h10 Z M${ax(1) - 10} ${AY - 12} l-5 -9 h10 Z`} />
+  </g>
+</svg>
+<style>
+  .ins { font-family: var(--font-sans); }
+  .loc { font-size: 14px; font-weight: 700; fill: var(--text-muted); }
+  .name { font-size: 15px; font-weight: 800; fill: var(--text); }
+  .seg { stroke-width: 9; stroke-linecap: round; fill: none; }
+  .seg.sig { stroke: var(--text-muted); }
+  .seg.B { stroke: var(--bio-protein); }
+  .seg.C { stroke: var(--bio-glucose); }
+  .seg.A { stroke: var(--bio-carb); }
+  .seg.link { stroke: var(--text); stroke-width: 6; }
+  .nt { font-size: 13px; font-weight: 800; fill: var(--text); }
+  .lbl { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .note { font-size: 12.5px; font-style: italic; fill: var(--text-muted); }
+  .ss { stroke: var(--bio-head); stroke-width: 3; fill: none; }
+  .sst { font-size: 12px; font-weight: 800; fill: var(--text); }
+  .cut { fill: var(--bad); }
+</style>

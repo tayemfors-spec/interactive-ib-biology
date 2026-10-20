@@ -1,0 +1,66 @@
+---
+/**
+ * D1.2.11: the sickle-cell point mutation in the β-globin gene (HBB). Normal and mutant codons for the
+ * 6th amino acid of mature β-globin, followed through DNA → mRNA → amino acid, and the effect on the protein.
+ */
+const rows = [
+  { name: 'DNA coding strand', n: 'GAG', s: 'GTG', d: 1 },
+  { name: 'DNA template strand', n: 'CTC', s: 'CAC', d: 1 },
+  { name: 'mRNA codon', n: 'GAG', s: 'GUG', d: 1 },
+];
+const colX = [230, 400] as const;
+---
+<svg viewBox="0 0 520 330" role="img" aria-labelledby="sc-title sc-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="sc-title">The sickle-cell mutation: one base changes one amino acid</title>
+  <desc id="sc-desc">A table comparing the normal and sickle-cell alleles of the β-globin gene at the codon for amino acid 6. Coding strand GAG becomes GTG; template strand CTC becomes CAC; the mRNA codon GAG becomes GUG. The amino acid changes from glutamic acid, which is polar and charged, to valine, which is non-polar. Haemoglobin S molecules stick together into long fibres at low oxygen concentration, distorting red blood cells into a sickle shape.</desc>
+  <text class="h" x={colX[0]} y="26" text-anchor="middle">Normal allele (HbA)</text>
+  <text class="h" x={colX[1]} y="26" text-anchor="middle">Sickle-cell allele (HbS)</text>
+  {rows.map((r, i) => {
+    const y = 64 + i * 42;
+    return (
+      <g>
+        <text class="rn" x="12" y={y + 5}>{r.name}</text>
+        {[r.n, r.s].map((c, k) => (
+          <g>
+            <rect class="box" x={colX[k]! - 40} y={y - 16} width="80" height="28" rx="5" />
+            {[...c].map((b, j) => <text class:list={['b', { diff: j === r.d && k === 1 }]} x={colX[k]! - 22 + j * 22} y={y + 5} text-anchor="middle">{b}</text>)}
+          </g>
+        ))}
+      </g>
+    );
+  })}
+  <text class="rn" x="12" y="195">Amino acid 6</text>
+  <rect class="box aa1" x={colX[0] - 70} y="176" width="140" height="30" rx="15" />
+  <text class="aa" x={colX[0]} y="196" text-anchor="middle">Glu (glutamic acid)</text>
+  <rect class="box aa2" x={colX[1] - 60} y="176" width="120" height="30" rx="15" />
+  <text class="aa" x={colX[1]} y="196" text-anchor="middle">Val (valine)</text>
+  <text class="sm" x={colX[0]} y="224" text-anchor="middle">polar, negatively charged</text>
+  <text class="sm" x={colX[1]} y="224" text-anchor="middle">non-polar (hydrophobic)</text>
+  <path class="arrow" d="M280 64 H346" marker-end="url(#sc-ah)" />
+  <text class="sm" x="313" y="56" text-anchor="middle">A → T</text>
+
+  <!-- red blood cells -->
+  <ellipse class="rbc" cx={colX[0]} cy="282" rx="40" ry="24" />
+  <ellipse class="rbc-in" cx={colX[0]} cy="282" rx="18" ry="9" />
+  <path class="rbc" d={`M${colX[1] - 50} 292 C${colX[1] - 30} 252 ${colX[1] + 30} 252 ${colX[1] + 50} 292 C${colX[1] + 26} 274 ${colX[1] - 26} 274 ${colX[1] - 50} 292 Z`} />
+  <text class="sm" x="12" y="276">Red blood</text>
+  <text class="sm" x="12" y="292">cells (low O₂)</text>
+  <text class="sm" x={colX[1]} y="318" text-anchor="middle">HbS forms fibres: cell sickles</text>
+  <defs><marker id="sc-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" class="ah" /></marker></defs>
+</svg>
+<style>
+  svg { font-family: var(--font-sans); }
+  .h { font-size: 14px; font-weight: 800; fill: var(--text); }
+  .rn { font-size: 13px; font-weight: 700; fill: var(--text-muted); }
+  .box { fill: var(--surface-2); stroke: var(--border-strong); stroke-width: 1.2; }
+  .b { font: 800 16px var(--font-mono, ui-monospace, monospace); fill: var(--text); }
+  .b.diff { fill: var(--bad); text-decoration: underline; }
+  .aa { font-size: 13px; font-weight: 800; fill: var(--text); }
+  .aa1 { fill: color-mix(in srgb, var(--bio-protein) 20%, var(--surface)); }
+  .aa2 { fill: color-mix(in srgb, var(--bio-tail) 45%, var(--surface)); }
+  .sm { font-size: 12.5px; fill: var(--text-muted); }
+  .arrow { stroke: var(--text-muted); stroke-width: 1.6; fill: none; }
+  .ah { fill: var(--text-muted); }
+  .rbc { fill: color-mix(in srgb, var(--bio-k) 55%, var(--surface)); stroke: color-mix(in srgb, var(--bio-k) 70%, var(--text)); stroke-width: 1.4; }
+  .rbc-in { fill: color-mix(in srgb, var(--bio-k) 30%, var(--surface)); }
+</style>

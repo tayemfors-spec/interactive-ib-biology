@@ -1,0 +1,197 @@
+questions:
+  - id: q1
+    level: SL
+    understanding: D1.2.2
+    stem: >-
+      A section of the template strand of a gene has the base sequence 3′-TACGGATTC-5′.
+      What is the base sequence of the mRNA transcribed from it?
+    options:
+      - id: a
+        text: 5′-ATGCCTAAG-3′
+        why: The pairing is right, but this contains thymine. RNA has uracil, so adenine on the template pairs with U, not T. This is the coding strand, not the mRNA.
+      - id: b
+        text: 5′-AUGCCUAAG-3′
+        why: Correct. Each template base pairs with its complement (T→A, A→U, C→G, G→C), and the mRNA runs 5′→3′, antiparallel to the template.
+      - id: c
+        text: 5′-UACGGAUUC-3′
+        why: This copies the template and swaps T for U. The mRNA is complementary to the template; it matches the coding strand, not the template.
+      - id: d
+        text: 5′-GAAUCCGUA-3′
+        why: This is the correct mRNA written backwards, as if it were read from its 3′ end. Keep the bases aligned with the template; the 5′ end of the mRNA is opposite the 3′ end of the template.
+    answer: b
+
+  - id: q2
+    level: SL
+    understanding: D1.2.1
+    stem: Which statement describes what RNA polymerase does during transcription?
+    options:
+      - id: a
+        text: It joins amino acids together in the order given by the mRNA codons.
+        why: That is what happens on the ribosome during translation. RNA polymerase works on DNA and makes RNA.
+      - id: b
+        text: It copies both strands of the gene so that two complementary RNA molecules are made.
+        why: Only the template strand is transcribed. The other strand, the coding strand, is not copied.
+      - id: c
+        text: It needs a short primer and adds nucleotides that pair with thymine on the template using thymine.
+        why: RNA polymerase needs no primer, and RNA contains uracil, not thymine. Adenine on the template pairs with uracil.
+      - id: d
+        text: It separates the DNA strands and links RNA nucleotides that pair with the bases of the template strand.
+        why: Correct. RNA polymerase unwinds the DNA by breaking hydrogen bonds between bases, then forms covalent bonds between RNA nucleotides held by complementary base pairing.
+    answer: d
+
+  - id: q3
+    level: SL
+    understanding: D1.2.9
+    stem: >-
+      Part of a codon table gives: AUG = Met, UUU = Phe, GGC = Gly, AAA = Lys, UGA = stop, GCU = Ala,
+      UAC = Tyr, CCG = Pro. Translation of the mRNA 5′-AUG UUU GGC AAA UGA GCU-3′ starts at the first codon.
+      What polypeptide is produced?
+    options:
+      - id: a
+        text: Met–Phe–Gly–Lys
+        why: Correct. Each codon is looked up in turn, and translation ends at UGA, which is a stop codon and codes for no amino acid.
+      - id: b
+        text: Met–Phe–Gly–Lys–Ala
+        why: The ribosome stops at UGA; GCU after the stop codon is not translated.
+      - id: c
+        text: Met–Phe–Gly–Lys–stop–Ala
+        why: A stop codon does not add an amino acid or a "stop" unit to the chain, and nothing after it is translated.
+      - id: d
+        text: Tyr–Lys–Pro–Phe
+        why: This looks up the anticodons (UAC, AAA, CCG, UUU) instead of the codons. Codon tables are always read using the mRNA codons.
+    answer: a
+
+  - id: q4
+    level: SL
+    understanding: D1.2.8
+    stem: Why must the genetic code use codons of at least three bases?
+    options:
+      - id: a
+        text: Because each tRNA can only carry three amino acids at a time.
+        why: Each tRNA carries one amino acid. The length of a codon is about how many different combinations of bases are possible.
+      - id: b
+        text: Because there are three stop codons, one for each base in the codon.
+        why: The number of stop codons is not related to codon length. Three stop codons are just three of the 64 possible triplets.
+      - id: c
+        text: Because codons of two bases would give only 16 combinations, too few for 20 amino acids.
+        why: Correct. With four bases, two-base codons give 4² = 16 combinations; triplets give 4³ = 64, enough for all 20 amino acids plus stop signals.
+      - id: d
+        text: Because there are three hydrogen bonds between each codon and its anticodon.
+        why: Each base pair has two (A–U) or three (G–C) hydrogen bonds, so a codon–anticodon pair has six to nine. This does not explain the length of a codon.
+    answer: c
+
+  - id: q5
+    level: SL
+    understanding: D1.2.11
+    stem: Which describes the mutation that causes sickle cell anaemia?
+    options:
+      - id: a
+        text: A base is deleted from the β-globin gene, so every codon after it is changed.
+        why: Sickle cell anaemia is caused by a substitution, not a deletion. Only one codon is changed, and only one amino acid differs.
+      - id: b
+        text: A base substitution changes the codon GAG to GUG in the mRNA, so glutamic acid is replaced by valine.
+        why: Correct. One base in the coding strand changes from A to T (GAG → GTG), so the mRNA codon becomes GUG and the 6th amino acid of β-globin becomes valine.
+      - id: c
+        text: A base substitution changes the codon GUG to GAG in the mRNA, so valine is replaced by glutamic acid.
+        why: This reverses the direction. The normal allele has glutamic acid (GAG); the sickle-cell allele has valine (GUG).
+      - id: d
+        text: A base substitution creates a stop codon, so haemoglobin is not made at all.
+        why: In sickle cell anaemia haemoglobin is still made, but its β-globin has valine in place of glutamic acid, which makes the molecules form fibres at low oxygen.
+    answer: b
+
+  - id: q6
+    level: SL
+    understanding: D1.2.7
+    stem: A codon on an mRNA molecule is 5′-GCA-3′. What is the anticodon of the tRNA that pairs with it?
+    options:
+      - id: a
+        text: 3′-CGT-5′
+        why: The bases are complementary, but this contains thymine. tRNA is RNA, so it has uracil.
+      - id: b
+        text: 3′-GCA-5′
+        why: This is the codon itself turned round. An anticodon is complementary to the codon, not identical to it.
+      - id: c
+        text: 3′-UGC-5′
+        why: These are the complementary bases written in the wrong order. The 3′ end of the anticodon pairs with the 5′ end of the codon, so its first base (from 3′) pairs with G.
+      - id: d
+        text: 3′-CGU-5′
+        why: Correct. G pairs with C, C with G and A with U, and the anticodon is antiparallel to the codon.
+    answer: d
+
+  - id: q7
+    level: AHL
+    understanding: D1.2.12
+    stem: What is meant by saying that transcription occurs in a 5′ to 3′ direction?
+    options:
+      - id: a
+        text: Each new nucleotide is linked to the 3′ end of the growing RNA, so the RNA is built from its 5′ end towards its 3′ end.
+        why: Correct. The 5′ phosphate of the incoming nucleotide bonds to the free 3′–OH at the end of the chain.
+      - id: b
+        text: RNA polymerase reads the template strand from its 5′ end to its 3′ end.
+        why: The template is read 3′→5′. Because the RNA is antiparallel to the template, the RNA itself is made 5′→3′.
+      - id: c
+        text: Each new nucleotide is linked to the 5′ end of the growing RNA.
+        why: Nucleotides can only be added to the 3′ end. Adding at the 5′ end would build RNA 3′→5′.
+      - id: d
+        text: The RNA leaves the nucleus 5′ end first.
+        why: The direction of transcription refers to how the RNA chain is synthesized, not how it is exported.
+    answer: a
+
+  - id: q8
+    level: AHL
+    understanding: D1.2.15
+    stem: >-
+      A eukaryotic gene is 8500 base pairs long from the start to the end of transcription, but the mature mRNA made from it
+      is only 2200 nucleotides long, excluding the poly-A tail. What is the best explanation?
+    options:
+      - id: a
+        text: The introns were removed from the DNA before the gene was transcribed.
+        why: Introns stay in the DNA and are transcribed. They are removed from the RNA afterwards.
+      - id: b
+        text: The poly-A tail and 5′ cap were cut off before the mRNA left the nucleus.
+        why: The cap and tail are added, not removed, and they lengthen the mRNA. They stabilize it in the cytoplasm.
+      - id: c
+        text: The pre-mRNA contained introns, which were removed by splicing before the mRNA left the nucleus.
+        why: Correct. The whole gene is transcribed into pre-mRNA, then the introns are cut out and the exons joined, so the mature mRNA is much shorter than the gene.
+      - id: d
+        text: RNA polymerase transcribed only one of the exons.
+        why: RNA polymerase transcribes the whole gene, exons and introns, from start to end.
+    answer: c
+
+  - id: q9
+    level: AHL
+    understanding: D1.2.17
+    stem: When the large subunit of the ribosome attaches during initiation of translation, where is the initiator tRNA?
+    options:
+      - id: a
+        text: In the A site, ready to receive the next amino acid.
+        why: The A site is where the second tRNA, carrying the next amino acid, binds. The initiator tRNA is not there.
+      - id: b
+        text: In the P site, paired with the start codon.
+        why: Correct. The initiator tRNA is paired with AUG in the P site, leaving the A site free for the tRNA for the second codon.
+      - id: c
+        text: In the E site, about to leave the ribosome.
+        why: A tRNA only moves to the E site after translocation, once it has given up its amino acid.
+      - id: d
+        text: Free in the cytoplasm; it binds only after the large subunit has joined.
+        why: The initiator tRNA is paired with the start codon before the large subunit attaches.
+    answer: b
+
+  - id: q10
+    level: AHL
+    understanding: D1.2.18
+    stem: Which is the correct order of events in producing active insulin?
+    options:
+      - id: a
+        text: Proinsulin is translated; its C peptide is removed to give pre-proinsulin; the signal peptide is removed to give insulin.
+        why: The names are in the wrong order. Pre-proinsulin is the first product, and the signal peptide is removed first.
+      - id: b
+        text: Pre-proinsulin is translated; the C peptide is removed in the rough ER; the signal peptide is removed in the Golgi apparatus.
+        why: The two cuts are swapped. The signal peptide is removed first, in the rough ER, and the C peptide later, in the Golgi apparatus and secretory vesicles.
+      - id: c
+        text: Insulin is translated as two separate chains, which are then joined by disulfide bonds in the Golgi apparatus.
+        why: The A and B chains are made as parts of one polypeptide. They are separated only when the C peptide connecting them is removed.
+      - id: d
+        text: Pre-proinsulin is translated; the signal peptide is removed to give proinsulin; the C peptide is removed to give insulin.
+        why: Correct. Stage 1 removes the signal peptide in the rough ER; stage 2 removes the C peptide, leaving A and B chains joined by disulfide bonds.
+    answer: d
