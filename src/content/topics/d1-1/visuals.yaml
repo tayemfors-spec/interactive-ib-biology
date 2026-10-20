@@ -83,7 +83,7 @@ visuals:
             caption: DNA polymerase adds nucleotides one at a time, choosing each by complementary base pairing (A with T, G with C), and joins it to the new strand with a covalent bond. The two new strands are built in opposite directions because the templates are antiparallel.
           - id: result
             title: Two identical daughter molecules
-            caption: When the whole molecule has been copied, each daughter DNA molecule consists of one parental strand (dark) and one new strand (red), which wind back into a double helix. This is semi-conservative replication. Both molecules have the same base sequence as the original.
+            caption: When the whole molecule has been copied, each daughter DNA molecule consists of one parental strand (dark) and one new strand (red), which wind back into a double helix. This is semi-conservative replication. Both molecules have the same base sequence as the original. (Simplified — the enzymes are not shown and both new strands are drawn as continuous; the AHL model shows the lagging strand.)
       - id: enzymes
         module: d1-1-enzymes
         title: Prokaryotic fork (AHL)

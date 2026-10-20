@@ -4,22 +4,23 @@
  * 6th amino acid of mature β-globin, followed through DNA → mRNA → amino acid, and the effect on the protein.
  */
 const rows = [
-  { name: 'DNA coding strand', n: 'GAG', s: 'GTG', d: 1 },
-  { name: 'DNA template strand', n: 'CTC', s: 'CAC', d: 1 },
-  { name: 'mRNA codon', n: 'GAG', s: 'GUG', d: 1 },
+  { name: 'DNA coding strand', dir: '(5′→3′)', n: 'GAG', s: 'GTG', d: 1 },
+  { name: 'DNA template strand', dir: '(3′→5′)', n: 'CTC', s: 'CAC', d: 1 },
+  { name: 'mRNA codon', dir: '(5′→3′)', n: 'GAG', s: 'GUG', d: 1 },
 ];
 const colX = [230, 400] as const;
 ---
 <svg viewBox="0 0 520 330" role="img" aria-labelledby="sc-title sc-desc" xmlns="http://www.w3.org/2000/svg">
   <title id="sc-title">The sickle-cell mutation: one base changes one amino acid</title>
-  <desc id="sc-desc">A table comparing the normal and sickle-cell alleles of the β-globin gene at the codon for amino acid 6. Coding strand GAG becomes GTG; template strand CTC becomes CAC; the mRNA codon GAG becomes GUG. The amino acid changes from glutamic acid, which is polar and charged, to valine, which is non-polar. Haemoglobin S molecules stick together into long fibres at low oxygen concentration, distorting red blood cells into a sickle shape.</desc>
+  <desc id="sc-desc">A table comparing the normal and sickle-cell alleles of the β-globin gene at the codon for amino acid 6. Coding strand GAG (written 5′ to 3′) becomes GTG; template strand CTC (written 3′ to 5′, so each base lines up with its partner) becomes CAC; the mRNA codon GAG (5′ to 3′) becomes GUG. The amino acid changes from glutamic acid, which is polar and charged, to valine, which is non-polar. Haemoglobin S molecules stick together into long fibres at low oxygen concentration, distorting red blood cells into a sickle shape.</desc>
   <text class="h" x={colX[0]} y="26" text-anchor="middle">Normal allele (HbA)</text>
   <text class="h" x={colX[1]} y="26" text-anchor="middle">Sickle-cell allele (HbS)</text>
   {rows.map((r, i) => {
     const y = 64 + i * 42;
     return (
       <g>
-        <text class="rn" x="12" y={y + 5}>{r.name}</text>
+        <text class="rn" x="12" y={y - 2}>{r.name}</text>
+        <text class="sm" x="12" y={y + 13}>{r.dir}</text>
         {[r.n, r.s].map((c, k) => (
           <g>
             <rect class="box" x={colX[k]! - 40} y={y - 16} width="80" height="28" rx="5" />

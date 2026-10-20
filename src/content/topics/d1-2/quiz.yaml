@@ -32,8 +32,8 @@ questions:
         text: It copies both strands of the gene so that two complementary RNA molecules are made.
         why: Only the template strand is transcribed. The other strand, the coding strand, is not copied.
       - id: c
-        text: It needs a short primer and adds nucleotides that pair with thymine on the template using thymine.
-        why: RNA polymerase needs no primer, and RNA contains uracil, not thymine. Adenine on the template pairs with uracil.
+        text: It needs a primer, and adenine on the template pairs with thymine in the new strand.
+        why: This describes DNA polymerase in replication. RNA polymerase starts a new chain without a primer, and RNA contains uracil instead of thymine, so adenine on the template pairs with uracil.
       - id: d
         text: It separates the DNA strands and links RNA nucleotides that pair with the bases of the template strand.
         why: Correct. RNA polymerase unwinds the DNA by breaking hydrogen bonds between bases, then forms covalent bonds between RNA nucleotides held by complementary base pairing.
