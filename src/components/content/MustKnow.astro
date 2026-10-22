@@ -15,11 +15,11 @@ const { items } = Astro.props;
   </dl>
 </section>
 <style>
-  .box { margin-top: var(--space-7); padding: var(--space-4) var(--space-5); border-radius: var(--radius-l); border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border)); background: var(--surface); }
+  .box { margin-top: var(--space-7); padding: var(--space-4) var(--space-5); border-radius: var(--radius-l); border: 1px solid var(--border); background: var(--surface); }
   .box h2 { margin-top: 0; }
   dl { margin: 0; display: grid; gap: var(--space-3); }
   .def { padding-bottom: var(--space-3); border-bottom: 1px solid var(--border); }
   .def:last-child { border-bottom: 0; padding-bottom: 0; }
-  dt { font-weight: 750; color: var(--accent-strong); display: flex; gap: var(--space-2); align-items: center; }
+  dt { font-weight: 750; color: var(--text); display: flex; gap: var(--space-2); align-items: center; }
   dd { margin: 0.15rem 0 0; }
 </style>

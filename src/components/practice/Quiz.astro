@@ -120,18 +120,26 @@ const rev = hash(JSON.stringify(quiz.questions.map((q) => [q.id, q.answer, q.ste
   .opt {
     display: grid; grid-template-columns: auto auto 1fr; gap: var(--space-2) var(--space-3); align-items: start;
     padding: var(--space-2) var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-s); cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 150ms ease, border-color 150ms ease, transform 160ms var(--ease-out);
   }
-  .opt:hover { background: var(--surface-2); }
-  .opt:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
-  .opt input { margin: 0.3rem 0 0; accent-color: var(--accent); width: 1.05rem; height: 1.05rem; }
+  .opt:active:not(:has(input:disabled)) { transform: scale(0.99); }
+  @media (hover: hover) and (pointer: fine) { .opt:hover { background: var(--surface-2); } }
+  .opt:has(input:checked) { border-color: var(--ink); background: var(--ink-soft); }
+  .opt input { margin: 0.3rem 0 0; accent-color: var(--ink); width: 1.05rem; height: 1.05rem; }
   .opt-letter { font-weight: 800; color: var(--text-muted); }
   .opt-why { grid-column: 3; font-size: var(--step--1); color: var(--text-muted); }
-  .opt.is-correct { border-color: var(--good); background: var(--good-soft); }
-  .opt.is-wrong { border-color: var(--bad); background: var(--bad-soft); }
-  .opt.is-correct .opt-letter::after { content: ' ✓'; color: var(--good); }
-  .opt.is-wrong .opt-letter::after { content: ' ✗'; color: var(--bad); }
+  /* After checking: right = solid dark outline and a tick; wrong = dashed outline and a cross. No colour needed. */
+  .opt.is-correct, .opt.is-correct:has(input:checked) { border: 1px solid var(--ink); box-shadow: inset 0 0 0 1px var(--ink); background: var(--surface); }
+  .opt.is-wrong, .opt.is-wrong:has(input:checked) { border: 1px dashed var(--text-muted); background: var(--surface-2); }
+  .opt.is-correct .opt-letter, .opt.is-wrong .opt-letter { color: var(--text); }
+  .opt.is-correct .opt-letter::after { content: ' ✓'; }
+  .opt.is-wrong .opt-letter::after { content: ' ✗'; }
+  .opt-why:not([hidden]), .q-feedback:not([hidden]) { transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out); }
+  @starting-style { .opt-why:not([hidden]), .q-feedback:not([hidden]) { opacity: 0; transform: translateY(-3px); } }
   .q-feedback { margin: var(--space-3) 0 0; font-weight: 700; }
-  .is-good { color: var(--good); } .is-bad { color: var(--bad); } .is-skip { color: var(--warn); }
+  .is-good::before { content: '✓ '; } .is-bad::before { content: '✗ '; }
+  .is-skip { color: var(--text-muted); }
   .quiz-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; margin-top: var(--space-4); }
   .score { margin: 0; font-weight: 700; }
   .best { font-size: var(--step--1); color: var(--text-muted); margin-top: var(--space-2); }

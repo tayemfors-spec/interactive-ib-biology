@@ -93,8 +93,9 @@ import Icon from '../Icon.astro';
   .status { margin: 0; padding: var(--space-2) var(--space-4); font-size: var(--step--1); color: var(--text-muted); }
   .results { list-style: none; margin: 0; padding: 0 var(--space-2) var(--space-3); }
   .results :global(a) { display: block; padding: var(--space-2) var(--space-3); border-radius: var(--radius-s); text-decoration: none; color: var(--text); }
-  .results :global(a:hover), .results :global(a:focus-visible) { background: var(--surface-2); }
-  .results :global(.r-title) { display: block; font-weight: 700; color: var(--accent-strong); }
+  .results :global(a:focus-visible) { background: var(--surface-2); }
+  @media (hover: hover) and (pointer: fine) { .results :global(a:hover) { background: var(--surface-2); } }
+  .results :global(.r-title) { display: block; font-weight: 700; color: var(--text); }
   .results :global(.r-excerpt) { display: block; font-size: var(--step--1); color: var(--text-muted); }
-  .results :global(mark) { background: var(--accent-soft); color: var(--text); border-radius: 2px; }
+  .results :global(mark) { background: var(--surface-3); color: var(--text); font-weight: 650; border-radius: 2px; }
 </style>

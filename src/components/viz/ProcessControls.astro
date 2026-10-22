@@ -31,9 +31,13 @@ import Icon from '../Icon.astro';
   .process-steps :global(button) {
     font: inherit; font-size: 0.78rem; font-weight: 650; padding: 0.2rem 0.55rem; border-radius: 999px; cursor: pointer;
     border: 1px solid var(--border-strong); background: var(--surface); color: var(--text-muted); min-height: 1.9rem;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, transform 160ms var(--ease-out);
   }
-  .process-steps :global(button[aria-current='step']) { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
-  .process-steps :global(.step-ahl) { font-size: 0.66rem; font-weight: 800; color: var(--ahl); }
+  .process-steps :global(button:active) { transform: scale(0.96); }
+  @media (hover: hover) and (pointer: fine) { .process-steps :global(button:not([aria-current='step']):hover) { color: var(--text); border-color: var(--text-muted); } }
+  .process-steps :global(button[aria-current='step']) { background: var(--ink); border-color: var(--ink); color: var(--on-ink); }
+  .process-steps :global(.step-ahl) { font-size: 0.66rem; font-weight: 800; color: var(--text); }
   .process-steps :global(button[aria-current='step'] .step-ahl) { color: inherit; }
   .caption { margin-top: var(--space-3); padding: var(--space-3) var(--space-4); border-radius: var(--radius-m); background: var(--surface-2); min-height: 4.5rem; }
   .caption :global(.cap-title) { display: block; font-weight: 750; margin-bottom: 0.15rem; }

@@ -199,9 +199,9 @@ const hasSteps = visual.scenes.some((s) => s.steps.length > 0);
   }
   .labels :global(.label3d)::before {
     content: ''; position: absolute; left: 0.25rem; top: 50%; width: 0.42rem; height: 0.42rem; margin-top: -0.21rem;
-    border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 2px var(--surface);
+    border-radius: 50%; background: var(--ink); box-shadow: 0 0 0 2px var(--surface);
   }
-  .labels :global(.label3d[data-level='AHL'])::before { background: var(--ahl); }
+  .labels :global(.label3d[data-level='AHL'])::before { background: var(--surface); box-shadow: 0 0 0 2px var(--ink); }
   .labels :global(.label3d.flip) { translate: calc(-100% + 0.45rem) -50%; padding: 0.2rem 1rem 0.2rem 0.55rem; }
   .labels :global(.label3d.flip)::before { left: auto; right: 0.25rem; }
   .labels :global(.label3d .n) { display: none; font-weight: 800; }
@@ -217,21 +217,21 @@ const hasSteps = visual.scenes.some((s) => s.steps.length > 0);
     .labels :global(.label3d .t) { display: none; }
     .labels :global(.label3d .n) { display: inline; }
   }
-  .labels :global(.label3d[aria-pressed='true']) { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+  .labels :global(.label3d[aria-pressed='true']) { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
   .labels :global(.label3d.dimmed:not([aria-pressed='true'])) { opacity: 0.5; }
   .labels :global(.label3d[hidden]) { display: none !important; }
   .loading { position: absolute; inset: auto 0 45% 0; text-align: center; color: var(--text-muted); font-weight: 600; margin: 0; }
   .toolbar { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; margin-top: var(--space-3); }
   .cam { display: flex; gap: var(--space-1); margin-right: auto; }
   .keys { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-2) 0 0; }
-  .info { margin-top: var(--space-3); padding: var(--space-3) var(--space-4); border-left: 4px solid var(--accent); background: var(--surface-2); border-radius: 0 var(--radius-m) var(--radius-m) 0; min-height: 3.5rem; }
+  .info { margin-top: var(--space-3); padding: var(--space-3) var(--space-4); border-left: 4px solid var(--ink); background: var(--surface-2); border-radius: 0 var(--radius-m) var(--radius-m) 0; min-height: 3.5rem; }
   .info :global(p) { margin: 0; }
   .info :global(.info-name) { font-weight: 750; margin-bottom: 0.2rem; display: flex; gap: var(--space-2); align-items: center; }
   .info :global(.hint) { color: var(--text-muted); font-size: var(--step--1); }
-  .info :global(.info-name .n) { display: inline-grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-size: 0.8rem; }
-  .nowebgl { font-size: var(--step--1); color: var(--warn); margin: var(--space-2) 0 0; }
+  .info :global(.info-name .n) { display: inline-grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--ink); color: var(--on-ink); font-size: 0.8rem; }
+  .nowebgl { font-size: var(--step--1); color: var(--text); font-weight: 600; margin: var(--space-2) 0 0; }
   .desc { margin-top: var(--space-3); font-size: var(--step--1); }
-  .desc summary { cursor: pointer; font-weight: 650; color: var(--accent-strong); }
+  .desc summary { cursor: pointer; font-weight: 650; color: var(--text); }
   .desc dl { display: grid; gap: var(--space-2); }
   .desc dt { font-weight: 700; }
   .desc dd { margin: 0; color: var(--text-muted); }

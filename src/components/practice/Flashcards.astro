@@ -106,8 +106,10 @@ const rev = hash(JSON.stringify(cards.cards.map((c) => [c.id, c.front])));
   .card-count { margin: 0; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
   .face p { margin: var(--space-1) 0 0; font-size: var(--step-1); }
   .back { border-top: 1px dashed var(--border-strong); padding-top: var(--space-3); }
+  .back:not([hidden]) { transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out); }
+  @starting-style { .back:not([hidden]) { opacity: 0; transform: translateY(4px); } }
   .back p { font-size: var(--step-0); }
-  .face-label { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-strong); display: flex; gap: var(--space-2); align-items: center; }
+  .face-label { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); display: flex; gap: var(--space-2); align-items: center; }
   .card-actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
   .card-status { font-size: var(--step--1); color: var(--text-muted); margin-top: var(--space-2); }
 </style>

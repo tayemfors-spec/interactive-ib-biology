@@ -3,15 +3,26 @@
 :root {
   color-scheme: light dark;
 
-  --bg: light-dark(#f6f8f7, #0e1412);
-  --surface: light-dark(#ffffff, #141c19);
-  --surface-2: light-dark(#edf2ef, #1b2521);
-  --surface-3: light-dark(#e1e9e5, #24302b);
-  --text: light-dark(#14201b, #e5ece8);
-  --text-muted: light-dark(#46554e, #a6b5ae);
-  --border: light-dark(#cfd9d4, #2c3a34);
-  --border-strong: light-dark(#9fb0a8, #4a5c54);
+  /* Interface: black, white and neutral grey only. */
+  --bg: light-dark(#fafafa, #0a0a0a);
+  --surface: light-dark(#ffffff, #121212);
+  --surface-2: light-dark(#f2f2f2, #1a1a1a);
+  --surface-3: light-dark(#e6e6e6, #242424);
+  --text: light-dark(#111111, #ededed);
+  --text-muted: light-dark(#5a5a5a, #a3a3a3);
+  --border: light-dark(#e2e2e2, #262626);
+  --border-strong: light-dark(#bdbdbd, #474747);
+  --ink: light-dark(#111111, #ededed);         /* primary actions, current item, AHL marking */
+  --ink-hover: light-dark(#333333, #ffffff);
+  --ink-soft: light-dark(#ebebeb, #232323);    /* selected background */
+  --on-ink: light-dark(#ffffff, #0a0a0a);
 
+  /* Motion */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* Colours below are for figures, simulations and 3D models only: there they carry meaning. */
   --accent: light-dark(#0b6b5c, #52d0b4);
   --accent-strong: light-dark(#084f44, #8ae3cf);
   --accent-soft: light-dark(#dcf0ea, #12332d);
@@ -25,7 +36,7 @@
   --good-soft: light-dark(#e3f4e5, #15301a);
   --bad: light-dark(#a32020, #ff8f8f);
   --bad-soft: light-dark(#fde8e8, #3a1515);
-  --focus: light-dark(#1556c9, #8cb6ff);
+  --focus: light-dark(#111111, #ededed);
 
   /* Biology colour code used consistently in diagrams and 3D scenes */
   --bio-head: light-dark(#d9822b, #f0a457);      /* phospholipid heads */
@@ -59,7 +70,7 @@
   --radius-s: 6px;
   --radius-m: 10px;
   --radius-l: 16px;
-  --shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 4px 16px rgb(0 0 0 / 0.06);
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.05), 0 8px 24px rgb(0 0 0 / 0.06);
   --header-h: 3.5rem;
   --sidebar-w: 18rem;
   --measure: 46rem;

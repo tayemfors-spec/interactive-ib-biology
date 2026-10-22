@@ -18,6 +18,8 @@ for (const scheme of ['light', 'dark'] as const) {
       }
       const quiz = page.locator('[data-quiz]');
       if (await quiz.count()) await quiz.locator('button[type=submit]').click();
+      // Check contrast in the settled state, not halfway through a fade-in.
+      await page.evaluate(() => Promise.all(document.getAnimations().filter((a) => a.effect?.getTiming().iterations !== Infinity).map((a) => a.finished)));
       const results = await new AxeBuilder({ page }).withTags(tags).analyze();
       const summary = results.violations.map((v) => `${v.id} (${v.impact}): ${v.nodes.slice(0, 3).map((n) => n.target.join(' ')).join(' | ')}`);
       expect(summary).toEqual([]);

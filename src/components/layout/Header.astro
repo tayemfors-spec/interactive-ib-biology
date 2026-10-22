@@ -65,12 +65,11 @@ import { withBase } from '../../lib/url';
     display: flex; align-items: center; gap: var(--space-3);
     height: var(--header-h); padding: 0 var(--space-4);
     background: color-mix(in srgb, var(--surface) 92%, transparent);
-    backdrop-filter: blur(8px);
+    backdrop-filter: saturate(1.4) blur(10px);
     border-bottom: 1px solid var(--border);
   }
   .brand { display: flex; align-items: center; gap: var(--space-2); color: var(--text); font-weight: 750; text-decoration: none; font-size: 1.02rem; white-space: nowrap; }
-  .brand:hover { color: var(--accent-strong); }
-  .logo { width: 1.7rem; height: 1.7rem; color: var(--accent); flex: none; }
+  .logo { width: 1.7rem; height: 1.7rem; color: var(--ink); flex: none; }
   .actions { margin-left: auto; display: flex; gap: var(--space-2); }
   .kbd { font: 600 0.75rem var(--font-mono); border: 1px solid var(--border-strong); border-radius: 4px; padding: 0 0.35em; color: var(--text-muted); }
   @media (max-width: 40rem) {
@@ -87,11 +86,20 @@ import { withBase } from '../../lib/url';
     position: fixed; inset: auto var(--space-3) auto auto; top: calc(var(--header-h) + 0.25rem); margin: 0;
     width: min(22rem, calc(100vw - 1.5rem)); padding: var(--space-4);
     color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-m); box-shadow: var(--shadow);
+    /* Grows out of the settings button (top right); leaves faster than it arrives. */
+    transform-origin: top right;
+    opacity: 0; transform: scale(0.97) translateY(-4px);
+    transition: opacity 120ms ease, transform 120ms ease, display 120ms allow-discrete, overlay 120ms allow-discrete;
   }
+  .prefs:popover-open {
+    opacity: 1; transform: none;
+    transition: opacity 180ms var(--ease-out), transform 180ms var(--ease-out), display 180ms allow-discrete, overlay 180ms allow-discrete;
+  }
+  @starting-style { .prefs:popover-open { opacity: 0; transform: scale(0.97) translateY(-4px); } }
   .prefs-title { font-size: var(--step-0); margin: 0 0 var(--space-3); }
   fieldset { border: 0; margin: 0 0 var(--space-3); padding: 0; }
   legend { font-weight: 700; font-size: var(--step--1); color: var(--text-muted); margin-bottom: var(--space-1); }
   label { display: flex; gap: var(--space-2); align-items: center; padding: 0.2rem 0; font-size: var(--step--1); cursor: pointer; }
-  input[type='radio'] { accent-color: var(--accent); width: 1.05rem; height: 1.05rem; }
-  .prefs-note { font-size: var(--step--1); color: var(--warn); margin: 0; }
+  input[type='radio'] { accent-color: var(--ink); width: 1.05rem; height: 1.05rem; }
+  .prefs-note { font-size: var(--step--1); color: var(--text); font-weight: 600; margin: 0; }
 </style>

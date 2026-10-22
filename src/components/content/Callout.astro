@@ -11,8 +11,6 @@ const heading = title ?? { tip: 'Tip', exam: 'Exam tip', note: 'Note' }[type];
   .callout { margin: var(--space-5) 0; padding: var(--space-3) var(--space-4); border-radius: var(--radius-m); border: 1px solid var(--border); background: var(--surface); }
   .callout :global(p:last-child), .callout :global(ul:last-child) { margin-bottom: 0; }
   .title { font-weight: 750; margin-bottom: var(--space-1); }
-  .exam { border-color: color-mix(in srgb, var(--warn) 40%, var(--border)); background: var(--warn-soft); }
-  .exam .title { color: var(--warn); }
-  .tip { border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); background: var(--accent-soft); }
-  .tip .title { color: var(--accent-strong); }
+  .exam { border-color: var(--ink); border-width: 1px 1px 1px 4px; background: var(--surface); }
+  .tip { background: var(--surface-2); border-color: transparent; }
 </style>

@@ -37,7 +37,7 @@ const jsonLd = [
       <h2 id="how-h" class="visually-hidden">What's on each topic page</h2>
       <ul class="features">
         <li><strong>Interactive visuals</strong> 3D models you can rotate and label, step-by-step animations and simulations with live graphs, plus exam-style diagrams.</li>
-        <li><strong>SL vs AHL clearly marked</strong> Higher Level content sits in purple AHL sections; SL students can hide it in Display settings.</li>
+        <li><strong>SL vs AHL clearly marked</strong> Higher Level content sits in AHL sections marked with a solid bar; SL students can hide it in Display settings.</li>
         <li><strong>Self-test</strong> Multiple-choice questions with an explanation for every option, and flashcards. Progress is saved in your browser only.</li>
       </ul>
     </section>
@@ -100,7 +100,7 @@ const jsonLd = [
 <style>
   .home { max-width: 70rem; margin: 0 auto; }
   .hero { padding: var(--space-5) 0 var(--space-4); max-width: 46rem; }
-  .eyebrow { font-size: var(--step--1); font-weight: 700; color: var(--accent-strong); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-2); }
+  .eyebrow { font-size: var(--step--1); font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-2); }
   .hero h1 { font-size: clamp(2rem, 1.5rem + 2.4vw, 3rem); }
   .lead { font-size: var(--step-1); color: var(--text-muted); }
   .cta { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-4); }
@@ -113,14 +113,13 @@ const jsonLd = [
   .theme { padding: var(--space-4); border: 1px solid var(--border); border-radius: var(--radius-l); background: var(--surface); }
   .theme h3 { margin: 0 0 var(--space-3); font-size: var(--step-1); }
   .theme h3 a { color: var(--text); text-decoration: none; display: flex; gap: var(--space-2); align-items: center; }
-  .theme h3 a:hover { color: var(--accent-strong); }
-  .tl { display: inline-grid; place-items: center; width: 1.8rem; height: 1.8rem; border-radius: 8px; background: var(--accent); color: var(--on-accent); font-size: 0.95rem; flex: none; }
+  .tl { display: inline-grid; place-items: center; width: 1.8rem; height: 1.8rem; border-radius: 8px; background: var(--ink); color: var(--on-ink); font-size: 0.95rem; flex: none; }
   .lvl-name { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin: var(--space-3) 0 var(--space-1); }
   .lvl ul { list-style: none; padding: 0; margin: 0; font-size: var(--step--1); }
   .lvl li { display: flex; gap: var(--space-2); align-items: baseline; margin: 0.15rem 0; }
   .c { font-weight: 700; color: var(--text-muted); font-variant-numeric: tabular-nums; margin-right: 0.15rem; }
   .planned { color: var(--text-muted); }
   .soon { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.04em; border: 1px dashed var(--border-strong); border-radius: 999px; padding: 0 0.4em; margin-left: 0.2rem; }
-  .ahl { font-size: 0.66rem; font-weight: 800; color: var(--ahl); }
-  .score { margin-left: auto; font-weight: 700; color: var(--good); font-variant-numeric: tabular-nums; }
+  .ahl { font-size: 0.6rem; font-weight: 800; color: var(--text-muted); border: 1px solid currentColor; border-radius: 3px; padding: 0 0.25em; }
+  .score { margin-left: auto; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
 </style>
